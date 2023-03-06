@@ -1,0 +1,2121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Resizable Canvas</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+      let unitimg=[];
+      unitimg["carda"] = new Image();
+      unitimg["carda"].src="tmbfront(1).png"
+      unitimg["cardb"] = new Image();
+      unitimg["cardb"].src="tmbback(1).png"
+
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      let unitmotion={}
+
+
+      unitmotion['card']={ "frames": {
+   "1 0": {
+    "frame": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 1": {
+    "frame": { "x": 410, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 2": {
+    "frame": { "x": 820, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 3": {
+    "frame": { "x": 1230, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 4": {
+    "frame": { "x": 1640, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 5": {
+    "frame": { "x": 2050, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 6": {
+    "frame": { "x": 2460, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 7": {
+    "frame": { "x": 2870, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 8": {
+    "frame": { "x": 3280, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 9": {
+    "frame": { "x": 3690, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 10": {
+    "frame": { "x": 4100, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 11": {
+    "frame": { "x": 4510, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 12": {
+    "frame": { "x": 4920, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 13": {
+    "frame": { "x": 5330, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 14": {
+    "frame": { "x": 5740, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 15": {
+    "frame": { "x": 6150, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 16": {
+    "frame": { "x": 6560, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 17": {
+    "frame": { "x": 6970, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 18": {
+    "frame": { "x": 7380, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 19": {
+    "frame": { "x": 7790, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 20": {
+    "frame": { "x": 8200, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 21": {
+    "frame": { "x": 8610, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 22": {
+    "frame": { "x": 9020, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 23": {
+    "frame": { "x": 9430, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 24": {
+    "frame": { "x": 9840, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 25": {
+    "frame": { "x": 10250, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 26": {
+    "frame": { "x": 10660, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 27": {
+    "frame": { "x": 11070, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 28": {
+    "frame": { "x": 11480, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 29": {
+    "frame": { "x": 11890, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 30": {
+    "frame": { "x": 12300, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 31": {
+    "frame": { "x": 12710, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 32": {
+    "frame": { "x": 13120, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 33": {
+    "frame": { "x": 13530, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 34": {
+    "frame": { "x": 13940, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 35": {
+    "frame": { "x": 14350, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 36": {
+    "frame": { "x": 14760, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "1 37": {
+    "frame": { "x": 15170, "y": 0, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 0": {
+    "frame": { "x": 0, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 1": {
+    "frame": { "x": 410, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 2": {
+    "frame": { "x": 820, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 3": {
+    "frame": { "x": 1230, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 4": {
+    "frame": { "x": 1640, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 5": {
+    "frame": { "x": 2050, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 6": {
+    "frame": { "x": 2460, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 7": {
+    "frame": { "x": 2870, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 8": {
+    "frame": { "x": 3280, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 9": {
+    "frame": { "x": 3690, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 10": {
+    "frame": { "x": 4100, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 11": {
+    "frame": { "x": 4510, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 12": {
+    "frame": { "x": 4920, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 13": {
+    "frame": { "x": 5330, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 14": {
+    "frame": { "x": 5740, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 15": {
+    "frame": { "x": 6150, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 16": {
+    "frame": { "x": 6560, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 17": {
+    "frame": { "x": 6970, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 18": {
+    "frame": { "x": 7380, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 19": {
+    "frame": { "x": 7790, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 20": {
+    "frame": { "x": 8200, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 21": {
+    "frame": { "x": 8610, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 22": {
+    "frame": { "x": 9020, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 23": {
+    "frame": { "x": 9430, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 24": {
+    "frame": { "x": 9840, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 25": {
+    "frame": { "x": 10250, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 26": {
+    "frame": { "x": 10660, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 27": {
+    "frame": { "x": 11070, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 28": {
+    "frame": { "x": 11480, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 29": {
+    "frame": { "x": 11890, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 30": {
+    "frame": { "x": 12300, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 31": {
+    "frame": { "x": 12710, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 32": {
+    "frame": { "x": 13120, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 33": {
+    "frame": { "x": 13530, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "2 34": {
+    "frame": { "x": 13940, "y": 572, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "3 0": {
+    "frame": { "x": 0, "y": 1144, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "3 1": {
+    "frame": { "x": 410, "y": 1144, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "3 2": {
+    "frame": { "x": 820, "y": 1144, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "3 3": {
+    "frame": { "x": 1230, "y": 1144, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "3 4": {
+    "frame": { "x": 1640, "y": 1144, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "3 5": {
+    "frame": { "x": 2050, "y": 1144, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "4 0": {
+    "frame": { "x": 0, "y": 1716, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "4 1": {
+    "frame": { "x": 410, "y": 1716, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "4 2": {
+    "frame": { "x": 820, "y": 1716, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "4 3": {
+    "frame": { "x": 1230, "y": 1716, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "4 4": {
+    "frame": { "x": 1640, "y": 1716, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "4 5": {
+    "frame": { "x": 2050, "y": 1716, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "4 6": {
+    "frame": { "x": 2460, "y": 1716, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "4 7": {
+    "frame": { "x": 2870, "y": 1716, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "4 8": {
+    "frame": { "x": 3280, "y": 1716, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "4 9": {
+    "frame": { "x": 3690, "y": 1716, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "4 10": {
+    "frame": { "x": 4100, "y": 1716, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "4 11": {
+    "frame": { "x": 4510, "y": 1716, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "5 0": {
+    "frame": { "x": 0, "y": 2288, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "5 1": {
+    "frame": { "x": 410, "y": 2288, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "5 2": {
+    "frame": { "x": 820, "y": 2288, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "5 3": {
+    "frame": { "x": 1230, "y": 2288, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "5 4": {
+    "frame": { "x": 1640, "y": 2288, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "5 5": {
+    "frame": { "x": 2050, "y": 2288, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   },
+   "5 6": {
+    "frame": { "x": 2460, "y": 2288, "w": 410, "h": 572 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 410, "h": 572 },
+    "sourceSize": { "w": 410, "h": 572 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "tmbfront.png",
+  "format": "RGBA8888",
+  "size": { "w": 15580, "h": 2860 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "1", "from": 0, "to": 37, "direction": "forward" },
+   { "name": "2", "from": 39, "to": 73, "direction": "forward" },
+   { "name": "3", "from": 75, "to": 80, "direction": "forward" },
+   { "name": "4", "from": 82, "to": 93, "direction": "forward" },
+   { "name": "5", "from": 95, "to": 101, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Sprite Sheet", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
+
+
+      class 카드{
+        constructor (idx,대분류){
+            this.idx = idx
+            this.fliped=false;
+            this.flipflag=false;
+            this.flipfps=0;
+            this.대분류=대분류;
+            this.중분류;
+            this.소분류;
+            this.번호=idx+1;
+            this.a;
+            this.b;
+            this.c;
+            this.d;
+            this.제외=false;
+            this.기타;
+            this.txt1;
+            this.txt2;
+        }
+
+      }
+      var 카운터=0;
+      var 데이카운터=0;
+      var 제너럴=[];
+      var 솔로=[];
+      var 스페셜=[];
+      var 대장인카=[]
+      var 타이런트=[]
+
+      var 덱=[];
+      var 플레이=[];
+      var 버림=[];
+      var 제거=[];
+
+      var 카드정보=[[1,2,3,4,5,6,7,8,9,"10","11","12","13","14","15","16","17","18","19","20","21","22","23"],["A","A","B","B","C","B","A","A","C","A","A","B","A","C","C","A","A","A","C","A","C","A","D"],[3,4,4,3,4,3,3,1,4,1,1,2,2,2,4,1,1,2,3,4,2,1,0]];
+      var 세트=[];
+      var 세트2=[];
+      var 그랩=[];
+
+      세트.push(제너럴, 솔로, 스페셜, 대장인카, 타이런트)
+      세트2.push(덱, 플레이, 버림, 제거)
+      var 이름=["제너럴", "솔로", "스페셜", "대장인카", "타이런트"];
+      var 이름2=["덱", "플레이", "버림", "제거"];
+      for(var i=0;i<38;i++){
+        제너럴.push(new 카드(i, 1))
+      }
+
+      for(var i=0;i<24;i++){
+        솔로.push(new 카드(i, 2))
+      }
+
+      for(var i=0;i<6;i++){
+        스페셜.push(new 카드(i, 3))
+      }
+      for(var i=0;i<12;i++){
+        대장인카.push(new 카드(i, 4))
+      }
+      for(var i=0;i<7;i++){
+        타이런트.push(new 카드(i, 5))
+      }
+
+      var cardWidth = canvas.width/4;
+      var cardHeight = 1.395*cardWidth;
+      let cardangle=0;
+
+      let touchx=0;
+      let touchy=0;
+      let pointx=0;
+      let pointy=0;
+      let touchendx=0;
+      let touchendy=0;
+      let grabx=0;
+      let graby=0;
+      let grabflag=false;
+      let grabed=[];
+      let grabedfrom;
+      var ontouch=false;
+
+
+
+      // resize the canvas to fill browser window dynamically
+      window.addEventListener('resize', resizeCanvas, false);
+
+      canvas.addEventListener('click', () => {
+        
+        
+      });
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+
+        if(window.innerWidth<120){
+          canvas.width=120
+        }
+        if(window.innerHeight<170){
+          canvas.height=170
+        }
+        cardWidth = canvas.width/4;
+        cardHeight = 1.395*cardWidth;
+
+        // redraw everything after resizing
+        draw();
+      }
+      resizeCanvas();
+
+      
+
+      function draw(){
+        canvas.onmousemove = function(event) {
+          pointx = event.clientX;
+          pointy = event.clientY;
+        }
+        canvas.onmousedown  = function(event) {
+          var mx = event.clientX;
+          var my = event.clientY;
+          touchx=mx;
+          touchy=my;
+          ontouch=true;
+        }
+        canvas.onmouseup = function(event) {
+          ontouch=false;
+          if(grabflag){
+            grabx=event.clientX;
+            graby=event.clientY;
+            ontouch=false;
+          }else{
+            if(getdist(touchx, touchy, event.clientX, event.clientY)<5){
+            touchendx=event.clientX;
+            touchendy=event.clientY;
+            ontouch=false;
+            }
+            
+          }
+          
+
+        }
+        // console.log(touchx)
+        // console.log("fliped: "+String(fliped)+"   flipflag: "+String(flipflag)+"   progress: "+String(item.flipfps))
+       
+        // add your drawing code here
+        ctx.fillStyle = 'skyblue';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        
+        
+        ctx.fillStyle = "black";
+        
+        var locx=100;
+        var locy=100
+
+        // for(var j=0;j<5;j++){
+        //   var gapx=cardWidth*1.3;
+        //   var gapy=cardHeight*1.2;
+        //   ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        //   // 세트[j].forEach(element => {
+        //   //   if(세트[j].indexOf(element)==세트[j].length-1){
+        //   //     carddraw(element,j,j*gapx+1+i*1, 10+i, i, true);
+        //   //   }else{
+        //   //     carddraw(element,j,j*gapx+1+i*1, 10+i, i, false);
+        //   //   }
+        //   // });
+        //   for(var i=0;i<세트[j].length;i++){
+        //     if(i==세트[j].length-1){
+        //       carddraw(1,세트[j][i],j,j*gapx+1+i*2, 10+i, i, true);
+        //       // roundRect(j*gapx+1+i*1, 10+i, cardWidth, cardHeight, 15, "black", 10)
+        //     }else if(i==세트[j].length-2){
+        //       carddraw(1, 세트[j][i],j,j*gapx+1+i*2, 10+i, i, false);
+        //     }else{
+        //       roundRect(j*gapx+1+i*2, 10+i, cardWidth, cardHeight, 10, "black", 2)
+        //     }
+        //   }
+        //   ctx.font = "bold "+String(cardWidth/10)+'px GG';
+        //   ctx.fillText(이름[j],j*gapx+cardWidth/5, gapy/1.7+cardHeight/2.3, cardWidth/2, cardWidth/5);
+        //   ctx.font = "bold "+String(cardWidth/15)+'px GG';
+        //   ctx.fillText("장수: "+String(세트[j].length),j*gapx+cardWidth/7, gapy/1.7+cardHeight/2, cardWidth/7, cardWidth/5);
+        //   // if(세트[j].length!=0) ctx.fillText("  번호: "+String(카드정보[0][세트[j][세트[j].length-1].idx])+"  종류: "+String(카드정보[1][세트[j][세트[j].length-1].idx])+"  위치: "+String(카드정보[2][세트[j][세트[j].length-1].idx]) ,j*gapx+cardWidth/3, gapy/1.7+cardHeight/2, cardWidth/2, cardWidth/5);
+
+          
+
+        //   ctx.globalAlpha = 0.8 
+        //   ctx.fillStyle = 'grey';
+        //   ctx.fillRect(j*gapx+cardWidth/5, gapy+cardHeight/3, cardWidth/4, cardWidth/5);
+        //   ctx.globalAlpha = 1
+        //   ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        //   ctx.fillStyle = 'black';
+        //   ctx.fillText("<뽑기",j*gapx+cardWidth/5, gapy+cardHeight/2.3, cardWidth/4, cardWidth/5);
+        //   if(touchx>j*gapx+cardWidth/5&&touchx<j*gapx+cardWidth/5+cardWidth/4&&touchy>gapy+cardHeight/3&&touchy<gapy+cardHeight/3+cardWidth/5){
+        //     if(j==0){
+        //       if(세트[2].length==0){
+        //         console.log("다떨어짐")
+        //       }else{
+        //         세트[0].push(세트[2].pop());
+        //         console.log("뽑기")
+        //       }
+        //     }else{
+        //       if(세트[j-1].length==0){
+        //         console.log("다떨어짐")
+        //       }else{
+        //         세트[j].push(세트[j-1].pop());
+        //         console.log("뽑기")
+        //       }
+        //     }
+            
+        //     touchx=9999;
+        //     touchy=9999;
+            
+
+        //   }
+
+
+        //   ctx.globalAlpha = 0.8 
+        //   ctx.fillStyle = 'grey';
+        //   ctx.fillRect(j*gapx+cardWidth/5, 1.4*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+        //   ctx.globalAlpha = 1
+        //   ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        //   ctx.fillStyle = 'black';
+        //   ctx.fillText("<뽑기(랜덤)",j*gapx+cardWidth/5, 1.4*cardHeight+cardHeight/2.3, cardWidth/4, cardWidth/5);
+        //   if(touchx>j*gapx+cardWidth/5&&touchx<j*gapx+cardWidth/5+cardWidth/4&&touchy>1.4*cardHeight+cardHeight/3&&touchy<1.4*cardHeight+cardHeight/3+cardWidth/5){
+        //     if(j==0){
+        //       if(세트[2].length==0){
+        //         console.log("다떨어짐")
+        //       }else{
+        //         세트[0].push(스페셜.splice(parseInt(Math.random() * 세트[2].length), 1)[0]);
+        //         console.log("뽑기(랜덤)")
+        //       }
+        //     }else{
+        //       if(세트[j-1].length==0){
+        //         console.log("다떨어짐")
+        //       }else{
+        //         세트[j].push(세트[j-1].splice(parseInt(Math.random() * 세트[j-1].length), 1)[0]);
+        //         console.log("뽑기(랜덤)")
+        //       }
+        //     }
+            
+        //     touchx=9999;
+        //     touchy=9999;
+            
+
+        //   }
+
+
+        //   ctx.globalAlpha = 0.8 
+        //   ctx.fillStyle = 'grey';
+        //   ctx.fillRect(j*gapx+cardWidth/2, gapy+cardHeight/3, cardWidth/4, cardWidth/5);
+        //   ctx.globalAlpha = 1
+        //   ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        //   ctx.fillStyle = 'black';
+        //   ctx.fillText("정렬",j*gapx+cardWidth/2, gapy+cardHeight/2.3, cardWidth/4, cardWidth/5);
+        //   if(touchx>j*gapx+cardWidth/2&&touchx<j*gapx+cardWidth/2+cardWidth/4&&touchy>gapy+cardHeight/3&&touchy<gapy+cardHeight/3+cardWidth/5){
+        //     touchx=9999;
+        //     touchy=9999;
+
+        //     세트[j].sort(function(a, b) {
+        //       return b.idx - a.idx;
+        //     });
+            
+        //     // if(j==0){
+        //     //   제너럴.sort(function(a, b) {
+        //     //     return b.idx - a.idx;
+        //     //   });
+        //     // }else if(j==1){
+        //     //   솔로.sort(function(a, b) {
+        //     //     return b.idx - a.idx;
+        //     //   });
+        //     // }else if(j==2){
+        //     //   스페셜.sort(function(a, b) {
+        //     //     return b.idx - a.idx;
+        //     //   });
+        //     // }
+            
+        //     console.log("정렬")
+
+
+        //   }
+
+        //   ctx.globalAlpha = 0.8 
+        //   ctx.fillStyle = 'grey';
+        //   ctx.fillRect(j*gapx+cardWidth/1.2, gapy+cardHeight/3, cardWidth/4, cardWidth/5);
+        //   ctx.globalAlpha = 1
+        //   ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        //   ctx.fillStyle = 'black';
+        //   ctx.fillText("버리기",j*gapx+cardWidth/1.2, gapy+cardHeight/2.3, cardWidth/4, cardWidth/5);
+        //   if(touchx>j*gapx+cardWidth/1.2&&touchx<j*gapx+cardWidth/1.2+cardWidth/4&&touchy>gapy+cardHeight/3&&touchy<gapy+cardHeight/3+cardWidth/5){
+        //     touchx=9999;
+        //     touchy=9999;
+
+        //     if(세트[j].length==0){
+              
+        //       console.log("다떨어짐")
+        //     }else{
+        //       if(j==2){
+        //         대장인카.push(세트[j].pop());
+        //       }else{
+        //         스페셜.push(세트[j].pop());
+        //         console.log("버림")
+        //       }
+        //     }
+        //   }
+        //   ctx.globalAlpha = 0.8 
+        //   ctx.fillStyle = 'grey';
+        //   ctx.fillRect(j*gapx+cardWidth/1.2, 1.4*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+        //   ctx.globalAlpha = 1
+        //   ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        //   ctx.fillStyle = 'black';
+        //   ctx.fillText("셔플",j*gapx+cardWidth/1.2, 1.5*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+        //   if(touchx>j*gapx+cardWidth/1.2&&touchx<j*gapx+cardWidth/1.2+cardWidth/4&&touchy>1.4*cardHeight+cardHeight/3&&touchy<1.4*cardHeight+cardHeight/3+cardWidth/5){
+        //     touchx=9999;
+        //     touchy=9999;
+        //     console.log("셔플");
+        //     // 세트[j].sort(() => Math.random() - 0.5);
+
+        //     세트[j].sort(function(a, b) {
+        //       return Math.random() - 0.5;
+        //     });
+
+        //   }
+
+        // }
+
+        // ctx.globalAlpha = 0.8 
+        // ctx.fillStyle = 'black';
+        // ctx.fillRect(cardWidth/2, 1.4*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+        // ctx.globalAlpha = 1
+        // ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        // ctx.fillStyle = 'white';
+        // ctx.fillText("리셋",cardWidth/2, 1.4*cardHeight+cardHeight/2.3, cardWidth/4, cardWidth/5);
+
+        // if(touchx>cardWidth/2&&touchx<cardWidth/2+cardWidth/4&&touchy>1.4*cardHeight+cardHeight/3&&touchy<1.4*cardHeight+cardHeight/3+cardWidth/5){
+        //   touchx=9999;
+        //   touchy=9999;
+
+        //   console.log("리셋")
+
+        //   for(var i=0;i<5;i++){
+        //     while (세트[i].length > 0) {
+        //       제거.push(세트[i].pop());
+        //     }
+        //   }
+        //   for(var i=0;i<3;i++){
+        //     while (세트2[i].length > 0) {
+        //       제거.push(세트2[i].pop());
+        //     }
+        //   }
+
+        //   // while (솔로.length > 0) {
+        //   //   제너럴.push(솔로.pop());
+        //   // }
+
+        //   // while (스페셜.length > 0) {
+        //   //   제너럴.push(스페셜.pop());
+        //   // }
+
+        //   // while (대장인카.length > 0) {
+        //   //   제너럴.push(대장인카.pop());
+        //   // }
+
+        //   제거.sort(function(a, b) {
+        //     return b.idx - a.idx;
+        //   });
+
+        //   제거.forEach(element => {
+        //     element.fliped=false;
+        //   });
+
+
+
+        //   제거.forEach(element => {
+        //     if(element.대분류==1){
+        //         제너럴.push(element);
+        //     }else if(element.대분류==2){
+        //         솔로.push(element);
+        //     }else if(element.대분류==3){
+        //         스페셜.push(element);
+        //     }else if(element.대분류==4){
+        //         대장인카.push(element);
+        //     }else if(element.대분류==5){
+        //         타이런트.push(element);
+        //     }
+        //   });
+
+        //   제거.length=0;
+
+
+        // }
+        
+
+        var gapx2=cardWidth*1.3*2.5;
+        var gapy2=cardHeight*2*0;
+        ctx.globalAlpha = 0.8 
+        ctx.fillStyle = 'black';
+        ctx.fillRect(gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/3, cardWidth/3, cardWidth/5);
+        ctx.globalAlpha = 1
+        ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        ctx.fillStyle = 'white';
+        ctx.fillText("랜덤(솔로)",gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/2.3, cardWidth/3, cardWidth/5);
+
+        if(touchx>gapx2+cardWidth/2&&touchx<gapx2+cardWidth/2+cardWidth/3&&touchy>gapy2+1.4*cardHeight+cardHeight/3&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/5){
+
+          touchx=9999;
+          touchy=9999;
+          for(var i=0;i<5;i++){
+            while (세트[i].length > 0) {
+              제거.push(세트[i].pop());
+            }
+          }
+          for(var i=0;i<3;i++){
+            while (세트2[i].length > 0) {
+              제거.push(세트2[i].pop());
+            }
+          }
+          제거.sort(function(a, b) {
+            return b.idx - a.idx;
+          });
+
+          제거.forEach(element => {
+            element.fliped=false;
+          });
+
+
+
+          제거.forEach(element => {
+            if(element.대분류==1){
+                제너럴.push(element);
+            }else if(element.대분류==2){
+                솔로.push(element);
+            }else if(element.대분류==3){
+                스페셜.push(element);
+            }else if(element.대분류==4){
+                대장인카.push(element);
+            }else if(element.대분류==5){
+                타이런트.push(element);
+            }
+          });
+
+          제거.length=0;
+
+
+          덱.push(타이런트.splice(parseInt(Math.random() * 타이런트.length), 1)[0]);
+
+          switch (덱[0].idx) {
+            case 0:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(11-9, 1)[0])
+                break;
+            case 1:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(11-8, 1)[0])
+                break;
+            case 2:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(11-7, 1)[0])
+                break;
+            case 3:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(0, 1)[0])
+                플레이.push(대장인카.splice(0, 1)[0])
+                break;
+            case 4:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(10, 1)[0])
+                플레이.push(대장인카.splice(10, 1)[0])
+                break;
+            case 5:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(8, 1)[0])
+                플레이.push(대장인카.splice(8, 1)[0])
+                break;
+            case 6:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(5, 1)[0])
+                플레이.push(대장인카.splice(5, 1)[0])
+                플레이.push(대장인카.splice(5  , 1)[0])
+                break;
+            default:
+                return;
+        }
+
+        플레이.sort(function(a, b) {
+          return Math.random() - 0.5;
+        });
+        스페셜.sort(function(a, b) {
+          return b.idx - a.idx;
+        });
+        플레이.push(스페셜.splice(3, 1)[0]);
+        플레이.push(스페셜.splice(3, 1)[0]);
+        플레이.push(스페셜.splice(3, 1)[0]);
+
+        카운터=0;
+        데이카운터=0;
+        제거.push(스페셜.splice(0, 1)[0]);
+
+          
+
+
+        }
+
+        var gapx2=cardWidth*1.3*1.5;
+        var gapy2=0;
+        ctx.globalAlpha = 0.8 
+        ctx.fillStyle = 'black';
+        ctx.fillRect(gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/3-cardHeight/2, cardWidth/2, cardWidth/6);
+        ctx.globalAlpha = 1
+        ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        ctx.fillStyle = 'white';
+        ctx.fillText("AdvancePt: "+String(카운터),gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/2.3-cardHeight/2, cardWidth/2, cardWidth/6);
+
+        if(touchx>gapx2+cardWidth/2&&touchx<gapx2+cardWidth/2+cardWidth/2&&touchy>gapy2+1.4*cardHeight+cardHeight/3-cardHeight/2&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/6-cardHeight/2){
+            카운터++;
+
+          touchx=9999;
+          touchy=9999;
+        }
+
+        var gapx2=cardWidth*1.3*1.5;
+        var gapy2=0;
+        ctx.globalAlpha = 0.8 
+        ctx.fillStyle = 'black';
+        ctx.fillRect(gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/3-cardHeight/2.8, cardWidth/2, cardWidth/6);
+        ctx.globalAlpha = 1
+        ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        ctx.fillStyle = 'white';
+        ctx.fillText("Days: "+String(데이카운터),gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/2.3-cardHeight/2.8, cardWidth/2, cardWidth/6);
+
+        if(touchx>gapx2+cardWidth/2&&touchx<gapx2+cardWidth/2+cardWidth/2&&touchy>gapy2+1.4*cardHeight+cardHeight/3-cardHeight/2.8&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/6-cardHeight/2.8){
+            카운터--;
+
+
+          touchx=9999;
+          touchy=9999;
+        }
+
+        var gapx2=cardWidth*1.3*2;
+        var gapy2=0;
+        ctx.globalAlpha = 0.8 
+        ctx.fillStyle = 'black';
+        ctx.fillRect(gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/3-cardHeight/2.8, cardWidth/2, cardWidth/6);
+        ctx.globalAlpha = 1
+        ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        ctx.fillStyle = 'white';
+        ctx.fillText("몰뇨르상인",gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/2.3-cardHeight/2.8, cardWidth/2, cardWidth/6);
+
+        if(touchx>gapx2+cardWidth/2&&touchx<gapx2+cardWidth/2+cardWidth/2&&touchy>gapy2+1.4*cardHeight+cardHeight/3-cardHeight/2.8&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/6-cardHeight/2.8){
+            if(제거.length!=0){
+                플레이.push(제거.pop());
+            }
+
+
+          touchx=9999;
+          touchy=9999;
+        }
+
+
+
+
+        var gapx2=cardWidth*1.3*2.5;
+        var gapy2=cardHeight*2*0;
+        ctx.globalAlpha = 0.8 
+        ctx.fillStyle = 'black';
+        ctx.fillRect(gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/3-cardHeight/4, cardWidth/3, cardWidth/5);
+        ctx.globalAlpha = 1
+        ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        ctx.fillStyle = 'white';
+        ctx.fillText("랜덤(mix)",gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/2.3-cardHeight/4, cardWidth/3, cardWidth/5);
+
+        if(touchx>gapx2+cardWidth/2&&touchx<gapx2+cardWidth/2+cardWidth/3&&touchy>gapy2+1.4*cardHeight+cardHeight/3-cardHeight/4&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/5-cardHeight/4){
+          카운터=0;
+          데이카운터=0;
+          touchx=9999;
+          touchy=9999;
+          for(var i=0;i<5;i++){
+            while (세트[i].length > 0) {
+              제거.push(세트[i].pop());
+            }
+          }
+          for(var i=0;i<3;i++){
+            while (세트2[i].length > 0) {
+              제거.push(세트2[i].pop());
+            }
+          }
+          제거.sort(function(a, b) {
+            return b.idx - a.idx;
+          });
+
+          제거.forEach(element => {
+            element.fliped=false;
+          });
+
+
+
+          제거.forEach(element => {
+            if(element.대분류==1){
+                제너럴.push(element);
+            }else if(element.대분류==2){
+                솔로.push(element);
+            }else if(element.대분류==3){
+                스페셜.push(element);
+            }else if(element.대분류==4){
+                대장인카.push(element);
+            }else if(element.대분류==5){
+                타이런트.push(element);
+            }
+          });
+
+          제거.length=0;
+
+          
+          while (제너럴.length > 0) {
+              솔로.push(제너럴.pop());
+          }
+
+          덱.push(타이런트.splice(parseInt(Math.random() * 타이런트.length), 1)[0]);
+
+          switch (덱[0].idx) {
+            case 0:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(11-9, 1)[0])
+                break;
+            case 1:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(11-8, 1)[0])
+                break;
+            case 2:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(11-7, 1)[0])
+                break;
+            case 3:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(0, 1)[0])
+                플레이.push(대장인카.splice(0, 1)[0])
+                break;
+            case 4:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(10, 1)[0])
+                플레이.push(대장인카.splice(10, 1)[0])
+                break;
+            case 5:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(8, 1)[0])
+                플레이.push(대장인카.splice(8, 1)[0])
+                break;
+            case 6:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(5, 1)[0])
+                플레이.push(대장인카.splice(5, 1)[0])
+                플레이.push(대장인카.splice(5  , 1)[0])
+                break;
+            default:
+                return;
+        }
+
+        플레이.sort(function(a, b) {
+          return Math.random() - 0.5;
+        });
+        스페셜.sort(function(a, b) {
+          return b.idx - a.idx;
+        });
+        플레이.push(스페셜.splice(3, 1)[0]);
+        플레이.push(스페셜.splice(3, 1)[0]);
+        플레이.push(스페셜.splice(3, 1)[0]);
+        제거.push(스페셜.splice(0, 1)[0]);
+          
+
+
+        }
+        
+        for(var j=0;j<3;j++){
+          var gapx=cardWidth*1.3;
+          var gapy=cardHeight*1.2;
+          var gapy2=cardHeight*2*0;
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          // 세트2[j].forEach(element => {
+          //   if(세트2[j].indexOf(element)==세트2[j].length-1){
+          //     carddraw(element,j,j*gapx+1+i*1, gapy2+10+i, i, true);
+          //   }else{
+          //     carddraw(element,j,j*gapx+1+i*1, gapy2+10+i, i, false);
+          //   }
+          // });
+          for(var i=0;i<세트2[j].length;i++){
+            if(i==세트2[j].length-1){
+              if(j==1&&덱.length!=0){
+                  carddraw(2, 세트2[j][i],j,j*gapx+1+i*2, gapy2+10+i, i, true);
+                  carddraw(2, 덱[0],j,j*gapx+1+i*2, gapy2+10+i, i, true);
+              }else{
+                  carddraw(2, 세트2[j][i],j,j*gapx+1+i*2, gapy2+10+i, i, true);
+              }
+              // roundRect(j*gapx+1+i*1, 10+i, cardWidth, cardHeight, 15, "black", 10)
+            }else if(i==세트2[j].length-2){
+              carddraw(2, 세트2[j][i],j,j*gapx+1+i*2, gapy2+10+i, i, false);
+            }else{
+              roundRect(j*gapx+1+i*2, gapy2+10+i, cardWidth, cardHeight, 10, "black", 2)
+            }
+          }
+          ctx.font = "bold "+String(cardWidth/10)+'px GG';
+          ctx.fillText(이름2[j],j*gapx+cardWidth/5, gapy2+gapy/1.7+cardHeight/2.3, cardWidth/2, cardWidth/5);
+          ctx.font = "bold "+String(cardWidth/15)+'px GG';
+          ctx.fillText("장수: "+String(세트2[j].length),j*gapx+cardWidth/7, gapy2+gapy/1.7+cardHeight/2, cardWidth/7, cardWidth/5);
+          // if(세트2[j].length!=0) ctx.fillText("  번호: "+String(카드정보[0][세트2[j][세트2[j].length-1].idx])+"  종류: "+String(카드정보[1][세트2[j][세트2[j].length-1].idx])+"  위치: "+String(카드정보[2][세트2[j][세트2[j].length-1].idx]) ,j*gapx+cardWidth/3, gapy/1.7+cardHeight/2, cardWidth/2, cardWidth/5);
+
+          
+
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/5, gapy2+gapy+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("<뽑기",j*gapx+cardWidth/5, gapy2+gapy+cardHeight/2.3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/5&&touchx<j*gapx+cardWidth/5+cardWidth/4&&touchy>gapy2+gapy+cardHeight/3&&touchy<gapy2+gapy+cardHeight/3+cardWidth/5){
+            if(j==0){
+              if(세트2[2].length==0){
+                console.log("다떨어짐")
+              }else{
+                세트2[0].push(세트2[2].pop());
+                console.log("뽑기")
+              }
+            }else{
+              데이카운터++;
+              if(세트2[j-1].length==0){
+                console.log("다떨어짐")
+              }else{
+                세트2[j].push(세트2[j-1].pop());
+                console.log("뽑기")
+              }
+            }
+            
+            touchx=9999;
+            touchy=9999;
+            
+
+          }
+
+
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/5, gapy2+1.4*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("<뽑기(랜덤)",j*gapx+cardWidth/5, gapy2+1.4*cardHeight+cardHeight/2.3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/5&&touchx<j*gapx+cardWidth/5+cardWidth/4&&touchy>gapy2+1.4*cardHeight+cardHeight/3&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/5){
+            if(j==0){
+              if(세트2[2].length==0){
+                console.log("다떨어짐")
+              }else{
+                세트2[0].push(스페셜.splice(parseInt(Math.random() * 세트2[2].length), 1)[0]);
+                console.log("뽑기(랜덤)")
+              }
+            }else{
+              데이카운터++;
+              if(세트2[j-1].length==0){
+                console.log("다떨어짐")
+              }else{
+                세트2[j].push(세트2[j-1].splice(parseInt(Math.random() * 세트2[j-1].length), 1)[0]);
+                console.log("뽑기(랜덤)")
+              }
+            }
+            
+            touchx=9999;
+            touchy=9999;
+            
+
+          }
+
+
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/2, gapy2+gapy+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("정렬",j*gapx+cardWidth/2, gapy2+gapy+cardHeight/2.3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/2&&touchx<j*gapx+cardWidth/2+cardWidth/4&&touchy>gapy2+gapy+cardHeight/3&&touchy<gapy2+gapy+cardHeight/3+cardWidth/5){
+            touchx=9999;
+            touchy=9999;
+
+            세트2[j].sort(function(a, b) {
+              return b.idx - a.idx;
+            });
+            
+            // if(j==0){
+            //   제너럴.sort(function(a, b) {
+            //     return b.idx - a.idx;
+            //   });
+            // }else if(j==1){
+            //   솔로.sort(function(a, b) {
+            //     return b.idx - a.idx;
+            //   });
+            // }else if(j==2){
+            //   스페셜.sort(function(a, b) {
+            //     return b.idx - a.idx;
+            //   });
+            // }
+            
+            console.log("정렬")
+
+
+          }
+
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/1.2, gapy2+gapy+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("버리기",j*gapx+cardWidth/1.2, gapy2+gapy+cardHeight/2.3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/1.2&&touchx<j*gapx+cardWidth/1.2+cardWidth/4&&touchy>gapy2+gapy+cardHeight/3&&touchy<gapy2+gapy+cardHeight/3+cardWidth/5){
+            touchx=9999;
+            touchy=9999;
+
+            if(세트2[j].length==0){
+              
+              console.log("다떨어짐")
+            }else{
+              
+                제거.push(세트2[j].pop());
+                console.log("버림")
+              
+            }
+          }
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/1.2, gapy2+1.4*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("셔플",j*gapx+cardWidth/1.2, gapy2+1.5*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/1.2&&touchx<j*gapx+cardWidth/1.2+cardWidth/4&&touchy>gapy2+1.4*cardHeight+cardHeight/3&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/5){
+            touchx=9999;
+            touchy=9999;
+            console.log("셔플");
+            세트2[j].sort(() => Math.random() - 0.5);
+          }
+
+        }
+
+
+        if(grabflag){
+          // for(var i=0;i<5;i++){
+          //   var gapx=cardWidth*1.3;
+          //   var gapy=cardHeight*1.2;
+          //   if(pointx>i*gapx+i*2&&pointx<i*gapx+i*2+cardWidth*1.25&&pointy>0&&pointy<cardWidth*1.5){
+          //     ctx.strokeStyle = 'green';
+          //     ctx.lineWidth=8;
+          //     ctx.strokeRect(i*gapx+i*2, 0, cardWidth*1.25, cardWidth*1.5);
+          //     ctx.fillStyle='green'
+          //     ctx.globalAlpha = 0.3
+          //     ctx.fillRect(i*gapx+i*2, 0, cardWidth*1.25, cardWidth*1.5);
+          //     ctx.globalAlpha = 1
+          //     ctx.strokeStyle = 'grey';
+          //     ctx.fillStyle='grey'
+          //     if(!ontouch){
+          //       if(grabx>i*gapx+i*2&&grabx<i*gapx+i*2+cardWidth*1.25&&graby>0&&graby<cardWidth*1.5){
+          //           세트[i].push(grabed.pop());
+          //           grabflag=false;
+          //           touchx=9999;
+          //           touchy=9999;
+          //           pointx=9999;
+          //           pointy=9999;
+          //           grabx==9999;
+          //           graby==9999;
+                  
+          //       }
+          //     }
+
+          //   }else{
+          //     ctx.strokeStyle = 'grey';
+          //     ctx.lineWidth=8;
+          //     ctx.strokeRect(i*gapx+i*2, 0, cardWidth*1.25, cardWidth*1.5);
+          //   }
+            
+          //   if(grabed.length!=0){
+          //     ctx.globalAlpha = 0.9
+          //     var dur=grabed[0].idx;
+          //     var fr=motion("card", grabed[0].대분류);
+              
+          //     if(grabed[0].fliped){
+          //       ctx.drawImage(unitimg["cardb"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+          //     }else{
+          //       ctx.drawImage(unitimg["carda"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+          //     }
+          //     ctx.globalAlpha = 1;
+          //   }
+            
+          // }
+
+          for(var i=0;i<4;i++){
+            var gapx=cardWidth*1.3;
+            var gapy=cardHeight*1.2;
+            var gapy2=cardHeight*2*0;
+            if(pointx>i*gapx+i*2&&pointx<i*gapx+i*2+cardWidth*1.25&&pointy>gapy2&&pointy<gapy2+cardWidth*1.5){
+              ctx.strokeStyle = 'green';
+              ctx.lineWidth=8;
+              ctx.strokeRect(i*gapx+i*2, gapy2+0, cardWidth*1.25, cardWidth*1.5);
+              ctx.fillStyle='green'
+              ctx.globalAlpha = 0.3
+              ctx.fillRect(i*gapx+i*2, gapy2+0, cardWidth*1.25, cardWidth*1.5);
+              ctx.globalAlpha = 1
+              ctx.strokeStyle = 'grey';
+              if(!ontouch){
+                if(grabx>i*gapx+i*2&&grabx<i*gapx+i*2+cardWidth*1.25&&graby>gapy2+0&&graby<gapy2+cardWidth*1.5){
+                    세트2[i].push(grabed.pop());
+                    grabflag=false;
+                    touchx=9999;
+                    touchy=9999;
+                    pointx=9999;
+                    pointy=9999;
+                    grabx==9999;
+                    graby==9999;
+                  
+                }
+              }
+
+            }else{
+              ctx.strokeStyle = 'grey';
+              ctx.lineWidth=8;
+              ctx.strokeRect(i*gapx+i*2, gapy2+0, cardWidth*1.25, cardWidth*1.5);
+            }
+            
+            if(grabed.length!=0){
+              ctx.globalAlpha = 0.9
+              var dur=grabed[0].idx;
+              var fr=motion("card", grabed[0].대분류);
+              
+              if(grabed[0].fliped){
+                ctx.drawImage(unitimg["cardb"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+              }else{
+                ctx.drawImage(unitimg["carda"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+              }
+              ctx.globalAlpha = 1;
+            }
+            
+          }
+        }
+      
+
+        // ctx.fillStyle = 'red';
+        // ctx.fillRect(canvas.width/2 - cardWidth/2, canvas.height/2 - cardHeight/2, cardWidth, cardHeight);
+        
+
+        // draw animated flip
+
+        function carddraw(row,item0,j, a, b, idx, favail,cardx){
+          if(cardx==null){
+            var cardw=cardWidth;
+            var cardh=cardHeight;
+          }else{
+            var cardw=cardx;
+            var cardh=cardx*1.395;
+          }
+          
+          var item=item0
+          var fr=motion("card", item.대분류);
+          var dur=item.idx;
+          // console.log(item.대분류);
+          // console.log(dur);
+          var x=a+cardw/2;
+          var y=b+cardh/2;
+          // console.log(item)
+          if(!item.fliped){
+            if(item.flipflag){
+              item.flipfps += 0.04;
+              if (item.flipfps > 1) {
+                item.flipflag=false;
+                item.flipfps = 1;
+                item.fliped=true;
+              }
+            }
+          }else{
+            if(item.flipflag){
+              item.flipfps -= 0.04;
+              if (item.flipfps < 0) {
+                item.flipflag=false;
+                item.flipfps = 0;
+                item.fliped=false;
+
+              }
+            }
+          }
+
+          if(item.flipflag){
+            if(!item.fliped){
+              ctx.save();
+              ctx.beginPath();
+              ctx.fillStyle = 'red';
+              
+              // ctx.drawImage(unitimg["cardb"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3], canvas.width/2 - cardw/2, canvas.height/2 - cardh/2, cardw, cardh);
+              ctx.rect(x - cardw/2, y - cardh/2, cardw, cardh);
+              ctx.clip();
+
+              if (item.flipfps < 0.5) {
+                ctx.fillStyle = 'blue';
+                
+                ctx.transform(1 - 2 * item.flipfps, 0, 0, 1, x, y);
+                ctx.drawImage(unitimg["carda"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3], -cardw/2, - cardh/2, cardw, cardh);
+              } else {
+                ctx.fillStyle = 'red';
+                
+                ctx.transform(2 * item.flipfps - 1, 0, 0, 1, x, y);
+                ctx.drawImage(unitimg["cardb"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3], -cardw/2, - cardh/2, cardw, cardh);
+              }
+
+              ctx.restore();
+            }else{
+              ctx.save();
+              ctx.beginPath();
+              
+              ctx.fillStyle = 'blue';
+              ctx.rect(x- cardw/2, y - cardh/2, cardw, cardh);
+              // ctx.drawImage(unitimg["carda"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3], canvas.width/2 - cardw/2, canvas.height/2 - cardh/2, cardw, cardh);
+              ctx.clip();
+
+              if (item.flipfps < 0.5) {
+                ctx.fillStyle = 'blue';
+                
+                ctx.transform(1 - 2 * item.flipfps, 0, 0, 1, x, y);
+                ctx.drawImage(unitimg["carda"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3], -cardw/2, - cardh/2, cardw, cardh);
+              } else {
+                ctx.fillStyle = 'red';
+                
+                ctx.transform(2 * item.flipfps - 1, 0, 0, 1, x, y);
+                ctx.drawImage(unitimg["cardb"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3], -cardw/2, - cardh/2, cardw, cardh);
+              }
+
+              ctx.restore();
+            }
+          
+            
+          }else{
+            if(item.fliped){
+              ctx.fillStyle = 'red';
+              // ctx.fillRect(canvas.width/2 - cardw/2, canvas.height/2 - cardh/2, cardw, cardh);
+              ctx.drawImage(unitimg["cardb"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3], x- cardw/2, y- cardh/2, cardw, cardh);
+              if(favail&&!grabflag){
+                if(pointx>x-cardw/2&&pointx<x+cardw-cardw/2&&pointy>y- cardh/2&&pointy<y+cardh- cardh/2){
+                  if(ontouch&&getdist(touchx, touchy,pointx, pointy)>60){
+                    console.log("잡았당")
+                    touchx=9999;
+                    touchy=9999;
+                    pointx=9999;
+                    pointy=9999;
+                    if(grabed.length==0){
+                      if(row==1){
+                        grabedfrom=세트[j];
+                        console.log(j);
+                        grabed.push(세트[j].splice(idx,1)[0]);
+                        grabflag=true;
+                      }else if(row==2){
+                        grabedfrom=세트2[j];
+                        console.log(j);
+                        grabed.push(세트2[j].splice(idx,1)[0]);
+                        grabflag=true;
+                      }
+                      
+                    }
+                  }else if(touchendx>x-cardw/2&&touchendx<x+cardw-cardw/2&&touchendy>y- cardh/2&&touchendy<y+cardh- cardh/2){
+                    console.log("카와이")
+                    item.flipflag=true;
+                    touchendx=9999;
+                    touchendy=9999;
+                  }
+                }
+              }
+            }else{
+              ctx.fillStyle = 'blue';
+              // ctx.fillRect(canvas.width/2 - cardw/2, canvas.height/2 - cardh/2, cardw, cardh);
+              ctx.drawImage(unitimg["carda"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3], x- cardw/2, y- cardh/2, cardw, cardh);
+              if(favail&&!grabflag){
+                if(pointx>x-cardw/2&&pointx<x+cardw-cardw/2&&pointy>y- cardh/2&&pointy<y+cardh- cardh/2){
+                  if(ontouch&&getdist(touchx, touchy,pointx, pointy)>60){
+                    console.log("잡았당")
+                    touchx=9999;
+                    touchy=9999;
+                    pointx=9999;
+                    pointy=9999;
+                    if(grabed.length==0){
+                      if(row==1){
+                        grabedfrom=세트[j];
+                        console.log(j);
+                        grabed.push(세트[j].splice(idx,1)[0]);
+                        grabflag=true;
+                      }else if(row==2){
+                        grabedfrom=세트2[j];
+                        console.log(j);
+                        grabed.push(세트2[j].splice(idx,1)[0]);
+                        grabflag=true;
+                      }
+                    }
+                  }else if(touchendx>x-cardw/2&&touchendx<x+cardw-cardw/2&&touchendy>y- cardh/2&&touchendy<y+cardh- cardh/2){
+                    console.log("카와이")
+                    item.flipflag=true;
+                    touchendx=9999;
+                    touchendy=9999;
+                  }
+                }
+              }
+            }
+
+
+          }
+
+
+        }
+        window.requestAnimationFrame(draw);
+
+
+
+
+      }
+
+      function animate() {
+        console.log(item.flipfps)
+        if(!fliped){
+          if(flipflag){
+            item.flipfps += 0.01;
+            if (item.flipfps > 1) {
+              flipflag=false;
+              item.flipfps = 0;
+            }
+          }
+        }else{
+          if(flipflag){
+            item.flipfps -= 0.01;
+            if (item.flipfps < 0) {
+              flipflag=false;
+              item.flipfps = 1;
+            }
+          }
+        }
+        
+      }
+
+      function motion(name, n) {
+          if(n==9){
+              var n1=4
+          }else{
+              var n1=n
+          }
+          var unit = unitmotion[name];
+          var temp = new Array();
+          var temp1 = new Array();
+          var key = unit.meta.frameTags[n1 - 1];
+          var item = unit.frames;
+          for (var i = 0; i < (key.to - key.from)+1; i++) {
+              var fr0 = item[String(n) + " " + String(i)];
+              var fr = fr0["frame"];
+              var x0 = fr["x"];
+              var y0 = fr["y"];
+              var w0 = fr["w"];
+              var h0 = fr["h"];
+              temp1.push([x0, y0, w0, h0])
+          }
+          return temp1;
+      }
+
+      function getdist(x2, y2, x3, y3) {
+          var dstx = Math.abs(x2 - x3);
+          var dsty = Math.abs(y2 - y3);
+          if (dstx > dsty) {
+              return 1.4 * dsty + 1.0 * (dstx - dsty)
+          } else {
+              return 1.4 * dstx + 1.0 * (dsty - dstx)
+          }
+      }
+
+      function roundRect(x, y, w, h, radius, cl, thickness, fill, end, opa, smod){
+        // var gap=0.1;
+        // x+=(gap*100);
+        // y+=(gap*100);
+        // var r = x + w*2*(0.5-gap);
+        // var b = y + h*2*(0.5-gap);
+        var r = x + w
+        var b = y + h
+        ctx.globalAlpha = 1;
+        ctx.beginPath();
+        ctx.strokeStyle="black";
+        ctx.fillStyle=cl;
+        ctx.lineWidth=String(thickness);
+        ctx.moveTo(x+radius, y);
+        ctx.lineTo(r-radius, y);
+        ctx.quadraticCurveTo(r, y, r, y+radius);
+        ctx.lineTo(r, b-radius);
+        ctx.quadraticCurveTo(r, b, r-radius, b);
+        ctx.lineTo(x+radius, b);
+        ctx.quadraticCurveTo(x, b, x, b-radius);
+        ctx.lineTo(x, y+radius);
+        ctx.quadraticCurveTo(x, y, x+radius, y);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+
+
+
+    </script>
+  </body>
+</html>
