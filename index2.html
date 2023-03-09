@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Resizable Canvas</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    
+  </head>
+  <body>
+    <input type="text" name="쿼리" id="쿼리">
+    <input type="button" id="hz" onclick="search()" value="검색">
+    <form action="index.html">
+      <input type="submit" value="brass">
+    </form>
+    <form action="tmb.html">
+      <input type="submit" value="tmb">
+    </form>
+    <canvas id="canvas"></canvas>
+
+    <script>
+      var testflag=false;
+      var mydeck=[];
+      var cardtime=[0,0,0,0,0,0,0,0,0]
+      var clearpointer=false;
+      var cardpointer=100;
+      var deck3=[];
+      let lastX, lastY;
+
+
+      let unitimg=[];
+      unitimg["agenda"] = new Image();
+      unitimg["agendb"] = new Image();
+      unitimg["pcard1"] = new Image();
+      unitimg["pcard2"] = new Image();
+      unitimg["pcardb"] = new Image();
+      unitimg["chara"] = new Image();
+      unitimg["charb"] = new Image();
+      unitimg["enca"] = new Image();
+      unitimg["encb"] = new Image();
+      unitimg["encs"] = new Image();
+      unitimg["intro1"] = new Image();
+      unitimg["intro2"] = new Image();
+      unitimg["loca"] = new Image();
+      unitimg["locb"] = new Image();
+      unitimg["resorce"] = new Image();
+      unitimg["clue"] = new Image();
+      unitimg["destr"] = new Image();
+      unitimg["blood"] = new Image();
+      unitimg["brain"] = new Image();
+      unitimg["rolanda"] = new Image();
+      unitimg["rolandb"] = new Image();
+      unitimg["skida"] = new Image();
+      unitimg["skidb"] = new Image();
+
+      
+      // unitimg["agenda"].src="ch1agenda_f_53.jpg"
+      unitimg["agendb"].src="ch1agenda_b_53.jpg"
+      unitimg["pcard1"].src="pcard1_07.jpg"
+      unitimg["pcard2"].src="pcard2_75.jpg"
+      unitimg["pcardb"].src="card_b.jpg"
+      unitimg["chara"].src="ch1char_f_32.jpg"
+      unitimg["charb"].src="ch1char_b_32.jpg"
+      unitimg["enca"].src="ch1enc_55.jpg"
+      unitimg["encb"].src="enc_b.jpg"
+      unitimg["encs"].src="ch1enc(special)_53.jpg"
+      unitimg["intro1"].src="ch1intro_22.jpg"
+      unitimg["intro2"].src="ch1intro(hard)_22.jpg"
+      unitimg["loca"].src="ch1loc1_64.jpg"
+      unitimg["locb"].src="ch1loc2_64.jpg"
+      unitimg["resorce"].src="resource.png"
+      unitimg["clue"].src="단서.png"
+      unitimg["destr"].src="파멸.png"
+      unitimg["blood"].src="피.png"
+      unitimg["brain"].src="뇌.png"
+      unitimg["rolanda"].src="roland_f.png"
+      unitimg["rolandb"].src="roland_b.png"
+      unitimg["skida"].src="skid_f.png"
+      unitimg["skidb"].src="skid_b.png"
+      unitimg["agenda"].src="ch1agenda_f_53.jpg"
+
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.addEventListener("touchstart", handleTouchStart, false);
+      canvas.addEventListener("touchmove", handleTouchMove, false);
+      canvas.addEventListener("touchend", handleTouchEnd, false);
+      canvas.width=5000;
+      canvas.height=2000;
+      var cardWidth = 200
+      var cardHeight = 1.3986*cardWidth;
+      var 세트=[];
+      var 전체=[];
+      let cardangle=0;
+
+      
+
+      let touchx=0;
+      let touchy=0;
+      let pointx=0;
+      let pointy=0;
+      let touchendx=0;
+      let touchendy=0;
+      let grabx=0;
+      let graby=0;
+      let grabflag=false;
+      let grabed=[];
+      let grabedfrom;
+      var ontouch=false;
+      var 예상flag=false;
+
+      class 카드{
+        constructor (idx,srcname, srcx, srcy, w1, h1,mx,my,c){
+            this.idx = idx
+            this.fliped=false;
+            this.flipflag=false;
+            this.flipfps=0;
+            this.srcname=srcname;
+            this.srcx=srcx;
+            this.srcy=srcy;
+            this.w=w1;
+            this.h=h1;
+            this.대분류;
+            this.중분류;
+            this.소분류;
+            this.형태=c;
+            this.text;
+            this.a;
+            this.b;
+            this.c;
+            this.d;
+            this.mx=mx;
+            this.my=my;
+            
+        }
+
+      }
+
+        
+        
+        var 이름=["agenda", "pcard1", "pcard2", "chara","enca", "encs", "intro1", "loca"];
+        var 이름2=["플레이1", "플레이2", "캐릭터", "캐릭터"];
+        var cardlist=["agenda", "pcard1", "pcard2", "chara", "enca", "encs", "intro1", "loca"]
+        var 카드정보=[["1d1a","1d2a","1d3a","1a1a","1a2a","1a3a","2d1a","2d2a","2a1a","3d1a","3d2a","3d3a","3a1a","3a2a","3a3a"],["w","w","w","w","w","w","w","w","w","w","b","b","b","b","b","b","b","b","b","b","b","b","b","b","y","y","y","y","y","y","y","y","y","y","y","y","y","y","g","g","g","g","g","g","g","g","g","g","g","g","g","g","p","p","p","p","p","p","p","p","p","p","p","p","p","p","n","n","n","n"],["r","r","r","r","r","r","r","r","r","r","r","r","r","r","0","0","0","0","0","0","0","0","0","0","w","w","w","w","w","w","w","w","n","n","n"],["b","y","g","p","r","n"],["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","n"],["1","1","1","1","1","1","2","2","2","2","2","3","3","n","n"],["1","2","3","n"],["1","1","1","1","1","2","2","2","2","2","2","2","2","2","2","2","3","3","3","3","3","3","3","3"]]
+
+        unitimg["agenda"].onload = function(){
+          for(item of cardlist){
+            if(item[item.length-1]=="b") continue;
+            var temp1=[];
+            var temp2=[];
+            var size=unitimg[item].src.substring(unitimg[item].src.length-6,unitimg[item].src.length-4)
+            var mx=parseInt(size[0]);
+            var my=parseInt(size[1]);
+            var w=unitimg[item].width;
+            var h=unitimg[item].height;
+            // console.log(w);
+            // console.log(h);
+            if(mx==0) mx=10;
+
+            if(item[item.length-1]=="a"&&item[0]!="e"){
+              var 형태=1;
+            }else if(item[item.length-1]=="b"){
+              var 형태=2;
+            }else if(item[0]=="e"){
+              var 형태=4;
+            }else{
+              var 형태=3;
+            }
+            
+            for(var i=0;i<my;i++){
+              for(var j=0;j<mx;j++){
+                if(카드정보[cardlist.indexOf(item)][i*mx+j]!="n"){
+                  temp1.push(new 카드(i*mx+j, item, j,i,w,h,mx,my,형태))
+                  temp1[temp1.length-1].text=카드정보[cardlist.indexOf(item)][i*mx+j];
+                  temp1[temp1.length-1].대분류=cardlist.indexOf(item);
+                  // 전체.push(temp1[temp1.length-1]);
+                }
+                
+              }
+            }
+            console.log(temp1.length)
+            세트.push(temp1);
+          }
+          draw();
+        };
+          
+          
+          
+
+
+
+          // resize the canvas to fill browser window dynamically
+          window.addEventListener('resize', resizeCanvas, false);
+          
+
+
+       
+      
+
+      
+      // unitimg["pcard2"].src.substring(unitimg["pcard2"].src.length-6,unitimg["pcard2"].src.length-4)
+
+
+      // var 카운터=0;
+      // var 데이카운터=0;
+      // var 아젠다=[];
+
+      
+      // var 인트로=[];
+
+
+      // var 장소=[];
+      // var 인카=[]
+      // var 스페셜=[]
+
+      // var 플레이1=[];
+      // var 플레이2=[];
+      // var 캐릭터=[];
+      // var 롤랜드=[];
+      // var 스키드=[];
+
+      var 제거=[];
+      // var 제너럴=[];
+
+     
+      // var 세트2=[];
+      // var 그랩=[];
+
+      // 세트.push(아젠다, 인트로, 장소, 인카, 스페셜)
+      // 세트2.push(플레이1, 플레이2, 캐릭터)
+      // var 이름=["아젠다", "인트로", "장소", "인카", "스페셜"];
+      var 이름2=["플레이1", "플레이2", "캐릭터", "캐릭터"];
+      
+
+      
+      canvas.addEventListener('click', () => {
+        
+        
+      });
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+
+        if(window.innerWidth<120){
+          canvas.width=120
+        }
+        if(window.innerHeight<170){
+          canvas.height=170
+        }
+        cardWidth = canvas.width/8;
+        cardHeight = 1.3986*cardWidth;
+
+        // draw();
+        
+      }
+      resizeCanvas();
+
+      
+
+      function draw(){
+        canvas.onmousemove = function(event) {
+          pointx = event.clientX;
+          pointy = event.clientY;
+        }
+        canvas.onmousedown  = function(event) {
+          var mx = event.clientX;
+          var my = event.clientY;
+          touchx=mx;
+          touchy=my;
+          ontouch=true;
+        }
+        canvas.onmouseup = function(event) {
+          ontouch=false;
+          if(grabflag){
+            grabx=event.clientX;
+            graby=event.clientY;
+            ontouch=false;
+          }else{
+            if(getdist(touchx, touchy, event.clientX, event.clientY)<5){
+            touchendx=event.clientX;
+            touchendy=event.clientY;
+            ontouch=false;
+            }
+          }
+          ontouch=false;
+        }
+
+        // console.log(touchx)
+        // console.log("fliped: "+String(fliped)+"   flipflag: "+String(flipflag)+"   progress: "+String(item.flipfps))
+       
+        // add your drawing code here
+        ctx.fillStyle = 'skyblue';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        
+        
+        ctx.fillStyle = "black";
+        
+        var locx=100;
+        var locy=100
+
+        for(var j=0;j<8;j++){
+          var gapx=cardWidth*1.3;
+          var gapy=cardHeight*1.2;
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          // 세트[j].forEach(element => {
+          //   if(세트[j].indexOf(element)==세트[j].length-1){
+          //     carddraw(element,j,j*gapx+1+i*1, 10+i, i, true);
+          //   }else{
+          //     carddraw(element,j,j*gapx+1+i*1, 10+i, i, false);
+          //   }
+          // });
+          for(var i=0;i<세트[j].length;i++){
+            if(i==세트[j].length-1){
+              carddraw(1,세트[j][i],j,j*gapx+1+i*1, 10+i, i, true);
+              // roundRect(j*gapx+1+i*1, 10+i, cardWidth, cardHeight, 15, "black", 10)
+            }else if(i==세트[j].length-2){
+              carddraw(1, 세트[j][i],j,j*gapx+1+i*1, 10+i, i, false);
+            }else{
+              roundRect(j*gapx+1+i*1, 10+i, cardWidth, cardHeight, 10, "black", 2)
+            }
+          }
+          ctx.font = "bold "+String(cardWidth/10)+'px GG';
+          ctx.fillText(이름[j],j*gapx+cardWidth/5, gapy/1.7+cardHeight/2.3, cardWidth/2, cardWidth/5);
+          ctx.font = "bold "+String(cardWidth/15)+'px GG';
+          ctx.fillText("장수: "+String(세트[j].length),j*gapx+cardWidth/7, gapy/1.7+cardHeight/2, cardWidth/7, cardWidth/5);
+          if(세트[j].length!=0) ctx.fillText("  번호: "+String(세트[j][세트[j].length-1].idx)+"  text: "+String(세트[j][세트[j].length-1].text),j*gapx+cardWidth/3, gapy/1.7+cardHeight/2, cardWidth/2, cardWidth/5);
+
+          
+
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/5, gapy+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("<뽑기",j*gapx+cardWidth/5, gapy+cardHeight/2.3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/5&&touchx<j*gapx+cardWidth/5+cardWidth/4&&touchy>gapy+cardHeight/3&&touchy<gapy+cardHeight/3+cardWidth/5){
+            if(j==0){
+              if(세트[2].length==0){
+                console.log("다떨어짐")
+              }else{
+                세트[0].push(세트[2].pop());
+                console.log("뽑기")
+              }
+            }else{
+              if(세트[j-1].length==0){
+                console.log("다떨어짐")
+              }else{
+                세트[j].push(세트[j-1].pop());
+                console.log("뽑기")
+              }
+            }
+            
+            touchx=9999;
+            touchy=9999;
+            
+
+          }
+
+
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/5, 1.4*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("<뽑기(랜덤)",j*gapx+cardWidth/5, 1.4*cardHeight+cardHeight/2.3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/5&&touchx<j*gapx+cardWidth/5+cardWidth/4&&touchy>1.4*cardHeight+cardHeight/3&&touchy<1.4*cardHeight+cardHeight/3+cardWidth/5){
+            if(j==0){
+              if(세트[2].length==0){
+                console.log("다떨어짐")
+              }else{
+                세트[0].push(스페셜.splice(parseInt(Math.random() * 세트[2].length), 1)[0]);
+                console.log("뽑기(랜덤)")
+              }
+            }else{
+              if(세트[j-1].length==0){
+                console.log("다떨어짐")
+              }else{
+                세트[j].push(세트[j-1].splice(parseInt(Math.random() * 세트[j-1].length), 1)[0]);
+                console.log("뽑기(랜덤)")
+              }
+            }
+            
+            touchx=9999;
+            touchy=9999;
+            
+
+          }
+
+
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/2, gapy+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("정렬",j*gapx+cardWidth/2, gapy+cardHeight/2.3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/2&&touchx<j*gapx+cardWidth/2+cardWidth/4&&touchy>gapy+cardHeight/3&&touchy<gapy+cardHeight/3+cardWidth/5){
+            touchx=9999;
+            touchy=9999;
+
+            세트[j].sort(function(a, b) {
+              return b.idx - a.idx;
+            });
+            
+            // if(j==0){
+            //   제너럴.sort(function(a, b) {
+            //     return b.idx - a.idx;
+            //   });
+            // }else if(j==1){
+            //   솔로.sort(function(a, b) {
+            //     return b.idx - a.idx;
+            //   });
+            // }else if(j==2){
+            //   스페셜.sort(function(a, b) {
+            //     return b.idx - a.idx;
+            //   });
+            // }
+            
+            console.log("정렬")
+
+
+          }
+
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/1.2, gapy+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("버리기",j*gapx+cardWidth/1.2, gapy+cardHeight/2.3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/1.2&&touchx<j*gapx+cardWidth/1.2+cardWidth/4&&touchy>gapy+cardHeight/3&&touchy<gapy+cardHeight/3+cardWidth/5){
+            touchx=9999;
+            touchy=9999;
+
+            if(세트[j].length==0){
+              
+              console.log("다떨어짐")
+            }else{
+              if(j==2){
+                제거.push(세트[j].pop());
+              }else{
+                제거.push(세트[j].pop());
+                console.log("버림")
+              }
+            }
+          }
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/1.2, 1.4*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("셔플",j*gapx+cardWidth/1.2, 1.5*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/1.2&&touchx<j*gapx+cardWidth/1.2+cardWidth/4&&touchy>1.4*cardHeight+cardHeight/3&&touchy<1.4*cardHeight+cardHeight/3+cardWidth/5){
+            touchx=9999;
+            touchy=9999;
+            console.log("셔플");
+            // 세트[j].sort(() => Math.random() - 0.5);
+
+            세트[j].sort(function(a, b) {
+              return Math.random() - 0.5;
+            });
+
+          }
+
+        }
+
+        ctx.globalAlpha = 0.8 
+        ctx.fillStyle = 'black';
+        ctx.fillRect(cardWidth/2, 1.4*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+        ctx.globalAlpha = 1
+        ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        ctx.fillStyle = 'white';
+        ctx.fillText("리셋",cardWidth/2, 1.4*cardHeight+cardHeight/2.3, cardWidth/4, cardWidth/5);
+
+        if(touchx>cardWidth/2&&touchx<cardWidth/2+cardWidth/4&&touchy>1.4*cardHeight+cardHeight/3&&touchy<1.4*cardHeight+cardHeight/3+cardWidth/5){
+          touchx=9999;
+          touchy=9999;
+
+          console.log("리셋")
+
+          for(var i=0;i<5;i++){
+            while (세트[i].length > 0) {
+              제거.push(세트[i].pop());
+            }
+          }
+          for(var i=0;i<3;i++){
+            while (세트2[i].length > 0) {
+              제거.push(세트2[i].pop());
+            }
+          }
+
+          // while (솔로.length > 0) {
+          //   제너럴.push(솔로.pop());
+          // }
+
+          // while (스페셜.length > 0) {
+          //   제너럴.push(스페셜.pop());
+          // }
+
+          // while (대장인카.length > 0) {
+          //   제너럴.push(대장인카.pop());
+          // }
+
+          제거.sort(function(a, b) {
+            return b.idx - a.idx;
+          });
+
+          제거.forEach(element => {
+            element.fliped=false;
+          });
+
+
+
+          제거.forEach(element => {
+            if(element.대분류==1){
+                제너럴.push(element);
+            }else if(element.대분류==2){
+                솔로.push(element);
+            }else if(element.대분류==3){
+                스페셜.push(element);
+            }else if(element.대분류==4){
+                대장인카.push(element);
+            }else if(element.대분류==5){
+                타이런트.push(element);
+            }
+          });
+
+          제거.length=0;
+
+
+        }
+        
+
+        var gapx2=cardWidth*1.3*2.5;
+        var gapy2=cardHeight*2*0;
+        ctx.globalAlpha = 0.8 
+        ctx.fillStyle = 'black';
+        ctx.fillRect(gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/3, cardWidth/3, cardWidth/5);
+        ctx.globalAlpha = 1
+        ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        ctx.fillStyle = 'white';
+        ctx.fillText("랜덤(솔로)",gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/2.3, cardWidth/3, cardWidth/5);
+
+        if(touchx>gapx2+cardWidth/2&&touchx<gapx2+cardWidth/2+cardWidth/3&&touchy>gapy2+1.4*cardHeight+cardHeight/3&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/5){
+
+          touchx=9999;
+          touchy=9999;
+          for(var i=0;i<5;i++){
+            while (세트[i].length > 0) {
+              제거.push(세트[i].pop());
+            }
+          }
+          for(var i=0;i<3;i++){
+            while (세트2[i].length > 0) {
+              제거.push(세트2[i].pop());
+            }
+          }
+          제거.sort(function(a, b) {
+            return b.idx - a.idx;
+          });
+
+          제거.forEach(element => {
+            element.fliped=false;
+          });
+
+
+
+          제거.forEach(element => {
+            if(element.대분류==1){
+                제너럴.push(element);
+            }else if(element.대분류==2){
+                솔로.push(element);
+            }else if(element.대분류==3){
+                스페셜.push(element);
+            }else if(element.대분류==4){
+                대장인카.push(element);
+            }else if(element.대분류==5){
+                타이런트.push(element);
+            }
+          });
+
+          제거.length=0;
+
+
+          덱.push(타이런트.splice(parseInt(Math.random() * 타이런트.length), 1)[0]);
+
+          switch (덱[0].idx) {
+            case 0:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(11-9, 1)[0])
+                break;
+            case 1:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(11-8, 1)[0])
+                break;
+            case 2:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(11-7, 1)[0])
+                break;
+            case 3:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(0, 1)[0])
+                플레이.push(대장인카.splice(0, 1)[0])
+                break;
+            case 4:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(10, 1)[0])
+                플레이.push(대장인카.splice(10, 1)[0])
+                break;
+            case 5:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(8, 1)[0])
+                플레이.push(대장인카.splice(8, 1)[0])
+                break;
+            case 6:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(5, 1)[0])
+                플레이.push(대장인카.splice(5, 1)[0])
+                플레이.push(대장인카.splice(5  , 1)[0])
+                break;
+            default:
+                return;
+        }
+
+        플레이.sort(function(a, b) {
+          return Math.random() - 0.5;
+        });
+        스페셜.sort(function(a, b) {
+          return b.idx - a.idx;
+        });
+        플레이.push(스페셜.splice(3, 1)[0]);
+        플레이.push(스페셜.splice(3, 1)[0]);
+        플레이.push(스페셜.splice(3, 1)[0]);
+
+        카운터=0;
+        데이카운터=0;
+        제거.push(스페셜.splice(0, 1)[0]);
+
+          
+
+
+        }
+
+        var gapx2=cardWidth*1.3*1.5;
+        var gapy2=0;
+        ctx.globalAlpha = 0.8 
+        ctx.fillStyle = 'black';
+        ctx.fillRect(gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/3-cardHeight/2, cardWidth/2, cardWidth/6);
+        ctx.globalAlpha = 1
+        ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        ctx.fillStyle = 'white';
+        // ctx.fillText("AdvancePt: "+String(카운터),gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/2.3-cardHeight/2, cardWidth/2, cardWidth/6);
+
+        if(touchx>gapx2+cardWidth/2&&touchx<gapx2+cardWidth/2+cardWidth/2&&touchy>gapy2+1.4*cardHeight+cardHeight/3-cardHeight/2&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/6-cardHeight/2){
+            카운터++;
+
+          touchx=9999;
+          touchy=9999;
+        }
+
+        var gapx2=cardWidth*1.3*1.5;
+        var gapy2=0;
+        ctx.globalAlpha = 0.8 
+        ctx.fillStyle = 'black';
+        ctx.fillRect(gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/3-cardHeight/2.8, cardWidth/2, cardWidth/6);
+        ctx.globalAlpha = 1
+        ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        ctx.fillStyle = 'white';
+        // ctx.fillText("Days: "+String(데이카운터),gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/2.3-cardHeight/2.8, cardWidth/2, cardWidth/6);
+
+        if(touchx>gapx2+cardWidth/2&&touchx<gapx2+cardWidth/2+cardWidth/2&&touchy>gapy2+1.4*cardHeight+cardHeight/3-cardHeight/2.8&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/6-cardHeight/2.8){
+            카운터--;
+
+
+          touchx=9999;
+          touchy=9999;
+        }
+
+        var gapx2=cardWidth*1.3*2;
+        var gapy2=0;
+        ctx.globalAlpha = 0.8 
+        ctx.fillStyle = 'black';
+        ctx.fillRect(gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/3-cardHeight/2.8, cardWidth/2, cardWidth/6);
+        ctx.globalAlpha = 1
+        ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        ctx.fillStyle = 'white';
+        ctx.fillText("몰뇨르상인",gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/2.3-cardHeight/2.8, cardWidth/2, cardWidth/6);
+
+        if(touchx>gapx2+cardWidth/2&&touchx<gapx2+cardWidth/2+cardWidth/2&&touchy>gapy2+1.4*cardHeight+cardHeight/3-cardHeight/2.8&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/6-cardHeight/2.8){
+            if(제거.length!=0){
+                플레이.push(제거.pop());
+            }
+
+
+          touchx=9999;
+          touchy=9999;
+        }
+
+
+
+
+        var gapx2=cardWidth*1.3*2.5;
+        var gapy2=cardHeight*2*0;
+        ctx.globalAlpha = 0.8 
+        ctx.fillStyle = 'black';
+        ctx.fillRect(gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/3-cardHeight/4, cardWidth/3, cardWidth/5);
+        ctx.globalAlpha = 1
+        ctx.font = "bold "+String(cardWidth/8)+'px GG';
+        ctx.fillStyle = 'white';
+        ctx.fillText("랜덤(mix)",gapx2+cardWidth/2, gapy2+1.4*cardHeight+cardHeight/2.3-cardHeight/4, cardWidth/3, cardWidth/5);
+
+        if(touchx>gapx2+cardWidth/2&&touchx<gapx2+cardWidth/2+cardWidth/3&&touchy>gapy2+1.4*cardHeight+cardHeight/3-cardHeight/4&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/5-cardHeight/4){
+          카운터=0;
+          데이카운터=0;
+          touchx=9999;
+          touchy=9999;
+          for(var i=0;i<5;i++){
+            while (세트[i].length > 0) {
+              제거.push(세트[i].pop());
+            }
+          }
+          for(var i=0;i<3;i++){
+            while (세트2[i].length > 0) {
+              제거.push(세트2[i].pop());
+            }
+          }
+          제거.sort(function(a, b) {
+            return b.idx - a.idx;
+          });
+
+          제거.forEach(element => {
+            element.fliped=false;
+          });
+
+
+
+          제거.forEach(element => {
+            if(element.대분류==1){
+                제너럴.push(element);
+            }else if(element.대분류==2){
+                솔로.push(element);
+            }else if(element.대분류==3){
+                스페셜.push(element);
+            }else if(element.대분류==4){
+                대장인카.push(element);
+            }else if(element.대분류==5){
+                타이런트.push(element);
+            }
+          });
+
+          제거.length=0;
+
+          
+          while (제너럴.length > 0) {
+              솔로.push(제너럴.pop());
+          }
+
+          덱.push(타이런트.splice(parseInt(Math.random() * 타이런트.length), 1)[0]);
+
+          switch (덱[0].idx) {
+            case 0:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(11-9, 1)[0])
+                break;
+            case 1:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(11-8, 1)[0])
+                break;
+            case 2:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(11-7, 1)[0])
+                break;
+            case 3:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(0, 1)[0])
+                플레이.push(대장인카.splice(0, 1)[0])
+                break;
+            case 4:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(10, 1)[0])
+                플레이.push(대장인카.splice(10, 1)[0])
+                break;
+            case 5:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(8, 1)[0])
+                플레이.push(대장인카.splice(8, 1)[0])
+                break;
+            case 6:
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(솔로.splice(parseInt(Math.random() * 솔로.length), 1)[0])
+                플레이.push(대장인카.splice(5, 1)[0])
+                플레이.push(대장인카.splice(5, 1)[0])
+                플레이.push(대장인카.splice(5  , 1)[0])
+                break;
+            default:
+                return;
+        }
+
+        플레이.sort(function(a, b) {
+          return Math.random() - 0.5;
+        });
+        스페셜.sort(function(a, b) {
+          return b.idx - a.idx;
+        });
+        플레이.push(스페셜.splice(3, 1)[0]);
+        플레이.push(스페셜.splice(3, 1)[0]);
+        플레이.push(스페셜.splice(3, 1)[0]);
+        제거.push(스페셜.splice(0, 1)[0]);
+          
+
+        }
+        
+        for(var j=0;j<0;j++){
+          var gapx=cardWidth*1.3;
+          var gapy=cardHeight*1.2;
+          var gapy2=cardHeight*2;
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          // 세트2[j].forEach(element => {
+          //   if(세트2[j].indexOf(element)==세트2[j].length-1){
+          //     carddraw(element,j,j*gapx+1+i*1, gapy2+10+i, i, true);
+          //   }else{
+          //     carddraw(element,j,j*gapx+1+i*1, gapy2+10+i, i, false);
+          //   }
+          // });
+          for(var i=0;i<세트2[j].length;i++){
+            if(i==세트2[j].length-1){
+              if(j==1&&덱.length!=0){
+                  // carddraw(2, 세트2[j][i],j,j*gapx+1+i*2, gapy2+10+i, i, true);
+                  // carddraw(2, 덱[0],j,j*gapx+1+i*2, gapy2+10+i, i, true);
+              }else{
+                  // carddraw(2, 세트2[j][i],j,j*gapx+1+i*2, gapy2+10+i, i, true);
+              }
+              // roundRect(j*gapx+1+i*1, 10+i, cardWidth, cardHeight, 15, "black", 10)
+            }else if(i==세트2[j].length-2){
+              // carddraw(2, 세트2[j][i],j,j*gapx+1+i*2, gapy2+10+i, i, false);
+            }else{
+              // roundRect(j*gapx+1+i*2, gapy2+10+i, cardWidth, cardHeight, 10, "black", 2)
+            }
+          }
+          ctx.font = "bold "+String(cardWidth/10)+'px GG';
+          ctx.fillText(이름2[j],j*gapx+cardWidth/5, gapy2+gapy/1.7+cardHeight/2.3, cardWidth/2, cardWidth/5);
+          ctx.font = "bold "+String(cardWidth/15)+'px GG';
+          ctx.fillText("장수: "+String(세트2[j].length),j*gapx+cardWidth/7, gapy2+gapy/1.7+cardHeight/2, cardWidth/7, cardWidth/5);
+          // if(세트2[j].length!=0) ctx.fillText("  번호: "+String(카드정보[0][세트2[j][세트2[j].length-1].idx])+"  종류: "+String(카드정보[1][세트2[j][세트2[j].length-1].idx])+"  위치: "+String(카드정보[2][세트2[j][세트2[j].length-1].idx]) ,j*gapx+cardWidth/3, gapy/1.7+cardHeight/2, cardWidth/2, cardWidth/5);
+
+          
+
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/5, gapy2+gapy+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("<뽑기",j*gapx+cardWidth/5, gapy2+gapy+cardHeight/2.3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/5&&touchx<j*gapx+cardWidth/5+cardWidth/4&&touchy>gapy2+gapy+cardHeight/3&&touchy<gapy2+gapy+cardHeight/3+cardWidth/5){
+            if(j==0){
+              if(세트2[2].length==0){
+                console.log("다떨어짐")
+              }else{
+                세트2[0].push(세트2[2].pop());
+                console.log("뽑기")
+              }
+            }else{
+              데이카운터++;
+              if(세트2[j-1].length==0){
+                console.log("다떨어짐")
+              }else{
+                세트2[j].push(세트2[j-1].pop());
+                console.log("뽑기")
+              }
+            }
+            
+            touchx=9999;
+            touchy=9999;
+            
+
+          }
+
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/5, gapy2+1.4*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("<뽑기(랜덤)",j*gapx+cardWidth/5, gapy2+1.4*cardHeight+cardHeight/2.3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/5&&touchx<j*gapx+cardWidth/5+cardWidth/4&&touchy>gapy2+1.4*cardHeight+cardHeight/3&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/5){
+            if(j==0){
+              if(세트2[2].length==0){
+                console.log("다떨어짐")
+              }else{
+                세트2[0].push(스페셜.splice(parseInt(Math.random() * 세트2[2].length), 1)[0]);
+                console.log("뽑기(랜덤)")
+              }
+            }else{
+              데이카운터++;
+              if(세트2[j-1].length==0){
+                console.log("다떨어짐")
+              }else{
+                세트2[j].push(세트2[j-1].splice(parseInt(Math.random() * 세트2[j-1].length), 1)[0]);
+                console.log("뽑기(랜덤)")
+              }
+            }
+            
+            touchx=9999;
+            touchy=9999;
+            
+          }
+
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/2, gapy2+gapy+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("정렬",j*gapx+cardWidth/2, gapy2+gapy+cardHeight/2.3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/2&&touchx<j*gapx+cardWidth/2+cardWidth/4&&touchy>gapy2+gapy+cardHeight/3&&touchy<gapy2+gapy+cardHeight/3+cardWidth/5){
+            touchx=9999;
+            touchy=9999;
+
+            세트2[j].sort(function(a, b) {
+              return b.idx - a.idx;
+            });
+            
+            // if(j==0){
+            //   제너럴.sort(function(a, b) {
+            //     return b.idx - a.idx;
+            //   });
+            // }else if(j==1){
+            //   솔로.sort(function(a, b) {
+            //     return b.idx - a.idx;
+            //   });
+            // }else if(j==2){
+            //   스페셜.sort(function(a, b) {
+            //     return b.idx - a.idx;
+            //   });
+            // }
+            console.log("정렬")
+          }
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/1.2, gapy2+gapy+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("버리기",j*gapx+cardWidth/1.2, gapy2+gapy+cardHeight/2.3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/1.2&&touchx<j*gapx+cardWidth/1.2+cardWidth/4&&touchy>gapy2+gapy+cardHeight/3&&touchy<gapy2+gapy+cardHeight/3+cardWidth/5){
+            touchx=9999;
+            touchy=9999;
+
+            if(세트2[j].length==0){
+              
+              console.log("다떨어짐")
+            }else{
+              
+                제거.push(세트2[j].pop());
+                console.log("버림")
+            }
+          }
+          ctx.globalAlpha = 0.8 
+          ctx.fillStyle = 'grey';
+          ctx.fillRect(j*gapx+cardWidth/1.2, gapy2+1.4*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+          ctx.globalAlpha = 1
+          ctx.font = "bold "+String(cardWidth/8)+'px GG';
+          ctx.fillStyle = 'black';
+          ctx.fillText("셔플",j*gapx+cardWidth/1.2, gapy2+1.5*cardHeight+cardHeight/3, cardWidth/4, cardWidth/5);
+          if(touchx>j*gapx+cardWidth/1.2&&touchx<j*gapx+cardWidth/1.2+cardWidth/4&&touchy>gapy2+1.4*cardHeight+cardHeight/3&&touchy<gapy2+1.4*cardHeight+cardHeight/3+cardWidth/5){
+            touchx=9999;
+            touchy=9999;
+            console.log("셔플");
+            세트2[j].sort(() => Math.random() - 0.5);
+          }
+        }
+
+        if(grabflag){
+          for(var i=0;i<8;i++){
+            var gapx=cardWidth*1.3;
+            var gapy=cardHeight*1.2;
+            if(pointx>i*gapx+i*2&&pointx<i*gapx+i*2+cardWidth*1.25&&pointy>0&&pointy<cardWidth*1.5){
+              ctx.strokeStyle = 'green';
+              ctx.lineWidth=8;
+              ctx.strokeRect(i*gapx+i*2, 0, cardWidth*1.25, cardWidth*1.5);
+              ctx.fillStyle='green'
+              ctx.globalAlpha = 0.3
+              ctx.fillRect(i*gapx+i*2, 0, cardWidth*1.25, cardWidth*1.5);
+              ctx.globalAlpha = 1
+              ctx.strokeStyle = 'grey';
+              ctx.fillStyle='grey'
+              if(!ontouch){
+                if(grabx>i*gapx+i*2&&grabx<i*gapx+i*2+cardWidth*1.25&&graby>0&&graby<cardWidth*1.5){
+                    세트[i].push(grabed.pop());
+                    grabflag=false;
+                    touchx=9999;
+                    touchy=9999;
+                    pointx=9999;
+                    pointy=9999;
+                    grabx==9999;
+                    graby==9999;
+                  
+                }
+              }
+
+            }else{
+              ctx.strokeStyle = 'grey';
+              ctx.lineWidth=8;
+              ctx.strokeRect(i*gapx+i*2, 0, cardWidth*1.25, cardWidth*1.5);
+            }
+            
+            if(grabed.length!=0){
+              ctx.globalAlpha = 0.9
+              var difx=grabed[0].w/grabed[0].mx;
+              var dify=grabed[0].h/grabed[0].my;
+              var fr=[difx*grabed[0].srcx, dify*grabed[0].srcy, difx, dify]
+              
+              
+              if(grabed[0].fliped){
+                // ctx.drawImage(unitimg["cardb"], fr[0], fr[1], fr[2], fr[3], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+
+                if(grabed[0].형태==1){
+                  ctx.drawImage(unitimg[grabed[0].srcname.substring(0,grabed[0].srcname.length-1)+"b"], fr[0], fr[1], fr[2], fr[3], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+                }else if(grabed[0].형태==4){
+                    ctx.drawImage(unitimg["encb"], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+                }else{
+                   ctx.drawImage(unitimg["pcardb"], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+                }
+
+
+              }else{
+                if(grabed[0].형태==1){
+                  ctx.drawImage(unitimg[grabed[0].srcname.substring(0,grabed[0].srcname.length-1)+"a"], fr[0], fr[1], fr[2], fr[3], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+                }else{
+                  ctx.drawImage(unitimg[grabed[0].srcname], fr[0], fr[1], fr[2], fr[3],pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+                }
+
+                // ctx.drawImage(unitimg["carda"], fr[0], fr[1], fr[2], fr[3], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+              }
+              ctx.globalAlpha = 1;
+            }
+            
+          }
+          //핸드영역
+          var gapx=cardWidth*1.3;
+          var gapy=cardHeight*1.2;
+          var posy1=canvas.height-cardHeight;
+          var posy2=canvas.height;
+          if(pointx>200&&pointx<200+cardWidth*20&&pointy>posy1&&pointy<posy2){
+            ctx.strokeStyle = 'green';
+            ctx.lineWidth=8;
+            ctx.strokeRect(0, posy1, canvas.width, posy2-posy1);
+            ctx.fillStyle='green'
+            ctx.globalAlpha = 0.3
+            ctx.fillRect(0, posy1, canvas.width, posy2-posy1);
+            ctx.globalAlpha = 1
+            ctx.strokeStyle = 'grey';
+            ctx.fillStyle='grey'
+            if(!ontouch){
+              if(grabx>200&&grabx<200+cardWidth*20&&graby>posy1&&graby<posy2){
+                  deck3.push(grabed.pop());
+                  grabflag=false;
+                  touchx=9999;
+                  touchy=9999;
+                  pointx=9999;
+                  pointy=9999;
+                  grabx==9999;
+                  graby==9999;
+              }
+            }
+
+          }else{
+            ctx.strokeStyle = 'grey';
+            ctx.lineWidth=8;
+            ctx.strokeRect(0, posy1, canvas.width, posy2-posy1);
+          }
+
+          //중앙 영역
+          var gapx=cardWidth*1.5;
+          var gapy=cardHeight*1.05;
+          var posy1=cardHeight*2;
+          var posy2=canvas.height-cardHeight*1.05;
+          if(pointx>200&&pointx<200+cardWidth*20&&pointy>posy1&&pointy<posy2){
+            ctx.strokeStyle = 'blue';
+            ctx.lineWidth=8;
+            ctx.strokeRect(0, posy1, canvas.width, posy2-posy2);
+            ctx.fillStyle='blue'
+            ctx.globalAlpha = 0.3
+            ctx.fillRect(0, posy1, canvas.width, posy2-posy1);
+            ctx.globalAlpha = 1
+            ctx.strokeStyle = 'blue';
+            ctx.fillStyle='blue'
+            if(!ontouch){
+              if(grabx>200&&grabx<200+cardWidth*20&&graby>posy1&&graby<posy2){
+                  deck3.push(grabed.pop());
+                  grabflag=false;
+                  touchx=9999;
+                  touchy=9999;
+                  pointx=9999;
+                  pointy=9999;
+                  grabx==9999;
+                  graby==9999;
+                  
+                
+              }
+            }
+
+          }else{
+            ctx.strokeStyle = 'grey';
+            ctx.lineWidth=6;
+            ctx.strokeRect(0, posy1, canvas.width, posy2-posy1);
+          }
+
+
+          for(var i=0;i<0;i++){
+            var gapx=cardWidth*1.3;
+            var gapy=cardHeight*1.2;
+            var gapy2=cardHeight*2*0;
+            if(pointx>i*gapx+i*2&&pointx<i*gapx+i*2+cardWidth*1.25&&pointy>gapy2&&pointy<gapy2+cardWidth*1.5){
+              ctx.strokeStyle = 'green';
+              ctx.lineWidth=8;
+              ctx.strokeRect(i*gapx+i*2, gapy2+0, cardWidth*1.25, cardWidth*1.5);
+              ctx.fillStyle='green'
+              ctx.globalAlpha = 0.3
+              ctx.fillRect(i*gapx+i*2, gapy2+0, cardWidth*1.25, cardWidth*1.5);
+              ctx.globalAlpha = 1
+              ctx.strokeStyle = 'grey';
+              if(!ontouch){
+                if(grabx>i*gapx+i*2&&grabx<i*gapx+i*2+cardWidth*1.25&&graby>gapy2+0&&graby<gapy2+cardWidth*1.5){
+                    세트2[i].push(grabed.pop());
+                    grabflag=false;
+                    touchx=9999;
+                    touchy=9999;
+                    pointx=9999;
+                    pointy=9999;
+                    grabx==9999;
+                    graby==9999;
+                  
+                }
+              }
+
+            }else{
+              ctx.strokeStyle = 'grey';
+              ctx.lineWidth=6;
+              ctx.strokeRect(i*gapx+i*2, gapy2+0, cardWidth*1.25, cardWidth*1.5);
+            }
+            
+            if(grabed.length!=0){
+              ctx.globalAlpha = 0.9
+              var difx=grabed[0].w/grabed[0].mx;
+              var dify=grabed[0].h/grabed[0].my;
+              var fr=[difx*grabed[0].srcx, dify*grabed[0].srcy, difx, dify]
+              
+              
+              if(grabed[0].fliped){
+                // ctx.drawImage(unitimg["cardb"], fr[0], fr[1], fr[2], fr[3], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+
+                if(grabed[0].형태==1){
+                  ctx.drawImage(unitimg[grabed[0].srcname.substring(0,grabed[0].srcname.length-1)+"b"], fr[0], fr[1], fr[2], fr[3], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+                }else if(grabed[0].형태==4){
+                    ctx.drawImage(unitimg["encb"], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+                  ctx.drawImage(unitimg["pcardb"], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+                }
+
+
+              }else{
+                if(grabed[0].형태==1){
+                  ctx.drawImage(unitimg[grabed[0].srcname.substring(0,grabed[0].srcname.length-1)+"a"], fr[0], fr[1], fr[2], fr[3], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+                }else{
+                  ctx.drawImage(unitimg[grabed[0].srcname], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+                }
+
+                // ctx.drawImage(unitimg["carda"], fr[0], fr[1], fr[2], fr[3], pointx-cardWidth/3, pointy-cardHeight/4, cardWidth, cardHeight);
+              }
+              ctx.globalAlpha = 1;
+            }
+            
+          }
+        }else{
+          if(cardtime[cardpointer]==0&&ontouch&&grabed.length==0){
+            cardtime[cardpointer]=1;
+            grabed.push(deck3.splice(cardpointer,1)[0]);
+            grabflag=true;
+            cardpointer=100;
+            
+            
+
+
+          }
+        }
+
+         
+        
+        fillcard(deck3.length);
+
+        // ctx.fillStyle = 'red';
+        // ctx.fillRect(canvas.width/2 - cardWidth/2, canvas.height/2 - cardHeight/2, cardWidth, cardHeight);
+        
+
+        // draw animated flip
+
+        function carddraw(row,item0,j, a, b, idx, favail,cardx){
+          // if(cardx==null){
+          //   var cardw=cardWidth;
+          //   var cardh=cardHeight;
+          // }else{
+          //   var cardw=cardx;
+          //   var cardh=cardx*1.398;
+          // }
+          var cardw=cardWidth;
+          var cardh=cardHeight;
+          var item=item0
+          var difx=item.w/item.mx;
+          var dify=item.h/item.my;
+          var fr=[difx*item.srcx, dify*item.srcy, difx, dify]
+          // var fr=motion("card", item.대분류);
+          // var dur=item.idx;
+          // console.log(item.대분류);
+          // console.log(dur);
+          var x=a+cardw/2;
+          var y=b+cardh/2;
+          // console.log(item)
+          if(!item.fliped){
+            if(item.flipflag){
+              item.flipfps += 0.08;
+              if (item.flipfps > 1) {
+                item.flipflag=false;
+                item.flipfps = 1;
+                item.fliped=true;
+              }
+            }
+          }else{
+            if(item.flipflag){
+              item.flipfps -= 0.08;
+              if (item.flipfps < 0) {
+                item.flipflag=false;
+                item.flipfps = 0;
+                item.fliped=false;
+              }
+            }
+          }
+
+          if(item.flipflag){
+            if(!item.fliped){
+              ctx.save();
+              ctx.beginPath();
+              ctx.fillStyle = 'red';
+              // ctx.drawImage(unitimg["cardb"], fr[0], fr[1], fr[2], fr[3], canvas.width/2 - cardw/2, canvas.height/2 - cardh/2, cardw, cardh);
+              ctx.rect(x - cardw/2, y - cardh/2, cardw, cardh);
+              ctx.clip();
+
+              if (item.flipfps < 0.5) {
+                ctx.fillStyle = 'blue';
+                
+                ctx.transform(1 - 2 * item.flipfps, 0, 0, 1, x, y);
+                if(item.형태==1){
+                  ctx.drawImage(unitimg[item.srcname.substring(0,item.srcname.length-1)+"a"], fr[0], fr[1], fr[2], fr[3], -cardw/2, - cardh/2, cardw, cardh);
+                }else{
+                  ctx.drawImage(unitimg[item.srcname],fr[0], fr[1], fr[2], fr[3], -cardw/2, - cardh/2, cardw, cardh);
+                }
+                
+              } else {
+                ctx.fillStyle = 'red';
+                ctx.transform(2 * item.flipfps - 1, 0, 0, 1, x, y);
+                if(item.형태==1){
+                  ctx.drawImage(unitimg[item.srcname.substring(0,item.srcname.length-1)+"b"], fr[0], fr[1], fr[2], fr[3], -cardw/2, - cardh/2, cardw, cardh);
+                }else if(item.형태==4){
+                  ctx.drawImage(unitimg["encb"],-cardw/2, - cardh/2, cardw, cardh);
+                }else{
+                  ctx.drawImage(unitimg["pcardb"], -cardw/2, - cardh/2, cardw, cardh);
+                }
+              }
+              ctx.restore();
+            }else{
+              ctx.save();
+              ctx.beginPath();
+              
+              ctx.fillStyle = 'blue';
+              ctx.rect(x- cardw/2, y - cardh/2, cardw, cardh);
+              // ctx.drawImage(unitimg["carda"], fr[0], fr[1], fr[2], fr[3], canvas.width/2 - cardw/2, canvas.height/2 - cardh/2, cardw, cardh);
+              ctx.clip();
+
+              if (item.flipfps < 0.5) {
+                ctx.fillStyle = 'blue';
+                
+                ctx.transform(1 - 2 * item.flipfps, 0, 0, 1, x, y);
+                if(item.형태==1){
+                  ctx.drawImage(unitimg[item.srcname.substring(0,item.srcname.length-1)+"a"], fr[0], fr[1], fr[2], fr[3], -cardw/2, - cardh/2, cardw, cardh);
+                }else{
+                  ctx.drawImage(unitimg[item.srcname], fr[0], fr[1], fr[2], fr[3], -cardw/2, - cardh/2, cardw, cardh);
+                }
+                 
+              } else {
+                ctx.fillStyle = 'red';
+                
+                ctx.transform(2 * item.flipfps - 1, 0, 0, 1, x, y);
+                if(item.형태==1){
+                  ctx.drawImage(unitimg[item.srcname.substring(0,item.srcname.length-1)+"b"], fr[0], fr[1], fr[2], fr[3], -cardw/2, - cardh/2, cardw, cardh);
+                }else if(item.형태==4){
+                  ctx.drawImage(unitimg["encb"], -cardw/2, - cardh/2, cardw, cardh);
+                }else{
+                  ctx.drawImage(unitimg["pcardb"], -cardw/2, - cardh/2, cardw, cardh);
+                }
+              }
+              ctx.restore();
+            }
+          
+            
+          }else{
+            if(item.fliped){
+              ctx.fillStyle = 'red';
+              // ctx.fillRect(canvas.width/2 - cardw/2, canvas.height/2 - cardh/2, cardw, cardh);
+              if(item.형태==1){
+                ctx.drawImage(unitimg[item.srcname.substring(0,item.srcname.length-1)+"b"], fr[0], fr[1], fr[2], fr[3], x- cardw/2, y- cardh/2, cardw, cardh);
+              }else if(item.형태==4){
+                  ctx.drawImage(unitimg["encb"], x- cardw/2, y- cardh/2, cardw, cardh);
+              }else{
+                ctx.drawImage(unitimg["pcardb"], x- cardw/2, y- cardh/2, cardw, cardh);
+              }
+               
+              if(favail&&!grabflag){
+                if(pointx>x-cardw/2&&pointx<x+cardw-cardw/2&&pointy>y- cardh/2&&pointy<y+cardh- cardh/2){
+                  if(ontouch&&getdist(touchx, touchy,pointx, pointy)>50){
+                    console.log("잡았당")
+                    touchx=9999;
+                    touchy=9999;
+                    pointx=9999;
+                    pointy=9999;
+                    if(grabed.length==0){
+                      if(row==1){
+                        grabedfrom=세트[j];
+                        console.log(j);
+                        grabed.push(세트[j].splice(idx,1)[0]);
+                        grabflag=true;
+                      }else if(row==2){
+                        grabedfrom=세트2[j];
+                        console.log(j);
+                        grabed.push(세트2[j].splice(idx,1)[0]);
+                        grabflag=true;
+                      }
+                      
+                    }
+                  }else if(touchendx>x-cardw/2&&touchendx<x+cardw-cardw/2&&touchendy>y- cardh/2&&touchendy<y+cardh- cardh/2){
+                    console.log("카와이")
+                    item.flipflag=true;
+                    touchendx=9999;
+                    touchendy=9999;
+                  }
+                }
+              }
+            }else{
+              ctx.fillStyle = 'blue';
+              // ctx.fillRect(canvas.width/2 - cardw/2, canvas.height/2 - cardh/2, cardw, cardh);
+              if(item.형태==1){
+                ctx.drawImage(unitimg[item.srcname.substring(0,item.srcname.length-1)+"a"], fr[0], fr[1], fr[2], fr[3], x- cardw/2, y- cardh/2, cardw, cardh);
+              }else{
+                ctx.drawImage(unitimg[item.srcname], fr[0], fr[1], fr[2], fr[3], x- cardw/2, y- cardh/2, cardw, cardh);
+              }
+               
+              if(favail&&!grabflag){
+                if(pointx>x-cardw/2&&pointx<x+cardw-cardw/2&&pointy>y- cardh/2&&pointy<y+cardh- cardh/2){
+                  if(ontouch&&getdist(touchx, touchy,pointx, pointy)>50){
+                    console.log("잡았당")
+                    touchx=9999;
+                    touchy=9999;
+                    pointx=9999;
+                    pointy=9999;
+                    if(grabed.length==0){
+                      if(row==1){
+                        grabedfrom=세트[j];
+                        console.log(j);
+                        grabed.push(세트[j].splice(idx,1)[0]);
+                        grabflag=true;
+                      }else if(row==2){
+                        grabedfrom=세트2[j];
+                        console.log(j);
+                        grabed.push(세트2[j].splice(idx,1)[0]);
+                        grabflag=true;
+                      }
+                    }
+                  }else if(touchendx>x-cardw/2&&touchendx<x+cardw-cardw/2&&touchendy>y- cardh/2&&touchendy<y+cardh- cardh/2){
+                    console.log("카와이")
+                    item.flipflag=true;
+                    touchendx=9999;
+                    touchendy=9999;
+                  }
+                }
+              }
+            }
+
+
+          }
+
+
+        }
+        function fillcard(n){
+          ctx.globalAlpha = 1
+          var animalsize=1.4
+          var mult=1.3
+          var cardw=mult*cardWidth;
+          var cardh=cardw*1.3986
+          var posx=600;
+          var posy=canvas.height-cardh*1.3;
+          var dist=cardw*3.2/5
+          // deck3=[];
+          
+          // for(var i=0;i<9;i++){
+          //     if(mydeck[i]!=null){
+          //         deck3.push(mydeck[i]);
+          //     }
+          // }
+
+          posx= canvas.width/3+(0*(deck3.length))-((cardw-dist)*0.5*(deck3.length))
+          if(testflag){
+              cardpointer=100;
+          }else{
+              var seqlist=[];
+              for(var i=0;i<deck3.length;i++){
+                  seqlist.push(i);
+              }
+              var temval=seqlist.splice(cardpointer, 1);
+              seqlist.push(cardpointer);
+          }
+          
+          for(var j=0;j<deck3.length;j++){
+              if(testflag){
+                  var i=j;
+              }else{
+                  var i=seqlist[j];
+              }
+              ctx.globalAlpha = 1
+              ctx.save();
+              if(!grabflag){
+                if(pointx>posx+(dist*i)&&pointx<posx+(dist*i)+cardw/2&&pointy>posy+100&&pointy<posy+cardh+100){
+                    cardpointer=i;
+                // if(cardpointer==i){
+                    if(clearpointer){
+                        if(cardtime[i]>=1){
+                            cardtime[i]=1;
+                            cardclear();
+                            clearpointer=false;
+                            superclear=false;
+                        }else{
+                            cardtime[i]+=0.4;
+                        }
+                    }else{
+                        // ctx.fillStyle = setcl(i+5);
+                        if(cardtime[i]<=0){
+                            cardtime[i]=0;
+                        }else{
+                            cardtime[i]-=0.5;
+                        }
+                    }    
+                }else{
+                    if(cardtime[i]>=1){
+                        cardtime[i]=1;
+                    }else{
+                        cardtime[i]+=0.4;
+                    }
+                    // ctx.fillStyle = setcl(i);   
+                }
+              }       
+
+              ctx.translate(posx+(dist*((n+1)/2))+cardw/2, posy*1.3);      
+              ctx.rotate(cardtime[i]*((n+1)/2-(i+1))*-1.5*Math.PI/180);
+              ctx.translate(-(posx+(dist*((n+1)/2)))-cardw/2, -posy*1.3); 
+              // ctx.fillRect(posx+(dist*i), posy+cardtime[i]*(cardh*0.8), cardw-cardtime[i]*(cardw*0.3), cardh-cardtime[i]*(cardh*0.3));  
+
+              
+
+              // var fr3 = motion("cards", parseInt(deck3[i].rank));
+
+              var difx=deck3[i].w/deck3[i].mx;
+              var dify=deck3[i].h/deck3[i].my;
+              var fr=[difx*deck3[i].srcx, dify*deck3[i].srcy, difx, dify]
+
+              if(deck3[i].fliped){
+                if(deck3[i].형태==1){
+                  ctx.drawImage(unitimg[deck3[i].srcname.substring(0,deck3[i].srcname.length-1)+"b"], fr[0], fr[1], fr[2], fr[3], posx+(dist*i), posy+cardtime[i]*(cardh*0.8), cardw-cardtime[i]*(cardw*0.3), cardh-cardtime[i]*(cardh*0.3));
+                }else if(deck3[i].형태==4){
+                    ctx.drawImage(unitimg["encb"], posx+(dist*i), posy+cardtime[i]*(cardh*0.8), cardw-cardtime[i]*(cardw*0.3), cardh-cardtime[i]*(cardh*0.3));
+                }else{
+                  ctx.drawImage(unitimg["pcardb"], posx+(dist*i), posy+cardtime[i]*(cardh*0.8), cardw-cardtime[i]*(cardw*0.3), cardh-cardtime[i]*(cardh*0.3));
+                }
+              }else{
+                if(deck3[i].형태==1){
+                  ctx.drawImage(unitimg[deck3[i].srcname.substring(0,deck3[i].srcname.length-1)+"a"], fr[0], fr[1], fr[2], fr[3], posx+(dist*i), posy+cardtime[i]*(cardh*0.8), cardw-cardtime[i]*(cardw*0.3), cardh-cardtime[i]*(cardh*0.3));
+                }else{
+                  ctx.drawImage(unitimg[deck3[i].srcname], fr[0], fr[1], fr[2], fr[3], posx+(dist*i), posy+cardtime[i]*(cardh*0.8), cardw-cardtime[i]*(cardw*0.3), cardh-cardtime[i]*(cardh*0.3));
+                }
+
+                
+              }
+
+              // var fr3 = motion("cardart", parseInt(deck3[i].race));
+              // var dur3= parseInt(deck3[i].code[2])
+
+
+              // ctx.drawImage(unitimg["cardart"], fr3[dur3][0], fr3[dur3][1], fr3[dur3][2], fr3[dur3][3], posx+(dist*i), posy+cardtime[i]*(cardh*0.8), cardw-cardtime[i]*(cardw*0.3), cardh-cardtime[i]*(cardh*0.3));
+
+              // var fr = motion("char", parseInt(deck3[i].race));
+              // var dur=parseInt((tic0*0.3)%fr.length);
+
+              // if(deck3[i].code[1]=="9"){
+              //     var fr2 = motion("hat", parseInt(9));
+              // }else{
+              //     var fr2 = motion("hat", parseInt(deck3[i].race));
+              // }
+             
+              // var dur2= parseInt(deck3[i].code[2])
+
+
+              // ctx.font = "bold "+String((pix/90*15)-cardtime[i]*(pix/90*15*0.3))+'px GG';
+
+
+              // ctx.fillText(info[0],posx+(dist*i)+50, posy+20+cardtime[i]*(cardh*0.8));
+              // ctx.fillText(info[1],posx+(dist*i)+40, posy+170+cardtime[i]*(cardh*0.8));
+              // ctx.fillText(info[2],posx+(dist*i)+40, posy+220+cardtime[i]*(cardh*0.8));
+
+              
+              // if(clearpointer&&cardpointer==i){
+              //     ctx.globalAlpha = 1.1-cardtime[i];
+              //     if(superclear){
+              //         ctx.fillStyle ="red"
+              //         ctx.fillRect(posx+(dist*i)-cardtime[i]*(cardw*0.25), posy+cardtime[i]*(cardh*0.2), cardw+cardtime[i]*(cardw*0.2), cardh+cardtime[i]*(cardh*0.2));  
+              //     }else{
+              //         ctx.fillStyle ="white"
+              //         ctx.fillRect(posx+(dist*i)-cardtime[i]*(cardw*0.2), posy+cardtime[i]*(cardh*0.4), cardw+cardtime[i]*(cardw*0.1), cardh+cardtime[i]*(cardh*0.1));  
+              //     }
+              // }
+              // ctx.fillRect(posx+(dist*i), posy, cardw-cardtime[i]*(cardw*0.1), cardh-cardtime[i]*(cardh*0.1));
+              ctx.restore();
+              
+          }
+
+          return;
+        }
+        function cardclear(){
+            clearpointer=false;
+            cardpointer++;
+            if(cardpointer>=deck3.length){
+                cardpointer=0;
+            }
+        }
+        window.requestAnimationFrame(draw);
+
+
+
+
+      }
+
+
+    
+
+      function handleTouchStart(event) {
+        event.preventDefault();
+
+        lastX = event.touches[0].clientX - canvas.offsetLeft;
+        lastY = event.touches[0].clientY - canvas.offsetTop;
+        pointx=lastX;
+        pointy=lastY;
+        // if(ontouch==false){
+          touchx=pointx
+          touchy=pointy
+        // }
+        ontouch=true
+      }
+
+      function handleTouchMove(event) {
+        event.preventDefault();
+        if(ontouch&&!grabflag){
+          // touchx = event.touches[0].clientX - canvas.offsetLeft;
+          // touchy = event.touches[0].clientY - canvas.offsetTop;
+          
+          // ctx.beginPath();
+          // ctx.moveTo(touchx, touchy);
+          // ctx.lineTo(grabx, graby);
+          // ctx.stroke();
+          
+          pointx=event.touches[0].clientX - canvas.offsetLeft;
+          pointy=event.touches[0].clientY - canvas.offsetTop;
+          lastX=pointx
+          lastY=pointy
+        }else{
+          pointx=event.touches[0].clientX - canvas.offsetLeft;
+          pointy=event.touches[0].clientY - canvas.offsetTop;
+          lastX=pointx
+          lastY=pointy
+        }
+        
+        
+      }
+
+      function handleTouchEnd(event) {
+        event.preventDefault();
+        ontouch=false;
+          if(grabflag){
+            grabx=pointx
+            graby=pointy
+            pointx=grabx;
+            pointy=graby;
+            ontouch=false;
+          }else{
+            if(getdist(touchx, touchy, grabx, graby)<5){
+              touchendx=lastX;
+              touchendy=lastY;
+              pointx=lastX;
+              pointy=lastY;
+              ontouch=false;
+              
+            }else{
+              touchendx=lastX;
+              touchendy=lastY;
+              pointx=lastX;
+              pointy=lastY;
+              ontouch=false;
+            }
+          }
+          
+
+      }
+
+      function animate() {
+        console.log(item.flipfps)
+        if(!fliped){
+          if(flipflag){
+            item.flipfps += 0.01;
+            if (item.flipfps > 1) {
+              flipflag=false;
+              item.flipfps = 0;
+            }
+          }
+        }else{
+          if(flipflag){
+            item.flipfps -= 0.01;
+            if (item.flipfps < 0) {
+              flipflag=false;
+              item.flipfps = 1;
+            }
+          }
+        }
+        
+      }
+
+      function motion(name, n) {
+          if(n==9){
+              var n1=4
+          }else{
+              var n1=n
+          }
+          var unit = unitmotion[name];
+          var temp = new Array();
+          var temp1 = new Array();
+          var key = unit.meta.frameTags[n1 - 1];
+          var item = unit.frames;
+          for (var i = 0; i < (key.to - key.from)+1; i++) {
+              var fr0 = item[String(n) + " " + String(i)];
+              var fr = fr0["frame"];
+              var x0 = fr["x"];
+              var y0 = fr["y"];
+              var w0 = fr["w"];
+              var h0 = fr["h"];
+              temp1.push([x0, y0, w0, h0])
+          }
+          return temp1;
+      }
+
+      function getdist(x2, y2, x3, y3) {
+          var dstx = Math.abs(x2 - x3);
+          var dsty = Math.abs(y2 - y3);
+          if (dstx > dsty) {
+              return 1.4 * dsty + 1.0 * (dstx - dsty)
+          } else {
+              return 1.4 * dstx + 1.0 * (dsty - dstx)
+          }
+      }
+
+      function roundRect(x, y, w, h, radius, cl, thickness, fill, end, opa, smod){
+        // var gap=0.1;
+        // x+=(gap*100);
+        // y+=(gap*100);
+        // var r = x + w*2*(0.5-gap);
+        // var b = y + h*2*(0.5-gap);
+        var r = x + w
+        var b = y + h
+        ctx.globalAlpha = 1;
+        ctx.beginPath();
+        ctx.strokeStyle="black";
+        ctx.fillStyle=cl;
+        ctx.lineWidth=String(thickness);
+        ctx.moveTo(x+radius, y);
+        ctx.lineTo(r-radius, y);
+        ctx.quadraticCurveTo(r, y, r, y+radius);
+        ctx.lineTo(r, b-radius);
+        ctx.quadraticCurveTo(r, b, r-radius, b);
+        ctx.lineTo(x+radius, b);
+        ctx.quadraticCurveTo(x, b, x, b-radius);
+        ctx.lineTo(x, y+radius);
+        ctx.quadraticCurveTo(x, y, x+radius, y);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    function search(){
+      if(transflag){
+        transflag=false;
+
+      }else{
+        transflag=true;;
+      }
+      console.log(document.getElementById("쿼리").value)
+      const cardFaces = document.querySelectorAll('.card-face');
+
+      // Loop through each card-face element
+      cardFaces.forEach((cardFace, index) => {
+        // Create new image element
+        const img = document.createElement('img');
+        // Set the source of the image
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.src = 'skid_b.png';
+        
+        // Create new text element with the current index
+        // const indexText = document.createTextNode(`Index: ${index + 1}`);
+        // Create new paragraph element
+        // const p = document.createElement('p');
+        // Add the index text to the paragraph element
+        // p.appendChild(indexText);
+
+        // Add the image and index elements to the card-face element
+        cardFace.appendChild(img);
+        cardFace.insertBefore(img, cardFace.firstChild);
+        // cardFace.appendChild(p);
+      });
+
+    }
+
+    
+
+    </script>
+
+    
+  </body>
+</html>
