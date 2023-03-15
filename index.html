@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tower Stacking Gamee</title>
+	<style>
+      body { margin: 0; }
+      canvas { display: white; }
+    </style>
+</head>
+<body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+	<script>
+
+class Game2048 {
+  constructor(size) {
+    this.size = size;
+    this.board = new Array(size).fill(null).map(() => new Array(size).fill(0));
+    // this.spawnTile();
+    this.spawnTile();
+    this.boardChanged=false;
+    // this.move();
+  }
+
+  spawnTile() {
+    let emptyPositions = [];
+
+    for (let row = 0; row < this.size; row++) {
+      for (let col = 0; col < this.size; col++) {
+        if (this.board[row][col] === 0&&(col==3||col==0||row==0||row==3)) {
+          emptyPositions.push({ row: row, col: col });
+        }
+      }
+    }
+
+    if (emptyPositions.length > 0) {
+      const position = emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
+      this.board[position.row][position.col] = Math.random() < 0.9 ? 2 : 4;
+
+    }
+    this.boardChanged=false;
+  }
+
+  // Implement game logic for moving tiles and updating board state
+  // ...
+  move(row, col, newRow, newCol, direction) {
+    if (this.board[newRow][newCol] === 0) {
+      this.board[newRow][newCol] += this.board[row][col];
+      this.board[row][col] = 0;
+      this.boardChanged = true;
+    }else if(this.board[newRow][newCol] === this.board[row][col]){
+      this.board[newRow][newCol] += this.board[row][col];
+      this.board[row][col] = 0;
+      this.boardChanged = true;
+      let force = new CANNON.Vec3();
+      switch (direction) {
+        case 'up':
+          force.set(0, 0, -forceAmount);
+          break;
+        case 'down':
+          force.set(0, 0, forceAmount);
+          break;
+        case 'left':
+          force.set(-forceAmount, 0, 0);
+          break;
+        case 'right':
+          force.set(forceAmount, 0, 0);
+          break;
+        default:
+          return;
+      }
+
+      
+
+      cubes[activeFloor].body.applyForce(force, cubes[activeFloor].body.position);
+    }
+      
+    
+  }
+
+  moveBoard(direction){
+    let rowStep, colStep, startRow, startCol;
+    if (direction === "down" || direction === "right") {
+      rowStep = 1;
+      colStep = 1;
+      startRow = 0;
+      startCol = 0;
+    } else {
+      rowStep = -1;
+      colStep = -1;
+      startRow = this.size - 1;
+      startCol = this.size - 1;
+    }
+
+    const rowCondition = direction === "down" || direction === "up";
+    for (let row = startRow; row >= 0 && row < this.size; row += rowStep) {
+      for (let col = startCol; col >= 0 && col < this.size; col += colStep) {
+        if (this.board[row][col] === 0) continue;
+        let newRow = row;
+        let newCol = col;
+
+        while (true) {
+          const nextRow = newRow + (rowCondition ? rowStep : 0);
+          const nextCol = newCol + (rowCondition ? 0 : colStep);
+
+          if (nextRow < 0 || nextRow >= this.size || nextCol < 0 || nextCol >= this.size) break;
+
+          if (this.board[nextRow][nextCol] === 0 || this.board[nextRow][nextCol] === this.board[row][col]) {
+            newRow = nextRow;
+            newCol = nextCol;
+          } else {
+            break;
+          }
+        }
+
+        if (newRow !== row || newCol !== col) {
+          this.move(row, col, newRow, newCol, direction);
+        }
+      }
+    }
+
+
+
+
+    if (this.boardChanged) {
+      this.spawnTile();
+    }
+  }
+}
+
+// Set up the scene, camera, and renderer
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x2e508d);
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const isoAngle = Math.atan(1 / Math.sqrt(2));
+camera.position.z = 5;
+// camera.position.y = 5;
+const boxSize = 1;
+
+camera.position.set(boxSize * 2, boxSize * 2, boxSize * 2);
+camera.rotation.order = 'YXZ';
+// camera.rotation.y = Math.PI / 4;
+camera.rotation.x = -isoAngle;
+
+const cameraTarget = new THREE.Object3D();
+
+const frontalViewCamera = new THREE.OrthographicCamera(-5, 5, 5, -5, 0.1, 1000);
+frontalViewCamera.position.set(0, 0, 10);
+frontalViewCamera.lookAt(0, 0, 0);
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Set up the physics world
+const world = new CANNON.World();
+world.gravity.set(0, -9.82, 0);
+world.broadphase = new CANNON.NaiveBroadphase();
+world.solver.iterations = 10;
+
+// Add a ground plane to the physics world
+const groundBody = new CANNON.Body({ mass: 0, shape: new CANNON.Plane() });
+groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+world.addBody(groundBody);
+
+// const cube = createBox(0, 1, 0, 1, 0.5, 1);
+// cube.mesh.userData.body = cube.body;
+
+// Define force constants
+const forceAmount = 300;
+var cubes=[];
+let activeFloor = 0;
+
+document.addEventListener('keydown', (event) => {
+if (event.code === 'KeyW') {
+activeFloor++;
+} else if (event.code === 'KeyS') {
+activeFloor--;
+}
+
+activeFloor = Math.min(stackHeight, Math.max(0, activeFloor));
+});
+
+// Add event listener for arrow key presses
+document.addEventListener('keydown', (event) => {
+  let force = new CANNON.Vec3();
+  let direction;
+  switch (event.code) {
+    case 'ArrowUp':
+      force.set(0, 0, -forceAmount);
+      direction = 'up';
+      break;
+    case 'ArrowDown':
+      force.set(0, 0, forceAmount);
+      direction = 'down';
+      break;
+    case 'ArrowLeft':
+      force.set(-forceAmount, 0, 0);
+      direction = 'left';
+      break;
+    case 'ArrowRight':
+      force.set(forceAmount, 0, 0);
+      direction = 'right';
+      break;
+    default:
+      return;
+  }
+
+  if (activeFloor < stackHeight) {
+    const floor = scene.children.find(
+      (object) => object.userData.body && object.userData.game2048 && object.position.y === boxSize / 2 + activeFloor * boxSize
+    );
+
+    if (floor) {
+      const game2048 = floor.userData.game2048;
+      const boardChanged = game2048.moveBoard(direction);
+
+      if (boardChanged) {
+        // Update the tiles' appearance on the floor according to the updated game2048 board state
+      }
+    }
+  } else {
+    
+
+  }
+  // cube.body.applyForce(force, cube.body.position);
+      // for(item of cubes){
+      //   item.body.applyForce(force, item.body.position);
+      // } 
+      if(activeFloor==cubes.length){
+        for(item of cubes){
+          item.body.applyForce(force, item.body.position);
+
+        } 
+      }else{
+        for(i in cubes){
+          if(i==activeFloor){
+            if(!cubes[i].mesh.userData.game2048.boardChanged){
+              const game2048 = cubes[i].mesh.userData.game2048;
+              game2048.moveBoard(direction);
+              // console.log(game2048.)
+            }
+            // cubes[i].body.applyForce(force, cubes[i].body.position);
+
+          }
+        }
+      }
+        
+  });
+
+// for(item of cubes){
+//     item.body.applyForce(force, item.body.position);
+//   } 
+
+// Create a function to add a new box to the stack
+
+function createTextMesh(text, fontSize = 1, callback) {
+  const fontLoader = new THREE.FontLoader();
+  fontLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/fonts/helvetiker_regular.typeface.json', (font) => {
+    const geometry = new THREE.TextGeometry(text, {
+      font: font,
+      size: fontSize,
+      height:boxSize/6 ,
+    });
+    geometry.computeBoundingBox();
+    geometry.translate(-geometry.boundingBox.max.x / 2, -geometry.boundingBox.min.y, 0);
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const mesh = new THREE.Mesh(geometry, material);
+
+    if (callback) {
+      callback(mesh);
+    }
+  });
+}
+
+function createBox(x, y, z, width, height, depth, game2048) {
+  const geometry = new THREE.BoxGeometry(width, height, depth);
+  const material = new THREE.MeshBasicMaterial({ color: 0x00ff00*Math.random() });
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.set(x, y, z);
+  scene.add(mesh);
+
+  const shape = new CANNON.Box(new CANNON.Vec3(width / 1, height/2 , depth / 1));
+  const body = new CANNON.Body({ mass: 1, shape: shape });
+  body.position.set(x, y, z);
+  world.addBody(body);
+
+  if (game2048) {
+    const boardSize = game2048.size;
+    const tileSize = width / boardSize;
+    for (let row = 0; row < 4; row++) {
+      for (let col = 0; col < 4; col++) {
+        createTile(tileSize, 0, (tile) => {
+      tile.position.set(
+        x - width / 2 + tileSize / 2 + col * tileSize,
+        0,
+        z - depth / 2 + tileSize / 2 + row * tileSize
+      );
+      mesh.add(tile);
+    });
+      }
+    }
+  }
+
+  return { mesh: mesh, body: body };
+}
+
+// Generate the initial stack of boxes
+const stackHeight =8;
+
+for (let i = 0; i < stackHeight; i++) {
+  const game2048 = new Game2048(4);
+  // const box = createBox(0, boxSize / 2 + i * boxSize, 0, boxSize, boxSize/2, boxSize, game2048);
+  // box.mesh.userData.body = box.body;
+  // box.mesh.userData.game2048 = game2048;
+  cubes.push(createBox(0,  i * boxSize/2, 0, boxSize*2, boxSize/2, boxSize*2, game2048));
+  cubes[cubes.length-1].mesh.userData.body = cubes[cubes.length-1].body;
+  cubes[cubes.length-1].mesh.userData.game2048 = new Game2048(4);
+}
+
+activeFloor=cubes.length;
+
+function createTile(size,  number = 0, callback) {
+  const geometry = new THREE.BoxGeometry(size/1.2, boxSize/6, size/1.2);
+  const material = new THREE.MeshBasicMaterial({ color: getColorForNumber(number) });
+  const tile = new THREE.Mesh(geometry, material);
+   if (number !== 0) {
+    createTextMesh(number.toString(), size / 10, (textMesh) => {
+      textMesh.position.y = (boxSize/6)/ 2;
+      textMesh.rotation.order = 'YXZ';
+      textMesh.rotation.z = -Math.PI / 2;
+      // tile.add(textMesh);
+      if (callback) {
+        callback(tile);
+      }
+    });
+  } else {
+    if (callback) {
+      callback(tile);
+    }
+  }
+}
+
+function getColorForNumber(number) {
+  // Define colors for specific numbers. You can customize these colors as needed.
+  const colors = {
+    0: 0xCCCCCC,
+    2: 0xEEEEEE,
+    4: 0xEDD0A1,
+    8: 0xF2B179,
+    16: 0xF59563,
+    32: 0xF67C5F,
+    64: 0xF65E3B,
+    128: 0xEDCF72,
+    256: 0xEDCC61,
+    512: 0xEDC850,
+    1024: 0xEDC53F,
+    2048: 0xEDC22E,
+  };
+  return colors[number] || 0x000000;
+}
+
+// Animate the scene
+function animate() {
+  requestAnimationFrame(animate);
+
+
+
+  if(activeFloor==cubes.length){
+        camera.position.set(
+        cubes[cubes.length-1].mesh.position.x,
+        cubes[cubes.length-1].mesh.position.y+boxSize*2,
+        cubes[cubes.length-1].mesh.position.z+boxSize*5,
+        
+      );
+      for(item of cubes){
+        item.mesh.material.opacity = 1
+        item.mesh.material.transparent = false;
+        item.mesh.children.forEach((tile) => {
+          tile.material.opacity =  0;
+          tile.material.transparent = true;
+        });
+      }
+  }else{
+    for(i in cubes){
+      if(i==activeFloor){
+        camera.position.set(
+        cubes[i].mesh.position.x,
+        cubes[i].mesh.position.y+boxSize*2,
+        cubes[i].mesh.position.z+boxSize*3,
+      );
+        cubes[i].mesh.material.opacity = 0.2;
+        cubes[i].mesh.material.transparent = true;
+        cubes[i].mesh.children.forEach((tile) => {
+          tile.material.opacity =  1
+          tile.material.transparent = false;
+          tile.children.forEach((text) => {
+            text.material.opacity = 1;
+            text.material.transparent = false;
+
+          })
+        });
+      }else{
+        cubes[i].mesh.material.opacity =  0.4-((i-activeFloor)/cubes.length);
+        // cubes[i].mesh.material.opacity =  0
+        cubes[i].mesh.material.transparent = true;
+        cubes[i].mesh.children.forEach((tile) => {
+
+          tile.material.opacity = 0.1-((i-activeFloor)/cubes.length);
+          tile.material.transparent = true;
+          tile.children.forEach((text) => {
+            text.material.opacity = 0.1-((i-activeFloor)/cubes.length);
+            text.material.transparent = true;
+
+          })
+        });
+      }
+    }
+  }
+  
+  // const activeBox = scene.children.find(
+  //   (object) => object.userData.body && object.userData.game2048 && Math.round((object.position.y - boxSize / 2) / boxSize) === activeFloor
+  // );
+
+  // if (activeBox) {
+  //   // Calculate the position of the top-left tile on the activeBox
+  //   const tileSize = boxSize / activeBox.userData.game2048.size;
+  //   const topLeftTilePosition = new THREE.Vector3(
+  //     activeBox.position.x - boxSize / 2 + tileSize / 2,
+  //     activeBox.position.y + boxSize / 2 + tileSize / 2,
+  //     activeBox.position.z - boxSize / 2 + tileSize / 2
+  //   );
+
+  //   // Update the camera position based on the top-left tile's position
+  //   camera.position.set(
+  //     topLeftTilePosition.x + boxSize * 2,
+  //     topLeftTilePosition.y + boxSize * 2,
+  //     topLeftTilePosition.z + boxSize * 2
+  //   );
+
+  //   // Update the camera target to the top-left tile's position
+  //   cameraTarget.position.copy(topLeftTilePosition);
+  //   camera.lookAt(cameraTarget.position);
+  // }
+
+
+  
+
+  //  scene.children.forEach((object) => {
+  //   if (object.userData.body && object.userData.game2048) {
+  //     const floor = Math.round((object.position.y - boxSize / 2) / boxSize);
+  //     const isActiveFloor = floor === activeFloor;
+
+  //     // Update box material
+  //     object.material.opacity = isActiveFloor ? 1 : 0.3;
+  //     object.material.transparent = !isActiveFloor;
+
+  //     // Update tile materials
+  //     object.children.forEach((tile) => {
+  //       tile.material.opacity = isActiveFloor ? 1 : 0.3;
+  //       tile.material.transparent = !isActiveFloor;
+  //     });
+  //   }
+  // });
+
+  scene.children.forEach((object) => {
+  if (object.userData.body && object.userData.game2048) {
+    const game2048 = object.userData.game2048;
+    object.children.forEach((tile, index) => {
+      const row = Math.floor(index / game2048.size);
+      const col = index % game2048.size;
+      const number = game2048.board[row][col];
+      const color = getColorForNumber(number);
+
+      if (tile.material.color.getHex() !== color) {
+        tile.material.color.set(color);
+      }
+
+      if (number !== 0) {
+        const text = number.toString();
+
+        if (tile.children.length === 0 || tile.children[0].userData.text !== text) {
+          if (tile.children.length > 0) {
+            tile.remove(tile.children[0]);
+          }
+          createTextMesh(text, boxSize / 4, (textMesh) => {
+            textMesh.position.y = -boxSize / 16;
+            textMesh.userData.text = text;
+            textMesh.rotation.x = -Math.PI / 2;
+            tile.add(textMesh);
+          });
+        }
+      } else {
+        if (tile.children.length > 0) {
+          tile.remove(tile.children[0]);
+        }
+      }
+    });
+  }
+});
+
+
+  // Update the physics world
+  world.step(1 / 60);
+
+  // Update the position and rotation of the meshes to match their physics bodies
+  scene.children.forEach((object) => {
+  if (object.userData.body) {
+    object.position.copy(object.userData.body.position);
+    object.quaternion.copy(object.userData.body.quaternion);
+  }
+});
+
+
+// Render the scene
+renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
+renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
+renderer.setScissorTest(true);
+renderer.render(scene, camera);
+
+
+for(i in cubes){
+  if(i==activeFloor){
+    camera.position.set(
+    cubes[i].mesh.position.x,
+    cubes[i].mesh.position.y+boxSize*2,
+    cubes[i].mesh.position.z+boxSize*3,
+  );
+    cubes[i].mesh.material.opacity = 0.2;
+    cubes[i].mesh.material.transparent = true;
+    cubes[i].mesh.children.forEach((tile) => {
+      tile.material.opacity =  1
+      tile.material.transparent = false;
+      tile.children.forEach((text) => {
+        text.material.opacity = 1;
+        text.material.transparent = false;
+
+      })
+    });
+  }else{
+    cubes[i].mesh.material.opacity = 1;
+    // cubes[i].mesh.material.opacity =  0
+    cubes[i].mesh.material.transparent = false;
+    cubes[i].mesh.children.forEach((tile) => {
+
+      tile.material.opacity = 1;
+      tile.material.transparent = false;
+      tile.children.forEach((text) => {
+        text.material.opacity = false;
+        text.material.transparent = false;
+
+      })
+    });
+  }
+}
+const width = window.innerWidth / 4;
+const height = window.innerHeight / 4;
+renderer.setViewport(0, 0, width, height);
+renderer.setScissor(0, 0, width, height);
+renderer.setScissorTest(true);
+renderer.render(scene, frontalViewCamera);
+
+}
+
+
+// Start the animation loop
+animate();
+
+// Handle window resizing
+window.addEventListener("resize", () => {
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+renderer.setSize(width, height);
+camera.aspect = width / height;
+camera.updateProjectionMatrix();
+});
+
+// Function to add a new box at a random position above the stack
+function spawnNewBox() {
+const randomX = Math.random() * 2 - 1;
+const randomZ = Math.random() * 2 - 1;
+const newBox = createBox(randomX, stackHeight * boxSize + boxSize / 2, randomZ, boxSize, boxSize, boxSize);
+newBox.mesh.userData.body = newBox.body;
+}
+
+// Add event listener for user input to spawn a new box
+document.addEventListener("keydown", (event) => {
+if (event.code === "Space") {
+// spawnNewBox();
+}
+});
+
+	</script>
+</body>
+</html>
