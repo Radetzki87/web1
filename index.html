@@ -622,7 +622,7 @@ function handleTouchMove(event) {
     // ctx.stroke();
     if(ontouch){
       if(getdist(lastX, lastY, touchx, touchy)>0.3){
-        if(!cubes[activeFloor].mesh.userData.game2048.boardChanged&&!aniflag){
+        
 
           if(lastX<-0.5){
               if(touchy-lastY>0.2){
@@ -641,7 +641,8 @@ function handleTouchMove(event) {
                 restart();
                 ontouch=false;
             }
-          }else{
+          }else if(!cubes[activeFloor].mesh.userData.game2048.boardChanged&&!aniflag){
+		  
             if(touchx-lastX>0.2){
                 const game2048 = cubes[activeFloor].mesh.userData.game2048;
                 game2048.moveBoard("right");
@@ -665,7 +666,7 @@ function handleTouchMove(event) {
 
           
           // console.log(game2048.)
-        }
+       
       }
     }
     
