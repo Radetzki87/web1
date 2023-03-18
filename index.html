@@ -621,40 +621,40 @@ function handleTouchMove(event) {
     // ctx.lineTo(grabx, graby);
     // ctx.stroke();
     if(ontouch){
-      if(getdist(lastX, lastY, touchx, touchy)>0.4){
+      if(getdist(lastX, lastY, touchx, touchy)>0.3){
         if(!cubes[activeFloor].mesh.userData.game2048.boardChanged&&!aniflag){
 
           if(lastX<-0.5){
-              if(touchy-lastY>0.3){
+              if(touchy-lastY>0.2){
                 activeFloor++;
                 if(activeFloor>cubes.length){
                   activeFloor=cubes.length;
                 }
                 ontouch=false;
-            }else if(-touchy+lastY>0.3){
+            }else if(-touchy+lastY>0.2){
                 activeFloor--;
                 if(activeFloor<0){
                   activeFloor=0;
                 }
                 ontouch=false;
-            }else if(touchx-lastX>0.3){
+            }else if(touchx-lastX>0.2){
                 restart();
                 ontouch=false;
             }
           }else{
-            if(touchx-lastX>0.3){
+            if(touchx-lastX>0.2){
                 const game2048 = cubes[activeFloor].mesh.userData.game2048;
                 game2048.moveBoard("right");
                 ontouch=false;
-            }else if(-touchx+lastX>0.3){
+            }else if(-touchx+lastX>0.2){
                 const game2048 = cubes[activeFloor].mesh.userData.game2048;
                 game2048.moveBoard("left");
                 ontouch=false;
-            }else if(touchy-lastY>0.3){
+            }else if(touchy-lastY>0.2){
                 const game2048 = cubes[activeFloor].mesh.userData.game2048;
                 game2048.moveBoard("up");
                 ontouch=false;
-            }else if(-touchy+lastY>0.3){
+            }else if(-touchy+lastY>0.2){
                 const game2048 = cubes[activeFloor].mesh.userData.game2048;
                 game2048.moveBoard("down");
                 ontouch=false;
