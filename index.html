@@ -886,7 +886,7 @@ function handleTouchMove(event) {
                   return restart();
                   
                 }
-                game2048.moveBoard("right");
+                if(!cubes[activeFloor].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag) game2048.moveBoard("right");
                 ontouch=false;
             }else if(-tx2+tx1>0.14){
                 const game2048 = cubes[activeFloor].mesh.userData.game2048;
@@ -895,7 +895,7 @@ function handleTouchMove(event) {
                   return restart();
                   
                 }
-                game2048.moveBoard("left");
+                if(!cubes[activeFloor].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag) game2048.moveBoard("left");
                 ontouch=false;
             }else if(ty2-ty1>0.2){
 
@@ -905,7 +905,7 @@ function handleTouchMove(event) {
                   return restart();
                   
                 }
-                game2048.moveBoard("up");
+                if(!cubes[activeFloor].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag) game2048.moveBoard("up");
                 ontouch=false;
             }else if(-ty2+ty1>0.2){
 
@@ -914,7 +914,7 @@ function handleTouchMove(event) {
                   ontouch=false
                   return restart();
                 }
-                game2048.moveBoard("down");
+                if(!cubes[activeFloor].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag) game2048.moveBoard("down");
                 ontouch=false;
             }
           }
@@ -1262,27 +1262,6 @@ if (event.code === 'KeyW') {
    }else{
     sidecam=true;
    }
-}else if (event.keyCode === 38) {
-    if(activeFloor<cubes.length){
-        const game2048 = cubes[activeFloor].mesh.userData.game2048;
-        game2048.moveBoard("up");
-    }
-    
-}else if (event.keyCode === 40) {
-    if(activeFloor<cubes.length){
-        const game2048 = cubes[activeFloor].mesh.userData.game2048;
-        game2048.moveBoard("down");
-    }
-}else if (event.keyCode === 37) {
-    if(activeFloor<cubes.length){
-        const game2048 = cubes[activeFloor].mesh.userData.game2048;
-        game2048.moveBoard("left");
-    }
-}else if (event.keyCode === 39) {
-    if(activeFloor<cubes.length){
-        const game2048 = cubes[activeFloor].mesh.userData.game2048;
-        game2048.moveBoard("right");
-    }
 }
 
 
@@ -1344,7 +1323,7 @@ document.addEventListener('keydown', (event) => {
       }else{
         for(var i=0;i<cubes.length;i++){
           if(i==activeFloor){
-            if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag){
+            if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
               const game2048 = cubes[i].mesh.userData.game2048;
               game2048.moveBoard(direction);
               // console.log(game2048.)
@@ -2171,6 +2150,7 @@ function animate(now) {
     if(elapsedTime-atchanged>0&&elapsedTime-atchanged<=0.1){
         aniflag=true;
     }else{
+        if(activeFloor<cubes.length) cubes[activeFloor].mesh.userData.game2048.boardChanged=false;
         aniflag=false;
     }
     
