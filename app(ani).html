@@ -2210,9 +2210,9 @@ function animate() {
 if(effects.length!=0){
   effects.forEach((item)=>{
     // item.material.opacity=0
-    item.scale.y*=1.01;
+    item.scale.y*=1.005;
     // item.position.y+=0.03;
-    item.scale.x*=1.005;
+    item.scale.x*=1.0025;
     item.children.forEach((box)=>{
       box.material.opacity=0.1+0.5*Math.cos(Math.PI*(item.scale.y-1)/0.8);
     })
@@ -2896,7 +2896,7 @@ camera.updateProjectionMatrix();
 
 function 이펙트2(floor,num,direction){
   var w=bw/20
-  w+=Math.sqrt(num)/2
+  w+=Math.sqrt(num)/3
   // var w=bw/11;
 
   var geometry0 = new THREE.PlaneGeometry( bw, bw/2 );
