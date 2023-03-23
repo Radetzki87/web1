@@ -785,7 +785,7 @@ uiCamera2.lookAt(0, 0, 0);
 
 
 // const raycaster = new THREE.Raycaster();
-// const mouse = new THREE.Vector2();
+var mouse = new THREE.Vector2();
 
 function handleTouchStart(event) {
   
@@ -896,6 +896,7 @@ function handleTouchMove(event) {
                   
                 }
                 if(!cubes[activeFloor].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag) game2048.moveBoard("left");
+
                 ontouch=false;
             }else if(ty2-ty1>0.2){
 
@@ -934,44 +935,74 @@ function handleTouchMove(event) {
                 }
             
           }else if(activeFloor<cubes.length&&!aniflag){
-            
             if(touchx-lastX>0.14){
-                const game2048 = cubes[activeFloor].mesh.userData.game2048;
-                if(gameoverflag){
-                  ontouch=false
-                  return restart();
+              if(gameoverflag){
+                ontouch=false
+                return restart();
                   
+              }
+              for(var i=0;i<cubes.length;i++){
+                if(i==activeFloor){
+                  if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+                    const game2048 = cubes[i].mesh.userData.game2048;
+                    game2048.moveBoard("right");
+                    ontouch=false;
+                    event.preventDefault();
+                    return;
+                  }
                 }
-                game2048.moveBoard("right");
-                ontouch=false;
+              }
             }else if(-touchx+lastX>0.14){
-                const game2048 = cubes[activeFloor].mesh.userData.game2048;
-                if(gameoverflag){
-                  ontouch=false
-                  return restart();
+              if(gameoverflag){
+                ontouch=false
+                return restart();
                   
+              }
+              for(var i=0;i<cubes.length;i++){
+                if(i==activeFloor){
+                  if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+                    const game2048 = cubes[i].mesh.userData.game2048;
+                    game2048.moveBoard("left");
+                    ontouch=false;
+                    event.preventDefault();
+                    return;
+                  }
                 }
-                game2048.moveBoard("left");
-                ontouch=false;
+              }
             }else if(touchy-lastY>0.2){
-                const game2048 = cubes[activeFloor].mesh.userData.game2048;
-                if(gameoverflag){
-                  ontouch=false
-                  return restart();
+              if(gameoverflag){
+                ontouch=false
+                return restart();
                   
+              }
+              for(var i=0;i<cubes.length;i++){
+                if(i==activeFloor){
+                  if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+                    const game2048 = cubes[i].mesh.userData.game2048;
+                    game2048.moveBoard("up");
+                    ontouch=false;
+                    event.preventDefault();
+                    return;
+                  }
                 }
-                game2048.moveBoard("up");
-                ontouch=false;
+              }
             }else if(-touchy+lastY>0.2){
-
-                const game2048 = cubes[activeFloor].mesh.userData.game2048;
-                if(gameoverflag){
-                  ontouch=false
-                  return restart();
+              if(gameoverflag){
+                ontouch=false
+                return restart();
                   
+              }
+              for(var i=0;i<cubes.length;i++){
+                if(i==activeFloor){
+                  if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+                    const game2048 = cubes[i].mesh.userData.game2048;
+                    game2048.moveBoard("down");
+                    ontouch=false;
+                    event.preventDefault();
+                    return;
+                  }
                 }
-                game2048.moveBoard("down");
-                ontouch=false;
+              }
             }
           }
         }
@@ -989,7 +1020,7 @@ function handleTouchMove(event) {
     
     // lastX=pointx
     // lastY=pointy
-  event.preventDefault();
+  
 }
 
 function handleTouchEnd(event) {
@@ -1001,85 +1032,137 @@ function handleTouchEnd(event) {
 }
 
 
-// function onClick(event) {
-//   event.preventDefault();
-//   if(uiflag){
-//     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-//     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-//     console.log(String(parseInt(mouse.x))+" "+String(parseInt(mouse.y)))
-//     raycaster.setFromCamera(mouse, uicamera0);
-//     const intersects = raycaster.intersectObjects(uiScene0.children);
-//     if (intersects.length > 0) {
-//       const firstIntersect = intersects[0];
-//       const clickedObjectName = firstIntersect.object.name;
-//       if (clickedObjectName === 'Game1') {
-//         console.log('Start Game button clicked');
-//         setting(stack);
-//         uiflag=false;
-//         stage1=true;
-//       } else if (clickedObjectName === 'Game2') {
-//         console.log('Settings button clicked');
-//         setting1(1);
-//         uiflag=false;
-//         stage1=true;
-//         stage2=true;
-//       }else if (clickedObjectName === 'Game3') {
-//         console.log('Settings button clicked');
-        
-
-//         uiflag=false;
-//         stage1=true;
-//         stage3=true;
-//         forceAmount=20;
-//         bw=3
-//         bh=0.5
-//         tw=bw/칸
-//         th=bh/3
-//         setting(stack);
-        
-//       }else if (clickedObjectName === 'Game4') {
-//         console.log('Settings button clicked');
-//         setting(1);
-//         uiflag=false;
-//         stage1=true;
-//         stage4=true;
-//       }else if (clickedObjectName === 'Game5') {
-//         console.log('game5');
-//         setting(5);
-//         uiflag=false;
-//         stage5=true;
-//         stage1=true;
-//         stackHeight=1;
-//       }
-//     }
-//   }else{
-//     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-//     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-//     // console.log(String(parseInt(mouse.x))+" "+String(parseInt(mouse.y)))
-//     raycaster.setFromCamera(mouse, camera);
-//     const intersects = raycaster.intersectObjects(scene.children);
-
-//     if (intersects.length > 0) {
-
-//       const firstIntersect = intersects[0];
-//       const clickedObjectName = firstIntersect.object.name;
-//       // console.log(clickedObjectName);
-//       console.log(firstIntersect);
-//       let force2 = new CANNON.Vec3();
-
-//       force2.set(10000*(firstIntersect.point.x-camera.position.x), 10000*(firstIntersect.point.y-camera.position.y), 10000*(firstIntersect.point.z-camera.position.z));
-//       firstIntersect.object.userData["body"].applyForce(force2, firstIntersect.object.userData["body"].position);
- 
-//     }
-//   }
+function onClick(event) {
   
-// }
+  if(uiflag){
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    console.log(String(parseInt(mouse.x))+" "+String(parseInt(mouse.y)))
+    raycaster.setFromCamera(mouse, uicamera0);
+    const intersects = raycaster.intersectObjects(uiScene0.children);
+    if (intersects.length > 0) {
+      const firstIntersect = intersects[0];
+      const clickedObjectName = firstIntersect.object.name;
+      if (clickedObjectName === 'Game1') {
+        console.log('Start Game button clicked');
+        setting(stack);
+        uiflag=false;
+        stage1=true;
+      } else if (clickedObjectName === 'Game2') {
+        console.log('Settings button clicked');
+        setting1(1);
+        uiflag=false;
+        stage1=true;
+        stage2=true;
+      }else if (clickedObjectName === 'Game3') {
+        console.log('Settings button clicked');
+        
 
-// window.addEventListener('click', onClick, false);
+        uiflag=false;
+        stage1=true;
+        stage3=true;
+        forceAmount=20;
+        bw=3
+        bh=0.5
+        tw=bw/칸
+        th=bh/3
+        setting(stack);
+        
+      }else if (clickedObjectName === 'Game4') {
+        console.log('Settings button clicked');
+        setting(1);
+        uiflag=false;
+        stage1=true;
+        stage4=true;
+      }else if (clickedObjectName === 'Game5') {
+        console.log('game5');
+        setting(5);
+        uiflag=false;
+        stage5=true;
+        stage1=true;
+        stackHeight=1;
+      }
+    }
+  }else{
+    if(!aniflag){
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      console.log(String(parseInt((event.clientX / window.innerWidth) * 2 - 1))+" "+String(parseInt(-(event.clientY / window.innerHeight) * 2 + 1)))
 
-window.addEventListener("touchstart", handleTouchStart, { passive: false });
-window.addEventListener("touchmove", handleTouchMove, { passive: false });
-window.addEventListener("touchend", handleTouchEnd, { passive: false });
+    if(mouse.x<-0.4&&mouse.y<-0.3){
+      for(var i=0;i<cubes.length;i++){
+        if(i==activeFloor){
+          if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+            const game2048 = cubes[i].mesh.userData.game2048;
+            console.log("??")
+            game2048.moveBoard("left");
+
+            return;
+          }
+        }
+      }
+    }
+    if(mouse.x>0.4&&mouse.y<-0.3){
+      for(var i=0;i<cubes.length;i++){
+        if(i==activeFloor){
+          if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+            const game2048 = cubes[i].mesh.userData.game2048;
+            game2048.moveBoard("right");
+            return;
+          }
+        }
+      }
+    }
+    if(mouse.x>-0.4&&mouse.x<0.4&&mouse.y<-0.7){
+      for(var i=0;i<cubes.length;i++){
+        if(i==activeFloor){
+          if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+            const game2048 = cubes[i].mesh.userData.game2048;
+            game2048.moveBoard("down");
+            return;
+          }
+        }
+      }
+    }
+    if(mouse.x>-0.4&&mouse.x<0.4&&mouse.y>-0.7){
+      for(var i=0;i<cubes.length;i++){
+        if(i==activeFloor){
+          if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+            const game2048 = cubes[i].mesh.userData.game2048;
+            game2048.moveBoard("up");
+            return;
+          }
+        }
+      }
+    }
+    }
+    if(false){
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(scene.children);
+
+      if (intersects.length > 0) {
+
+        const firstIntersect = intersects[0];
+        const clickedObjectName = firstIntersect.object.name;
+        // console.log(clickedObjectName);
+        console.log(firstIntersect);
+        let force2 = new CANNON.Vec3();
+
+        force2.set(10000*(firstIntersect.point.x-camera.position.x), 10000*(firstIntersect.point.y-camera.position.y), 10000*(firstIntersect.point.z-camera.position.z));
+        firstIntersect.object.userData["body"].applyForce(force2, firstIntersect.object.userData["body"].position);
+   
+      }
+    }
+    
+  }
+  event.preventDefault();
+}
+
+document.addEventListener('click', onClick, false);
+
+document.addEventListener("touchstart", handleTouchStart, { passive: false });
+document.addEventListener("touchmove", handleTouchMove, { passive: false });
+document.addEventListener("touchend", handleTouchEnd, { passive: false });
 
 
 let boxSize = 1;
@@ -1651,7 +1734,7 @@ function setting(n= 8){
     
   }
 
-  activeFloor=cubes.length;
+  activeFloor=cubes.length-1;
 
   var dir = new THREE.Vector3(0, 1, 0);
   //normalize the direction vector (convert to vector of length 1)
@@ -1745,7 +1828,7 @@ function setting1(n= 1){
       cubes[cubes.length-1].mesh.userData.body = cubes[cubes.length-1].body;
       cubes[cubes.length-1].mesh.userData.game2048 = game2048
     }
-    activeFloor=cubes.length;
+    activeFloor=cubes.length-1;
 
 
     let topCubeBottomSurfaceY = cubes[0].mesh.position.y - cubes[0].mesh.scale.y * cubes[0].mesh.geometry.parameters.height / 2;
