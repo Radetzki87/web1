@@ -2016,42 +2016,57 @@ function animate() {
           }
 
           const text = num.toString();
-          if (tile.children.length === 0) {
-            if (tile.children.length >0) {
-              tile.remove(tile.children[0]);
-            }
-            if(num!=0){
-              createTextMesh(num.toString(), bw / 8, (textMesh) => {
-                textMesh.position.y = th/8
-                textMesh.position.z+=th/2;
-                textMesh.rotation.order = 'YXZ';
-                textMesh.rotation.x = -Math.PI / 2;
-                tile.userData["text"]=text
-                tile.add(textMesh);
-              });
-            }
-          }else{
-            if (tile.children.length >0) {
-              tile.remove(tile.children[0]);
-              if (tile.children.length >0) {
-                tile.remove(tile.children[0]);
-                
-              }
-            }
-            if(num!=0){
-              createTextMesh(num.toString(), bw / 8, (textMesh) => {
-                textMesh.position.y = th/8
-                textMesh.position.z+=th/2;
-                textMesh.rotation.order = 'YXZ';
-                textMesh.rotation.x = -Math.PI / 2;
-                tile.userData["text"]=text
-                tile.add(textMesh);
-              });
-              이펙트2(item.index,num,item.direction);
+          tile.children.forEach((item)=>{
+            tile.remove(item);
+          })
+          createTextMesh(num.toString(), bw / 8, (textMesh) => {
+            textMesh.position.y = th/8
+            textMesh.position.z+=th/2;
+            textMesh.rotation.order = 'YXZ';
+            textMesh.rotation.x = -Math.PI / 2;
+            tile.userData["text"]=text
+            tile.userData["time"]=elapsedTime;
+            tile.userData["merge"]=1;
+            tile.add(textMesh);
+            atchanged=elapsedTime;
+          });
 
-            }
-          }
-          atchanged=elapsedTime;
+          // if (tile.children.length === 0) {
+          //   if (tile.children.length >0) {
+          //     tile.remove(tile.children[0]);
+          //   }
+          //   if(num!=0){
+          //     createTextMesh(num.toString(), bw / 8, (textMesh) => {
+          //       textMesh.position.y = th/8
+          //       textMesh.position.z+=th/2;
+          //       textMesh.rotation.order = 'YXZ';
+          //       textMesh.rotation.x = -Math.PI / 2;
+          //       tile.userData["text"]=text
+          //       tile.add(textMesh);
+          //     });
+          //   }
+          // }else{
+          //   if (tile.children.length >0) {
+          //     tile.remove(tile.children[0]);
+          //     if (tile.children.length >0) {
+          //       tile.remove(tile.children[0]);
+                
+          //     }
+          //   }
+          //   if(num!=0){
+          //     createTextMesh(num.toString(), bw / 8, (textMesh) => {
+          //       textMesh.position.y = th/8
+          //       textMesh.position.z+=th/2;
+          //       textMesh.rotation.order = 'YXZ';
+          //       textMesh.rotation.x = -Math.PI / 2;
+          //       tile.userData["text"]=text
+          //       tile.add(textMesh);
+          //     });
+          //     이펙트2(item.index,num,item.direction);
+
+          //   }
+          // }
+          
         }else{
 
 
