@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <head>
 	<title>Tower Stacking Game</title>
 	<style>
@@ -788,61 +789,63 @@ uiCamera2.lookAt(0, 0, 0);
 var mouse = new THREE.Vector2();
 
 function handleTouchStart(event) {
-  
+  if (event.touches.length > 1) {
+    event.preventDefault(); 
+  } 
   lastX = (event.touches[0].clientX / window.innerWidth)*2 - 1;
   lastY = -(event.touches[0].clientY / window.innerHeight)*2+ 1;
   // mouse.x=lastX;
   // mouse.y=lastY;
-  if(!aniflag){
+  // if(!aniflag){
       
 
-    if(lastX<-0.4&&lastY<-0.3){
-      for(var i=0;i<cubes.length;i++){
-        if(i==activeFloor){
-          if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
-            const game2048 = cubes[i].mesh.userData.game2048;
-            console.log("??")
-            game2048.moveBoard("left");
+  //   if(lastX<-0.4&&lastY<-0.3){
+  //     for(var i=0;i<cubes.length;i++){
+  //       if(i==activeFloor){
+  //         if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+  //           const game2048 = cubes[i].mesh.userData.game2048;
+  //           console.log("??")
+  //           game2048.moveBoard("left");
 
-            return;
-          }
-        }
-      }
-    }
-    if(lastX>0.4&&lastY<-0.3){
-      for(var i=0;i<cubes.length;i++){
-        if(i==activeFloor){
-          if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
-            const game2048 = cubes[i].mesh.userData.game2048;
-            game2048.moveBoard("right");
-            return;
-          }
-        }
-      }
-    }
-    if(lastX>-0.4&&lastX<0.4&&lastY<-0.7){
-      for(var i=0;i<cubes.length;i++){
-        if(i==activeFloor){
-          if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
-            const game2048 = cubes[i].mesh.userData.game2048;
-            game2048.moveBoard("down");
-            return;
-          }
-        }
-      }
-    }
-    if(lastX>-0.4&&lastX<0.4&&lastY>-0.7){
-      for(var i=0;i<cubes.length;i++){
-        if(i==activeFloor){
-          if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
-            const game2048 = cubes[i].mesh.userData.game2048;
-            game2048.moveBoard("up");
-            return;
-          }
-        }
-      }
-    }
-}
+  //           return;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   if(lastX>0.4&&lastY<-0.3){
+  //     for(var i=0;i<cubes.length;i++){
+  //       if(i==activeFloor){
+  //         if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+  //           const game2048 = cubes[i].mesh.userData.game2048;
+  //           game2048.moveBoard("right");
+  //           return;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   if(lastX>-0.4&&lastX<0.4&&lastY<-0.7){
+  //     for(var i=0;i<cubes.length;i++){
+  //       if(i==activeFloor){
+  //         if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+  //           const game2048 = cubes[i].mesh.userData.game2048;
+  //           game2048.moveBoard("down");
+  //           return;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   if(lastX>-0.4&&lastX<0.4&&lastY>-0.7){
+  //     for(var i=0;i<cubes.length;i++){
+  //       if(i==activeFloor){
+  //         if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+  //           const game2048 = cubes[i].mesh.userData.game2048;
+  //           game2048.moveBoard("up");
+  //           return;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
   // if(lastY>0.2&&activeFloor!=cubes.length){
   //   transflag=true;
   //   var rcons=rconverse(lastX, lastY)
@@ -853,7 +856,7 @@ function handleTouchStart(event) {
   // }
   
   ontouch=true
-  event.preventDefault();
+  // event.preventDefault();
 }
 
 function handleTouchMove(event) {
@@ -941,7 +944,7 @@ function handleTouchMove(event) {
                     const game2048 = cubes[i].mesh.userData.game2048;
                     game2048.moveBoard("right");
                     ontouch=false;
-                    event.preventDefault();
+                    // event.preventDefault();
                     return;
                   }
                 }
@@ -958,7 +961,7 @@ function handleTouchMove(event) {
                     const game2048 = cubes[i].mesh.userData.game2048;
                     game2048.moveBoard("left");
                     ontouch=false;
-                    event.preventDefault();
+                    // event.preventDefault();
                     return;
                   }
                 }
@@ -975,7 +978,7 @@ function handleTouchMove(event) {
                     const game2048 = cubes[i].mesh.userData.game2048;
                     game2048.moveBoard("up");
                     ontouch=false;
-                    event.preventDefault();
+                    // event.preventDefault();
                     return;
                   }
                 }
@@ -992,7 +995,7 @@ function handleTouchMove(event) {
                     const game2048 = cubes[i].mesh.userData.game2048;
                     game2048.moveBoard("down");
                     ontouch=false;
-                    event.preventDefault();
+                    // event.preventDefault();
                     return;
                   }
                 }
@@ -1018,7 +1021,7 @@ function handleTouchMove(event) {
 }
 
 function handleTouchEnd(event) {
-  event.preventDefault();
+  // event.preventDefault();
   ontouch=false;
   bufflag=true
   transflag=false;    
@@ -1155,7 +1158,7 @@ function onClick(event) {
 // document.addEventListener('click', onClick, false);
 
 document.addEventListener("touchstart", handleTouchStart, { passive: false });
-// document.addEventListener("touchmove", handleTouchMove, { passive: false });
+document.addEventListener("touchmove", handleTouchMove, { passive: false });
 // document.addEventListener("touchend", handleTouchEnd, { passive: false });
 
 
@@ -2054,7 +2057,6 @@ function animate(now) {
 
   if(ftiles.length!=0){
     aniflag=true;
-    
     // ftiles.sort(function(a, b) {
     //   return a.elapsedTime - b.elapsedTime;
     // });
@@ -2063,23 +2065,23 @@ function animate(now) {
     // });
 
 
-    //  if(ftiles[0].direction === "up"){
-    //   ftiles.sort(function(a, b) {
-    //   return a.a - b.a;
-    // });
-    // }else if(ftiles[0].direction === "down"){
-    //   ftiles.sort(function(a, b) {
-    //   return b.a - a.a;
-    // });
-    // }else if(ftiles[0].direction === "left"){
-    //   ftiles.sort(function(a, b) {
-    //   return a.b - b.b;
-    // });
-    // }else if(ftiles[0].direction === "right"){
-    //   ftiles.sort(function(a, b) {
-    //   return b.b- a.b;
-    // });
-    // }
+     if(ftiles[0].direction === "up"){
+      ftiles.sort(function(a, b) {
+      return a.a - b.a;
+    });
+    }else if(ftiles[0].direction === "down"){
+      ftiles.sort(function(a, b) {
+      return b.a - a.a;
+    });
+    }else if(ftiles[0].direction === "left"){
+      ftiles.sort(function(a, b) {
+      return a.b - b.b;
+    });
+    }else if(ftiles[0].direction === "right"){
+      ftiles.sort(function(a, b) {
+      return b.b- a.b;
+    });
+    }
 
   
   // let speed= 0.15*(Math.abs((item.c-item.a)+(item.d-item.b))/8);
