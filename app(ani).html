@@ -65,8 +65,12 @@ let sidecam=true;
 let arrowon=false;
 let averageflag=true;
 
+let guideflag=true;
+var guide=[];
+
 
 var effects=[];
+var tempeffects=[];
 var cubes=[];
 var pens=[];
 let activeFloor = 0;
@@ -311,7 +315,7 @@ class Game2048 {
   // ...
   move(row, col, newRow, newCol, direction) {
     if (this.board[newRow][newCol] === 0) {
-      console.log(this.boardpointer[col][row]);
+      // console.log(this.boardpointer[col][row]);
       this.board[newRow][newCol] = this.board[row][col];
       this.board[row][col] = 0;
       ftiles.push(new ftile(row, col, newRow, newCol, this.index, direction, false,this,this.boardpointer[row][col]))
@@ -320,7 +324,7 @@ class Game2048 {
 
     }else if(this.board[newRow][newCol] === this.board[row][col]){
       
-      console.log(this.boardpointer[col][row]);
+      // console.log(this.boardpointer[col][row]);
       this.board[newRow][newCol] += this.board[row][col];
       this.board[row][col] = 0;
       ftiles.push(new ftile(row, col, newRow, newCol, this.index, direction, true,this,this.boardpointer[row][col]))
@@ -1588,20 +1592,43 @@ function setting(n= 8){
   scene.add(arrowHelper);
   axis.push(arrowHelper);
 
-  if(stage3){
-    let topCubeBottomSurfaceY = cubes[0].mesh.position.y - cubes[0].mesh.scale.y * cubes[0].mesh.geometry.parameters.height / 2;
-    // console.log(topCubeBottomSurfaceY)
-    // groundBody.position.y=topCubeBottomSurfaceY-cubes[0].mesh.scale.y
+  if(guideflag){
+    var origin2 = new THREE.Vector3( cubes[0].mesh.position.x-bw/1.98, 0, cubes[0].mesh.position.z+bw/1.98);
+    var origin3 = new THREE.Vector3( cubes[0].mesh.position.x+bw/1.98, 0, cubes[0].mesh.position.z-bw/1.98);
+    var origin4 = new THREE.Vector3( cubes[0].mesh.position.x+bw/1.98, 0, cubes[0].mesh.position.z+bw/1.98);
 
-    const anchorPoint = new CANNON.Vec3(0, -topCubeBottomSurfaceY, 0); // Bottom of the box
-    const constraint = new CANNON.PointToPointConstraint(cubes[0].body, anchorPoint, groundBody, new CANNON.Vec3(0, 0, 0));
-  }
-  // let topCubeBottomSurfaceY = cubes[0].mesh.position.y - cubes[0].mesh.scale.y * cubes[0].mesh.geometry.parameters.height / 2;
-  // const anchorPoint = new CANNON.Vec3(0, -topCubeBottomSurfaceY, 0); // Bottom of the box
-  // const constraint = new CANNON.PointToPointConstraint(cubes[0].body, anchorPoint, groundBody, new CANNON.Vec3(0, topCubeBottomSurfaceY, 0));
+    var material = new THREE.LineDashedMaterial( { color: colorlst0[colornum0][0], dashSize:1, gapSize: 1 ,linewidth: 1,  scale: 2, opacity:0.3, transparent:true
+    });
 
+  var points = [];
+  points.push( origin2 );
+  points.push( new THREE.Vector3( origin2.x, bh*cubes.length*1.1, origin2.z));
+  var geometry = new THREE.BufferGeometry().setFromPoints( points );
+  var line = new THREE.Line( geometry, material );
+  line.computeLineDistances();
+  scene.add(line);
+  guide.push(line);
+
+  var points = [];
+  points.push( origin3 );
+  points.push( new THREE.Vector3( origin3.x, bh*cubes.length*1.1, origin3.z));
+  var geometry = new THREE.BufferGeometry().setFromPoints( points );
+  var line = new THREE.Line( geometry, material );
+  line.computeLineDistances();
+  scene.add(line);
+  guide.push(line);
+
+  var points = [];
+  points.push( origin4 );
+  points.push( new THREE.Vector3( origin4.x, bh*cubes.length*1.1, origin4.z));
+  var geometry = new THREE.BufferGeometry().setFromPoints( points );
+  var line = new THREE.Line( geometry, material );
+  line.computeLineDistances();
+  scene.add(line);
+  guide.push(line);
   
 
+}
 }
 
 
@@ -1863,7 +1890,20 @@ function animate() {
     }
   }
   
-        
+  if(guideflag&&!gameoverflag){
+
+  guide[0].position.x=cubes[0].mesh.position.x
+  guide[0].position.z=cubes[0].mesh.position.z
+  guide[1].position.x=cubes[0].mesh.position.x
+  guide[1].position.z=cubes[0].mesh.position.z
+  guide[2].position.x=cubes[0].mesh.position.x
+  guide[2].position.z=cubes[0].mesh.position.z
+
+  for(var i=0;i<guide.length;i++){
+    guide[i].material.opacity=0.3;
+
+  }
+  }      
 
 
   // cubes.forEach((item)=>{ 
@@ -2029,6 +2069,13 @@ function animate() {
             tile.userData["merge"]=1;
             tile.add(textMesh);
             atchanged=elapsedTime;
+            var tempflag=true
+            tempeffects.forEach((object)=>{
+              if(object[1]>=num&&object[2]==item.direction){
+                tempflag=false
+              }
+            })
+            if(tempflag) 이펙트2(item.index,num,item.direction);
           });
 
           // if (tile.children.length === 0) {
@@ -2062,7 +2109,7 @@ function animate() {
           //       tile.userData["text"]=text
           //       tile.add(textMesh);
           //     });
-          //     이펙트2(item.index,num,item.direction);
+          //     
 
           //   }
           // }
@@ -2098,7 +2145,13 @@ function animate() {
   // });
   
   if(rmvftile.length!=0&&ftiles.length==rmvftile.length&&ftiles[0].body.boardChanged){
+
     ftiles[0].body.spawnTile(ftiles[0].direction);
+    // var dupeffects=findDuplicates(tempeffects);
+    // var neweffects=removeDuplicates(tempeffects);
+    // console.log(dupeffects);
+
+    
     if(sleepflag){
       sleepflag=false;
     }
@@ -2225,16 +2278,16 @@ function animate() {
 if(effects.length!=0){
   effects.forEach((item)=>{
     // item.material.opacity=0
-    item.scale.y*=1.005;
+    item[0].scale.y*=1.005;
     // item.position.y+=0.03;
-    item.scale.x*=1.0025;
-    item.children.forEach((box)=>{
+    item[0].scale.x*=1.0025;
+    item[0].children.forEach((box)=>{
       box.material.visible=true;
-      box.material.opacity=0.1+0.5*Math.cos(Math.PI*(item.scale.y-1)/0.8);
+      box.material.opacity=0.1+0.4*Math.cos(Math.PI*(item[0].scale.y-1)/0.8);
     })
     // item.material.opacity=0.1+0.4*Math.cos(Math.PI*(item.scale.y-1)/0.7);
-    if(item.scale.y>1.8){
-      scene.remove(item)
+    if(item[0].scale.y>1.8){
+      scene.remove(item[0])
       effects.splice(effects.indexOf(item),1);
     }
 
@@ -2774,7 +2827,7 @@ if(activeFloor==cubes.length){
 }
 
 effects.forEach((item) => {
-  item.children.forEach((box) => {
+  item[0].children.forEach((box) => {
     box.material.visible=false;
   })
 })
@@ -2918,7 +2971,7 @@ camera.updateProjectionMatrix();
 
 function 이펙트2(floor,num,direction){
   var w=bw/20
-  w+=Math.sqrt(num)/3
+  w+=Math.sqrt(num)/4
   // var w=bw/11;
 
   var geometry0 = new THREE.PlaneGeometry( bw, bw/2 );
@@ -2998,7 +3051,7 @@ function 이펙트2(floor,num,direction){
   // scene.add( mesh2 );
   // scene.add( mesh3 );
 
-  effects.push(mesh0);
+  effects.push([mesh0,num,direction]);
   // effects.push(mesh2);
   // effects.push(mesh3);
 }
@@ -3052,14 +3105,16 @@ function removeDuplicates(arr) {
 function findDuplicates(arr) {
   const duplicates = [];
   const seen = new Set();
-
-  for (const element of arr) {
-    if (seen.has(element)) {
-      duplicates.push(element);
-    } else {
-      seen.add(element);
+  arr.forEach((item)=>{
+    for (const element of item) {
+      if (seen.has(element)) {
+        duplicates.push(element);
+      } else {
+        seen.add(element);
+      }
     }
-  }
+  })
+  
 
   return duplicates;
 }
