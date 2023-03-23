@@ -1853,11 +1853,8 @@ function animate() {
       var arr = new THREE.ArrowHelper( dir, origin, length, hex,length*0.15,arwidth)
       // if(i==4) console.log(length0*0.2);
       arr.children.forEach((object,index)=>{
-        
           object.material.opacity=0;
           object.material.transparent=true;
-        
-        
       })
       arr.remove(arr.children[0]);
       scene.add(arr)
@@ -2050,7 +2047,8 @@ function animate() {
                 tile.userData["text"]=text
                 tile.add(textMesh);
               });
-              이펙트(item.index,num,item.direction);
+              이펙트2(item.index,num,item.direction);
+
             }
           }
           atchanged=elapsedTime;
@@ -2209,21 +2207,27 @@ function animate() {
       
     })
   }
+if(effects.length!=0){
+  effects.forEach((item)=>{
+    // item.material.opacity=0
+    item.scale.y*=1.01;
+    // item.position.y+=0.03;
+    item.scale.x*=1.005;
+    item.children.forEach((box)=>{
+      box.material.opacity=0.1+0.5*Math.cos(Math.PI*(item.scale.y-1)/0.8);
+    })
+    // item.material.opacity=0.1+0.4*Math.cos(Math.PI*(item.scale.y-1)/0.7);
+    if(item.scale.y>1.8){
+      scene.remove(item)
+      effects.splice(effects.indexOf(item),1);
+    }
+
+  })
+}
+
 
   if(elapsedTime-atchanged>0&&elapsedTime-atchanged<0.1){
-    if(effects.length!=0){
-      effects.forEach((item)=>{
-
-        item.scale.y*=1.04;
-        item.scale.x*=1.03;
-        item.material.opacity=0.1+0.4*Math.cos(Math.PI*(item.scale.y-1)/0.7);
-        if(item.scale.y>1.7){
-          scene.remove(item)
-          effects.splice(effects.indexOf(item),1);
-        }
-
-      })
-    }
+    
     bounceflag=true;
     if(activeFloor!=cubes.length){
       cubes[activeFloor].mesh.children.forEach((item)=>{
@@ -2890,6 +2894,93 @@ camera.aspect = width / height;
 camera.updateProjectionMatrix();
 });
 
+function 이펙트2(floor,num,direction){
+  var w=bw/20
+  w+=Math.sqrt(num)/2
+  // var w=bw/11;
+
+  var geometry0 = new THREE.PlaneGeometry( bw, bw/2 );
+  var material0 = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity:0, transparent:true} );
+  var mesh0 = new THREE.Mesh( geometry0, material0 );
+
+  var geometry1 = new THREE.PlaneGeometry( bw, w );
+  var material1 = new THREE.MeshBasicMaterial( { color: colorlst0[colornum0][floor], side: THREE.DoubleSide ,opacity:1, transparent:true} );
+  var mesh1 = new THREE.Mesh( geometry1, material1 );
+
+  var geometry2 = new THREE.PlaneGeometry( w*0.6, bw/1.5 );
+  var material2 = new THREE.MeshBasicMaterial( { color: colorlst0[colornum0][floor], side: THREE.DoubleSide ,opacity:1, transparent:true} );
+  var mesh2 = new THREE.Mesh( geometry2, material2 );
+
+  var geometry3 = new THREE.PlaneGeometry( w*0.6, bw/1.5 );
+  var material3 = new THREE.MeshBasicMaterial( { color: colorlst0[colornum0][floor], side: THREE.DoubleSide ,opacity:1, transparent:true} );
+  var mesh3 = new THREE.Mesh( geometry3, material3 );
+
+  mesh0.add(mesh1)
+  mesh0.children[0].position.y=bw/2
+  mesh0.add(mesh2)
+  mesh0.children[1].position.x=-bw/2-w*0.6/2
+  mesh0.children[1].position.y=-(bw/2)+bw/1.5+w/2
+  mesh0.add(mesh3)
+  mesh0.children[2].position.x=+bw/2+w*0.6/2
+  mesh0.children[2].position.y=-(bw/2)+bw/1.5+w/2
+
+  // console.log(mesh)
+  mesh0.rotation.order = 'YXZ';
+  mesh0.rotation.x = cubes[floor].mesh.rotation.x-Math.PI / 2;
+  mesh0.rotation.z = cubes[floor].mesh.rotation.z;
+  mesh0.position.set(cubes[floor].mesh.position.x,cubes[floor].body.position.y-tw/6,cubes[floor].body.position.z)
+
+  // mesh2.rotation.order = 'YXZ';
+  // mesh2.rotation.x = cubes[floor].mesh.rotation.x-Math.PI / 2;
+  // mesh3.rotation.order = 'YXZ';
+  // mesh3.rotation.x = cubes[floor].mesh.rotation.x-Math.PI / 2;
+
+  // mesh2.position.set(cubes[floor].mesh.rotation.x-bw/2,cubes[floor].body.position.y-tw/3,cubes[floor].body.position.z-bw/4)
+  // mesh3.position.set(cubes[floor].mesh.rotation.x-bw/2,cubes[floor].body.position.y-tw/3,cubes[floor].body.position.z-bw/4)
+
+  switch (direction) {
+    case 'up':
+     // mesh1.position.set(cubes[floor].mesh.rotation.x,cubes[floor].body.position.y-tw/3,cubes[floor].body.position.z-bw/2)
+      mesh0.rotation.y =cubes[floor].mesh.rotation.y
+
+      // mesh2.rotation.y =cubes[floor].mesh.rotation.y
+      // mesh3.rotation.y =cubes[floor].mesh.rotation.y
+      
+      break;
+    case 'down':
+     // mesh1.position.set(cubes[floor].mesh.rotation.x,cubes[floor].body.position.y-tw/3,cubes[floor].body.position.z+bw/2)
+      mesh0.rotation.y = cubes[floor].mesh.rotation.y+Math.PI;
+      // mesh2.rotation.y = cubes[floor].mesh.rotation.y+Math.PI;
+      // mesh3.rotation.y = cubes[floor].mesh.rotation.y+Math.PI;
+      break;
+    case 'left':
+     // mesh1.position.set(cubes[floor].mesh.rotation.x-bw/2,cubes[floor].body.position.y-tw/3,cubes[floor].body.position.z)
+      mesh0.rotation.y = cubes[floor].mesh.rotation.y+Math.PI / 2;
+      // mesh2.rotation.y = cubes[floor].mesh.rotation.y+Math.PI / 2;
+      // mesh3.rotation.y = cubes[floor].mesh.rotation.y+Math.PI / 2;
+      break;
+    case 'right':
+     // mesh1.position.set(cubes[floor].mesh.rotation.x+bw/2,cubes[floor].body.position.y-tw/3,cubes[floor].body.position.z)
+      mesh0.rotation.y =cubes[floor].mesh.rotation.y-Math.PI / 2;
+      // mesh2.rotation.y =cubes[floor].mesh.rotation.y-Math.PI / 2;
+      // mesh3.rotation.y =cubes[floor].mesh.rotation.y-Math.PI / 2;
+      
+      break;
+    default:
+      return;
+  }
+  // mesh0.scale.x=1.5;
+  // mesh0.scale.y=1.5;
+  mesh0.material.visible=false;
+  scene.add( mesh0 );
+  // scene.add( mesh2 );
+  // scene.add( mesh3 );
+
+  effects.push(mesh0);
+  // effects.push(mesh2);
+  // effects.push(mesh3);
+}
+
 function 이펙트(floor,num,direction){
   const geometry = new THREE.PlaneGeometry( bw, bw/2 );
   const material = new THREE.MeshBasicMaterial( { color: colorlst0[colornum0][floor], side: THREE.DoubleSide ,opacity:0, transparent:true} );
@@ -2930,6 +3021,25 @@ function 이펙트(floor,num,direction){
 
   effects.push(mesh);
 
+}
+
+function removeDuplicates(arr) {
+  return [...new Set(arr)];
+}
+
+function findDuplicates(arr) {
+  const duplicates = [];
+  const seen = new Set();
+
+  for (const element of arr) {
+    if (seen.has(element)) {
+      duplicates.push(element);
+    } else {
+      seen.add(element);
+    }
+  }
+
+  return duplicates;
 }
 
 function getdist(x2, y2, x3, y3) {
