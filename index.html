@@ -793,70 +793,64 @@ function handleTouchStart(event) {
   lastY = -(event.touches[0].clientY / window.innerHeight)*2+ 1;
   // mouse.x=lastX;
   // mouse.y=lastY;
+  if(!aniflag){
+      
 
-  if(lastY>0.2&&activeFloor!=cubes.length){
-    transflag=true;
-    var rcons=rconverse(lastX, lastY)
-    var rcons0=rconverse(0, 0)
-    tx1=-rcons[1]-rcons0[1]
-    ty1=rcons[0]+rcons0[0]
+    if(lastX<-0.4&&lastY<-0.3){
+      for(var i=0;i<cubes.length;i++){
+        if(i==activeFloor){
+          if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+            const game2048 = cubes[i].mesh.userData.game2048;
+            console.log("??")
+            game2048.moveBoard("left");
+
+            return;
+          }
+        }
+      }
+    }
+    if(lastX>0.4&&lastY<-0.3){
+      for(var i=0;i<cubes.length;i++){
+        if(i==activeFloor){
+          if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+            const game2048 = cubes[i].mesh.userData.game2048;
+            game2048.moveBoard("right");
+            return;
+          }
+        }
+      }
+    }
+    if(lastX>-0.4&&lastX<0.4&&lastY<-0.7){
+      for(var i=0;i<cubes.length;i++){
+        if(i==activeFloor){
+          if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+            const game2048 = cubes[i].mesh.userData.game2048;
+            game2048.moveBoard("down");
+            return;
+          }
+        }
+      }
+    }
+    if(lastX>-0.4&&lastX<0.4&&lastY>-0.7){
+      for(var i=0;i<cubes.length;i++){
+        if(i==activeFloor){
+          if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+            const game2048 = cubes[i].mesh.userData.game2048;
+            game2048.moveBoard("up");
+            return;
+          }
+        }
+      }
+    }
+}
+  // if(lastY>0.2&&activeFloor!=cubes.length){
+  //   transflag=true;
+  //   var rcons=rconverse(lastX, lastY)
+  //   var rcons0=rconverse(0, 0)
+  //   tx1=-rcons[1]-rcons0[1]
+  //   ty1=rcons[0]+rcons0[0]
     
-  }
-  // if(uiflag){
-  //   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  //   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  //   console.log(String(parseInt(mouse.x))+" "+String(parseInt(mouse.y)))
-  //   raycaster.setFromCamera(mouse, uicamera0);
-  //   const intersects = raycaster.intersectObjects(uiScene0.children);
-
-  //   if (intersects.length > 0) {
-  //     const firstIntersect = intersects[0];
-  //     const clickedObjectName = firstIntersect.object.name;
-
-  //     if (clickedObjectName === 'Game1') {
-  //       console.log('Start Game button clicked');
-  //       forceAmount=10;
-  //       setting(stack);
-  //       uiflag=false;
-  //       stage1=true;
-  //     } else if (clickedObjectName === 'Game2') {
-  //       console.log('Settings button clicked');
-  //       setting1(1);
-  //       uiflag=false;
-  //       stage1=true;
-  //       stage2=true;
-  //     }else if (clickedObjectName === 'Game3') {
-  //       console.log('Settings button clicked');
-        
-
-  //       uiflag=false;
-  //       stage1=true;
-  //       stage3=true;
-  //       forceAmount=20;
-  //       bw=3
-  //       bh=0.5
-  //       tw=bw/칸
-  //       th=bh/3
-  //       setting(stack);
-        
-  //     }else if (clickedObjectName === 'Game4') {
-  //       console.log('Settings button clicked');
-  //       setting(1);
-  //       uiflag=false;
-  //       stage1=true;
-  //       stage4=true;
-  //     }else if (clickedObjectName === 'Game5') {
-  //       console.log('game5');
-  //       setting(5);
-  //       uiflag=false;
-  //       stage5=true;
-  //       stage1=true;
-  //       stackHeight=1;
-  //     }
-  //   }
   // }
-  
-  
   
   ontouch=true
   event.preventDefault();
@@ -1158,11 +1152,11 @@ function onClick(event) {
   event.preventDefault();
 }
 
-document.addEventListener('click', onClick, false);
+// document.addEventListener('click', onClick, false);
 
 document.addEventListener("touchstart", handleTouchStart, { passive: false });
-document.addEventListener("touchmove", handleTouchMove, { passive: false });
-document.addEventListener("touchend", handleTouchEnd, { passive: false });
+// document.addEventListener("touchmove", handleTouchMove, { passive: false });
+// document.addEventListener("touchend", handleTouchEnd, { passive: false });
 
 
 let boxSize = 1;
