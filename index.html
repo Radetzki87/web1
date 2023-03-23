@@ -789,78 +789,81 @@ uiCamera2.lookAt(0, 0, 0);
 var mouse = new THREE.Vector2();
 
 function handleTouchStart(event) {
-  if (event.touches.length > 1) {
-    event.preventDefault(); 
-  } 
-  lastX = (event.touches[0].clientX / window.innerWidth)*2 - 1;
-  lastY = -(event.touches[0].clientY / window.innerHeight)*2+ 1;
-  // mouse.x=lastX;
-  // mouse.y=lastY;
-  // if(!aniflag){
+   requestAnimationFrame(() => {
+    if (event.touches.length > 1) {
+      event.preventDefault(); 
+    } 
+    lastX = (event.touches[0].clientX / window.innerWidth)*2 - 1;
+    lastY = -(event.touches[0].clientY / window.innerHeight)*2+ 1;
+    // mouse.x=lastX;
+    // mouse.y=lastY;
+    // if(!aniflag){
+        
+
+    //   if(lastX<-0.4&&lastY<-0.3){
+    //     for(var i=0;i<cubes.length;i++){
+    //       if(i==activeFloor){
+    //         if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+    //           const game2048 = cubes[i].mesh.userData.game2048;
+    //           console.log("??")
+    //           game2048.moveBoard("left");
+
+    //           return;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   if(lastX>0.4&&lastY<-0.3){
+    //     for(var i=0;i<cubes.length;i++){
+    //       if(i==activeFloor){
+    //         if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+    //           const game2048 = cubes[i].mesh.userData.game2048;
+    //           game2048.moveBoard("right");
+    //           return;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   if(lastX>-0.4&&lastX<0.4&&lastY<-0.7){
+    //     for(var i=0;i<cubes.length;i++){
+    //       if(i==activeFloor){
+    //         if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+    //           const game2048 = cubes[i].mesh.userData.game2048;
+    //           game2048.moveBoard("down");
+    //           return;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   if(lastX>-0.4&&lastX<0.4&&lastY>-0.7){
+    //     for(var i=0;i<cubes.length;i++){
+    //       if(i==activeFloor){
+    //         if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
+    //           const game2048 = cubes[i].mesh.userData.game2048;
+    //           game2048.moveBoard("up");
+    //           return;
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+    // if(lastY>0.2&&activeFloor!=cubes.length){
+    //   transflag=true;
+    //   var rcons=rconverse(lastX, lastY)
+    //   var rcons0=rconverse(0, 0)
+    //   tx1=-rcons[1]-rcons0[1]
+    //   ty1=rcons[0]+rcons0[0]
       
-
-  //   if(lastX<-0.4&&lastY<-0.3){
-  //     for(var i=0;i<cubes.length;i++){
-  //       if(i==activeFloor){
-  //         if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
-  //           const game2048 = cubes[i].mesh.userData.game2048;
-  //           console.log("??")
-  //           game2048.moveBoard("left");
-
-  //           return;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   if(lastX>0.4&&lastY<-0.3){
-  //     for(var i=0;i<cubes.length;i++){
-  //       if(i==activeFloor){
-  //         if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
-  //           const game2048 = cubes[i].mesh.userData.game2048;
-  //           game2048.moveBoard("right");
-  //           return;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   if(lastX>-0.4&&lastX<0.4&&lastY<-0.7){
-  //     for(var i=0;i<cubes.length;i++){
-  //       if(i==activeFloor){
-  //         if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
-  //           const game2048 = cubes[i].mesh.userData.game2048;
-  //           game2048.moveBoard("down");
-  //           return;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   if(lastX>-0.4&&lastX<0.4&&lastY>-0.7){
-  //     for(var i=0;i<cubes.length;i++){
-  //       if(i==activeFloor){
-  //         if(!cubes[i].mesh.userData.game2048.boardChanged&&!aniflag&&!bounceflag){
-  //           const game2048 = cubes[i].mesh.userData.game2048;
-  //           game2048.moveBoard("up");
-  //           return;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-  // if(lastY>0.2&&activeFloor!=cubes.length){
-  //   transflag=true;
-  //   var rcons=rconverse(lastX, lastY)
-  //   var rcons0=rconverse(0, 0)
-  //   tx1=-rcons[1]-rcons0[1]
-  //   ty1=rcons[0]+rcons0[0]
+    // }
     
-  // }
+    ontouch=true
+    // event.preventDefault();
+  });
   
-  ontouch=true
-  // event.preventDefault();
 }
 
 function handleTouchMove(event) {
-  
+  requestAnimationFrame(() => {
     touchx = (event.touches[0].clientX / window.innerWidth)*2 - 1;
     touchy = -(event.touches[0].clientY / window.innerHeight)*2+ 1;
     // console.log("x: "+String(touchx)+"   y: "+String(touchy))
@@ -1013,6 +1016,8 @@ function handleTouchMove(event) {
         
       
     }
+  });
+    
     
     
     // lastX=pointx
@@ -1157,8 +1162,8 @@ function onClick(event) {
 
 // document.addEventListener('click', onClick, false);
 
-document.addEventListener("touchstart", handleTouchStart, { passive: false });
-document.addEventListener("touchmove", handleTouchMove, { passive: false });
+document.addEventListener("touchstart", handleTouchStart, { passive: true });
+document.addEventListener("touchmove", handleTouchMove, { passive: true });
 // document.addEventListener("touchend", handleTouchEnd, { passive: false });
 
 
