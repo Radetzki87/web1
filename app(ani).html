@@ -2214,6 +2214,7 @@ if(effects.length!=0){
     // item.position.y+=0.03;
     item.scale.x*=1.0025;
     item.children.forEach((box)=>{
+      box.material.visible=true;
       box.material.opacity=0.1+0.5*Math.cos(Math.PI*(item.scale.y-1)/0.8);
     })
     // item.material.opacity=0.1+0.4*Math.cos(Math.PI*(item.scale.y-1)/0.7);
@@ -2757,7 +2758,11 @@ if(activeFloor==cubes.length){
   
 }
 
-
+effects.forEach((item) => {
+  item.children.forEach((box) => {
+    box.material.visible=false;
+  })
+})
 
 
 
@@ -2770,6 +2775,8 @@ renderer.setViewport(window.innerWidth/2-width/2, 0, width, height);
 renderer.setScissor(window.innerWidth/2-width/2, 0, width, height);
 renderer.setScissorTest(true);
 renderer.render(scene, topViewCamera);
+
+
 
 
 if(sidecam&&!gameoverflag){
@@ -2907,11 +2914,11 @@ function 이펙트2(floor,num,direction){
   var material1 = new THREE.MeshBasicMaterial( { color: colorlst0[colornum0][floor], side: THREE.DoubleSide ,opacity:1, transparent:true} );
   var mesh1 = new THREE.Mesh( geometry1, material1 );
 
-  var geometry2 = new THREE.PlaneGeometry( w*0.6, bw/1.5 );
+  var geometry2 = new THREE.PlaneGeometry( w*0.6, bw/2 );
   var material2 = new THREE.MeshBasicMaterial( { color: colorlst0[colornum0][floor], side: THREE.DoubleSide ,opacity:1, transparent:true} );
   var mesh2 = new THREE.Mesh( geometry2, material2 );
 
-  var geometry3 = new THREE.PlaneGeometry( w*0.6, bw/1.5 );
+  var geometry3 = new THREE.PlaneGeometry( w*0.6, bw/2 );
   var material3 = new THREE.MeshBasicMaterial( { color: colorlst0[colornum0][floor], side: THREE.DoubleSide ,opacity:1, transparent:true} );
   var mesh3 = new THREE.Mesh( geometry3, material3 );
 
@@ -2919,10 +2926,10 @@ function 이펙트2(floor,num,direction){
   mesh0.children[0].position.y=bw/2
   mesh0.add(mesh2)
   mesh0.children[1].position.x=-bw/2-w*0.6/2
-  mesh0.children[1].position.y=-(bw/2)+bw/1.5+w/2
+  mesh0.children[1].position.y=-(bw/4)+bw/2+w/2
   mesh0.add(mesh3)
   mesh0.children[2].position.x=+bw/2+w*0.6/2
-  mesh0.children[2].position.y=-(bw/2)+bw/1.5+w/2
+  mesh0.children[2].position.y=-(bw/4)+bw/2+w/2
 
   // console.log(mesh)
   mesh0.rotation.order = 'YXZ';
