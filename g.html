@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tower Stacking Game</title>
-	<style>
+  <title>Tower Stacking Game</title>
+  <style>
       body { margin: 0; , overscroll-behavior-y: none;}
       canvas { display: white; }
       #ui-text {
@@ -24,7 +24,7 @@
     <script src="addons/ShaderPass.js"></script>
     <script src="addons/MaskPass.js"></script>
     <script src="addons/EffectComposer.js"></script> -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
  <!--  <script defer src="https://threejs.org/examples/jsm/loaders/GLTFLoader.js"></script> -->
  <!-- <script src="https://threejs.org/build/three.js"></script> -->
  <!-- <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script> -->
@@ -1795,7 +1795,7 @@ function getColorForNumber(number) {
   // Define colors for specific numbers. You can customize these colors as needed.
   const colors = {
     0: 0xFCCCAC,
-    2: 0xCECECE,
+    2: 0xEEEEEE,
     4: 0xEDD0A1,
     8: 0xF2B179,
     16: 0xF59563,
@@ -1856,7 +1856,7 @@ function animate() {
     return;
   }else if(gameoverflag){
     if(!endtext){
-        world.removeBody(groundBody);
+        // world.removeBody(groundBody);
         scene.remove(axis[0]);
         while(guide.length>0){
             scene.remove(guide.pop());
@@ -1947,12 +1947,35 @@ function animate() {
   if(tilting){
     for(var i=1;i<cubes.length;i++){
       let force0 = new CANNON.Vec3();
-      force0.set(2*(-cubes[0].body.position.x+cubes[i].body.position.x), 0, 2*(-cubes[0].body.position.z+cubes[i].body.position.z));
+      var forcex=(-cubes[i-1].body.position.x+cubes[i].body.position.x)
+      var forcez=(-cubes[i-1].body.position.z+cubes[i].body.position.z)
+      if(Math.abs(forcex>bw/2)||Math.abs(forcez>bw/2)){
+        forcex=0
+        forcez=0
+      }else{
+        if(forcex>1.5){
+          forcex=1.5;
+        }
+
+        if(forcex<-1.5){
+          forcex=-1.5;
+        }
+        if(forcez>1.5){
+          forcez=1.5;
+        }
+
+        if(forcez<-1.5){
+          forcez=-1.5;
+        }
+      }
+      force0.set(forcex*1.5, 0, forcez*1.5);
+      // console.log(String(forcex)+" "+String(forcey));
       cubes[i].body.applyForce(force0, cubes[i].body.position);
 
     }
 
   }
+  
 
   if(arrowon){
     while(arrows.length>0){
@@ -2487,14 +2510,37 @@ if(dimlines.length>0){
     })
   }
 if(effects.length!=0){
-  ring[0].children.forEach((item)=>{
-    item.material.visible=true;
-  })
+    if(activeFloor==effects[0][3]){
 
-    ring[0].position.set(cubes[effects[0][3]].mesh.position.x,cubes[effects[0][3]].mesh.position.y-th/3,cubes[activeFloor].mesh.position.z)
-    ring[0].rotation.x=cubes[effects[0][3]].mesh.rotation.x-Math.PI/2
-    ring[0].rotation.z=cubes[effects[0][3]].mesh.rotation.z
-    ring[0].rotation.y=cubes[effects[0][3]].mesh.rotation.y
+    
+
+    ring[0].position.set(cubes[activeFloor].mesh.position.x,cubes[activeFloor].mesh.position.y-th/3,cubes[activeFloor].mesh.position.z)
+      ring[0].children.forEach((item)=>{
+        item.material.visible=true;
+      })
+    
+    
+    ring[0].rotation.x=cubes[activeFloor].mesh.rotation.x-Math.PI/2
+    ring[0].rotation.z=cubes[activeFloor].mesh.rotation.z
+
+    switch (effects[0][2]) {
+    case 'up':
+      ring[0].rotation.y=cubes[activeFloor].mesh.rotation.y
+      break;
+    case 'down':
+      ring[0].rotation.y=cubes[activeFloor].mesh.rotation.y+Math.PI;
+      break;
+    case 'left':
+      ring[0].rotation.y=cubes[activeFloor].mesh.rotation.y+Math.PI / 2;
+      break;
+    case 'right':
+      ring[0].rotation.y=cubes[activeFloor].mesh.rotation.y-Math.PI / 2;
+      break;
+    default:
+      return;
+    }
+    
+    }
   // ring[0].quaternion.copy(cubes[activeFloor].body.quaternion);
   effects.forEach((item)=>{
     // item.material.opacity=0
@@ -2626,7 +2672,7 @@ if(effects.length!=0){
 
             if(arrowon) arrows[i].children[0].material.opacity=0.7
             // camera.lookAt(0,0,0)
-            cubes[i].mesh.material.opacity = 0.2;
+            cubes[i].mesh.material.opacity = 0.1;
             cubes[i].mesh.material.transparent = true;
             cubes[i].mesh.children.forEach((tile) => {
               tile.material.opacity =  1
@@ -3011,50 +3057,51 @@ ring[0].children.forEach((item)=>{
   item.material.transparent=true;
 })
 
+// if(!gameoverflag){
+  if(activeFloor==cubes.length){
+    // topViewCamera.position.set(0, bh*20, 0);
+    // topViewCamera.lookAt(0, 0, 0);
 
-if(activeFloor==cubes.length){
-  // topViewCamera.position.set(0, bh*20, 0);
-  // topViewCamera.lookAt(0, 0, 0);
+    topViewCamera.position.set(cubes[cubes.length-1].body.position.x, bh*20, cubes[cubes.length-1].body.position.z);
+    topViewCamera.rotation.order = 'YXZ';
+          
+    topViewCamera.lookAt(cubes[cubes.length-1].body.position.x, 0, cubes[cubes.length-1].body.position.z);
+    topViewCamera.rotation.y=cubes[cubes.length-1].mesh.rotation.y
 
-  topViewCamera.position.set(cubes[cubes.length-1].body.position.x, bh*20, cubes[cubes.length-1].body.position.z);
-  topViewCamera.rotation.order = 'YXZ';
+  }else{
+    for(var i=0;i<cubes.length;i++){
+      
+      if(i==activeFloor){
+
+        cubes[i].mesh.material.opacity = 0.1;
+        if(!gameoverflag){
+          topViewCamera.position.set(cubes[i].body.position.x, bh*20, cubes[i].body.position.z);
+          topViewCamera.rotation.order = 'YXZ';
+          
+          topViewCamera.lookAt(cubes[i].body.position.x, 0, cubes[i].body.position.z);
+          topViewCamera.rotation.y=cubes[i].mesh.rotation.y
+        }
         
-  topViewCamera.lookAt(cubes[cubes.length-1].body.position.x, 0, cubes[cubes.length-1].body.position.z);
-  topViewCamera.rotation.y=cubes[cubes.length-1].mesh.rotation.y
-
-}else{
-  for(var i=0;i<cubes.length;i++){
-    
-    if(i==activeFloor){
-
-      cubes[i].mesh.material.opacity = 0.1;
-      if(!gameoverflag){
-        topViewCamera.position.set(cubes[i].body.position.x, bh*20, cubes[i].body.position.z);
-        topViewCamera.rotation.order = 'YXZ';
         
-        topViewCamera.lookAt(cubes[i].body.position.x, 0, cubes[i].body.position.z);
-        topViewCamera.rotation.y=cubes[i].mesh.rotation.y
+      }else if(i>activeFloor){
+        cubes[i].mesh.material.opacity = 0.0;
+        cubes[i].mesh.material.transparent = true;
+        cubes[i].mesh.children.forEach((tile) => {
+          tile.material.opacity =  0
+          tile.material.transparent = true;
+          tile.children.forEach((text) => {
+            text.material.opacity = 0;
+            text.material.transparent = true;
+
+          })
+        });
       }
-      
-      
-    }else if(i>activeFloor){
-      cubes[i].mesh.material.opacity = 0.0;
-      cubes[i].mesh.material.transparent = true;
-      cubes[i].mesh.children.forEach((tile) => {
-        tile.material.opacity =  0
-        tile.material.transparent = true;
-        tile.children.forEach((text) => {
-          text.material.opacity = 0;
-          text.material.transparent = true;
 
-        })
-      });
+      
     }
-
     
   }
-  
-}
+// }
 
 effects.forEach((item) => {
   item[0].children.forEach((box) => {
@@ -3153,22 +3200,24 @@ if(elapsedTime<3&&!gameoverflag){
   uiCamera2.position.set(cubes[0].mesh.position.x, bw*0.8, bw*1.5);
   uiCamera2.lookAt(cubes[0].mesh.position.x, bw*0.8, 0);
   
-  material0.opacity=0.5+(Math.cos(5*elapsedTime%(2*Math.PI)))/2
+  material0.opacity=0.6+(Math.cos(5*elapsedTime%(2*Math.PI)))/2
   var sprite0=new THREE.Sprite(material0);
-  sprite0.scale.set(scrollimg.image.width/30, scrollimg.image.height/(160+6*Math.cos(Math.PI+5*elapsedTime%(2*Math.PI))), 1);
+  sprite0.scale.set(scrollimg.image.width/100, scrollimg.image.height/(532+20*Math.cos(Math.PI+5*elapsedTime%(2*Math.PI))), 1);
 
   sprite0.position.set(0, 10.5, 10);
   uiScene2.remove(uiScene2.children[uiScene2.children.length-1]);
   uiScene2.add(sprite0);
-  renderer.setViewport(0, height*2, width, height*4);
-  renderer.setScissor(0, height*2, width, height*4);
+  renderer.setViewport(width/9.8, -window.innerHeight/100+scrollimg.image.height/300, width, height*4);
+  renderer.setScissor(width/9.8, -window.innerHeight/100+scrollimg.image.height/300, width, height*4);
   renderer.setScissorTest(true);
   renderer.render(uiScene2, uiCamera2);
 
-  renderer.setViewport(window.innerWidth - width, height*2, width, height*4);
-  renderer.setScissor(window.innerWidth - width, height*2, width, height*4);
-  renderer.setScissorTest(true);
-  renderer.render(uiScene2, uiCamera2);
+  // renderer.setViewport(window.innerWidth - width, height*2, width, height*4);
+  // renderer.setScissor(window.innerWidth - width, height*2, width, height*4);
+  // renderer.setScissorTest(true);
+  // renderer.render(uiScene2, uiCamera2);
+}else{
+
 }
 
 
@@ -3414,6 +3463,6 @@ newBox.mesh.userData.body = newBox.body;
 // Add event listener for user input to spawn a new box
 
 
-	</script>
+  </script>
 </body>
 </html>
