@@ -2478,7 +2478,7 @@ if(effects.length!=0){
   ring[0].children.forEach((item)=>{
     item.material.visible=true;
   })
-  if(activeFloor<cubes.length) ring[0].position.set(cubes[activeFloor].mesh.position.x,cubes[activeFloor].mesh.position.y-bh/1.98,cubes[activeFloor].mesh.position.z)
+  if(activeFloor<cubes.length) ring[0].position.set(cubes[activeFloor].mesh.position.x,cubes[activeFloor].mesh.position.y-bh/2,cubes[activeFloor].mesh.position.z)
   // ring[0].quaternion.copy(cubes[activeFloor].body.quaternion);
   effects.forEach((item)=>{
     // item.material.opacity=0
@@ -2980,7 +2980,9 @@ if(!gameoverflag){
 
 
 
-
+ring[0].children.forEach((item)=>{
+  item.material.visible=false;
+})
 
 포인트.forEach((item)=>{
   item.material.opacity=0
