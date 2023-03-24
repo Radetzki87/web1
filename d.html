@@ -64,10 +64,11 @@ let stage5=false;
 let addflag=false;
 let mergeflag=false;
 let bounceflag=false;
-let sidecam=true;
+let sidecam=false;
 let arrowon=false;
 let averageflag=true;
 let lighton=true;
+let dragflag=true;
 
 let guideflag=true;
 var guide=[];
@@ -781,9 +782,10 @@ uicamera0.position.set(0, -2, 10);
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+var touch0=1-((window.innerWidth*0.53)/(window.innerHeight/2))
 
 function handleTouchStart(event) {
-  event.preventDefault();
+  // event.preventDefault();
   lastX = (event.touches[0].clientX / window.innerWidth)*2 - 1;
   lastY = -(event.touches[0].clientY / window.innerHeight)*2+ 1;
   mouse.x=lastX;
@@ -841,17 +843,27 @@ function handleTouchStart(event) {
       }
     }
   }
-  
+  if(lastY>0){
+    for(var i=0;i<5;i++){
+      // var tempy;
+      if(lastY>-0.4+touch0+0.1*i&&lastY<-0.3+touch0+0.1*i){
+        activeFloor=i;
+      }
+    }
+    dragflag=true;
+    return;
+
+  }
   
   
   ontouch=true
 }
 
 function handleTouchMove(event) {
-  event.preventDefault();
+  // event.preventDefault();
     touchx = (event.touches[0].clientX / window.innerWidth)*2 - 1;
     touchy = -(event.touches[0].clientY / window.innerHeight)*2+ 1;
-    console.log("x: "+String(touchx)+"   y: "+String(touchy))
+    // console.log("x: "+String(touchx)+"   y: "+String(touchy))
     // ctx.beginPath();
     // ctx.moveTo(touchx, touchy);
     // ctx.lineTo(grabx, graby);
@@ -919,6 +931,18 @@ function handleTouchMove(event) {
           // console.log(game2048.)
         
       
+    }else if(dragflag){
+      if(bufflag){
+        buffloor=activeFloor
+        bufflag=false
+      }
+      activeFloor=buffloor+parseInt((touchy-lastY)*10);
+      if(activeFloor>cubes.length){
+          activeFloor=cubes.length;
+        }
+      if(activeFloor<0){
+          activeFloor=0;
+        }
     }
     
     
@@ -931,6 +955,8 @@ function handleTouchEnd(event) {
   event.preventDefault();
   ontouch=false;
   bufflag=true
+  dragflag=false;
+
     // if(grabflag){
     //   grabx=pointx
     //   graby=pointy
@@ -958,83 +984,83 @@ function handleTouchEnd(event) {
 }
 
 
-function onClick(event) {
-  event.preventDefault();
-  if(uiflag){
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    console.log(String(parseInt(mouse.x))+" "+String(parseInt(mouse.y)))
-    raycaster.setFromCamera(mouse, uicamera0);
-    const intersects = raycaster.intersectObjects(uiScene0.children);
+// function onClick(event) {
+//   event.preventDefault();
+//   if(uiflag){
+//     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+//     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+//     console.log(String(parseInt(mouse.x))+" "+String(parseInt(mouse.y)))
+//     raycaster.setFromCamera(mouse, uicamera0);
+//     const intersects = raycaster.intersectObjects(uiScene0.children);
 
-    if (intersects.length > 0) {
-      const firstIntersect = intersects[0];
-      const clickedObjectName = firstIntersect.object.name;
+//     if (intersects.length > 0) {
+//       const firstIntersect = intersects[0];
+//       const clickedObjectName = firstIntersect.object.name;
 
-      if (clickedObjectName === 'Game1') {
-        console.log('Start Game button clicked');
-        setting(stack);
-        uiflag=false;
-        stage1=true;
-      } else if (clickedObjectName === 'Game2') {
-        console.log('Settings button clicked');
-        setting1(1);
-        uiflag=false;
-        stage1=true;
-        stage2=true;
-      }else if (clickedObjectName === 'Game3') {
-        console.log('Settings button clicked');
+//       if (clickedObjectName === 'Game1') {
+//         console.log('Start Game button clicked');
+//         setting(stack);
+//         uiflag=false;
+//         stage1=true;
+//       } else if (clickedObjectName === 'Game2') {
+//         console.log('Settings button clicked');
+//         setting1(1);
+//         uiflag=false;
+//         stage1=true;
+//         stage2=true;
+//       }else if (clickedObjectName === 'Game3') {
+//         console.log('Settings button clicked');
         
 
-        uiflag=false;
-        stage1=true;
-        stage3=true;
-        forceAmount=20;
-        bw=3
-        bh=0.5
-        tw=bw/칸
-        th=bh/3
-        setting(stack);
+//         uiflag=false;
+//         stage1=true;
+//         stage3=true;
+//         forceAmount=20;
+//         bw=3
+//         bh=0.5
+//         tw=bw/칸
+//         th=bh/3
+//         setting(stack);
         
-      }else if (clickedObjectName === 'Game4') {
-        console.log('Settings button clicked');
-        setting(1);
-        uiflag=false;
-        stage1=true;
-        stage4=true;
-      }else if (clickedObjectName === 'Game5') {
-        console.log('game5');
-        setting(5);
-        uiflag=false;
-        stage5=true;
-        stage1=true;
-        stackHeight=1;
-      }
-    }
-  }else{
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    // console.log(String(parseInt(mouse.x))+" "+String(parseInt(mouse.y)))
-    raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(scene.children);
+//       }else if (clickedObjectName === 'Game4') {
+//         console.log('Settings button clicked');
+//         setting(1);
+//         uiflag=false;
+//         stage1=true;
+//         stage4=true;
+//       }else if (clickedObjectName === 'Game5') {
+//         console.log('game5');
+//         setting(5);
+//         uiflag=false;
+//         stage5=true;
+//         stage1=true;
+//         stackHeight=1;
+//       }
+//     }
+//   }else{
+//     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+//     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+//     // console.log(String(parseInt(mouse.x))+" "+String(parseInt(mouse.y)))
+//     raycaster.setFromCamera(mouse, camera);
+//     const intersects = raycaster.intersectObjects(scene.children);
 
-    if (intersects.length > 0) {
+//     if (intersects.length > 0) {
 
-      const firstIntersect = intersects[0];
-      const clickedObjectName = firstIntersect.object.name;
-      // console.log(clickedObjectName);
-      console.log(firstIntersect);
-      let force2 = new CANNON.Vec3();
+//       const firstIntersect = intersects[0];
+//       const clickedObjectName = firstIntersect.object.name;
+//       // console.log(clickedObjectName);
+//       console.log(firstIntersect);
+//       let force2 = new CANNON.Vec3();
 
-      force2.set(10000*(firstIntersect.point.x-camera.position.x), 10000*(firstIntersect.point.y-camera.position.y), 10000*(firstIntersect.point.z-camera.position.z));
-      firstIntersect.object.userData["body"].applyForce(force2, firstIntersect.object.userData["body"].position);
+//       force2.set(10000*(firstIntersect.point.x-camera.position.x), 10000*(firstIntersect.point.y-camera.position.y), 10000*(firstIntersect.point.z-camera.position.z));
+//       firstIntersect.object.userData["body"].applyForce(force2, firstIntersect.object.userData["body"].position);
  
-    }
-  }
+//     }
+//   }
   
-}
+// }
 
-window.addEventListener('click', onClick, false);
+// window.addEventListener('click', onClick, false);
 
 window.addEventListener("touchstart", handleTouchStart, false);
 window.addEventListener("touchmove", handleTouchMove, false);
@@ -1084,19 +1110,20 @@ if(orthoflag){
 
 const cameraTarget = new THREE.Object3D();
 
-const frontalViewCamera = new THREE.OrthographicCamera(-bw/1.05, bw/1.05, bw/1.05, -bw/1.05, 0.1, 1000);
-frontalViewCamera.position.set(0, bw*0.8, bw*1.5);
-frontalViewCamera.lookAt(0, bw*0.8, 0);
+if(sidecam){
+  var frontalViewCamera = new THREE.OrthographicCamera(-bw/1.05, bw/1.05, bw/1.05, -bw/1.05, 0.1, 1000);
+  frontalViewCamera.position.set(0, bw*0.8, bw*1.5);
+  frontalViewCamera.lookAt(0, bw*0.8, 0);
 
-const sideViewCamera = new THREE.OrthographicCamera(-bw/1.05, bw/1.05, bw/1.05, -bw/1.05, 0.1, 1000);
-sideViewCamera.position.set(bw*1.5, bw*0.8, 0);
-sideViewCamera.lookAt(0, bw*0.8, 0);
+  var sideViewCamera = new THREE.OrthographicCamera(-bw/1.05, bw/1.05, bw/1.05, -bw/1.05, 0.1, 1000);
+  sideViewCamera.position.set(bw*1.5, bw*0.8, 0);
+  sideViewCamera.lookAt(0, bw*0.8, 0);
 
-
-const topViewCamera = new THREE.OrthographicCamera(-bw/1.4, bw/1.4, bw/1.4, -bw/1.4, 0.1, 1000);
-topViewCamera.position.set(0, bh*20, 0);
-topViewCamera.lookAt(0, 0, 0);
-
+  
+}
+  var topViewCamera = new THREE.OrthographicCamera(-bw/1.4, bw/1.4, bw/1.4, -bw/1.4, 0.1, 1000);
+  topViewCamera.position.set(0, bh*20, 0);
+  topViewCamera.lookAt(0, 0, 0);
 // var color = 0xFFFFFF;
 // var intensity = 1;
 // var light = new THREE.DirectionalLight(color, intensity);
@@ -1135,9 +1162,9 @@ let groundgeometry = new THREE.BoxGeometry(100, 2, 100);
 let groundcolor =new THREE.Color('hsl('+String(30+6*(10))+', 100%, 50%)');
 // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00*Math.random() });
 if(lighton){
-    var groundmaterial = new THREE.MeshLambertMaterial({groundcolor});
+    var groundmaterial = new THREE.MeshLambertMaterial({color:groundcolor});
 }else{
-    var groundmaterial = new THREE.MeshBasicMaterial({groundcolor});
+    var groundmaterial = new THREE.MeshBasicMaterial({color:groundcolor});
 }
 let groundmesh = new THREE.Mesh(groundgeometry, groundmaterial);
 groundmesh.position.set(0, -1, 0);
@@ -1873,7 +1900,7 @@ function animate() {
         textMesh.rotation.y =Math.PI / 4;
         scene.add(textMesh)
         renderer.setViewport(0, window.innerHeight-window.innerWidth, window.innerWidth, window.innerWidth);
-        renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
+        renderer.setScissor(0, window.innerHeight-window.innerWidth, window.innerWidth, window.innerHeight);
         renderer.setScissorTest(true);
         renderer.render(scene, camera);   
         
@@ -1948,7 +1975,7 @@ function animate() {
   guide[2].position.z=cubes[0].mesh.position.z
 
   for(var i=0;i<guide.length;i++){
-    guide[i].material.opacity=0.3;
+    guide[i].material.opacity=0.5;
 
   }
   }      
@@ -2325,12 +2352,11 @@ function animate() {
   }
 if(effects.length!=0){
   ring[0].children.forEach((item)=>{
-  item.material.visible=true;
+    item.material.visible=true;
   })
-  ring[0].position.set(cubes[activeFloor].mesh.position.x,cubes[activeFloor].body.position.y-bh/2,cubes[activeFloor].body.position.z)
+  ring[0].position.set(cubes[activeFloor].mesh.position.x,cubes[activeFloor].body.position.y-bh/1.98,cubes[activeFloor].body.position.z)
   // ring[0].quaternion.copy(cubes[activeFloor].body.quaternion);
   effects.forEach((item)=>{
-    
     // item.material.opacity=0
     item[0].scale.y*=1.005;
     // item[0].position.y+=0.03;
@@ -2339,8 +2365,8 @@ if(effects.length!=0){
       box.material.visible=true;
       box.material.opacity=0.1+0.4*Math.cos(Math.PI*(item[0].scale.y-1)/0.8);
       ring[0].children.forEach((seg)=>{
-      seg.material.opacity=0.3+0.5*Math.cos(Math.PI/2+Math.PI/2*(item[0].scale.y-1)/0.8);
-      })
+      seg.material.opacity=0.3+0.5*Math.cos(Math.PI/2+(Math.PI/2*(item[0].scale.y-1)/0.8));
+    })
       
 
     })
@@ -3033,7 +3059,7 @@ camera.updateProjectionMatrix();
 });
 
 function addring(){
-  var w=bw/20
+  var w=bw/8
   
   var geometry0 = new THREE.PlaneGeometry( bw, bw/2 );
   var material0 = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity:0, transparent:true} );
@@ -3110,7 +3136,8 @@ function 이펙트2(floor,num,direction){
   mesh0.rotation.order = 'YXZ';
   mesh0.rotation.x = cubes[floor].mesh.rotation.x-Math.PI / 2;
   mesh0.rotation.z = cubes[floor].mesh.rotation.z;
-  mesh0.position.set(cubes[floor].mesh.position.x,cubes[floor].body.position.y-bh/2,cubes[floor].body.position.z)
+
+  mesh0.position.set(cubes[floor].mesh.position.x,cubes[floor].body.position.y-bh/2+(th/8)*effects.length,cubes[floor].body.position.z)
 
   // mesh2.rotation.order = 'YXZ';
   // mesh2.rotation.x = cubes[floor].mesh.rotation.x-Math.PI / 2;
