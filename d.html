@@ -1820,6 +1820,21 @@ setting(stack);
 addring();
 cubes.forEach((item)=>{
   item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
+  item.mesh.userData.game2048.spawnTile();
 })
 animate();
 
@@ -2354,11 +2369,15 @@ if(effects.length!=0){
   ring[0].children.forEach((item)=>{
     item.material.visible=true;
   })
-  ring[0].position.set(cubes[activeFloor].mesh.position.x,cubes[activeFloor].body.position.y-bh/1.98,cubes[activeFloor].body.position.z)
+  ring[0].position.set(cubes[activeFloor].mesh.position.x,cubes[activeFloor].mesh.position.y-bh/1.98,cubes[activeFloor].mesh.position.z)
   // ring[0].quaternion.copy(cubes[activeFloor].body.quaternion);
   effects.forEach((item)=>{
     // item.material.opacity=0
+    // item[0].position.x=cubes[activeFloor].mesh.position.x
+    // item[0].position.z=cubes[activeFloor].mesh.position.z
+    
     item[0].scale.y*=1.005;
+
     // item[0].position.y+=0.03;
     item[0].scale.x*=1.0025;
     item[0].children.forEach((box)=>{
@@ -2367,8 +2386,6 @@ if(effects.length!=0){
       ring[0].children.forEach((seg)=>{
       seg.material.opacity=0.3+0.5*Math.cos(Math.PI/2+(Math.PI/2*(item[0].scale.y-1)/0.8));
     })
-      
-
     })
     // item.material.opacity=0.1+0.4*Math.cos(Math.PI*(item.scale.y-1)/0.7);
     if(item[0].scale.y>1.8){
@@ -2442,6 +2459,9 @@ if(averageflag){
   avz/=cubes.length;
   axis[0].position.x=avx;
   axis[0].position.z=avz;
+}else{
+  avx=cubes[0].mesh.position.x;
+  avz=cubes[0].mesh.position.z;
 }
 
 
@@ -3112,15 +3132,15 @@ function 이펙트2(floor,num,direction){
   var mesh0 = new THREE.Mesh( geometry0, material0 );
 
   var geometry1 = new THREE.PlaneGeometry( bw, w );
-  var material1 = new THREE.MeshBasicMaterial( { color: colorlst0[colornum0][floor], side: THREE.DoubleSide ,opacity:1, transparent:true} );
+  var material1 = new THREE.MeshBasicMaterial( { color: 0xffffff, side: THREE.DoubleSide ,opacity:1, transparent:true} );
   var mesh1 = new THREE.Mesh( geometry1, material1 );
 
   var geometry2 = new THREE.PlaneGeometry( w*0.6, bw/2 );
-  var material2 = new THREE.MeshBasicMaterial( { color: colorlst0[colornum0][floor], side: THREE.DoubleSide ,opacity:1, transparent:true} );
+  var material2 = new THREE.MeshBasicMaterial( { color: 0xffffff, side: THREE.DoubleSide ,opacity:1, transparent:true} );
   var mesh2 = new THREE.Mesh( geometry2, material2 );
 
   var geometry3 = new THREE.PlaneGeometry( w*0.6, bw/2 );
-  var material3 = new THREE.MeshBasicMaterial( { color: colorlst0[colornum0][floor], side: THREE.DoubleSide ,opacity:1, transparent:true} );
+  var material3 = new THREE.MeshBasicMaterial( { color: 0xffffff, side: THREE.DoubleSide ,opacity:1, transparent:true} );
   var mesh3 = new THREE.Mesh( geometry3, material3 );
 
   mesh0.add(mesh1)
