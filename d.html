@@ -117,7 +117,7 @@ var lastX;
 var lastY;
 var touchx;
 var touchy;
-let forceAmount = bw*bw*bh/25;
+let forceAmount = bw*bw*bh/20;
 
 var ftiles=[];
 
@@ -356,31 +356,31 @@ class Game2048 {
       }
       
       
-      if((stage1||stage3||stage4)||stage2){
-        let force = new CANNON.Vec3();
-        // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
-        switch (direction) {
-          case 'up':
-            force.set(0, 0, -forceAmount*Math.sqrt(this.board[newRow][newCol])*5);
-            break;
-          case 'down':
-            force.set(0, 0, forceAmount*Math.sqrt(this.board[newRow][newCol])*5);
-            break;
-          case 'left':
-            force.set(-forceAmount*Math.sqrt(this.board[newRow][newCol])*5, 0, 0);
-            break;
-          case 'right':
-            force.set(forceAmount*Math.sqrt(this.board[newRow][newCol])*5, 0, 0);
-            break;
-          default:
-            return;
-        }
-        var a=cubes[activeFloor].body.position
-        // cubes[activeFloor].body.applyForce(force, cubes[activeFloor].body.position.clone().vadd(offset));
-        cubes[activeFloor].body.applyForce(force, cubes[activeFloor].body.position);
+      // if(true){
+      //   let force = new CANNON.Vec3();
+      //   // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
+      //   switch (direction) {
+      //     case 'up':
+      //       force.set(0, 0, -forceAmount*Math.sqrt(this.board[newRow][newCol])*5);
+      //       break;
+      //     case 'down':
+      //       force.set(0, 0, forceAmount*Math.sqrt(this.board[newRow][newCol])*5);
+      //       break;
+      //     case 'left':
+      //       force.set(-forceAmount*Math.sqrt(this.board[newRow][newCol])*5, 0, 0);
+      //       break;
+      //     case 'right':
+      //       force.set(forceAmount*Math.sqrt(this.board[newRow][newCol])*5, 0, 0);
+      //       break;
+      //     default:
+      //       return;
+      //   }
+      //   // var a=cubes[this.index].body.position
+      //   // cubes[activeFloor].body.applyForce(force, cubes[activeFloor].body.position.clone().vadd(offset));
+      //   cubes[this.index].body.applyForce(force, cubes[this.index].body.position);
         
 
-      }
+      // }
       
     }
   }
@@ -1789,7 +1789,7 @@ function createTile(idx,height, size,  number = 0, callback){
 function getColorForNumber(number) {
   // Define colors for specific numbers. You can customize these colors as needed.
   const colors = {
-    0: 0x2CCCAC,
+    0: 0xFCCCAC,
     2: 0xCECECE,
     4: 0xEDD0A1,
     8: 0xF2B179,
@@ -1981,14 +1981,12 @@ function animate() {
   }
   
   if(guideflag&&!gameoverflag){
-
-  guide[0].position.x=cubes[0].mesh.position.x
-  guide[0].position.z=cubes[0].mesh.position.z
-  guide[1].position.x=cubes[0].mesh.position.x
-  guide[1].position.z=cubes[0].mesh.position.z
-  guide[2].position.x=cubes[0].mesh.position.x
-  guide[2].position.z=cubes[0].mesh.position.z
-
+    guide[0].position.x=cubes[0].mesh.position.x
+    guide[0].position.z=cubes[0].mesh.position.z
+    guide[1].position.x=cubes[0].mesh.position.x
+    guide[1].position.z=cubes[0].mesh.position.z
+    guide[2].position.x=cubes[0].mesh.position.x
+    guide[2].position.z=cubes[0].mesh.position.z
   for(var i=0;i<guide.length;i++){
     guide[i].material.opacity=0.5;
 
@@ -2165,8 +2163,36 @@ function animate() {
                 tempflag=false
               }
             })
-            if(tempflag) 이펙트2(item.index,num,item.direction);
+            if(tempflag) {
+              tempeffects.push([item.index,num,item.direction]);
+              이펙트2(item.index,num,item.direction);
+            }
           });
+          if(true){
+            var force = new CANNON.Vec3();
+            // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
+            switch (item.direction) {
+              case 'up':
+                force.set(0, 0, -forceAmount*Math.sqrt(num*15+(5-item.index)*(5-item.index)*10));
+                break;
+              case 'down':
+                force.set(0, 0, forceAmount*Math.sqrt(num*15+(5-item.index)*(5-item.index)*10));
+                break;
+              case 'left':
+                force.set(-forceAmount*Math.sqrt(num*15+(5-item.index)*(5-item.index)*10), 0, 0);
+                break;
+              case 'right':
+                force.set(forceAmount*Math.sqrt(num*15+(5-item.index)*(5-item.index)*10), 0, 0);
+                break;
+              default:
+                return;
+            }
+            // var a=cubes[this.index].body.position
+            // cubes[activeFloor].body.applyForce(force, cubes[activeFloor].body.position.clone().vadd(offset));
+            cubes[item.index].body.applyForce(force, cubes[item.index].body.position);
+            
+
+          }
 
           // if (tile.children.length === 0) {
           //   if (tile.children.length >0) {
@@ -2237,6 +2263,7 @@ function animate() {
   if(rmvftile.length!=0&&ftiles.length==rmvftile.length&&ftiles[0].body.boardChanged){
 
     ftiles[0].body.spawnTile(ftiles[0].direction);
+    tempeffects=[];
     // var dupeffects=findDuplicates(tempeffects);
     // var neweffects=removeDuplicates(tempeffects);
     // console.log(dupeffects);
