@@ -2420,9 +2420,9 @@ if(dimlines.length>0){
         
 
       }else{
-        if (sounds[soundnum(item.direction)][0].isPlaying) {
-            sounds[soundnum(item.direction)][0].stop();
-        }
+        // if (sounds[soundnum(item.direction)][0].isPlaying) {
+        //     sounds[soundnum(item.direction)][0].stop();
+        // }
             sounds[soundnum(item.direction)][0].play();
         // cubes[item.index].mesh.userData.game2048.boardpointer[item.c][item.d].push(cubes[item.index].mesh.userData.game2048.boardpointer[item.a][item.b].pop());
         
@@ -3270,7 +3270,7 @@ if(sidecam&&!gameoverflag){
 
 }
 
-if(elapsedTime>1&&sload) {
+if(elapsedTime>0.5&&sload) {
     sounds.sort(function(a, b) {
       return a[1] - b[1];
     });
