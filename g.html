@@ -73,6 +73,8 @@ let dragflag=true;
 let guideflag=true;
 var guide=[];
 var ring=[]
+var soundon=true;
+
 
 let curveflag=true;
 // var curves=[];
@@ -2311,6 +2313,14 @@ if(dimlines.length>0){
 
           }
 
+          const audioLoader = new THREE.AudioLoader();
+            audioLoader.load( 'retro8.ogg', function( buffer ) {
+                sound.setBuffer( buffer );
+                sound.setLoop( true );
+                sound.setVolume( 0.5 );
+                sound.play();
+            });
+
           // if (tile.children.length === 0) {
           //   if (tile.children.length >0) {
           //     tile.remove(tile.children[0]);
@@ -3246,6 +3256,17 @@ const height = window.innerHeight;
 renderer.setSize(width, height);
 camera.aspect = width / height;
 camera.updateProjectionMatrix();
+
+if(soundon){
+    var listener = new THREE.AudioListener();
+    camera.add( listener );
+
+    // create a global audio source
+    var sound = new THREE.Audio( listener );
+}
+
+
+
 });
 
 function addring(){
