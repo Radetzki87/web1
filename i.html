@@ -1253,7 +1253,7 @@ function handleTouchMove(event) {
                   activeFloor=0;
                 }
 
-                
+
             
           }else if(!cubes[activeFloor].mesh.userData.game2048.boardChanged&&!aniflag){
             
@@ -1341,6 +1341,7 @@ function handleTouchMove(event) {
 }
 
 function handleTouchEnd(event) {
+    if(inflag) return;
   event.preventDefault();
   ontouch=false;
   bufflag=true
@@ -3759,7 +3760,7 @@ if(sidecam&&!gameoverflag){
 
 }
 
-if(elapsedTime>2&&sload) {
+if(elapsedTime>3&&sload) {
     sounds.sort(function(a, b) {
       return a[1] - b[1];
     });
