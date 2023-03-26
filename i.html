@@ -442,7 +442,8 @@ sdic.push(lofi_slowdown);
 sdic.push(lofi_somepluk);
 
 
-sdic.sort(() => Math.random() - 0.5);
+
+
 // var colorlst=[[0x9DC8C8,0x58C9B9,0x519D9E,0xD1B6E1],[0xFFEEE4,0xF17F42,0xCE6D39,0x000000],[0x30A9DE,0xEFDC05,0xE53A40,0x090707],[0xA593E0,0xE0E3DA,0xFFFFF3,0x566270],[0xFFBC42,0xD81159,0x8F2D56,0x218380],[0xFBFFB9,0xFDD692,0xEC7357,0x754F44],[0x67D5B5,0xEE7785,0xC89EC4,0x84B1ED],[0xF7AA97,0xED9282,0xDE7E73,0xCFAA9E],[0xF16B6F,0xC5C6B6,0xAACD6E,0x3C3530],[0xf9c00c,0x00b9f1,0x7200da,0xf9320c],[0xd6ecfa,0xf15c5c,0xb84a39,0x6f3826],[0xa5dff9,0xef5285,0x60c5ba,0xfeee7d],[0xff7473,0xffc952,0x47b8e0,0x34314c],[0xe1eef6,0xff5f2e,0xfcbe32,0x004e66]];
 var soundlst=["Retro", "Minimalist", "Modern"]
 var soundlst0=["African", "Coffee", "Wood Block"]
@@ -1139,7 +1140,7 @@ const mouse = new THREE.Vector2();
 var touch0=1-((window.innerWidth*0.53)/(window.innerHeight/2))
 
 function handleTouchStart(event) {
-if(inflag) return;
+// if(inflag) return;
   // event.preventDefault();
   lastX = (event.touches[0].clientX / window.innerWidth)*2 - 1;
   lastY = -(event.touches[0].clientY / window.innerHeight)*2+ 1;
@@ -1229,7 +1230,7 @@ if(inflag) return;
 }
 
 function handleTouchMove(event) {
-    if(inflag) return;
+    // if(inflag) return;
   // event.preventDefault();
     touchx = (event.touches[0].clientX / window.innerWidth)*2 - 1;
     touchy = -(event.touches[0].clientY / window.innerHeight)*2+ 1;
@@ -1341,7 +1342,7 @@ function handleTouchMove(event) {
 }
 
 function handleTouchEnd(event) {
-    if(inflag) return;
+    // if(inflag) return;
   event.preventDefault();
   ontouch=false;
   bufflag=true
@@ -1614,7 +1615,7 @@ world.solver.iterations = 5;
 
 
 document.addEventListener('keydown', (event) => {
-    if(inflag) return;
+    // if(inflag) return;
 if (event.code === 'KeyW') {
   activeFloor++;
   if(activeFloor>cubes.length){
@@ -1668,7 +1669,7 @@ if (event.code === 'KeyW') {
 
 // Add event listener for arrow key presses
 document.addEventListener('keydown', (event) => {
-    if(inflag) return;
+    // if(inflag) return;
   if(aniflag||bounceflag) return;
   let force = new CANNON.Vec3();
   let direction;
@@ -3760,7 +3761,7 @@ if(sidecam&&!gameoverflag){
 
 }
 
-if(elapsedTime>3&&sload) {
+if(elapsedTime>2&&sload) {
     sounds.sort(function(a, b) {
       return a[1] - b[1];
     });
@@ -3768,10 +3769,11 @@ if(elapsedTime>3&&sload) {
       return a[1] - b[1];
     });
     sload=false;
-    for(var i=0;i<sdic.length;i++){
+    for(var i=0;i<6;i++){
         soundic[sdic[i][0]].setLoop( true );
     }
-    inflag=false;
+    sdic.sort(() => Math.random() - 0.5);
+    // inflag=false;
     // soundic[sdic[5][0]].play();
     
 } 
