@@ -64,7 +64,7 @@ let stage5=false;
 let addflag=false;
 let mergeflag=false;
 let bounceflag=false;
-let sidecam=false;
+let sidecam=true;
 let arrowon=false;
 let averageflag=false;
 let lighton=true;
@@ -76,7 +76,7 @@ let guideflag=true;
 var guide=[];
 var ring=[]
 var soundon=true;
-// var sounds=[];
+// var sounds=[];s
 var soundname=["LoFi-HiHat-LS Credo Hat 1.WAV","LoFi-HiHat-LS Credo Hat 2.WAV","LoFi-HiHat-LS Credo Hat 3.WAV","LoFi-HiHat-LS Final Hat 1.WAV","LoFi-HiHat-LS Final Hat 2.WAV","LoFi-HiHat-LS Final Hat 3.WAV","LoFi-HiHat-LS Smoke It Hat 1.WAV","LoFi-HiHat-LS Smoke It Hat 2.WAV","LoFi-HiHat-LS Smoke It Hat 3.WAV","LoFi-HiHat-LS Underwater Hat 1.WAV","LoFi-HiHat-LS Underwater Hat 2.WAV","LoFi-HiHat-LS Underwater Hat 3.WAV","LoFi-HiHat-LS With U Hats 1.WAV","LoFi-HiHat-LS With U Hats 2.WAV","LoFi-HiHat-LS With U Open.WAV","LoFi-Hit-LS Underwater Syn.WAV","LoFi-Kick-LS Credo 808.WAV","LoFi-Kick-LS Credo Kik 1.WAV","LoFi-Kick-LS Credo Kik 2.WAV","LoFi-Kick-LS Final 808.WAV","LoFi-Kick-LS Final Kick 1.WAV","LoFi-Kick-LS Final Kick 2.WAV","LoFi-Kick-LS Smoke It 808.WAV","LoFi-Kick-LS Smoke It Kik 1.WAV","LoFi-Kick-LS Smoke It Kik 2.WAV","LoFi-Kick-LS Underwater 808 1.WAV","LoFi-Kick-LS Underwater 808 2.WAV","LoFi-Kick-LS Underwater Kick.WAV","LoFi-Kick-LS With U 808.WAV","LoFi-Kick-LS With U Kick 1.WAV","LoFi-Kick-LS With U Kick 2.WAV","LoFi-Loop-Drum-LS Smoke It Top.WAV","LoFi-Loop-Music-LS Credo Lp 1.WAV","LoFi-Loop-Music-LS Credo Lp 2.WAV","LoFi-Loop-Music-LS Final Call 90.WAV","LoFi-Loop-Music-LS Smoke It G.WAV","LoFi-Loop-Music-LS Underwater FM.WAV","LoFi-Loop-Music-LS With U Lp.WAV","LoFi-Perc-LS Credo Perc 2.WAV","LoFi-Perc-LS Credo Perc 3.WAV","LoFi-Perc-LS Credo Perc 4.WAV","LoFi-Perc-LS Final Perc 1.WAV","LoFi-Perc-LS Final Perc 2.WAV","LoFi-Perc-LS Final Perc 3.WAV","LoFi-Perc-LS Final Perc 4.WAV","LoFi-Perc-LS Smoke It Sight.WAV","LoFi-Perc-LS Smoke It Tri.WAV","LoFi-Perc-LS Smoke It Woody.WAV","LoFi-Perc-LS Underwater Click.WAV","LoFi-Perc-LS Underwater Shak.WAV","LoFi-Perc-LS Underwater Tamb.WAV","LoFi-Perc-LS Underwater Tom.WAV","LoFi-Perc-LS With U Cave.WAV","LoFi-Perc-LS With U Dig.WAV","LoFi-Perc-LS With U Rim.WAV","LoFi-Perc-LS With U Tri.WAV","LoFi-SFX-LS Credo FX Boom.WAV","LoFi-SFX-LS Credo Riser.WAV","LoFi-SFX-LS Final FX 1.WAV","LoFi-SFX-LS Final FX 2.WAV","LoFi-Snap-LS Underwater Snp.WAV","LoFi-Snare-LS Credo Snare.WAV","LoFi-Snare-LS Credo SnrClap.WAV","LoFi-Snare-LS Final Snare.WAV","LoFi-Snare-LS Final SnrClp.WAV","LoFi-Snare-LS Smoke It Snare 1.WAV","LoFi-Snare-LS Smoke It Snare 2.WAV","LoFi-Snare-LS Smoke It Snare 3.WAV","LoFi-Snare-LS Underwater Snare 1.WAV","LoFi-Snare-LS Underwater Snare 2.WAV","LoFi-Snare-LS With U Snare 1.WAV","LoFi-Snare-LS With U Snare 2.WAV","LoFi-Snare-LS With U Snare 3.WAV","LoFi-Vocal-LS Final Vox.WAV","LoFi-Vocal-LS Smoke It Vox 1.WAV","LoFi-Vocal-LS Smoke It Vox 2.WAV","LoFi-Vocal-LS Underwater FM.WAV","LoFi-Vocal-LS With U Vox 1.WAV","LoFi-Vocal-LS With U Vox 2.WAV","LoFi-HiHat-LS Credo Hat 1.WAV","LoFi-HiHat-LS Credo Hat 2.WAV","LoFi-HiHat-LS Credo Hat 3.WAV","LoFi-HiHat-LS Final Hat 1.WAV","LoFi-HiHat-LS Final Hat 2.WAV","LoFi-HiHat-LS Final Hat 3.WAV","LoFi-HiHat-LS Smoke It Hat 1.WAV","LoFi-HiHat-LS Smoke It Hat 2.WAV","LoFi-HiHat-LS Smoke It Hat 3.WAV","LoFi-HiHat-LS Underwater Hat 1.WAV","LoFi-HiHat-LS Underwater Hat 2.WAV","LoFi-HiHat-LS Underwater Hat 3.WAV","LoFi-HiHat-LS With U Hats 1.WAV","LoFi-HiHat-LS With U Hats 2.WAV","LoFi-HiHat-LS With U Open.WAV","LoFi-Hit-LS Underwater Syn.WAV","LoFi-Kick-LS Credo 808.WAV","LoFi-Kick-LS Credo Kik 1.WAV","LoFi-Kick-LS Credo Kik 2.WAV","LoFi-Kick-LS Final 808.WAV","LoFi-Kick-LS Final Kick 1.WAV","LoFi-Kick-LS Final Kick 2.WAV","LoFi-Kick-LS Smoke It 808.WAV","LoFi-Kick-LS Smoke It Kik 1.WAV","LoFi-Kick-LS Smoke It Kik 2.WAV","LoFi-Kick-LS Underwater 808 1.WAV","LoFi-Kick-LS Underwater 808 2.WAV","LoFi-Kick-LS Underwater Kick.WAV","LoFi-Kick-LS With U 808.WAV","LoFi-Kick-LS With U Kick 1.WAV","LoFi-Kick-LS With U Kick 2.WAV","LoFi-Loop-Drum-LS Smoke It Top.WAV","LoFi-Loop-Music-LS Credo Lp 1.WAV","LoFi-Loop-Music-LS Credo Lp 2.WAV","LoFi-Loop-Music-LS Final Call 90.WAV","LoFi-Loop-Music-LS Smoke It G.WAV","LoFi-Loop-Music-LS Underwater FM.WAV","LoFi-Loop-Music-LS With U Lp.WAV","LoFi-Perc-LS Credo Perc 2.WAV","LoFi-Perc-LS Credo Perc 3.WAV","LoFi-Perc-LS Credo Perc 4.WAV","LoFi-Perc-LS Final Perc 1.WAV","LoFi-Perc-LS Final Perc 2.WAV","LoFi-Perc-LS Final Perc 3.WAV","LoFi-Perc-LS Final Perc 4.WAV","LoFi-Perc-LS Smoke It Sight.WAV","LoFi-Perc-LS Smoke It Tri.WAV","LoFi-Perc-LS Smoke It Woody.WAV","LoFi-Perc-LS Underwater Click.WAV","LoFi-Perc-LS Underwater Shak.WAV","LoFi-Perc-LS Underwater Tamb.WAV","LoFi-Perc-LS Underwater Tom.WAV","LoFi-Perc-LS With U Cave.WAV","LoFi-Perc-LS With U Dig.WAV","LoFi-Perc-LS With U Rim.WAV","LoFi-Perc-LS With U Tri.WAV","LoFi-SFX-LS Credo FX Boom.WAV","LoFi-SFX-LS Credo Riser.WAV","LoFi-SFX-LS Final FX 1.WAV","LoFi-SFX-LS Final FX 2.WAV","LoFi-Snap-LS Underwater Snp.WAV","LoFi-Snare-LS Credo Snare.WAV","LoFi-Snare-LS Credo SnrClap.WAV","LoFi-Snare-LS Final Snare.WAV","LoFi-Snare-LS Final SnrClp.WAV","LoFi-Snare-LS Smoke It Snare 1.WAV","LoFi-Snare-LS Smoke It Snare 2.WAV","LoFi-Snare-LS Smoke It Snare 3.WAV","LoFi-Snare-LS Underwater Snare 1.WAV","LoFi-Snare-LS Underwater Snare 2.WAV","LoFi-Snare-LS With U Snare 1.WAV","LoFi-Snare-LS With U Snare 2.WAV","LoFi-Snare-LS With U Snare 3.WAV","LoFi-Vocal-LS Final Vox.WAV","LoFi-Vocal-LS Smoke It Vox 1.WAV","LoFi-Vocal-LS Smoke It Vox 2.WAV","LoFi-Vocal-LS Underwater FM.WAV","LoFi-Vocal-LS With U Vox 1.WAV","LoFi-Vocal-LS With U Vox 2.WAV","LoFi-Clap-ADSR Clap Delay.WAV","LoFi-Clap-ADSR Clap.WAV","LoFi-Clap-ADSR ClapDown.WAV","LoFi-Clap-ADSR Clappy.WAV","LoFi-Clap-ADSR Snap.WAV","LoFi-HiHat-ADSR Hat 2.WAV","LoFi-HiHat-ADSR Hat 3.WAV","LoFi-HiHat-ADSR Hat 5.WAV","LoFi-HiHat-ADSR Hat 6.WAV","LoFi-Hit-ADSR Pluck Cmaj7.WAV","LoFi-Kick-ADSR 808 Drop.WAV","LoFi-Kick-ADSR Kick Lite.WAV","LoFi-Kick-ADSR Kick Pop.WAV","LoFi-Kick-ADSR Kick Punch.WAV","LoFi-Kick-ADSR Kick Slam.WAV","LoFi-Loop-ADSR SlowDown.WAV","LoFi-Perc-ADSR Perc 1.WAV","LoFi-Perc-ADSR Perc 2.WAV","LoFi-Perc-ADSR Perc 3.WAV","LoFi-Perc-ADSR Perc 4.WAV","LoFi-Perc-ADSR Perc 5.WAV","LoFi-Perc-ADSR Perc 6.WAV","LoFi-Perc-ADSR Perc 7.WAV","LoFi-Snare-ADSR Rim.WAV","LoFi-Snare-ADSR Snare Crack.WAV","LoFi-Snare-ADSR SnarePit.WAV","LoFi-Snare-ADSR Snr 1.WAV","LoFi-Snare-ADSR Snr 2.WAV","LoFi-Snare-ADSR Snr 3.WAV","LoFi-Snare-ADSR Snr 4.WAV","80s-Bass-F9 GH DX Bass 1 D.WAV","80s-Bass-F9 GH DX Bass 2 D.WAV","80s-Bass-F9 GH JX Bass 1 D.WAV","80s-Bass-F9 GH JX Bass 2 D.WAV","80s-Clap-F9 GH Grid Clap.WAV","80s-Cymbal-F9 GH Grid Cym.WAV","80s-Hat-F9 GH Grid Cl Hat.WAV","80s-Hat-F9 GH Grid Op Hat.WAV","80s-Kick-F9 GH Grid Kick Amb.WAV","80s-Kick-F9 GH Grid Kick Non Lin.WAV","80s-Pad-F9 GH PSD Keys D.WAV","80s-Perc-F9 GH Grid Cbell.WAV","80s-Perc-F9 GH Grid Hi Cng.WAV","80s-Perc-F9 GH Grid Low Cng.WAV","80s-Perc-F9 GH Grid Tamb.WAV","80s-Rim-F9 GH Grid Rim.WAV","80s-Shaker-F9 GH Grid Shkr.WAV","80s-Snare-F9 GH Grid Amb Snr.WAV","80s-Snare-F9 GH Grid Dry Snr.WAV","80s-Synth-F9 GH Capri Hit D.WAV","80s-Synth-F9 GH Capri Hit2 D.WAV","80s-Synth-F9 GH Capri Seq D.WAV","80s-Synth-F9 GH CS Pluck D.WAV","80s-Synth-F9 GH Decpt FX D.WAV","80s-Synth-F9 GH Spaced D.WAV","80s-Synth-F9 GH Voices D.WAV","80s-Synth-F9 GH VS Twang D.WAV","80s-Tom-F9 GH Grid HTom.WAV","80s-Tom-F9 GH Grid LTom.WAV","80s-Tom-F9 GH Simm Hi.WAV","80s-Tom-F9 GH Simm Low.WAV","80s-Tom-F9 GH Simm Mid.WAV","FutureBass-Bass-FD guessG.WAV","FutureBass-Chord-FD minor G.WAV","FutureBass-Clap-FD kobe.WAV","FutureBass-Clap-FD room.WAV","FutureBass-Cymbal-FD bleach.WAV","FutureBass-FX-FD 808.WAV","FutureBass-Hat-FD banka.WAV","FutureBass-Hat-FD hadde.WAV","FutureBass-Hat-FD sucker.WAV","FutureBass-Kick-FD muscle.WAV","FutureBass-Kick-FD profecia.WAV","FutureBass-Loop-Synth-FD chugsC.WAV","FutureBass-Perc-FD what.WAV","FutureBass-Snap-FD gumm.WAV","FutureBass-Snare-FD bouncer.WAV","FutureBass-Vocal-FD blaqD.WAV","DanceHall-Bass-DanceHall 808.WAV","DanceHall-Clap-Luv Clap 1.WAV","DanceHall-Clap-MC01 Clp 1.WAV","DanceHall-Hat-AriK HCl2.WAV","DanceHall-Hat-CP MelHH2.WAV","DanceHall-Hat-DamK HCl2.WAV","DanceHall-Hat-Dirt1 Hat 2.WAV","DanceHall-Kick-Anth Bang.WAV","DanceHall-Kick-Anthem Kik .WAV","DanceHall-Melodic-Vibes Lp 4.WAV","DanceHall-Perc-FilthK Perc.WAV","DanceHall-Perc-PD34 Shr.WAV","DanceHall-Perc-Rag Perc 1.WAV","DanceHall-Rim-MC2 Rim.WAV","DanceHall-Snap-MC2 Snap .WAV","DanceHall-Vocal-MC05 Voc .WAV","FutureBass-Bass-FD guessG.WAV","FutureBass-Clap-FD oldskool.WAV","FutureBass-Clap-FD snip.WAV","FutureBass-Cymbal-FD silcone.WAV","FutureBass-FX-FD eight.WAV","FutureBass-Hat-FD gest.WAV","FutureBass-Hat-FD kitchen.WAV","FutureBass-Hat-FD mili.WAV","FutureBass-Kick-FD coment.WAV","FutureBass-Kick-FD layer.WAV","FutureBass-Loop-Synth-FD synEb1.WAV","FutureBass-Loop-Synth-FD synEb2.WAV","FutureBass-Perc-FD bleu.WAV","FutureBass-Snap-FD motion.WAV","FutureBass-Snare-FD wave.WAV","FutureBass-Vocal-FD faithvox1Eb.WAV","FutureHouse-Bass-25 Hit C.WAV","FutureHouse-Clap-FH Clap 05.WAV","FutureHouse-Clap-FH Clap 23.WAV","FutureHouse-Cymbal-FH 19 Ride.WAV","FutureHouse-FX-Falls-FH Fall 02.WAV","FutureHouse-Hat-FH Hat 13.WAV","FutureHouse-Hat-FH Hat 3.WAV","FutureHouse-Hat-FH Hat 5.WAV","FutureHouse-Kick-FH05 B KikD.WAV","FutureHouse-Kick-FH15 B KGb.WAV","FutureHouse-Loop-Synth-17 Lp D 126.WAV","FutureHouse-Loop-Vocal-VoxLp 08.WAV","FutureHouse-Perc-FH 17 PercX.WAV","FutureHouse-Perc-FH 20 PercX.WAV","FutureHouse-Snare-FH 05 Snr X.WAV","FutureHouse-Synth-FH SynHit18.WAV","IbizaHouse-Bass-IH Bass D 03.WAV","IbizaHouse-Bass-IH Bass Db 05.WAV","IbizaHouse-Clap-IH Clap 03.WAV","IbizaHouse-Clap-IH Clap 05.WAV","IbizaHouse-FX-IH SFX 03.WAV","IbizaHouse-FX-IH SFX 05.WAV","IbizaHouse-Hat-IH Hat 07.WAV","IbizaHouse-Hat-IH Hat 08.WAV","IbizaHouse-Hat-IH Hat 09.WAV","IbizaHouse-Hat-IH Hat 13.WAV","IbizaHouse-Hat-IH Hat 14.WAV","IbizaHouse-Hat-IH Hat 15.WAV","IbizaHouse-Kick-IH Kick 05.WAV","IbizaHouse-Kick-IH Kick 06.WAV","IbizaHouse-Kick-IH Kick 09.WAV","IbizaHouse-Kick-IH Kick 10.WAV","IbizaHouse-Perc-IH Perc 05.WAV","IbizaHouse-Perc-IH Perc 06.WAV","IbizaHouse-Perc-IH Perc 09.WAV","IbizaHouse-Perc-IH Perc 10.WAV","IbizaHouse-Snare-IH Snare 03.WAV","IbizaHouse-Snare-IH Snare 05.WAV","IbizaHouse-Synth-IH Synth D 07.WAV","IbizaHouse-Synth-IH Synth D 08.WAV","IbizaHouse-Synth-IH Synth D 09.WAV","IbizaHouse-Synth-IH Synth Db 13.WAV","IbizaHouse-Synth-IH Synth Db 14.WAV","IbizaHouse-Synth-IH Synth Db 15.WAV","IbizaHouse-Vocal-IH Vox 05.WAV","IbizaHouse-Vocal-IH Vox 06.WAV","IbizaHouse-Vocal-IH Vox 09.WAV","IbizaHouse-Vocal-IH Vox 10.WAV","IbizaHouse-Synth-Loop.ogg","IbizaHouse-Synth-Loop2.ogg","LoFi-Clap-ADSR Clap Delay.WAV","LoFi-Clap-ADSR Clap.WAV","LoFi-Clap-ADSR ClapDown.WAV","LoFi-Clap-ADSR Clappy.WAV","LoFi-Clap-ADSR Snap.WAV","LoFi-HiHat-ADSR Crash.WAV","LoFi-HiHat-ADSR Hat 1.WAV","LoFi-HiHat-ADSR Hat 2.WAV","LoFi-HiHat-ADSR Hat 3.WAV","LoFi-HiHat-ADSR Hat 5.WAV","LoFi-HiHat-ADSR Hat 6.WAV","LoFi-HiHat-ADSR Touch Hat 1.WAV","LoFi-HiHat-ADSR Touch Hat 2.WAV","LoFi-Hit-ADSR Pluck Cmaj7.WAV","LoFi-Kick-ADSR 808 Drop.WAV","LoFi-kICK-ADSR Kick 1.WAV","LoFi-kICK-ADSR Kick 2.WAV","LoFi-Kick-ADSR Kick Lite.WAV","LoFi-Kick-ADSR Kick Pop.WAV","LoFi-Kick-ADSR Kick Punch.WAV","LoFi-Kick-ADSR Kick Slam.WAV","LoFi-Kick-ADSR Touch Kick 1.WAV","LoFi-Kick-ADSR Touch Kick 2.WAV","LoFi-Loop-ADSR  Bed Bass.WAV","LoFi-Loop-ADSR  Bed Pads.WAV","LoFi-Loop-ADSR  Bed Syn.WAV","LoFi-Loop-ADSR 80sSyn.WAV","LoFi-Loop-ADSR SlowDown.WAV","LoFi-Loop-ADSR Touch Bass.WAV","LoFi-Loop-ADSR Touch Pads.WAV","LoFi-Loop-ADSR Touch Piano.WAV","LoFi-Loop-ADSR Touch Syn.WAV","LoFi-Perc-ADSR Perc 1.WAV","LoFi-Perc-ADSR Perc 2.WAV","LoFi-Perc-ADSR Perc 3.WAV","LoFi-Perc-ADSR Perc 4.WAV","LoFi-Perc-ADSR Perc 5.WAV","LoFi-Perc-ADSR Perc 6.WAV","LoFi-Perc-ADSR Perc 7.WAV","LoFi-Perc-ADSR Perc 8.WAV","LoFi-Perc-ADSR Perc 9.WAV","LoFi-Perc-ADSR Touch Perc 1.WAV","LoFi-Perc-ADSR Touch Perc 2.WAV","LoFi-Perc-ADSR Touch Perc 3.WAV","LoFi-SFX-ADSR SFX.WAV","LoFi-Snap-ADSR OV Snap.WAV","LoFi-Snare-ADSR OV Snr 1.WAV","LoFi-Snare-ADSR OV Snr 2.WAV","LoFi-Snare-ADSR Rim.WAV","LoFi-Snare-ADSR Snare Crack.WAV","LoFi-Snare-ADSR SnarePit.WAV","LoFi-Snare-ADSR Snr 1.WAV","LoFi-Snare-ADSR Snr 2.WAV","LoFi-Snare-ADSR Snr 3.WAV","LoFi-Snare-ADSR Snr 4.WAV","LoFi-Snare-ADSR Snr 5.WAV","LoFi-Kit-ADSR Bedroom.ogg","LoFi-Kit-ADSR Midnight.ogg","LoFi-Kit-ADSR SlowDown.ogg","LoFi-Kit-ADSR SomePluk.ogg","LoFi-Kit-ADSR Touch.ogg","Trap-Bass-TR CK BassHit C.WAV","Trap-Clap-TR CK Clap.WAV","Trap-Hat-TR CK 03 Hats.WAV","Trap-Hat-TR CK 07 Hats.WAV","Trap-Hat-TR CK 10 Hats.WAV","Trap-Kick-TR CK 01 Kick.WAV","Trap-Kick-TR CK 02 Kick.WAV","Trap-Perc-TR CK 01 Perc.WAV","Trap-Perc-TR CK 05 Perc.WAV","Trap-Snap-TR CK Snap 2.WAV","Trap-Snare-TR CK 01 Snare.WAV","Trap-Snare-TR CK 05 Snare.WAV","Trap-Synth-TR CK SynHit C.WAV","Trap-Synth-TR CK SynLp G.WAV","Trap-Vocal-TR CK 01 Vox.WAV","Trap-Vocal-TR CK 06 Vox.WAV","LoFi-HiHat-LS Credo Hat 1.WAV","LoFi-HiHat-LS Credo Hat 2.WAV","LoFi-HiHat-LS Credo Hat 3.WAV","LoFi-HiHat-LS Final Hat 1.WAV","LoFi-HiHat-LS Final Hat 2.WAV","LoFi-HiHat-LS Final Hat 3.WAV","LoFi-HiHat-LS Smoke It Hat 1.WAV","LoFi-HiHat-LS Smoke It Hat 2.WAV","LoFi-HiHat-LS Smoke It Hat 3.WAV","LoFi-HiHat-LS Underwater Hat 1.WAV","LoFi-HiHat-LS Underwater Hat 2.WAV","LoFi-HiHat-LS Underwater Hat 3.WAV","LoFi-HiHat-LS With U Hats 1.WAV","LoFi-HiHat-LS With U Hats 2.WAV","LoFi-HiHat-LS With U Open.WAV","LoFi-Hit-LS Underwater Syn.WAV","LoFi-Kick-LS Credo 808.WAV","LoFi-Kick-LS Credo Kik 1.WAV","LoFi-Kick-LS Credo Kik 2.WAV","LoFi-Kick-LS Final 808.WAV","LoFi-Kick-LS Final Kick 1.WAV","LoFi-Kick-LS Final Kick 2.WAV","LoFi-Kick-LS Smoke It 808.WAV","LoFi-Kick-LS Smoke It Kik 1.WAV","LoFi-Kick-LS Smoke It Kik 2.WAV","LoFi-Kick-LS Underwater 808 1.WAV","LoFi-Kick-LS Underwater 808 2.WAV","LoFi-Kick-LS Underwater Kick.WAV","LoFi-Kick-LS With U 808.WAV","LoFi-Kick-LS With U Kick 1.WAV","LoFi-Kick-LS With U Kick 2.WAV","LoFi-Loop-Drum-LS Smoke It Top.WAV","LoFi-Loop-Music-LS Credo Lp 1.WAV","LoFi-Loop-Music-LS Credo Lp 2.WAV","LoFi-Loop-Music-LS Final Call 90.WAV","LoFi-Loop-Music-LS Smoke It G.WAV","LoFi-Loop-Music-LS Underwater FM.WAV","LoFi-Loop-Music-LS With U Lp.WAV","LoFi-Perc-LS Credo Perc 2.WAV","LoFi-Perc-LS Credo Perc 3.WAV","LoFi-Perc-LS Credo Perc 4.WAV","LoFi-Perc-LS Final Perc 1.WAV","LoFi-Perc-LS Final Perc 2.WAV","LoFi-Perc-LS Final Perc 3.WAV","LoFi-Perc-LS Final Perc 4.WAV","LoFi-Perc-LS Smoke It Sight.WAV","LoFi-Perc-LS Smoke It Tri.WAV","LoFi-Perc-LS Smoke It Woody.WAV","LoFi-Perc-LS Underwater Click.WAV","LoFi-Perc-LS Underwater Shak.WAV","LoFi-Perc-LS Underwater Tamb.WAV","LoFi-Perc-LS Underwater Tom.WAV","LoFi-Perc-LS With U Cave.WAV","LoFi-Perc-LS With U Dig.WAV","LoFi-Perc-LS With U Rim.WAV","LoFi-Perc-LS With U Tri.WAV","LoFi-SFX-LS Credo FX Boom.WAV","LoFi-SFX-LS Credo Riser.WAV","LoFi-SFX-LS Final FX 1.WAV","LoFi-SFX-LS Final FX 2.WAV","LoFi-Snap-LS Underwater Snp.WAV","LoFi-Snare-LS Credo Snare.WAV","LoFi-Snare-LS Credo SnrClap.WAV","LoFi-Snare-LS Final Snare.WAV","LoFi-Snare-LS Final SnrClp.WAV","LoFi-Snare-LS Smoke It Snare 1.WAV","LoFi-Snare-LS Smoke It Snare 2.WAV","LoFi-Snare-LS Smoke It Snare 3.WAV","LoFi-Snare-LS Underwater Snare 1.WAV","LoFi-Snare-LS Underwater Snare 2.WAV","LoFi-Snare-LS With U Snare 1.WAV","LoFi-Snare-LS With U Snare 2.WAV","LoFi-Snare-LS With U Snare 3.WAV","LoFi-Vocal-LS Final Vox.WAV","LoFi-Vocal-LS Smoke It Vox 1.WAV","LoFi-Vocal-LS Smoke It Vox 2.WAV","LoFi-Vocal-LS Underwater FM.WAV","LoFi-Vocal-LS With U Vox 1.WAV","LoFi-Vocal-LS With U Vox 2.WAV"]
 
 
@@ -126,6 +126,28 @@ var dancehall = {
     "down":"DanceHall-Hat-CP MelHH2.WAV",
     "left":"DanceHall-Hat-Dirt1 Hat 2.WAV",
     "right":"DanceHall-Hat-Dirt1 Hat 2.WAV",
+    "upper":"11.ogg",
+    "lower":"LoFi-Perc-LS Final Perc 3.WAV",
+  };
+
+    var dancehall2 = {
+    0: "dance_loop0.ogg",
+    2: "4.ogg",
+    // 4: "LoFi-Snare-ADSR Snr 1.WAV",
+    4: "DanceHall-Kick-Anthem Kik .WAV",
+    8: "DanceHall-Kick-Anth Bang.WAV",
+    16: "DanceHall-Clap-Luv Clap 1.WAV",
+    32: "DanceHall-Snap-MC2 Snap .WAV",
+    64: "DanceHall-Clap-MC01 Clp 1.WAV",
+    128: "DanceHall-Perc-FilthK Perc.WAV",
+    256: "DanceHall-Vocal-MC05 Voc .WAV",
+    512: "80s-Tom-F9 GH Grid HTom.WAV",
+    1024: "80s-Synth-F9 GH VS Twang D.WAV",
+    2048: "5.ogg",
+    "up":"dance_loop1.ogg",
+    "down":"dance_loop2.ogg",
+    "left":"dance_loop3.ogg",
+    "right":"dance_loop4.ogg",
     "upper":"11.ogg",
     "lower":"LoFi-Perc-LS Final Perc 3.WAV",
   };
@@ -430,7 +452,7 @@ sdic.push(lofi_finalcall);
 sdic.push(trap_cellar);
 
 sdic.push(futurehouse);
-// sdic.push(f9);
+
 sdic.push(futurebass);
 sdic.push(ibiza1);
 sdic.push(dancehall);
@@ -441,7 +463,13 @@ sdic.push(lofi_midnight);
 sdic.push(lofi_slowdown);
 sdic.push(lofi_somepluk);
 
+sdic.push(dancehall2);
 
+// sdic.push(dancehall2);
+// sdic.push(dancehall2);
+// sdic.push(dancehall2);
+// sdic.push(dancehall2);
+// sdic.push(dancehall2);
 
 
 // var colorlst=[[0x9DC8C8,0x58C9B9,0x519D9E,0xD1B6E1],[0xFFEEE4,0xF17F42,0xCE6D39,0x000000],[0x30A9DE,0xEFDC05,0xE53A40,0x090707],[0xA593E0,0xE0E3DA,0xFFFFF3,0x566270],[0xFFBC42,0xD81159,0x8F2D56,0x218380],[0xFBFFB9,0xFDD692,0xEC7357,0x754F44],[0x67D5B5,0xEE7785,0xC89EC4,0x84B1ED],[0xF7AA97,0xED9282,0xDE7E73,0xCFAA9E],[0xF16B6F,0xC5C6B6,0xAACD6E,0x3C3530],[0xf9c00c,0x00b9f1,0x7200da,0xf9320c],[0xd6ecfa,0xf15c5c,0xb84a39,0x6f3826],[0xa5dff9,0xef5285,0x60c5ba,0xfeee7d],[0xff7473,0xffc952,0x47b8e0,0x34314c],[0xe1eef6,0xff5f2e,0xfcbe32,0x004e66]];
@@ -472,7 +500,7 @@ var lastX;
 var lastY;
 var touchx;
 var touchy;
-let forceAmount = bw*bw*bh/20;
+let forceAmount = bw*bw*bh/25;
 
 var ftiles=[];
 
@@ -1212,7 +1240,7 @@ function handleTouchStart(event) {
         var thisnum=activeFloor
         var playable=true
 
-        for(let i=0;i<sdic.length;i++){
+        for(let i=0;i<6;i++){
             if(soundic[sdic[i][0]].isPlaying){
                 soundic[sdic[i][0]].stop();
             }
@@ -1325,7 +1353,7 @@ function handleTouchMove(event) {
             var thisnum=activeFloor
             var playable=true
 
-            for(let i=0;i<sdic.length;i++){
+            for(let i=0;i<6;i++){
                 if(soundic[sdic[i][0]].isPlaying){
                     soundic[sdic[i][0]].stop();
                 }
@@ -1580,7 +1608,7 @@ world.addBody(groundBody);
 
 
     // groundBody.position.y=boxh/2
-world.gravity.set(0,-7,0);
+world.gravity.set(0,-8,0);
 world.broadphase = new CANNON.NaiveBroadphase();
 world.solver.iterations = 5;
 
@@ -1629,7 +1657,7 @@ if (event.code === 'KeyW') {
     var thisnum=activeFloor
     var playable=true
 
-    for(let i=0;i<sdic.length;i++){
+    for(let i=0;i<6;i++){
         if(soundic[sdic[i][0]].isPlaying){
             soundic[sdic[i][0]].stop();
         }
@@ -1650,7 +1678,7 @@ if (event.code === 'KeyW') {
     var thisnum=activeFloor
     var playable=true
 
-    for(let i=0;i<sdic.length;i++){
+    for(let i=0;i<6;i++){
         if(soundic[sdic[i][0]].isPlaying){
             soundic[sdic[i][0]].stop();
         }
@@ -1949,7 +1977,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
     customMaterial.friction = 0.3
   }
 
-  const body = new CANNON.Body({ mass: 2, shape: shape, material: customMaterial, allowSleep: true,  sleepSpeedLimit: 100, 
+  const body = new CANNON.Body({ mass: 3, shape: shape, material: customMaterial, allowSleep: true,  sleepSpeedLimit: 100, 
   sleepTimeLimit: 0
  });
   body.position.set(0, y, 0);
@@ -2243,118 +2271,155 @@ function animate2() {
 
 let elapsedTime = 0;
 const clock = new THREE.Clock();
+sdic.sort(() => Math.random() - 0.5);
 var bsounds=[];
 var sounds=[];
 var soundic={};
 
-if(soundon){
-    var listener = new THREE.AudioListener();
-    var audioLoader = new THREE.AudioLoader();
-    
-    for(let k=0;k<soundname.length;k++){
-        audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+soundname[k], function( buffer )
+for(let i=0;i<6;i++){
+    let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
+    for(let j=1;j<temp.length;j++){
+        var listener = new THREE.AudioListener();
+        var audioLoader = new THREE.AudioLoader();
+        audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
         {   
             var sound = new THREE.Audio( listener );
             sound.setBuffer( buffer );
             sound.setVolume( 0.3 );
-            soundic[soundname[k]]=sound;
+            soundic[sdic[i][temp[j]]]=sound;
             
-        });
-
-    }
-
-    for(let i=0;i<12;i++){
-        audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+String(i)+".ogg", function( buffer )
-        {   
-            var sound = new THREE.Audio( listener );
-            sound.setBuffer( buffer );
-            sound.setVolume( 0.3 );
-            sounds.push([sound, i])
-            soundic[String(i)+".ogg"]=sound;
             
         });
         
+        
     }
+    
 
-    audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/0.ogg', function( buffer )
-        {   
-            var sound = new THREE.Audio( listener );
-            sound.setBuffer( buffer );
-            sound.setLoop( true );
-            sound.setVolume( 0.3 );
-            bsounds.push([sound, 5])
-            
-        });
 
-    audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/a0.ogg', function( buffer )
-        {   
-            var sound = new THREE.Audio( listener );
-            sound.setBuffer( buffer );
-            sound.setVolume( 0.3 );
-            sound.setLoop( true );
-            bsounds.push([sound, 1])
-            soundic["a0.ogg"]=sound;
-            
-        });
-    audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/b0.ogg', function( buffer )
-        {   
-            var sound = new THREE.Audio( listener );
-            sound.setBuffer( buffer );
-            sound.setVolume( 0.3 );
-            sound.setLoop( true );
-            bsounds.push([sound, 0])
-            soundic["b0.ogg"]=sound;
-            
-        });
-    audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/c0.ogg', function( buffer )
-        {   
-            var sound = new THREE.Audio( listener );
-            sound.setBuffer( buffer );
-            sound.setVolume( 0.3 );
-            sound.setLoop( true );
-            bsounds.push([sound, 3])
-            soundic["c0.ogg"]=sound;
-            
-        });
-    // audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/d0.ogg', function( buffer )
-    //     {   
-    //         var sound = new THREE.Audio( listener );
-    //         sound.setBuffer( buffer );
-    //         sound.setVolume( 0.3 );
-    //         sound.setLoop( true );
-
-    //         bsounds.push([sound, 4])
-    //         soundic["d0.ogg"]=sound;
-            
-    //     });
-    audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/e0.ogg', function( buffer )
-        {   
-            var sound = new THREE.Audio( listener );
-            sound.setBuffer( buffer );
-            sound.setVolume( 0.3 );
-            sound.setLoop( true );
-            bsounds.push([sound, 2])
-            soundic["e0.ogg"]=sound;
-            
-        });
-
-    audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/FutureBass-Loop-Synth-FD chugsC.WAV', function( buffer )
-        {   
-            var sound = new THREE.Audio( listener );
-            sound.setBuffer( buffer );
-            sound.setVolume( 0.3 );
-            sound.setLoop( true );
-            // bsounds.push([sound, 0])
-            // bsounds.push([sound, 1])
-            // bsounds.push([sound, 2])
-            // bsounds.push([sound, 3])
-            bsounds.push([sound, 4])
-            // bsounds.push([sound, 5])
-            soundic["FutureBass-Loop-Synth-FD chugsC.WAV"]=sound;
-            
-        });
-    // create a global audio source
 }
+for(let i=0;i<6;i++){
+    var listener = new THREE.AudioListener();
+    var audioLoader = new THREE.AudioLoader();
+    audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][0], function( buffer )
+        {   
+            var sound = new THREE.Audio( listener );
+            sound.setBuffer( buffer );
+            sound.setVolume( 0.3 );
+            sound.setLoop( true );
+            soundic[sdic[i][0]]=sound;
+           
+            
+            
+        });
+}
+// if(soundon){
+//     var listener = new THREE.AudioListener();
+//     var audioLoader = new THREE.AudioLoader();
+    
+//     for(let k=0;k<soundname.length;k++){
+//         audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+soundname[k], function( buffer )
+//         {   
+//             var sound = new THREE.Audio( listener );
+//             sound.setBuffer( buffer );
+//             sound.setVolume( 0.3 );
+//             soundic[soundname[k]]=sound;
+            
+//         });
+
+//     }
+
+//     for(let i=0;i<12;i++){
+//         audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+String(i)+".ogg", function( buffer )
+//         {   
+//             var sound = new THREE.Audio( listener );
+//             sound.setBuffer( buffer );
+//             sound.setVolume( 0.3 );
+//             sounds.push([sound, i])
+//             soundic[String(i)+".ogg"]=sound;
+            
+//         });
+        
+//     }
+
+//     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/0.ogg', function( buffer )
+//         {   
+//             var sound = new THREE.Audio( listener );
+//             sound.setBuffer( buffer );
+//             sound.setLoop( true );
+//             sound.setVolume( 0.3 );
+//             bsounds.push([sound, 5])
+            
+//         });
+
+//     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/a0.ogg', function( buffer )
+//         {   
+//             var sound = new THREE.Audio( listener );
+//             sound.setBuffer( buffer );
+//             sound.setVolume( 0.3 );
+//             sound.setLoop( true );
+//             bsounds.push([sound, 1])
+//             soundic["a0.ogg"]=sound;
+            
+//         });
+//     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/b0.ogg', function( buffer )
+//         {   
+//             var sound = new THREE.Audio( listener );
+//             sound.setBuffer( buffer );
+//             sound.setVolume( 0.3 );
+//             sound.setLoop( true );
+//             bsounds.push([sound, 0])
+//             soundic["b0.ogg"]=sound;
+            
+//         });
+//     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/c0.ogg', function( buffer )
+//         {   
+//             var sound = new THREE.Audio( listener );
+//             sound.setBuffer( buffer );
+//             sound.setVolume( 0.3 );
+//             sound.setLoop( true );
+//             bsounds.push([sound, 3])
+//             soundic["c0.ogg"]=sound;
+            
+//         });
+//     // audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/d0.ogg', function( buffer )
+//     //     {   
+//     //         var sound = new THREE.Audio( listener );
+//     //         sound.setBuffer( buffer );
+//     //         sound.setVolume( 0.3 );
+//     //         sound.setLoop( true );
+
+//     //         bsounds.push([sound, 4])
+//     //         soundic["d0.ogg"]=sound;
+            
+//     //     });
+//     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/e0.ogg', function( buffer )
+//         {   
+//             var sound = new THREE.Audio( listener );
+//             sound.setBuffer( buffer );
+//             sound.setVolume( 0.3 );
+//             sound.setLoop( true );
+//             bsounds.push([sound, 2])
+//             soundic["e0.ogg"]=sound;
+            
+//         });
+
+//     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/FutureBass-Loop-Synth-FD chugsC.WAV', function( buffer )
+//         {   
+//             var sound = new THREE.Audio( listener );
+//             sound.setBuffer( buffer );
+//             sound.setVolume( 0.3 );
+//             sound.setLoop( true );
+//             // bsounds.push([sound, 0])
+//             // bsounds.push([sound, 1])
+//             // bsounds.push([sound, 2])
+//             // bsounds.push([sound, 3])
+//             bsounds.push([sound, 4])
+//             // bsounds.push([sound, 5])
+//             soundic["FutureBass-Loop-Synth-FD chugsC.WAV"]=sound;
+            
+//         });
+//     // create a global audio source
+// }
 
 
 
@@ -2526,7 +2591,7 @@ function animate() {
     for(var i=0;i<cubes.length;i++){
       if(i!=0){
         let force0 = new CANNON.Vec3();
-        force0.set(2*(-cubes[i-1].body.position.x+cubes[i].body.position.x), 0, 2*(-cubes[i-1].body.position.z+cubes[i].body.position.z));
+        force0.set((-cubes[i-1].body.position.x+cubes[i].body.position.x), 0, (-cubes[i-1].body.position.z+cubes[i].body.position.z));
         if(!gameoverflag) cubes[i].body.applyForce(force0, cubes[i].body.position);
       
         var dir = new THREE.Vector3(2*(-cubes[i-1].body.position.x+cubes[i].body.position.x), 0, 2*(-cubes[i-1].body.position.z+cubes[i].body.position.z));
@@ -3679,8 +3744,8 @@ effects.forEach((item) => {
 
 // scene.background = new THREE.Color(0x4e808d);
 scene.background = new THREE.Color(colorlst[colornum][0]);
-var width = window.innerWidth/1.2;
-var height = window.innerWidth/1.2;
+var width = window.innerWidth/1.4;
+var height = window.innerWidth/1.4;
 renderer.setViewport(window.innerWidth/2-width/2, 0, width, height);
 renderer.setScissor(window.innerWidth/2-width/2, 0, width, height);
 renderer.setScissorTest(true);
@@ -3769,10 +3834,10 @@ if(elapsedTime>2&&sload) {
       return a[1] - b[1];
     });
     sload=false;
-    for(var i=0;i<6;i++){
-        soundic[sdic[i][0]].setLoop( true );
-    }
-    sdic.sort(() => Math.random() - 0.5);
+    // for(var i=0;i<6;i++){
+    //     soundic[sdic[i][0]].setLoop( true );
+    // }
+    
     // inflag=false;
     // soundic[sdic[5][0]].play();
     
