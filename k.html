@@ -80,6 +80,13 @@ window.uilist=uilst;
 var uidelta=1;
 var tilemold=[];
 var textmold=[];
+let mouth1=[];
+let mouth2=[]; 
+let mouth3=[]; 
+let eye1=[];
+let eye2=[]; 
+let eye3=[];
+
 
 // mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/face.mtl', function(materials) {
 //     materials.preload();
@@ -628,7 +635,7 @@ var lastX;
 var lastY;
 var touchx;
 var touchy;
-let forceAmount = bw*bw*bh/25;
+let forceAmount = bw*bw*bh/2;
 
 let unitimg={};
 unitimg["scroll"] = new Image();
@@ -1386,7 +1393,7 @@ function handleTouchStart(event) {
 	if(lastY>0){
 		for(var i=0;i<5;i++){
 			// var tempy;
-			if(lastY>-0.4+touch0+0.1*i&&lastY<-0.3+touch0+0.1*i){
+			if(lastY>-0.35+touch0+0.1*i&&lastY<-0.25+touch0+0.1*i){
 				activeFloor=i;
 				if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
 						soundic[sdic[activeFloor]["upper"]].stop();
@@ -1429,7 +1436,7 @@ function handleTouchMove(event) {
 						buffloor=activeFloor
 						bufflag=false
 					}
-					if((lastX<-0.8||lastX>0.8)&&lastY>-0.15&&lastY<0.23){
+					if((lastX<-0.8||lastX>0.8)&&lastY>-0.3&&lastY<0){
 							activeFloor=buffloor+parseInt((touchy-lastY)*12);
 							if(activeFloor>cubes.length){
 									activeFloor=cubes.length;
@@ -2155,15 +2162,76 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			mesh1.position.set(height*0.3*ratio,0+dify*2,depth/2)
 			mesh1.userData["1"]=true;
 			mesh.add(mesh1)
-			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0x00C85F}));
-			mesh1.position.set(-height*0.3*ratio,0+dify*2,depth/2)
+			var mesh2 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0x00C85F}));
+			mesh2.position.set(-height*0.3*ratio,0+dify*2,depth/2)
+			mesh2.userData["1"]=true;
+			mesh.add(mesh2)
+
+			eye1.push([mesh1,mesh2])
+
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.3*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
+			mesh1.position.set(height*0.3*ratio,0+dify*2,depth/2)
 			mesh1.userData["1"]=true;
 			mesh.add(mesh1)
+
+			var mesh2 = new THREE.Mesh(new THREE.BoxGeometry(height*0.3*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
+			mesh2.position.set(-height*0.3*ratio,0+dify*2,depth/2)
+			mesh2.userData["1"]=true;
+			mesh.add(mesh2)
+
+			var mesh3 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.2*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
+			mesh3.position.set(height*0.3*ratio,-height*0.05+dify*2,depth/2)
+			mesh3.userData["1"]=true;
+			mesh.add(mesh3)
+			
+			var mesh4 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.2*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
+			mesh4.position.set(-height*0.3*ratio,-height*0.05+dify*2,depth/2)
+			mesh4.userData["1"]=true;
+			mesh.add(mesh4)
+			eye2.push([mesh1,mesh2,mesh3,mesh4])
+
+
+
 
 			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.4*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0x00C85F}));
 			mesh1.position.set(0,0-height*0.1,depth/2)
 			mesh1.userData["1"]=true;
 			mesh.add(mesh1)
+			mouth1.push(mesh1)
+
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xFFA401, visible:false}));
+			mesh1.position.set(0,0-height*0.1,depth/2)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+			mouth2.push(mesh1)
+
+
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.2*ratio, height*0.4*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0x10181F}));
+			mesh1.position.set(-width/2.3,0+height*0.05,depth/2.0)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+			// mouth1.push(mesh1)
+
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.4*ratio, height*0.2*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0x10181F}));
+			mesh1.position.set(-width/2.3,0+height*0.05,depth/2.0)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+			// mouth1.push(mesh1)
+
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.5*ratio, height*0.05*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]-0x111111, alphaTest:-1}));
+			mesh1.position.set(-width/2.3,0-height*0.25,depth/2.04)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.5*ratio, height*0.05*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]-0x111111,alphaTest:-1}));
+			mesh1.position.set(-width/2.3,0-height*0.3,depth/2.04)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.5*ratio, height*0.05*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]-0x111111,alphaTest:-1}));
+			mesh1.position.set(-width/2.3,0-height*0.35,depth/2.04)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+
 
 			// var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*1.01, height*0.1, depth*1.01), new THREE.MeshLambertMaterial({ color: 0xffffff}));
 			// mesh1.position.set(0,height/2.1,0)
@@ -2847,13 +2915,47 @@ function animate() {
 	elapsedTime += clock.getDelta();
 
 	if(tilting){
-		for(var i=1;i<cubes.length;i++){
+		for(var i=0;i<cubes.length;i++){
+			
 			let force0 = new CANNON.Vec3();
-			var forcex=(-cubes[i-1].body.position.x+cubes[i].body.position.x)
-			var forcez=(-cubes[i-1].body.position.z+cubes[i].body.position.z)
+			if(i==0){
+				var forcex=0
+				var forcez=0
+			}else{
+				var forcex=(-cubes[i-1].body.position.x+cubes[i].body.position.x)
+				var forcez=(-cubes[i-1].body.position.z+cubes[i].body.position.z)
+			}
+			
+			if(gameoverflag){
+
+				mouth1[i].material.visible=false;
+				mouth2[i].material.visible=true;
+				mouth2[i].material.color=new THREE.Color(0xF86F08);
+				eye1[i][0].material.visible=false;
+				eye1[i][1].material.visible=false;
+				eye2[i][0].material.visible=true;
+				eye2[i][1].material.visible=true;
+				eye2[i][2].material.visible=true;
+				eye2[i][3].material.visible=true;
+				
+			}else{
+				if(Math.abs(cubes[i].mesh.rotation.x)>0.07||Math.abs(cubes[i].mesh.rotation.z)>0.07||Math.abs(forcex>bw/5)||Math.abs(forcez>bw/5)){
+					mouth1[i].material.visible=false;
+					mouth2[i].material.visible=true;
+					eye1[i][0].material.color=new THREE.Color(0xFFA401);
+					eye1[i][1].material.color=new THREE.Color(0xFFA401);
+				}else{
+					mouth1[i].material.visible=true;
+					mouth2[i].material.visible=false;
+					eye1[i][0].material.color=new THREE.Color(0x00C85F);
+					eye1[i][1].material.color=new THREE.Color(0x00C85F);
+				}
+			}
+			if(i==0)continue;
 			if(Math.abs(forcex>bw/2)||Math.abs(forcez>bw/2)){
 				forcex=0
 				forcez=0
+
 			}else{
 				if(forcex>1.5){
 					forcex=1.5;
@@ -2873,6 +2975,10 @@ function animate() {
 			force0.set(forcex*1.5, 0, forcez*1.5);
 			// console.log(String(forcex)+" "+String(forcey));
 			cubes[i].body.applyForce(force0, cubes[i].body.position);
+
+
+
+
 
 		}
 
@@ -3580,7 +3686,20 @@ if(effects.length!=0){
 
 
 
+	var overlimit=0;
 
+	cubes.forEach((item, index)=>{
+		if(index>3&&item.mesh.position.y<bh*4){
+			// overlimit++;
+			gameoverflag=true;
+			activeFloor=cubes.length
+		}
+		
+	})
+	if(overlimit>cubes.length-3){
+		gameoverflag=true;
+		activeFloor=cubes.length
+	}
 
 
 	if(orthoflag){
@@ -3717,6 +3836,17 @@ if(effects.length!=0){
 					}
 				}
 			}
+		}else{
+			cubes.forEach((item,index)=>{
+				if(arrowon)arrows[index].children[0].material.opacity=0;
+				item.mesh.material.opacity = 1
+				// item.mesh.material.alphaTest=1
+				item.mesh.material.transparent = true;
+				item.mesh.children.forEach((tile) => {
+					tile.material.opacity =  1;
+					tile.material.transparent = true;
+				})
+			})
 		}
 	}
 
@@ -3731,15 +3861,7 @@ if(effects.length!=0){
 		item.mesh.quaternion.copy(item.body.quaternion);
 	})
 	
-	var overlimit=0;
 
-	cubes.forEach((item, index)=>{
-		if(index>3&&item.mesh.position.y<bh*4){
-			// overlimit++;
-			gameoverflag=true;
-		}
-		
-	})
 	// Update the position and rotation of the meshes to match their physics bodies
 	// scene.children.forEach((object) => {
 
@@ -3755,9 +3877,7 @@ if(effects.length!=0){
 
 // });
 
-if(overlimit>cubes.length-3){
-	gameoverflag=true;
-}
+
 
 // Render the scene
 // renderer.setSize(window.innerWidth, window.innerHeight);
@@ -3778,6 +3898,9 @@ if(overlimit>cubes.length-3){
 var 점수=0;
 
 for(var i=0;i<cubes.length;i++){
+	
+
+
 	cubes[i].mesh.userData.game2048.board.forEach((row) => {
 			row.forEach((num) => {
 				점수+=num;
