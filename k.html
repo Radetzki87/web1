@@ -2111,7 +2111,12 @@ function createTextMesh(text, fontSize, callback) {
 
 
 function createBox(x, y, z, width, height, depth, game2048,idx) {  
-	const geometry = new THREE.BoxGeometry(width, height, depth);
+	if(skin1){
+		var geometry = new THREE.BoxGeometry(width*0.95, height, depth*0.95);
+	}else{
+		var geometry = new THREE.BoxGeometry(width, height, depth);
+	}
+	
 	// const color =new THREE.Color('hsl('+String(30+6*(y/boxh))+', 100%, 50%)');
 	// const material = new THREE.MeshLambertMaterial({color});
 	if(lighton){
@@ -2130,34 +2135,202 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 	let mesh = new THREE.Mesh(geometry, material1);
 
+
 	if(skin1){
+		
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*1.05, height, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+			mesh1.position.set(0,0,-depth/2)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+		
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.05, height, depth*0.95), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+			mesh1.position.set(-width/2,0,0)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+
+		//앞면
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*1.05, height/5.5, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+			mesh1.position.set(0,bh/2-height/11,depth/2)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.18, height/10, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(-width/2+width*0.09,-bh/2+height/20,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		//전면하측
+		// var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.93*ratio, height*0.25*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		// mesh1.position.set(0,-bh/2+(height*0.25*ratio)/2,depth/2.01)
+		// mesh1.userData["1"]=true;
+		// mesh.add(mesh1)
+
+		//음영
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.93*ratio, height*0.25*ratio, depth*0.03), new THREE.MeshLambertMaterial({ color: 0x000000}));
+		mesh1.position.set(0,-bh/2+(height*0.25*ratio)/2,depth/2.01)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		//음영좌측슬릿
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.25*ratio, height*0.5, depth*0.04), new THREE.MeshLambertMaterial({ color: 0x000000}));
+		mesh1.position.set(-bw/2+width*0.1*ratio,-bh/4,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.93*ratio, height*0.10*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0,-bh/2+(height*0.1*ratio)/2,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.93*ratio, height*0.1*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0,-bh/2+(height*0.1*ratio)*2.45,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0,-bh/2+(height*0.25*ratio)/2,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+		//대칭
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0-(width*0.05),-bh/2+(height*0.25*ratio)/2,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0+(width*0.05),-bh/2+(height*0.25*ratio)/2,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0-(width*0.1),-bh/2+(height*0.25*ratio)/2,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0+(width*0.1),-bh/2+(height*0.25*ratio)/2,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0-(width*0.15),-bh/2+(height*0.25*ratio)/2,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0+(width*0.15),-bh/2+(height*0.25*ratio)/2,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0-(width*0.2),-bh/2+(height*0.25*ratio)/2,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0+(width*0.2),-bh/2+(height*0.25*ratio)/2,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.18*ratio, height*0.25*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0-(width*0.3),-bh/2+(height*0.25*ratio)/2,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.18*ratio, height*0.25*ratio, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(0+(width*0.3),-bh/2+(height*0.25*ratio)/2,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+
+
+
+		//전면좌측
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width/5, height/2, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(-(width*1.05)/2+(width/10)*1,bh/8,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		//전면슬릿
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width/5, height*0.045, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(-(width*1.05)/2+(width/10)*1,-bh/3.75+height*0.08,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width/5, height*0.045, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(-(width*1.05)/2+(width/10)*1,-bh/3.75,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width/5, height*0.045, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(-(width*1.05)/2+(width/10)*1,-bh/3.75-height*0.08,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width/5, height*0.045, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(-(width*1.05)/2+(width/10)*1,-bh/3.75-height*0.08-height*0.045,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		//전면매꿈
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width/25, height, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(-(width*1.05)/2+(width/50)*1,0,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width/20, height, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(-(width*0.75)/2+(width/40)*1,0,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		//전면우측
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width/5, height, depth*0.05), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set((width*1.05)/2-(width/10)*1,0,depth/2)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+
+		//전면돌출
+
+
+		//  ((우측면))
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.05, height, depth*0.95), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+		mesh1.position.set(width/2,0,0)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+
+		//화면(블랙)
 		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.8*ratio, height*0.7*ratio, depth*0.03), new THREE.MeshLambertMaterial({ color: 0x003E00}));
-			mesh1.position.set(0,0+dify,depth/2.05)
-			mesh1.userData["1"]=true;
-			mesh.add(mesh1)
+		mesh1.position.set(0,0+dify,depth/2.05)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
 
-			
-			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.8*ratio, height*0.15*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0xB4AFA8}));
-			mesh1.position.set(0,height*0.35*ratio+dify,depth/2)
-			mesh1.userData["1"]=true;
-			mesh.add(mesh1)
-			
-			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.8*ratio, height*0.15*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0xB4AFA8}));
-			mesh1.position.set(0,-height*0.35*ratio+dify,depth/2)
-			mesh1.userData["1"]=true;
-			mesh.add(mesh1)
-			
-			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.1*ratio, height*0.85*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0xB4AFA8}));
-			mesh1.position.set((width*0.4+width*0.05)*ratio,0+dify,depth/2)
-			mesh1.userData["1"]=true;
-			mesh.add(mesh1)
-			
-			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.1*ratio, height*0.85*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0xB4AFA8}));
-			mesh1.position.set((-width*0.4-width*0.05)*ratio,0+dify,depth/2)
-			mesh1.userData["1"]=true;
-			mesh.add(mesh1)
+		//화면(그레이)
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.8*ratio, height*0.15*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0xB4AFA8}));
+		mesh1.position.set(0,height*0.35*ratio+dify,depth/1.97)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+		
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.8*ratio, height*0.15*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0xB4AFA8}));
+		mesh1.position.set(0,-height*0.35*ratio+dify,depth/1.97)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+		
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.1*ratio, height*0.85*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0xB4AFA8}));
+		mesh1.position.set((width*0.4+width*0.05)*ratio,0+dify,depth/1.97)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
+		
+		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.1*ratio, height*0.85*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0xB4AFA8}));
+		mesh1.position.set((-width*0.4-width*0.05)*ratio,0+dify,depth/1.97)
+		mesh1.userData["1"]=true;
+		mesh.add(mesh1)
 
-
+		//얼굴
 			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0x00C85F}));
 			mesh1.position.set(height*0.3*ratio,0+dify*2,depth/2)
 			mesh1.userData["1"]=true;
@@ -2205,38 +2378,75 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			mesh.add(mesh1)
 			mouth2.push(mesh1)
 
+			//방향키
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.2*ratio, height*0.4*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0x50585F}));
+			mesh1.position.set(-width/2.3,0+height*0.1,depth/1.9)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+			
 
-			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.2*ratio, height*0.4*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0x10181F}));
-			mesh1.position.set(-width/2.3,0+height*0.05,depth/2.0)
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.4*ratio, height*0.2*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0x50585F}));
+			mesh1.position.set(-width/2.3,0+height*0.1,depth/1.9)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+
+			//우측 키
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.3*ratio, height*0.3*ratio, depth*0.036), new THREE.MeshLambertMaterial({ color: colorlst[colornum][1]}));
+			mesh1.position.set(width/2.2,0+height*0.15,depth/1.9)
 			mesh1.userData["1"]=true;
 			mesh.add(mesh1)
 			// mouth1.push(mesh1)
 
-			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.4*ratio, height*0.2*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0x10181F}));
-			mesh1.position.set(-width/2.3,0+height*0.05,depth/2.0)
-			mesh1.userData["1"]=true;
-			mesh.add(mesh1)
-			// mouth1.push(mesh1)
-
-			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.5*ratio, height*0.05*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]-0x111111, alphaTest:-1}));
-			mesh1.position.set(-width/2.3,0-height*0.25,depth/2.04)
-			mesh1.userData["1"]=true;
-			mesh.add(mesh1)
-
-			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.5*ratio, height*0.05*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]-0x111111,alphaTest:-1}));
-			mesh1.position.set(-width/2.3,0-height*0.3,depth/2.04)
-			mesh1.userData["1"]=true;
-			mesh.add(mesh1)
-			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.5*ratio, height*0.05*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]-0x111111,alphaTest:-1}));
-			mesh1.position.set(-width/2.3,0-height*0.35,depth/2.04)
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.3*ratio, height*0.3*ratio, depth*0.036), new THREE.MeshLambertMaterial({ color: colorlst[colornum][2]}));
+			mesh1.position.set(width/2.6,0-height*0.15,depth/1.9)
 			mesh1.userData["1"]=true;
 			mesh.add(mesh1)
 
 
-			// var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*1.01, height*0.1, depth*1.01), new THREE.MeshLambertMaterial({ color: 0xffffff}));
-			// mesh1.position.set(0,height/2.1,0)
+			//우측 키(검정)
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.35*ratio, height*0.1*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0x20282F}));
+			mesh1.position.set(width/2.57,0+height*0.38,depth/1.9)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.2*ratio, height*0.1*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0x20282F}));
+			mesh1.position.set(width/2.13,0+height*0.38,depth/1.9)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+
+			//좌측 키(검정)
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.3*ratio, height*0.1*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0x20282F}));
+			mesh1.position.set(-width/2.57,0+height*0.38,depth/1.9)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.2*ratio, height*0.1*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: 0x20282F}));
+			mesh1.position.set(-width/2.13,0+height*0.38,depth/1.9)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
+
+			
+
+			//슬릿구멍
+			// var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.5*ratio, height*0.05*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]-0x111111, alphaTest:-1}));
+			// mesh1.position.set(-width/2.3,0-height*0.25,depth/2.04)
 			// mesh1.userData["1"]=true;
 			// mesh.add(mesh1)
+
+			// var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.5*ratio, height*0.05*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]-0x101010,alphaTest:-1}));
+			// mesh1.position.set(-width/2.3,0-height*0.3,depth/2.04)
+			// mesh1.userData["1"]=true;
+			// mesh.add(mesh1)
+			// var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.5*ratio, height*0.05*ratio, depth*0.02), new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]-0x101010,alphaTest:-1}));
+			// mesh1.position.set(-width/2.3,0-height*0.35,depth/2.04)
+			// mesh1.userData["1"]=true;
+			// mesh.add(mesh1)
+
+
+			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*1.01, height*0.1, depth*1.01), new THREE.MeshLambertMaterial({ color: 0xffffff}));
+			mesh1.position.set(0,height/2.1,0)
+			mesh1.userData["1"]=true;
+			mesh.add(mesh1)
 	}
 
 	if(skin2){
@@ -3758,7 +3968,7 @@ if(effects.length!=0){
 						cubes[i].mesh.material.transparent = true;
 						cubes[i].mesh.children.forEach((tile,index) => {
 							if(tile.userData["1"]==true){
-								tile.material.opacity =  0.2
+								tile.material.opacity =  0.02
 								tile.material.transparent = true;
 								
 							}else{
