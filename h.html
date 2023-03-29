@@ -1193,7 +1193,7 @@ const mouse = new THREE.Vector2();
 var touch0=1-((window.innerWidth*0.53)/(window.innerHeight/2))
 
 function handleTouchStart(event) {
-if(inflag) return;
+// if(inflag) return;
   // event.preventDefault();
   lastX = (event.touches[0].clientX / window.innerWidth)*2 - 1;
   lastY = -(event.touches[0].clientY / window.innerHeight)*2+ 1;
@@ -1283,7 +1283,7 @@ if(inflag) return;
 }
 
 function handleTouchMove(event) {
-    if(inflag) return;
+    // if(inflag) return;
   // event.preventDefault();
     touchx = (event.touches[0].clientX / window.innerWidth)*2 - 1;
     touchy = -(event.touches[0].clientY / window.innerHeight)*2+ 1;
@@ -1665,7 +1665,7 @@ world.solver.iterations = 5;
 
 
 document.addEventListener('keydown', (event) => {
-    if(inflag) return;
+    // if(inflag) return;
 if (event.code === 'KeyW') {
   activeFloor++;
   if(activeFloor>cubes.length){
@@ -1719,7 +1719,7 @@ if (event.code === 'KeyW') {
 
 // Add event listener for arrow key presses
 document.addEventListener('keydown', (event) => {
-    if(inflag) return;
+    // if(inflag) return;
   if(aniflag||bounceflag) return;
   let force = new CANNON.Vec3();
   let direction;
@@ -3811,21 +3811,21 @@ if(sidecam&&!gameoverflag){
 
 }
 
-if(elapsedTime>2&&sload) {
-    sounds.sort(function(a, b) {
-      return a[1] - b[1];
-    });
-    bsounds.sort(function(a, b) {
-      return a[1] - b[1];
-    });
-    sload=false;
-    for(var i=0;i<sdic.length;i++){
-        soundic[sdic[i][0]].setLoop( true );
-    }
-    inflag=false;
-    // soundic[sdic[5][0]].play();
+// if(elapsedTime>2&&sload) {
+//     sounds.sort(function(a, b) {
+//       return a[1] - b[1];
+//     });
+//     bsounds.sort(function(a, b) {
+//       return a[1] - b[1];
+//     });
+//     sload=false;
+//     for(var i=0;i<sdic.length;i++){
+//         soundic[sdic[i][0]].setLoop( true );
+//     }
+//     // inflag=false;
+//     // soundic[sdic[5][0]].play();
     
-} 
+// } 
 
 if(elapsedTime<3&&!gameoverflag){
   uiCamera2.position.set(cubes[0].mesh.position.x, bw*0.8, bw*1.5);
