@@ -91,7 +91,11 @@ let mouth3=[];
 let eye1=[];
 let eye2=[]; 
 let eye3=[];
+let timlst=[]
+window.tlst=timlst;
 
+let txts=[];
+window.txts=txts
 
 // mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/face.mtl', function(materials) {
 //     materials.preload();
@@ -580,28 +584,28 @@ var lofi_bedroom = {
 		"lower":"LoFi-Perc-LS Final Perc 3.WAV",
 	}
 
-// sdic.push(lofi_withu);
-// sdic.push(lofi_finalcall);
-// sdic.push(trap_cellar);
+sdic.push(lofi_withu);
+sdic.push(lofi_finalcall);
+sdic.push(trap_cellar);
 
-// sdic.push(futurehouse);
-// // sdic.push(f9);
-// sdic.push(futurebass);
-// sdic.push(ibiza1);
-// sdic.push(dancehall);
-// sdic.push(futurebass04);
-// sdic.push(lofi_bedroom);
-// sdic.push(lofi_touch);
-// sdic.push(lofi_midnight);
-// sdic.push(lofi_slowdown);
-// sdic.push(lofi_somepluk);
+sdic.push(futurehouse);
+// sdic.push(f9);
+sdic.push(futurebass);
+sdic.push(ibiza1);
+sdic.push(dancehall);
+sdic.push(futurebass04);
+sdic.push(lofi_bedroom);
+sdic.push(lofi_touch);
+sdic.push(lofi_midnight);
+sdic.push(lofi_slowdown);
+sdic.push(lofi_somepluk);
 
-// sdic.push(ibiza1)
-// sdic.push(lofi_finalcall)
-// sdic.push(trap_cellar)
-// sdic.push(futurebass2)
-// sdic.push(dancehall2)
-// sdic.push(futurehouse)
+sdic.push(ibiza1)
+sdic.push(lofi_finalcall)
+sdic.push(trap_cellar)
+sdic.push(futurebass2)
+sdic.push(dancehall2)
+sdic.push(futurehouse)
 
 
 sdic.push(wooden);
@@ -1227,6 +1231,52 @@ function createimg() {
 	return img;
 }
 
+
+function createtxt(text, time,mode) {
+	var canvas = document.createElement('canvas');
+	var ctx = canvas.getContext('2d');
+
+	// const padding = 10;
+	
+	ctx.globalAlpha = 1;
+	canvas.width = 16.5*3;
+	canvas.height = 5.6*3;
+	var tl=text.length;
+
+	var textw=tl*(canvas.width/8);
+	// ctx.fillStyle = 0xFFFFFF;
+	// ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+	ctx.font = `${11}px Arial`;
+	// ctx.fillStyle = 0x009F4D;
+	ctx.fillStyle = 0xFFFFFF;
+	// // ctx.fillText(text, padding, padding + textHeight * 0.8);
+	if(mode==1){
+		ctx.fillText(" 재생 중: ", 0-(parseInt(time*20)%70)*(canvas.width*2/70),canvas.height*0.8, canvas.width*0.5, canvas.height);
+
+		ctx.fillText(text, 0.5*canvas.width-(parseInt(time*20)%70)*(canvas.width*2/70),canvas.height*0.8, canvas.width*1.5, canvas.height);
+
+		ctx.fillText(" 재생 중: ", 2*canvas.width-(parseInt(time*20)%70)*(canvas.width*2/70),canvas.height*0.8, canvas.width/2, canvas.height);
+
+		ctx.fillText(text, 2.5*canvas.width-(parseInt(time*20)%70)*(canvas.width*2/70),canvas.height*0.8, canvas.width*1.5, canvas.height);
+		// ctx.fillText(text, canvas.width-(parseInt(time*20)%50)*(canvas.width/50),canvas.height*0.8, canvas.width, canvas.height);
+
+	}else{
+		ctx.fillText(text, 0-(parseInt(time*20)%100)*(textw/100),canvas.height*0.8, textw, canvas.height);
+		ctx.fillText(text, textw-(parseInt(time*20)%100)*(textw/100),canvas.height*0.8, textw, canvas.height);
+	}
+	
+	// ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
+	var img3 = new THREE.CanvasTexture(canvas);
+
+	var geometry5 = new THREE.PlaneGeometry(bw*0.9*0.7, bh*0.8*0.7, 1, 1);
+	var material5 = new THREE.MeshLambertMaterial({ map: img3, side: THREE.DoubleSide, transparent:true, opacity:1});
+	// var plane = new THREE.Mesh(geometry5, material5);
+	// plane.position.set(bw, bw, bw)
+	// plane.rotation.y=Math.PI/2
+	return material5;
+}
+
 function createTextTexture(text, fontSize = 16, textColor = 'white', backgroundColor = 'rgba(0, 0, 0, 0.5)') {
 	const canvas = document.createElement('canvas');
 	const ctx = canvas.getContext('2d');
@@ -1267,6 +1317,7 @@ const fontSize = 24;
 
 // const texture = createTextTexture(text, fontSize);
 var scrollimg=createimg();
+// var scrollimg=createtxt();
 let material0=new THREE.SpriteMaterial({ map: scrollimg, transparent: true, opacity:0 });
 
 
@@ -2627,7 +2678,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		//우측화면(블랙)
 		originHelper.position.set(depth/2.05,0+dify,0-depth/8)
 		originHelper.updateWorldMatrix(true, false);
-		var tc=new THREE.Color(0x003E00)
+		var tc=new THREE.Color(0xD0DED0)
 		var tg=new THREE.BoxGeometry(depth*0.03, height*0.8*ratio, width*0.9*ratio);
 		var rgb = tc.toArray().map(v => v * 255);
 		var numVerts = geometry.getAttribute('position').count;
@@ -2640,6 +2691,10 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.applyMatrix4(originHelper.matrixWorld);
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
+
+
+
+
 
 
 		//우측화면(그레이)
@@ -3310,26 +3365,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			mesh.add(mesh1)
 	}
 
-	if(skin2){
-		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*1.01, height*0.1, depth*1.01), new THREE.MeshLambertMaterial({ color: 0xffffff}));
-			mesh1.position.set(0,height/2.1,0)
-			mesh1.userData["1"]=true;
-			mesh.add(mesh1)
-
-			loadman(function(object){
-					object.children[0].position.set(0, -bh*2.35, bw/2);
-					object.children[0].scale.x=2.2;
-					object.children[0].scale.y=2.2;
-					object.children[0].userData["1"]=true;
-					let cln=object.children[0].clone();
-					
-					// console.log(object.children[0]);
-
-					mesh.add(cln)
-
-				 })
-
-	}
+	
 	let originHelper = new THREE.Object3D();
 	
 	var geoms=[]; 
@@ -3359,6 +3395,16 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	 mesh.add(mesh1);
 
 	
+	 
+
+	var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width*0.9*ratio,height*0.8*ratio), new THREE.MeshLambertMaterial({ color: 0xFFFFFF}));
+	mesh1.position.set(depth/1.98,0+dify,0-depth/8)
+	mesh1.rotation.y=Math.PI/2
+	mesh1.userData["1"]=2;
+	mesh.add(mesh1)
+	txts.push(mesh1)
+
+
 	mesh.position.set(0, y, 0);
 	scene.add(mesh);
 	const shape = new CANNON.Box(new CANNON.Vec3(width/2, height/2, depth/2));
@@ -4007,6 +4053,9 @@ function animate() {
 				var forcex=(-cubes[i-1].body.position.x+cubes[i].body.position.x)
 				var forcez=(-cubes[i-1].body.position.z+cubes[i].body.position.z)
 			}
+
+			txts[i].material=createtxt("재생 중: "+sdic[i][0].substring(0, sdic[i][0].length-4)+"   ", elapsedTime);
+
 			if(skin1||skin0){
 				if(gameoverflag){
 
@@ -5297,6 +5346,12 @@ if(sidecam&&!gameoverflag){
 if(elapsedTime>2&&sload) {
 		
 	sload=false;
+	// console.log(bw*0.9/bh*0.8)
+	// var aa=createtxt("ABC")
+	// scene.add(aa);
+	// timlst.push(aa);
+
+
 	// for(var i=0;i<5;i++){
  //      geos.push(cubes[i].mesh.geometry);
  //    }
