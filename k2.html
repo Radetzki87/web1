@@ -96,6 +96,7 @@ window.tlst=timlst;
 
 let txts=[];
 window.txts=txts
+let txtlst=[];
 
 // mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/face.mtl', function(materials) {
 //     materials.preload();
@@ -2675,11 +2676,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		geoms.push(tg)
 
 
-		//우측화면(블랙)
+		// 우측화면(블랙)
 		originHelper.position.set(depth/2.05,0+dify,0-depth/8)
 		originHelper.updateWorldMatrix(true, false);
+		// var tc=new THREE.Color(colorlst0[colornum0][idx])
 		var tc=new THREE.Color(0xD4DFD8)
-
+		var tc1=hexToHSL(colorlst0[colornum0][idx]);
+		console.log(tc1)
+		// tc.setHSL(tc1["h"], tc1["s"], tc1["l"]);
+		
 		var tg=new THREE.BoxGeometry(depth*0.03, height*0.8*ratio, width*0.9*ratio);
 		var rgb = tc.toArray().map(v => v * 255);
 		var numVerts = geometry.getAttribute('position').count;
@@ -3398,7 +3403,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	
 	 
 
-	var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width*0.9*ratio,height*0.8*ratio), new THREE.MeshLambertMaterial({ color: 0xFFFFFF}));
+	var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width*0.9*ratio,height*0.8*ratio), new THREE.MeshLambertMaterial({ color: 0x000000, opacity:1, transparent:true}), );
 	mesh1.position.set(depth/1.98,0+dify,0-depth/8)
 	mesh1.rotation.y=Math.PI/2
 	mesh1.userData["1"]=true;
@@ -3533,6 +3538,55 @@ function msetting(callback){
 						
 				});
 	}
+
+
+
+	if (callback) {
+		callback();
+	}
+}
+
+function txtsetting(callback){
+	for(var j=0;j<5;j++){
+		var temp=[];
+		var text="재생 중: "+sdic[j][0].substring(0, sdic[j][0].length-4)+"   "
+		for(var i=0;i<100;i++){
+			var canvas = document.createElement('canvas');
+			var ctx = canvas.getContext('2d');
+
+			// const padding = 10;
+			
+			ctx.globalAlpha = 1;
+			canvas.width = 16.5*4;
+			canvas.height = 5.6*4;
+			var tl=text.length;
+
+			var textw=tl*(canvas.width/8);
+			// ctx.fillStyle = 0xFFFFFF;
+			// ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+			ctx.font = `${12}px Arial`;
+			// ctx.fillStyle = 0x009F4D;
+			ctx.fillStyle = 0xFFFFFF;
+			// // ctx.fillText(text, padding, padding + textHeight * 0.8);
+			
+			ctx.fillText(text, 0-(i)*(textw/100),canvas.height*0.73, textw, canvas.height);
+			ctx.fillText(text, textw-(i)*(textw/100),canvas.height*0.73, textw, canvas.height);
+			
+			
+			// ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
+			var img3 = new THREE.CanvasTexture(canvas);
+			var material5 = new THREE.MeshLambertMaterial({ map: img3, side: THREE.DoubleSide, transparent:true, opacity:1});
+			// var plane = new THREE.Mesh(geometry5, material5);
+			// plane.position.set(bw, bw, bw)
+			// plane.rotation.y=Math.PI/2
+			temp.push(material5);
+
+		}
+		txtlst.push(temp);
+	}
+
+	
 
 
 
@@ -3937,9 +3991,15 @@ setting(stack,function (object) {
 			})
 		msetting(function (object) {
 			
-			animate();
-			console.log(tilemold);
-			console.log(textmold)
+
+			txtsetting(function (object) {
+				console.log(txtlst);
+				animate();
+				console.log(tilemold);
+				console.log(textmold)
+
+			})
+			
 		})
 		
 	})
@@ -4064,8 +4124,9 @@ function animate() {
 				var forcex=(-cubes[i-1].body.position.x+cubes[i].body.position.x)
 				var forcez=(-cubes[i-1].body.position.z+cubes[i].body.position.z)
 			}
-
-			txts[i].material=createtxt("재생 중: "+sdic[i][0].substring(0, sdic[i][0].length-4)+"   ", elapsedTime);
+			var txtcount=parseInt(elapsedTime*15)%100
+			
+			txts[i].material=txtlst[i][txtcount];
 
 			if(skin1||skin0){
 				if(gameoverflag){
@@ -4957,7 +5018,18 @@ if(effects.length!=0){
 								tile.material.opacity = 1
 								tile.material.transparent = false;
 								
-							}else{
+							}else if(tile.userData["2"]){
+								tile.material.opacity =  1;
+								tile.material.transparent = true;
+								// tile.material.alphaTest=0.1
+								// tile.children.forEach((text) => {
+								// 	text.material.opacity = 1;
+								// 	text.material.transparent = true;
+								// 	// tile.material.alphaTest=0.1
+								// })
+								
+									
+								
 								// tile.material.opacity = 0.1-((i-activeFloor)/cubes.length);
 								// tile.material.alphaTest=0.1
 
@@ -5781,6 +5853,46 @@ const randomX = Math.random() * 2 - 1;
 const randomZ = Math.random() * 2 - 1;
 const newBox = createBox(randomX, stackHeight * boxSize + boxSize / 2, randomZ, boxSize, boxSize, boxSize);
 newBox.mesh.userData.body = newBox.body;
+}
+
+function hexToHSL(hex0) {
+  // hex 값의 RGB 값을 추출
+
+  var hex=hex0.toString(16);
+  console.log(hex)
+  const r = parseInt(hex.substring(0,2), 16) / 255;
+  const g = parseInt(hex.substring(2,4), 16) / 255;
+  const b = parseInt(hex.substring(4,6), 16) / 255;
+  
+  // RGB 값으로 HSL 값을 계산
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const diff = max - min;
+  
+  let h = 0, s = 0, l = (max + min) / 2;
+  
+  if (diff !== 0) {
+    s = l > 0.5 ? diff / (2 - max - min) : diff / (max + min);
+    switch(max) {
+      case r:
+        h = (g - b) / diff + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / diff + 2;
+        break;
+      case b:
+        h = (r - g) / diff + 4;
+        break;
+    }
+    h /= 6;
+  }
+  
+  // HSL 값을 리턴
+  return {
+    h: Math.round(h * 360),
+    s: Math.round(s * 100),
+    l: Math.round(l * 100)
+  };
 }
 
 // Add event listener for user input to spawn a new box
