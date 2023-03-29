@@ -2459,31 +2459,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		 mesh1.userData["1"]=true;
 		 mesh.add(mesh1);
 
-		var geoms=[]; 
 		
-
-		for (let row = 0; row < 칸; row++) {
-			for (let col = 0; col < 칸; col++) {
-				originHelper.position.set(
-					0 - bw/2 + tw/2 + col * tw,
-					-th/2,
-					0 - bw/2 + tw/2 + row * tw,
-				);
-				originHelper.updateWorldMatrix(true, false);
-				var tg=new THREE.BoxGeometry(tw*0.9, th/3.2, tw*0.9);
-				
-				tg.applyMatrix4(originHelper.matrixWorld);
-				geoms.push(tg)
-				
-				
-				
-			}
-		}
-		var mgeo=new BufferGeometryUtils.mergeBufferGeometries(
-	      geoms, false);
-		 var mesh1=new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
-		 // mesh1.userData["1"]=true;
-		 mesh.add(mesh1);
 
 
 
@@ -2496,7 +2472,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 
-		originHelper.position.set(0,-bh/2+(height*0.25*ratio)/2,depth/2.01)
+		originHelper.position.set(0,-bh/2+(height*0.25*ratio)/1.96,depth/2.01)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x000000)
 		var tg=new THREE.BoxGeometry(width*0.93*ratio, height*0.25*ratio, depth*0.03);
@@ -2513,7 +2489,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		geoms.push(tg)
 
 		//음영좌측슬릿
-		originHelper.position.set(-bw/2+width*0.1*ratio,-bh/4,depth/2)
+		originHelper.position.set(-bw/2+width*0.1*ratio,-bh/4.05,depth/2)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x000000)
 		var tg=new THREE.BoxGeometry(width*0.25*ratio, height*0.5, depth*0.04);
@@ -2530,11 +2506,27 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		geoms.push(tg)
 
 
-		//우측면 우측 음영
-		originHelper.position.set(width/2,0,depth/2-(depth*0.1))
+		//우측면 좌측 음영
+		originHelper.position.set(width/2,0,depth/2-(depth*0.12))
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x000000)
-		var tg=new THREE.BoxGeometry(depth*0.04, height*0.9, width*0.25*ratio);
+		var tg=new THREE.BoxGeometry(depth*0.04, height*0.7, width*0.15*ratio);
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(width/2,0,depth/2-(depth*0.12))
+		originHelper.updateWorldMatrix(true, false);
+		var tc=new THREE.Color(0x000000)
+		var tg=new THREE.BoxGeometry(depth*0.04, height*0.5, width*0.3*ratio);
 		var rgb = tc.toArray().map(v => v * 255);
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
@@ -2786,7 +2778,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		//우측면 좌측 키(검정)
 		originHelper.position.set(depth/1.9,0-height*0.38,width/2.3)
 		originHelper.updateWorldMatrix(true, false);
-		var tc=new THREE.Color(0x20282F)
+		var tc=new THREE.Color(colorlst[colornum][3])
 		var tg=new THREE.BoxGeometry(depth*0.02, height*0.1*ratio, height*0.35*ratio);
 		var rgb = tc.toArray().map(v => v * 255);
 		var numVerts = geometry.getAttribute('position').count;
@@ -2881,7 +2873,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.applyMatrix4(originHelper.matrixWorld);
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
-
+		//뚜껑
 		originHelper.position.set(0,height/2.1,0)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0xffffff)
@@ -3037,13 +3029,13 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 		//음영
 		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.93*ratio, height*0.25*ratio, depth*0.03), new THREE.MeshLambertMaterial({ color: 0x000000}));
-		mesh1.position.set(0,-bh/2+(height*0.25*ratio)/2,depth/2.01)
+		mesh1.position.set(0,-bh/2+(height*0.25*ratio)/2.05,depth/2.01)
 		mesh1.userData["1"]=true;
 		mesh.add(mesh1)
 
 		//음영좌측슬릿
 		var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(width*0.25*ratio, height*0.5, depth*0.04), new THREE.MeshLambertMaterial({ color: 0x000000}));
-		mesh1.position.set(-bw/2+width*0.1*ratio,-bh/4,depth/2)
+		mesh1.position.set(-bw/2+width*0.1*ratio,-bh/4.05,depth/2)
 		mesh1.userData["1"]=true;
 		mesh.add(mesh1)
 
@@ -3338,9 +3330,33 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 				 })
 
 	}
-
+	let originHelper = new THREE.Object3D();
 	
+	var geoms=[]; 
+		
 
+	for (let row = 0; row < 칸; row++) {
+		for (let col = 0; col < 칸; col++) {
+			originHelper.position.set(
+				0 - bw/2 + tw/2 + col * tw,
+				-th/2,
+				0 - bw/2 + tw/2 + row * tw,
+			);
+			originHelper.updateWorldMatrix(true, false);
+			var tg=new THREE.BoxGeometry(tw*0.9, th/3.2, tw*0.9);
+			
+			tg.applyMatrix4(originHelper.matrixWorld);
+			geoms.push(tg)
+			
+			
+			
+		}
+	}
+	var mgeo=new BufferGeometryUtils.mergeBufferGeometries(
+      geoms, false);
+	 var mesh1=new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
+	 // mesh1.userData["1"]=true;
+	 mesh.add(mesh1);
 
 	
 	mesh.position.set(0, y, 0);
@@ -4005,7 +4021,7 @@ function animate() {
 					eye2[i][3].material.visible=true;
 					
 				}else{
-					if(Math.abs(cubes[i].mesh.rotation.x)>0.07||Math.abs(cubes[i].mesh.rotation.z)>0.07||Math.abs(forcex>bw/5)||Math.abs(forcez>bw/5)){
+					if(Math.abs(cubes[i].mesh.rotation.x)>0.07||Math.abs(cubes[i].mesh.rotation.z)>0.07||Math.abs(forcex>bw/6)||Math.abs(forcez>bw/6)){
 						mouth1[i].material.visible=false;
 						mouth2[i].material.visible=true;
 						eye1[i][0].material.color=new THREE.Color(0xFFA401);
