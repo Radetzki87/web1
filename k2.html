@@ -3739,6 +3739,8 @@ function animate2() {
 let elapsedTime = 0;
 const clock = new THREE.Clock();
 sdic.sort(() => Math.random() - 0.5);
+
+sdic[4]=wooden;
 var bsounds=[];
 var sounds=[];
 var soundic={};
@@ -4911,7 +4913,7 @@ if(effects.length!=0){
 					}else{
 
 						if(i>activeFloor){
-							cubes[i].mesh.material.opacity =  0.2-((i-activeFloor)/cubes.length)/5;
+							cubes[i].mesh.material.opacity =  0.1-((i-activeFloor)/cubes.length)/5;
 							// cubes[i].mesh.material.opacity =  0.3
 							cubes[i].mesh.material.alphaTest=0
 							cubes[i].mesh.material.transparent = true;
@@ -5219,10 +5221,11 @@ ring[0].children.forEach((item)=>{
 				
 			}else if(i>activeFloor){
 
-				// cubes[i].mesh.material.opacity = 0.0;
-				// cubes[i].mesh.material.transparent = true;
-				// cubes[i].mesh.children.forEach((tile) => {
-				//   tile.material.opacity =  0
+				cubes[i].mesh.material.opacity = 0.0;
+				cubes[i].mesh.material.transparent = true;
+				cubes[i].mesh.children.forEach((tile) => {
+				  tile.material.opacity =  0
+				})
 				//   tile.material.transparent = true;
 				//   tile.children.forEach((text) => {
 				//     text.material.opacity = 0;
