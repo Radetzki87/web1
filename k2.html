@@ -2329,11 +2329,127 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 		//  ((우측면))
-		originHelper.position.set(width/2,0,0)
+		
+		//지붕
+		originHelper.position.set(depth/2,bh/2-height/16,0)
 		originHelper.updateWorldMatrix(true, false);
-		var tg=new THREE.BoxGeometry(width*0.05, height, depth*0.95);
+		var tg=new THREE.BoxGeometry(depth*0.05, height/8, width*1.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
+		//하측
+		originHelper.position.set(depth/2,-bh/2+height/16,0)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, height/8, width*1.05);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+
+		//구멍시작
+		//세로
+		var difx=0.17;
+		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*2)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.018);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*3)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.018);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*4)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.018);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*5)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.018);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*6)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.018);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*7)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.018);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*8)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.08);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		//가로
+		var difx=0.06;
+		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*2,0.17+depth/2-(width*0.03)*4)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*3,0.17+depth/2-(width*0.03)*4)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*4,0.17+depth/2-(width*0.03)*4)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*5,0.17+depth/2-(width*0.03)*4)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*6,0.17+depth/2-(width*0.03)*4)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*7,0.17+depth/2-(width*0.03)*4)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+		// originHelper.position.set(depth/2,difx+height/2-(width*0.03)*8.4,0.17+depth/2-(width*0.03)*4)
+		// originHelper.updateWorldMatrix(true, false);
+		// var tg=new THREE.BoxGeometry(depth*0.05, width*0.08, height*0.7);
+		// tg.applyMatrix4(originHelper.matrixWorld);
+		// geoms.push(tg)
+
+		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*8,0.17+depth/2-(width*0.03)*4)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*8-width*0.018,0.17+depth/2-(width*0.03)*4)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
+
+
+		// originHelper.position.set(-width/2+width*0.09,-bh/2+height/20,depth/2)
+		// originHelper.updateWorldMatrix(true, false);
+		// var tg=new THREE.BoxGeometry(width*0.18, height/10, depth*0.05);
+		// tg.applyMatrix4(originHelper.matrixWorld);
+		// geoms.push(tg)
 
 		 
 
@@ -2376,6 +2492,10 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 		//음영
+
+
+
+
 		originHelper.position.set(0,-bh/2+(height*0.25*ratio)/2,depth/2.01)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x000000)
@@ -2409,6 +2529,25 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
+
+		//우측면 우측 음영
+		originHelper.position.set(width/2,0,depth/2-(depth*0.1))
+		originHelper.updateWorldMatrix(true, false);
+		var tc=new THREE.Color(0x000000)
+		var tg=new THREE.BoxGeometry(depth*0.04, height*0.9, width*0.25*ratio);
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+
 		//화면(블랙)
 		originHelper.position.set(0,0+dify,depth/2.05)
 		originHelper.updateWorldMatrix(true, false);
@@ -2425,6 +2564,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.applyMatrix4(originHelper.matrixWorld);
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
+
 
 		//화면(그레이)
 		originHelper.position.set(0,height*0.35*ratio+dify,depth/1.97)
@@ -2490,6 +2630,91 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.applyMatrix4(originHelper.matrixWorld);
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
+
+
+		//우측화면(블랙)
+		originHelper.position.set(depth/2.05,0+dify,0-depth/8)
+		originHelper.updateWorldMatrix(true, false);
+		var tc=new THREE.Color(0x003E00)
+		var tg=new THREE.BoxGeometry(depth*0.03, height*0.8*ratio, width*0.9*ratio);
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+
+		//우측화면(그레이)
+		originHelper.position.set(depth/1.97,height*0.45*ratio+dify,0-depth/8)
+		originHelper.updateWorldMatrix(true, false);
+		var tc=new THREE.Color(0xB4AFA8)
+		var tg=new THREE.BoxGeometry(depth*0.02, height*0.15*ratio, width*0.9*ratio);
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/1.97,-height*0.45*ratio+dify,0-depth/8)
+		originHelper.updateWorldMatrix(true, false);
+		var tc=new THREE.Color(0xB4AFA8)
+		var tg=new THREE.BoxGeometry(depth*0.02, height*0.15*ratio,width*0.9*ratio );
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/1.97,0+dify,(width*0.45+width*0.03)*ratio-depth/8)
+		originHelper.updateWorldMatrix(true, false);
+		var tc=new THREE.Color(0xB4AFA8)
+		var tg=new THREE.BoxGeometry(depth*0.02, height*ratio*1.05, width*0.07*ratio);
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(depth/1.97,0+dify,(-width*0.45-width*0.03)*ratio-depth/8)
+		originHelper.updateWorldMatrix(true, false);
+		var tc=new THREE.Color(0xB4AFA8)
+		var tg=new THREE.BoxGeometry(depth*0.02, height*ratio*1.05, width*0.07*ratio);
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
 
 		//방향키
 		originHelper.position.set(-width/2.3,0+height*0.1,depth/1.9)
@@ -2558,7 +2783,38 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.applyMatrix4(originHelper.matrixWorld);
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
+		//우측면 좌측 키(검정)
+		originHelper.position.set(depth/1.9,0-height*0.38,width/2.3)
+		originHelper.updateWorldMatrix(true, false);
+		var tc=new THREE.Color(0x20282F)
+		var tg=new THREE.BoxGeometry(depth*0.02, height*0.1*ratio, height*0.35*ratio);
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
 
+		originHelper.position.set(depth/1.9,0-height*0.38,width/2.9)
+		originHelper.updateWorldMatrix(true, false);
+		var tc=new THREE.Color(0xffffff)
+		var tg=new THREE.BoxGeometry(depth*0.02, height*0.1*ratio, height*0.25*ratio);
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
 
 		//우측 키(검정)
 		originHelper.position.set(width/2.57,0+height*0.38,depth/1.9)
@@ -2643,10 +2899,10 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		geoms.push(tg)
 
 		//오른쪽 작은 박스혹
-		originHelper.position.set(width/1.95,height/2-((height/6)/2)*0.7,depth/3)
+		originHelper.position.set(width/2,height/2-((height/6)/2)*0.7,-depth/3)
 		originHelper.updateWorldMatrix(true, false);
-		var tc=new THREE.Color(0xffffff)
-		var tg=new THREE.BoxGeometry(height*0.2, (height/6), height*0.2);
+		var tc=new THREE.Color(0xff0000)
+		var tg=new THREE.BoxGeometry(height*0.2, (height/6), height*0.05);
 		var rgb = tc.toArray().map(v => v * 255);
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
@@ -2658,6 +2914,40 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.applyMatrix4(originHelper.matrixWorld);
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
+
+		originHelper.position.set(width/2,height/2-((height/6)/2)*0.7,-depth/3+height*0.05)
+		originHelper.updateWorldMatrix(true, false);
+		var tc=new THREE.Color(0xffffff)
+		var tg=new THREE.BoxGeometry(height*0.2, (height/6), height*0.05);
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(width/2,height/2-((height/6)/2)*0.7,-depth/3+height*0.1)
+		originHelper.updateWorldMatrix(true, false);
+		var tc=new THREE.Color(colorlst[colornum][3])
+		var tg=new THREE.BoxGeometry(height*0.2, (height/6), height*0.05);
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+	
 
 
 
@@ -5065,9 +5355,6 @@ const height = window.innerHeight;
 renderer.setSize(width, height);
 camera.aspect = width / height;
 camera.updateProjectionMatrix();
-
-
-
 
 
 });
