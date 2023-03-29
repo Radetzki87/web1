@@ -1239,31 +1239,31 @@ function createtxt(text, time,mode) {
 	// const padding = 10;
 	
 	ctx.globalAlpha = 1;
-	canvas.width = 16.5*3;
-	canvas.height = 5.6*3;
+	canvas.width = 16.5*4;
+	canvas.height = 5.6*4;
 	var tl=text.length;
 
 	var textw=tl*(canvas.width/8);
 	// ctx.fillStyle = 0xFFFFFF;
 	// ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-	ctx.font = `${11}px Arial`;
+	ctx.font = `${12}px Arial`;
 	// ctx.fillStyle = 0x009F4D;
 	ctx.fillStyle = 0xFFFFFF;
 	// // ctx.fillText(text, padding, padding + textHeight * 0.8);
 	if(mode==1){
-		ctx.fillText(" 재생 중: ", 0-(parseInt(time*20)%70)*(canvas.width*2/70),canvas.height*0.8, canvas.width*0.5, canvas.height);
+		ctx.fillText(" 재생 중: ", 0-(parseInt(time*20)%70)*(canvas.width*2/70),canvas.height*0.76, canvas.width*0.5, canvas.height);
 
-		ctx.fillText(text, 0.5*canvas.width-(parseInt(time*20)%70)*(canvas.width*2/70),canvas.height*0.8, canvas.width*1.5, canvas.height);
+		ctx.fillText(text, 0.5*canvas.width-(parseInt(time*20)%70)*(canvas.width*2/70),canvas.height*0.76, canvas.width*1.5, canvas.height);
 
-		ctx.fillText(" 재생 중: ", 2*canvas.width-(parseInt(time*20)%70)*(canvas.width*2/70),canvas.height*0.8, canvas.width/2, canvas.height);
+		ctx.fillText(" 재생 중: ", 2*canvas.width-(parseInt(time*20)%70)*(canvas.width*2/70),canvas.height*0.76, canvas.width/2, canvas.height);
 
-		ctx.fillText(text, 2.5*canvas.width-(parseInt(time*20)%70)*(canvas.width*2/70),canvas.height*0.8, canvas.width*1.5, canvas.height);
+		ctx.fillText(text, 2.5*canvas.width-(parseInt(time*20)%70)*(canvas.width*2/70),canvas.height*0.76, canvas.width*1.5, canvas.height);
 		// ctx.fillText(text, canvas.width-(parseInt(time*20)%50)*(canvas.width/50),canvas.height*0.8, canvas.width, canvas.height);
 
 	}else{
-		ctx.fillText(text, 0-(parseInt(time*20)%100)*(textw/100),canvas.height*0.8, textw, canvas.height);
-		ctx.fillText(text, textw-(parseInt(time*20)%100)*(textw/100),canvas.height*0.8, textw, canvas.height);
+		ctx.fillText(text, 0-(parseInt(time*20)%100)*(textw/100),canvas.height*0.73, textw, canvas.height);
+		ctx.fillText(text, textw-(parseInt(time*20)%100)*(textw/100),canvas.height*0.73, textw, canvas.height);
 	}
 	
 	// ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
@@ -3400,7 +3400,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width*0.9*ratio,height*0.8*ratio), new THREE.MeshLambertMaterial({ color: 0xFFFFFF}));
 	mesh1.position.set(depth/1.98,0+dify,0-depth/8)
 	mesh1.rotation.y=Math.PI/2
-	mesh1.userData["1"]=2;
+	mesh1.userData["1"]=true;
+	mesh1.userData["2"]=true;
 	mesh.add(mesh1)
 	txts.push(mesh1)
 
@@ -4919,7 +4920,7 @@ if(effects.length!=0){
 									tile.material.opacity=0.1-((i-activeFloor)/cubes.length)/10;
 									tile.material.transparent = true;
 								}else{
-								tile.material.alphaTest=0.1
+									tile.material.alphaTest=0.1
 									tile.material.opacity=0
 									tile.material.transparent = true;
 									tile.children.forEach((text) => {
@@ -4940,7 +4941,8 @@ if(effects.length!=0){
 							cubes[i].mesh.material.opacity =  1;
 							cubes[i].mesh.material.transparent = false;
 							cubes[i].mesh.children.forEach((tile,index) => {
-							if(tile.userData["1"]==true){
+							if(tile.userData["1"]==true&&!tile.userData["2"]){
+
 								// tile.material.alphaTest=0.5
 								tile.material.opacity = 1
 								tile.material.transparent = false;
