@@ -3,8 +3,12 @@
 <head>
 	<title>Tower Stacking Game</title>
 	<style>
+			 
+            
 			body { margin: 0; , overscroll-behavior-y: none;}
+
 			canvas { display: white; }
+
 			#ui-text {
 			position: fixed;
 			top: 10px;
@@ -16,6 +20,14 @@
 			padding: 10px;
 			border-radius: 5px;
 			z-index: 100;
+			}
+
+			@font-face {
+			    font-family:'GG'; /*글꼴*/
+				src: local('GG'),
+			    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/Dovemayo-Medium.woff') format('woff');
+			    font-weight: normal;
+			    font-style: normal;
 			}
 		</style>
 </head>
@@ -56,6 +68,8 @@
 document.body.style.overscrollBehaviorY = 'none';
 document.body.style.overscrollBehaviorX = 'none';
 
+
+let startflag=false
 let fps;
 let time0;
 let gradback=[];
@@ -1468,6 +1482,9 @@ function handleTouchStart(event) {
 		for(var i=0;i<5;i++){
 			// var tempy;
 			if(lastY>-0.35+touch0+0.1*i&&lastY<-0.25+touch0+0.1*i){
+				if(!startflag){
+					startflag=true
+				}
 				activeFloor=i;
 				if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
 						soundic[sdic[activeFloor]["upper"]].stop();
@@ -1511,6 +1528,9 @@ function handleTouchMove(event) {
 						bufflag=false
 					}
 					if((lastX<-0.8||lastX>0.8)&&lastY>-0.3&&lastY<0){
+						if(!startflag){
+							startflag=true
+						}
 							activeFloor=buffloor+parseInt((touchy-lastY)*12);
 							if(activeFloor>cubes.length){
 									activeFloor=cubes.length;
@@ -1883,6 +1903,9 @@ world.solver.iterations = 5;
 document.addEventListener('keydown', (event) => {
 		// if(inflag) return;
 if (event.code === 'KeyW') {
+	if(!startflag){
+		startflag=true;
+	}
 	activeFloor++;
 	if(activeFloor>cubes.length){
 		activeFloor=cubes.length;
@@ -1905,6 +1928,9 @@ if (event.code === 'KeyW') {
 
 
 } else if (event.code === 'KeyS') {
+	if(!startflag){
+		startflag=true;
+	}
 	activeFloor--;
 	if(activeFloor<0){
 		activeFloor=0;
@@ -3582,21 +3608,102 @@ function txtsetting(callback){
 	canvas.width = 400;
 	canvas.height = 400;
 	var grd = ctx.createLinearGradient(0, 0, 0, 400);
-	var hex=colorlst0[colornum0][0].toString(16);
-	if(hex.length==5) hex+="0"
-	grd.addColorStop(0, "#"+hex.toUpperCase());
-	grd.addColorStop(1, "#"+colorlst[colornum][0].toString(16).toUpperCase());
+	// var hex=colorlst0[colornum0][0].toString(16);
+	// if(hex.length==5) hex+="0"
+	grd.addColorStop(0, hexToHtmlColor(colorlst0[colornum0][0]));
+	grd.addColorStop(1, hexToHtmlColor(colorlst[colornum][0]));
 	ctx.fillStyle = grd;
 	ctx.fillRect(0, 0, 400, 400);
 	var img3 = new THREE.CanvasTexture(canvas);
 	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
 	var sprite = new THREE.Sprite(material4);
-	sprite.position.set(-bw,bh*6,-bw);
+	sprite.position.set(-bw*2,bh*4,-bw*2);
 	sprite.scale.x=100;
-	sprite.scale.y=20;
+	sprite.scale.y=50;
 	gradback.push(sprite);
 	scene.add(sprite);
-	console.log(sprite)
+	// console.log(sprite)
+
+
+	var canvas = document.createElement('canvas');
+	var ctx = canvas.getContext('2d');
+	canvas.width = 1000;
+	canvas.height =200;
+	ctx.fillStyle = "white";
+	ctx.font = `${110}px Arial`;
+	ctx.fillText("Game Over!", 0,canvas.height);
+	var img3 = new THREE.CanvasTexture(canvas);
+	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:0.9});
+	var sprite = new THREE.Sprite(material4);
+	sprite.position.set(bw*2,bh*7,bw);
+	sprite.scale.x=50;
+	sprite.scale.y=10;
+	gradback.push(sprite);
+	// scene.add(sprite);
+
+	var canvas = document.createElement('canvas');
+	var ctx = canvas.getContext('2d');
+	canvas.width = 2000;
+	canvas.height =400;
+	ctx.fillStyle = "white";
+
+	var grd = ctx.createLinearGradient(0, 0, 2000, 400);
+	var hex=colorlst[colornum][2].toString(16);
+	if(hex.length==5) hex+="0"
+	grd.addColorStop(1, "white");
+	grd.addColorStop(0, hexToHtmlColor(colorlst[colornum][1]));
+	ctx.fillStyle = grd;
+
+	ctx.font = `bold ${320}px Arial`;
+	ctx.fillText("  B", 0,canvas.height*0.96);
+	ctx.font = `bold ${270}px Arial`;
+	ctx.fillText("     O", 15,canvas.height*0.96);
+	ctx.font = `bold ${230}px Arial`;
+	ctx.fillText("        O", 80,canvas.height*0.96);
+	ctx.font = `bold ${190}px Arial`;
+	ctx.fillText("              M", 20,canvas.height*0.96);
+	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][4]);
+	ctx.fillText("                   B", 0,canvas.height*0.96);
+	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][3]);
+	ctx.font = `bold ${210}px Arial`;
+	ctx.fillText("                   L", 15,canvas.height*0.96);
+	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][2]);
+	ctx.font = `bold ${246}px Arial`;
+	ctx.fillText("                  O", 0,canvas.height*0.96);
+	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][1]);
+	ctx.font = `bold ${285}px Arial`;
+	ctx.fillText("                  X", 0,canvas.height*0.96);
+	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][0]);
+	ctx.font = `bold ${320}px Arial`;
+	ctx.fillText("                  S", 0,canvas.height*0.96);
+	var img3 = new THREE.CanvasTexture(canvas);
+	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
+	var sprite = new THREE.Sprite(material4);
+	sprite.position.set(bw,bh*6,bw);
+	sprite.scale.x=40;
+	sprite.scale.y=10;
+	gradback.push(sprite);
+	scene.add(sprite);
+
+
+	var canvas = document.createElement('canvas');
+	var ctx = canvas.getContext('2d');
+	canvas.width = 1000;
+	canvas.height =200;
+	ctx.fillStyle = "white";
+	ctx.font = `${50}px GG`;
+	ctx.fillText("            터치하여 시작", 0,canvas.height*0.9);
+	var img3 = new THREE.CanvasTexture(canvas);
+	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
+	var sprite = new THREE.Sprite(material4);
+	sprite.position.set(bw*2,bh*6,bw);
+	sprite.scale.x=50;
+	sprite.scale.y=10;
+	gradback.push(sprite);
+	scene.add(sprite);
+
+
+
 	for(var j=0;j<5;j++){
 		var temp=[];
 		var text="재생 중: "+sdic[j][0].substring(0, sdic[j][0].length-4)+" "
@@ -4072,6 +4179,15 @@ setting(stack,function (object) {
 
 // Animate the scene
 function animate() {
+	if(startflag){
+		gradback.forEach((item)=>{
+			item.material.visible=false;
+		})
+	}else{
+		gradback.forEach((item)=>{
+			item.material.visible=true;
+		})
+	}
 	requestAnimationFrame(animate);
 
 	// scene.background = new THREE.Color(0x3e708d);
@@ -4104,7 +4220,6 @@ function animate() {
 				textMesh.position.x=+bw;
 				textMesh.position.z=+bw;
 				포인트.forEach((item)=>{
-				 
 					if(String(pointbuf+parseInt(elapsedTime)).length>=4){
 						item.position.x=+8.5+bw/2
 						item.position.z=+7+bw/2
@@ -5000,7 +5115,10 @@ if(effects.length!=0){
 				// camera.rotation.order = 'YXZ';
 				// camera.rotation.x = -isoAngle;
 				cubes.forEach((item,index)=>{
-					if(arrowon)arrows[index].children[0].material.opacity=0;
+					if(arrowon){
+						arrows[index].children[0].material.opacity=0;
+						arrows[index].children[0].material.transparent=true;
+					}
 					item.mesh.material.opacity = 1
 					// item.mesh.material.alphaTest=1
 					item.mesh.material.transparent = true;
@@ -5201,7 +5319,10 @@ if(effects.length!=0){
 	renderer.setScissorTest(true);
 	renderer.render(scene, camera);
 
-gradback[0].material.visible=false;
+gradback.forEach((item)=>{
+	item.material.visible=false;
+})
+
 
 
 
@@ -5350,8 +5471,8 @@ if(!gameoverflag){
 // renderer.render(uiScene, uiCamera); // render the UI scene and camera
 
 
-
-
+// scene.background = null;
+// console.log(scene.background)
 
 ring[0].children.forEach((item)=>{
 	item.material.visible=false;
@@ -5995,7 +6116,9 @@ function hexToHSL(hex0) {
 }
 
 // Add event listener for user input to spawn a new box
-
+function hexToHtmlColor(hex) {
+  return '#' + ('000000' + hex.toString(16)).slice(-6);
+}
 
 	</script>
 </body>
