@@ -5037,13 +5037,14 @@ if(effects.length!=0){
 						// camera.rotation.order = 'YXZ';
 						// camera.rotation.x = -isoAngle;
 
-						if(arrowon) arrows[i].children[0].material.opacity=0.7
+						if(arrowon) arrows[i].children[0].material.opacity=0.5
 						// camera.lookAt(0,0,0)
 						cubes[i].mesh.material.opacity = 0;
 						 cubes[i].mesh.material.alphaTest=0
 						// cubes[i].mesh.material.alphaTest=0.1
 						cubes[i].mesh.material.transparent = true;
 						cubes[i].mesh.children.forEach((tile,index) => {
+
 							if(tile.userData["3"]){
 								tile.material.opacity =  0.1
 								tile.material.transparent = true;
@@ -5052,6 +5053,7 @@ if(effects.length!=0){
 								tile.material.transparent = true;
 								
 							}else{
+								tile.material.visible=true;
 								tile.material.opacity =  1
 								tile.material.transparent = false;
 								tile.children.forEach((text) => {
@@ -5131,6 +5133,8 @@ if(effects.length!=0){
 								//   text.material.transparent = true;
 
 								//   })
+							}else{
+								tile.material.visible=false;
 							}
 
 							
