@@ -68,7 +68,7 @@
 document.body.style.overscrollBehaviorY = 'none';
 document.body.style.overscrollBehaviorX = 'none';
 
-
+var isoAngle = Math.atan(1 / Math.sqrt(3));
 let center=0.7853981;
 let left=1.5707963267948966;
 let right=0;
@@ -2370,6 +2370,7 @@ function handleTouchStart(event) {
 			}
 			if(lookcenter){
 				if(!rotationflag){
+					lookcenter=false
 					rotationflag=true
 					rotationend=Math.PI/2
 				}
@@ -2385,6 +2386,7 @@ function handleTouchStart(event) {
 			}
 			if(lookcenter){
 				if(!rotationflag){
+					lookcenter=false
 					rotationflag=true
 					rotationend=0
 				}
@@ -2675,9 +2677,9 @@ if(lighton){
 }
 
 
-if(orthoflag){
+if(orthoflag&&lookcenter){
 		var camera = new THREE.OrthographicCamera(-bw*1.3, bw*1.3, bw*1.3, -bw*1.3, 0.1, 1000);
-		const isoAngle = Math.atan(1 / Math.sqrt(3));
+		
 		camera.position.set(bw*2, 0, bw*2);
 		camera.lookAt(0, 0, 0);
 		camera.rotation.order = 'YXZ';
@@ -2872,6 +2874,7 @@ if (event.code === 'KeyW') {
 	 restart();
 }else if (event.code === 'KeyQ') {
 	if(!rotationflag){
+		lookcenter=false
 		rotationflag=true
 		rotationend=Math.PI/2
 	}
@@ -2886,11 +2889,13 @@ if (event.code === 'KeyW') {
 	
 }else if (event.code === 'KeyE') {
 	if(!rotationflag){
+		lookcenter=false
 		rotationflag=true
 		rotationend=0
 	}
 }else if (event.code === 'KeyX') {
 	if(!rotationflag){
+		lookcenter=false
 		rotationflag=true
 		rotationend=Math.PI/4
 	}
@@ -5175,6 +5180,7 @@ function animate() {
 		if(Math.abs(camera.rotation.y-rotationend)<0.0001){
 			rotationflag=false;
 			if(rotationend==0){
+				
 				lookright=true;
 				lookcenter=false
 				lookleft=false
@@ -5190,8 +5196,27 @@ function animate() {
 
 
 		}else if(camera.rotation.y>rotationend){
+			if(rotationend==0){
+
+				camera.position.set(bw*2-28*Math.abs(Math.PI/4-camera.rotation.y), bh*(cubes.length+3.5)-27*Math.abs(Math.PI/4-camera.rotation.y), bw*2);
+				// camera.rotation.x = -isoAngle*Math.abs(Math.PI/4-camera.rotation.y);
+				// camera.lookAt(0, 0, 0);
+				camera.rotation.x = -isoAngle+isoAngle*Math.abs(Math.PI/4-camera.rotation.y)
+			}else{
+				
+			}
 			camera.rotation.y-=Math.PI/64
+
+
 		}else{
+			if(rotationend==Math.PI/4){
+				camera.position.set(bw*2-28*Math.abs(Math.PI/4-camera.rotation.y), bh*(cubes.length+3.5)-27*Math.abs(Math.PI/4-camera.rotation.y), bw*2);
+				// camera.rotation.x = -isoAngle*Math.abs(Math.PI/4-camera.rotation.y);
+				// camera.lookAt(0, 0, 0);
+				camera.rotation.x = -isoAngle+isoAngle*Math.abs(Math.PI/4-camera.rotation.y)
+			}else{
+				camera.rotation.x = -isoAngle
+			}
 			camera.rotation.y+=Math.PI/64
 		}
 	}
@@ -6108,7 +6133,7 @@ if(effects.length!=0){
 	}
 
 
-	if(orthoflag){
+	if(orthoflag&&lookcenter){
 		if(!gameoverflag){
 			if(activeFloor==cubes.length){
 					camera.position.set(
