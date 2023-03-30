@@ -56,6 +56,9 @@
 document.body.style.overscrollBehaviorY = 'none';
 document.body.style.overscrollBehaviorX = 'none';
 
+let fps;
+let time0;
+let gradback=[];
 let txttimebuf;
 let geos=[];
 let fpoint=0;
@@ -168,6 +171,17 @@ let guideflag=true;
 var guide=[];
 var ring=[]
 var soundon=true;
+
+
+var performance = window.performance || {};
+performance.now = (function() {
+  return performance.now    ||
+         performance.webkitNow ||
+         performance.msNow     ||
+         performance.oNow      ||
+         performance.mozNow    ||
+         function() { return new Date().getTime(); };
+})();
 // var sounds=[];s
 // var soundname=["LoFi-HiHat-LS Credo Hat 1.WAV","LoFi-HiHat-LS Credo Hat 2.WAV","LoFi-HiHat-LS Credo Hat 3.WAV","LoFi-HiHat-LS Final Hat 1.WAV","LoFi-HiHat-LS Final Hat 2.WAV","LoFi-HiHat-LS Final Hat 3.WAV","LoFi-HiHat-LS Smoke It Hat 1.WAV","LoFi-HiHat-LS Smoke It Hat 2.WAV","LoFi-HiHat-LS Smoke It Hat 3.WAV","LoFi-HiHat-LS Underwater Hat 1.WAV","LoFi-HiHat-LS Underwater Hat 2.WAV","LoFi-HiHat-LS Underwater Hat 3.WAV","LoFi-HiHat-LS With U Hats 1.WAV","LoFi-HiHat-LS With U Hats 2.WAV","LoFi-HiHat-LS With U Open.WAV","LoFi-Hit-LS Underwater Syn.WAV","LoFi-Kick-LS Credo 808.WAV","LoFi-Kick-LS Credo Kik 1.WAV","LoFi-Kick-LS Credo Kik 2.WAV","LoFi-Kick-LS Final 808.WAV","LoFi-Kick-LS Final Kick 1.WAV","LoFi-Kick-LS Final Kick 2.WAV","LoFi-Kick-LS Smoke It 808.WAV","LoFi-Kick-LS Smoke It Kik 1.WAV","LoFi-Kick-LS Smoke It Kik 2.WAV","LoFi-Kick-LS Underwater 808 1.WAV","LoFi-Kick-LS Underwater 808 2.WAV","LoFi-Kick-LS Underwater Kick.WAV","LoFi-Kick-LS With U 808.WAV","LoFi-Kick-LS With U Kick 1.WAV","LoFi-Kick-LS With U Kick 2.WAV","LoFi-Loop-Drum-LS Smoke It Top.WAV","LoFi-Loop-Music-LS Credo Lp 1.WAV","LoFi-Loop-Music-LS Credo Lp 2.WAV","LoFi-Loop-Music-LS Final Call 90.WAV","LoFi-Loop-Music-LS Smoke It G.WAV","LoFi-Loop-Music-LS Underwater FM.WAV","LoFi-Loop-Music-LS With U Lp.WAV","LoFi-Perc-LS Credo Perc 2.WAV","LoFi-Perc-LS Credo Perc 3.WAV","LoFi-Perc-LS Credo Perc 4.WAV","LoFi-Perc-LS Final Perc 1.WAV","LoFi-Perc-LS Final Perc 2.WAV","LoFi-Perc-LS Final Perc 3.WAV","LoFi-Perc-LS Final Perc 4.WAV","LoFi-Perc-LS Smoke It Sight.WAV","LoFi-Perc-LS Smoke It Tri.WAV","LoFi-Perc-LS Smoke It Woody.WAV","LoFi-Perc-LS Underwater Click.WAV","LoFi-Perc-LS Underwater Shak.WAV","LoFi-Perc-LS Underwater Tamb.WAV","LoFi-Perc-LS Underwater Tom.WAV","LoFi-Perc-LS With U Cave.WAV","LoFi-Perc-LS With U Dig.WAV","LoFi-Perc-LS With U Rim.WAV","LoFi-Perc-LS With U Tri.WAV","LoFi-SFX-LS Credo FX Boom.WAV","LoFi-SFX-LS Credo Riser.WAV","LoFi-SFX-LS Final FX 1.WAV","LoFi-SFX-LS Final FX 2.WAV","LoFi-Snap-LS Underwater Snp.WAV","LoFi-Snare-LS Credo Snare.WAV","LoFi-Snare-LS Credo SnrClap.WAV","LoFi-Snare-LS Final Snare.WAV","LoFi-Snare-LS Final SnrClp.WAV","LoFi-Snare-LS Smoke It Snare 1.WAV","LoFi-Snare-LS Smoke It Snare 2.WAV","LoFi-Snare-LS Smoke It Snare 3.WAV","LoFi-Snare-LS Underwater Snare 1.WAV","LoFi-Snare-LS Underwater Snare 2.WAV","LoFi-Snare-LS With U Snare 1.WAV","LoFi-Snare-LS With U Snare 2.WAV","LoFi-Snare-LS With U Snare 3.WAV","LoFi-Vocal-LS Final Vox.WAV","LoFi-Vocal-LS Smoke It Vox 1.WAV","LoFi-Vocal-LS Smoke It Vox 2.WAV","LoFi-Vocal-LS Underwater FM.WAV","LoFi-Vocal-LS With U Vox 1.WAV","LoFi-Vocal-LS With U Vox 2.WAV","LoFi-HiHat-LS Credo Hat 1.WAV","LoFi-HiHat-LS Credo Hat 2.WAV","LoFi-HiHat-LS Credo Hat 3.WAV","LoFi-HiHat-LS Final Hat 1.WAV","LoFi-HiHat-LS Final Hat 2.WAV","LoFi-HiHat-LS Final Hat 3.WAV","LoFi-HiHat-LS Smoke It Hat 1.WAV","LoFi-HiHat-LS Smoke It Hat 2.WAV","LoFi-HiHat-LS Smoke It Hat 3.WAV","LoFi-HiHat-LS Underwater Hat 1.WAV","LoFi-HiHat-LS Underwater Hat 2.WAV","LoFi-HiHat-LS Underwater Hat 3.WAV","LoFi-HiHat-LS With U Hats 1.WAV","LoFi-HiHat-LS With U Hats 2.WAV","LoFi-HiHat-LS With U Open.WAV","LoFi-Hit-LS Underwater Syn.WAV","LoFi-Kick-LS Credo 808.WAV","LoFi-Kick-LS Credo Kik 1.WAV","LoFi-Kick-LS Credo Kik 2.WAV","LoFi-Kick-LS Final 808.WAV","LoFi-Kick-LS Final Kick 1.WAV","LoFi-Kick-LS Final Kick 2.WAV","LoFi-Kick-LS Smoke It 808.WAV","LoFi-Kick-LS Smoke It Kik 1.WAV","LoFi-Kick-LS Smoke It Kik 2.WAV","LoFi-Kick-LS Underwater 808 1.WAV","LoFi-Kick-LS Underwater 808 2.WAV","LoFi-Kick-LS Underwater Kick.WAV","LoFi-Kick-LS With U 808.WAV","LoFi-Kick-LS With U Kick 1.WAV","LoFi-Kick-LS With U Kick 2.WAV","LoFi-Loop-Drum-LS Smoke It Top.WAV","LoFi-Loop-Music-LS Credo Lp 1.WAV","LoFi-Loop-Music-LS Credo Lp 2.WAV","LoFi-Loop-Music-LS Final Call 90.WAV","LoFi-Loop-Music-LS Smoke It G.WAV","LoFi-Loop-Music-LS Underwater FM.WAV","LoFi-Loop-Music-LS With U Lp.WAV","LoFi-Perc-LS Credo Perc 2.WAV","LoFi-Perc-LS Credo Perc 3.WAV","LoFi-Perc-LS Credo Perc 4.WAV","LoFi-Perc-LS Final Perc 1.WAV","LoFi-Perc-LS Final Perc 2.WAV","LoFi-Perc-LS Final Perc 3.WAV","LoFi-Perc-LS Final Perc 4.WAV","LoFi-Perc-LS Smoke It Sight.WAV","LoFi-Perc-LS Smoke It Tri.WAV","LoFi-Perc-LS Smoke It Woody.WAV","LoFi-Perc-LS Underwater Click.WAV","LoFi-Perc-LS Underwater Shak.WAV","LoFi-Perc-LS Underwater Tamb.WAV","LoFi-Perc-LS Underwater Tom.WAV","LoFi-Perc-LS With U Cave.WAV","LoFi-Perc-LS With U Dig.WAV","LoFi-Perc-LS With U Rim.WAV","LoFi-Perc-LS With U Tri.WAV","LoFi-SFX-LS Credo FX Boom.WAV","LoFi-SFX-LS Credo Riser.WAV","LoFi-SFX-LS Final FX 1.WAV","LoFi-SFX-LS Final FX 2.WAV","LoFi-Snap-LS Underwater Snp.WAV","LoFi-Snare-LS Credo Snare.WAV","LoFi-Snare-LS Credo SnrClap.WAV","LoFi-Snare-LS Final Snare.WAV","LoFi-Snare-LS Final SnrClp.WAV","LoFi-Snare-LS Smoke It Snare 1.WAV","LoFi-Snare-LS Smoke It Snare 2.WAV","LoFi-Snare-LS Smoke It Snare 3.WAV","LoFi-Snare-LS Underwater Snare 1.WAV","LoFi-Snare-LS Underwater Snare 2.WAV","LoFi-Snare-LS With U Snare 1.WAV","LoFi-Snare-LS With U Snare 2.WAV","LoFi-Snare-LS With U Snare 3.WAV","LoFi-Vocal-LS Final Vox.WAV","LoFi-Vocal-LS Smoke It Vox 1.WAV","LoFi-Vocal-LS Smoke It Vox 2.WAV","LoFi-Vocal-LS Underwater FM.WAV","LoFi-Vocal-LS With U Vox 1.WAV","LoFi-Vocal-LS With U Vox 2.WAV","LoFi-Clap-ADSR Clap Delay.WAV","LoFi-Clap-ADSR Clap.WAV","LoFi-Clap-ADSR ClapDown.WAV","LoFi-Clap-ADSR Clappy.WAV","LoFi-Clap-ADSR Snap.WAV","LoFi-HiHat-ADSR Hat 2.WAV","LoFi-HiHat-ADSR Hat 3.WAV","LoFi-HiHat-ADSR Hat 5.WAV","LoFi-HiHat-ADSR Hat 6.WAV","LoFi-Hit-ADSR Pluck Cmaj7.WAV","LoFi-Kick-ADSR 808 Drop.WAV","LoFi-Kick-ADSR Kick Lite.WAV","LoFi-Kick-ADSR Kick Pop.WAV","LoFi-Kick-ADSR Kick Punch.WAV","LoFi-Kick-ADSR Kick Slam.WAV","LoFi-Loop-ADSR SlowDown.WAV","LoFi-Perc-ADSR Perc 1.WAV","LoFi-Perc-ADSR Perc 2.WAV","LoFi-Perc-ADSR Perc 3.WAV","LoFi-Perc-ADSR Perc 4.WAV","LoFi-Perc-ADSR Perc 5.WAV","LoFi-Perc-ADSR Perc 6.WAV","LoFi-Perc-ADSR Perc 7.WAV","LoFi-Snare-ADSR Rim.WAV","LoFi-Snare-ADSR Snare Crack.WAV","LoFi-Snare-ADSR SnarePit.WAV","LoFi-Snare-ADSR Snr 1.WAV","LoFi-Snare-ADSR Snr 2.WAV","LoFi-Snare-ADSR Snr 3.WAV","LoFi-Snare-ADSR Snr 4.WAV","80s-Bass-F9 GH DX Bass 1 D.WAV","80s-Bass-F9 GH DX Bass 2 D.WAV","80s-Bass-F9 GH JX Bass 1 D.WAV","80s-Bass-F9 GH JX Bass 2 D.WAV","80s-Clap-F9 GH Grid Clap.WAV","80s-Cymbal-F9 GH Grid Cym.WAV","80s-Hat-F9 GH Grid Cl Hat.WAV","80s-Hat-F9 GH Grid Op Hat.WAV","80s-Kick-F9 GH Grid Kick Amb.WAV","80s-Kick-F9 GH Grid Kick Non Lin.WAV","80s-Pad-F9 GH PSD Keys D.WAV","80s-Perc-F9 GH Grid Cbell.WAV","80s-Perc-F9 GH Grid Hi Cng.WAV","80s-Perc-F9 GH Grid Low Cng.WAV","80s-Perc-F9 GH Grid Tamb.WAV","80s-Rim-F9 GH Grid Rim.WAV","80s-Shaker-F9 GH Grid Shkr.WAV","80s-Snare-F9 GH Grid Amb Snr.WAV","80s-Snare-F9 GH Grid Dry Snr.WAV","80s-Synth-F9 GH Capri Hit D.WAV","80s-Synth-F9 GH Capri Hit2 D.WAV","80s-Synth-F9 GH Capri Seq D.WAV","80s-Synth-F9 GH CS Pluck D.WAV","80s-Synth-F9 GH Decpt FX D.WAV","80s-Synth-F9 GH Spaced D.WAV","80s-Synth-F9 GH Voices D.WAV","80s-Synth-F9 GH VS Twang D.WAV","80s-Tom-F9 GH Grid HTom.WAV","80s-Tom-F9 GH Grid LTom.WAV","80s-Tom-F9 GH Simm Hi.WAV","80s-Tom-F9 GH Simm Low.WAV","80s-Tom-F9 GH Simm Mid.WAV","FutureBass-Bass-FD guessG.WAV","FutureBass-Chord-FD minor G.WAV","FutureBass-Clap-FD kobe.WAV","FutureBass-Clap-FD room.WAV","FutureBass-Cymbal-FD bleach.WAV","FutureBass-FX-FD 808.WAV","FutureBass-Hat-FD banka.WAV","FutureBass-Hat-FD hadde.WAV","FutureBass-Hat-FD sucker.WAV","FutureBass-Kick-FD muscle.WAV","FutureBass-Kick-FD profecia.WAV","FutureBass-Loop-Synth-FD chugsC.WAV","FutureBass-Perc-FD what.WAV","FutureBass-Snap-FD gumm.WAV","FutureBass-Snare-FD bouncer.WAV","FutureBass-Vocal-FD blaqD.WAV","DanceHall-Bass-DanceHall 808.WAV","DanceHall-Clap-Luv Clap 1.WAV","DanceHall-Clap-MC01 Clp 1.WAV","DanceHall-Hat-AriK HCl2.WAV","DanceHall-Hat-CP MelHH2.WAV","DanceHall-Hat-DamK HCl2.WAV","DanceHall-Hat-Dirt1 Hat 2.WAV","DanceHall-Kick-Anth Bang.WAV","DanceHall-Kick-Anthem Kik .WAV","DanceHall-Melodic-Vibes Lp 4.WAV","DanceHall-Perc-FilthK Perc.WAV","DanceHall-Perc-PD34 Shr.WAV","DanceHall-Perc-Rag Perc 1.WAV","DanceHall-Rim-MC2 Rim.WAV","DanceHall-Snap-MC2 Snap .WAV","DanceHall-Vocal-MC05 Voc .WAV","FutureBass-Bass-FD guessG.WAV","FutureBass-Clap-FD oldskool.WAV","FutureBass-Clap-FD snip.WAV","FutureBass-Cymbal-FD silcone.WAV","FutureBass-FX-FD eight.WAV","FutureBass-Hat-FD gest.WAV","FutureBass-Hat-FD kitchen.WAV","FutureBass-Hat-FD mili.WAV","FutureBass-Kick-FD coment.WAV","FutureBass-Kick-FD layer.WAV","FutureBass-Loop-Synth-FD synEb1.WAV","FutureBass-Loop-Synth-FD synEb2.WAV","FutureBass-Perc-FD bleu.WAV","FutureBass-Snap-FD motion.WAV","FutureBass-Snare-FD wave.WAV","FutureBass-Vocal-FD faithvox1Eb.WAV","FutureHouse-Bass-25 Hit C.WAV","FutureHouse-Clap-FH Clap 05.WAV","FutureHouse-Clap-FH Clap 23.WAV","FutureHouse-Cymbal-FH 19 Ride.WAV","FutureHouse-FX-Falls-FH Fall 02.WAV","FutureHouse-Hat-FH Hat 13.WAV","FutureHouse-Hat-FH Hat 3.WAV","FutureHouse-Hat-FH Hat 5.WAV","FutureHouse-Kick-FH05 B KikD.WAV","FutureHouse-Kick-FH15 B KGb.WAV","FutureHouse-Loop-Synth-17 Lp D 126.WAV","FutureHouse-Loop-Vocal-VoxLp 08.WAV","FutureHouse-Perc-FH 17 PercX.WAV","FutureHouse-Perc-FH 20 PercX.WAV","FutureHouse-Snare-FH 05 Snr X.WAV","FutureHouse-Synth-FH SynHit18.WAV","IbizaHouse-Bass-IH Bass D 03.WAV","IbizaHouse-Bass-IH Bass Db 05.WAV","IbizaHouse-Clap-IH Clap 03.WAV","IbizaHouse-Clap-IH Clap 05.WAV","IbizaHouse-FX-IH SFX 03.WAV","IbizaHouse-FX-IH SFX 05.WAV","IbizaHouse-Hat-IH Hat 07.WAV","IbizaHouse-Hat-IH Hat 08.WAV","IbizaHouse-Hat-IH Hat 09.WAV","IbizaHouse-Hat-IH Hat 13.WAV","IbizaHouse-Hat-IH Hat 14.WAV","IbizaHouse-Hat-IH Hat 15.WAV","IbizaHouse-Kick-IH Kick 05.WAV","IbizaHouse-Kick-IH Kick 06.WAV","IbizaHouse-Kick-IH Kick 09.WAV","IbizaHouse-Kick-IH Kick 10.WAV","IbizaHouse-Perc-IH Perc 05.WAV","IbizaHouse-Perc-IH Perc 06.WAV","IbizaHouse-Perc-IH Perc 09.WAV","IbizaHouse-Perc-IH Perc 10.WAV","IbizaHouse-Snare-IH Snare 03.WAV","IbizaHouse-Snare-IH Snare 05.WAV","IbizaHouse-Synth-IH Synth D 07.WAV","IbizaHouse-Synth-IH Synth D 08.WAV","IbizaHouse-Synth-IH Synth D 09.WAV","IbizaHouse-Synth-IH Synth Db 13.WAV","IbizaHouse-Synth-IH Synth Db 14.WAV","IbizaHouse-Synth-IH Synth Db 15.WAV","IbizaHouse-Vocal-IH Vox 05.WAV","IbizaHouse-Vocal-IH Vox 06.WAV","IbizaHouse-Vocal-IH Vox 09.WAV","IbizaHouse-Vocal-IH Vox 10.WAV","IbizaHouse-Synth-Loop.ogg","IbizaHouse-Synth-Loop2.ogg","LoFi-Clap-ADSR Clap Delay.WAV","LoFi-Clap-ADSR Clap.WAV","LoFi-Clap-ADSR ClapDown.WAV","LoFi-Clap-ADSR Clappy.WAV","LoFi-Clap-ADSR Snap.WAV","LoFi-HiHat-ADSR Crash.WAV","LoFi-HiHat-ADSR Hat 1.WAV","LoFi-HiHat-ADSR Hat 2.WAV","LoFi-HiHat-ADSR Hat 3.WAV","LoFi-HiHat-ADSR Hat 5.WAV","LoFi-HiHat-ADSR Hat 6.WAV","LoFi-HiHat-ADSR Touch Hat 1.WAV","LoFi-HiHat-ADSR Touch Hat 2.WAV","LoFi-Hit-ADSR Pluck Cmaj7.WAV","LoFi-Kick-ADSR 808 Drop.WAV","LoFi-kICK-ADSR Kick 1.WAV","LoFi-kICK-ADSR Kick 2.WAV","LoFi-Kick-ADSR Kick Lite.WAV","LoFi-Kick-ADSR Kick Pop.WAV","LoFi-Kick-ADSR Kick Punch.WAV","LoFi-Kick-ADSR Kick Slam.WAV","LoFi-Kick-ADSR Touch Kick 1.WAV","LoFi-Kick-ADSR Touch Kick 2.WAV","LoFi-Loop-ADSR  Bed Bass.WAV","LoFi-Loop-ADSR  Bed Pads.WAV","LoFi-Loop-ADSR  Bed Syn.WAV","LoFi-Loop-ADSR 80sSyn.WAV","LoFi-Loop-ADSR SlowDown.WAV","LoFi-Loop-ADSR Touch Bass.WAV","LoFi-Loop-ADSR Touch Pads.WAV","LoFi-Loop-ADSR Touch Piano.WAV","LoFi-Loop-ADSR Touch Syn.WAV","LoFi-Perc-ADSR Perc 1.WAV","LoFi-Perc-ADSR Perc 2.WAV","LoFi-Perc-ADSR Perc 3.WAV","LoFi-Perc-ADSR Perc 4.WAV","LoFi-Perc-ADSR Perc 5.WAV","LoFi-Perc-ADSR Perc 6.WAV","LoFi-Perc-ADSR Perc 7.WAV","LoFi-Perc-ADSR Perc 8.WAV","LoFi-Perc-ADSR Perc 9.WAV","LoFi-Perc-ADSR Touch Perc 1.WAV","LoFi-Perc-ADSR Touch Perc 2.WAV","LoFi-Perc-ADSR Touch Perc 3.WAV","LoFi-SFX-ADSR SFX.WAV","LoFi-Snap-ADSR OV Snap.WAV","LoFi-Snare-ADSR OV Snr 1.WAV","LoFi-Snare-ADSR OV Snr 2.WAV","LoFi-Snare-ADSR Rim.WAV","LoFi-Snare-ADSR Snare Crack.WAV","LoFi-Snare-ADSR SnarePit.WAV","LoFi-Snare-ADSR Snr 1.WAV","LoFi-Snare-ADSR Snr 2.WAV","LoFi-Snare-ADSR Snr 3.WAV","LoFi-Snare-ADSR Snr 4.WAV","LoFi-Snare-ADSR Snr 5.WAV","LoFi-Kit-ADSR Bedroom.ogg","LoFi-Kit-ADSR Midnight.ogg","LoFi-Kit-ADSR SlowDown.ogg","LoFi-Kit-ADSR SomePluk.ogg","LoFi-Kit-ADSR Touch.ogg","Trap-Bass-TR CK BassHit C.WAV","Trap-Clap-TR CK Clap.WAV","Trap-Hat-TR CK 03 Hats.WAV","Trap-Hat-TR CK 07 Hats.WAV","Trap-Hat-TR CK 10 Hats.WAV","Trap-Kick-TR CK 01 Kick.WAV","Trap-Kick-TR CK 02 Kick.WAV","Trap-Perc-TR CK 01 Perc.WAV","Trap-Perc-TR CK 05 Perc.WAV","Trap-Snap-TR CK Snap 2.WAV","Trap-Snare-TR CK 01 Snare.WAV","Trap-Snare-TR CK 05 Snare.WAV","Trap-Synth-TR CK SynHit C.WAV","Trap-Synth-TR CK SynLp G.WAV","Trap-Vocal-TR CK 01 Vox.WAV","Trap-Vocal-TR CK 06 Vox.WAV","LoFi-HiHat-LS Credo Hat 1.WAV","LoFi-HiHat-LS Credo Hat 2.WAV","LoFi-HiHat-LS Credo Hat 3.WAV","LoFi-HiHat-LS Final Hat 1.WAV","LoFi-HiHat-LS Final Hat 2.WAV","LoFi-HiHat-LS Final Hat 3.WAV","LoFi-HiHat-LS Smoke It Hat 1.WAV","LoFi-HiHat-LS Smoke It Hat 2.WAV","LoFi-HiHat-LS Smoke It Hat 3.WAV","LoFi-HiHat-LS Underwater Hat 1.WAV","LoFi-HiHat-LS Underwater Hat 2.WAV","LoFi-HiHat-LS Underwater Hat 3.WAV","LoFi-HiHat-LS With U Hats 1.WAV","LoFi-HiHat-LS With U Hats 2.WAV","LoFi-HiHat-LS With U Open.WAV","LoFi-Hit-LS Underwater Syn.WAV","LoFi-Kick-LS Credo 808.WAV","LoFi-Kick-LS Credo Kik 1.WAV","LoFi-Kick-LS Credo Kik 2.WAV","LoFi-Kick-LS Final 808.WAV","LoFi-Kick-LS Final Kick 1.WAV","LoFi-Kick-LS Final Kick 2.WAV","LoFi-Kick-LS Smoke It 808.WAV","LoFi-Kick-LS Smoke It Kik 1.WAV","LoFi-Kick-LS Smoke It Kik 2.WAV","LoFi-Kick-LS Underwater 808 1.WAV","LoFi-Kick-LS Underwater 808 2.WAV","LoFi-Kick-LS Underwater Kick.WAV","LoFi-Kick-LS With U 808.WAV","LoFi-Kick-LS With U Kick 1.WAV","LoFi-Kick-LS With U Kick 2.WAV","LoFi-Loop-Drum-LS Smoke It Top.WAV","LoFi-Loop-Music-LS Credo Lp 1.WAV","LoFi-Loop-Music-LS Credo Lp 2.WAV","LoFi-Loop-Music-LS Final Call 90.WAV","LoFi-Loop-Music-LS Smoke It G.WAV","LoFi-Loop-Music-LS Underwater FM.WAV","LoFi-Loop-Music-LS With U Lp.WAV","LoFi-Perc-LS Credo Perc 2.WAV","LoFi-Perc-LS Credo Perc 3.WAV","LoFi-Perc-LS Credo Perc 4.WAV","LoFi-Perc-LS Final Perc 1.WAV","LoFi-Perc-LS Final Perc 2.WAV","LoFi-Perc-LS Final Perc 3.WAV","LoFi-Perc-LS Final Perc 4.WAV","LoFi-Perc-LS Smoke It Sight.WAV","LoFi-Perc-LS Smoke It Tri.WAV","LoFi-Perc-LS Smoke It Woody.WAV","LoFi-Perc-LS Underwater Click.WAV","LoFi-Perc-LS Underwater Shak.WAV","LoFi-Perc-LS Underwater Tamb.WAV","LoFi-Perc-LS Underwater Tom.WAV","LoFi-Perc-LS With U Cave.WAV","LoFi-Perc-LS With U Dig.WAV","LoFi-Perc-LS With U Rim.WAV","LoFi-Perc-LS With U Tri.WAV","LoFi-SFX-LS Credo FX Boom.WAV","LoFi-SFX-LS Credo Riser.WAV","LoFi-SFX-LS Final FX 1.WAV","LoFi-SFX-LS Final FX 2.WAV","LoFi-Snap-LS Underwater Snp.WAV","LoFi-Snare-LS Credo Snare.WAV","LoFi-Snare-LS Credo SnrClap.WAV","LoFi-Snare-LS Final Snare.WAV","LoFi-Snare-LS Final SnrClp.WAV","LoFi-Snare-LS Smoke It Snare 1.WAV","LoFi-Snare-LS Smoke It Snare 2.WAV","LoFi-Snare-LS Smoke It Snare 3.WAV","LoFi-Snare-LS Underwater Snare 1.WAV","LoFi-Snare-LS Underwater Snare 2.WAV","LoFi-Snare-LS With U Snare 1.WAV","LoFi-Snare-LS With U Snare 2.WAV","LoFi-Snare-LS With U Snare 3.WAV","LoFi-Vocal-LS Final Vox.WAV","LoFi-Vocal-LS Smoke It Vox 1.WAV","LoFi-Vocal-LS Smoke It Vox 2.WAV","LoFi-Vocal-LS Underwater FM.WAV","LoFi-Vocal-LS With U Vox 1.WAV","LoFi-Vocal-LS With U Vox 2.WAV"];
 
@@ -1236,22 +1250,22 @@ function createimg() {
 }
 
 
-function createtxt(text, time,mode) {
+function createtxt(text, i, mode) {
 	var canvas = document.createElement('canvas');
 	var ctx = canvas.getContext('2d');
 
 	// const padding = 10;
 	
 	ctx.globalAlpha = 1;
-	canvas.width = 16.5*3;
-	canvas.height = 5.6*3;
+	canvas.width = 16.5*4;
+	canvas.height = 5.6*4;
 	var tl=text.length;
 
-	var textw=tl*(canvas.width/8);
+	var textw=tl*(canvas.width/10);
 	// ctx.fillStyle = 0xFFFFFF;
 	// ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-	ctx.font = `${9}px Arial`;
+	ctx.font = `${12}px Arial`;
 	// ctx.fillStyle = 0x009F4D;
 	ctx.fillStyle = 0xFFFFFF;
 	// // ctx.fillText(text, padding, padding + textHeight * 0.8);
@@ -1266,8 +1280,8 @@ function createtxt(text, time,mode) {
 		// ctx.fillText(text, canvas.width-(parseInt(time*20)%50)*(canvas.width/50),canvas.height*0.8, canvas.width, canvas.height);
 
 	}else{
-		ctx.fillText(text, 0-(parseInt(time*20)%100)*(textw/100),canvas.height*0.73, textw, canvas.height);
-		ctx.fillText(text, textw-(parseInt(time*20)%100)*(textw/100),canvas.height*0.73, textw, canvas.height);
+		ctx.fillText(text, 0-(i)*(textw/100),canvas.height*0.73, textw, canvas.height);
+		ctx.fillText(text, textw-(i)*(textw/100),canvas.height*0.73, textw, canvas.height);
 	}
 	
 	// ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
@@ -3563,6 +3577,26 @@ function msetting(callback){
 }
 
 function txtsetting(callback){
+	var canvas = document.createElement('canvas');
+	var ctx = canvas.getContext('2d');
+	canvas.width = 400;
+	canvas.height = 400;
+	var grd = ctx.createLinearGradient(0, 0, 0, 400);
+	var hex=colorlst0[colornum0][0].toString(16);
+	if(hex.length==5) hex+="0"
+	grd.addColorStop(0, "#"+hex.toUpperCase());
+	grd.addColorStop(1, "#"+colorlst[colornum][0].toString(16).toUpperCase());
+	ctx.fillStyle = grd;
+	ctx.fillRect(0, 0, 400, 400);
+	var img3 = new THREE.CanvasTexture(canvas);
+	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
+	var sprite = new THREE.Sprite(material4);
+	sprite.position.set(-bw,bh*6,-bw);
+	sprite.scale.x=100;
+	sprite.scale.y=20;
+	gradback.push(sprite);
+	scene.add(sprite);
+	console.log(sprite)
 	for(var j=0;j<5;j++){
 		var temp=[];
 		var text="재생 중: "+sdic[j][0].substring(0, sdic[j][0].length-4)+" "
@@ -4014,6 +4048,8 @@ setting(stack,function (object) {
 			
 
 			txtsetting(function (object) {
+				time0 = performance.now();
+				fps = 0;
 				console.log(txtlst);
 				animate();
 				console.log(tilemold);
@@ -4039,6 +4075,7 @@ function animate() {
 	requestAnimationFrame(animate);
 
 	// scene.background = new THREE.Color(0x3e708d);
+	gradback[0].material.visible=true;
 	scene.background = new THREE.Color(colorlst[colornum][0]);
 	if(uiflag){
 		requestAnimationFrame(animate);
@@ -4130,13 +4167,19 @@ function animate() {
 	}else if(!stage1){
 		return;
 	}
-	
+	var now = performance.now();
+  	var elapsed = now - time0;
+  	time0 = now;
+  	fps = Math.floor(1 / (elapsed / 1000));
 
 	elapsedTime += clock.getDelta();
 	if(skin0){
 		var txtcount=parseInt(elapsedTime*20)%100
 		if(txtcount!=txttimebuf){
-			for(var i=0;i<cubes.length;i++){
+			txts[0].material=createtxt("  FPS: "+String(fps), txtcount)
+
+
+			for(var i=1;i<cubes.length;i++){
 				txts[i].material=txtlst[i][txtcount];
 			}
 
@@ -5154,7 +5197,7 @@ if(effects.length!=0){
 	renderer.setScissorTest(true);
 	renderer.render(scene, camera);
 
-
+gradback[0].material.visible=false;
 
 
 
