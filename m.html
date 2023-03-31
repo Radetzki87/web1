@@ -674,6 +674,18 @@ sdic.push(wooden);
 sdic.push(wooden);
 sdic.push(wooden);
 
+var soundic={};
+
+audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+wooden[0], function( buffer )
+	{   
+		var sound = new THREE.Audio( listener );
+		sound.setBuffer( buffer );
+		sound.setVolume( 0.3 );
+		sound.setLoop( true );
+		soundic[wooden[0]]=sound;
+	});
+
+
 // var colorlst=[[0x9DC8C8,0x58C9B9,0x519D9E,0xD1B6E1],[0xFFEEE4,0xF17F42,0xCE6D39,0x000000],[0x30A9DE,0xEFDC05,0xE53A40,0x090707],[0xA593E0,0xE0E3DA,0xFFFFF3,0x566270],[0xFFBC42,0xD81159,0x8F2D56,0x218380],[0xFBFFB9,0xFDD692,0xEC7357,0x754F44],[0x67D5B5,0xEE7785,0xC89EC4,0x84B1ED],[0xF7AA97,0xED9282,0xDE7E73,0xCFAA9E],[0xF16B6F,0xC5C6B6,0xAACD6E,0x3C3530],[0xf9c00c,0x00b9f1,0x7200da,0xf9320c],[0xd6ecfa,0xf15c5c,0xb84a39,0x6f3826],[0xa5dff9,0xef5285,0x60c5ba,0xfeee7d],[0xff7473,0xffc952,0x47b8e0,0x34314c],[0xe1eef6,0xff5f2e,0xfcbe32,0x004e66]];
 
 var soundlst=["Retro", "Minimalist", "Modern"]
@@ -3255,14 +3267,10 @@ function restart(){
 	uilst0=[];
 	uilst1=[];
 	sdic.sort(() => Math.random() - 0.5);
-
 	sdic[4]=wooden;
-	
-
 	for(let i=0;i<6;i++){
 		var sdickeys=Object.keys(soundic);
 		let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
-
 			for(let j=1;j<temp.length;j++){
 				if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
 					// var listener = new THREE.AudioListener();
@@ -3332,9 +3340,7 @@ function restart(){
 	
 		
  	elapsedTime=0
- 	setting(stack,function (object) {
-
- 		
+ 	setting(stack,function (object) { //재시작
 			msetting(function (object) {
 				cubes.forEach((item)=>{
 					item.mesh.userData.game2048.spawnTile();
@@ -4565,11 +4571,6 @@ function msetting(callback){
 				sound.setVolume( 0.3 );
 				sound.setLoop( true );
 				soundic[sdic[i][0]]=sound;
-
-
-				 
-					
-					
 			});
 		}
 	}
@@ -5157,20 +5158,18 @@ function animate2() {
 let elapsedTime = 0;
 let clock = new THREE.Clock();
 sdic.sort(() => Math.random() - 0.5);
-
 sdic[4]=wooden;
 
 var bsounds=[];
 var sounds=[];
-var soundic={};
+
 
 for(let i=0;i<6;i++){
-
 	let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
-	// var sdickeys=Object.keys(soundic);
+	var sdickeys=Object.keys(soundic);
 	
 	for(let j=1;j<temp.length;j++){
-		// if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
+		if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
 			// var listener = new THREE.AudioListener();
 			// var audioLoader = new THREE.AudioLoader();
 			audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
@@ -5184,7 +5183,7 @@ for(let i=0;i<6;i++){
 			});
 				
 				
-		// }
+		}
 	}
 
 
@@ -5328,7 +5327,7 @@ material0.transparent=true
 // }
 
 
-setting(stack,function (object) {
+setting(stack,function (object) {  //시작
 	addring();
 	
 	tsetting(function (object) {
