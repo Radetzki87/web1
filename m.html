@@ -76,6 +76,9 @@ var paidflag=false;
 var soundflag=true;
 var skinflag=false;
 
+var initflag=true;
+
+
 var restartflag=false;
 var restartend=Math.PI/4
 
@@ -3236,6 +3239,7 @@ function restart(){
 	colornum=parseInt(Math.random()*colorlst.length);
 	colornum0=parseInt(Math.random()*colorlst0.length);
 	// clock = new THREE.Clock();
+	initflag=true;
 	restartflag=false;
 	txts=[];
 	txtlst=[];
@@ -5381,17 +5385,34 @@ function animate() {
 			item.material.visible=false;
 		})
 		uilst[0].material.visible=false;
-		for(let i=0;i<6;i++){
-				if(i==activeFloor) continue
-				if(soundic[sdic[i][0]]?.isPlaying){
-						soundic[sdic[i][0]]?.stop();
-				}
-		}
-		if(!soundic[sdic[activeFloor][0]]?.isPlaying){
-		 soundic[sdic[activeFloor][0]]?.play();
+		if(initflag){
+			for(let i=0;i<6;i++){
+					if(i==activeFloor) continue
+					if(soundic[sdic[i][0]]?.isPlaying){
+							soundic[sdic[i][0]]?.stop();
+					}
+			}
+			if(!soundic[sdic[activeFloor][0]]?.isPlaying){
+			 soundic[sdic[activeFloor][0]]?.play();
+			}
+			initflag=false;
+			elapsedTime=0;
+			포인트.forEach((item)=>{
+			item.material.visible=true;
+			})
+			시간.forEach((item)=>{
+				item.material.visible=true;
+			})
 		}
 		
+		
 	}else{
+		포인트.forEach((item)=>{
+			item.material.visible=false;
+		})
+		시간.forEach((item)=>{
+			item.material.visible=false;
+		})
 		gradback.forEach((item)=>{
 			item.material.visible=true;
 		})
