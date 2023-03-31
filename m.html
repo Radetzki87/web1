@@ -4695,16 +4695,16 @@ function txtsetting(callback){
 	ctx.font = `bold ${190}px Arial`;
 	ctx.fillText("              M", 20,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][4]);
-	ctx.fillText("                   2", 0,canvas.height*0.96);
+	ctx.fillText("                    2", 0,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][3]);
 	ctx.font = `bold ${230}px Arial`;
-	ctx.fillText("                 0", 15,canvas.height*0.96);
+	ctx.fillText("                  0", 15,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][2]);
 	ctx.font = `bold ${270}px Arial`;
-	ctx.fillText("                X", 15,canvas.height*0.96);
+	ctx.fillText("                 X", 15,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][1]);
 	ctx.font = `bold ${320}px Arial`;
-	ctx.fillText("                8", -10,canvas.height*0.96);
+	ctx.fillText("                 8", -10,canvas.height*0.96);
 	// ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][0]);
 	// ctx.font = `bold ${320}px Arial`;
 	// ctx.fillText("                 S", 0,canvas.height*0.96);
@@ -5159,7 +5159,31 @@ var bsounds=[];
 var sounds=[];
 var soundic={};
 
+for(let i=0;i<6;i++){
 
+	let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
+	var sdickeys=Object.keys(soundic);
+	
+	for(let j=1;j<temp.length;j++){
+		if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
+			// var listener = new THREE.AudioListener();
+			// var audioLoader = new THREE.AudioLoader();
+			audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
+			{   
+				var sound = new THREE.Audio( listener );
+				sound.setBuffer( buffer );
+				sound.setVolume( 0.3 );
+				soundic[sdic[i][temp[j]]]=sound;
+					
+					
+			});
+				
+				
+		}
+	}
+
+
+}
 
 // if(soundon){
 //     var listener = new THREE.AudioListener();
@@ -5321,7 +5345,7 @@ setting(stack,function (object) {
 				// item.mesh.userData.game2048.spawnTile();
 				// item.mesh.userData.game2048.spawnTile();
 			})
-		msetting2(function (object) {
+		// msetting2(function (object) {
 			msetting(function (object) {
 				
 
@@ -5337,7 +5361,7 @@ setting(stack,function (object) {
 				})
 				
 			})
-		})
+		// })
 		
 	})
 	
