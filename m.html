@@ -4687,20 +4687,27 @@ function txtsetting(callback){
 	var grd = ctx.createLinearGradient(0, 0, 2000, 400);
 	var hex=colorlst[colornum][2].toString(16);
 	if(hex.length==5) hex+="0"
-	grd.addColorStop(1, "white");
-	grd.addColorStop(0, hexToHtmlColor(colorlst[colornum][1]));
-	ctx.fillStyle = grd;
-
+	// grd.addColorStop(1, "white");
+	// grd.addColorStop(0, hexToHtmlColor(colorlst[colornum][1]));
+	grd.addColorStop(0, hexToHtmlColor(colorlst[colornum][0]));
+	grd.addColorStop(0.3, hexToHtmlColor(colorlst[colornum][1]));
+	grd.addColorStop(0.6, hexToHtmlColor(colorlst[colornum][2]));
+	grd.addColorStop(1, hexToHtmlColor(colorlst[colornum][3]));
+	ctx.fillStyle =grd
+	// ctx.fillStyle = hexToHtmlColor(colorlst[colornum][3]);
 	ctx.font = `bold ${320}px Arial`;
 	ctx.fillText("  B", 0,canvas.height*0.96);
+	// ctx.fillStyle = hexToHtmlColor(colorlst[colornum][2]);
 	ctx.font = `bold ${270}px Arial`;
 	ctx.fillText("     O", 15,canvas.height*0.96);
+	// ctx.fillStyle = hexToHtmlColor(colorlst[colornum][1]);
 	ctx.font = `bold ${230}px Arial`;
 	ctx.fillText("        O", 80,canvas.height*0.96);
+	// ctx.fillStyle = hexToHtmlColor(colorlst[colornum][0]);
 	ctx.font = `bold ${190}px Arial`;
 	ctx.fillText("              M", 20,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][4]);
-	ctx.fillText("                    b", 0,canvas.height*0.96);
+	ctx.fillText("                    2", 0,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][3]);
 	ctx.font = `bold ${230}px Arial`;
 	ctx.fillText("                  0", 15,canvas.height*0.96);
