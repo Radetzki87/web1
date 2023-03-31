@@ -4708,16 +4708,16 @@ function txtsetting(callback){
 	ctx.font = `bold ${190}px Arial`;
 	ctx.fillText("              M", 20,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][4]);
-	ctx.fillText("                    2", 0,canvas.height*0.96);
+	ctx.fillText("                    2", 20+0,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][3]);
 	ctx.font = `bold ${230}px Arial`;
-	ctx.fillText("                  0", 15,canvas.height*0.96);
+	ctx.fillText("                  0", 20+15,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][2]);
 	ctx.font = `bold ${270}px Arial`;
-	ctx.fillText("                 X", 15,canvas.height*0.96);
+	ctx.fillText("                 X", 20+15,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][1]);
 	ctx.font = `bold ${320}px Arial`;
-	ctx.fillText("                 8", -35,canvas.height*0.96);
+	ctx.fillText("                 8", 0,canvas.height*0.96);
 	// ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][0]);
 	// ctx.font = `bold ${320}px Arial`;
 	// ctx.fillText("                 S", 0,canvas.height*0.96);
@@ -4766,21 +4766,21 @@ function txtsetting(callback){
 	// uiScene2.add(sprite);
 	scene.add(sprite);
 
-	var canvas = document.createElement('canvas');
-	var ctx = canvas.getContext('2d');
-	canvas.width = 700;
-	canvas.height =700;
-	var fr= motion("uiimg", 6)
-	var dur=2
-	ctx.drawImage(unitimg["uiimg"], fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,700,700)
-	var img3 = new THREE.CanvasTexture(canvas);
-	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
-	var sprite = new THREE.Sprite(material4);
+	// var canvas = document.createElement('canvas');
+	// var ctx = canvas.getContext('2d');
+	// canvas.width = 700;
+	// canvas.height =700;
+	// var fr= motion("uiimg", 6)
+	// var dur=2
+	// ctx.drawImage(unitimg["uiimg"], fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,700,700)
+	// var img3 = new THREE.CanvasTexture(canvas);
+	// var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
+	// var sprite = new THREE.Sprite(material4);
 	
-	sprite.position.set(2.2*bw,bh*11.6,0.7*bw);
-	sprite.scale.x=3.2;
-	sprite.scale.y=3.2;
-	scene.add(sprite);
+	// sprite.position.set(2.2*bw,bh*11.6,0.7*bw);
+	// sprite.scale.x=3.2;
+	// sprite.scale.y=3.2;
+	// scene.add(sprite);
 
 	// gradback.push(sprite);
 	// uiScene2.add(sprite);
@@ -4800,7 +4800,7 @@ function txtsetting(callback){
 	}
 
 	var img3 = new THREE.CanvasTexture(canvas);
-	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
+	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:0.9});
 	var sprite = new THREE.Sprite(material4);
 	
 	sprite.position.set(-2*bw,bh*0.4,2*bw);
@@ -4844,7 +4844,7 @@ function txtsetting(callback){
 	}else{
 		var dur=4;
 	}
-	ctx.drawImage(unitimg["ui0"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
+	ctx.drawImage(unitimg["q"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
 	
 	if(sidecam){
 		var dur=2;
@@ -4853,7 +4853,7 @@ function txtsetting(callback){
 	}
 	ctx.drawImage(unitimg["ui0"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
 	var img3 = new THREE.CanvasTexture(canvas);
-	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
+	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:0.9});
 	var sprite = new THREE.Sprite(material4);
 	
 	sprite.position.set(-2*bw,bh*0.4,2*bw);
@@ -7639,7 +7639,7 @@ function getui(row, col){
 	ctx.drawImage(unitimg["ui0"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
 
 	var img3 = new THREE.CanvasTexture(canvas);
-	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
+	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:0.9});
 	return material4
 
 }
