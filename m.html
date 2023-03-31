@@ -6873,16 +6873,15 @@ if(sidecam&&!gameoverflag){
 	// var height = window.innerHeight / 4;
 	var height = window.innerWidth / 5
 	renderer.setViewport(-500*Math.abs(-isoAngle-camera.rotation.x)-500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5, width, height);
-	renderer.setScissor(500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5, width, height);
+	renderer.setScissor(-500*Math.abs(-isoAngle-camera.rotation.x)-500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5, width, height);
 	renderer.setScissorTest(true);
-	if(Math.abs(restartend-camera.rotation.x)<1){
-		renderer.render(scene, camera);
-		console.log(restartend-camera.rotation.x);
-	}else{
+	// if(Math.abs(restartend-camera.rotation.x)<1){
+	// 	renderer.render(scene, camera);
+	// 	console.log(restartend-camera.rotation.x);
+	// }else{
 		renderer.render(scene, frontalViewCamera);
-	}
+	// }
 	
-
 
 
 	uilst[0].position.set(bw/1.4, bh*3, 0)
@@ -6890,17 +6889,17 @@ if(sidecam&&!gameoverflag){
 	// scene.background = new THREE.Color(0x8eA01d);
 	scene.background = new THREE.Color(colorlst[colornum][0]);
 	renderer.setViewport(window.innerWidth - width+500*Math.abs(-isoAngle-camera.rotation.x)+500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5,  width, height);
-	renderer.setScissor(window.innerWidth - width+500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5,  width, height);
+	renderer.setScissor(window.innerWidth - width+500*Math.abs(-isoAngle-camera.rotation.x)+500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5,  width, height);
 
 	// window.innerHeight / 2-innerWidth / 10
 	renderer.setScissorTest(true);
-	if(Math.abs(restartend-camera.rotation.x)<1){
-		renderer.render(scene, camera);
-		console.log(restartend-camera.rotation.x);
+	// if(Math.abs(restartend-camera.rotation.x)<1){
+	// 	renderer.render(scene, camera);
+	// 	console.log(restartend-camera.rotation.x);
 
-	}else{
+	// }else{
 		renderer.render(scene, sideViewCamera);
-	}
+	// }
 	
 
 }
