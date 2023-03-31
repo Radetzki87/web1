@@ -68,6 +68,8 @@
 document.body.style.overscrollBehaviorY = 'none';
 document.body.style.overscrollBehaviorX = 'none';
 
+var listener = new THREE.AudioListener();
+var audioLoader = new THREE.AudioLoader();
 var uilst0=[];
 var uilst1=[];
 var paidflag=false;
@@ -3216,7 +3218,8 @@ function restart(){
 		}
 	}
 
-	
+	listener = new THREE.AudioListener();
+	audioLoader = new THREE.AudioLoader();
 
 	world = new CANNON.World();
 	world.addBody(groundBody);
@@ -3228,7 +3231,7 @@ function restart(){
 	scene = new THREE.Scene();
 	colornum=parseInt(Math.random()*colorlst.length);
 	colornum0=parseInt(Math.random()*colorlst0.length);
-	clock = new THREE.Clock();
+	// clock = new THREE.Clock();
 	restartflag=false;
 	txts=[];
 	txtlst=[];
@@ -3246,12 +3249,16 @@ function restart(){
 	sdic.sort(() => Math.random() - 0.5);
 
 	sdic[4]=wooden;
+	
+
 	for(let i=0;i<6;i++){
+		var sdickeys=Object.keys(soundic);
 		let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
 
 			for(let j=1;j<temp.length;j++){
-					var listener = new THREE.AudioListener();
-					var audioLoader = new THREE.AudioLoader();
+				if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
+					// var listener = new THREE.AudioListener();
+					// var audioLoader = new THREE.AudioLoader();
 					audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
 					{   
 							var sound = new THREE.Audio( listener );
@@ -3261,7 +3268,7 @@ function restart(){
 							
 							
 					});
-					
+				}
 					
 			}
 			
@@ -3318,40 +3325,41 @@ function restart(){
 		
  	elapsedTime=0
  	setting(stack,function (object) {
-		msetting(function (object) {
-			cubes.forEach((item)=>{
-				item.mesh.userData.game2048.spawnTile();
-				item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-			})
-			txtsetting(function (object) {
-				time0 = performance.now();
-				fps = 0;
-				console.log(txtlst);
-				activeFloor=cubes.length;
-				gameoverflag=false;
-				startflag=false
-				// animate();
-				console.log(tilemold);
-				console.log(textmold)
+ 		msetting2(function (object) {
+			msetting(function (object) {
+				cubes.forEach((item)=>{
+					item.mesh.userData.game2048.spawnTile();
+					item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+					// item.mesh.userData.game2048.spawnTile();
+				})
+				txtsetting(function (object) {
+					time0 = performance.now();
+					fps = 0;
+					console.log(txtlst);
+					activeFloor=cubes.length;
+					gameoverflag=false;
+					startflag=false
+					// animate();
+					console.log(tilemold);
+					console.log(textmold)
 
+				})
+				
 			})
-			
 		})
-		
 	
 	
 	});
@@ -4541,25 +4549,57 @@ function tsetting(callback){
 
 function msetting(callback){
 	for(let i=0;i<6;i++){
-		var listener = new THREE.AudioListener();
-		var audioLoader = new THREE.AudioLoader();
-		audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][0], function( buffer )
-				{   
-						var sound = new THREE.Audio( listener );
-						sound.setBuffer( buffer );
-						sound.setVolume( 0.3 );
-						sound.setLoop( true );
-						soundic[sdic[i][0]]=sound;
+		var sdickeys=Object.keys(soundic);
+		if(sdickeys.indexOf(sdic[i][0])==-1){
+			
+			audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][0], function( buffer )
+			{   
+				var sound = new THREE.Audio( listener );
+				sound.setBuffer( buffer );
+				sound.setVolume( 0.3 );
+				sound.setLoop( true );
+				soundic[sdic[i][0]]=sound;
 
 
-					 
-						
-						
-				});
+				 
+					
+					
+			});
+		}
 	}
 
 
 
+	if (callback) {
+		callback();
+	}
+}
+function msetting2(callback){
+	for(let i=0;i<6;i++){
+
+		let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
+		var sdickeys=Object.keys(soundic);
+		
+		for(let j=1;j<temp.length;j++){
+			if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
+				// var listener = new THREE.AudioListener();
+				// var audioLoader = new THREE.AudioLoader();
+				audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
+				{   
+					var sound = new THREE.Audio( listener );
+					sound.setBuffer( buffer );
+					sound.setVolume( 0.3 );
+					soundic[sdic[i][temp[j]]]=sound;
+						
+						
+				});
+					
+					
+			}
+		}
+
+
+	}
 	if (callback) {
 		callback();
 	}
@@ -5117,27 +5157,7 @@ var bsounds=[];
 var sounds=[];
 var soundic={};
 
-for(let i=0;i<6;i++){
-		let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
-		for(let j=1;j<temp.length;j++){
-				var listener = new THREE.AudioListener();
-				var audioLoader = new THREE.AudioLoader();
-				audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
-				{   
-						var sound = new THREE.Audio( listener );
-						sound.setBuffer( buffer );
-						sound.setVolume( 0.3 );
-						soundic[sdic[i][temp[j]]]=sound;
-						
-						
-				});
-				
-				
-		}
-		
 
-
-}
 
 // if(soundon){
 //     var listener = new THREE.AudioListener();
@@ -5275,7 +5295,7 @@ material0.transparent=true
 						
 //         });
 // }
-camera.add( listener );
+
 
 setting(stack,function (object) {
 	addring();
@@ -5306,6 +5326,7 @@ setting(stack,function (object) {
 				time0 = performance.now();
 				fps = 0;
 				console.log(txtlst);
+				camera.add( listener );
 				animate();
 				console.log(tilemold);
 				console.log(textmold)
