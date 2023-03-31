@@ -74,6 +74,9 @@ var paidflag=false;
 var soundflag=false;
 var skinflag=false;
 
+var restartflag=false;
+var restartend=Math.PI/4
+
 var isoAngle = Math.atan(1 / Math.sqrt(3));
 let center=0.7853981;
 let left=1.5707963267948966;
@@ -133,6 +136,7 @@ window.tlst=timlst;
 let txts=[];
 window.txts=txts
 let txtlst=[];
+
 
 
 
@@ -2527,6 +2531,11 @@ function handleTouchStart(event) {
 
 		if(mouse.x>0.42&&mouse.x<0.81&&mouse.y>0.67&&mouse.y<0.77){
 			uilst1[0].material=getui(1,1);
+			if(!rotationflag){
+				rotationflag=true
+				restartflag=true
+				rotationend=Math.PI/4
+			}
 		}
 
 
@@ -2856,7 +2865,7 @@ window.addEventListener("touchend", handleTouchEnd, false);
 let boxSize = 1;
 let boxh=boxSize/2;
 // Set up the scene, camera, and renderer
-const scene = new THREE.Scene();
+let scene = new THREE.Scene();
 // scene.background = new THREE.Color(0x2e508d);
 if(lighton){
 		const ambientLight= new THREE.AmbientLight(0xffffff,0.4);
@@ -3182,7 +3191,7 @@ document.addEventListener('keydown', (event) => {
 
 function restart(){
 	// init();
-	return location.reload();
+	// return location.reload();
 
 	world = new CANNON.World();
 	world.addBody(groundBody);
@@ -3191,6 +3200,56 @@ function restart(){
 	world.solver.iterations = 5;
 	renderer.clearDepth(); 
 
+	scene = new THREE.Scene();
+	colornum=parseInt(Math.random()*colorlst.length);
+	colornum0=parseInt(Math.random()*colorlst0.length);
+	clock = new THREE.Clock();
+	restartflag=false;
+	txts=[];
+	txtlst=[];
+	mouth1=[];
+	mouth2=[];
+	mouth3=[];
+	eye1=[];
+	eye2=[]
+	eye3=[];
+	timlst=[]
+	// uilst=[];
+	gradback=[];
+	uilst0=[];
+	uilst1=[];
+	sdic.sort(() => Math.random() - 0.5);
+
+	sdic[4]=wooden;
+	for(let i=0;i<6;i++){
+		let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
+			for(let j=1;j<temp.length;j++){
+					var listener = new THREE.AudioListener();
+					var audioLoader = new THREE.AudioLoader();
+					audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
+					{   
+							var sound = new THREE.Audio( listener );
+							sound.setBuffer( buffer );
+							sound.setVolume( 0.3 );
+							soundic[sdic[i][temp[j]]]=sound;
+							
+							
+					});
+					
+					
+			}
+			
+
+
+	}
+	if(lighton){
+		const ambientLight= new THREE.AmbientLight(0xffffff,0.4);
+		scene.add(ambientLight);
+
+		const dL=new THREE.DirectionalLight(0xffffff,0.7);
+		dL.position.set(13,30,18);
+		scene.add(dL);
+	}	
 
 	
 	arrows.forEach((item)=>{
@@ -3202,66 +3261,73 @@ function restart(){
 	arrows=[];
 
 	
-	cubes.forEach((object)=>{ 
-		object.mesh.children.forEach((tile)=>{
-			tile.children.forEach((text)=>{
-				tile.remove(text);
-			})
-			object.mesh.remove(tile)
-		})
-		// object.geometry.dispose();
-		// if (object.material.dispose) {
-		//   object.material.dispose();
-		// } else if (object.material.length) { // For multi-materials
-		//   object.material.forEach((material) => material.dispose());
-		// }
-
-		// if (object.material.map) {
-		//   object.material.map.dispose();
-		// } else if (object.material.length) { // For multi-materials
-		//   object.material.forEach((material) => {
-		//     if (material.map) {
-		//       material.map.dispose();
-		//     }
-		//   });
-		// }
-		world.remove(object.body)
-		scene.remove(object);
-	})
+	cubes=[];
 
 
+	// scene.children.forEach((object) => {
+	// 		scene.remove(object);
+	// 		// object.geometry.dispose();
+	// 		// if (object.material.dispose) {
+	// 		//   object.material.dispose();
+	// 		// } else if (object.material.length) { // For multi-materials
+	// 		//   object.material.forEach((material) => material.dispose());
+	// 		// }
 
-	scene.children.forEach((object) => {
-			scene.remove(object);
-			// object.geometry.dispose();
-			// if (object.material.dispose) {
-			//   object.material.dispose();
-			// } else if (object.material.length) { // For multi-materials
-			//   object.material.forEach((material) => material.dispose());
-			// }
-
-			// if (object.material.map) {
-			//   object.material.map.dispose();
-			// } else if (object.material.length) { // For multi-materials
-			//   object.material.forEach((material) => {
-			//     if (material.map) {
-			//       material.map.dispose();
-			//     }
-			//   });
-			// }
+	// 		// if (object.material.map) {
+	// 		//   object.material.map.dispose();
+	// 		// } else if (object.material.length) { // For multi-materials
+	// 		//   object.material.forEach((material) => {
+	// 		//     if (material.map) {
+	// 		//       material.map.dispose();
+	// 		//     }
+	// 		//   });
+	// 		// }
 			
 
 
-		})
+	// 	})
 
 	
-		scene.children.length=0;
-		cubes.length=0;
- elapsedTime=0
- setting(stack);
- cubes.forEach((item)=>{
-	item.mesh.userData.game2048.spawnTile();
-})
+		
+ 	elapsedTime=0
+ 	setting(stack,function (object) {
+		msetting(function (object) {
+			cubes.forEach((item)=>{
+				item.mesh.userData.game2048.spawnTile();
+				item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+				// item.mesh.userData.game2048.spawnTile();
+			})
+			txtsetting(function (object) {
+				time0 = performance.now();
+				fps = 0;
+				console.log(txtlst);
+				activeFloor=cubes.length;
+				gameoverflag=false;
+				startflag=false
+				// animate();
+				console.log(tilemold);
+				console.log(textmold)
+
+			})
+			
+		})
+		
+	
+	
+	});
 
 	// for (let i = 0; i < stackHeight; i++) {
 	//   const game2048 = new Game2048(4, i);
@@ -3275,9 +3341,8 @@ function restart(){
 	// for (let i = 0; i < stackHeight; i++) {
 	//   cubes[i].mesh.userData.body = cubes[i].body;
 	// }
-	activeFloor=cubes.length-1;
-	gameoverflag=false;
-	animate()
+	
+	
 
 	
 
@@ -4479,19 +4544,46 @@ function txtsetting(callback){
 	var grd = ctx.createLinearGradient(0, 0, 0, 400);
 	// var hex=colorlst0[colornum0][0].toString(16);
 	// if(hex.length==5) hex+="0"
-	grd.addColorStop(0, hexToHtmlColor(colorlst0[colornum0][0]));
+	// grd.addColorStop(0, hexToHtmlColor(colorlst0[colornum0][0]));
+	grd.addColorStop(0, "white");
 	grd.addColorStop(1, hexToHtmlColor(colorlst[colornum][0]));
 	ctx.fillStyle = grd;
 	ctx.fillRect(0, 0, 400, 400);
 	var img3 = new THREE.CanvasTexture(canvas);
 	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
 	var sprite = new THREE.Sprite(material4);
-	sprite.position.set(-bw*3,bh,-bw*4.1);
+	sprite.position.set(-bw*3,bh*6,-bw*4.1);
 	sprite.scale.x=300;
-	sprite.scale.y=40;
+	sprite.scale.y=80;
 	gradback.push(sprite);
 	scene.add(sprite);
 	// console.log(sprite)
+
+
+	var canvas = document.createElement('canvas');
+	var ctx = canvas.getContext('2d');
+	canvas.width = 400;
+	canvas.height = 400;
+	
+	// var hex=colorlst0[colornum0][0].toString(16);
+	// if(hex.length==5) hex+="0"
+	// grd.addColorStop(0, hexToHtmlColor(colorlst0[colornum0][0]));
+	
+	ctx.fillStyle = "white";
+	ctx.fillRect(0, 0, 400, 400);
+	var img3 = new THREE.CanvasTexture(canvas);
+	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
+	var sprite = new THREE.Sprite(material4);
+	sprite.position.set(bw*2,bh*23,bw*2);
+	sprite.scale.x=300;
+	sprite.scale.y=150;
+	// gradback.push(sprite);
+	scene.add(sprite);
+
+
+
+
+
 
 
 	var canvas = document.createElement('canvas');
@@ -4988,7 +5080,7 @@ function animate2() {
 }
 
 let elapsedTime = 0;
-const clock = new THREE.Clock();
+let clock = new THREE.Clock();
 sdic.sort(() => Math.random() - 0.5);
 
 sdic[4]=wooden;
@@ -5216,18 +5308,15 @@ function animate() {
 			item.material.visible=true;
 		})
 	}
-
+	
 
 	if(skinflag){
 		for(var i=0;i<cubes.length;i++){
 			cubes[i].mesh.children.forEach((item)=> {
-				
 		        if(item.userData["1"]||item.userData["2"]||item.userData["3"]){
 		          	item.material.visible=true;
-		          	
 		        }else if(item.userData["5"]){
 		        	item.material.visible=false;
-
 		        }
 			})
 		}
@@ -5242,13 +5331,26 @@ function animate() {
 		}
 	}
 		
-	
+	if(restartflag&&lookcenter){
+		if(Math.abs(camera.rotation.x-restartend)<0.1){
+			restart();
+		}else{
+			camera.rotation.x+=Math.PI/32
+		}
+	}
+
+	if(!restartflag&&lookcenter&&!startflag){
+		if(Math.abs(-isoAngle-camera.rotation.x)<0.01){
+			
+		}else{
+			camera.rotation.x-=Math.PI/32
+		}
+	}
 
 	if(rotationflag){
 		if(Math.abs(camera.rotation.y-rotationend)<0.0001){
 			rotationflag=false;
 			if(rotationend==0){
-				
 				lookright=true;
 				lookcenter=false
 				lookleft=false
@@ -6680,13 +6782,19 @@ effects.forEach((item) => {
 
 uilst[0].material.visible=false;
 // scene.background = new THREE.Color(0x4e808d);
-scene.background = new THREE.Color(colorlst[colornum][0]);
+// scene.background = new THREE.Color(colorlst[colornum][0]);
 var width = window.innerWidth/1.4;
 var height = window.innerWidth/1.4;
-renderer.setViewport(window.innerWidth/2-width/2, -1000*Math.abs(Math.PI/4-camera.rotation.y), width, height);
-renderer.setScissor(window.innerWidth/2-width/2, -1000*Math.abs(Math.PI/4-camera.rotation.y), width, height);
+renderer.setViewport(window.innerWidth/2-width/2, -1000*Math.abs(-isoAngle-camera.rotation.x)-1000*Math.abs(Math.PI/4-camera.rotation.y), width, height);
+renderer.setScissor(window.innerWidth/2-width/2, -1000*Math.abs(-isoAngle-camera.rotation.x)-1000*Math.abs(Math.PI/4-camera.rotation.y), width, height);
 renderer.setScissorTest(true);
-renderer.render(scene, topViewCamera);
+// if(Math.abs(restartend-camera.rotation.x)<0.5){
+// 	renderer.render(scene, camera);
+// 	console.log(restartend-camera.rotation.x);
+// }else{
+	renderer.render(scene, topViewCamera);
+// }
+
 uilst[0].material.visible=true;
 
 
@@ -6756,17 +6864,24 @@ if(sidecam&&!gameoverflag){
 
 
 	// scene.background = new THREE.Color(0x4e508d);
-	scene.background = new THREE.Color(colorlst[colornum][0]);
+
+	// scene.background = new THREE.Color(colorlst[colornum][0]);
 
 	uilst[0].position.set(0, bh*3, bw/1.4)
 	uilst[0].scale.set(6,20*uidelta,6);
 	var width = window.innerWidth / 6;
 	// var height = window.innerHeight / 4;
 	var height = window.innerWidth / 5
-	renderer.setViewport(0-500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5, width, height);
-	renderer.setScissor(0-500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5, width, height);
+	renderer.setViewport(-500*Math.abs(-isoAngle-camera.rotation.x)-500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5, width, height);
+	renderer.setScissor(500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5, width, height);
 	renderer.setScissorTest(true);
-	renderer.render(scene, frontalViewCamera);
+	if(Math.abs(restartend-camera.rotation.x)<1){
+		renderer.render(scene, camera);
+		console.log(restartend-camera.rotation.x);
+	}else{
+		renderer.render(scene, frontalViewCamera);
+	}
+	
 
 
 
@@ -6774,12 +6889,19 @@ if(sidecam&&!gameoverflag){
 	uilst[0].scale.set(6,20*uidelta,6);
 	// scene.background = new THREE.Color(0x8eA01d);
 	scene.background = new THREE.Color(colorlst[colornum][0]);
-	renderer.setViewport(window.innerWidth - width+500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5,  width, height);
+	renderer.setViewport(window.innerWidth - width+500*Math.abs(-isoAngle-camera.rotation.x)+500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5,  width, height);
 	renderer.setScissor(window.innerWidth - width+500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5,  width, height);
 
 	// window.innerHeight / 2-innerWidth / 10
 	renderer.setScissorTest(true);
-	renderer.render(scene, sideViewCamera);
+	if(Math.abs(restartend-camera.rotation.x)<1){
+		renderer.render(scene, camera);
+		console.log(restartend-camera.rotation.x);
+
+	}else{
+		renderer.render(scene, sideViewCamera);
+	}
+	
 
 }
 
