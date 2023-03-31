@@ -2680,7 +2680,8 @@ function handleTouchMove(event) {
 								const game2048 = cubes[activeFloor].mesh.userData.game2048;
 								if(gameoverflag){
 									ontouch=false
-									return restart();
+									restartflag=true
+									return
 									
 								}
 								game2048.moveBoard("right");
@@ -2689,7 +2690,8 @@ function handleTouchMove(event) {
 								const game2048 = cubes[activeFloor].mesh.userData.game2048;
 								if(gameoverflag){
 									ontouch=false
-									return restart();
+									restartflag=true
+									return
 									
 								}
 								game2048.moveBoard("left");
@@ -2698,7 +2700,8 @@ function handleTouchMove(event) {
 								const game2048 = cubes[activeFloor].mesh.userData.game2048;
 								if(gameoverflag){
 									ontouch=false
-									return restart();
+									restartflag=true
+									return
 									
 								}
 								game2048.moveBoard("up");
@@ -2708,7 +2711,8 @@ function handleTouchMove(event) {
 								const game2048 = cubes[activeFloor].mesh.userData.game2048;
 								if(gameoverflag){
 									ontouch=false
-									return restart();
+									restartflag=true
+									return
 									
 								}
 								game2048.moveBoard("down");
@@ -3325,7 +3329,8 @@ function restart(){
 		
  	elapsedTime=0
  	setting(stack,function (object) {
- 		msetting2(function (object) {
+
+ 		
 			msetting(function (object) {
 				cubes.forEach((item)=>{
 					item.mesh.userData.game2048.spawnTile();
@@ -3359,7 +3364,7 @@ function restart(){
 				})
 				
 			})
-		})
+		
 	
 	
 	});
@@ -3376,9 +3381,6 @@ function restart(){
 	// for (let i = 0; i < stackHeight; i++) {
 	//   cubes[i].mesh.userData.body = cubes[i].body;
 	// }
-	
-	
-
 	
 
 }
@@ -4693,19 +4695,19 @@ function txtsetting(callback){
 	ctx.font = `bold ${190}px Arial`;
 	ctx.fillText("              M", 20,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][4]);
-	ctx.fillText("                   b", 0,canvas.height*0.96);
+	ctx.fillText("                   2", 0,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][3]);
-	ctx.font = `bold ${210}px Arial`;
-	ctx.fillText("                   0", 15,canvas.height*0.96);
+	ctx.font = `bold ${230}px Arial`;
+	ctx.fillText("                 0", 15,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][2]);
-	ctx.font = `bold ${246}px Arial`;
-	ctx.fillText("                  X", 0,canvas.height*0.96);
+	ctx.font = `bold ${270}px Arial`;
+	ctx.fillText("                X", 15,canvas.height*0.96);
 	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][1]);
 	ctx.font = `bold ${320}px Arial`;
-	ctx.fillText("                  8", 0,canvas.height*0.96);
-	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][0]);
-	ctx.font = `bold ${320}px Arial`;
-	ctx.fillText("                  S", 0,canvas.height*0.96);
+	ctx.fillText("                8", -10,canvas.height*0.96);
+	// ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][0]);
+	// ctx.font = `bold ${320}px Arial`;
+	// ctx.fillText("                 S", 0,canvas.height*0.96);
 	var img3 = new THREE.CanvasTexture(canvas);
 	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
 	var sprite = new THREE.Sprite(material4);
@@ -5319,20 +5321,22 @@ setting(stack,function (object) {
 				// item.mesh.userData.game2048.spawnTile();
 				// item.mesh.userData.game2048.spawnTile();
 			})
-		msetting(function (object) {
-			
+		msetting2(function (object) {
+			msetting(function (object) {
+				
 
-			txtsetting(function (object) {
-				time0 = performance.now();
-				fps = 0;
-				console.log(txtlst);
-				camera.add( listener );
-				animate();
-				console.log(tilemold);
-				console.log(textmold)
+				txtsetting(function (object) {
+					time0 = performance.now();
+					fps = 0;
+					console.log(txtlst);
+					camera.add( listener );
+					animate();
+					console.log(tilemold);
+					console.log(textmold)
 
+				})
+				
 			})
-			
 		})
 		
 	})
