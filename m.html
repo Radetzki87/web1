@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title>Tower Stacking Game</title>
 	<style>
 			 
             
-			body { margin: 0; , overscroll-behavior-y: none;}
+			body { margin: 0; , overscroll-behavior-y: none;,touch-action: pan-y;}
 
 			canvas { display: white; }
 
@@ -67,6 +68,23 @@
 
 document.body.style.overscrollBehaviorY = 'none';
 document.body.style.overscrollBehaviorX = 'none';
+const enableScrollLock = () => {
+    const { body } = document;
+
+    if (!body.getAttribute('scrollY')) {
+      const pageY = window.pageYOffset;
+
+      body.setAttribute('scrollY', pageY.toString());
+
+      body.style.overflow = 'hidden';
+      body.style.position = 'fixed';
+      body.style.left = '0px';
+      body.style.right = '0px';
+      body.style.bottom = '0px';
+      body.style.top = `-${pageY}px`;
+    }
+  };
+
 
 var listener = new THREE.AudioListener();
 var audioLoader = new THREE.AudioLoader();
@@ -74,7 +92,7 @@ var uilst0=[];
 var uilst1=[];
 var paidflag=false;
 var soundflag=true;
-var skinflag=false;
+var skinflag=true;
 
 var initflag=true;
 
@@ -111,7 +129,11 @@ let stage5=false;
 let addflag=false;
 let mergeflag=false;
 let bounceflag=false;
+
+let topcam=true;
 let sidecam=true;
+
+
 let arrowon=false;
 let averageflag=false;
 let lighton=true;
@@ -2457,8 +2479,14 @@ function handleTouchStart(event) {
 	// event.preventDefault();
 	lastX = (event.touches[0].clientX / window.innerWidth)*2 - 1;
 	lastY = -(event.touches[0].clientY / window.innerHeight)*2+ 1;
-	mouse.x=(event.touches[0].clientX / window.innerWidth);
-	mouse.y=(event.touches[0].clientY / window.innerWidth);
+	if(window.innerWidth>=window.innerHeight){
+		mouse.x=(event.touches[0].clientX / window.innerHeight);
+		mouse.y=(event.touches[0].clientY / window.innerHeight);
+	}else{
+		mouse.x=(event.touches[0].clientX / window.innerWidth);
+		mouse.y=(event.touches[0].clientY / window.innerWidth);
+	}
+	
 	console.log(mouse.x)
 	console.log(mouse.y)
 	// if(uiflag){
@@ -3469,7 +3497,7 @@ function createTextMesh(text, fontSize, callback) {
 
 
 function createBox(x, y, z, width, height, depth, game2048,idx) {  
-	if(skin1){
+	if(skin0){
 		var geometry = new THREE.BoxGeometry(width*0.95, height, depth*0.95);
 	}else{
 		var geometry = new THREE.BoxGeometry(width, height, depth);
@@ -3523,158 +3551,158 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		//  tg.applyMatrix4(originHelper.matrixWorld);
 		//  geoms.push(tg)
 
-		originHelper.position.set(0,0,-depth/2)
+		originHelper.position.set(0,0,-depth/2+depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
-		var tg=new THREE.BoxGeometry(width*1.05, height, depth*0.05);
+		var tg=new THREE.BoxGeometry(width*1.0, height, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
 
-		originHelper.position.set(-width/2,0,0)
+		originHelper.position.set(-width/2+depth*0.025,0,0)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.05, height, depth*0.95);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
 		//앞면
-		originHelper.position.set(0,bh/2-height/11,depth/2)
+		originHelper.position.set(0,bh/2-height/11,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
-		var tg=new THREE.BoxGeometry(width*1.05, height/5.5, depth*0.05);
+		var tg=new THREE.BoxGeometry(width*1, height/5.5, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(-width/2+width*0.09,-bh/2+height/20,depth/2)
+		originHelper.position.set(-width/2+width*0.09,-bh/2+height/20,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.18, height/10, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
 
-		originHelper.position.set(0,-bh/2+(height*0.1*ratio)/2,depth/2)
+		originHelper.position.set(0,-bh/2+(height*0.1*ratio)/2,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.93*ratio, height*0.10*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(0,-bh/2+(height*0.1*ratio)*2.45,depth/2)
+		originHelper.position.set(0,-bh/2+(height*0.1*ratio)*2.45,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.93*ratio, height*0.1*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(0,-bh/2+(height*0.25*ratio)/2,depth/2)
+		originHelper.position.set(0,-bh/2+(height*0.25*ratio)/2,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(0-(width*0.05),-bh/2+(height*0.25*ratio)/2,depth/2)
+		originHelper.position.set(0-(width*0.05),-bh/2+(height*0.25*ratio)/2,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(0+(width*0.05),-bh/2+(height*0.25*ratio)/2,depth/2)
+		originHelper.position.set(0+(width*0.05),-bh/2+(height*0.25*ratio)/2,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(0-(width*0.1),-bh/2+(height*0.25*ratio)/2,depth/2)
+		originHelper.position.set(0-(width*0.1),-bh/2+(height*0.25*ratio)/2,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(0+(width*0.1),-bh/2+(height*0.25*ratio)/2,depth/2)
+		originHelper.position.set(0+(width*0.1),-bh/2+(height*0.25*ratio)/2,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(0-(width*0.15),-bh/2+(height*0.25*ratio)/2,depth/2)
+		originHelper.position.set(0-(width*0.15),-bh/2+(height*0.25*ratio)/2,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(0+(width*0.15),-bh/2+(height*0.25*ratio)/2,depth/2)
+		originHelper.position.set(0+(width*0.15),-bh/2+(height*0.25*ratio)/2,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(0-(width*0.2),-bh/2+(height*0.25*ratio)/2,depth/2)
+		originHelper.position.set(0-(width*0.2),-bh/2+(height*0.25*ratio)/2,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(0+(width*0.2),-bh/2+(height*0.25*ratio)/2,depth/2)
+		originHelper.position.set(0+(width*0.2),-bh/2+(height*0.25*ratio)/2,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.03*ratio, height*0.25*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
 
-		originHelper.position.set(0-(width*0.3),-bh/2+(height*0.25*ratio)/2,depth/2)
+		originHelper.position.set(0-(width*0.3),-bh/2+(height*0.25*ratio)/2,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.18*ratio, height*0.25*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(0+(width*0.3),-bh/2+(height*0.25*ratio)/2,depth/2)
+		originHelper.position.set(0+(width*0.3),-bh/2+(height*0.25*ratio)/2,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*0.18*ratio, height*0.25*ratio, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(-(width*1.05)/2+(width/10)*1,bh/8,depth/2)
+		originHelper.position.set(-(width*1.0)/2+(width/10)*1,bh/8,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/5, height/2, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
 
-		originHelper.position.set(-(width*1.05)/2+(width/10)*1,-bh/3.75+height*0.08,depth/2)
+		originHelper.position.set(-(width*1.0)/2+(width/10)*1,-bh/3.75+height*0.08,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/5, height*0.045, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(-(width*1.05)/2+(width/10)*1,-bh/3.75,depth/2)
+		originHelper.position.set(-(width*1.0)/2+(width/10)*1,-bh/3.75,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/5, height*0.045, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(-(width*1.05)/2+(width/10)*1,-bh/3.75-height*0.08,depth/2)
+		originHelper.position.set(-(width*1.0)/2+(width/10)*1,-bh/3.75-height*0.08,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/5, height*0.045, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(-(width*1.05)/2+(width/10)*1,-bh/3.75-height*0.08-height*0.045,depth/2)
+		originHelper.position.set(-(width*1.0)/2+(width/10)*1,-bh/3.75-height*0.08-height*0.045,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/5, height*0.045, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
 		//전면매꿈
-		originHelper.position.set(-(width*1.05)/2+(width/50)*1,0,depth/2)
+		originHelper.position.set(-(width*1.0)/2+(width/50)*1,0,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/25, height, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(-(width*0.75)/2+(width/40)*1,0,depth/2)
+		originHelper.position.set(-(width*0.75)/2+(width/40)*1,0,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
 		//전면우측
-		originHelper.position.set((width*1.05)/2-(width/10)*1,0,depth/2)
+		originHelper.position.set((width*1.0)/2-(width/10)*1,0,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/5, height, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
@@ -3684,15 +3712,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		//  ((우측면))
 		
 		//지붕
-		originHelper.position.set(depth/2,bh/2-height/16,0)
+		originHelper.position.set(depth/2-depth*0.025,bh/2-height/16,0)
 		originHelper.updateWorldMatrix(true, false);
-		var tg=new THREE.BoxGeometry(depth*0.05, height/8, width*1.05);
+		var tg=new THREE.BoxGeometry(depth*0.05, height/8, width*1.0);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 		//하측
-		originHelper.position.set(depth/2,-bh/2+height/16,0)
+		originHelper.position.set(depth/2-depth*0.025,-bh/2+height/16,0)
 		originHelper.updateWorldMatrix(true, false);
-		var tg=new THREE.BoxGeometry(depth*0.05, height/8, width*1.05);
+		var tg=new THREE.BoxGeometry(depth*0.05, height/8, width*1.0);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
@@ -3700,43 +3728,43 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		//구멍시작
 		//세로
 		var difx=0.17;
-		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*2)
+		originHelper.position.set(depth/2-depth*0.025,0,difx+depth/2-(width*0.03)*2)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.018);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*3)
+		originHelper.position.set(depth/2-depth*0.025,0,difx+depth/2-(width*0.03)*3)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.018);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*4)
+		originHelper.position.set(depth/2-depth*0.025,0,difx+depth/2-(width*0.03)*4)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.018);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*5)
+		originHelper.position.set(depth/2-depth*0.025,0,difx+depth/2-(width*0.03)*5)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.018);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*6)
+		originHelper.position.set(depth/2-depth*0.025,0,difx+depth/2-(width*0.03)*6)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.018);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*7)
+		originHelper.position.set(depth/2-depth*0.025,0,difx+depth/2-(width*0.03)*7)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.018);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/2,0,difx+depth/2-(width*0.03)*8)
+		originHelper.position.set(depth/2-depth*0.025,0,difx+depth/2-(width*0.03)*8)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, height, width*0.08);
 		tg.applyMatrix4(originHelper.matrixWorld);
@@ -3744,37 +3772,37 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 		//가로
 		var difx=0.06;
-		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*2,0.17+depth/2-(width*0.03)*4)
+		originHelper.position.set(depth/2-depth*0.025,difx+height/2-(width*0.03)*2,0.17+depth/2-(width*0.03)*4)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*3,0.17+depth/2-(width*0.03)*4)
+		originHelper.position.set(depth/2-depth*0.025,difx+height/2-(width*0.03)*3,0.17+depth/2-(width*0.03)*4)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*4,0.17+depth/2-(width*0.03)*4)
+		originHelper.position.set(depth/2-depth*0.025,difx+height/2-(width*0.03)*4,0.17+depth/2-(width*0.03)*4)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*5,0.17+depth/2-(width*0.03)*4)
+		originHelper.position.set(depth/2-depth*0.025,difx+height/2-(width*0.03)*5,0.17+depth/2-(width*0.03)*4)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*6,0.17+depth/2-(width*0.03)*4)
+		originHelper.position.set(depth/2-depth*0.025,difx+height/2-(width*0.03)*6,0.17+depth/2-(width*0.03)*4)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*7,0.17+depth/2-(width*0.03)*4)
+		originHelper.position.set(depth/2-depth*0.025,difx+height/2-(width*0.03)*7,0.17+depth/2-(width*0.03)*4)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
 		tg.applyMatrix4(originHelper.matrixWorld);
@@ -3786,12 +3814,13 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		// tg.applyMatrix4(originHelper.matrixWorld);
 		// geoms.push(tg)
 
-		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*8,0.17+depth/2-(width*0.03)*4)
+		originHelper.position.set(depth/2-depth*0.025,difx+height/2-(width*0.03)*8,0.17+depth/2-(width*0.03)*4)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
-		originHelper.position.set(depth/2,difx+height/2-(width*0.03)*8-width*0.018,0.17+depth/2-(width*0.03)*4)
+
+		originHelper.position.set(depth/2-depth*0.025,difx+height/2-(width*0.03)*8-width*0.018,0.17+depth/2-(width*0.03)*4)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(depth*0.05, width*0.018, height*0.7);
 		tg.applyMatrix4(originHelper.matrixWorld);
@@ -3815,41 +3844,37 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		
 		var geoms=[]; 
 
-		originHelper.position.set(0,0,-depth/2)
+		originHelper.position.set(0,0,-depth/2+depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
-		var tg=new THREE.BoxGeometry(width*1.05, height, depth*0.05);
+		var tg=new THREE.BoxGeometry(width*1.0, height, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
 
-		originHelper.position.set(-width/2,0,0)
+		originHelper.position.set(-width/2+width*0.025,0,0)
 		originHelper.updateWorldMatrix(true, false);
-		var tg=new THREE.BoxGeometry(width*0.05, height, depth*1.05);
+		var tg=new THREE.BoxGeometry(width*0.05, height, depth*1.0);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		originHelper.position.set(0,0,depth/2)
+		originHelper.position.set(0,0,depth/2-width*0.025)
 		originHelper.updateWorldMatrix(true, false);
-		var tg=new THREE.BoxGeometry(width*1.05, height, depth*0.05);
-		tg.applyMatrix4(originHelper.matrixWorld);
-		geoms.push(tg)
-
-
-		originHelper.position.set(width/2,0,0)
-		originHelper.updateWorldMatrix(true, false);
-		var tg=new THREE.BoxGeometry(width*0.05, height, depth*1.05);
+		var tg=new THREE.BoxGeometry(width*1.0, height, depth*0.05);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
 
+		originHelper.position.set(width/2-width*0.025,0,0)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width*0.05, height, depth*1.0);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		geoms.push(tg)
 
 		var mgeo=new BufferGeometryUtils.mergeBufferGeometries(
 	      geoms, false);
 		 var mesh1=new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
 		 mesh1.userData["5"]=true;
 		 mesh.add(mesh1);
-
-
 
 			var geoms=[]; 
 
@@ -3860,7 +3885,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 
-		originHelper.position.set(0,-bh/2+(height*0.25*ratio)/1.96,depth/2.01)
+		originHelper.position.set(0,-bh/2+(height*0.25*ratio)/1.96,depth/2.01-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x000000)
 		var tg=new THREE.BoxGeometry(width*0.93*ratio, height*0.25*ratio, depth*0.03);
@@ -3877,10 +3902,10 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		geoms.push(tg)
 
 		//음영좌측슬릿
-		originHelper.position.set(-bw/2+width*0.1*ratio,-bh/4.05,depth/2)
+		originHelper.position.set(-bw/2+width*0.1*ratio,-bh/4.05,depth/2-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x000000)
-		var tg=new THREE.BoxGeometry(width*0.25*ratio, height*0.5, depth*0.04);
+		var tg=new THREE.BoxGeometry(width*0.2*ratio, height*0.5, depth*0.04);
 		var rgb = tc.toArray().map(v => v * 255);
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
@@ -3895,7 +3920,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 		//우측면 좌측 음영
-		originHelper.position.set(width/2,0,depth/2-(depth*0.12))
+		originHelper.position.set(width/2-depth*0.025,0,depth/2-(depth*0.12))
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x000000)
 		var tg=new THREE.BoxGeometry(depth*0.04, height*0.7, width*0.15*ratio);
@@ -3911,7 +3936,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
-		originHelper.position.set(width/2,0,depth/2-(depth*0.12))
+		originHelper.position.set(width/2-depth*0.025,0,depth/2-(depth*0.12))
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x000000)
 		var tg=new THREE.BoxGeometry(depth*0.04, height*0.5, width*0.3*ratio);
@@ -3929,7 +3954,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 		//화면(블랙)
-		originHelper.position.set(0,0+dify,depth/2.05)
+		originHelper.position.set(0,0+dify,depth/2.05-depth*0.015)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x003E00)
 		var tg=new THREE.BoxGeometry(width*0.8*ratio, height*0.7*ratio, depth*0.03);
@@ -3947,7 +3972,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 		//화면(그레이)
-		originHelper.position.set(0,height*0.35*ratio+dify,depth/1.97)
+		originHelper.position.set(0,height*0.35*ratio+dify,depth/1.97-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0xB4AFA8)
 		var tg=new THREE.BoxGeometry(width*0.8*ratio, height*0.15*ratio, depth*0.02);
@@ -3963,7 +3988,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
-		originHelper.position.set(0,-height*0.35*ratio+dify,depth/1.97)
+		originHelper.position.set(0,-height*0.35*ratio+dify,depth/1.97-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0xB4AFA8)
 		var tg=new THREE.BoxGeometry(width*0.8*ratio, height*0.15*ratio, depth*0.02);
@@ -3979,7 +4004,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
-		originHelper.position.set((width*0.4+width*0.05)*ratio,0+dify,depth/1.97)
+		originHelper.position.set((width*0.4+width*0.05)*ratio,0+dify,depth/1.97-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0xB4AFA8)
 		var tg=new THREE.BoxGeometry(width*0.1*ratio, height*0.85*ratio, depth*0.02);
@@ -3995,7 +4020,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
-		originHelper.position.set((-width*0.4-width*0.05)*ratio,0+dify,depth/1.97)
+		originHelper.position.set((-width*0.4-width*0.05)*ratio,0+dify,depth/1.97-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0xB4AFA8)
 		var tg=new THREE.BoxGeometry(width*0.1*ratio, height*0.85*ratio, depth*0.02);
@@ -4013,7 +4038,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 		// 우측화면(블랙)
-		originHelper.position.set(depth/2.05,0+dify,0-depth/8)
+		originHelper.position.set(depth/2.05-depth*0.015,0+dify,0-depth/8)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(colorlst0[colornum0][idx])
 		// var tc=new THREE.Color(0xD4DFD8)
@@ -4040,7 +4065,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 		//우측화면(그레이)
-		originHelper.position.set(depth/1.97,height*0.45*ratio+dify,0-depth/8)
+		originHelper.position.set(depth/1.97-depth*0.025,height*0.45*ratio+dify,0-depth/8)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0xB4AFA8)
 		var tg=new THREE.BoxGeometry(depth*0.02, height*0.15*ratio, width*0.9*ratio);
@@ -4056,7 +4081,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/1.97,-height*0.45*ratio+dify,0-depth/8)
+		originHelper.position.set(depth/1.97-depth*0.025,-height*0.45*ratio+dify,0-depth/8)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0xB4AFA8)
 		var tg=new THREE.BoxGeometry(depth*0.02, height*0.15*ratio,width*0.9*ratio );
@@ -4072,7 +4097,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/1.97,0+dify,(width*0.45+width*0.03)*ratio-depth/8)
+		originHelper.position.set(depth/1.97-depth*0.025,0+dify,(width*0.45+width*0.03)*ratio-depth/8)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0xB4AFA8)
 		var tg=new THREE.BoxGeometry(depth*0.02, height*ratio*1.05, width*0.07*ratio);
@@ -4088,7 +4113,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/1.97,0+dify,(-width*0.45-width*0.03)*ratio-depth/8)
+		originHelper.position.set(depth/1.97-depth*0.025,0+dify,(-width*0.45-width*0.03)*ratio-depth/8)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0xB4AFA8)
 		var tg=new THREE.BoxGeometry(depth*0.02, height*ratio*1.05, width*0.07*ratio);
@@ -4106,7 +4131,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 		//방향키
-		originHelper.position.set(-width/2.3,0+height*0.1,depth/1.9)
+		originHelper.position.set(-width/2.3,0+height*0.1,depth/1.9-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x50585F)
 		var tg=new THREE.BoxGeometry(height*0.2*ratio, height*0.4*ratio, depth*0.02);
@@ -4123,7 +4148,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		geoms.push(tg)
 
 
-		originHelper.position.set(-width/2.3,0+height*0.1,depth/1.9)
+		originHelper.position.set(-width/2.3,0+height*0.1,depth/1.9-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x50585F)
 		var tg=new THREE.BoxGeometry(height*0.4*ratio, height*0.2*ratio, depth*0.02);
@@ -4140,7 +4165,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		geoms.push(tg)
 
 		//우측 키
-		originHelper.position.set(width/2.2,0+height*0.15,depth/1.9)
+		originHelper.position.set(width/2.2,0+height*0.15,depth/1.9-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(colorlst[colornum][1])
 		var tg=new THREE.BoxGeometry(height*0.3*ratio, height*0.3*ratio, depth*0.036);
@@ -4157,7 +4182,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		geoms.push(tg)
 		// mouth1.push(mesh1)
 
-		originHelper.position.set(width/2.6,0-height*0.15,depth/1.9)
+		originHelper.position.set(width/2.6,0-height*0.15,depth/1.9-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(colorlst[colornum][2])
 		var tg=new THREE.BoxGeometry(height*0.3*ratio, height*0.3*ratio, depth*0.036);
@@ -4173,7 +4198,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 		//우측면 좌측 키(검정)
-		originHelper.position.set(depth/1.9,0-height*0.38,width/2.3)
+		originHelper.position.set(depth/1.9-depth*0.025,0-height*0.38,width/2.3)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(colorlst[colornum][3])
 		var tg=new THREE.BoxGeometry(depth*0.02, height*0.1*ratio, height*0.35*ratio);
@@ -4189,7 +4214,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
-		originHelper.position.set(depth/1.9,0-height*0.38,width/2.9)
+		originHelper.position.set(depth/1.9-depth*0.025,0-height*0.38,width/2.9)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0xffffff)
 		var tg=new THREE.BoxGeometry(depth*0.02, height*0.1*ratio, height*0.25*ratio);
@@ -4206,7 +4231,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		geoms.push(tg)
 
 		//우측 키(검정)
-		originHelper.position.set(width/2.57,0+height*0.38,depth/1.9)
+		originHelper.position.set(width/2.57,0+height*0.38,depth/1.9-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x20282F)
 		var tg=new THREE.BoxGeometry(height*0.35*ratio, height*0.1*ratio, depth*0.02);
@@ -4222,7 +4247,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
-		originHelper.position.set(width/2.13,0+height*0.38,depth/1.9)
+		originHelper.position.set(width/2.13,0+height*0.38,depth/1.9-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x20282F)
 		var tg=new THREE.BoxGeometry(height*0.2*ratio, height*0.1*ratio, depth*0.02);
@@ -4239,7 +4264,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		geoms.push(tg)
 
 		//좌측 키(검정)
-		originHelper.position.set(-width/2.57,0+height*0.38,depth/1.9)
+		originHelper.position.set(-width/2.57,0+height*0.38,depth/1.9-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x20282F)
 		var tg=new THREE.BoxGeometry(height*0.3*ratio, height*0.1*ratio, depth*0.02);
@@ -4255,7 +4280,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
-		originHelper.position.set(-width/2.13,0+height*0.38,depth/1.9)
+		originHelper.position.set(-width/2.13,0+height*0.38,depth/1.9-depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0x20282F)
 		var tg=new THREE.BoxGeometry(height*0.2*ratio, height*0.1*ratio, depth*0.02);
@@ -4271,10 +4296,13 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 		//뚜껑
-		originHelper.position.set(0,height/2.1,0)
+
+		originHelper.position.set(0,height/2-height*0.02,0)
 		originHelper.updateWorldMatrix(true, false);
-		var tc=new THREE.Color(0xffffff)
-		var tg=new THREE.BoxGeometry(width*1.01, height*0.1, depth*1.01);
+		// var tc=new THREE.Color(0xffffff)
+		var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"]*0.65)+'%, '+String(newcl["l"]+25)+'%)');
+		var tg=new THREE.BoxGeometry(width*0.98, height*0.1, depth*0.98);
 		var rgb = tc.toArray().map(v => v * 255);
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
@@ -4288,7 +4316,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		geoms.push(tg)
 
 		//오른쪽 작은 박스혹
-		originHelper.position.set(width/2,height/2-((height/6)/2)*0.7,-depth/3)
+		originHelper.position.set(width/2-depth*0.025,height/2-((height/6)/2)*0.7,-depth/3)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0xff0000)
 		var tg=new THREE.BoxGeometry(height*0.2, (height/6), height*0.05);
@@ -4304,7 +4332,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
-		originHelper.position.set(width/2,height/2-((height/6)/2)*0.7,-depth/3+height*0.05)
+		originHelper.position.set(width/2-depth*0.025,height/2-((height/6)/2)*0.7,-depth/3+height*0.05)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(0xffffff)
 		var tg=new THREE.BoxGeometry(height*0.2, (height/6), height*0.05);
@@ -4320,7 +4348,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.setAttribute('color', colorAttrib);
 		geoms.push(tg)
 
-		originHelper.position.set(width/2,height/2-((height/6)/2)*0.7,-depth/3+height*0.1)
+		originHelper.position.set(width/2-depth*0.025,height/2-((height/6)/2)*0.7,-depth/3+height*0.1)
 		originHelper.updateWorldMatrix(true, false);
 		var tc=new THREE.Color(colorlst[colornum][3])
 		var tg=new THREE.BoxGeometry(height*0.2, (height/6), height*0.05);
@@ -4347,33 +4375,33 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		mesh.add(mesh2);
 
 			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0x00C85F}));
-			mesh1.position.set(height*0.3*ratio,0+dify*2,depth/2)
+			mesh1.position.set(height*0.3*ratio,0+dify*2,depth/2-depth*0.016)
 			mesh1.userData["1"]=true;
 			mesh.add(mesh1)
 			var mesh2 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0x00C85F}));
-			mesh2.position.set(-height*0.3*ratio,0+dify*2,depth/2)
+			mesh2.position.set(-height*0.3*ratio,0+dify*2,depth/2-depth*0.016)
 			mesh2.userData["1"]=true;
 			mesh.add(mesh2)
 
 			eye1.push([mesh1,mesh2])
 
 			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.3*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
-			mesh1.position.set(height*0.3*ratio,0+dify*2,depth/2)
+			mesh1.position.set(height*0.3*ratio,0+dify*2,depth/2-depth*0.016)
 			mesh1.userData["4"]=true;
 			mesh.add(mesh1)
 
 			var mesh2 = new THREE.Mesh(new THREE.BoxGeometry(height*0.3*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
-			mesh2.position.set(-height*0.3*ratio,0+dify*2,depth/2)
+			mesh2.position.set(-height*0.3*ratio,0+dify*2,depth/2-depth*0.016)
 			mesh2.userData["4"]=true;
 			mesh.add(mesh2)
 
 			var mesh3 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.2*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
-			mesh3.position.set(height*0.3*ratio,-height*0.05+dify*2,depth/2)
+			mesh3.position.set(height*0.3*ratio,-height*0.05+dify*2,depth/2-depth*0.016)
 			mesh3.userData["4"]=true;
 			mesh.add(mesh3)
 			
 			var mesh4 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.2*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
-			mesh4.position.set(-height*0.3*ratio,-height*0.05+dify*2,depth/2)
+			mesh4.position.set(-height*0.3*ratio,-height*0.05+dify*2,depth/2-depth*0.016)
 			mesh4.userData["4"]=true;
 			mesh.add(mesh4)
 			eye2.push([mesh1,mesh2,mesh3,mesh4])
@@ -4382,13 +4410,13 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.4*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0x00C85F}));
-			mesh1.position.set(0,0-height*0.1,depth/2)
+			mesh1.position.set(0,0-height*0.1,depth/2-depth*0.016)
 			mesh1.userData["1"]=true;
 			mesh.add(mesh1)
 			mouth1.push(mesh1)
 
 			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xFFA401, visible:false}));
-			mesh1.position.set(0,0-height*0.1,depth/2)
+			mesh1.position.set(0,0-height*0.1,depth/2-depth*0.016)
 			mesh1.userData["4"]=true;
 			mesh.add(mesh1)
 			mouth2.push(mesh1)
@@ -4422,13 +4450,13 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	var mgeo=new BufferGeometryUtils.mergeBufferGeometries(
       geoms, false);
 	 var mesh1=new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
-	 // mesh1.userData["1"]=true;
+	 mesh1.userData["bottom"]=true;
 	 mesh.add(mesh1);
 
 	if(skin0){
 		 //우측출력
 		var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width*0.9*ratio,height*0.8*ratio), new THREE.MeshLambertMaterial({ color: 0x000000, opacity:1, transparent:true}), );
-		mesh1.position.set(depth/1.97,0+dify,0-depth/8)
+		mesh1.position.set(depth/1.97-depth*0.016,0+dify,0-depth/8)
 		mesh1.rotation.y=Math.PI/2
 		mesh1.userData["1"]=true;
 		mesh1.userData["2"]=true;
@@ -4438,7 +4466,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 		//우측출력 음영
 		var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width*0.9*ratio,height*0.8*ratio), new THREE.MeshBasicMaterial({ color: 0xA0A0A0, opacity:0.1, transparent:true}), );
-		mesh1.position.set(depth/1.98,0+dify,0-depth/8)
+		mesh1.position.set(depth/1.98-depth*0.017,0+dify,0-depth/8)
 		mesh1.rotation.y=Math.PI/2
 		mesh1.userData["3"]=true;
 		
@@ -4731,21 +4759,21 @@ function txtsetting(callback){
 	scene.add(sprite);
 
 
-	var canvas = document.createElement('canvas');
-	var ctx = canvas.getContext('2d');
-	canvas.width = 1000;
-	canvas.height =200;
-	ctx.fillStyle = "white";
-	ctx.font = `${50}px GG`;
-	ctx.fillText("            터치하여 시작", 0,canvas.height*0.9);
-	var img3 = new THREE.CanvasTexture(canvas);
-	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
-	var sprite = new THREE.Sprite(material4);
-	sprite.position.set(bw*2,bh*6,bw);
-	sprite.scale.x=50;
-	sprite.scale.y=10;
-	gradback.push(sprite);
-	scene.add(sprite);
+	// var canvas = document.createElement('canvas');
+	// var ctx = canvas.getContext('2d');
+	// canvas.width = 1000;
+	// canvas.height =200;
+	// ctx.fillStyle = "white";
+	// ctx.font = `${50}px GG`;
+	// ctx.fillText("            터치하여 시작", 0,canvas.height*0.9);
+	// var img3 = new THREE.CanvasTexture(canvas);
+	// var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
+	// var sprite = new THREE.Sprite(material4);
+	// sprite.position.set(bw*2,bh*6,bw);
+	// sprite.scale.x=50;
+	// sprite.scale.y=10;
+	// gradback.push(sprite);
+	// scene.add(sprite);
 
 
 	var canvas = document.createElement('canvas');
@@ -4916,15 +4944,15 @@ function txtsetting(callback){
 			// const padding = 10;
 			
 			ctx.globalAlpha = 1;
-			canvas.width = 16.5*5;
-			canvas.height = 5.6*5;
+			canvas.width = 16.5*6;
+			canvas.height = 5.6*6;
 			var tl=text.length;
 
 			var textw=tl*(canvas.width/10);
 			// ctx.fillStyle = 0xFFFFFF;
 			// ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-			ctx.font = `${12}px Arial`;
+			ctx.font = `${14}px Arial`;
 			// ctx.fillStyle = 0x009F4D;
 			ctx.fillStyle = 0xFFFFFF;
 			// // ctx.fillText(text, padding, padding + textHeight * 0.8);
@@ -5012,7 +5040,7 @@ function setting(n= 8, callback){
 	var hex = colorlst[colornum][3];
 	var arrowHelper= new THREE.ArrowHelper( dir, origin, length, hex )
 	arrowHelper.children.forEach((item)=>{
-		item.material.opacity=0.2;
+		item.material.opacity=0.1;
 		item.material.transparent=true;
 		item.material.linewidth=1
 
@@ -5444,6 +5472,8 @@ function animate() {
 		        if(item.userData["1"]||item.userData["2"]||item.userData["3"]||item.userData["4"]){
 		          	item.material.visible=false;
 		          	
+		        }else if(item.userData["5"]){
+		        	item.material.visible=true;
 		        }
 			})
 		}
@@ -5453,7 +5483,7 @@ function animate() {
 		if(Math.abs(camera.rotation.x-restartend)<0.1){
 			restart();
 		}else{
-			camera.rotation.x+=Math.PI/32
+			camera.rotation.x+=Math.PI/64
 		}
 	}
 
@@ -5461,7 +5491,7 @@ function animate() {
 		if(Math.abs(-isoAngle-camera.rotation.x)<0.01){
 			
 		}else{
-			camera.rotation.x-=Math.PI/32
+			camera.rotation.x-=Math.PI/64
 		}
 	}
 
@@ -5517,7 +5547,7 @@ function animate() {
 	// scene.background = new THREE.Color(colorlst[colornum][0]);
 	
 	var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-	
+
 	// console.log(-isoAngle-camera.rotation.x)
 	// scene.background = new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%'+String(newcl["l"])+'%)');
 	// if(Math.abs(-isoAngle-camera.rotation.x)>0.01){
@@ -5653,6 +5683,8 @@ function animate() {
 			txttimebuf=txtcount;
 			
 		}
+	}else if(!skinflag){
+
 	}
 
 	
@@ -5725,7 +5757,7 @@ function animate() {
 			}
 			force0.set(forcex*1.5, 0, forcez*1.5);
 			// console.log(String(forcex)+" "+String(forcey));
-			cubes[i].body.applyForce(force0, cubes[i].body.position);
+			if(startflag)cubes[i].body.applyForce(force0, cubes[i].body.position);
 
 
 
@@ -6493,8 +6525,6 @@ if(effects.length!=0){
 					});
 				})
 			}else{
-
-
 				for(var i=0;i<cubes.length;i++){
 					if(i==activeFloor){
 						camera.position.set(
@@ -6511,8 +6541,8 @@ if(effects.length!=0){
 
 						if(arrowon) arrows[i].children[0].material.opacity=0.5
 						// camera.lookAt(0,0,0)
-						cubes[i].mesh.material.opacity = 0;
-						 cubes[i].mesh.material.alphaTest=0
+						cubes[i].mesh.material.opacity = 0.02;
+						 // cubes[i].mesh.material.alphaTest=0
 						// cubes[i].mesh.material.alphaTest=0.1
 						cubes[i].mesh.material.transparent = true;
 						cubes[i].mesh.children.forEach((tile,index) => {
@@ -6520,12 +6550,17 @@ if(effects.length!=0){
 							if(tile.userData["3"]){
 								tile.material.opacity =  0.1
 								tile.material.transparent = true;
-							}else if(tile.userData["1"]==true||tile.userData["5"]){
+							}else if(tile.userData["1"]==true){
 								tile.material.opacity =  0.03
 								tile.material.transparent = true;
 								
 							}else if(tile.userData["4"]==true){
 								tile.material.opacity =  0.0
+								tile.material.transparent = true;
+								
+							}else if(tile.userData["5"]==true){
+								tile.material.alphaTest=0.05
+								tile.material.opacity =  0.05
 								tile.material.transparent = true;
 								
 							}else{
@@ -6550,9 +6585,12 @@ if(effects.length!=0){
 							cubes[i].mesh.material.alphaTest=0
 							cubes[i].mesh.material.transparent = true;
 							cubes[i].mesh.children.forEach((tile) => {
-								if(tile.userData["1"]==true||tile.userData["5"]){
+								if(tile.userData["1"]==true){
 									// tile.material.opacity=0.1-((i-activeFloor)/cubes.length)/10;
 									tile.material.opacity=0.03
+									tile.material.transparent = true;
+								}else if(tile.userData["5"]){
+									tile.material.opacity=0.02
 									tile.material.transparent = true;
 								}else{
 									tile.material.alphaTest=0.1
@@ -6588,6 +6626,30 @@ if(effects.length!=0){
 							}else if(tile.userData["2"]||tile.userData["5"]){
 								tile.material.opacity =  1;
 								tile.material.transparent = true;
+								// tile.material.alphaTest=0.1
+								// tile.children.forEach((text) => {
+								// 	text.material.opacity = 1;
+								// 	text.material.transparent = true;
+								// 	// tile.material.alphaTest=0.1
+								// })
+								
+									
+								
+								// tile.material.opacity = 0.1-((i-activeFloor)/cubes.length);
+								// tile.material.alphaTest=0.1
+
+								// tile.material.opacity=0.0
+								// tile.material.transparent = true;
+								// tile.children.forEach((text) => {
+								//   text.material.opacity = 0.0
+								//   // text.material.opacity = 0.0-((i-activeFloor)/cubes.length);
+								//   // text.material.alphaTest=0.1
+								//   text.material.transparent = true;
+
+								//   })
+							}else if(tile.userData["4"]){
+								// tile.material.opacity =  1;
+								// tile.material.transparent = true;
 								// tile.material.alphaTest=0.1
 								// tile.children.forEach((text) => {
 								// 	text.material.opacity = 1;
@@ -6665,17 +6727,41 @@ if(effects.length!=0){
 
 
 
-// Render the scene
+// 렌더러
 // renderer.setSize(window.innerWidth, window.innerHeight);
 // camera.aspect = window.innerWidth / window.innerHeight;
 
 
 	uilst[0].position.set(bw/1.4, bh*4, bw/1.4)
 	uilst[0].scale.set(4,20*uidelta,4);
- renderer.setViewport(0, window.innerHeight-window.innerWidth, window.innerWidth, window.innerWidth);
-	renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
-	renderer.setScissorTest(true);
-	renderer.render(scene, camera);
+	if(window.innerWidth>window.innerHeight){
+		if(restartflag){
+			renderer.setViewport(0, window.innerHeight-window.innerHeight, window.innerHeight, window.innerHeight);
+			renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
+			renderer.setScissorTest(true);
+			renderer.render(scene, camera);
+		}else{
+			renderer.setViewport(0, window.innerHeight-window.innerHeight, window.innerHeight, window.innerHeight);
+			renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
+			renderer.setScissorTest(true);
+			renderer.render(scene, camera);
+		}
+		
+	}else{
+		if(restartflag){
+			renderer.setViewport(0, window.innerHeight-window.innerWidth+1000*Math.abs(-isoAngle-camera.rotation.x), window.innerWidth, window.innerWidth);
+			renderer.setScissor(0, 0, window.innerWidth, window.innerHeight+1000*Math.abs(-isoAngle-camera.rotation.x));
+			renderer.setScissorTest(true);
+			renderer.render(scene, camera);
+		}else{
+			renderer.setViewport(0, window.innerHeight-window.innerWidth, window.innerWidth, window.innerWidth);
+			renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
+			renderer.setScissorTest(true);
+			renderer.render(scene, camera);
+		}
+		
+	}
+ 
 
 gradback.forEach((item)=>{
 	item.material.visible=false;
@@ -6872,7 +6958,7 @@ ring[0].children.forEach((item)=>{
 	item.material.transparent=true;
 })
 
-// if(!gameoverflag){
+if(topcam){
 	if(activeFloor==cubes.length){
 		// topViewCamera.position.set(0, bh*20, 0);
 		// topViewCamera.lookAt(0, 0, 0);
@@ -6918,6 +7004,9 @@ ring[0].children.forEach((item)=>{
 		}
 		
 	}
+}
+
+	
 // }
 
 effects.forEach((item) => {
@@ -6931,16 +7020,30 @@ effects.forEach((item) => {
 uilst[0].material.visible=false;
 // scene.background = new THREE.Color(0x4e808d);
 // scene.background = new THREE.Color(colorlst[colornum][0]);
-var width = window.innerWidth/1.4;
-var height = window.innerWidth/1.4;
-renderer.setViewport(window.innerWidth/2-width/2, -1000*Math.abs(-isoAngle-camera.rotation.x)-1000*Math.abs(Math.PI/4-camera.rotation.y), width, height);
-renderer.setScissor(window.innerWidth/2-width/2, -1000*Math.abs(-isoAngle-camera.rotation.x)-1000*Math.abs(Math.PI/4-camera.rotation.y), width, height);
-renderer.setScissorTest(true);
+if(topcam){
+	if((window.innerWidth/window.innerHeight)<3/5){
+		var width = window.innerWidth/1.4;
+		var height = window.innerWidth/1.4;
+		renderer.setViewport(window.innerWidth/2-width/2, -1000*Math.abs(-isoAngle-camera.rotation.x)-1000*Math.abs(Math.PI/4-camera.rotation.y), width, height);
+		renderer.setScissor(window.innerWidth/2-width/2, -1000*Math.abs(-isoAngle-camera.rotation.x)-1000*Math.abs(Math.PI/4-camera.rotation.y), width, height);
+		renderer.setScissorTest(true);
+		renderer.render(scene, topViewCamera);
+	}else if((window.innerWidth/window.innerHeight)>13/8){
+		var width = window.innerHeight/1.4;
+		var height = window.innerHeight/1.4;
+		renderer.setViewport(window.innerWidth-height-(window.innerWidth-window.innerHeight)/4, -1000*Math.abs(-isoAngle-camera.rotation.x)-1000*Math.abs(Math.PI/4-camera.rotation.y), height, height);
+		renderer.setScissor(window.innerWidth-height-(window.innerWidth-window.innerHeight)/4, -1000*Math.abs(-isoAngle-camera.rotation.x)-1000*Math.abs(Math.PI/4-camera.rotation.y), height, height);
+		renderer.setScissorTest(true);
+		renderer.render(scene, topViewCamera);
+	}
+	
+}
+
 // if(Math.abs(restartend-camera.rotation.x)<0.5){
 // 	renderer.render(scene, camera);
 // 	console.log(restartend-camera.rotation.x);
 // }else{
-	renderer.render(scene, topViewCamera);
+	
 // }
 
 uilst[0].material.visible=true;
