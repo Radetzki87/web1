@@ -2721,7 +2721,7 @@ function handleTouchMove(event) {
 
 
 				
-			}else if(!cubes[activeFloor].mesh.userData.game2048.boardChanged&&!aniflag){
+			}else if(!cubes[activeFloor]?.mesh.userData.game2048.boardChanged&&!aniflag){
 				
 				if(touchx-lastX>0.14){
 						const game2048 = cubes[activeFloor].mesh.userData.game2048;
@@ -2814,7 +2814,7 @@ function handleTouchMove(event) {
 function handleTouchEnd(event) {
 
 		// if(inflag) return;
-	event.preventDefault();
+	// event.preventDefault();
 
 	ontouch=false;
 	bufflag=true
@@ -6558,11 +6558,12 @@ if(effects.length!=0){
 								tile.material.transparent = true;
 								
 							}else if(tile.userData["4"]==true){
+								// tile.material.alphaTest=0.1
 								tile.material.opacity =  0.0
 								tile.material.transparent = true;
 								
 							}else if(tile.userData["5"]==true){
-								tile.material.alphaTest=0.05
+								tile.material.alphaTest=0.02
 								tile.material.opacity =  0.05
 								tile.material.transparent = true;
 								
@@ -6593,6 +6594,7 @@ if(effects.length!=0){
 									tile.material.opacity=0.03
 									tile.material.transparent = true;
 								}else if(tile.userData["5"]){
+									tile.material.alphaTest=0.02
 									tile.material.opacity=0.02
 									tile.material.transparent = true;
 								}else{
