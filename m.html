@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content=user-scalable=no>
+	<!-- <meta name="viewport" content=user-scalable=no> -->
 	<title>Tower Stacking Game</title>
 	<style>
 			 
@@ -3846,6 +3846,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	      geoms, false);
 		 var mesh1=new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
 		 mesh1.userData["1"]=true;
+		 mesh1.userData["skin"]="1";
 		 mesh.add(mesh1);
 
 		
@@ -3881,6 +3882,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	      geoms, false);
 		 var mesh1=new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
 		 mesh1.userData["5"]=true;
+		 mesh1.userData["skin"]="5";
 		 mesh.add(mesh1);
 
 			var geoms=[]; 
@@ -4379,15 +4381,18 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		var mgeo2=new BufferGeometryUtils.mergeBufferGeometries(geoms, false);
 		var mesh2=new THREE.Mesh(mgeo2, new THREE.MeshLambertMaterial({vertexColors: true}));
 		mesh2.userData["1"]=true;
+		mesh2.userData["skin"]="1";
 		mesh.add(mesh2);
 
 			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0x00C85F}));
 			mesh1.position.set(height*0.3*ratio,0+dify*2,depth/2-depth*0.016)
 			mesh1.userData["1"]=true;
+			mesh1.userData["skin"]="1";
 			mesh.add(mesh1)
 			var mesh2 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0x00C85F}));
 			mesh2.position.set(-height*0.3*ratio,0+dify*2,depth/2-depth*0.016)
 			mesh2.userData["1"]=true;
+			mesh2.userData["skin"]="1";
 			mesh.add(mesh2)
 
 			eye1.push([mesh1,mesh2])
@@ -4395,21 +4400,25 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.3*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
 			mesh1.position.set(height*0.3*ratio,0+dify*2,depth/2-depth*0.016)
 			mesh1.userData["4"]=true;
+			mesh1.userData["skin"]="4";
 			mesh.add(mesh1)
 
 			var mesh2 = new THREE.Mesh(new THREE.BoxGeometry(height*0.3*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
 			mesh2.position.set(-height*0.3*ratio,0+dify*2,depth/2-depth*0.016)
 			mesh2.userData["4"]=true;
+			mesh2.userData["skin"]="4";
 			mesh.add(mesh2)
 
 			var mesh3 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.2*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
 			mesh3.position.set(height*0.3*ratio,-height*0.05+dify*2,depth/2-depth*0.016)
 			mesh3.userData["4"]=true;
+			mesh3.userData["skin"]="4";
 			mesh.add(mesh3)
 			
 			var mesh4 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.2*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
 			mesh4.position.set(-height*0.3*ratio,-height*0.05+dify*2,depth/2-depth*0.016)
 			mesh4.userData["4"]=true;
+			mesh4.userData["skin"]="4";
 			mesh.add(mesh4)
 			eye2.push([mesh1,mesh2,mesh3,mesh4])
 
@@ -4419,12 +4428,14 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.4*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0x00C85F}));
 			mesh1.position.set(0,0-height*0.1,depth/2-depth*0.016)
 			mesh1.userData["1"]=true;
+			mesh1.userData["skin"]="1";
 			mesh.add(mesh1)
 			mouth1.push(mesh1)
 
 			var mesh1 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.1*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xFFA401, visible:false}));
 			mesh1.position.set(0,0-height*0.1,depth/2-depth*0.016)
 			mesh1.userData["4"]=true;
+			mesh1.userData["skin"]="4";
 			mesh.add(mesh1)
 			mouth2.push(mesh1)
 		
@@ -4468,6 +4479,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		mesh1.rotation.y=Math.PI/2
 		mesh1.userData["1"]=true;
 		mesh1.userData["2"]=true;
+		mesh1.userData["skin"]="text1";
 		// mesh1.userData["3"]=true;
 		mesh.add(mesh1)
 		txts.push(mesh1)
@@ -4477,6 +4489,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		mesh1.position.set(depth/1.98-depth*0.016,0+dify,0-depth/8)
 		mesh1.rotation.y=Math.PI/2
 		mesh1.userData["3"]=true;
+		mesh1.userData["skin"]="text1";
 		
 		mesh.add(mesh1)
 	}
