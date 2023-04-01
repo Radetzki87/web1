@@ -741,7 +741,7 @@ var lastX;
 var lastY;
 var touchx;
 var touchy;
-let forceAmount = bw*bw*bh/20;
+let forceAmount = bw*bw*bh/10;
 
 let unitimg={};
 let unitmotion={};
@@ -2725,48 +2725,60 @@ function handleTouchMove(event) {
 
 
 				
-			}else if(!cubes[activeFloor]?.mesh.userData.game2048.boardChanged&&!aniflag){
+			}else if(!aniflag){
 				
 				if(touchx-lastX>0.14){
-						const game2048 = cubes[activeFloor].mesh.userData.game2048;
+						
 						if(gameoverflag){
 							ontouch=false
 							restartflag=true
 							return
 							
+						}else{
+							const game2048 = cubes[activeFloor].mesh.userData.game2048;
+							game2048.moveBoard("right");
 						}
-						game2048.moveBoard("right");
+						
 						ontouch=false;
 				}else if(-touchx+lastX>0.14){
-						const game2048 = cubes[activeFloor].mesh.userData.game2048;
+						
 						if(gameoverflag){
 							ontouch=false
 							restartflag=true
 							return
 							
+						}else{
+							const game2048 = cubes[activeFloor].mesh.userData.game2048;
+							game2048.moveBoard("left");
 						}
-						game2048.moveBoard("left");
+						
 						ontouch=false;
 				}else if(touchy-lastY>0.2){
-						const game2048 = cubes[activeFloor].mesh.userData.game2048;
+						
 						if(gameoverflag){
 							ontouch=false
 							restartflag=true
 							return
 							
+						}else{
+							const game2048 = cubes[activeFloor].mesh.userData.game2048;
+							game2048.moveBoard("up");
 						}
-						game2048.moveBoard("up");
+						
 						ontouch=false;
 				}else if(-touchy+lastY>0.2){
 
-						const game2048 = cubes[activeFloor].mesh.userData.game2048;
+						
 						if(gameoverflag){
 							ontouch=false
 							restartflag=true
 							return
 							
+						}else{
+							const game2048 = cubes[activeFloor].mesh.userData.game2048;
+							game2048.moveBoard("down");
 						}
-						game2048.moveBoard("down");
+						
 						ontouch=false;
 				}
 			}
