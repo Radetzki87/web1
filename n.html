@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- <meta name="viewport" content=user-scalable=no> -->
+	<meta name="viewport" content=user-scalable=no>
 	<title>Tower Stacking Game</title>
 	<style>
 			 
@@ -96,7 +96,7 @@ var skinflag=true;
 var initflag=true;
 
 var skinset=["base", "1", "카세트"]
-var skinnum=1;
+var skinnum=0;
 var restartflag=false;
 var restartend=Math.PI/4
 
@@ -130,8 +130,8 @@ let addflag=false;
 let mergeflag=false;
 let bounceflag=false;
 
-let topcam=false;
-let sidecam=false;
+let topcam=true;
+let sidecam=true;
 
 
 let arrowon=false;
@@ -2596,11 +2596,15 @@ function handleTouchStart(event) {
 				startflag=true
 			}
 			if(lookcenter){
-				if(!rotationflag){
-					lookcenter=false
-					rotationflag=true
-					rotationend=0
+				skinnum++;
+				if(skinnum>=skinset.length){
+					skinnum=0;
 				}
+				// if(!rotationflag){
+				// 	lookcenter=false
+				// 	rotationflag=true
+				// 	rotationend=0
+				// }
 			}else if(lookleft){
 				if(!rotationflag){
 					rotationflag=true
@@ -5517,7 +5521,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	
 		 //우측출력
 		var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width*0.9*ratio,height*0.8*ratio), new THREE.MeshLambertMaterial({ color: 0x000000, opacity:1, transparent:false}), );
-		mesh1.position.set(depth/1.98-depth*0.015,0+dify,0-depth/8)
+		mesh1.position.set(depth/1.99-depth*0.015,0+dify,0-depth/8)
 		mesh1.rotation.y=Math.PI/2
 		mesh1.userData["1"]=true;
 		mesh1.userData["2"]=true;
@@ -5527,13 +5531,13 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		txts.push(mesh1)
 
 		// 우측출력 음영
-		// var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width*0.9*ratio,height*0.8*ratio), new THREE.MeshBasicMaterial({ color: 0xA0A0A0, opacity:0.1, transparent:true}), );
-		// mesh1.position.set(depth/1.9-depth*0.016,0+dify,0-depth/8)
-		// mesh1.rotation.y=Math.PI/2
-		// mesh1.userData["3"]=true;
-		// mesh1.userData["skin"]="text1";
+		var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width*0.9*ratio,height*0.8*ratio), new THREE.MeshBasicMaterial({ color: 0x909090, opacity:0.1, transparent:true}), );
+		mesh1.position.set(depth/2-depth*0.016,0+dify,0-depth/8)
+		mesh1.rotation.y=Math.PI/2
+		mesh1.userData["3"]=true;
+		mesh1.userData["skin"]="text1";
 		
-		// mesh.add(mesh1)
+		mesh.add(mesh1)
 	
 	 
 	
@@ -7595,6 +7599,9 @@ if(effects.length!=0){
 							tile.material.opacity =  1;
 							tile.material.transparent = false;
 						}else if(tile.userData["skin"]=="text1"){
+							if(skinnum==0){
+								tile.material.visible=false;
+							}
 								// tile.material.visible=true;
 								// tile.material.alphaTest =  1;
 								// tile.material.opacity =  0.8;
@@ -7670,6 +7677,9 @@ if(effects.length!=0){
 							
 						}else if(tile.userData["skin"]=="text1"){
 									tile.material.visible=true;
+									if(skinnum==0){
+										tile.material.visible=false;
+									}
 									// tile.material.alphaTest =  0.8;
 									// tile.material.opacity =  0.8;
 									// tile.material.transparent = true;
@@ -7737,6 +7747,9 @@ if(effects.length!=0){
 									tile.material.transparent = true;
 								}else if(tile.userData["skin"]=="text1"){
 									tile.material.visible=true;
+									if(skinnum==0){
+										tile.material.visible=false;
+									}
 									// tile.material.alphaTest =  0.8;
 									// tile.material.opacity =  0.8;
 									// tile.material.transparent = true;
@@ -7798,6 +7811,9 @@ if(effects.length!=0){
 									tile.material.transparent = true;
 								}else if(tile.userData["skin"]=="text1"){
 									tile.material.visible=true;
+									if(skinnum==0){
+										tile.material.visible=false;
+									}
 									// tile.material.alphaTest =  0.8;
 									// tile.material.opacity =  0.8;
 									// tile.material.transparent = true;
