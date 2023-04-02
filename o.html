@@ -2691,7 +2691,16 @@ function handleTouchMove(event) {
 						
 						if(gameoverflag){
 							ontouch=false
-							restartflag=true
+							if(!rotationflag){
+								rotationflag=true
+								restartflag=true
+								for(var i=0;i<cubes.length;i++){
+									restartloc.push(cubes[i].mesh.position);
+									restartrot.push(cubes[i].mesh.rotation);
+								}
+
+								rotationend=Math.PI/4
+							}
 							return
 							
 						}else{
@@ -2704,7 +2713,16 @@ function handleTouchMove(event) {
 						
 						if(gameoverflag){
 							ontouch=false
-							restartflag=true
+							if(!rotationflag){
+								rotationflag=true
+								restartflag=true
+								for(var i=0;i<cubes.length;i++){
+									restartloc.push(cubes[i].mesh.position);
+									restartrot.push(cubes[i].mesh.rotation);
+								}
+
+								rotationend=Math.PI/4
+							}
 							return
 							
 						}else{
@@ -2717,7 +2735,16 @@ function handleTouchMove(event) {
 						
 						if(gameoverflag){
 							ontouch=false
-							restartflag=true
+							if(!rotationflag){
+								rotationflag=true
+								restartflag=true
+								for(var i=0;i<cubes.length;i++){
+									restartloc.push(cubes[i].mesh.position);
+									restartrot.push(cubes[i].mesh.rotation);
+								}
+
+								rotationend=Math.PI/4
+							}
 							return
 							
 						}else{
@@ -2731,7 +2758,16 @@ function handleTouchMove(event) {
 						
 						if(gameoverflag){
 							ontouch=false
-							restartflag=true
+							if(!rotationflag){
+								rotationflag=true
+								restartflag=true
+								for(var i=0;i<cubes.length;i++){
+									restartloc.push(cubes[i].mesh.position);
+									restartrot.push(cubes[i].mesh.rotation);
+								}
+
+								rotationend=Math.PI/4
+							}
 							return
 							
 						}else{
@@ -2913,7 +2949,7 @@ let boxh=boxSize/2;
 let scene = new THREE.Scene();
 // scene.background = new THREE.Color(0x2e508d);
 if(lighton){
-		const ambientLight= new THREE.AmbientLight(0xffffff,0.4);
+		let ambientLight= new THREE.AmbientLight(0xffffff,0.4);
 		scene.add(ambientLight);
 
 		// const dL=new THREE.DirectionalLight(0xffffff,0.7);
@@ -2932,7 +2968,7 @@ if(lighton){
 			dl2.shadow.camera.far = 1000;
 
       dl2.castShadow = true;
-      dl2.shadow.mapSize = new THREE.Vector2(4012,4012);
+      dl2.shadow.mapSize = new THREE.Vector2(2048,2048);
       
 		}
 		scene.add(dl2)
@@ -3379,9 +3415,16 @@ function restart(){
 	}
 	
 	if(lighton){
-		const ambientLight= new THREE.AmbientLight(0xffffff,0.4);
+		let ambientLight= new THREE.AmbientLight(0xffffff,0.4);
 		scene.add(ambientLight);
 
+		// const dL=new THREE.DirectionalLight(0xffffff,0.7);
+		// dL.position.set(13,30,18);
+		// scene.add(dL);
+		var dl2=new THREE.DirectionalLight(0xFFFFFF, 0.7);
+     dl2.position.set(-10,50,40);
+		// dl2.position.set(13,30,-18);
+     dl2.target.position.set(0, 0, 0);
 		if(shadowon){
       dl2.shadow.camera.left =-bw*1.3;
 			dl2.shadow.camera.right = bw*1.3*4;
@@ -3391,7 +3434,7 @@ function restart(){
 			dl2.shadow.camera.far = 1000;
 
       dl2.castShadow = true;
-      dl2.shadow.mapSize = new THREE.Vector2(4012,4012);
+      dl2.shadow.mapSize = new THREE.Vector2(2048,2048);
       
 		}
 		scene.add(dl2)
