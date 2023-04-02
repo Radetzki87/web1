@@ -2920,7 +2920,7 @@ if(lighton){
 		// dL.position.set(13,30,18);
 		// scene.add(dL);
 		var dl2=new THREE.DirectionalLight(0xFFFFFF, 0.7);
-     dl2.position.set(20,50,-40);
+     dl2.position.set(-10,50,40);
 		// dl2.position.set(13,30,-18);
      dl2.target.position.set(0, 0, 0);
 		if(shadowon){
@@ -6864,7 +6864,7 @@ function animate() {
 			restartloc=[];
 			restart();
 		}else{
-			camera.rotation.x+=Math.PI/256
+			camera.rotation.x+=Math.PI/128
 			for(var i=0;i<cubes.length;i++){
 				cubes[i].mesh.position.set(restartloc[i].x*1.39*Math.abs(camera.rotation.x-restartend),((i) * bh+bh/2)+(restartloc[i].y)*1.39*Math.abs(camera.rotation.x-restartend),restartloc[i].z*1.39*Math.abs(camera.rotation.x-restartend) )
 				cubes[i].mesh.rotation.set(restartrot[i].x*1.39*Math.abs(camera.rotation.x-restartend),restartrot[i].y*1.39*Math.abs(camera.rotation.x-restartend),restartrot[i].z*1.39*Math.abs(camera.rotation.x-restartend) )
@@ -6879,7 +6879,7 @@ function animate() {
 		if(Math.abs(-isoAngle-camera.rotation.x)<0.01){
 			
 		}else{
-			camera.rotation.x-=Math.PI/256
+			camera.rotation.x-=Math.PI/128
 		}
 	}
 
