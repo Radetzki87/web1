@@ -103,7 +103,7 @@ var restartflag=false;
 var restartloc=[];
 var restartrot=[]
 
-var restartend=Math.PI/33
+var restartend=Math.PI/16
 
 var isoAngle = Math.atan(1 / Math.sqrt(3));
 let center=0.7853981;
@@ -2956,8 +2956,8 @@ if(lighton){
 		// dL.position.set(13,30,18);
 		// scene.add(dL);
 		var dl2=new THREE.DirectionalLight(0xFFFFFF, 0.6);
-     // dl2.position.set(-10,50,40);
-     	dl2.position.set(-40+Math.random()*80,50,-10+Math.random()*50);
+     dl2.position.set(-10,50,40);
+     	// dl2.position.set(-40+Math.random()*80,50,-10+Math.random()*50);
 		// dl2.position.set(13,30,-18);
      dl2.target.position.set(0, 0, 0);
 		if(shadowon){
@@ -3015,7 +3015,7 @@ if(sidecam){
 
 	
 }
-	var topViewCamera = new THREE.OrthographicCamera(-bw/1.3, bw/1.3, bw/1.3, -bw/1.3, 0.1, 1000);
+	var topViewCamera = new THREE.OrthographicCamera(-bw/1.4, bw/1.4, bw/1.4, -bw/1.4, 0.1, 1000);
 	topViewCamera.position.set(0, bh*20, 0);
 	topViewCamera.lookAt(0, 0, 0);
 // var color = 0xFFFFFF;
@@ -3366,7 +3366,7 @@ function restart(){
 	}else{
 			var groundmaterial = new THREE.MeshBasicMaterial({color:groundcolor, visible:true});
 	}
-	let groundmesh = new THREE.Mesh(groundgeometry, groundmaterial);
+	groundmesh = new THREE.Mesh(groundgeometry, groundmaterial);
 	groundmesh.position.set(0, -1, 0);
 	if(shadowon) groundmesh.receiveShadow=true
 
@@ -3423,8 +3423,8 @@ function restart(){
 		// dL.position.set(13,30,18);
 		// scene.add(dL);
 		var dl2=new THREE.DirectionalLight(0xFFFFFF, 0.7);
-     // dl2.position.set(-10,50,40);
-     dl2.position.set(-40+Math.random()*80,50,-10+Math.random()*50);
+     dl2.position.set(-10,50,40);
+     // dl2.position.set(-40+Math.random()*80,50,-10+Math.random()*50);
 		// dl2.position.set(13,30,-18);
      dl2.target.position.set(0, 0, 0);
 		if(shadowon){
@@ -8726,6 +8726,7 @@ ring[0].children.forEach((item)=>{
 gradback[0].material.visible=true;
 
 if(topcam){
+	groundmesh.material.visible=false;
 	if(activeFloor==cubes.length){
 		// topViewCamera.position.set(0, bh*20, 0);
 		// topViewCamera.lookAt(0, 0, 0);
@@ -8814,7 +8815,7 @@ if(topcam){
 // }
 
 uilst[0].material.visible=true;
-
+groundmesh.material.visible=true;
 
 
 if(sidecam&&!gameoverflag){
