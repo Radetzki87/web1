@@ -103,7 +103,7 @@ var restartflag=false;
 var restartloc=[];
 var restartrot=[]
 
-var restartend=Math.PI/15
+var restartend=Math.PI/33
 
 var isoAngle = Math.atan(1 / Math.sqrt(3));
 let center=0.7853981;
@@ -2955,7 +2955,7 @@ if(lighton){
 		// const dL=new THREE.DirectionalLight(0xffffff,0.7);
 		// dL.position.set(13,30,18);
 		// scene.add(dL);
-		var dl2=new THREE.DirectionalLight(0xFFFFFF, 0.7);
+		var dl2=new THREE.DirectionalLight(0xFFFFFF, 0.6);
      // dl2.position.set(-10,50,40);
      	dl2.position.set(-40+Math.random()*80,50,-40+Math.random()*80);
 		// dl2.position.set(13,30,-18);
@@ -3015,7 +3015,7 @@ if(sidecam){
 
 	
 }
-	var topViewCamera = new THREE.OrthographicCamera(-bw/1.4, bw/1.4, bw/1.4, -bw/1.4, 0.1, 1000);
+	var topViewCamera = new THREE.OrthographicCamera(-bw/1.3, bw/1.3, bw/1.3, -bw/1.3, 0.1, 1000);
 	topViewCamera.position.set(0, bh*20, 0);
 	topViewCamera.lookAt(0, 0, 0);
 // var color = 0xFFFFFF;
@@ -3582,7 +3582,12 @@ function createTextMesh(text, fontSize, callback) {
 		});
 		geometry.computeBoundingBox();
 		geometry.translate(-geometry.boundingBox.max.x / 2, -geometry.boundingBox.min.y-0.13, 0);
-		const material = new THREE.MeshBasicMaterial({ color: fcolor });
+		if(fontSize==996){
+			var material = new THREE.MeshLambertMaterial({ color: fcolor });
+		}else{
+			var material = new THREE.MeshBasicMaterial({ color: fcolor });
+		}
+		
 		const mesh = new THREE.Mesh(geometry, material);
 
 		if (callback) {
@@ -4330,7 +4335,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	  //     geoms, false);
 		//  var mesh1=new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
 
-		var geometry = new THREE.BoxGeometry(width, height*1.01, depth);
+		var geometry = new THREE.BoxGeometry(width, height*0.99, depth);
 		var material = new THREE.MeshLambertMaterial({ color:colorlst0[colornum0][idx]});
 		var mesh1 = new THREE.Mesh(geometry, material);
 
@@ -4340,14 +4345,14 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		 mesh1.userData["skin"]="base";
 		 
 		 if(shadowon) {
-	    mesh1.receiveShadow=true;
-	    mesh1.castShadow=true;
-	  }
-	  mesh.add(mesh1);
-			var geoms=[]; 
-			// tapemold[idx].userData["1"]=true;
-			// tapemold[idx].userData["skin"]="5";
-			//신스킨
+		    mesh1.receiveShadow=true;
+		    mesh1.castShadow=true;
+		  }
+		  mesh.add(mesh1);
+				var geoms=[]; 
+				// tapemold[idx].userData["1"]=true;
+				// tapemold[idx].userData["skin"]="5";
+				//신스킨
 
 
 		if(true){
@@ -6059,7 +6064,7 @@ function txtsetting(callback){
 	// scene.background = img3;
 
 	var material4 = new THREE.MeshBasicMaterial({ map: img3, transparent:true, opacity:1});
-	var geometry = new THREE.BoxGeometry(1000, 200,2);
+	var geometry = new THREE.BoxGeometry(1000, 300,2);
 	var backmesh = new THREE.Mesh(geometry, material4);
 	// backmesh.material.depthTest = false;
 	backmesh.material.depthWrite = false;
@@ -6134,52 +6139,206 @@ function txtsetting(callback){
 	canvas.height =400;
 	ctx.fillStyle = "white";
 
-	var grd = ctx.createLinearGradient(0, 0, 2000, 400);
-	var hex=colorlst[colornum][2].toString(16);
-	if(hex.length==5) hex+="0"
-	// grd.addColorStop(1, "white");
-	// grd.addColorStop(0, hexToHtmlColor(colorlst[colornum][1]));
-	grd.addColorStop(0, hexToHtmlColor(colorlst[colornum][0]));
-	grd.addColorStop(0.3, hexToHtmlColor(colorlst[colornum][1]));
-	grd.addColorStop(0.6, hexToHtmlColor(colorlst[colornum][2]));
-	grd.addColorStop(1, hexToHtmlColor(colorlst[colornum][3]));
-	ctx.fillStyle =grd
-	// ctx.fillStyle = hexToHtmlColor(colorlst[colornum][3]);
-	ctx.font = `bold ${320}px Arial`;
-	ctx.fillText("  B", 0,canvas.height*0.96);
-	// ctx.fillStyle = hexToHtmlColor(colorlst[colornum][2]);
-	ctx.font = `bold ${270}px Arial`;
-	ctx.fillText("     O", 15,canvas.height*0.96);
-	// ctx.fillStyle = hexToHtmlColor(colorlst[colornum][1]);
-	ctx.font = `bold ${230}px Arial`;
-	ctx.fillText("        O", 80,canvas.height*0.96);
-	// ctx.fillStyle = hexToHtmlColor(colorlst[colornum][0]);
-	ctx.font = `bold ${190}px Arial`;
-	ctx.fillText("              M", 20,canvas.height*0.96);
-	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][4]);
-	ctx.fillText("                    2", 20+0,canvas.height*0.96);
-	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][3]);
-	ctx.font = `bold ${230}px Arial`;
-	ctx.fillText("                  0", 20+15,canvas.height*0.96);
-	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][2]);
-	ctx.font = `bold ${270}px Arial`;
-	ctx.fillText("                 X", 20+15,canvas.height*0.96);
-	ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][1]);
-	ctx.font = `bold ${320}px Arial`;
-	ctx.fillText("                 8", 0,canvas.height*0.96);
-	// ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][0]);
+	// var grd = ctx.createLinearGradient(0, 0, 2000, 400);
+	// var hex=colorlst[colornum][2].toString(16);
+	// if(hex.length==5) hex+="0"
+	// // grd.addColorStop(1, "white");
+	// // grd.addColorStop(0, hexToHtmlColor(colorlst[colornum][1]));
+	// grd.addColorStop(0, hexToHtmlColor(colorlst[colornum][0]));
+	// grd.addColorStop(0.3, hexToHtmlColor(colorlst[colornum][1]));
+	// grd.addColorStop(0.6, hexToHtmlColor(colorlst[colornum][2]));
+	// grd.addColorStop(1, hexToHtmlColor(colorlst[colornum][3]));
+	// ctx.fillStyle =grd
+	// // ctx.fillStyle = hexToHtmlColor(colorlst[colornum][3]);
 	// ctx.font = `bold ${320}px Arial`;
-	// ctx.fillText("                 S", 0,canvas.height*0.96);
-	var img3 = new THREE.CanvasTexture(canvas);
-	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
-	var sprite = new THREE.Sprite(material4);
-	sprite.position.set(bw*1.2,bh*6,bw);
-	sprite.scale.x=40;
-	sprite.scale.y=10;
-	gradback.push(sprite);
-	scene.add(sprite);
+	// ctx.fillText("  B", 0,canvas.height*0.96);
+	// // ctx.fillStyle = hexToHtmlColor(colorlst[colornum][2]);
+	// ctx.font = `bold ${270}px Arial`;
+	// ctx.fillText("     O", 15,canvas.height*0.96);
+	// // ctx.fillStyle = hexToHtmlColor(colorlst[colornum][1]);
+	// ctx.font = `bold ${230}px Arial`;
+	// ctx.fillText("        O", 80,canvas.height*0.96);
+	// // ctx.fillStyle = hexToHtmlColor(colorlst[colornum][0]);
+	// ctx.font = `bold ${190}px Arial`;
+	// ctx.fillText("              M", 20,canvas.height*0.96);
+	// ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][4]);
+	// ctx.fillText("                    2", 20+0,canvas.height*0.96);
+	// ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][3]);
+	// ctx.font = `bold ${230}px Arial`;
+	// ctx.fillText("                  0", 20+15,canvas.height*0.96);
+	// ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][2]);
+	// ctx.font = `bold ${270}px Arial`;
+	// ctx.fillText("                 X", 20+15,canvas.height*0.96);
+	// ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][1]);
+	// ctx.font = `bold ${320}px Arial`;
+	// ctx.fillText("                 8", 0,canvas.height*0.96);
+	// // ctx.fillStyle = hexToHtmlColor(colorlst0[colornum0][0]);
+	// // ctx.font = `bold ${320}px Arial`;
+	// // ctx.fillText("                 S", 0,canvas.height*0.96);
+	// var img3 = new THREE.CanvasTexture(canvas);
+	// var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
+	// var sprite = new THREE.Sprite(material4);
+	// sprite.position.set(bw*1.2,bh*6,bw);
+	// sprite.scale.x=40;
+	// sprite.scale.y=10;
+	// gradback.push(sprite);
+	// scene.add(sprite);
+
+	// createTextMesh("BEAT BLOX", 996, (textMesh) => {
+		// textMesh.position.y =cubes[0].body.position.y+12
+		// textMesh.position.x=+bw;
+		// textMesh.position.z=+bw;
+		// // textMesh.position.x=0;
+		// textMesh.depth=10;
+		// textMesh.rotation.order = 'YXZ';
+		// textMesh.rotation.y =Math.PI / 4;
+		// scene.add(textMesh)
+		// gradback.push(textMesh);
+		
+	// })
+	var geometry12 = new TextGeometry("2", {
+		font: font0,
+		size: bw/2,
+		height:th/2
+	});
+	geometry12.computeBoundingBox();
+	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
+	var material = new THREE.MeshBasicMaterial({ color: colorlst[colornum][3] });
+	var tmesh = new THREE.Mesh(geometry12, material);
+	tmesh.position.y =cubes[0].body.position.y+12
+	tmesh.position.x=bw*(-0.05)
+	tmesh.position.z=bw*(1.2)
+	// textMesh.position.x=0;
+	tmesh.depth=10;
+	tmesh.rotation.order = 'YXZ';
+	tmesh.rotation.y =Math.PI / 4;
+
+	var geometry12 = new TextGeometry("0", {
+		font: font0,
+		size: bw/2,
+		height:th/2
+	});
+	geometry12.computeBoundingBox();
+	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
+	var material = new THREE.MeshBasicMaterial({ color: colorlst[colornum][2]  });
+	var tmesh1 = new THREE.Mesh(geometry12, material);
+	// tmesh1.position.y 
+	tmesh1.position.x=4.8;
+	tmesh1.depth=10;
+	tmesh1.rotation.order = 'YXZ';
+	// tmesh1.rotation.y =Math.PI / 4;
+	tmesh.add(tmesh1)
+
+	var geometry12 = new TextGeometry("4", {
+		font: font0,
+		size: bw/2,
+		height:th/2
+	});
+	geometry12.computeBoundingBox();
+	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
+	var material = new THREE.MeshBasicMaterial({ color:colorlst[colornum][1]  });
+	var tmesh1 = new THREE.Mesh(geometry12, material);
+	// tmesh1.position.y 
+	tmesh1.position.x=4.8*2;
+	tmesh1.depth=10;
+	tmesh1.rotation.order = 'YXZ';
+	// tmesh1.rotation.y =Math.PI / 4;
+	tmesh.add(tmesh1)
+
+	var geometry12 = new TextGeometry("8", {
+		font: font0,
+		size: bw/2,
+		height:th/2
+	});
+	geometry12.computeBoundingBox();
+	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
+	var material = new THREE.MeshBasicMaterial({ color: colorlst[colornum][0]  });
+	var tmesh1 = new THREE.Mesh(geometry12, material);
+	// tmesh1.position.y 
+	tmesh1.position.x=4.8*3;
+	tmesh1.depth=10;
+	tmesh1.rotation.order = 'YXZ';
+	// tmesh1.rotation.y =Math.PI / 4;
+	tmesh.rotation.order = 'YXZ';
+	tmesh.rotation.y =Math.PI/1000 ;
+	tmesh.add(tmesh1)
 
 
+
+	gradback.push(tmesh);
+	scene.add(tmesh)
+
+	var geometry12 = new TextGeometry("B", {
+		font: font0,
+		size: bw/2,
+		height:th/2
+	});
+	geometry12.computeBoundingBox();
+	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
+	var material = new THREE.MeshBasicMaterial({ color: colorlst0[colornum0][3] });
+	var tmesh = new THREE.Mesh(geometry12, material);
+	tmesh.position.y =cubes[0].body.position.y+12
+	tmesh.position.x=bw*(1.2)
+	tmesh.position.z=bw*(1)
+	// textMesh.position.x=0;
+	tmesh.depth=10;
+	tmesh.rotation.order = 'YXZ';
+	tmesh.rotation.y =Math.PI / 4;
+
+	var geometry12 = new TextGeometry("L", {
+		font: font0,
+		size: bw/2,
+		height:th/2
+	});
+	geometry12.computeBoundingBox();
+	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
+	var material = new THREE.MeshBasicMaterial({ color: colorlst0[colornum0][2]  });
+	var tmesh1 = new THREE.Mesh(geometry12, material);
+	// tmesh1.position.y 
+	tmesh1.position.x=4.8;
+	tmesh1.depth=10;
+	tmesh1.rotation.order = 'YXZ';
+	// tmesh1.rotation.y =Math.PI / 4;
+	tmesh.add(tmesh1)
+
+	var geometry12 = new TextGeometry("O", {
+		font: font0,
+		size: bw/2,
+		height:th/2
+	});
+	geometry12.computeBoundingBox();
+	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
+	var material = new THREE.MeshBasicMaterial({ color:colorlst0[colornum0][1]  });
+	var tmesh1 = new THREE.Mesh(geometry12, material);
+	// tmesh1.position.y 
+	tmesh1.position.x=4.8*2;
+	tmesh1.depth=10;
+	tmesh1.rotation.order = 'YXZ';
+	// tmesh1.rotation.y =Math.PI / 4;
+	tmesh.add(tmesh1)
+
+	var geometry12 = new TextGeometry("X", {
+		font: font0,
+		size: bw/2,
+		height:th/2
+	});
+	geometry12.computeBoundingBox();
+	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
+	var material = new THREE.MeshBasicMaterial({ color: colorlst0[colornum0][0]  });
+	var tmesh1 = new THREE.Mesh(geometry12, material);
+	// tmesh1.position.y 
+	tmesh1.position.x=4.8*3;
+	tmesh1.depth=10;
+	tmesh1.rotation.order = 'YXZ';
+	tmesh.rotation.order = 'YXZ';
+	tmesh.rotation.y =Math.PI / 2;
+	tmesh.add(tmesh1)
+
+
+		
+	gradback.push(tmesh);
+	scene.add(tmesh)
+	
 	// var canvas = document.createElement('canvas');
 	// var ctx = canvas.getContext('2d');
 	// canvas.width = 1000;
@@ -6476,7 +6635,7 @@ function setting(n= 8, callback){
 		var origin3 = new THREE.Vector3( cubes[0].mesh.position.x+bw/1.98, 0, cubes[0].mesh.position.z-bw/1.98);
 		var origin4 = new THREE.Vector3( cubes[0].mesh.position.x+bw/1.98, 0, cubes[0].mesh.position.z+bw/1.98);
 
-		var material = new THREE.LineDashedMaterial( { color: colorlst0[colornum0][0], dashSize:1, gapSize: 1 ,linewidth: 1,  scale: 2, opacity:0.3, transparent:true
+		var material = new THREE.LineDashedMaterial( { color: colorlst0[colornum0][0], dashSize:1, gapSize: 1 ,linewidth: 1,  scale: 2, opacity:0.2, transparent:true
 		});
 
 	var points = [];
@@ -6843,6 +7002,9 @@ function animate() {
 		gradback.forEach((item, index)=>{
 			if(index==0) return;
 			item.material.visible=false;
+			item.children.forEach((child)=>{
+				child.material.visible=false;
+			})
 		})
 		uilst[0].material.visible=false;
 		if(initflag){
@@ -6904,6 +7066,8 @@ function animate() {
 	// }
 		
 	if(restartflag&&lookcenter){
+		
+		activeFloor=cubes.length;
 		console.log(Math.abs(camera.rotation.x-restartend))
 		if(Math.abs(camera.rotation.x-restartend)<0.02){
 			restartloc=[];
@@ -6911,13 +7075,15 @@ function animate() {
 		}else{
 			camera.rotation.x+=Math.PI/128
 			for(var i=0;i<cubes.length;i++){
-				cubes[i].mesh.position.set(restartloc[i].x*1.39*Math.abs(camera.rotation.x-restartend),((i) * bh+bh/2)+(restartloc[i].y)*1.39*Math.abs(camera.rotation.x-restartend),restartloc[i].z*1.39*Math.abs(camera.rotation.x-restartend) )
+				cubes[i].mesh.position.set(restartloc[i].x*1.39*Math.abs(camera.rotation.x-restartend),((i) * bh+bh/2)+(restartloc[i].y)*1.5*Math.abs(camera.rotation.x-restartend),restartloc[i].z*1.39*Math.abs(camera.rotation.x-restartend) )
 				cubes[i].mesh.rotation.set(restartrot[i].x*1.39*Math.abs(camera.rotation.x-restartend),restartrot[i].y*1.39*Math.abs(camera.rotation.x-restartend),restartrot[i].z*1.39*Math.abs(camera.rotation.x-restartend) )
 
 
 			}
 
 		}
+	}else{
+
 	}
 
 	if(!restartflag&&lookcenter&&!startflag){
@@ -7270,7 +7436,7 @@ if(guideflag&&!gameoverflag){
 	if(activeFloor<cubes.length){
 		guide[2].material.opacity=0.2;
 	}else{
-		guide[2].material.opacity=0.7;
+		guide[2].material.opacity=0.4;
 	}
 	
 	
@@ -7330,8 +7496,8 @@ if(dimlines.length>0){
 			}
 			
 
-			scene.add(arrowHelper);
-			dimlines.push(arrowHelper);
+			// scene.add(arrowHelper);
+			// dimlines.push(arrowHelper);
 		}
 
 	}
@@ -7512,7 +7678,7 @@ if(dimlines.length>0){
 										soundic[sdic[activeFloor][num]].stop();
 								}
 								soundic[sdic[activeFloor][num]].play();
-							
+								
 								tempeffects.push([item.index,num,item.direction]);
 								이펙트2(item.index,num,item.direction);
 						}
@@ -7790,31 +7956,31 @@ if(dimlines.length>0){
 		})
 	}
 if(effects.length!=0){
-		if(activeFloor==effects[0][3]){
+	if(activeFloor==effects[0][3]){
 
 		
 
-		ring[0].position.set(cubes[activeFloor].mesh.position.x,cubes[activeFloor].mesh.position.y-th/3,cubes[activeFloor].mesh.position.z)
+		ring[0].position.set(cubes[effects[0][3]].mesh.position.x,cubes[effects[0][3]].mesh.position.y-th/3,cubes[effects[0][3]].mesh.position.z)
 			ring[0].children.forEach((item)=>{
 				item.material.visible=false;
 			})
 		
 		
-		ring[0].rotation.x=cubes[activeFloor].mesh.rotation.x-Math.PI/2
-		ring[0].rotation.z=cubes[activeFloor].mesh.rotation.z
+		ring[0].rotation.x=cubes[effects[0][3]].mesh.rotation.x-Math.PI/2
+		ring[0].rotation.z=cubes[effects[0][3]].mesh.rotation.z
 
 		switch (effects[0][2]) {
 		case 'up':
-			ring[0].rotation.y=cubes[activeFloor].mesh.rotation.y
+			ring[0].rotation.y=cubes[effects[0][3]].mesh.rotation.y
 			break;
 		case 'down':
-			ring[0].rotation.y=cubes[activeFloor].mesh.rotation.y+Math.PI;
+			ring[0].rotation.y=cubes[effects[0][3]].mesh.rotation.y+Math.PI;
 			break;
 		case 'left':
-			ring[0].rotation.y=cubes[activeFloor].mesh.rotation.y+Math.PI / 2;
+			ring[0].rotation.y=cubes[effects[0][3]].mesh.rotation.y+Math.PI / 2;
 			break;
 		case 'right':
-			ring[0].rotation.y=cubes[activeFloor].mesh.rotation.y-Math.PI / 2;
+			ring[0].rotation.y=cubes[effects[0][3]].mesh.rotation.y-Math.PI / 2;
 			break;
 		default:
 			return;
@@ -7822,25 +7988,27 @@ if(effects.length!=0){
 		
 		}
 	// ring[0].quaternion.copy(cubes[activeFloor].body.quaternion);
-	effects.forEach((item)=>{
+	effects.forEach((item,index)=>{
 		// item.material.opacity=0
 		// item[0].position.x=cubes[activeFloor].mesh.position.x
 		// item[0].position.z=cubes[activeFloor].mesh.position.z
 		if(activeFloor<cubes.length){
-			item[0].rotation.x=cubes[activeFloor].mesh.rotation.x-Math.PI/2
-			item[0].rotation.z=cubes[activeFloor].mesh.rotation.z
+
+			item[0].rotation.x=cubes[effects[0][3]].mesh.rotation.x-Math.PI/2
+			item[0].rotation.z=cubes[effects[0][3]].mesh.rotation.z
+			item[0].position.set(cubes[effects[0][3]].mesh.position.x,cubes[effects[0][3]].mesh.position.y-th/3+(th/16)*index,cubes[effects[0][3]].mesh.position.z)
 		}
 		
 		item[0].scale.y*=1.01;
 
 		// item[0].position.y+=0.03;
-		item[0].scale.x*=1.0025;
+		item[0].scale.x*=1.0015;
 		item[0].children.forEach((box)=>{
 			box.material.visible=true;
 			box.material.opacity=0.1+0.4*Math.cos(Math.PI*(item[0].scale.y-1)/0.8);
 			ring[0].children.forEach((seg)=>{
-				// seg.material.visible=false;
-				// seg.material.opacity=0;
+				seg.material.alphaTest=0.1;
+				seg.material.transparent=true;
 				seg.material.opacity=0.1+0.5*Math.cos(Math.PI/2+(Math.PI/2*(item[0].scale.y-1)/0.8));
 		})
 		})
@@ -7944,7 +8112,8 @@ if(effects.length!=0){
 						arrows[index].children[0].material.opacity=0;
 						arrows[index].children[0].material.transparent=true;
 					}
-					item.mesh.material.visible = 1
+
+					item.mesh.material.visible = false
 					item.mesh.material.opacity = 1
 					// item.mesh.material.alphaTest=1
 					item.mesh.material.transparent = false;
@@ -8184,8 +8353,8 @@ if(effects.length!=0){
 								}else if(tile.userData["skin"]==skinset[skinnum]){
 									tile.material.visible=true;
 									tile.material.opacity =  1;
-									// tile.material.alphaTest =  0.1;
-									tile.material.transparent = true;
+									// tile.material.alphaTest =  1;
+									tile.material.transparent = false;
 								}else if(tile.userData["skin"]=="text1"){
 									tile.material.visible=true;
 									tile.material.opacity =  1;
@@ -8547,10 +8716,12 @@ ring[0].children.forEach((item)=>{
 포인트.forEach((item)=>{
 	item.material.opacity=0
 	item.material.transparent=true;
+	item.material.visible=false;
 })
 시간.forEach((item)=>{
 	item.material.opacity=0
 	item.material.transparent=true;
+	item.material.visible=false;
 })
 gradback[0].material.visible=true;
 
@@ -8618,8 +8789,8 @@ uilst[0].material.visible=false;
 // scene.background = new THREE.Color(colorlst[colornum][0]);
 if(topcam){
 	if((window.innerWidth/window.innerHeight)<3/5){
-		var width = window.innerWidth/1.2;
-		var height = window.innerWidth/1.2;
+		var width = window.innerWidth/1.1;
+		var height = window.innerWidth/1.1;
 		renderer.setViewport(window.innerWidth/2-width/2, -3000*Math.abs(-isoAngle-camera.rotation.x)-1500*Math.abs(Math.PI/4-camera.rotation.y), width, height);
 		renderer.setScissor(window.innerWidth/2-width/2, -3000*Math.abs(-isoAngle-camera.rotation.x)-1500*Math.abs(Math.PI/4-camera.rotation.y), width, height);
 		renderer.setScissorTest(true);
@@ -8627,8 +8798,8 @@ if(topcam){
 	}else if((window.innerWidth/window.innerHeight)>13/8){
 		var width = window.innerHeight/1.2;
 		var height = window.innerHeight/1.2;
-		renderer.setViewport(window.innerWidth-height-(window.innerWidth-window.innerHeight)/8, -3500*Math.abs(-isoAngle-camera.rotation.x)-1000*Math.abs(Math.PI/4-camera.rotation.y), height, height);
-		renderer.setScissor(window.innerWidth-height-(window.innerWidth-window.innerHeight)/8, -3500*Math.abs(-isoAngle-camera.rotation.x)-1000*Math.abs(Math.PI/4-camera.rotation.y), height, height);
+		renderer.setViewport(window.innerWidth-height-(window.innerWidth-window.innerHeight)/8, -3500*Math.abs(-isoAngle-camera.rotation.x)-1000*Math.abs(Math.PI/4-camera.rotation.y), width, width);
+		renderer.setScissor(window.innerWidth-height-(window.innerWidth-window.innerHeight)/8, -3500*Math.abs(-isoAngle-camera.rotation.x)-1000*Math.abs(Math.PI/4-camera.rotation.y), width, width);
 		renderer.setScissorTest(true);
 		renderer.render(scene, topViewCamera);
 	}
@@ -8816,10 +8987,12 @@ if(elapsedTime<3&&!gameoverflag){
 
 
 포인트.forEach((item)=>{
+	item.material.visible=true
 	item.material.opacity=1
 	item.material.transparent=false;
 })
 시간.forEach((item)=>{
+	item.material.visible=true
 	item.material.opacity=1
 	item.material.transparent=false;
 })
