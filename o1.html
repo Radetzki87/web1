@@ -102,8 +102,10 @@ var restartflag=false;
 
 var restartloc=[];
 var restartrot=[]
+var ncolornum;
+var ncolornum0;
 
-var restartend=Math.PI/16
+var restartend=Math.PI/12
 
 var isoAngle = Math.atan(1 / Math.sqrt(3));
 let center=0.7853981;
@@ -117,6 +119,26 @@ let lookcenter=true;
 let lookright=false;
 
 
+
+var rehsl1;
+var rehsl2;
+var renhsl1;
+var renhsl2;
+var recl1;
+var recl2;
+var rencl1;
+var rencl2;
+
+var bhsl0;
+var nbhsl0;
+var bhsl1;
+var nbhsl1;
+var bhsl2;
+var nbhsl2;
+var bhsl3;
+var nbhsl3;
+var bhsl4;
+var nbhsl4;
 
 let startflag=false
 let fps;
@@ -2556,7 +2578,27 @@ function handleTouchStart(event) {
 				for(var i=0;i<cubes.length;i++){
 					restartloc.push(cubes[i].mesh.position);
 					restartrot.push(cubes[i].mesh.rotation);
+					
+					
+					
 				}
+				ncolornum=parseInt(Math.random()*colorlst.length);
+				ncolornum0=parseInt(Math.random()*colorlst0.length);
+				rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+				rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+				renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+				renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+				bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+				nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+				bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+				nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+				bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+				nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+				bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+				nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+				bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+				nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
 
 				rotationend=Math.PI/4
 			}
@@ -2698,6 +2740,24 @@ function handleTouchMove(event) {
 									restartloc.push(cubes[i].mesh.position);
 									restartrot.push(cubes[i].mesh.rotation);
 								}
+								ncolornum=parseInt(Math.random()*colorlst.length);
+								ncolornum0=parseInt(Math.random()*colorlst0.length);
+								rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+								rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+								renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+								renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+								bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+								nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+								bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+								nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+								bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+								nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+								bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+								nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+								bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+								nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+
 
 								rotationend=Math.PI/4
 							}
@@ -2719,7 +2779,26 @@ function handleTouchMove(event) {
 								for(var i=0;i<cubes.length;i++){
 									restartloc.push(cubes[i].mesh.position);
 									restartrot.push(cubes[i].mesh.rotation);
+									
+									
 								}
+								ncolornum=parseInt(Math.random()*colorlst.length);
+								ncolornum0=parseInt(Math.random()*colorlst0.length);
+								rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+								rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+								renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+								renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+								bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+								nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+								bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+								nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+								bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+								nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+								bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+								nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+								bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+								nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
 
 								rotationend=Math.PI/4
 							}
@@ -2741,7 +2820,26 @@ function handleTouchMove(event) {
 								for(var i=0;i<cubes.length;i++){
 									restartloc.push(cubes[i].mesh.position);
 									restartrot.push(cubes[i].mesh.rotation);
+									
+									
 								}
+								ncolornum=parseInt(Math.random()*colorlst.length);
+								ncolornum0=parseInt(Math.random()*colorlst0.length);
+								rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+								rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+								renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+								renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+								bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+								nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+								bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+								nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+								bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+								nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+								bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+								nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+								bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+								nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
 
 								rotationend=Math.PI/4
 							}
@@ -2764,7 +2862,26 @@ function handleTouchMove(event) {
 								for(var i=0;i<cubes.length;i++){
 									restartloc.push(cubes[i].mesh.position);
 									restartrot.push(cubes[i].mesh.rotation);
+									
+									
 								}
+								ncolornum=parseInt(Math.random()*colorlst.length);
+								ncolornum0=parseInt(Math.random()*colorlst0.length);
+								rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+								rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+								renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+								renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+								bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+								nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+								bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+								nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+								bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+								nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+								bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+								nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+								bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+								nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
 
 								rotationend=Math.PI/4
 							}
@@ -3015,7 +3132,7 @@ if(sidecam){
 
 	
 }
-	var topViewCamera = new THREE.OrthographicCamera(-bw/1.4, bw/1.4, bw/1.4, -bw/1.4, 0.1, 1000);
+	var topViewCamera = new THREE.OrthographicCamera(-bw/1.3, bw/1.3, bw/1.3, -bw/1.3, 0.1, 1000);
 	topViewCamera.position.set(0, bh*20, 0);
 	topViewCamera.lookAt(0, 0, 0);
 // var color = 0xFFFFFF;
@@ -3206,7 +3323,27 @@ if (event.code === 'KeyW') {
 		for(var i=0;i<cubes.length;i++){
 			restartloc.push(cubes[i].mesh.position);
 			restartrot.push(cubes[i].mesh.rotation);
+
+			
 		}
+		ncolornum=parseInt(Math.random()*colorlst.length);
+		ncolornum0=parseInt(Math.random()*colorlst0.length);
+
+		rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+		renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+		rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+		renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+		
+		bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+		nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+		bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+		nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+		bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+		nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+		bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+		nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+		bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+		nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
 
 		rotationend=Math.PI/4
 	}
@@ -3355,8 +3492,8 @@ function restart(){
 	renderer.clearDepth(); 
 
 	scene = new THREE.Scene();
-	colornum=parseInt(Math.random()*colorlst.length);
-	colornum0=parseInt(Math.random()*colorlst0.length);
+	colornum=ncolornum
+	colornum0=ncolornum0
 	let groundgeometry = new THREE.BoxGeometry(200, 2, 200);
 	// let groundcolor =new THREE.Color('hsl('+String(30+6*(10))+', 100%, 50%)');
 	let groundcolor =new THREE.Color(colorlst[colornum][0])
@@ -4349,6 +4486,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		    mesh1.castShadow=true;
 		  }
 		  mesh.add(mesh1);
+		  mesh.userData["cl"]=mesh1.material;
 				var geoms=[]; 
 				// tapemold[idx].userData["1"]=true;
 				// tapemold[idx].userData["skin"]="5";
@@ -6034,12 +6172,33 @@ function msetting2(callback){
 }
 
 function txtsetting(callback){
+	// for(var i=0;i<cubes.length;i++){
+
+	// 	var canvas = document.createElement('canvas');
+	// 	var ctx = canvas.getContext('2d');
+	// 	canvas.width = 1000;
+	// 	canvas.height = 1000;
+	// 	var grd = ctx.createLinearGradient(0, 0, 0, 1000);
+		
+	// 	var newcl0=hslToHex(renhsl1["h"]-(renhsl1["h"]-rehsl1["h"])*Math.abs(camera.rotation.x-restartend),renhsl1["s"]-(renhsl1["s"]-rehsl1["s"])*Math.abs(camera.rotation.x-restartend),renhsl1["l"]-(renhsl1["l"]-rehsl1["l"])*Math.abs(camera.rotation.x-restartend))
+	// 	var newcl1=hslToHex(renhsl2["h"]-(renhsl2["h"]-rehsl2["h"])*Math.abs(camera.rotation.x-restartend),renhsl2["s"]-(renhsl2["s"]-rehsl2["s"])*Math.abs(camera.rotation.x-restartend),renhsl2["l"]-(renhsl2["l"]-rehsl2["l"])*Math.abs(camera.rotation.x-restartend))
+	// 	console.log(newcl1);
+	// 	grd.addColorStop(0, "white");
+	// 	grd.addColorStop(0.23, newcl1);
+	// 	grd.addColorStop(0.46, newcl0);
+	// 	grd.addColorStop(1, newcl0);
+	// 	ctx.fillStyle = grd;
+	// 	ctx.fillRect(0, 0, 1000, 1000);
+	// 	var img3 = new THREE.CanvasTexture(canvas);
+	// 	gradback[0].material= new THREE.MeshBasicMaterial({ map: img3, transparent:true, opacity:1});
+	// }
+
 	//그라디
 	var canvas = document.createElement('canvas');
 	var ctx = canvas.getContext('2d');
-	canvas.width = 1000;
-	canvas.height = 1000;
-	var grd = ctx.createLinearGradient(0, 0, 0, 1000);
+	canvas.width = 100;
+	canvas.height = 100;
+	var grd = ctx.createLinearGradient(0, 0, 0, 100);
 	// var hex=colorlst0[colornum0][0].toString(16);
 	// if(hex.length==5) hex+="0"
 	// grd.addColorStop(0, hexToHtmlColor(colorlst0[colornum0][0]));
@@ -6058,13 +6217,13 @@ function txtsetting(callback){
 
 
 	ctx.fillStyle = grd;
-	ctx.fillRect(0, 0, 1000, 1000);
+	ctx.fillRect(0, 0, 100, 100);
 	var img3 = new THREE.CanvasTexture(canvas);
 
 	// scene.background = img3;
 
 	var material4 = new THREE.MeshBasicMaterial({ map: img3, transparent:true, opacity:1});
-	var geometry = new THREE.BoxGeometry(1000, 300,2);
+	var geometry = new THREE.BoxGeometry(1000, 200,2);
 	var backmesh = new THREE.Mesh(geometry, material4);
 	// backmesh.material.depthTest = false;
 	backmesh.material.depthWrite = false;
@@ -7068,13 +7227,57 @@ function animate() {
 	if(restartflag&&lookcenter){
 		
 		activeFloor=cubes.length;
-		console.log(Math.abs(camera.rotation.x-restartend))
+		// console.log(Math.abs(camera.rotation.x-restartend))
+
 		if(Math.abs(camera.rotation.x-restartend)<0.02){
 			restartloc=[];
 			restart();
 		}else{
 			camera.rotation.x+=Math.PI/128
+			var canvas = document.createElement('canvas');
+			var ctx = canvas.getContext('2d');
+			canvas.width = 100;
+			canvas.height = 100;
+			var grd = ctx.createLinearGradient(0, 0, 0, 100);
+			
+			var newcl0=hslToHex(renhsl1["h"]-(renhsl1["h"]-rehsl1["h"])*Math.abs(camera.rotation.x-restartend),renhsl1["s"]-(renhsl1["s"]-rehsl1["s"])*Math.abs(camera.rotation.x-restartend),renhsl1["l"]-(renhsl1["l"]-rehsl1["l"])*Math.abs(camera.rotation.x-restartend))
+			var newcl1=hslToHex(renhsl2["h"]-(renhsl2["h"]-rehsl2["h"])*Math.abs(camera.rotation.x-restartend),renhsl2["s"]-(renhsl2["s"]-rehsl2["s"])*Math.abs(camera.rotation.x-restartend),renhsl2["l"]-(renhsl2["l"]-rehsl2["l"])*Math.abs(camera.rotation.x-restartend))
+
+			var boxcl0=hslToHex0(nbhsl0["h"]-(nbhsl0["h"]-bhsl0["h"])*Math.abs(camera.rotation.x-restartend),nbhsl0["s"]-(nbhsl0["s"]-bhsl0["s"])*Math.abs(camera.rotation.x-restartend),nbhsl0["l"]-(nbhsl0["l"]-bhsl0["l"])*Math.abs(camera.rotation.x-restartend))
+			var boxcl1=hslToHex0(nbhsl1["h"]-(nbhsl1["h"]-bhsl1["h"])*Math.abs(camera.rotation.x-restartend),nbhsl1["s"]-(nbhsl1["s"]-bhsl1["s"])*Math.abs(camera.rotation.x-restartend),nbhsl1["l"]-(nbhsl1["l"]-bhsl1["l"])*Math.abs(camera.rotation.x-restartend))
+			var boxcl2=hslToHex0(nbhsl2["h"]-(nbhsl2["h"]-bhsl2["h"])*Math.abs(camera.rotation.x-restartend),nbhsl2["s"]-(nbhsl2["s"]-bhsl2["s"])*Math.abs(camera.rotation.x-restartend),nbhsl2["l"]-(nbhsl2["l"]-bhsl2["l"])*Math.abs(camera.rotation.x-restartend))
+			var boxcl3=hslToHex0(nbhsl3["h"]-(nbhsl3["h"]-bhsl3["h"])*Math.abs(camera.rotation.x-restartend),nbhsl3["s"]-(nbhsl3["s"]-bhsl3["s"])*Math.abs(camera.rotation.x-restartend),nbhsl3["l"]-(nbhsl3["l"]-bhsl3["l"])*Math.abs(camera.rotation.x-restartend))
+			var boxcl4=hslToHex0(nbhsl4["h"]-(nbhsl4["h"]-bhsl4["h"])*Math.abs(camera.rotation.x-restartend),nbhsl4["s"]-(nbhsl4["s"]-bhsl4["s"])*Math.abs(camera.rotation.x-restartend),nbhsl4["l"]-(nbhsl4["l"]-bhsl4["l"])*Math.abs(camera.rotation.x-restartend))
+
+			
+			
+			// console.log(parseInt(boxcl0, 16));
+			cubes[0].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl0, 16));
+			cubes[1].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl1, 16));
+			cubes[2].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl2, 16));
+			cubes[3].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl3, 16));
+			cubes[4].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl4, 16));
+			// cubes[0].mesh.userData["cl"].color=boxcl0;
+			// cubes[1].mesh.userData["cl"].color=boxcl1;
+			// cubes[2].mesh.userData["cl"].color=boxcl2;
+			// cubes[3].mesh.userData["cl"].color=boxcl3;
+			// cubes[4].mesh.userData["cl"].color=boxcl4;
+
+
+
+			
+			grd.addColorStop(0, "white");
+			grd.addColorStop(0.23, newcl1);
+			grd.addColorStop(0.46, newcl0);
+			grd.addColorStop(1, newcl0);
+			ctx.fillStyle = grd;
+			ctx.fillRect(0, 0, 100, 100);
+			var img3 = new THREE.CanvasTexture(canvas);
+			gradback[0].material= new THREE.MeshBasicMaterial({ map: img3, transparent:true, opacity:1});
+
 			for(var i=0;i<cubes.length;i++){
+				
+				
 				cubes[i].mesh.position.set(restartloc[i].x*1.39*Math.abs(camera.rotation.x-restartend),((i) * bh+bh/2)+(restartloc[i].y)*1.5*Math.abs(camera.rotation.x-restartend),restartloc[i].z*1.39*Math.abs(camera.rotation.x-restartend) )
 				cubes[i].mesh.rotation.set(restartrot[i].x*1.39*Math.abs(camera.rotation.x-restartend),restartrot[i].y*1.39*Math.abs(camera.rotation.x-restartend),restartrot[i].z*1.39*Math.abs(camera.rotation.x-restartend) )
 
@@ -7084,6 +7287,10 @@ function animate() {
 		}
 	}else{
 
+	}
+
+	if(Math.abs(camera.rotation.x-restartend)<0.44){
+		groundmesh.material.visible=false;
 	}
 
 	if(!restartflag&&lookcenter&&!startflag){
@@ -9516,6 +9723,111 @@ function getui(row, col){
 	return material4
 
 }
+
+function hslToHex(h, s, l) {
+  s /= 100;
+  l /= 100;
+  let c = (1 - Math.abs(2 * l - 1)) * s;
+  let x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  let m = l - c / 2;
+  let r = 0;
+  let g = 0;
+  let b = 0;
+
+  if (0 <= h && h < 60) {
+    r = c;
+    g = x;
+    b = 0;
+  } else if (60 <= h && h < 120) {
+    r = x;
+    g = c;
+    b = 0;
+  } else if (120 <= h && h < 180) {
+    r = 0;
+    g = c;
+    b = x;
+  } else if (180 <= h && h < 240) {
+    r = 0;
+    g = x;
+    b = c;
+  } else if (240 <= h && h < 300) {
+    r = x;
+    g = 0;
+    b = c;
+  } else if (300 <= h && h < 360) {
+    r = c;
+    g = 0;
+    b = x;
+  }
+
+  r = Math.round((r + m) * 255);
+  g = Math.round((g + m) * 255);
+  b = Math.round((b + m) * 255);
+
+  return "#"+((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+function hslToHex0(h, s, l) {
+  s /= 100;
+  l /= 100;
+  let c = (1 - Math.abs(2 * l - 1)) * s;
+  let x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  let m = l - c / 2;
+  let r = 0;
+  let g = 0;
+  let b = 0;
+
+  if (0 <= h && h < 60) {
+    r = c;
+    g = x;
+    b = 0;
+  } else if (60 <= h && h < 120) {
+    r = x;
+    g = c;
+    b = 0;
+  } else if (120 <= h && h < 180) {
+    r = 0;
+    g = c;
+    b = x;
+  } else if (180 <= h && h < 240) {
+    r = 0;
+    g = x;
+    b = c;
+  } else if (240 <= h && h < 300) {
+    r = x;
+    g = 0;
+    b = c;
+  } else if (300 <= h && h < 360) {
+    r = c;
+    g = 0;
+    b = x;
+  }
+
+  r = Math.round((r + m) * 255);
+  g = Math.round((g + m) * 255);
+  b = Math.round((b + m) * 255);
+
+  return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+function hexStringToByteArray(hexString) {
+  if (hexString.length % 2 !== 0) {
+    throw new Error('16진수 문자열의 길이가 짝수여야 합니다.');
+  }
+
+  const byteArray = new Uint8Array(hexString.length / 2);
+
+  for (let i = 0; i < hexString.length; i += 2) {
+    const byteValue = parseInt(hexString.substr(i, 2), 16);
+    if (isNaN(byteValue)) {
+      throw new Error('유효한 16진수 문자열이 아닙니다.');
+    }
+    byteArray[i / 2] = byteValue;
+  }
+
+  return byteArray;
+}
+
 
 
 	</script>
