@@ -85,6 +85,7 @@ const enableScrollLock = () => {
     }
   };
 
+var clmeshlst={0:[], 1:[],2:[],3:[],4:[]}
 var audioLoader = new THREE.AudioLoader();
 var listener = new THREE.AudioListener();
 var uilst0=[];
@@ -3510,6 +3511,7 @@ function restart(){
 	scene.add(groundmesh);
 
 	// clock = new THREE.Clock();
+	clmeshlst={0:[], 1:[],2:[],3:[],4:[]}
 	initflag=true;
 	restartflag=false;
 	txts=[];
@@ -3891,6 +3893,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		 var mesh1=new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
 		 mesh1.userData["1"]=true;
 		 mesh1.userData["skin"]="1";
+		 clmeshlst[idx].push(mesh1.material);
 		 if(shadowon) {
 	    mesh1.receiveShadow=true;
 	    mesh1.castShadow=true;
@@ -3915,6 +3918,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	    mesh1.receiveShadow=true;
 	    mesh1.castShadow=true;
 	  }
+	  clmeshlst[idx].push(mesh1.material);
 	  mesh.add(mesh1);
 
 		 geoms=[];
@@ -4123,6 +4127,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		 var mesh1=new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
 		 mesh1.userData["1"]=true;
 		 mesh1.userData["skin"]="1";
+		 clmeshlst[idx].push(mesh1.material);
 		 
 		 mesh.add(mesh1);
 
@@ -4289,6 +4294,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	    mesh1.receiveShadow=true;
 	    mesh1.castShadow=true;
 	  }
+	  clmeshlst[idx].push(mesh1.material);
 		 mesh.add(mesh1);
 
 
@@ -4381,7 +4387,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		 var mesh1=new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({ color: colorlst0[colornum0][idx]}));
 		 mesh1.userData["1"]=true;
 		 mesh1.userData["skin"]="카세트";
-		 
+		 clmeshlst[idx].push(mesh1.material);
 		 mesh.add(mesh1);
 
 
@@ -4486,7 +4492,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		    mesh1.castShadow=true;
 		  }
 		  mesh.add(mesh1);
-		  mesh.userData["cl"]=mesh1.material;
+		  clmeshlst[idx].push(mesh1.material)
+		  // mesh.userData["cl"]=mesh1.material;
 				var geoms=[]; 
 				// tapemold[idx].userData["1"]=true;
 				// tapemold[idx].userData["skin"]="5";
@@ -7252,11 +7259,29 @@ function animate() {
 			
 			
 			// console.log(parseInt(boxcl0, 16));
-			cubes[0].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl0, 16));
-			cubes[1].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl1, 16));
-			cubes[2].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl2, 16));
-			cubes[3].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl3, 16));
-			cubes[4].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl4, 16));
+			clmeshlst[0].forEach((item)=>{
+					item.color=new THREE.Color(parseInt(boxcl0, 16));
+			})
+			clmeshlst[1].forEach((item)=>{
+					item.color=new THREE.Color(parseInt(boxcl1, 16));
+			})
+			clmeshlst[2].forEach((item)=>{
+					item.color=new THREE.Color(parseInt(boxcl2, 16));
+			})
+			clmeshlst[3].forEach((item)=>{
+					item.color=new THREE.Color(parseInt(boxcl3, 16));
+			})
+			clmeshlst[4].forEach((item)=>{
+					item.color=new THREE.Color(parseInt(boxcl4, 16));
+			})
+
+
+
+			// cubes[0].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl0, 16));
+			// cubes[1].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl1, 16));
+			// cubes[2].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl2, 16));
+			// cubes[3].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl3, 16));
+			// cubes[4].mesh.userData["cl"].color=new THREE.Color(parseInt(boxcl4, 16));
 			// cubes[0].mesh.userData["cl"].color=boxcl0;
 			// cubes[1].mesh.userData["cl"].color=boxcl1;
 			// cubes[2].mesh.userData["cl"].color=boxcl2;
@@ -7276,6 +7301,7 @@ function animate() {
 			gradback[0].material= new THREE.MeshBasicMaterial({ map: img3, transparent:true, opacity:1});
 
 			for(var i=0;i<cubes.length;i++){
+
 				
 				
 				cubes[i].mesh.position.set(restartloc[i].x*1.39*Math.abs(camera.rotation.x-restartend),((i) * bh+bh/2)+(restartloc[i].y)*1.39*Math.abs(camera.rotation.x-restartend),restartloc[i].z*1.39*Math.abs(camera.rotation.x-restartend) )
