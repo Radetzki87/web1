@@ -3535,6 +3535,7 @@ function restart(){
 
 	// clock = new THREE.Clock();
 	coinupdate=[];
+	coinfinal=[];
 	가장자리=[];
 	점수=0;
 	pluscoin=0;
@@ -7310,7 +7311,8 @@ function animate() {
 		})
 		activeFloor=cubes.length;
 		// console.log(Math.abs(camera.rotation.x-restartend))
-		
+		가장자리[0].material.visible=false;
+        가장자리[0].children[0].material.visible=false;
 
 		if(Math.abs(camera.rotation.x-restartend)<0.02){
 			restartloc=[];
@@ -7323,8 +7325,7 @@ function animate() {
 						item.material.visible=false;
 					})
 				} 
-                가장자리[0].material.visible=false;
-                가장자리[0].children[0].material.visible=false;
+                
 
 				var geometry12 = new TextGeometry("COIN:", {
 					font: font0,
@@ -7387,8 +7388,8 @@ function animate() {
 				scene.add(tmesh)
 				coinchg.push(tmesh);
 			}else{
-                coinchg[0].rotation.x=restartend-Math.PI / 32+Math.abs(camera.rotation.x-restartend)*(-restartend-Math.PI / 8)
-                coinfinal[0].rotation.x=restartend-Math.PI / 32+Math.abs(camera.rotation.x-restartend)*(-restartend-Math.PI / 8)				
+                coinchg[0].rotation.x=-restartend+Math.PI / 12+Math.abs(camera.rotation.x-restartend)*(+restartend-Math.PI / 8)
+                coinfinal[0].rotation.x=-restartend+Math.PI / 12+Math.abs(camera.rotation.x-restartend)*(+restartend-Math.PI / 8)				
 
 
 				coinchg[0].material.transparent=true;
@@ -7642,6 +7643,7 @@ function animate() {
 			
 			tmesh1.position.x=4.5
 			coinupdate.push(tmesh1)
+			coinupdate.push(tmesh)
 			
 			// textMesh.position.x=0;
 			// tmesh1.depth=10;
