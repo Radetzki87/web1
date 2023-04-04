@@ -7317,7 +7317,12 @@ function animate() {
 			restart();
 		}else{
 			if(coinchg.length==0){
-				if(coinupdate.length!=0) coinupdate[0].material.visible=false;
+
+				if(coinupdate.length!=0){
+					coinupdate.forEach((item)=>{
+						item.material.visible=false;
+					})
+				} 
                 가장자리[0].material.visible=false;
                 가장자리[0].children[0].material.visible=false;
 
@@ -7581,6 +7586,7 @@ function animate() {
 			// tmesh1.position.y 
 			
 			scene.add(tmesh)
+			coinupdate.push(tmesh)
 
 			var geometry12 = new TextGeometry("BEST:"+String(점수), {
 				font: font0,
@@ -7602,6 +7608,8 @@ function animate() {
 			// tmesh1.position.y 
 			
 			scene.add(tmesh)
+
+			coinupdate.push(tmesh)
 
 			var geometry12 = new TextGeometry("COIN:", {
 				font: font0,
