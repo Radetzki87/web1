@@ -15,30 +15,69 @@
 			    bottom: 30px;
 			    right: 4000px;
 			    background: rgba(0, 0, 0, 0.8);
-			    padding: 20px;
+			    padding: 5px;
 			}
 			#ui input[type=radio] {
 			  width: 0;
 			  height: 0;
 			  display: none;
 			}
+
+			#ui input[type=radio] + label::before {
+			  content: "";
+			  position: absolute;
+			  top: 55%;
+			  left: 50%;
+			  transform: translate(-50%, -50%);
+			  /*width: 20vw;
+			  height: 20vw;*/
+			  width: 80%; /* Adjust the width as needed */
+			  height: 80%; /* Adjust the height as needed */
+/*			  background-image: url('path/to/your/image.png'); /* Replace with your image path */*/
+			  background-size: cover;
+			  background-position: center;
+			  z-index: 1;
+			}
+
 			#ui input[type=radio] + label {
 			  /*background-image: url('resources/images/minecraft/flourish-cc-by-nc-sa.png');*/
 			  /*background-size: 1600% 400%;*/
 			  /*image-rendering: pixelated;*/
-			  width: 200px;
-			  height: 200px;
+			  width: 23vw;
+			  height: 23vw;
 			  display: inline-block;
+			  position: relative;
 			}
+
+			.label-text {
+			  position: absolute;
+			  top: 5%;
+			  left: 25%;
+			  transform: translate(-50%, -50%);
+			  color: white; /* You can choose any color you want */
+			  font-size: 14px; /* Adjust the font size as needed */
+			  z-index: 1;
+			}
+
 			#ui input[type=radio]:checked + label {
 			  outline: 4px solid green;
 			}
-			/*@media (max-width: 600px), (max-height: 600px) {
+
+			@media (max-width: 600px), (max-height: 600px) {
 			  #ui input[type=radio] + label {
-			    width: 64px;
-			    height: 64px;
+			    width: 85px;
+			    height: 85px;
 			  }
-			}*/
+			}
+
+			.voxel-1 {
+			  width: 23vw; /* 20% of the viewport width */
+			  height: 23vw;
+			}
+			.voxel-1::before {
+			  background-image: url('https://raw.githubusercontent.com/Radetzki87/web1/master/img6.jpg');
+			  background-size: cover; /* Replace with your image path */
+			}
 			/*#ui-text {
 			position: fixed;
 			top: 10px;
@@ -9516,6 +9555,9 @@ camera.updateProjectionMatrix();
 
 });
 
+
+
+
 function addring(){
 	var w=bw/8
 	
@@ -10121,29 +10163,147 @@ function hexStringToByteArray(hexString) {
   return byteArray;
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+  // Select all radio buttons with the class 'voxel-radio'
+  const voxelRadios = document.querySelectorAll('.voxel-radio');
+
+  // Loop through each radio button and add an event listener
+  voxelRadios.forEach(function(radio) {
+    radio.addEventListener('change', function(event) {
+      // Check which radio button is checked and perform an action
+      if (event.target.id === 'voxel1') {
+        console.log('Voxel 1 is checked');
+        skinnum=0;
+        rotationflag=true
+		restartflag=true
+		pluscoin=parseInt(점수/10)
+		coin+=pluscoin;
+		for(var i=0;i<cubes.length;i++){
+			restartloc.push(cubes[i].mesh.position);
+			restartrot.push(cubes[i].mesh.rotation);
+			
+			
+			
+		}
+		ncolornum=parseInt(Math.random()*colorlst.length);
+		ncolornum0=parseInt(Math.random()*colorlst0.length);
+		rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+		rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+		renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+		renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+		bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+		nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+		bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+		nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+		bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+		nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+		bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+		nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+		bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+		nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+
+		rotationend=Math.PI/4
+        // Execute your code for Voxel 1 here
+      } else if (event.target.id === 'voxel2') {
+        console.log('Voxel 2 is checked');
+        skinnum=1;
+        rotationflag=true
+		restartflag=true
+		pluscoin=parseInt(점수/10)
+		coin+=pluscoin;
+		for(var i=0;i<cubes.length;i++){
+			restartloc.push(cubes[i].mesh.position);
+			restartrot.push(cubes[i].mesh.rotation);
+			
+			
+			
+		}
+		ncolornum=parseInt(Math.random()*colorlst.length);
+		ncolornum0=parseInt(Math.random()*colorlst0.length);
+		rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+		rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+		renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+		renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+		bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+		nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+		bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+		nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+		bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+		nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+		bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+		nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+		bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+		nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+
+		rotationend=Math.PI/4
+        // Execute your code for Voxel 2 here
+      }else if (event.target.id === 'voxel3') {
+        console.log('Voxel 3 is checked');
+        skinnum=2;
+        rotationflag=true
+		restartflag=true
+		pluscoin=parseInt(점수/10)
+		coin+=pluscoin;
+		for(var i=0;i<cubes.length;i++){
+			restartloc.push(cubes[i].mesh.position);
+			restartrot.push(cubes[i].mesh.rotation);
+			
+			
+			
+		}
+		ncolornum=parseInt(Math.random()*colorlst.length);
+		ncolornum0=parseInt(Math.random()*colorlst0.length);
+		rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+		rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+		renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+		renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+		bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+		nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+		bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+		nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+		bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+		nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+		bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+		nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+		bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+		nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+
+		rotationend=Math.PI/4
+        // Execute your code for Voxel 2 here
+      }
+
+      // ...add more conditions for other radio buttons
+    });
+  });
+});
+
 
 
 	</script>
-	 <div id="ui" style="overflow-y: scroll; height:30%;">
+	 <div id="ui" style="overflow-y: scroll; height:35%;">
 	    <div class="tiles">
-	      <input type="radio" name="voxel" id="voxel1" value="1"><label for="voxel1" style="background-position:   -0% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel2" value="2"><label for="voxel2" style="background-position: -100% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel3" value="3"><label for="voxel3" style="background-position: -200% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel4" value="4"><label for="voxel4" style="background-position: -300% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel5" value="5"><label for="voxel5" style="background-position: -400% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel6" value="6"><label for="voxel6" style="background-position: -500% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel7" value="7"><label for="voxel7" style="background-position: -600% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel8" value="8"><label for="voxel8" style="background-position: -700% -0%"></label>
+	      <input type="radio" name="voxel" id="voxel1" value="1" class="voxel-radio"><label for="voxel1" class="voxel-label voxel-1" style="background-position:   -0% -0%"> <span class="label-text">Default</span></label>
+	      <input type="radio" name="voxel" id="voxel2" value="2" class="voxel-radio"><label for="voxel2" style="background-position: -100% -0%"> <span class="label-text">1-1</span></label>
+	      <input type="radio" name="voxel" id="voxel3" value="3" class="voxel-radio"><label for="voxel3" style="background-position: -200% -0%"> <span class="label-text">1-2</span></label>
+	      <input type="radio" name="voxel" id="voxel4" value="4" class="voxel-radio"><label for="voxel4" style="background-position: -300% -0%"><span class="label-text">1-3</span></label>
+	      <input type="radio" name="voxel" id="voxel5" value="5" class="voxel-radio"><label for="voxel5" style="background-position: -400% -0%"><span class="label-text">1-4</span></label>
+	      <input type="radio" name="voxel" id="voxel6" value="6" class="voxel-radio"><label for="voxel6" style="background-position: -500% -0%"><span class="label-text">1-5</span></label>
+	      <input type="radio" name="voxel" id="voxel7" value="7" class="voxel-radio"><label for="voxel7" style="background-position: -600% -0%"><span class="label-text">1-6</span></label>
+	      <input type="radio" name="voxel" id="voxel8" value="8" class="voxel-radio"><label for="voxel8" style="background-position: -700% -0%"><span class="label-text">1-7</span></label>
 
-	      <input type="radio" name="voxel" id="voxel9"  value="9" ><label for="voxel9"  style="background-position:  -800% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel10" value="10"><label for="voxel10" style="background-position:  -900% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel11" value="11"><label for="voxel11" style="background-position: -1000% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel12" value="12"><label for="voxel12" style="background-position: -1100% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel13" value="13"><label for="voxel13" style="background-position: -1200% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel14" value="14"><label for="voxel14" style="background-position: -1300% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel15" value="15"><label for="voxel15" style="background-position: -1400% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel16" value="16"><label for="voxel16" style="background-position: -1500% -0%"></label>
+	      <input type="radio" name="voxel" id="voxel9"  value="9" class="voxel-radio"><label for="voxel9"  style="background-position:  -800% -0%"><span class="label-text">1-8</span></label>
+	      <input type="radio" name="voxel" id="voxel10" value="10" class="voxel-radio"><label for="voxel10" style="background-position:  -900% -0%"><span class="label-text">1-9</span></label>
+	      <input type="radio" name="voxel" id="voxel11" value="11" class="voxel-radio"><label for="voxel11" style="background-position: -1000% -0%"><span class="label-text">1-10</span></label>
+	      <input type="radio" name="voxel" id="voxel12" value="12" class="voxel-radio"><label for="voxel12" style="background-position: -1100% -0%"><span class="label-text">1-11</span></label>
+	      <input type="radio" name="voxel" id="voxel13" value="13" class="voxel-radio"><label for="voxel13" style="background-position: -1200% -0%"><span class="label-text">1-12</span></label>
+	      <input type="radio" name="voxel" id="voxel14" value="14" class="voxel-radio"><label for="voxel14" style="background-position: -1300% -0%"><span class="label-text">1-13</span></label>
+	      <input type="radio" name="voxel" id="voxel15" value="15" class="voxel-radio"><label for="voxel15" style="background-position: -1400% -0%"><span class="label-text">1-14</span></label>
+	      <input type="radio" name="voxel" id="voxel16" value="16" class="voxel-radio"><label for="voxel16" style="background-position: -1500% -0%"><span class="label-text">1-15</span></label>
 	    </div>
+	   </div>
 	    <!-- <div class="tiles"> -->
 	      <!-- <input type="radio" name="voxel" id="voxel9"  value="9" ><label for="voxel9"  style="background-position:  -800% -0%"></label>
 	      <input type="radio" name="voxel" id="voxel10" value="10"><label for="voxel10" style="background-position:  -900% -0%"></label>
@@ -10154,6 +10314,6 @@ function hexStringToByteArray(hexString) {
 	      <input type="radio" name="voxel" id="voxel15" value="15"><label for="voxel15" style="background-position: -1400% -0%"></label>
 	      <input type="radio" name="voxel" id="voxel16" value="16"><label for="voxel16" style="background-position: -1500% -0%"></label> -->
 	    <!-- </div> -->
-  	</div>
+  	
 </body>
 </html>
