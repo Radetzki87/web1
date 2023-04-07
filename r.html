@@ -9,28 +9,96 @@
 			body { margin: 0; , overscroll-behavior-y: none;}
 
 			canvas { display: white; }
-
-
 			.toggle-button {
 			  display: none;
 			  position: absolute;
 			  z-index: 2;
 			}
+			#game-over-panel {
+			  position: fixed;
+			  top: 0;
+			  left: 0;
+			  width: 100%;
+			  height: 100%;
+			  background-color: rgba(0, 0, 0, 0.75); /* Opaque background */
+			  display: flex;
+			  flex-direction: column;
+			  justify-content: center;
+			  align-items: center;
+			}
+			#game-over-panel h1 {
+			  color: white;
+			  margin-bottom: 20px;
+			}
+
+			#game-over-panel button {
+			  background-color: #f0ad4e;
+			  border: none;
+			  color: white;
+			  padding: 10px 20px;
+			  text-align: center;
+			  font-size: 18px;
+			  cursor: pointer;
+			  margin: 5px;
+			}
+
+			#game-over-panel button:hover {
+			  background-color: #ec971f;
+			}
 
 			#button1 {
-			  top: 10px;
-			  left: 10px;
+			  top: 55%;
+			  left: 10%;
+			  background-color: transparent;
+
+			   background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/gtnidle.png");
+
+			    border: none;
+			    width: 190px;
+			    height: 49px;
+			    /*text-indent: -9999px; */
+			    cursor: pointer;
+			}
+			#button1:hover{
+				background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/gtnhover.png");
+			}
+
+			#button1:active{
+				background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/gtnactive.png");
+				top: 55.5%;
+				width: 190px;
+			    height: 45px;
 			}
 
 			#button2 {
-			  top: 10px;
-			  right: 10px;
+			  top: 55%;
+			  right: 10%;
+			  background-color: transparent;
+
+			  background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/ytnidle.png");
+			    border: none;
+			    width: 190px;
+			    height: 49px;
+			    /*text-indent: -9999px; */
+			    cursor: pointer;
 			}
+
+			#button2:hover{
+				background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/ytnhover.png");
+			}
+
+			#button2:active{
+				background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/ytnactive.png");
+				top: 55.5%;
+				width: 190px;
+			    height: 45px;
+			}
+
 			#ui {
 			    position: absolute;
 			    bottom: 30px;
 			    right: 4000px;
-			    background: rgba(0, 0, 0, 0.8);
+			    background: rgba(0, 0, 0, 0.4);
 			    padding: 5px;
 			}
 			#ui input[type=radio] {
@@ -93,6 +161,9 @@
 			.voxel-1::before {
 			  background-image: url('https://raw.githubusercontent.com/Radetzki87/web1/master/img6.jpg');
 			  background-size: cover; /* Replace with your image path */
+			}
+			.hidden {
+			  display: none;
 			}
 			/*#ui-text {
 			position: fixed;
@@ -190,7 +261,6 @@ const enableScrollLock = () => {
       const pageY = window.pageYOffset;
 
       body.setAttribute('scrollY', pageY.toString());
-
       body.style.overflow = 'hidden';
       body.style.position = 'fixed';
       body.style.left = '0px';
@@ -1850,6 +1920,8 @@ unitmotion["uiimg"]={ "frames": {
 
 var floader=new FontLoader();
 var font0=floader.parse(fontjson);
+
+// var font0=floader.load("https://raw.githubusercontent.com/Radetzki87/web1/master/doh.json") 
 
 class ftile{
 		constructor (a, b, c, d, index,direction, flag, me,me2){
@@ -6675,7 +6747,7 @@ function txtsetting(callback){
 
 	//재화
 
-	var geometry12 = new TextGeometry("COIN:", {
+	var geometry12 = new TextGeometry("COIN☆:", {
 		font: font0,
 		size: bw/10,
 		height:th/3
@@ -7333,7 +7405,7 @@ geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ) );
 geometry.setAttribute( 'scale', new THREE.Float32BufferAttribute( scales, 1 ) );
 
 var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"]*0.65)+'%, '+String(newcl["l"]+25)+'%)');
+var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"]*0.75)+'%, '+String(newcl["l"]+20)+'%)');
 const material2 = new THREE.ShaderMaterial( {
 	
 	uniforms: {
@@ -7507,7 +7579,7 @@ function animate() {
 				} 
                 
 
-				var geometry12 = new TextGeometry("COIN:", {
+				var geometry12 = new TextGeometry("COIN☆:", {
 					font: font0,
 					size: bw/10,
 					height:th/3
@@ -7795,7 +7867,7 @@ function animate() {
 
 			coinupdate.push(tmesh)
 
-			var geometry12 = new TextGeometry("COIN:", {
+			var geometry12 = new TextGeometry("COIN☆:", {
 				font: font0,
 				size: bw/10,
 				height:th/3
@@ -7952,7 +8024,7 @@ function animate() {
 
 					positions0[ i + 1 ] = bh*(( Math.sin( ( ix + txtcount ) * 0.15 ) * 0.1 ) -( Math.sin( ( iy + txtcount ) * 0.15 ) * 0.1 ));
 
-					scales0[ j ] = ( Math.sin( ( ix * txtcount/2 ) * 0.25/3 ) ) * 0.5 + ( Math.sin( ( iy * txtcount/3 ) * 0.25 ) ) * 0.5;
+					scales0[ j ] = ( Math.sin( ( ix * txtcount/2 ) * 0.25/3 ) ) * 0.9 + ( Math.sin( ( iy * txtcount/3 ) * 0.25 ) ) * 0.9;
 					// scales0[ j ] = 32
 					i += 3;
 					j ++;
@@ -10430,10 +10502,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 	</script>
-		<button id="button1" class="toggle-button" >Button 1</button>
-    	<button id="button2" class="toggle-button">Button 2</button>
+	 <!-- <div id="game-over-panel" class="hidden">
+	    <h1>Game Over</h1>
+	    <button id="restart-btn">Restart</button>
+	    <button id="view-ads-btn">View Ads & Earn 2x Coins</button>
+	  </div> -->
+
+	  
+	<button id="button1" class="toggle-button" >▶</button>
+    <button id="button2" class="toggle-button">⭐</button>
 	 <div id="ui" style="overflow-y: scroll; height:35%;">
+	 	
 	    <div class="tiles">
+	    	
 	      <input type="radio" name="voxel" id="voxel1" value="1" class="voxel-radio"><label for="voxel1" class="voxel-label voxel-1" style="background-position:   -0% -0%"> <span class="label-text">Default</span></label>
 	      <input type="radio" name="voxel" id="voxel2" value="2" class="voxel-radio"><label for="voxel2" style="background-position: -100% -0%"> <span class="label-text">1-1</span></label>
 	      <input type="radio" name="voxel" id="voxel3" value="3" class="voxel-radio"><label for="voxel3" style="background-position: -200% -0%"> <span class="label-text">1-2</span></label>
