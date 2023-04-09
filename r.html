@@ -739,7 +739,7 @@ var futurebass04 = {
 	}
 
 	var lofi_midnight = {
-		0: "LoFi-Kit-ADSR Midnight.ogg",
+		0: "midnight.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
 		
@@ -762,7 +762,7 @@ var futurebass04 = {
 	}
 
 	var lofi_somepluk = {
-		0: "LoFi-Kit-ADSR SomePluk.ogg",
+		0: "somepluk.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
 		
@@ -785,7 +785,7 @@ var futurebass04 = {
 	}
 
 	var lofi_slowdown = {
-		0: "LoFi-Kit-ADSR SlowDown.ogg",
+		0: "slowdown.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
 		
@@ -808,7 +808,7 @@ var futurebass04 = {
 	}
 
 var lofi_touch = {
-		0: "LoFi-Kit-ADSR Touch.ogg",
+		0: "touch.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
 		
@@ -831,7 +831,7 @@ var lofi_touch = {
 	}
 	
 var lofi_bedroom = {
-		0: "LoFi-Kit-ADSR Bedroom.ogg",
+		0: "bedroom.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
 		
@@ -945,8 +945,30 @@ var lofi_bedroom = {
 		"lower":"LoFi-Perc-LS Final Perc 3.WAV",
 	}
 
+	var t80s = {
+		0: "80s.ogg",
+		2: "4.ogg",
+		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
+		
+		4: "80s-Kick-F9 GH Grid Kick Amb.WAV",
+		8: "80s-Snare-F9 GH Grid Amb Snr.WAV",
+		16: "80s-Tom-F9 GH Simm Mid.WAV",
+		32: "80s-Cymbal-F9 GH Grid Cym.WAV",
+		64: "80s-Bass-F9 GH DX Bass 2 D.WAV",
+		128: "80s-Synth-F9 GH Spaced D.WAV",
+		256: "80s-Tom-F9 GH Simm Low.WAV",
+		512: "80s-Synth-F9 GH VS Twang D.WAV",
+		1024: "ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav",
+		2048: "5.ogg",
+		"up":"80s-Tom-F9 GH Grid LTom.WAV",
+		"down":"80s-Perc-F9 GH Grid Low Cng.WAV",
+		"left":"80s-Tom-F9 GH Grid LTom.WAV",
+		"right":"80s-Perc-F9 GH Grid Low Cng.WAV",
+		"upper":"11.ogg",
+		"lower":"LoFi-Perc-LS Final Perc 3.WAV",
+	}
 
-var soundset=[wooden, lofi_bedroom, lofi_touch, lofi_midnight, lofi_slowdown, lofi_somepluk, lofi_finalcall, lofi_withu, wooden, futurehouse, futurebass04, trap_cellar, ibiza1]
+var soundset=[t80s, lofi_bedroom, lofi_touch, lofi_midnight, lofi_slowdown, lofi_somepluk, lofi_finalcall, lofi_withu, wooden, futurehouse, futurebass04, trap_cellar, ibiza1]
 
 if(skinlst[skinidx].shuffle==true){
 	if(skinidx==8){
@@ -3860,6 +3882,7 @@ function restart(){
 	점수=0;
 	pluscoin=0;
 	coinchg=[];
+	topcam=true;
 	endtext=false;
 	clmeshlst={0:[], 1:[],2:[],3:[],4:[]}
 	initflag=true;
@@ -9028,6 +9051,7 @@ if(effects.length!=0){
 		if(index>3&&item.mesh.position.y<bh*4){
 			// overlimit++;
 			gameoverflag=true;
+			topcam=false;
 			gameOverPanel.style.backgroundColor=hexToRGB(colorlst0[colornum0][3], 0.5)
 			gameOverPanel.children[0].style.color=hexToRGB(colorlst[colornum][0], 0.9)
 			gameOverPanel.children[1].style.backgroundColor=hexToRGB(colorlst[colornum][1], 0.7)
@@ -9042,6 +9066,7 @@ if(effects.length!=0){
 	})
 	if(overlimit>cubes.length-3){
 		gameoverflag=true;
+		topcam=false;
 		document.getElementById('game-over-panel').style.display="flex";
 		activeFloor=cubes.length
 	}
