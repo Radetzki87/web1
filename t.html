@@ -667,8 +667,8 @@ var skinlst=[{idx:0, snum:0, shuffle:false, price:0, unlock:true},
 
 console.log(skinlst)
 
-var skinset=["base", "1", "카세트", "r808","tower","test5", "adam" ]
-var skinnum=0;
+var skinset=["base", "1", "카세트", "r808","radio","archer","donut","building","tower","test5", "adam" ]
+var skinnum=4;
 
 var skinselect=0;
 var skinidx=0;
@@ -3734,7 +3734,7 @@ if(lighton){
 		// const dL=new THREE.DirectionalLight(0xffffff,0.7);
 		// dL.position.set(13,30,18);
 		// scene.add(dL);
-		var dl2=new THREE.DirectionalLight(0xFFFFFF, 0.7);
+		var dl2=new THREE.DirectionalLight(0xFFFFFF, 0.75);
      dl2.position.set(10,50,40);
      	// dl2.position.set(-40+Math.random()*80,50,-10+Math.random()*50);
 		// dl2.position.set(13,30,-18);
@@ -5257,6 +5257,167 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 		  });
 
+
+		
+		  //archer
+
+
+		  var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  // loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-0.obj', (object) => {
+		  	
+		  	object.children[0].rotation.y=Math.PI/2
+		  	object.children[0].position.set(0,0,0)
+		  	object.children[0].scale.x=2.57/2;
+		  	
+		  	object.children[0].scale.z=2.57/2;
+		  	object.children[0].scale.y=2.57/2;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+		  	object.children[0].userData["skin"]="archer"
+		  	var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+				var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"]*0.85)+'%, '+String(newcl["l"]-10)+'%)');
+
+		  	object.children[0].material=new THREE.MeshLambertMaterial({ color:tc});
+		  if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		  clmeshlst[idx].push(object.children[0].material)
+		  mesh.add(object.children[0]);
+
+		  });
+
+		  var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  // loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-1.obj', (object) => {
+		  	
+		  	object.children[0].rotation.y=Math.PI/2
+		  	object.children[0].position.set(0,0,0)
+		  	object.children[0].scale.x=2.57/2;
+		  	
+		  	object.children[0].scale.z=2.57/2;
+		  	object.children[0].scale.y=2.57/2;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+		  	object.children[0].userData["skin"]="archer"
+		  	var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+				var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"]*0.95)+'%, '+String(newcl["l"]+5)+'%)');
+
+		  	object.children[0].material=new THREE.MeshLambertMaterial({ color:tc});
+		  if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		  clmeshlst[idx].push(object.children[0].material)
+		  mesh.add(object.children[0]);
+
+		  });
+		  if(idx==4){
+		  	var loader = new OBJLoader();
+
+			  // Load OBJ file
+			  // loader.setMaterials(materials);
+			  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-2.obj', (object) => {
+			  	
+			  	object.children[0].rotation.y=Math.PI/2
+			  	object.children[0].position.set(0,0,0)
+			  	object.children[0].scale.x=2.57/2;
+			  	
+			  	object.children[0].scale.z=2.57/2;
+			  	object.children[0].scale.y=2.57/2;
+			  	// object.children[0].scale.x=2.25;
+			  	
+			  	// object.children[0].scale.z=2.25;
+			  	// object.children[0].scale.y=1.92;
+			  	object.children[0].userData["skin"]="archer"
+			  	var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+					var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"]*0.85)+'%, '+String(newcl["l"]-5)+'%)');
+
+			  	object.children[0].material=new THREE.MeshLambertMaterial({ color:tc});
+			  if(shadowon) {
+			    object.children[0].receiveShadow=true;
+			    object.children[0].castShadow=true;
+			  }
+			  clmeshlst[idx].push(object.children[0].material)
+			  mesh.add(object.children[0]);
+
+			  });
+		  }
+		  
+
+
+
+		   var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  // loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-3.obj', (object) => {
+		  	
+		  	object.children[0].rotation.y=Math.PI/2
+		  	object.children[0].position.set(0,0,0)
+		  	object.children[0].scale.x=2.57/2;
+		  	
+		  	object.children[0].scale.z=2.57/2;
+		  	object.children[0].scale.y=2.57/2;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+		  	object.children[0].userData["skin"]="archer"
+		  	object.children[0].material=new THREE.MeshLambertMaterial({ color:colorlst0[colornum0][idx]});
+		  if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		  clmeshlst[idx].push(object.children[0].material)
+		  mesh.add(object.children[0]);
+
+		  });
+
+		  
+
+
+
+		  var mtlLoader = new MTLLoader();
+
+			mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-4.mtl', function(materials) {
+		  materials.preload();
+		  var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-4.obj', (object) => {
+		  	object.children[0].rotation.y=Math.PI/2
+		  	object.children[0].position.set(0,0,0)
+		  	object.children[0].scale.x=2.57/2;
+		  	
+		  	object.children[0].scale.z=2.57/2;
+		  	object.children[0].scale.y=2.57/2;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+
+		  	object.children[0].userData["skin"]="archer"
+		  	if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		   mesh.add(object.children[0]);
+		  });
+		});
+
+
+
 		  //R808
 		   var loader = new OBJLoader();
 
@@ -5373,6 +5534,258 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		});
 
 
+
+		var geoms=[]; 
+		originHelper.position.set(0,2*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"])+'%)');
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(width/20+width/60,2*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		
+	
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(2*(width/20+width/60),2*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		
+	
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(3*(width/20+width/60),2*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		
+		
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+
+
+
+		originHelper.position.set(0,1*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"])+'%)');
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(width/20+width/60,1*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		
+	
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(2*(width/20+width/60),1*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		
+	
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(3*(width/20+width/60),1*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		
+		
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+
+
+
+			originHelper.position.set(width/20+width/60,0*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		
+	
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(2*(width/20+width/60),0*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		
+	
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(width/20+width/60,-1*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		
+	
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(2*(width/20+width/60),-1*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		
+	
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(width/20+width/60,-2*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		
+	
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(width/20+width/60,-3*(-bh/15),depth/2.15)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
+		
+	
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+
+
+
+		
+		var mgeo2=new BufferGeometryUtils.mergeBufferGeometries(geoms, false);
+		var mesh2=new THREE.Mesh(mgeo2, new THREE.MeshLambertMaterial({vertexColors: true}));
+		if(shadowon) {
+	    mesh2.receiveShadow=true;
+	    mesh2.castShadow=true;
+	  }
+		mesh2.userData["1"]=true;
+		mesh2.userData["skin"]="r808";
+		mesh.add(mesh2);
+
+
+
+
+
 			//tower
 		
 			var loader = new OBJLoader();
@@ -5431,10 +5844,564 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  });
 
 
+
+		  //donut
+		  var donutrand=parseInt(Math.random()*4);
+		  var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  // loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-0.obj', (object) => {
+		  	
+		  	object.children[0].rotation.y=donutrand*Math.PI/2
+		  	object.children[0].position.set(0,-bh/2,0)
+		  	object.children[0].scale.x=2.57;
+		  	
+		  	object.children[0].scale.z=2.57;
+		  	object.children[0].scale.y=2.57;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+		  	object.children[0].userData["skin"]="donut"
+		  	object.children[0].material=new THREE.MeshLambertMaterial({ color:colorlst0[colornum0][idx]});
+		  if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		  clmeshlst[idx].push(object.children[0].material)
+		  mesh.add(object.children[0]);
+
+		  });
+
+		  var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  // loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-1.obj', (object) => {
+		  	
+		  	object.children[0].rotation.y=Math.PI/2
+		  	object.children[0].position.set(0,-bh/2,0)
+		  	object.children[0].scale.x=2.57;
+		  	
+		  	object.children[0].scale.z=2.57;
+		  	object.children[0].scale.y=2.57;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+		  	object.children[0].userData["skin"]="donut"
+		  	var newcl=hexToHSL(hexToHtmlColor(0xFBB45F))
+				var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"]+5)+'%)');
+
+		  	object.children[0].material=new THREE.MeshLambertMaterial({ color:tc});
+		  if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		  
+		  mesh.add(object.children[0]);
+
+		  });
+
+
+		  var mtlLoader = new MTLLoader();
+
+			mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-2.mtl', function(materials) {
+		  materials.preload();
+		  var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-2.obj', (object) => {
+		  	object.children[0].rotation.y=donutrand*Math.PI/2
+		  	object.children[0].position.set(0,-bh/2,0)
+		  	object.children[0].scale.x=2.57;
+		  	
+		  	object.children[0].scale.z=2.57;
+		  	object.children[0].scale.y=2.57;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+
+		  	object.children[0].userData["skin"]="donut"
+		  	if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		   mesh.add(object.children[0]);
+		  });
+		});
+
+
+
+		//building
+		  var donutrand=parseInt(Math.random()*4);
+		  var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  // loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-0.obj', (object) => {
+		  	
+		  	object.children[0].rotation.y=donutrand*Math.PI/2
+		  	object.children[0].position.set(0,-bh/2,0)
+		  	object.children[0].scale.x=2.57;
+		  	
+		  	object.children[0].scale.z=2.57;
+		  	object.children[0].scale.y=2.57;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+		  	object.children[0].userData["skin"]="building"
+		  	object.children[0].material=new THREE.MeshLambertMaterial({ color:colorlst0[colornum0][idx]});
+		  if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		  clmeshlst[idx].push(object.children[0].material)
+		  mesh.add(object.children[0]);
+
+		  });
+
+		  var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  // loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-1.obj', (object) => {
+		  	
+		  	object.children[0].rotation.y=Math.PI/2
+		  	object.children[0].position.set(0,-bh/2,0)
+		  	object.children[0].scale.x=2.57;
+		  	
+		  	object.children[0].scale.z=2.57;
+		  	object.children[0].scale.y=2.57;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+		  	object.children[0].userData["skin"]="building"
+		  	var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+				var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"]*0.8)+'%, '+String(newcl["l"]+15)+'%)');
+
+		  	object.children[0].material=new THREE.MeshLambertMaterial({ color:tc});
+		  if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		  
+		  mesh.add(object.children[0]);
+
+		  });
+
+		  var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  // loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-2.obj', (object) => {
+		  	
+		  	object.children[0].rotation.y=Math.PI/2
+		  	object.children[0].position.set(0,-bh/2,0)
+		  	object.children[0].scale.x=2.57;
+		  	
+		  	object.children[0].scale.z=2.57;
+		  	object.children[0].scale.y=2.57;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+		  	object.children[0].userData["skin"]="building"
+		  	var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+				var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"]+5)+'%)');
+
+		  	object.children[0].material=new THREE.MeshLambertMaterial({ color:tc});
+		  if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		  
+		  mesh.add(object.children[0]);
+
+		  });
+
+
+		  var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  // loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.obj', (object) => {
+		  	
+		  	object.children[0].rotation.y=Math.PI/2
+		  	object.children[0].position.set(0,-bh/2,0)
+		  	object.children[0].scale.x=2.57;
+		  	
+		  	object.children[0].scale.z=2.57;
+		  	object.children[0].scale.y=2.57;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+		  	object.children[0].userData["skin"]="building"
+		  	var newcl=hexToHSL(hexToHtmlColor(0x1F9394))
+				var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"]+5)+'%)');
+
+		  	object.children[0].material=new THREE.MeshLambertMaterial({ color:tc});
+		  if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		  
+		  mesh.add(object.children[0]);
+
+		  });
+
+
+
+
+
+		//   var mtlLoader = new MTLLoader();
+
+		// 	mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.mtl', function(materials) {
+		//   materials.preload();
+		//   var loader = new OBJLoader();
+
+		//   // Load OBJ file
+		//   loader.setMaterials(materials);
+		//   loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.obj', (object) => {
+		//   	object.children[0].rotation.y=donutrand*Math.PI/2
+		//   	object.children[0].position.set(0,-bh/2,0)
+		//   	object.children[0].scale.x=2.57;
+		  	
+		//   	object.children[0].scale.z=2.57;
+		//   	object.children[0].scale.y=2.57;
+		//   	// object.children[0].scale.x=2.25;
+		  	
+		//   	// object.children[0].scale.z=2.25;
+		//   	// object.children[0].scale.y=1.92;
+
+		//   	object.children[0].userData["skin"]="building"
+		//   	if(shadowon) {
+		//     object.children[0].receiveShadow=true;
+		//     object.children[0].castShadow=true;
+		//   }
+		//    mesh.add(object.children[0]);
+		//   });
+		// });
+
+
+		  //radio
+		   var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  // loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-0.obj', (object) => {
+		  	
+		  	object.children[0].rotation.y=Math.PI/2
+		  	object.children[0].position.set(0,-bh/2,0)
+		  	object.children[0].scale.x=2.57;
+		  	
+		  	object.children[0].scale.z=2.57;
+		  	object.children[0].scale.y=2.57;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+		  	object.children[0].userData["skin"]="radio"
+		  	object.children[0].material=new THREE.MeshLambertMaterial({ color:colorlst0[colornum0][idx]});
+		  if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		  clmeshlst[idx].push(object.children[0].material)
+		  mesh.add(object.children[0]);
+
+		  });
+
+		  var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  // loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-1.obj', (object) => {
+		  	
+		  	object.children[0].rotation.y=Math.PI/2
+		  	object.children[0].position.set(0,-bh/2,0)
+		  	object.children[0].scale.x=2.57;
+		  	
+		  	object.children[0].scale.z=2.57;
+		  	object.children[0].scale.y=2.57;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+		  	object.children[0].userData["skin"]="radio"
+		  	var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+				var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"]*0.85)+'%, '+String(newcl["l"]+5)+'%)');
+
+		  	object.children[0].material=new THREE.MeshLambertMaterial({ color:tc});
+		  if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		  
+		  mesh.add(object.children[0]);
+
+		  });
+
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-3.obj', (object) => {
+		  	
+		  	object.children[0].rotation.y=Math.PI/2
+		  	object.children[0].position.set(0,-bh/2,0)
+		  	object.children[0].scale.x=2.57;
+		  	
+		  	object.children[0].scale.z=2.57;
+		  	object.children[0].scale.y=2.57;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+		  	object.children[0].userData["skin"]="radio"
+		  	var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+				var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"]*0.65)+'%, '+String(newcl["l"]+20)+'%)');
+
+		  	object.children[0].material=new THREE.MeshLambertMaterial({ color:tc});
+		  if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		  clmeshlst[idx].push(object.children[0].material)
+		  mesh.add(object.children[0]);
+
+		  });
+
+
+
+		  var mtlLoader = new MTLLoader();
+
+			mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-2.mtl', function(materials) {
+		  materials.preload();
+		  var loader = new OBJLoader();
+
+		  // Load OBJ file
+		  loader.setMaterials(materials);
+		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-2.obj', (object) => {
+		  	object.children[0].rotation.y=Math.PI/2
+		  	object.children[0].position.set(0,-bh/2,0)
+		  	object.children[0].scale.x=2.57;
+		  	
+		  	object.children[0].scale.z=2.57;
+		  	object.children[0].scale.y=2.57;
+		  	// object.children[0].scale.x=2.25;
+		  	
+		  	// object.children[0].scale.z=2.25;
+		  	// object.children[0].scale.y=1.92;
+
+		  	object.children[0].userData["skin"]="radio"
+		  	if(shadowon) {
+		    object.children[0].receiveShadow=true;
+		    object.children[0].castShadow=true;
+		  }
+		   mesh.add(object.children[0]);
+		  });
+		});
+
+
+		originHelper.position.set(-width/11,-bh/2+(height*0.13)/2,depth/2)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/22, height*0.12, depth*0.014);
+		var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"])+'%)');
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(-width/11+(width/22+width/640),-bh/2+(height*0.13)/2,depth/2)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/22, height*0.12, depth*0.014);
+		var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"])+'%)');
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(-width/11+2*(width/22+width/640),-bh/2+(height*0.13)/2,depth/2)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/22, height*0.12, depth*0.014);
+		var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"])+'%)');
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(-width/11+3*(width/22+width/640),-bh/2+(height*0.13)/2,depth/2)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/22, height*0.12, depth*0.014);
+		var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"]+10)+'%)');
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+
+		originHelper.position.set(-width/11+4*(width/22+width/640),-bh/2+(height*0.13)/2,depth/2)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/22, height*0.12, depth*0.014);
+		var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"])+'%)');
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		var gap=width/13+width/160
+		//우면버튼
+		originHelper.position.set(bw/2-(width/20)/2, bh/2-height*0.19/2, bw/2.3-(width/13)/2)
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/25, height*0.19, width/13);
+		var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"]+5)+'%)');
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(bw/2-(width/20)/2, bh/2-height*0.19/2, bw/2.3-(width/13)/2-1*(gap))
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/25, height*0.19, width/13);
+		var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"]+5)+'%)');
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(bw/2-(width/20)/2, bh/2-height*0.19/2, bw/2.3-(width/13)/2-2*(gap))
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/25, height*0.19, width/13);
+		var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"]+5)+'%)');
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(bw/2-(width/20)/2, bh/2-height*0.19/2, bw/2.3-(width/13)/2-3*(gap))
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/25, height*0.19, width/13);
+		var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"]+5)+'%)');
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+		originHelper.position.set(bw/2-(width/29)/2, bh/2-height*0.19/2, bw/2.3-(width/13)/2-4*(gap))
+		originHelper.updateWorldMatrix(true, false);
+		var tg=new THREE.BoxGeometry(width/36, height*0.19, width/13);
+		var newcl=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+		var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"]+5)+'%)');
+		var rgb = tc.toArray().map(v => v * 255);
+		var numVerts = geometry.getAttribute('position').count;
+		var itemSize = 3;  // r, g, b
+		var colors = new Uint8Array(itemSize * numVerts);
+		colors.forEach((v, ndx) => {
+		  colors[ndx] = rgb[ndx % 3];
+		});
+		var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+		tg.applyMatrix4(originHelper.matrixWorld);
+		tg.setAttribute('color', colorAttrib);
+		geoms.push(tg)
+
+
+
+
+
+		
+		var mgeo2=new BufferGeometryUtils.mergeBufferGeometries(geoms, false);
+		var mesh2=new THREE.Mesh(mgeo2, new THREE.MeshLambertMaterial({vertexColors: true}));
+		if(shadowon) {
+	    mesh2.receiveShadow=true;
+	    mesh2.castShadow=true;
+	  }
+		mesh2.userData["1"]=true;
+		mesh2.userData["skin"]="radio";
+		mesh.add(mesh2);
+
+
+
+
+
 		}
 		
 
-		
+
 		
 
 
