@@ -732,6 +732,15 @@ var recl2;
 var rencl1;
 var rencl2;
 
+var rehsl3;
+var rehsl4;
+var renhsl3;
+var renhsl4;
+var recl3;
+var recl4;
+var rencl3;
+var rencl4;
+
 var bhsl0;
 var nbhsl0;
 var bhsl1;
@@ -3406,6 +3415,10 @@ function handleTouchMove(event) {
 								rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
 								renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
 								renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+								rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+								renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+								rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+								renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
 
 								bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
 								nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
@@ -3450,6 +3463,10 @@ function handleTouchMove(event) {
 								rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
 								renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
 								renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+								rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+								renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+								rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+								renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
 
 								bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
 								nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
@@ -3493,6 +3510,10 @@ function handleTouchMove(event) {
 								rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
 								renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
 								renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+								rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+								renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+								rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+								renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
 
 								bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
 								nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
@@ -3537,6 +3558,10 @@ function handleTouchMove(event) {
 								rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
 								renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
 								renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+								rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+								renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+								rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+								renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
 
 								bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
 								nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
@@ -4007,6 +4032,11 @@ if (event.code === 'KeyW') {
 		renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
 		rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
 		renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+		rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+		renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+		rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+		renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
 		
 		bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
 		nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
@@ -9705,6 +9735,11 @@ function animate() {
 			var newcl0=hslToHex(renhsl1["h"]-(renhsl1["h"]-rehsl1["h"])*Math.abs(camera.rotation.x-restartend),renhsl1["s"]-(renhsl1["s"]-rehsl1["s"])*Math.abs(camera.rotation.x-restartend),renhsl1["l"]-(renhsl1["l"]-rehsl1["l"])*Math.abs(camera.rotation.x-restartend))
 			var newcl1=hslToHex(renhsl2["h"]-(renhsl2["h"]-rehsl2["h"])*Math.abs(camera.rotation.x-restartend),renhsl2["s"]-(renhsl2["s"]-rehsl2["s"])*Math.abs(camera.rotation.x-restartend),renhsl2["l"]-(renhsl2["l"]-rehsl2["l"])*Math.abs(camera.rotation.x-restartend))
 
+			var newcl00=hslToHex0(renhsl1["h"]-(renhsl1["h"]-rehsl1["h"])*Math.abs(camera.rotation.x-restartend),renhsl1["s"]-(renhsl1["s"]-rehsl1["s"])*Math.abs(camera.rotation.x-restartend),renhsl1["l"]-(renhsl1["l"]-rehsl1["l"])*Math.abs(camera.rotation.x-restartend))
+			var newcl10=hslToHex0(renhsl2["h"]-(renhsl2["h"]-rehsl2["h"])*Math.abs(camera.rotation.x-restartend),renhsl2["s"]-(renhsl2["s"]-rehsl2["s"])*Math.abs(camera.rotation.x-restartend),renhsl2["l"]-(renhsl2["l"]-rehsl2["l"])*Math.abs(camera.rotation.x-restartend))
+			var newcl20=hslToHex0(renhsl3["h"]-(renhsl3["h"]-rehsl3["h"])*Math.abs(camera.rotation.x-restartend),renhsl3["s"]-(renhsl3["s"]-rehsl3["s"])*Math.abs(camera.rotation.x-restartend),renhsl3["l"]-(renhsl3["l"]-rehsl3["l"])*Math.abs(camera.rotation.x-restartend))
+			var newcl30=hslToHex0(renhsl4["h"]-(renhsl4["h"]-rehsl4["h"])*Math.abs(camera.rotation.x-restartend),renhsl4["s"]-(renhsl4["s"]-rehsl4["s"])*Math.abs(camera.rotation.x-restartend),renhsl4["l"]-(renhsl4["l"]-rehsl4["l"])*Math.abs(camera.rotation.x-restartend))
+
 			var boxcl0=hslToHex0(nbhsl0["h"]-(nbhsl0["h"]-bhsl0["h"])*Math.abs(camera.rotation.x-restartend),nbhsl0["s"]-(nbhsl0["s"]-bhsl0["s"])*Math.abs(camera.rotation.x-restartend),nbhsl0["l"]-(nbhsl0["l"]-bhsl0["l"])*Math.abs(camera.rotation.x-restartend))
 			var boxcl1=hslToHex0(nbhsl1["h"]-(nbhsl1["h"]-bhsl1["h"])*Math.abs(camera.rotation.x-restartend),nbhsl1["s"]-(nbhsl1["s"]-bhsl1["s"])*Math.abs(camera.rotation.x-restartend),nbhsl1["l"]-(nbhsl1["l"]-bhsl1["l"])*Math.abs(camera.rotation.x-restartend))
 			var boxcl2=hslToHex0(nbhsl2["h"]-(nbhsl2["h"]-bhsl2["h"])*Math.abs(camera.rotation.x-restartend),nbhsl2["s"]-(nbhsl2["s"]-bhsl2["s"])*Math.abs(camera.rotation.x-restartend),nbhsl2["l"]-(nbhsl2["l"]-bhsl2["l"])*Math.abs(camera.rotation.x-restartend))
@@ -9777,17 +9812,18 @@ function animate() {
 			})
 
 			clmeshlst0[0].forEach((item)=>{
-					item.color=new THREE.Color(colorlst[colornum][0]);
+					item.color=new THREE.Color(parseInt(newcl00, 16));
 
 			})
 			clmeshlst0[1].forEach((item)=>{
-					item.color=new THREE.Color(colorlst[colornum][1]);
+					item.color=new THREE.Color(parseInt(newcl10, 16));
 			})
 			clmeshlst0[2].forEach((item)=>{
-					item.color=new THREE.Color(colorlst[colornum][2]);
+					item.color=new THREE.Color(parseInt(newcl20, 16));
 			})
 			clmeshlst0[3].forEach((item)=>{
-					item.color=new THREE.Color(colorlst[colornum][3]);
+					// item.color=new THREE.Color(colorlst[colornum][3]);
+					item.color=new THREE.Color(parseInt(newcl30, 16));
 			})
 			
 
@@ -12786,6 +12822,10 @@ function skinplay() {
 	rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
 	renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
 	renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+	rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+	renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+	rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+	renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
 
 	bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
 	nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
@@ -12878,6 +12918,10 @@ document.addEventListener("DOMContentLoaded", function() {
 			rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
 			renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
 			renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+			rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+			renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+			rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+			renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
 
 			bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
 			nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
@@ -13269,6 +13313,10 @@ function restartGame() {
 	rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
 	renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
 	renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+	rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+	renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+	rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+	renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
 
 	bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
 	nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
@@ -13307,6 +13355,10 @@ function viewAds() {
 	rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
 	renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
 	renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+	rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+	renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+	rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+	renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
 
 	bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
 	nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
