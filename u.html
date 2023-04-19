@@ -643,7 +643,7 @@ var clmeshlst0={0:[], 1:[],2:[],3:[],4:[]}
 
 
 var audioLoader = new THREE.AudioLoader();
-var listener = new THREE.AudioListener();
+// var listener = new THREE.AudioListener();
 var uilst0=[];
 var uilst1=[];
 var paidflag=false;
@@ -3346,17 +3346,17 @@ function handleTouchStart(event) {
 
 
 				
-				// if(true){
-					var thisnum=activeFloor
-					var playable=true
-					for(let i=0;i<6;i++){
-						if(i==thisnum) continue
-						if(soundic[sdic[i][0]].isPlaying){
-								soundic[sdic[i][0]].stop();
-						}
+				
+				var thisnum=activeFloor
+				var playable=true
+				for(let i=0;i<6;i++){
+					if(i==thisnum) continue
+					if(soundic[sdic[i][0]].isPlaying){
+							soundic[sdic[i][0]].stop();
 					}
-				 	soundic[sdic[thisnum][0]].play();
-				// }
+				}
+				if(!soundic[sdic[thisnum][0]].isPlaying) soundic[sdic[thisnum][0]].play();
+				
 				
 			}
 		}
@@ -4312,13 +4312,14 @@ function restart(){
 	sdic.push(nslst["new3"])
 	sdic.push(nslst["ibiza_deep"])
 	sdic.push(nslst["rnb_demo"])
+
 	for(let i=0;i<6;i++){
 		let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
 		var sdickeys=Object.keys(soundic);
 		
 		for(let j=0;j<temp.length;j++){
 			if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
-				// var listener = new THREE.AudioListener();
+				// 
 				// var audioLoader = new THREE.AudioLoader();
 				audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
 				{   
@@ -9448,19 +9449,28 @@ let particles = new THREE.Points( geometry, material2 );
 
 scene.add( particles );
 // guideflag=false;
-
+var listener = new THREE.AudioListener();
 const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.csv';
 	var nslst={};
 	fetchCSV(csvUrl)
 	    .then(dictionaries => {
 	    	nslst=dictionaries
 	        console.log(nslst);
-	        sdic.push(nslst["new1"])
-			sdic.push(nslst["rnb_demo"])
-			sdic.push(nslst["ibiza_give"])
-			sdic.push(nslst["new3"])
-			sdic.push(nslst["ibiza_deep"])
-			sdic.push(nslst["rnb_demo"])
+	        var templst=Object.keys(nslst);
+	        templst.sort(() => Math.random() - 0.5);
+	        sdic.push(nslst[templst[0]])
+	        sdic.push(nslst[templst[1]])
+	        sdic.push(nslst[templst[2]])
+	        sdic.push(nslst[templst[3]])
+	        sdic.push(nslst[templst[4]])
+	        sdic.push(nslst[templst[5]])
+	  //       sdic.push(nslst["new1"])
+			// sdic.push(nslst["rnb_demo"])
+			// sdic.push(nslst["ibiza_give"])
+			// sdic.push(nslst["new3"])
+			// sdic.push(nslst["ibiza_deep"])
+			// sdic.push(nslst["rnb_demo"])
+
 			for(let i=0;i<6;i++){
 				let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
 				var sdickeys=Object.keys(soundic);
