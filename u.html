@@ -1280,58 +1280,62 @@ wooden[0]=mainmusic[parseInt(Math.random()*mainmusic.length)];
 
 var soundset=[wooden, wooden, lofi_bedroom, lofi_touch, lofi_midnight, lofi_slowdown, lofi_somepluk, lofi_finalcall, lofi_withu, wooden, futurehouse, futurebass04, trap_cellar, ibiza1]
 
-if(skinlst[skinidx].shuffle==true){
-	if(skinidx==9){
-		sdic.push(lofi_bedroom);
-		sdic.push(lofi_touch);
-		sdic.push(lofi_midnight);
-		sdic.push(lofi_slowdown);
-		sdic.push(lofi_somepluk);
-		sdic.push(lofi_finalcall)
-		sdic.push(lofi_withu);
-		sdic.sort(() => Math.random() - 0.5);
-	}else if(skinidx==1){
-		woodmix();
-	}else{
-		sdic.push(futurehouse);
-		sdic.push(futurebass);
-		sdic.push(futurebass04);
-		sdic.push(futurebass2)
+// if(skinlst[skinidx].shuffle==true){
+// 	if(skinidx==9){
+// 		sdic.push(lofi_bedroom);
+// 		sdic.push(lofi_touch);
+// 		sdic.push(lofi_midnight);
+// 		sdic.push(lofi_slowdown);
+// 		sdic.push(lofi_somepluk);
+// 		sdic.push(lofi_finalcall)
+// 		sdic.push(lofi_withu);
+// 		sdic.sort(() => Math.random() - 0.5);
+// 	}else if(skinidx==1){
+// 		woodmix();
+// 	}else{
+// 		sdic.push(futurehouse);
+// 		sdic.push(futurebass);
+// 		sdic.push(futurebass04);
+// 		sdic.push(futurebass2)
 
-		// sdic.push(f9);
+// 		// sdic.push(f9);
 
-		sdic.push(ibiza1);
-		sdic.push(dancehall);
-		sdic.push(trap_cellar)
+// 		sdic.push(ibiza1);
+// 		sdic.push(dancehall);
+// 		sdic.push(trap_cellar)
 
-		sdic.push(lofi_bedroom);
-		sdic.push(lofi_touch);
-		sdic.push(lofi_midnight);
-		sdic.push(lofi_slowdown);
-		sdic.push(lofi_somepluk);
-		sdic.push(lofi_finalcall)
-		sdic.push(lofi_withu);
-		sdic.sort(() => Math.random() - 0.5);
-	}
+// 		sdic.push(lofi_bedroom);
+// 		sdic.push(lofi_touch);
+// 		sdic.push(lofi_midnight);
+// 		sdic.push(lofi_slowdown);
+// 		sdic.push(lofi_somepluk);
+// 		sdic.push(lofi_finalcall)
+// 		sdic.push(lofi_withu);
+// 		sdic.sort(() => Math.random() - 0.5);
+// 	}
+
+	
+
+
+
+// 	// sdic.push(dancehall2)
+
+
+	
+// 	// sdic[4]=wooden;
+// }else{
+// 	sdic.push(soundset[skinidx]);
+// 	sdic.push(soundset[skinidx]);
+// 	sdic.push(soundset[skinidx]);
+// 	sdic.push(soundset[skinidx]);
+// 	sdic.push(soundset[skinidx]);
+// 	sdic.push(soundset[skinidx]);
+// }
+
 
 	
 
-
-
-	// sdic.push(dancehall2)
-
-
 	
-	// sdic[4]=wooden;
-}else{
-	sdic.push(soundset[skinidx]);
-	sdic.push(soundset[skinidx]);
-	sdic.push(soundset[skinidx]);
-	sdic.push(soundset[skinidx]);
-	sdic.push(soundset[skinidx]);
-	sdic.push(soundset[skinidx]);
-}
-
 
 
 
@@ -4280,25 +4284,7 @@ function restart(){
 	// 	sdic.push(soundset[skinidx]);
 	// 	sdic.push(soundset[skinidx]);
 	// }
-	const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.csv';
-	var nslst={};
-	fetchCSV(csvUrl)
-	    .then(dictionaries => {
-	    	nslst=dictionaries
-	        console.log(nslst);
-
-	    })
-	    .catch(error => {
-	        console.error(error);
-	    });
 	
-
-	sdic.push(nslst["wooden"])
-	sdic.push(nslst["wooden"])
-	sdic.push(nslst["wooden"])
-	sdic.push(nslst["new3"])
-	sdic.push(nslst["ibiza_deep"])
-	sdic.push(nslst["rnb_demo"])
 
 
 	var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
@@ -4319,30 +4305,38 @@ function restart(){
 
 
 	scene.add( particles );
-
+	sdic=[];
+	sdic.push(nslst["wooden"])
+	sdic.push(nslst["wooden"])
+	sdic.push(nslst["wooden"])
+	sdic.push(nslst["new3"])
+	sdic.push(nslst["ibiza_deep"])
+	sdic.push(nslst["rnb_demo"])
 	for(let i=0;i<6;i++){
-		var sdickeys=Object.keys(soundic);
 		let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
-			for(let j=1;j<temp.length;j++){
-				if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
-					// var listener = new THREE.AudioListener();
-					// var audioLoader = new THREE.AudioLoader();
-					audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
-					{   
-							var sound = new THREE.Audio( listener );
-							sound.setBuffer( buffer );
-							sound.setVolume( 0.3 );
-							soundic[sdic[i][temp[j]]]=sound;
-							
-							
-					});
-				}
+		var sdickeys=Object.keys(soundic);
+		
+		for(let j=0;j<temp.length;j++){
+			if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
+				// var listener = new THREE.AudioListener();
+				// var audioLoader = new THREE.AudioLoader();
+				audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
+				{   
+					var sound = new THREE.Audio( listener );
+					sound.setBuffer( buffer );
+					sound.setVolume( 0.3 );
+					soundic[sdic[i][temp[j]]]=sound;
+						
+						
+				});
+					
 					
 			}
-			
+		}
 
 
 	}
+	
 	
 	if(lighton){
 		// let ambientLight= new THREE.AmbientLight(0xffffff,0.4);
@@ -8213,20 +8207,21 @@ function tsetting(callback){
 }
 
 function msetting(callback){
-	for(let i=0;i<6;i++){
-		var sdickeys=Object.keys(soundic);
-		if(sdickeys.indexOf(sdic[i][0])==-1){
+
+	// for(let i=0;i<6;i++){
+	// 	var sdickeys=Object.keys(soundic);
+	// 	if(sdickeys.indexOf(sdic[i][0])==-1){
 			
-			audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][0], function( buffer )
-			{   
-				var sound = new THREE.Audio( listener );
-				sound.setBuffer( buffer );
-				sound.setVolume( 0.3 );
-				sound.setLoop( true );
-				soundic[sdic[i][0]]=sound;
-			});
-		}
-	}
+	// 		audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][0], function( buffer )
+	// 		{   
+	// 			var sound = new THREE.Audio( listener );
+	// 			sound.setBuffer( buffer );
+	// 			sound.setVolume( 0.3 );
+	// 			sound.setLoop( true );
+	// 			soundic[sdic[i][0]]=sound;
+	// 		});
+	// 	}
+	// }
 
 
 
@@ -9255,30 +9250,9 @@ var bsounds=[];
 var sounds=[];
 
 
-for(let i=0;i<6;i++){
-	let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
-	var sdickeys=Object.keys(soundic);
-	
-	for(let j=1;j<temp.length;j++){
-		if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
-			// var listener = new THREE.AudioListener();
-			// var audioLoader = new THREE.AudioLoader();
-			audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
-			{   
-				var sound = new THREE.Audio( listener );
-				sound.setBuffer( buffer );
-				sound.setVolume( 0.3 );
-				soundic[sdic[i][temp[j]]]=sound;
-					
-					
-			});
-				
-				
-		}
-	}
 
 
-}
+
 
 // if(soundon){
 //     var listener = new THREE.AudioListener();
@@ -9475,61 +9449,105 @@ let particles = new THREE.Points( geometry, material2 );
 scene.add( particles );
 // guideflag=false;
 
-
-
-
-console.log(fontjson);
-
-setting(stack,function (object) {  //시작
-addring();
-	tsetting(function (object) {
-		cubes.forEach((item)=>{
-				item.mesh.userData.game2048.spawnTile();
-				item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-			})
-		// msetting2(function (object) {
-			msetting(function (object) {
+const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.csv';
+	var nslst={};
+	fetchCSV(csvUrl)
+	    .then(dictionaries => {
+	    	nslst=dictionaries
+	        console.log(nslst);
+	        sdic.push(nslst["wooden"])
+			sdic.push(nslst["wooden"])
+			sdic.push(nslst["wooden"])
+			sdic.push(nslst["new3"])
+			sdic.push(nslst["ibiza_deep"])
+			sdic.push(nslst["rnb_demo"])
+			for(let i=0;i<6;i++){
+				let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
+				var sdickeys=Object.keys(soundic);
 				
+				for(let j=0;j<temp.length;j++){
+					if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
+						// var listener = new THREE.AudioListener();
+						// var audioLoader = new THREE.AudioLoader();
+						audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
+						{   
+							var sound = new THREE.Audio( listener );
+							sound.setBuffer( buffer );
+							sound.setVolume( 0.3 );
+							soundic[sdic[i][temp[j]]]=sound;
+								
+								
+						});
+							
+							
+					}
+				}
 
-				txtsetting(function (object) {
-					time0 = performance.now();
-					fps = 0;
-					// console.log(txtlst);
-					camera.add( listener );
-					// scene.background = new THREE.Color(colorlst[colornum][0]);
-					skinsetting(function (object) {
-						setTimeout(function() {
-							animate();
-        
-      					}, 200);
-						
-					})
+
+			}
+			console.log(sdic)
+			setting(stack,function (object) {  //시작
+				addring();
+				tsetting(function (object) {
+					cubes.forEach((item)=>{
+							item.mesh.userData.game2048.spawnTile();
+							item.mesh.userData.game2048.spawnTile();
+							
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+						})
+					// msetting2(function (object) {
+						msetting(function (object) {
+							
+
+							txtsetting(function (object) {
+								time0 = performance.now();
+								fps = 0;
+								// console.log(txtlst);
+								camera.add( listener );
+								// scene.background = new THREE.Color(colorlst[colornum][0]);
+								skinsetting(function (object) {
+									setTimeout(function() {
+										animate();
+			        
+			      					}, 200);
+									
+								})
+								
+								// console.log(tilemold);
+								// console.log(textmold)
+
+							})
+							
+						})
+					// })
 					
-					// console.log(tilemold);
-					// console.log(textmold)
-
 				})
 				
-			})
-		// })
-		
-	})
-	
-});
+			});
+
+
+	    })
+	    .catch(error => {
+	        console.error(error);
+	    });
+
+
+
+
+
 // setting(stack);
 
 
