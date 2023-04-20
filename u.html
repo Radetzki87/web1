@@ -5,489 +5,788 @@
 	<title>Tower Stacking Game</title>
 	<style>
 			 
-            
+        #song-info {
+        font-family:'GG';
+	      color: white;
+	      font-size: 1vh;
+		  position: absolute;
+		  top: 0;
+		  left: 2vw;
+		  display: inline-flex;
+		  /*opacity: 1;*/
+		  /*transition: opacity 0.15s ease-in-out;*/
+		}
+
+		.hidden {
+		  display: none;
+		  opacity: 0;
+		}
+
+		.visible {
+		  opacity: 1;
+		  display: inline;
+		  
+		}
+
+	  .fade {
+	    opacity: 0;
+	    pointer-events: none;
+	    transition: opacity 0.15s ease;
+	  }
+
+		  .show {
+		    opacity: 1;
+		    pointer-events: all;
+		    transition: opacity 0.15s ease;
+			}
+
+			@font-face {
+		      font-family:'GG'; /*글꼴*/
+		    /*src: local('GG'),*/
+		      src: url('https://raw.githubusercontent.com/Radetzki87/web1/master/kenvector_future.ttf') format('woff');
+		      font-weight: normal;
+		      font-style: normal;
+		  }
+
+		  * {
+		    box-sizing: border-box;
+		  }
+
+		  .mute-btn img {
+    width: 3vh;
+    height: 3vh;
+  }
+  #skin-left{
+    /*position: absolute;*/
+    left:10%;
+    font-family:'GG';
+    /*margin-left: 1vw;*/
+    font-size: 2vw;
+    background-color: transparent;
+    background-image: url("png/yellow_sliderLeft.png");
+    background-size: 7vw 7vw;
+    border: none;
+    width: 7vw;
+    height: 7vw;
+    cursor: pointer;
+    margin:0 3vw;
+  }
+  #skin-right{
+    /*position: absolute;*/
+    right:10%;
+    font-family:'GG';
+    /*margin-left: 2vw;*/
+    font-size: 2vw;
+    background-color: transparent;
+    background-image: url("png/yellow_sliderRight.png");
+    background-size: 7vw 7vw;
+    border: none;
+    width: 7vw;
+    height: 7vw;
+    cursor: pointer;
+    margin:0 3vw;
+  }
+
+  #skin-middle{
+    display: inline-flex;
+    align-items: center;
+
+  }
+
+  #skin-middle img{
+    width: 12vw;
+    margin:0 1vw;
+    
+
+  }
+  
+
+
+
+  .option-RL{
+      display: flex;
+      /*flex-direction: column;*/
+      align-items: center;
+  }
+
+
+  .selection{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /*justify-content: center;*/
+  }
+
+
+  .button-column {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*height: 100%;*/
+    /*justify-content: center;*/
+    padding: 70px;
+  }
+
+
+  .upper{
+  position: absolute;
+  width: 100%;
+  height: 15%;
+    /*background-color: rgba(0, 0, 250, 0.1);*/
+    z-index: 1;
+  }
+
+  .lower{
+  position: absolute;
+  width: 100%;
+  height: 8%;
+  bottom:0%;
+    background-color: rgba(0, 0, 250, 0.2);
+    z-index: 1;
+  }
+  .color1{
+    position:relative;
+    width: 75vw;
+    height: 21vw;
+
+    top:-21vw;
+/*    left:vw;*/
+    /*right: 4000px;*/
+    background-color: rgba(255, 0, 255, 0.1);
+    /*padding: 20px;*/
+    border-radius: 2vw;
+    /*max-width: 90%;*/
+    /*box-sizing: border-box;*/
+    z-index: 0;
+
+  }
+
+  .color1:active{
+   height: 19vw;
+  }
+
+  .color2{
+    position:relative;
+    width: 75vw;
+    height: 21vw;
+
+    top:-21vw;
+    
+    /*right: 4000px;*/
+    background-color: rgba(255, 255, 0, 0.1);
+    /*padding: 20px;*/
+    border-radius: 2vw;
+    /*max-width: 90%;*/
+    /*box-sizing: border-box;*/
+    z-index: 0;
+  }
+  .color2:active{
+   height: 19vw;
+  }
+
+  .color3{
+    position:relative;
+    width: 75vw;
+    height: 21vw;
+
+    top:-21vw;
+    
+    /*right: 4000px;*/
+    background-color: rgba(0, 0, 255, 0.1);
+    /*padding: 20px;*/
+    border-radius: 2vw;
+    /*max-width: 90%;*/
+    /*box-sizing: border-box;*/
+    z-index: 0;
+  }
+  .color3:active{
+   height: 19vw;
+  }
+
+  .color4{
+    position:relative;
+    width: 75vw;
+    height: 21vw;
+
+    top:-21vw;
+    
+    /*right: 4000px;*/
+    background-color: rgba(0, 255, 255, 0.1);
+    /*padding: 20px;*/
+    border-radius: 2vw;
+    /*max-width: 90%;*/
+    /*box-sizing: border-box;*/
+    z-index: 0;
+  }
+  .color4:active{
+   height: 19vw;
+  }
+
+
+  #img{
+    /*transform: translate(0%, -20%);*/
+    top:0%;
+    left:0%;
+    /*position:absolute;*/
+    width: 70vw;
+    height: 15vw;
+    /*size:cover;*/
+    /*display:none;*/
+    z-index: 1;
+  }
+
+  .cat-button {
+    font-family:'GG';
+    width: 75vw;
+    height: 21vw;
+    /*background-color: #ccc;*/
+    /*width:500px;*/
+    background-color: transparent;
+    background-image: url("png/grey_button01.png");
+    background-size: 75vw 21vw;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    font-size: 3vw;
+
+    margin-bottom: 3vw;
+    padding: 2vw 0;
+    text-align:center;
+    z-index: 1;
+  }
+
+  .cat-button:active {
+
+    background-image: url("png/grey_button02.png");
+    transform: translate(0, 2vw);
+    width: 75vw;
+    height: 19vw;
+    background-size: 75vw 19vw;
+
+     margin-bottom: 5vw;
+     color: rgba(255, 0, 255, 0.0);
+     /*font-size: 0;*/
+  }
+
+  .ad-button {
+    font-family:'GG';
+    width: 75vw;
+    height: 21vw;
+    /*background-color: #ccc;*/
+    /*width:500px;*/
+    background-color: transparent;
+    background-image: url("png/yellow_button00.png");
+    background-size: 75vw 21vw;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    font-size: 3vw;
+
+    margin-bottom: 3vw;
+    padding: 0 0;
+    text-align:center;
+    z-index: 1;
+  }
+
+  
+
+  .ad-button:active {
+
+    background-image: url("png/yellow_button01.png");
+    transform: translate(0, 2vw);
+    width: 75vw;
+    height: 19vw;
+    background-size: 75vw 19vw;
+     margin-bottom: 5vw;
+     /*color: rgba(255, 0, 255, 0.0);*/
+     /*font-size: 0;*/
+  }
+
+  .ap-button {
+    font-family:'GG';
+    width: 75vw;
+    height: 21vw;
+    /*background-color: #ccc;*/
+    /*width:500px;*/
+    background-color: transparent;
+    background-image: url("png/blue_button00.png");
+    background-size: 75vw 21vw;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    font-size: 3vw;
+
+    margin-bottom: 3vw;
+    padding: 0 0;
+    text-align:center;
+    z-index: 1;
+  }
+
+  
+
+  .ap-button:active {
+
+    background-image: url("png/blue_button01.png");
+    transform: translate(0, 2vw);
+    width: 75vw;
+    height: 19vw;
+    background-size: 75vw 19vw;
+     margin-bottom: 5vw;
+     /*color: rgba(255, 0, 255, 0.0);*/
+     /*font-size: 0;*/
+  }
+
+  .c-button {
+    
+    width: 75vw;
+    height: 21vw;
+    /*background-color: #ccc;*/
+    /*width:500px;*/
+    background-color: transparent;
+    background-image: url("png/grey_button01.png");
+    background-size: 75vw 21vw;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    
+
+    margin-bottom: 3vw;
+    padding: 2vw 0;
+    font-family:'GG';
+    text-align:center;
+    font-size: 3vw;
+    z-index: 1;
+  }
+
+  
+  .c-button:active {
+    background-image: url("png/yellow_button01.png");
+    transform: translate(0, 2vw);
+    width: 75vw;
+    height: 19vw;
+    background-size: 75vw 19vw;
+     margin-bottom: 5vw;
+     /*color: rgba(255, 0, 255, 0.0);*/
+     /*font-size: 0;*/
+  }
+
+  .options-overlay {
+    position: absolute;
+    overflow-x: scroll;
+    font-family:'GG';
+    /*position: fixed;*/
+    /*position: absolute;*/
+    /*right: 4000px;*/
+    /*top: 0;
+    left: 0;*/
+    width: 100%;
+    height: 100%;
+    background-color: rgba(50, 100, 250, 0.5);
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+  }
+
+  .gameover-overlay {
+  	/*overflow-y: scroll;*/
+    position: absolute;
+    display: flex;
+    font-family:'GG';
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .gameover-container {
+
+    background-color: rgba(150, 100, 250, 0);
+    display: flex;
+    font-family:'GG';
+    width: 100%;
+    height: 80%;
+    border-radius: 4vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+/*    margin: 240px 0;*/
+  }
+
+  .gameover-container button{
+
+    position: fixed;
+    right:10%;
+    font-family:'GG';
+    font-size: 1vh;
+    margin: 4vw 0;
+  }
+
+  .gameover{
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(50, 100, 250, 0.3);
+  width: 100%;
+  height: 8vh;
+  justify-content: center;
+  align-items: center;
+
+   
+  }
+
+  .gameoverbt{
+    border: none;
+    background-color: transparent;
+    background-image: url("png/green_button09.png");
+    background-size: 6vh 4vh;
+    
+    width: 6vh;
+    height: 4vh;
+    z-index: 2;
+    margin-bottom: 1vw;
+  }
+
+  .gameoverbt img{
+    width: 3vh;
+    height: 3vh;
+    z-index: 2;
+  }
+
+  .gameoverbt:active {
+
+    background-image: url("png/green_button10.png");
+    transform: translate(0, 0.2vh);
+    background-size: 6vh 3.8vh;
+    
+    width: 6vh;
+    height: 3.8vh;
+
+  }
+
+
+    .setting-overlay {
+    /*font-size: 1vw;*/
+    position: absolute;
+    /*overflow-x: scroll;*/
+    font-family:'GG';
+    /*position: fixed;*/
+    /*position: absolute;*/
+    /*right: 4000px;*/
+    /*top: 0;
+    left: 0;*/
+    width: 100%;
+    height: 100%;
+    background-color: rgba(50, 100, 250, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .setting-grid {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3vw;
+    
+  }
+
+  .setting-grid button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+/*    margin: 10vw 0;*/
+    color: white;
+    font-family:'GG';
+    text-align:center;
+    font-size: 0.2vh;
+  }
+
+  .setting-grid label{
+    margin: 1vh 0;
+    font-size: 0.2vh;
+  }
+
+  .container {
+      /*position: absolute;*/
+    /*overflow-y: scroll;*/
+    font-family:'GG';
+    top:1000px;
+    width: 100%;
+    height: 100%;
+    /*background-color: rgba(0, 0, 0, 0.7);*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5vh;
+  }
+
+  .title {
+    z-index: 1;
+    font-family:'GG';
+    /*position: absolute;*/
+    left:40%;
+    text-align: center;
+    /*align-items: center;*/
+    /*font-size: 16px;*/
+    margin: 20px 0;
+  }
+
+  .progress-container {
+    /*display: none;*/
+    flex-grow: 1;
+    /*padding-left: 70%;*/
+    /*padding:10%;*/
+   /* padding-left: 2%;
+    padding-right: 2%;*/
+    width: 60%;
+    text-align:right;
+  }
+
+  .progress {
+    /*display: none;*/
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 15px;
+    width: 100%;
+  }
+
+  .progress-bar {
+    /*display: none;*/
+    background-color: #4caf50;
+    border-radius: 5px;
+    height: 100%;
+  }
+
+  /*.button {
+    width: 650%;
+    background-color: #ccc;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+  }*/
+
+  .backbutton {
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    background-image: url("png/green_button09.png");
+    background-size: 6vh 4vh;
+    top: 3vh;
+    left: 8%;
+    width: 6vh;
+    height: 4vh;
+    z-index: 2;
+    align-items: center;
+  }
+
+  .backbutton:active{
+    background-image: url("png/green_button10.png");
+    transform: translate(0, 0.2vh);
+    background-size: 6vh 3.8vh;
+    
+    width: 6vh;
+    height: 3.8vh;
+  }
+
+  .left {
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    background-image: url("png/blue_button09.png");
+    background-size: 6vh 4vh;
+    bottom: 1vh;
+    left: 8%;
+    width: 6vh;
+    height: 4vh;
+    z-index: 2;
+  }
+
+  .left:active {
+    background-image: url("png/blue_button10.png");
+    transform: translate(0, 0.2vh);
+    background-size: 6vh 3.8vh;
+    
+    width: 6vh;
+    height: 3.8vh;
+
+/*     margin-bottom: 1vw;*/
+     
+     /*font-size: 0;*/
+  }
+
+  .right {
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    background-image: url("png/green_button09.png");
+    background-size: 6vh 4vh;
+    bottom: 1vh;
+    right: 8%;
+    width: 6vh;
+    height: 4vh;
+    z-index: 2;
+  }
+  .right img{
+
+    width: 3vh;
+    height: 3vh;
+    z-index: 2;
+  }
+
+  .right:active {
+
+    background-image: url("png/green_button10.png");
+    transform: translate(0, 0.2vh);
+    background-size: 6vh 3.8vh;
+    
+    width: 6vh;
+    height: 3.8vh;
+  }
+
+  .optionlst{
+/*    opacity: 0;*/
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    bottom: 7vh;
+    right: 8%;
+   
+  }
+
+  .setting{
+    border: none;
+    background-color: transparent;
+    background-image: url("png/green_button09.png");
+    background-size: 6vh 4vh;
+    width: 6vh;
+    height: 4vh;
+    z-index: 2;
+    margin-bottom: 1vw;
+  }
+
+  .setting img{
+    width: 3vh;
+    height: 3vh;
+    z-index: 2;
+  }
+
+  .setting:active {
+
+    background-image: url("png/green_button10.png");
+    transform: translate(0, 0.2vh);
+    background-size: 6vh 3.8vh;
+    
+    width: 6vh;
+    height: 3.8vh;
+
+  }
+
+
+
+  #option{
+/*    position: re;*/
+    border: none;
+    background-color: transparent;
+    background-image: url("png/green_button09.png");
+    background-size: 6vh 4vh;
+    
+    width: 6vh;
+    height: 4vh;
+    z-index: 2;
+    margin-bottom: 1vw;
+  }
+
+  #option img{
+    width: 3vh;
+    height: 3vh;
+    z-index: 2;
+  }
+
+  #option:active {
+
+    background-image: url("png/green_button10.png");
+    transform: translate(0, 0.2vh);
+    background-size: 6vh 3.8vh;
+    margin-top: 0.2vh;
+    width: 6vh;
+    height: 3.8vh;
+  }
+
+  .grid {
+    justify-content: center;
+    position: relative;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    /*padding: 80px;*/
+    width: 90%;
+    /*align-items: center;*/
+  }
+
+  .character {
+    /*font-size: 10px;*/
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    cursor: pointer;
+  }
+
+  .character img {
+
+    width: 90%;
+    /*height: 50px;*/
+    margin-bottom: 2vw;
+  }
+
+  .character.locked {
+    background-color: #ddd;
+    filter: grayscale(100%);
+  }
+
+		  		  
+		 
+
 			body { margin: 0; , overscroll-behavior-y: none;}
 
 			canvas { display: white; }
 
-			.toggle-button {
-			  display: none;
-			  position: absolute;
-			  z-index: 2;
-			}
-
-			.mute-container {
-		      display: flex;
-		      align-items: center;
-		    }
-
-		   .mute-btn {
-		   	position: absolute;
-		   	left:53%;
-		      display: inline-block;
-		      width: 3vh;
-		      height: 3vh;
-		      cursor: pointer;
-		      
-		    }
-
-		    .mute-btn img {
-		      width: 3vh;
-		      height: 3vh;
-		    }
-
-		    .sidecam-btn {
-		    	position: absolute;
-		   	left:53%;
-		      display: inline-block;
-		      width: 3vh;
-		      height: 3vh;
-		      cursor: pointer;
-		      
-		    }
-
-		    .sidecam-btn img {
-		      width: 3vh;
-		      height: 3vh;
-		    }
-
-		    .particle-btn {
-		    	position: absolute;
-		   		left:53%;
-		      display: inline-block;
-		      width: 3vh;
-		      height: 3vh;
-		      cursor: pointer;
-		      
-		    }
-
-		    .particle-btn img {
-		      width: 3vh;
-		      height: 3vh;
-		    }
-
-		    #mute-text{
-		    	position: absolute;
-		   		left:62%;
-		    }
-
-		    #sidecam-text{
-		    	position: absolute;
-		   		left:62%;
-		    }
-
-		    #particle-text{
-		    	position: absolute;
-		   		left:62%;
-		    }
-
-		    #bg-music{
-		    	position: absolute;
-		   		left:50%;
-		    	
-		    	width: 26vw;
-		     	height: 3vw;
-		    }
-
-		    #sfx-volume{
-		    	position: absolute;
-		   		left:50%;
-		    	width: 26vw;
-		      	height: 3vw;
-		    }
-
-		    #skin-left{
-		    	position: absolute;
-		   		left:48%;
-		      font-family:'GG';
-		      /*margin-left: 1vw;*/
-		      font-size: 2vh;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/yellow_sliderLeft.png");
-		      background-size: 3vh 3vh;
-		      border: none;
-		      width: 3vh;
-		      height: 3vh;
-		      cursor: pointer;
-		    }
-		    #skin-right{
-		    	position: absolute;
-		   		left:73%;
-		      font-family:'GG';
-		      /*margin-left: 2vw;*/
-		      font-size: 2vh;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/yellow_sliderRight.png");
-		      background-size: 3vh 3vh;
-		      border: none;
-		      width: 3vh;
-		      height: 3vh;
-		      cursor: pointer;
-		    }
-
-		    #skin-middle{
-		    	position: absolute;
-		   		left:56%;
-		      font-family:'GG';
-		      
-		      font-size: 2vh;
-		      background-color: transparent;
-		    }
-
-		     #lang-left{
-		     	position: absolute;
-		   		left:48%;
-		      font-family:'GG';
-		      
-		      font-size: 2vh;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/yellow_sliderLeft.png");
-		      background-size: 3vh 3vh;
-		      border: none;
-		      width: 3vh;
-		      height: 3vh;
-		      cursor: pointer;
-		    }
-
-		    #lang-right{
-		    	position: absolute;
-		   		left:73%;
-		      font-family:'GG';
-		      
-		      font-size: 2vh;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/yellow_sliderRight.png");
-		      background-size: 3vh 3vh;
-		      border: none;
-		      width: 3vh;
-		      height: 3vh;
-		      cursor: pointer;
-		    }
-
-		    #lang-middle{
-		    	position: absolute;
-		   		left:58.5%;
-		      font-family:'GG';
-		      
-		      font-size: 2vh;
-		      background-color: transparent;
-		    }
-
-		    #close-options{
-		      font-family:'GG';
-		      font-size:5vw;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/red_button01.png");
-		      background-size: 35vw 4vh;
-		      border: none;
-		      width: 35vw;
-		      height: 4vh;
-		      cursor: pointer;
-		    }
-		    #restart{
-		      font-family:'GG';
-		      margin-left: 5vw;
-		      font-size: 5vw;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/green_button02.png");
-		      background-size: 35vw 4vh;
-		      border: none;
-		      width: 35vw;
-		      height: 4vh;
-		      cursor: pointer;
-		    }
-
-		    #buy-ad-free{
-		      font-family:'GG';
-		      font-size: 5vw;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/yellow_button02.png");
-		      background-size: 35vw 4vh;
-		      border: none;
-		      width: 35vw;
-		      height: 4vh;
-		      cursor: pointer;
-		    }
-		    #credits{
-		      font-family:'GG';
-		      margin-left: 5vw;
-		      font-size:5vw;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/blue_button02.png");
-		      background-size: 35vw 4vh;
-		      border: none;
-		      width: 35vw;
-		      height: 4vh;
-		      cursor: pointer;
-		    }
-
-		    #open-skins-list{
-		      font-family:'GG';
-		      font-size: 5vw;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/green_button13.png");
-		      background-size: 45vw 4vh;
-		      border: none;
-		      width: 45vw;
-		      height: 4vh;
-		      cursor: pointer;
-		    }
-
-		    #coin{
-		      font-family:'GG';
-		      margin-left: 1vw;
-		      font-size:4vw;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/grey_button06.png");
-		      background-size: 30vw 4vh;
-		      border: none;
-		      width: 30vw;
-		      height: 4vh;
-		      /*cursor: pointer;*/
-		    }
-
-		    #button1{
-		      font-family:'GG';
-		      font-size: 2vh;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/grey_button00.png");
-		      background-size: 25vw 4vh;
-		      border: none;
-		      width: 25vw;
-		      height: 4vh;
-		      cursor: pointer;
-		    }
-
-		    #button2{
-		      font-family:'GG';
-		      margin-left: 3vw;
-		      font-size:2vh;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/grey_button00.png");
-		      background-size: 25vw 4vh;
-		      border: none;
-		      width: 25vw;
-		      height: 4vh;
-		      cursor: pointer;
-		    }
-
-		    #button3{
-		      font-family:'GG';
-		      margin-left: 3vw;
-		      font-size:2vh;
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/grey_button00.png");
-		      background-size: 15vw 4vh;
-		      border: none;
-		      width: 15vw;
-		      height: 4vh;
-		      cursor: pointer;
-		    }
-
-		    #button4{
-		    	position: absolute;
-		   		left:85%;
-		   		top:4%;
-		      font-family:'GG';
-		      /*margin-left: 3vw;*/
-		      /*font-size:2vh;*/
-		      background-color: transparent;
-		      background-image: url("https://raw.githubusercontent.com/Radetzki87/web1/master/red_boxCross.png");
-		      background-size: 5vh 5vh;
-		      border: none;
-		      width: 5vh;
-		      height: 5vh;
-		      cursor: pointer;
-		    }
-
-		    .options-overlay {
-		      /*position: fixed;*/
-		      position: absolute;
-		      right: 4000px;
-		      /*top: 0;
-		      left: 0;*/
-		      width: 100%;
-		      height: 64%;
-		      background-color: rgba(0, 0, 0, 0.7);
-		      display: flex;
-		      justify-content: center;
-		      align-items: center;
-		    }
-
-		    .options-container {
-		    	/*bottom:40%;*/
-		    	/*right: 4000px;*/
-		      background-color: rgba(255, 255, 255, 0.6);
-		      padding: 20px;
-		      border-radius: 10px;
-		      max-width: 90%;
-		      box-sizing: border-box;
-		    }
-
-		    .options-item {
-		    font-size:2vh;
-		    font-family:'GG';
-		      margin-top: 1.8vh;
-		      margin-left: 2vw;
-		    }
-
-			.hidden {
-			  display: none;
-			}
-
-			.unpaid{
-				display: none;
-				background-color: #ec971f;
-			}
-
-			#game-over-panel {
-/*				display: none;*/
-			font-family:'GG';
-			  position: fixed;
-			  top: 30%;
-			  left: 10%;
-			  width: 80%;
-			  height: 35%;
-			  background-color: rgba(0, 0, 0, 0.45); /* Opaque background */
-/*			  display: flex;*/
-			  flex-direction: column;
-			  justify-content: center;
-			  align-items: center;
-			}
-
-			#game-over-panel h1 {
-/*				display: none;*/
-			  color: white;
-			  font-size: 350%;
-			  font-family:'GG';
-			  margin-bottom: 20px;
-			}
-
-			#game-over-panel button {
-/*				display: none;*/
-				width: 75%;
-				height: 25%;
-				font-family:'GG';
-			  background-color: #f0ad4e;
-			  border: none;
-			  color: white;
-			  padding: 10px 20px;
-			  text-align: center;
-			  font-size: 250%;
-			  cursor: pointer;
-			  margin: 15px;
-			}
-
-			#game-over-panel button:hover {
-/*				display: none;*/
-			  background-color: #ec971f;
-			  font-family:'GG';
-			}
+			
 
 			
 
-			#ui {
-			    position: absolute;
-			    bottom: 0px;
-			    right: 4000px;
-			    background: rgba(0, 0, 0, 0.4);
-			    padding: 1vw;
-			}
-			#ui input[type=radio] {
-			  width: 0;
-			  height: 0;
-			  display: none;
-			}
-
-			#ui input[type=radio] + label::before {
-			  content: "";
-			  position: absolute;
-			  top: 55%;
-			  left: 50%;
-			  transform: translate(-50%, -50%);
-			  /*width: 20vw;
-			  height: 20vw;*/
-			  width: 80%; /* Adjust the width as needed */
-			  height: 80%; /* Adjust the height as needed */
-/*			  background-image: url('path/to/your/image.png'); /* Replace with your image path */*/
-			  background-size: cover;
-			  background-position: center;
-			  z-index: 1;
-			}
-
-			#ui input[type=radio] + label {
-			  /*background-image: url('resources/images/minecraft/flourish-cc-by-nc-sa.png');*/
-			  /*background-size: 1600% 400%;*/
-			  /*image-rendering: pixelated;*/
-			  width: 22vw;
-			  height: 22vw;
-			  display: inline-block;
-			  position: relative;
-			  padding: 1vw;
-			  text-align: center;
-			  font-family:'GG';
-			}
-
-			.label-text {
-				font-size: 180%;
-				font-family:'GG';
-			  position: absolute;
-			  top: 9%;
-/*			  left: 20%;*/
-			  transform: translate(-50%, -50%);
-			  color: white; /* You can choose any color you want */
-			 	
-			  z-index: 1;
-			}
-
-			#ui input[type=radio]:checked + label {
-			  outline: 5px solid green;
-			}
-
-			@media (max-width: 600px), (max-height: 600px) {
-			  #ui input[type=radio] + label {
-			    width: 22vw;
-			    height: 22vw;
-			  }
-			}
-
-			.voxel-1 {
-			  width: 22vw; /* 20% of the viewport width */
-			  height: 22vw;
-
-			}
-
-			.voxel-1::before {
-			  /*background-image: url('https://raw.githubusercontent.com/Radetzki87/web1/master/img6.jpg');
-			  background-size: cover; */
-			}
+			
 
 			
-			/*#ui-text {
-			position: fixed;
-			top: 10px;
-			left: 10px;
-			color: white;
-			font-family: Arial, sans-serif;
-			font-size: 18px;
-			background-color: rgba(0, 0, 0, 0.5);
-			padding: 10px;
-			border-radius: 5px;
-			z-index: 100;
-			}*/
-
-			@font-face {
-			    font-family:'GG'; /*글꼴*/
-				/*src: local('GG'),*/
-			    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/Dovemayo-Medium.woff') format('woff');
-			    font-weight: normal;
-			    font-style: normal;
-			}
 		</style>
 </head>
 <body>
+	<div id="song-info" class="hidden">
+	    <h2>Playing: </h2>
+	    <h2 id="song-title">Song Title</h2>
+	    <h2 id="song-dash"> - </h2>
+		<h2 id="artist-name">Artist Name</h2>
+	</div>
 
-			<script type="x-shader/x-vertex" id="vertexshader">
+		<script type="x-shader/x-vertex" id="vertexshader">
 
 			attribute float scale;
 
@@ -557,22 +856,21 @@ document.body.style.overscrollBehaviorX = 'none';
 const gameOverPanel = document.getElementById('game-over-panel');
 
 
-const restartBtn = document.getElementById('restart-btn');
-restartBtn.addEventListener('click', restartGame);
+// const restartBtn = document.getElementById('restart-btn');
+// restartBtn.addEventListener('click', restartGame);
 
-const viewAdsBtn = document.getElementById('view-ads-btn');
-viewAdsBtn.addEventListener('click', viewAds);
+// const viewAdsBtn = document.getElementById('view-ads-btn');
+// viewAdsBtn.addEventListener('click', viewAds);
 
-const skingo = document.getElementById('button1');
-skingo.addEventListener('click', skinplay);
+// const skingo = document.getElementById('button1');
+// skingo.addEventListener('click', skinplay);
 
-const skinbuy = document.getElementById('button2');
-skinbuy.addEventListener('click', skinpay);
+// const skinbuy = document.getElementById('button2');
+// skinbuy.addEventListener('click', skinpay);
 
 
 const enableScrollLock = () => {
     const { body } = document;
-
     if (!body.getAttribute('scrollY')) {
       const pageY = window.pageYOffset;
 
@@ -586,6 +884,17 @@ const enableScrollLock = () => {
     }
   };
 
+
+
+var songTitle = 'Song Title';
+var artistName = 'Artist Name';
+
+
+var songTitleElement = document.getElementById('song-title');
+var artistNameElement = document.getElementById('artist-name');
+
+songTitleElement.innerText = songTitle;
+artistNameElement.innerText = artistName;
 
 var optionsScreen = document.getElementById('options-screen');
 var closeOptionsBtn = document.getElementById('close-options');
@@ -623,7 +932,6 @@ var touchy;
 let forceAmount = bw*bw*bh/1;
 
 let unitimg={};
-
 
 let 점수=0
 let bestscore;
@@ -672,34 +980,33 @@ var skinlst=[{idx:0, snum:0, shuffle:false, price:0, unlock:true},
 {idx:16, snum:1, shuffle:false, price:200, unlock:false},
 {idx:17, snum:1, shuffle:false, price:200, unlock:false}]
 
-console.log(skinlst)
 
 var skinset=["base", "1", "카세트", "r808","archer","radio","donut","building","tower","test5", "adam"]
-var skinnum=3;
+var skinnum=1;
 
 var skinselect=0;
 var skinidx=0;
 
 
 
-var lablst=document.querySelectorAll("#ui > div > label");
-console.log(lablst)
-for(var i=0;i<=15;i++){
-	  // var label = document.getElementById('voxel'+String(i));
-		if(skinlst[i].unlock){
-			// lablst[i].style.outline= "2px solid green";
-			lablst[i].style.background="rgba(0, 80, 0, 0.4)"
-		}else{
-			// lablst[i].style.outline= "2px solid grey";
-			lablst[i].style.background="rgba(80, 1, 0, 0.4)"
-		}
+// var lablst=document.querySelectorAll("#ui > div > label");
+// console.log(lablst)
+// for(var i=0;i<=15;i++){
+// 	  // var label = document.getElementById('voxel'+String(i));
+// 		if(skinlst[i].unlock){
+// 			// lablst[i].style.outline= "2px solid green";
+// 			lablst[i].style.background="rgba(0, 80, 0, 0.4)"
+// 		}else{
+// 			// lablst[i].style.outline= "2px solid grey";
+// 			lablst[i].style.background="rgba(80, 1, 0, 0.4)"
+// 		}
 		
 
-	  // label.style.display="none"
-  	// label.classList.add('unpaid');
-  	// console.log(label)
-  	// console.log(label.children);
-}
+// 	  // label.style.display="none"
+//   	// label.classList.add('unpaid');
+//   	// console.log(label)
+//   	// console.log(label.children);
+// }
 
 
 var restartflag=false;
@@ -3067,37 +3374,6 @@ uiCamera2.lookAt(0, 0, 0);
 
 
 
-const button1 = new THREE.Sprite(new THREE.SpriteMaterial({ map: createTextTexture('Game1'), transparent: true }));
-button1.scale.set(2, 1, 1);
-button1.position.set(-1, 0, 0);
-button1.name = 'Game1';
-
-const button2 = new THREE.Sprite(new THREE.SpriteMaterial({ map: createTextTexture('Game2'), transparent: true }));
-button2.scale.set(2, 1, 1);
-button2.position.set(-1, -2, 0);
-button2.name = 'Game2';
-
-const button3 = new THREE.Sprite(new THREE.SpriteMaterial({ map: createTextTexture('Game3'), transparent: true }));
-button3.scale.set(2, 1, 1);
-button3.position.set(-1, -4, 0);
-button3.name = 'Game3';
-
-const button4 = new THREE.Sprite(new THREE.SpriteMaterial({ map: createTextTexture('Game4'), transparent: true }));
-button4.scale.set(2, 1, 1);
-button4.position.set(-1, -6, 0);
-button4.name = 'Game4';
-
-const button5 = new THREE.Sprite(new THREE.SpriteMaterial({ map: createTextTexture('Game5'), transparent: true }));
-button5.scale.set(2, 1, 1);
-button5.position.set(-1, 2, 0);
-button5.name = 'Game5';
-
-const uiScene0 = new THREE.Scene();
-uiScene0.add(button1);
-uiScene0.add(button2);
-uiScene0.add(button3);
-uiScene0.add(button4);
-uiScene0.add(button5);
 // uiScene0.background = new THREE.Color(0x2e508d);
 
 const uicamera0 = new THREE.OrthographicCamera(-5, 5, 5, -5, 0.1, 100);
@@ -3110,6 +3386,9 @@ var touch0=1-((window.innerWidth*0.53)/(window.innerHeight/2))
 
 function handleTouchStart(event) {
 	if(gameoverflag) return;
+	if(document.getElementById("setting-overlay").classList.contains("show")||!document.getElementById("gameover-overlay").classList.contains("hidden")||document.getElementById("options-overlay").classList.contains("show")||document.getElementById("optionlst").classList.contains("show")) return;
+    
+    // if(!document.getElementById("optionlst").classList.contains("hidden")) return;
 // if(inflag) return;
 	// event.preventDefault();
 
@@ -3350,27 +3629,39 @@ function handleTouchStart(event) {
 				var thisnum=activeFloor
 				var playable=true
 				for(let i=0;i<6;i++){
-					if(i==thisnum) continue
+					if(i==thisnum||sdic[i][0]==sdic[thisnum][0]) continue
+					
 					if(soundic[sdic[i][0]].isPlaying){
 							soundic[sdic[i][0]].stop();
 					}
 				}
-				if(!soundic[sdic[thisnum][0]].isPlaying) soundic[sdic[thisnum][0]].play();
-				
-				
+				if(!soundic[sdic[thisnum][0]].isPlaying){
+					songTitleElement.innerText = sdic[thisnum]["title"];
+					artistNameElement.innerText = sdic[thisnum]["producer"];
+					var songInfo = document.getElementById('song-info');
+					songInfo.classList.add("hidden");
+					songInfo.classList.remove("hidden");
+				    songInfo.classList.add("show");
+				    setTimeout(function() {
+				    	songInfo.classList.remove("show");
+				        songInfo.classList.add("fade");
+				      
+				    }, 1000);
+					soundic[sdic[thisnum][0]].play();
+				}else{
+
+				} 
 			}
 		}
 		dragflag=true;
 		return;
-
 	}
-	
-	
 	ontouch=true
 }
 
 function handleTouchMove(event) {
 	if(gameoverflag) return;
+	if(document.getElementById("setting-overlay").classList.contains("show")||!document.getElementById("gameover-overlay").classList.contains("hidden")||document.getElementById("options-overlay").classList.contains("show")||document.getElementById("optionlst").classList.contains("show")) return;
 		// if(inflag) return;
 	// event.preventDefault();
 		touchx = (event.touches[0].clientX / window.innerWidth)*2 - 1;
@@ -3639,6 +3930,7 @@ function handleTouchMove(event) {
 
 function handleTouchEnd(event) {
 	if(gameoverflag) return;
+	if(document.getElementById("setting-overlay").classList.contains("show")||!document.getElementById("gameover-overlay").classList.contains("hidden")||document.getElementById("options-overlay").classList.contains("show")||document.getElementById("optionlst").classList.contains("show")) return;
 
 		// if(inflag) return;
 	// event.preventDefault();
@@ -4088,6 +4380,20 @@ if (event.code === 'KeyW') {
 		rotationflag=true
 		rotationend=0
 	}
+}else if (event.code === 'KeyC') {
+	var songInfo = document.getElementById('song-info');
+	
+    songInfo.classList.remove("hidden");
+    songInfo.classList.add("show");
+    setTimeout(function() {
+    	songInfo.classList.remove("show");
+        songInfo.classList.add("fade");
+      
+    }, 1500);
+    // setTimeout(() => {
+    //   songInfo.classList.add('hidden');
+    //   songInfo.classList.remove('visible');
+    // }, 2000);
 }else if (event.code === 'KeyX') {
 	if(!startflag){
 		startflag=true
@@ -4378,7 +4684,7 @@ function restart(){
 
 	
 	
-	gameOverPanel.style.display="none"
+	
 
 	// scene.children.forEach((object) => {
 	// 		scene.remove(object);
@@ -8007,17 +8313,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 		}
 	
-
-
-
-
-		
-
-			
 		
 	}
-	
-
 	
 	let originHelper = new THREE.Object3D();
 	
@@ -8208,7 +8505,6 @@ function tsetting(callback){
 }
 
 function msetting(callback){
-
 	// for(let i=0;i<6;i++){
 	// 	var sdickeys=Object.keys(soundic);
 	// 	if(sdickeys.indexOf(sdic[i][0])==-1){
@@ -8646,23 +8942,27 @@ function txtsetting(callback){
 	gradback.push(tmesh);
 	가장자리.push(tmesh);
 
-	var canvas = document.createElement('canvas');
-	var ctx = canvas.getContext('2d');
-	canvas.width = 700;
-	canvas.height =700;
-	var fr= motion("uiimg", 1)
-	var dur=6
-	ctx.drawImage(unitimg["uiimg"], fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,700,700)
-	var img3 = new THREE.CanvasTexture(canvas);
-	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
-	var sprite = new THREE.Sprite(material4);
+
+
+	// var canvas = document.createElement('canvas');
+	// var ctx = canvas.getContext('2d');
+	// canvas.width = 700;
+	// canvas.height =700;
+	// var fr= motion("uiimg", 1)
+	// var dur=6
+	// ctx.drawImage(unitimg["uiimg"], fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,700,700)
+	// var img3 = new THREE.CanvasTexture(canvas);
+	// var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
+	// var sprite = new THREE.Sprite(material4);
 	
-	sprite.position.set(0.7*bw,bh*11.6,2.2*bw);
-	sprite.scale.x=3;
-	sprite.scale.y=3;
-	// gradback.push(sprite);
-	// uiScene2.add(sprite);
-	scene.add(sprite);
+	// sprite.position.set(0.7*bw,bh*11.6,2.2*bw);
+	// sprite.scale.x=3;
+	// sprite.scale.y=3;
+	// // gradback.push(sprite);
+	// // uiScene2.add(sprite);
+	// scene.add(sprite);
+
+
 	// 가장자리.push(sprite);
 
 	// var canvas = document.createElement('canvas');
@@ -9676,7 +9976,7 @@ function animate() {
 	// }
 	
 	if(restartflag&&lookcenter){
-		gameOverPanel.style.display="none"
+		
 		포인트.forEach((item)=>{
 		item.material.visible=false;
 		})
@@ -9925,8 +10225,8 @@ function animate() {
 	if(rotationflag){
 		var myui = document.getElementById("ui"); 
 		// myui.style.left = String(parseInt(5000*Math.abs(left-camera.rotation.y)))+"px";
-		myui.style.right = String(parseInt(5000*Math.abs(left-camera.rotation.y)))+"px";
-		optionsScreen.style.right = String(parseInt(5000*Math.abs(left-camera.rotation.y)))+"px";
+		// myui.style.right = String(parseInt(5000*Math.abs(left-camera.rotation.y)))+"px";
+		// optionsScreen.style.right = String(parseInt(5000*Math.abs(left-camera.rotation.y)))+"px";
 
 		if(Math.abs(camera.rotation.y-rotationend)<0.0001){
 			rotationflag=false;
@@ -11041,30 +11341,38 @@ if(effects.length!=0){
 
 
 	var overlimit=0;
-
-	cubes.forEach((item, index)=>{
-		if(index>3&&item.mesh.position.y<bh*4){
-			// overlimit++;
-			gameoverflag=true;
-			topcam=false;
-			gameOverPanel.style.backgroundColor=hexToRGB(colorlst0[colornum0][3], 0.5)
-			gameOverPanel.children[0].style.color=hexToRGB(colorlst[colornum][0], 0.9)
-			gameOverPanel.children[1].style.backgroundColor=hexToRGB(colorlst[colornum][1], 0.7)
-			gameOverPanel.children[1].style.color=hexToRGB(colorlst[colornum][0], 0.9)
-			gameOverPanel.children[2].style.backgroundColor=hexToRGB(colorlst[colornum][2], 0.7)
-			gameOverPanel.children[2].style.color=hexToRGB(colorlst[colornum][0], 0.9)
-			gameOverPanel.style.display="flex";
-			// console.log(gameOverPanel.children)
-			activeFloor=cubes.length
-		}
-		
-	})
-	if(overlimit>cubes.length-3){
-		gameoverflag=true;
-		topcam=false;
-		document.getElementById('game-over-panel').style.display="flex";
-		activeFloor=cubes.length
+	if(!gameoverflag){
+		cubes.forEach((item, index)=>{
+			if(index>3&&item.mesh.position.y<bh*4){
+				// overlimit++;
+				gameoverflag=true;
+				topcam=false;
+				document.getElementById("gameover-overlay").classList.remove("fade");
+				document.getElementById("gameover-overlay").classList.remove("hidden");
+		    	document.getElementById("gameover-overlay").classList.add("show");
+				// gameOverPanel.style.backgroundColor=hexToRGB(colorlst0[colornum0][3], 0.5)
+				// gameOverPanel.children[0].style.color=hexToRGB(colorlst[colornum][0], 0.9)
+				// gameOverPanel.children[1].style.backgroundColor=hexToRGB(colorlst[colornum][1], 0.7)
+				// gameOverPanel.children[1].style.color=hexToRGB(colorlst[colornum][0], 0.9)
+				// gameOverPanel.children[2].style.backgroundColor=hexToRGB(colorlst[colornum][2], 0.7)
+				// gameOverPanel.children[2].style.color=hexToRGB(colorlst[colornum][0], 0.9)
+				// gameOverPanel.style.display="flex";
+				// console.log(gameOverPanel.children)
+				activeFloor=cubes.length
+			}
+			
+		})
 	}
+	// if(overlimit>cubes.length-3){
+	// 	gameoverflag=true;
+	// 	topcam=false;
+	// 	document.getElementById("gameover-overlay").classList.remove("fade");
+	// 	document.getElementById("gameover-overlay").classList.remove("hidden");
+	//     document.getElementById("gameover-overlay").classList.add("show");
+	   
+		
+	// 	activeFloor=cubes.length
+	// }
 
 
 	if(orthoflag&&lookcenter){
@@ -12853,6 +13161,8 @@ function woodmix() {
 }
 
 
+
+
 function skinplay() {
   const button1 = document.getElementById('button1');
 	const button2 = document.getElementById('button2');
@@ -12945,9 +13255,9 @@ function skinpay() {
   	lablst[skinselect].style.background="rgba(0, 80, 0, 0.4)"
   	// button1.style.display = '';
    //  button2.style.display = 'none';
-   	button1.style.backgroundImage= 'url("blue_button00.png")'
+   	button1.style.backgroundImage= 'url("png/blue_button00.png")'
 	button1.innerText="PLAY"
-	button2.style.backgroundImage= 'url("grey_button00.png")'
+	button2.style.backgroundImage= 'url("png/grey_button00.png")'
 	button2.innerText=""
 	// button3.style.backgroundImage= 'url("green_button00.png")'
 
@@ -12960,433 +13270,14 @@ function skinpay() {
 
 
 
-document.addEventListener("DOMContentLoaded", function() {
-  // Select all radio buttons with the class 'voxel-radio'
-  const voxelRadios = document.querySelectorAll('.voxel-radio');
 
-  const button1 = document.getElementById('button1');
-  const button2 = document.getElementById('button2');
-  const button3 = document.getElementById('button3');
-  const button4 = document.getElementById('button4');
-  const closeOptionsBtn = document.getElementById('close-options');
-  const reBtn = document.getElementById('restart');
-
-
-  	button4.addEventListener('click', function() {
-  		if(!rotationflag){
-			rotationflag=true
-			rotationend=Math.PI/4
-		}
-    });
-
-  	closeOptionsBtn.addEventListener('click', function() {
-  		if(!rotationflag){
-			rotationflag=true
-			rotationend=Math.PI/4
-		}
-    });
-
-	reBtn.addEventListener('click', function() {
-		if(!rotationflag){
-			// const button1 = document.getElementById('button1');
-			// const button2 = document.getElementById('button2');
-			// button1.style.backgroundImage= 'url("grey_button00.png")'
-			// button1.innerText="PLAY"
-			// button2.style.backgroundImage= 'url("grey_button00.png")'
-			// button2.innerText=""
-			rotationflag=true
-			restartflag=true
-			pluscoin=parseInt(점수/10)
-			coin+=pluscoin;
-			for(var i=0;i<cubes.length;i++){
-				restartloc.push(cubes[i].mesh.position);
-				restartrot.push(cubes[i].mesh.rotation);
-				
-				
-				
-			}
-			ncolornum=parseInt(Math.random()*colorlst.length);
-			ncolornum0=parseInt(Math.random()*colorlst0.length);
-			rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-			rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
-			renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
-			renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
-			rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
-			renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
-			rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
-			renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
-
-			bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
-			nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
-			bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
-			nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
-			bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
-			nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
-			bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
-			nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
-			bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
-			nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
-
-			rotationend=Math.PI/4
-		}
-	});
-
-
-  	muteBtn.addEventListener('click', function() {
-      if (isMuted) {
-        muteImg.src = 'PNG/blue_boxCheckmark.png';
-        isMuted = false;
-        mutetxt.innerText="YES"
-        // Unmute your audio here
-      } else {
-        muteImg.src = 'PNG/blue_boxCross.png';
-        isMuted = true;
-        mutetxt.innerText="NO"
-        // Mute your audio here
-      }
-    });
-    sideBtn.addEventListener('click', function() {
-      if (isside) {
-        sideImg.src = 'PNG/blue_boxCheckmark.png';
-        isside = false;
-        sidetxt.innerText="YES"
-        // Unmute your audio here
-      } else {
-        sideImg.src = 'PNG/blue_boxCross.png';
-        isside = true;
-        sidetxt.innerText="NO"
-        // Mute your audio here
-      }
-    });
-    particleBtn.addEventListener('click', function() {
-      if (isparticle) {
-        particleImg.src = 'PNG/blue_boxCheckmark.png';
-        isparticle = false;
-        particletxt.innerText="YES"
-        // Unmute your audio here
-      } else {
-        particleImg.src = 'PNG/blue_boxCross.png';
-        isparticle = true;
-        particletxt.innerText="NO"
-        // Mute your audio here
-      }
-    });
-  // Loop through each radio button and add an event listener
-  voxelRadios.forEach(function(radio) {
-  radio.addEventListener('change', function(event) {
-
-      // Check which radio button is checked and perform an action
-      if (event.target.id === 'voxel1') {
-        console.log('Voxel 1 is checked');
-        // lablst[0].style.outline= "6px solid green";
-        // skinnum=0;
-        if(skinlst[0].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="Default PLAY"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=0;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[0].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=0;
-        }
-        console.log(button2)
-				
-
-        // Execute your code for Voxel 1 here
-      } else if (event.target.id === 'voxel2') {
-        console.log('Voxel 2 is checked');
-        // skinnum=1;
-        if(skinlst[1].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="Default(mix) PLAY"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=1;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[1].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=1;
-        }
-				
-				
-        // Execute your code for Voxel 2 here
-      }else if (event.target.id === 'voxel3') {
-        console.log('Voxel 3 is checked');
-        // skinnum=1;
-        if(skinlst[2].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="LOFI_Bedroom PLAY"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=2;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[2].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=2;
-        }
-        
-        // Execute your code for Voxel 2 here
-      }else if (event.target.id === 'voxel4') {
-        console.log('Voxel 4 is checked');
-        // skinnum=1;
-        if(skinlst[3].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="LOFI_Midnight PLAY"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=3;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[3].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=3;
-        }
-        
-        // Execute your code for Voxel 2 here
-      }else if (event.target.id === 'voxel5') {
-        console.log('Voxel 5 is checked');
-        // skinnum=1;
-        if(skinlst[4].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="LOFI_Touch PLAY"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=4;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[4].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=4;
-        }
-        
-        // Execute your code for Voxel 2 here
-      }else if (event.target.id === 'voxel6') {
-        console.log('Voxel 6 is checked');
-        // skinnum=1;
-        if(skinlst[5].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="LOFI_Slowdown PLAY"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=5;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[5].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=5;
-        }
-        
-        // Execute your code for Voxel 2 here
-      }else if (event.target.id === 'voxel7') {
-        console.log('Voxel 7 is checked');
-        // skinnum=1;
-        if(skinlst[6].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="LOFI_Somepluk PLAY"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=6;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[6].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=6;
-        }
-        
-        // Execute your code for Voxel 2 here
-      }else if (event.target.id === 'voxel8') {
-        console.log('Voxel 8 is checked');
-        // skinnum=1;
-        if(skinlst[7].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="LOFI_Finalcall PLAY"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=7;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[7].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=7;
-        }
-        
-        // Execute your code for Voxel 2 here
-      }else if (event.target.id === 'voxel9') {
-        console.log('Voxel 9 is checked');
-        // skinnum=1;
-        if(skinlst[8].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="LOFI_WithU PLAY"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=8;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[8].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=8;
-        }
-        
-        // Execute your code for Voxel 2 here
-      }else if (event.target.id === 'voxel10') {
-        console.log('Voxel 9 is checked');
-        // skinnum=1;
-        if(skinlst[9].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="LOFI(MIX) PLAY"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=9;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[9].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=9;
-        }
-        
-        // Execute your code for Voxel 2 here
-      }else if (event.target.id === 'voxel11') {
-        console.log('Voxel 9 is checked');
-        // skinnum=1;
-        if(skinlst[10].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="Default ▶"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=10;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[10].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=10;
-        }
-        
-        // Execute your code for Voxel 2 here
-      }else if (event.target.id === 'voxel12') {
-        console.log('Voxel 9 is checked');
-        // skinnum=1;
-        if(skinlst[11].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="Default ▶"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=11;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[11].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=11;
-        }
-        
-        // Execute your code for Voxel 2 here
-      }else if (event.target.id === 'voxel13') {
-        console.log('Voxel 9 is checked');
-        // skinnum=1;
-        if(skinlst[12].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="Default ▶"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=12;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[12].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=12;
-        }
-        
-        // Execute your code for Voxel 2 here
-      }else if (event.target.id === 'voxel14') {
-        console.log('Voxel 9 is checked');
-        // skinnum=1;
-        if(skinlst[13].unlock){
-        	console.log(button1.style);
-        	button1.style.backgroundImage= 'url("blue_button00.png")'
-        	button1.innerText="Default ▶"
-        	button2.style.backgroundImage= 'url("grey_button00.png")'
-        	button2.innerText=""
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=13;
-        }else{
-        	button1.style.backgroundImage= 'url("grey_button00.png")'
-        	button1.innerText="🔒"
-        	button2.style.backgroundImage= 'url("yellow_button00.png")'
-        	button2.innerText="⭐: "+String(skinlst[13].price)
-        	button3.style.backgroundImage= 'url("green_button00.png")'
-        	skinselect=13;
-        }
-        
-        // Execute your code for Voxel 2 here
-      }
-
-      // ...add more conditions for other radio buttons
-    });
-  });
-});
 
 
 function restartGame() {
   console.log('Restart game...');
   // Hide the game over panel
   
-  gameOverPanel.style.display="none"
+  
   
   
 	rotationflag=true
@@ -13430,7 +13321,7 @@ function restartGame() {
 
 function viewAds() {
   console.log('View ads and earn 2x coins...');
-  gameOverPanel.style.display="none"
+  
   
  	
 	rotationflag=true
@@ -13469,151 +13360,1102 @@ function viewAds() {
 
   // Your code to show ads and grant 2x coins goes here
 
-function skinsetting(callback){
+document.addEventListener("DOMContentLoaded", function() {
+  // Select all radio buttons with the class 'voxel-radio'
+  
+  var reBtn = document.getElementById('restartbtn');
+
+  reBtn.addEventListener('click', function() {
+	   if(!document.getElementById("gameover-overlay").classList.contains("hidden")){
+	    	document.getElementById("gameover-overlay").classList.remove("show");
+	  		document.getElementById("gameover-overlay").classList.add("fade");
+	  		setTimeout(function() {
+		        document.getElementById("gameover-overlay").classList.add("hidden");
+		    	}, 150);
+	  		if(!rotationflag){
+				rotationflag=true
+				restartflag=true
+				pluscoin=parseInt(점수/10)
+				coin+=pluscoin;
+				for(var i=0;i<cubes.length;i++){
+					restartloc.push(cubes[i].mesh.position);
+					restartrot.push(cubes[i].mesh.rotation);
+
+					
+				}
+				ncolornum=parseInt(Math.random()*colorlst.length);
+				ncolornum0=parseInt(Math.random()*colorlst0.length);
+
+				rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+				renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+				rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+				renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+				rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+				renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+				rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+				renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+				
+				bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+				nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+				bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+				nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+				bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+				nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+				bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+				nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+				bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+				nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+
+				rotationend=Math.PI/4
+			}
+		}
+	})
+  	
+  // Loop through each radio button and add an event listener
+  
+});
+
+
+
+	</script>
+
+	<script>
+		function skinsetting(callback){
 	if (callback) {
 		callback();
 	}
 }
 
-	</script>
-	<div id="options-screen" class="options-overlay">
-	    <div class="options-container">
-	      <div class="options-item">
-	        <label for="bg-music">Music Volume:</label>
-	        <input type="range" id="bg-music" min="0" max="100">
-	      </div>
-	      <div class="options-item">
-	        <label for="sfx-volume">Effects Volume:</label>
-	        <input type="range" id="sfx-volume" min="0" max="100">
-	      </div>
-	       <div class="options-item">
-	        <div class="mute-container">
-	          <label for="mute">Sound:</label>
-	          <div class="mute-btn" id="mute-btn">
-	            <img src="blue_boxCheckmark.png" alt="Mute" id="mute-img">
-	          </div>
-	          <label for="mute" id="mute-text">YES</label>
-	        </div>
-	      </div>
-	      <div class="options-item">
-	        <div class="mute-container">
-	          <label for="sidecam">Side Cam:</label>
-	          <div class="sidecam-btn" id="sidecam-btn">
-	            <img src="blue_boxCheckmark.png" alt="sidecam" id="sidecam-img">
-	          </div>
-	          <label for="sidecam" id="sidecam-text">YES</label>
-	        </div>
-	      </div>
-	      <div class="options-item">
-	        <div class="mute-container">
-	          <label for="particle">Particle:</label>
-	          <div class="particle-btn" id="particle-btn">
-	            <img src="blue_boxCheckmark.png" alt="particle" id="particle-img">
-	          </div>
-	          <label for="particle" id="particle-text">YES</label>
-	        </div>
-	      </div>
-	      <div class="options-item">
-	        <div class="mute-container">
-	          <label for="skin">Skin:</label>
-	          <button id="skin-left">L</button>
-	          <label for="skinnum" id="skin-middle">Default</label>
-	          <button id="skin-right">R</button>
-	        </div>
-	      </div>
-	      <div class="options-item">
-	        <div class="mute-container">
-	          <label for="lang">Lang:</label>
-	          <button id="lang-left">L</button>
-	          <label for="skinnum" id="lang-middle">ENG</label>
-	          <button id="lang-right">R</button>
-	        </div>
-	      </div>
-	      <div class="mute-container">
-	        <div class="options-item">
-	          <button id="close-options">Close</button>
-	        </div>
+var step1=document.getElementById("step1");
+ var categ1=document.getElementById("categ1");
+ function skinon() {
+    document.getElementById("left").classList.add("fade");
+    document.getElementById("left").classList.remove("show");
+    document.getElementById("right").classList.add("fade");
+    document.getElementById("right").classList.remove("show");
+    document.getElementById("optionlst").classList.add("fade");
+    document.getElementById("optionlst").classList.remove("show");
+    document.getElementById("right").children[1].classList.add("hidden");
+    document.getElementById("right").children[0].classList.remove("hidden");
+    document.getElementById("right").children[0].style.display=""
+    
+   
 
-	        <div class="options-item">
-	          <button id="restart">Restart</button>
-	        </div>
-	      </div>
-	      <div class="mute-container">
-	        <div class="options-item">
-	          <button id="buy-ad-free">Get Ad-Free</button>
-	        </div>
-	        <div class="options-item">
-	          <button id="credits">Credits</button>
-	        </div>
-	      </div>
+    setTimeout(function() {
+      document.getElementById("left").classList.add("hidden");
+      document.getElementById("right").classList.add("hidden");
+      document.getElementById("optionlst").classList.add("hidden");
+      document.getElementById("step1").classList.remove("hidden");
+      document.getElementById("step1").classList.add("show");
+      document.getElementById("options-overlay").classList.remove("hidden");
+      document.getElementById("options-overlay").classList.add("show");
+    }, 150);
+  }
 
-	      <div class="mute-container">
-	        <div class="options-item">
-	          <button id="open-skins-list">Leader Board</button>
-	        </div>
-	        <div class="options-item">
-	          <button id="coin">COIN: 99999</button>
-	        </div>
-	      </div>
-	      <div class="mute-container">
-	        <div class="options-item">
-	          <button id="button1"></button>
-	        </div>
-	        <div class="options-item">
-	          <button id="button3">▶</button>
-	        </div>
-	        <div class="options-item">
-	          <button id="button2" ></button>
-	        </div>
-	      </div>
-	      <div class="options-item">
-	          <button id="button4" ></button>
-	      </div>
-	    </div>
-	  </div>
-	 <div id="game-over-panel" class="hidden">
-	    <h1>Game Over !</h1>
-	    <button id="restart-btn">Restart</button>
-	    <button id="view-ads-btn">View Ads & Earn 2x Coins</button>
-	  </div>
+  function bgmon() {
+
+    if(document.getElementById("bgm").children[1].classList.contains("hidden")){
+      document.getElementById("bgm").children[0].classList.add("hidden");
+      document.getElementById("bgm").children[1].classList.remove("hidden");
+      document.getElementById("bgm").children[1].style.display=""
+      document.getElementById("bgm").style.backgroundImage= 'url("PNG/red_button09.png")'
+
+    }else{
+      document.getElementById("bgm").children[1].classList.add("hidden");
+      document.getElementById("bgm").children[0].classList.remove("hidden");
+      document.getElementById("bgm").children[0].style.display=""
+      document.getElementById("bgm").style.backgroundImage= 'url("PNG/green_button09.png")'
+    }
+    
+  }
+
+  function musicon() {
+
+    if(document.getElementById("music").children[1].classList.contains("hidden")){
+      document.getElementById("music").children[0].classList.add("hidden");
+      document.getElementById("music").children[1].classList.remove("hidden");
+      document.getElementById("music").children[1].style.display=""
+      document.getElementById("music").style.backgroundImage= 'url("PNG/red_button09.png")'
+   
+    }else{
+      document.getElementById("music").children[1].classList.add("hidden");
+      document.getElementById("music").children[0].classList.remove("hidden");
+      document.getElementById("music").children[0].style.display=""
+      document.getElementById("music").style.backgroundImage= 'url("PNG/green_button09.png")'
+    }
+    
+  }
+
+
+  function optionon() {
+
+    if(document.getElementById("optionlst").classList.contains("hidden")){
+
+      document.getElementById("optionlst").classList.remove("hidden");
+      document.getElementById("optionlst").classList.add("show");
+
+      document.getElementById("right").children[0].classList.add("hidden");
+      document.getElementById("right").children[1].classList.remove("hidden");
+      document.getElementById("right").children[1].style.display=""
+      setTimeout(function() {
+        
+        
+      }, 150);
+    }else{
+      document.getElementById("optionlst").classList.remove("show");
+      document.getElementById("optionlst").classList.add("fade");
+      document.getElementById("right").children[1].classList.add("hidden");
+      document.getElementById("right").children[0].classList.remove("hidden");
+      document.getElementById("right").children[0].style.display=""
+
+      setTimeout(function() {
+        document.getElementById("optionlst").classList.add("hidden");
+        
+      }, 150);
+    }
+    
+  }
+
+  function showsetting(n) {
+    document.getElementById("left").classList.add("fade");
+    document.getElementById("left").classList.remove("show");
+    document.getElementById("right").classList.add("fade");
+     document.getElementById("right").classList.remove("show");
+     document.getElementById("optionlst").classList.add("fade");
+     document.getElementById("optionlst").classList.remove("show");
+
+    setTimeout(function() {
+      
+      document.getElementById("left").classList.add("hidden");
+      document.getElementById("right").classList.add("hidden");
+
+      document.getElementById("optionlst").classList.add("hidden");
+
+      document.getElementById("step1").classList.remove("hidden");
+      document.getElementById("step1").classList.add("show");
+
+      document.getElementById("setting-overlay").classList.remove("hidden");
+      document.getElementById("setting-overlay").classList.add("show");
+      document.getElementById("right").children[1].classList.add("hidden");
+      document.getElementById("right").children[0].classList.remove("hidden");
+      document.getElementById("right").children[0].style.display=""
+    }, 150);
+  }
+
+
+  function showGrid(n) {
+    document.getElementById("step1").classList.remove("show");
+    document.getElementById("step1").classList.add("fade");
+    setTimeout(function() {
+      document.getElementById("step1").classList.add("hidden");
+      document.getElementById("categ"+String(n)).classList.remove("hidden");
+      document.getElementById("categ"+String(n)).classList.add("show");
+    }, 150);
+  }
+
+   function showPopup(n) {
+    document.getElementById("categ"+String(n)).classList.remove("show");
+    document.getElementById("categ"+String(n)).classList.add("fade");
+    setTimeout(function() {
+      document.getElementById("categ"+String(n)).classList.add("hidden");
+      document.getElementById("step3").classList.remove("hidden");
+      document.getElementById("step3").classList.add("show");
+    }, 150);
+  }
+
+  function goBack(n) {
+  	if(document.getElementById("setting-overlay").classList.contains("show")){
+  		document.getElementById("setting-overlay").classList.remove("show");
+  		document.getElementById("setting-overlay").classList.add("fade");
+  		setTimeout(function() {
+	        document.getElementById("setting-overlay").classList.add("hidden");
+	    	}, 150);
+
+  		
+  	}
+    
+    
+    if(!document.getElementById("gameover-overlay").classList.contains("hidden")){
+    	document.getElementById("gameover-overlay").classList.remove("show");
+  		document.getElementById("gameover-overlay").classList.add("fade");
+  		setTimeout(function() {
+	        document.getElementById("gameover-overlay").classList.add("hidden");
+	    	}, 150);
+  		if(!rotationflag){
+			rotationflag=true
+			restartflag=true
+			pluscoin=parseInt(점수/10)
+			coin+=pluscoin;
+			for(var i=0;i<cubes.length;i++){
+				restartloc.push(cubes[i].mesh.position);
+				restartrot.push(cubes[i].mesh.rotation);
+			}
+			ncolornum=parseInt(Math.random()*colorlst.length);
+			ncolornum0=parseInt(Math.random()*colorlst0.length);
+
+			rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+			renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+			rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+			renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+			rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+			renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+			rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+			renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+			
+			bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+			nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+			bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+			nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+			bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+			nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+			bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+			nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+			bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+			nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+
+			rotationend=Math.PI/4
+		}
+
+  		
+
+
+    }
+
+
+    
+
+    if(!document.getElementById("step1").classList.contains("hidden")){
+      document.getElementById("options-overlay").classList.add("fade");
+      document.getElementById("options-overlay").classList.remove("show");
+      
+      setTimeout(function() {
+        document.getElementById("options-overlay").classList.add("hidden");
+         document.getElementById("left").classList.add("show");
+        document.getElementById("right").classList.add("show");
+        document.getElementById("left").classList.remove("hidden");
+        document.getElementById("right").classList.remove("hidden");
+        
+    	}, 150);
+    }else if (!document.getElementById("categ"+String(n)).classList.contains("hidden")) {
+      document.getElementById("categ"+String(n)).classList.remove("show");
+      document.getElementById("categ"+String(n)).classList.add("fade");
+      setTimeout(function() {
+        document.getElementById("categ"+String(n)).classList.add("hidden");
+        document.getElementById("step1").classList.remove("hidden");
+        document.getElementById("step1").classList.add("show");
+      }, 150);
+    } else {
+      document.getElementById("step3").classList.remove("show");
+      document.getElementById("step3").classList.add("fade");
+      setTimeout(function() {
+        document.getElementById("step3").classList.add("hidden");
+        document.getElementById("categ"+String(n)).classList.remove("hidden");
+        document.getElementById("categ"+String(n)).classList.add("show");
+      }, 150);
+    }
+  }
+</script>
+
+<button id="left" class="left" onclick="skinon()"></button>
+
+<button id="right"class="right" onclick="optionon()">
+<img class="" src="png/up.png">
+<img class="hidden" src="png/down.png">
+</button>
+
+<div id="optionlst" class="optionlst hidden">
+  <button id="option" onclick="optionon()">
+  <img src="png/crown_b.png" id="rightimg">
+  </button>
+
+  <!-- <button id="option" onclick="optionon()">
+  <img src="png/leaderboardsComplex.png" id="rightimg">
+  </button> -->
+
+  <button id="option" onclick="optionon()">
+  <img src="png/medal2.png" id="rightimg">
+  </button>
+
+  <!-- <button id="option" onclick="optionon()">
+  <img src="png/trophy.png" id="rightimg">
+  </button> -->
+
+
+  <!-- <button id="option" onclick="optionon()">
+  <img src="png/musicOn.png" id="rightimg">
+  </button> -->
+  <!-- 
+  <button id="option" onclick="optionon()">
+  <img src="png/buttonSelect.png" id="rightimg">
+  </button> -->
+
+  <button id="option" onclick="optionon()">
+  <img src="png/question.png" id="rightimg">
+  </button>
+
+  <!-- <button id="option" onclick="optionon()">
+  <img src="png/information.png" id="rightimg">
+  </button> -->
+
+  <button id="option" onclick="showsetting()">
+  <img src="png/gear.png" id="rightimg">
+  </button>
+</div>
+
+<div id="setting-overlay" class="setting-overlay hidden" >
+   <div class="setting-grid">
+      <button id="bgm" class="setting" onclick="bgmon()">
+      <img src="png/musicOn.png" id="rightimg">
+      <img class="hidden" src="png/musicOff.png" id="rightimg">
+      <label class="glabel">BGM</label>
+      </button>
+
+      <button id="music" class="setting" onclick="musicon()">
+      <img src="png/audioOn.png" id="rightimg">
+      <img class="hidden" src="png/audioOff.png" id="rightimg">
+      <label class="glabel">AUDIO</label>
+      </button>
+
+      <button id=""class="setting"  onclick="optionon()">
+      <img src="png/save.png" id="rightimg">
+      <label class="glabel">restore purchase</label>
+      </button>
+
+      <button id="" class="setting" onclick="optionon()">
+      <img src="png/home.png" id="rightimg">
+      <label class="glabel">homepage</label>
+      </button>
+
+      <button id="" class="setting" onclick="optionon()">
+      <img src="png/information.png" id="rightimg">
+      <label class="glabel">CREDIT</label>
+      </button>
+
+      <button id="" class="setting" onclick="optionon()">
+      <img src="png/share1.png" id="rightimg">
+      <label class="glabel">share1</label>
+      </button>
+
+      <button id="" class="setting" onclick="optionon()">
+      <img src="png/star.png" id="rightimg">
+      <label class="glabel">RATE</label>
+      </button>
+
+      <button id="" class="setting" onclick="goBack()">
+      <img src="png/cross.png" id="rightimg">
+      <label class="glabel">exit</label>
+      </button>
+
+   </div>
+</div>
+
+<div id="gameover-overlay" class="gameover-overlay hidden" >
+   <div class="gameover-container">
+      
+    <div class="gameover">
+      <label class="glabel">RETRY</label>
+      <button id="restartbtn" class="gameoverbt" >
+      <img src="png/return.png" id="rightimg">
+      </button>
+    </div>
+
+    <div class="gameover">
+      <label class="glabel">SHARE</label>
+      <button id="" class="gameoverbt" onclick="">
+      <img src="png/share2.png" id="rightimg">
+      
+      </button>
+    </div>
+
+    <div class="gameover">
+      <label class="glabel">VIEW ADS & COINS 2x </label>
+      <button id="" class="gameoverbt">
+      <img src="png/movie.png" id="rightimg">
+      
+      </button>
+    </div>
+
+   </div>
+</div>
+
+<div id="options-overlay" class="options-overlay hidden" >
+<div class="upper">
+    <!-- <h1 class="title">THEME</h1> -->
+</div>
+<div class="container">
+  <div id="step1">
+    <button class="backbutton" onclick="goBack(1)">◀</button>
+     <div class="button-column">
+      <h1 class="title">NO ADS</h1>
+      <button class="ad-button" onclick="showGrid(1)">
+      <h2>GET AD-FREE</h2>
+      <!-- <h4>&</h4> -->
+      <!-- <h3>Custom Option 🔓</h3> -->
+      </button>
+      
+      <h1 class="title">SKIN</h1>
+      <button class="ap-button" onclick="showGrid(1)">
+      <h2>appearance shop</h2>
+      <!-- <h4>&</h4> -->
+      <!-- <h3>Custom Option 🔓</h3> -->
+      </button>
+      <div class="option-RL">
+        <button id="skin-left">L</button>
+        <label for="skinnum" id="skin-middle">
+          <img src="png/s000.png" alt="Character 2">
+          Default
+        </label>
+        <button id="skin-right">R</button>
+      </div>
+      
+      <!-- <h1 class="title">BGM</h1>
+     
+      <div class="option-RL">
+        <button id="skin-left">L</button>
+        <label for="skinnum" id="skin-middle">Default</label>
+        <button id="skin-right">R</button>
+      </div> -->
+
+      <h1 class="title">THEME</h1>
+      <button class="cat-button" onclick="showGrid(1)">
+      <img src="png/0.png" alt="Mute" id="img">
+      CUBE (DEFAULT)
+      <div class="color1"></div>
+          
+      </button>
+
+      <button class="cat-button" onclick="showGrid(2)">
+        <img src="png/1.png" alt="Mute" id="img">
+        LO-FI
+        <div class="color2"></div>
+          
+      </button>
+
+      <button class="cat-button" onclick="showGrid(3)">
+        <img src="png/2.png" alt="Mute" id="img">
+        RETRO
+        <div class="color3"></div>
+          
+      </button>
+
+      <button class="cat-button" onclick="showGrid(4)">
+        <img src="png/3a.png" alt="Mute" id="img">
+        808
+        <div class="color4"></div>
+
+          
+      </button>
+
+      <button class="cat-button" onclick="showGrid(5)">
+         <img src="png/4.png" alt="Mute" id="img">
+        tower
+        <div class="color4"></div>
+          
+      </button>
+
+      <button class="cat-button" onclick="showGrid(6)">
+         <img src="png/5.png" alt="Mute" id="img">
+        donut
+        <div class="color4"></div>
+          
+      </button>
+
+      <button class="cat-button" onclick="showGrid(7)">
+         <img src="png/6.png" alt="Mute" id="img">
+        building
+        <div class="color4"></div>
+          
+      </button>
+      
+      <button class="cat-button" onclick="showGrid(8)">
+         <img src="png/7.png" alt="Mute" id="img">
+        hip-hop
+        <div class="color4"></div>
+          
+      </button>
+      
+      <button class="cat-button" onclick="showGrid(8)">comming soon!
+          
+      </button>
+      <!-- Add more categories -->
+    </div>
+  </div>
+
+  <div id="categ1" class="selection hidden">
+    <button class="backbutton" onclick="goBack(1)">◀</button>
+    <h1 class="title">Category 1</h1>
+    <button class="c-button" onclick="">
+        <img src="png/0.png" alt="Mute" id="img">
+        CUBE
+        <div class="color1"></div>
+        
+    </button>
+    <div class="progress-container">
+      <div class="progress">
+        <div class="progress-bar" style="width: 30%;"></div>
+      </div>
+      <span class="unlocked-count">3/10</span>
+    </div>
+
+
+
+
+    <div class="grid">
+      <div class="character" onclick="showPopup(1)">
+        <img src="png/s000.png" alt="Character 1">
+        <span>SHUFFLE</span>
+      </div>
+      <div class="character locked" onclick="showPopup(1)">
+        <img src="png/s000.png" alt="Character 2">
+        <span>Character 2</span>
+        <span>🎨🎵</span>
+      </div>
+      <div class="character locked" onclick="showPopup(1)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(1)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(1)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(1)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(1)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(1)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(1)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(1)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(1)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(1)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <!-- Add more characters -->
+    </div>
+    <button class="button play-buy" onclick="alert('You selected a character!')">Play</button>
+  </div>
+
+  <div id="categ2" class="selection hidden">
+    <button class="backbutton" onclick="goBack(2)">◀</button>
+    <h1 class="title">Category 2</h1>
+    <button class="cat-button" onclick="showGrid(2)">
+      <img src="png/1.png" alt="Mute" id="img">
+      LO-FI
+      <div class="color2"></div>
+        
+    </button>
+    <div class="progress-container">
+      <div class="progress">
+        <div class="progress-bar" style="width: 30%;"></div>
+      </div>
+      <span class="unlocked-count">3/10</span>
+    </div>
+    <div class="grid">
+      <div class="character" onclick="showPopup(2)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(2)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(2)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(2)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(2)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(2)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(2)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(2)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(2)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(2)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(2)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(2)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <!-- Add more characters -->
+    </div>
+    <button class="button play-buy" onclick="alert('You selected a character!')">Play</button>
+  </div>
+
+  <div id="categ3" class="selection hidden">
+    <button class="backbutton" onclick="goBack(3)">◀</button>
+    <h1 class="title">Category 1</h1>
+    <button class="cat-button" onclick="showGrid(2)">
+      <img src="png/2.png" alt="Mute" id="img">
+      RETRO
+      <div class="color3"></div>
+        
+    </button>
+    <div class="progress-container">
+      <div class="progress">
+        <div class="progress-bar" style="width: 30%;"></div>
+      </div>
+      <span class="unlocked-count">3/10</span>
+    </div>
+    <div class="grid">
+      <div class="character" onclick="showPopup(3)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(3)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(3)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(3)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(3)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(3)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(3)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(3)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(3)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(3)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(3)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(3)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <!-- Add more characters -->
+    </div>
+    <button class="button play-buy" onclick="alert('You selected a character!')">Play</button>
+  </div>
+
+  <div id="categ4" class="selection hidden">
+    <button class="backbutton" onclick="goBack(4)">◀</button>
+    <h1 class="title">Category 1</h1>
+    <button class="cat-button" onclick="showGrid(4)">
+      <img src="png/3a.png" alt="Mute" id="img">
+      808
+      <div class="color4"></div>
+    </button>
+    <div class="progress-container">
+      <div class="progress">
+        <div class="progress-bar" style="width: 30%;"></div>
+      </div>
+      <span class="unlocked-count">3/10</span>
+    </div>
+    <div class="grid">
+      <div class="character" onclick="showPopup(4)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(4)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(4)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(4)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(4)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(4)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(4)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(4)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(4)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(4)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(4)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(4)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <!-- Add more characters -->
+    </div>
+    <button class="button play-buy" onclick="alert('You selected a character!')">Play</button>
+  </div>
+
+  <div id="categ5" class="hidden">
+    <button class="backbutton" onclick="goBack(5)">◀</button>
+    <h1 class="title">Category 1</h1>
+    <button class="cat-button" onclick="showGrid(5)">
+      <img src="png/4.png" alt="Mute" id="img">
+      tower
+      <div class="color4"></div>
+    </button>
+    <div class="progress-container">
+      <div class="progress">
+        <div class="progress-bar" style="width: 30%;"></div>
+      </div>
+      <span class="unlocked-count">3/10</span>
+    </div>
+    <div class="grid">
+      <div class="character" onclick="showPopup(5)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(5)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(5)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(5)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(5)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(5)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(5)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(5)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(5)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(5)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(5)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(5)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <!-- Add more characters -->
+    </div>
+    <button class="button play-buy" onclick="alert('You selected a character!')">Play</button>
+  </div>
+
+  <div id="categ6" class="hidden">
+    <button class="backbutton" onclick="goBack(6)">◀</button>
+    <h1 class="title">Category 6</h1>
+    <button class="cat-button" onclick="showGrid(4)">
+      <img src="png/5.png" alt="Mute" id="img">
+      DONUT
+      <div class="color4"></div>
+    </button>
+    <div class="progress-container">
+      <div class="progress">
+        <div class="progress-bar" style="width: 30%;"></div>
+      </div>
+      <span class="unlocked-count">3/10</span>
+    </div>
+    <div class="grid">
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <!-- Add more characters -->
+    </div>
+    <button class="button play-buy" onclick="alert('You selected a character!')">Play</button>
+  </div>
+
+  <div id="categ7" class="hidden">
+    <button class="backbutton" onclick="goBack(7)">◀</button>
+    <h1 class="title">Category 7</h1>
+    <button class="cat-button" onclick="showGrid(4)">
+      <img src="png/6.png" alt="Mute" id="img">
+      building
+      <div class="color4"></div>
+    </button>
+    <div class="progress-container">
+      <div class="progress">
+        <div class="progress-bar" style="width: 30%;"></div>
+      </div>
+      <span class="unlocked-count">3/10</span>
+    </div>
+    <div class="grid">
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <!-- Add more characters -->
+    </div>
+    <button class="button play-buy" onclick="alert('You selected a character!')">Play</button>
+  </div>
+
+  <div id="categ8" class="hidden">
+    <button class="backbutton" onclick="goBack(8)">◀</button>
+    <h1 class="title">Category 8</h1>
+    <button class="cat-button" onclick="showGrid(4)">
+      <img src="png/7.png" alt="Mute" id="img">
+      HIP HOP
+      <div class="color4"></div>
+    </button>
+    <div class="progress-container">
+      <div class="progress">
+        <div class="progress-bar" style="width: 30%;"></div>
+      </div>
+      <span class="unlocked-count">3/10</span>
+    </div>
+    <div class="grid">
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character1.png" alt="Character 1">
+        <span>Character 1</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 2</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 3</span>
+      </div>
+      <div class="character" onclick="showPopup(6)">
+        <img src="path/to/character2.png" alt="Character 2">
+        <span>Character 4</span>
+      </div>
+      <!-- Add more characters -->
+    </div>
+    <button class="button play-buy" onclick="alert('You selected a character!')">Play</button>
+  </div>
+
+  <div id="step3" class="hidden">
+    <button class="backbutton" onclick="goBack()">◀</button>
+    <h1 class="title">Character 1</h1>
+    <div class="character-details">
+      <img src="path/to/character1.png" alt="Character 1" style="width: 200px; height: 200px;">
+      <p>Description of Character 1</p>
+      <button class="button arrow-left" onclick="alert('Switch to previous character')">&lt;</button>
+      <button class="button arrow-right" onclick="alert('Switch to next character')">&gt;</button>
+    </div>
+  </div>
+</div>
+
+<div class="lower hidden">
+    
+</div>
+</div>
+	 
 
 	  
-	<!-- <button id="button1" class="toggle-button" >▶</button>
-    <button id="button2" class="toggle-button">⭐</button> -->
-	 <div id="ui" style="overflow-y: scroll; height:35%;">
-	 	
-	    <div class="tiles">
-	    	
-	      <input type="radio" name="voxel" id="voxel1" value="1" class="voxel-radio"><label for="voxel1" class="voxel-label voxel-1" style="background-position:   -0% -0%"> <span class="label-text">Default</span></label>
-	      <input type="radio" name="voxel" id="voxel2" value="2" class="voxel-radio"><label for="voxel2" style="background-position: -100% -0%"> <span class="label-text">Default_Shuffle</span></label>
-	      <input type="radio" name="voxel" id="voxel3" value="3" class="voxel-radio"><label for="voxel3" style="background-position: -200% -0%"> <span class="label-text">LOFI_Bedroom</span></label>
-	      <input type="radio" name="voxel" id="voxel4" value="4" class="voxel-radio"><label for="voxel4" style="background-position: -300% -0%"><span class="label-text">LOFI_Touch</span></label>
-	      <input type="radio" name="voxel" id="voxel5" value="5" class="voxel-radio"><label for="voxel5" style="background-position: -400% -0%"><span class="label-text">LOFI_Midnight</span></label>
-	      <input type="radio" name="voxel" id="voxel6" value="6" class="voxel-radio"><label for="voxel6" style="background-position: -500% -0%"><span class="label-text">LOFI_Slowdown</span></label>
-	      <input type="radio" name="voxel" id="voxel7" value="7" class="voxel-radio"><label for="voxel7" style="background-position: -600% -0%"><span class="label-text">LOFI_Somepluk</span></label>
-	      <input type="radio" name="voxel" id="voxel8" value="8" class="voxel-radio"><label for="voxel8" style="background-position: -700% -0%"><span class="label-text">LOFI_Finalcall</span></label>
-
-	      <input type="radio" name="voxel" id="voxel9"  value="9" class="voxel-radio"><label for="voxel9"  style="background-position:  -800% -0%"><span class="label-text">LOFI_WithU</span></label>
-	      <input type="radio" name="voxel" id="voxel10" value="10" class="voxel-radio"><label for="voxel10" style="background-position:  -900% -0%"><span class="label-text">LOFI_Shuffle</span></label>
-	      <input type="radio" name="voxel" id="voxel11" value="11" class="voxel-radio"><label for="voxel11" style="background-position: -1000% -0%"><span class="label-text">10</span></label>
-	      <input type="radio" name="voxel" id="voxel12" value="12" class="voxel-radio"><label for="voxel12" style="background-position: -1100% -0%"><span class="label-text">11</span></label>
-	      <input type="radio" name="voxel" id="voxel13" value="13" class="voxel-radio"><label for="voxel13" style="background-position: -1200% -0%"><span class="label-text">12</span></label>
-	      <input type="radio" name="voxel" id="voxel14" value="14" class="voxel-radio"><label for="voxel14" style="background-position: -1300% -0%"><span class="label-text">13</span></label>
-	      <input type="radio" name="voxel" id="voxel15" value="15" class="voxel-radio"><label for="voxel15" style="background-position: -1400% -0%"><span class="label-text">14</span></label>
-	      <input type="radio" name="voxel" id="voxel16" value="16" class="voxel-radio"><label for="voxel16" style="background-position: -1500% -0%"><span class="label-text">15</span></label>
-	    </div>
-	    
-	   </div>
-	    <!-- <div class="tiles"> -->
-	      <!-- <input type="radio" name="voxel" id="voxel9"  value="9" ><label for="voxel9"  style="background-position:  -800% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel10" value="10"><label for="voxel10" style="background-position:  -900% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel11" value="11"><label for="voxel11" style="background-position: -1000% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel12" value="12"><label for="voxel12" style="background-position: -1100% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel13" value="13"><label for="voxel13" style="background-position: -1200% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel14" value="14"><label for="voxel14" style="background-position: -1300% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel15" value="15"><label for="voxel15" style="background-position: -1400% -0%"></label>
-	      <input type="radio" name="voxel" id="voxel16" value="16"><label for="voxel16" style="background-position: -1500% -0%"></label> -->
-	    <!-- </div> -->
+	
+	   
   	
 </body>
 </html>
