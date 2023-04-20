@@ -486,6 +486,7 @@
 		</style>
 </head>
 <body>
+
 			<script type="x-shader/x-vertex" id="vertexshader">
 
 			attribute float scale;
@@ -619,7 +620,7 @@ var lastX;
 var lastY;
 var touchx;
 var touchy;
-let forceAmount = bw*bw*bh/15;
+let forceAmount = bw*bw*bh/1;
 
 let unitimg={};
 
@@ -642,7 +643,7 @@ var clmeshlst0={0:[], 1:[],2:[],3:[],4:[]}
 
 
 var audioLoader = new THREE.AudioLoader();
-var listener = new THREE.AudioListener();
+// var listener = new THREE.AudioListener();
 var uilst0=[];
 var uilst1=[];
 var paidflag=false;
@@ -673,7 +674,7 @@ var skinlst=[{idx:0, snum:0, shuffle:false, price:0, unlock:true},
 
 console.log(skinlst)
 
-var skinset=["base", "1", "카세트", "r808","archer","radio","donut","building","tower","test5", "adam" ]
+var skinset=["base", "1", "카세트", "r808","archer","radio","donut","building","tower","test5", "adam"]
 var skinnum=3;
 
 var skinselect=0;
@@ -1279,58 +1280,62 @@ wooden[0]=mainmusic[parseInt(Math.random()*mainmusic.length)];
 
 var soundset=[wooden, wooden, lofi_bedroom, lofi_touch, lofi_midnight, lofi_slowdown, lofi_somepluk, lofi_finalcall, lofi_withu, wooden, futurehouse, futurebass04, trap_cellar, ibiza1]
 
-if(skinlst[skinidx].shuffle==true){
-	if(skinidx==9){
-		sdic.push(lofi_bedroom);
-		sdic.push(lofi_touch);
-		sdic.push(lofi_midnight);
-		sdic.push(lofi_slowdown);
-		sdic.push(lofi_somepluk);
-		sdic.push(lofi_finalcall)
-		sdic.push(lofi_withu);
-		sdic.sort(() => Math.random() - 0.5);
-	}else if(skinidx==1){
-		woodmix();
-	}else{
-		sdic.push(futurehouse);
-		sdic.push(futurebass);
-		sdic.push(futurebass04);
-		sdic.push(futurebass2)
+// if(skinlst[skinidx].shuffle==true){
+// 	if(skinidx==9){
+// 		sdic.push(lofi_bedroom);
+// 		sdic.push(lofi_touch);
+// 		sdic.push(lofi_midnight);
+// 		sdic.push(lofi_slowdown);
+// 		sdic.push(lofi_somepluk);
+// 		sdic.push(lofi_finalcall)
+// 		sdic.push(lofi_withu);
+// 		sdic.sort(() => Math.random() - 0.5);
+// 	}else if(skinidx==1){
+// 		woodmix();
+// 	}else{
+// 		sdic.push(futurehouse);
+// 		sdic.push(futurebass);
+// 		sdic.push(futurebass04);
+// 		sdic.push(futurebass2)
 
-		// sdic.push(f9);
+// 		// sdic.push(f9);
 
-		sdic.push(ibiza1);
-		sdic.push(dancehall);
-		sdic.push(trap_cellar)
+// 		sdic.push(ibiza1);
+// 		sdic.push(dancehall);
+// 		sdic.push(trap_cellar)
 
-		sdic.push(lofi_bedroom);
-		sdic.push(lofi_touch);
-		sdic.push(lofi_midnight);
-		sdic.push(lofi_slowdown);
-		sdic.push(lofi_somepluk);
-		sdic.push(lofi_finalcall)
-		sdic.push(lofi_withu);
-		sdic.sort(() => Math.random() - 0.5);
-	}
+// 		sdic.push(lofi_bedroom);
+// 		sdic.push(lofi_touch);
+// 		sdic.push(lofi_midnight);
+// 		sdic.push(lofi_slowdown);
+// 		sdic.push(lofi_somepluk);
+// 		sdic.push(lofi_finalcall)
+// 		sdic.push(lofi_withu);
+// 		sdic.sort(() => Math.random() - 0.5);
+// 	}
+
+	
+
+
+
+// 	// sdic.push(dancehall2)
+
+
+	
+// 	// sdic[4]=wooden;
+// }else{
+// 	sdic.push(soundset[skinidx]);
+// 	sdic.push(soundset[skinidx]);
+// 	sdic.push(soundset[skinidx]);
+// 	sdic.push(soundset[skinidx]);
+// 	sdic.push(soundset[skinidx]);
+// 	sdic.push(soundset[skinidx]);
+// }
+
 
 	
 
-
-
-	// sdic.push(dancehall2)
-
-
 	
-	// sdic[4]=wooden;
-}else{
-	sdic.push(soundset[skinidx]);
-	sdic.push(soundset[skinidx]);
-	sdic.push(soundset[skinidx]);
-	sdic.push(soundset[skinidx]);
-	sdic.push(soundset[skinidx]);
-	sdic.push(soundset[skinidx]);
-}
-
 
 
 
@@ -3341,17 +3346,17 @@ function handleTouchStart(event) {
 
 
 				
-				if(skinlst[skinidx].shuffle){
-					var thisnum=activeFloor
-					var playable=true
-					for(let i=0;i<6;i++){
-						if(i==thisnum) continue
-						if(soundic[sdic[i][0]].isPlaying){
-								soundic[sdic[i][0]].stop();
-						}
+				
+				var thisnum=activeFloor
+				var playable=true
+				for(let i=0;i<6;i++){
+					if(i==thisnum) continue
+					if(soundic[sdic[i][0]].isPlaying){
+							soundic[sdic[i][0]].stop();
 					}
-				 	soundic[sdic[thisnum][0]].play();
 				}
+				if(!soundic[sdic[thisnum][0]].isPlaying) soundic[sdic[thisnum][0]].play();
+				
 				
 			}
 		}
@@ -3611,7 +3616,7 @@ function handleTouchMove(event) {
 						// }
 						//     soundic[sdic[activeFloor]["upper"]].play();
 
-					if(skinlst[skinidx].shuffle){
+					if(true){
 						var thisnum=activeFloor
 						var playable=true
 						for(let i=0;i<6;i++){
@@ -3953,7 +3958,7 @@ if (event.code === 'KeyW') {
 		}
 				soundic[sdic[activeFloor]["upper"]].play();
 
-		if(skinlst[skinidx].shuffle){
+		if(true){
 			var thisnum=activeFloor
 			var playable=true
 			for(let i=0;i<6;i++){
@@ -3979,7 +3984,7 @@ if (event.code === 'KeyW') {
 				soundic[sdic[activeFloor]["lower"]].stop();
 		}
 				soundic[sdic[activeFloor]["lower"]].play();
-		if(skinlst[skinidx].shuffle){
+		if(true){
 			var thisnum=activeFloor
 			var playable=true
 			for(let i=0;i<6;i++){
@@ -4237,48 +4242,50 @@ function restart(){
 
 
 	wooden[0]=mainmusic[parseInt(Math.random()*mainmusic.length)];
-	if(skinlst[skinidx].shuffle==true){
-		if(skinidx==9){
-			sdic.push(lofi_bedroom);
-			sdic.push(lofi_touch);
-			sdic.push(lofi_midnight);
-			sdic.push(lofi_slowdown);
-			sdic.push(lofi_somepluk);
-			sdic.push(lofi_finalcall)
-			sdic.push(lofi_withu);
-			sdic.sort(() => Math.random() - 0.5);
-		}else if(skinidx==1){
-			woodmix();
-		}else{
-			sdic.push(futurehouse);
-			sdic.push(futurebass);
-			sdic.push(futurebass04);
-			sdic.push(futurebass2)
+	// if(skinlst[skinidx].shuffle==true){
+	// 	if(skinidx==9){
+	// 		sdic.push(lofi_bedroom);
+	// 		sdic.push(lofi_touch);
+	// 		sdic.push(lofi_midnight);
+	// 		sdic.push(lofi_slowdown);
+	// 		sdic.push(lofi_somepluk);
+	// 		sdic.push(lofi_finalcall)
+	// 		sdic.push(lofi_withu);
+	// 		sdic.sort(() => Math.random() - 0.5);
+	// 	}else if(skinidx==1){
+	// 		woodmix();
+	// 	}else{
+	// 		sdic.push(futurehouse);
+	// 		sdic.push(futurebass);
+	// 		sdic.push(futurebass04);
+	// 		sdic.push(futurebass2)
 
-			// sdic.push(f9);
+	// 		// sdic.push(f9);
 
-			sdic.push(ibiza1);
-			sdic.push(dancehall);
-			sdic.push(trap_cellar)
+	// 		sdic.push(ibiza1);
+	// 		sdic.push(dancehall);
+	// 		sdic.push(trap_cellar)
 
-			sdic.push(lofi_bedroom);
-			sdic.push(lofi_touch);
-			sdic.push(lofi_midnight);
-			sdic.push(lofi_slowdown);
-			sdic.push(lofi_somepluk);
-			sdic.push(lofi_finalcall)
-			sdic.push(lofi_withu);
-			sdic.sort(() => Math.random() - 0.5);
-		}
-		// sdic[4]=wooden;
-	}else{
-		sdic.push(soundset[skinidx]);
-		sdic.push(soundset[skinidx]);
-		sdic.push(soundset[skinidx]);
-		sdic.push(soundset[skinidx]);
-		sdic.push(soundset[skinidx]);
-		sdic.push(soundset[skinidx]);
-	}
+	// 		sdic.push(lofi_bedroom);
+	// 		sdic.push(lofi_touch);
+	// 		sdic.push(lofi_midnight);
+	// 		sdic.push(lofi_slowdown);
+	// 		sdic.push(lofi_somepluk);
+	// 		sdic.push(lofi_finalcall)
+	// 		sdic.push(lofi_withu);
+	// 		sdic.sort(() => Math.random() - 0.5);
+	// 	}
+	// 	// sdic[4]=wooden;
+	// }else{
+	// 	sdic.push(soundset[skinidx]);
+	// 	sdic.push(soundset[skinidx]);
+	// 	sdic.push(soundset[skinidx]);
+	// 	sdic.push(soundset[skinidx]);
+	// 	sdic.push(soundset[skinidx]);
+	// 	sdic.push(soundset[skinidx]);
+	// }
+	
+
 
 	var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
 	var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"]*0.75)+'%, '+String(newcl["l"]+20)+'%)');
@@ -4298,30 +4305,39 @@ function restart(){
 
 
 	scene.add( particles );
+	sdic=[];
+	sdic.push(nslst["wooden"])
+	sdic.push(nslst["wooden"])
+	sdic.push(nslst["wooden"])
+	sdic.push(nslst["new3"])
+	sdic.push(nslst["ibiza_deep"])
+	sdic.push(nslst["rnb_demo"])
 
 	for(let i=0;i<6;i++){
-		var sdickeys=Object.keys(soundic);
 		let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
-			for(let j=1;j<temp.length;j++){
-				if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
-					// var listener = new THREE.AudioListener();
-					// var audioLoader = new THREE.AudioLoader();
-					audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
-					{   
-							var sound = new THREE.Audio( listener );
-							sound.setBuffer( buffer );
-							sound.setVolume( 0.3 );
-							soundic[sdic[i][temp[j]]]=sound;
-							
-							
-					});
-				}
+		var sdickeys=Object.keys(soundic);
+		
+		for(let j=0;j<temp.length;j++){
+			if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
+				// 
+				// var audioLoader = new THREE.AudioLoader();
+				audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
+				{   
+					var sound = new THREE.Audio( listener );
+					sound.setBuffer( buffer );
+					sound.setVolume( 0.3 );
+					soundic[sdic[i][temp[j]]]=sound;
+						
+						
+				});
+					
 					
 			}
-			
+		}
 
 
 	}
+	
 	
 	if(lighton){
 		// let ambientLight= new THREE.AmbientLight(0xffffff,0.4);
@@ -8192,20 +8208,21 @@ function tsetting(callback){
 }
 
 function msetting(callback){
-	for(let i=0;i<6;i++){
-		var sdickeys=Object.keys(soundic);
-		if(sdickeys.indexOf(sdic[i][0])==-1){
+
+	// for(let i=0;i<6;i++){
+	// 	var sdickeys=Object.keys(soundic);
+	// 	if(sdickeys.indexOf(sdic[i][0])==-1){
 			
-			audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][0], function( buffer )
-			{   
-				var sound = new THREE.Audio( listener );
-				sound.setBuffer( buffer );
-				sound.setVolume( 0.3 );
-				sound.setLoop( true );
-				soundic[sdic[i][0]]=sound;
-			});
-		}
-	}
+	// 		audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][0], function( buffer )
+	// 		{   
+	// 			var sound = new THREE.Audio( listener );
+	// 			sound.setBuffer( buffer );
+	// 			sound.setVolume( 0.3 );
+	// 			sound.setLoop( true );
+	// 			soundic[sdic[i][0]]=sound;
+	// 		});
+	// 	}
+	// }
 
 
 
@@ -8847,8 +8864,15 @@ function resetting(n= 8, callback){
 		item.mesh.material.transparent = false;
 		item.mesh.children.forEach((tile, index) => {
 			if(tile.userData["skin"]=="tile"){
+				// tile.children.forEach((text, index2) => {
+				// 	tile.remove(text);
+				// 	// tile.children.splice(index, 1)
+				// })
+				// item.mesh.remove(tile);
+				// scene.remove(tile);
 				item.mesh.remove(tile);
-				item.mesh.children.splice(index, 1)
+				// item.mesh.children.splice(index, 1)
+
 			}else if(tile.userData["skin"]=="bottom"){
 				tile.material.visible=false;
 				tile.material.opacity =  0
@@ -8896,23 +8920,21 @@ function resetting(n= 8, callback){
 		});
 	})
 	for (let i = 0; i < 5; i++) {
-		// cubes[i].mesh.children.forEach((item, index)=>{
-		// 	if(item.userData["skin"]==skinset[skinnum]){
-		// 		item.material.visible=true;
-		// 		item.material.opacity =  1;
-		// 		item.material.transparent = false;
+		for(var j=cubes[i].mesh.children.length-1;j>=0;j--){
+			if(cubes[i].mesh.children[j].userData["skin"]=="tile"){
+					cubes[i].mesh.remove(cubes[i].mesh.children[j]);
+			}
+		}
 
-		// 	}else if(item.userData["skin"]=="tile"){
-		// 		cubes[i].mesh.remove(item);
-		// 		cubes[i].mesh.children.splice(index, 1)
-		// 		item.children.forEach((item2)=>{
-		// 			if(item2.userData["skin"]=="tile"){
-		// 				item.remove(item2)
-		// 			}
-		// 		})
-		// 	}
-		// })
+		// cubes[i].body.force.set(0,0,0)
+		// cubes[i].body.torque.set(0,0,0)
+		cubes[i].body.velocity.set(0, 0, 0);
+		cubes[i].body.angularVelocity.set(0, 0, 0);
+
 		cubes[i].body.position.set(0, (i) * bh+bh/2, 0);
+		cubes[i].body.quaternion.copy(cubes[i].mesh.quaternion);
+
+		
 		world.addBody(cubes[i].body);
 		scene.add(cubes[i].mesh)
 		var game2048 = new Game2048(칸, i);
@@ -9229,30 +9251,9 @@ var bsounds=[];
 var sounds=[];
 
 
-for(let i=0;i<6;i++){
-	let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
-	var sdickeys=Object.keys(soundic);
-	
-	for(let j=1;j<temp.length;j++){
-		if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
-			// var listener = new THREE.AudioListener();
-			// var audioLoader = new THREE.AudioLoader();
-			audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
-			{   
-				var sound = new THREE.Audio( listener );
-				sound.setBuffer( buffer );
-				sound.setVolume( 0.3 );
-				soundic[sdic[i][temp[j]]]=sound;
-					
-					
-			});
-				
-				
-		}
-	}
 
 
-}
+
 
 // if(soundon){
 //     var listener = new THREE.AudioListener();
@@ -9448,62 +9449,116 @@ let particles = new THREE.Points( geometry, material2 );
 
 scene.add( particles );
 // guideflag=false;
+var listener = new THREE.AudioListener();
+const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.csv';
+	var nslst={};
+	fetchCSV(csvUrl)
+	    .then(dictionaries => {
+	    	nslst=dictionaries
+	        console.log(nslst);
+	        var templst=Object.keys(nslst);
+	        templst.sort(() => Math.random() - 0.5);
+	        sdic.push(nslst[templst[0]])
+	        sdic.push(nslst[templst[1]])
+	        sdic.push(nslst[templst[2]])
+	        sdic.push(nslst[templst[3]])
+	        sdic.push(nslst[templst[4]])
+	        sdic.push(nslst[templst[5]])
+	  //       sdic.push(nslst["new1"])
+			// sdic.push(nslst["rnb_demo"])
+			// sdic.push(nslst["ibiza_give"])
+			// sdic.push(nslst["new3"])
+			// sdic.push(nslst["ibiza_deep"])
+			// sdic.push(nslst["rnb_demo"])
 
-
-console.log(fontjson);
-setting(stack,function (object) {  //시작
-addring();
-	
-
-
-	tsetting(function (object) {
-		cubes.forEach((item)=>{
-				item.mesh.userData.game2048.spawnTile();
-				item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-				// item.mesh.userData.game2048.spawnTile();
-			})
-		// msetting2(function (object) {
-			msetting(function (object) {
+			for(let i=0;i<6;i++){
+				let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
+				var sdickeys=Object.keys(soundic);
 				
+				for(let j=0;j<temp.length;j++){
+					if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
+						// var listener = new THREE.AudioListener();
+						// var audioLoader = new THREE.AudioLoader();
+						audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
+						{   
+							var sound = new THREE.Audio( listener );
+							sound.setBuffer( buffer );
+							sound.setVolume( 0.3 );
+							if(j==0) sound.setLoop( true );
+							soundic[sdic[i][temp[j]]]=sound;
+								
+								
+						});
+							
+							
+					}
+				}
 
-				txtsetting(function (object) {
-					time0 = performance.now();
-					fps = 0;
-					// console.log(txtlst);
-					camera.add( listener );
-					// scene.background = new THREE.Color(colorlst[colornum][0]);
-					skinsetting(function (object) {
-						setTimeout(function() {
-							animate();
-        
-      					}, 200);
-						
-					})
+
+			}
+			console.log(sdic)
+			setting(stack,function (object) {  //시작
+				addring();
+				tsetting(function (object) {
+					cubes.forEach((item)=>{
+							item.mesh.userData.game2048.spawnTile();
+							item.mesh.userData.game2048.spawnTile();
+							
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+							// item.mesh.userData.game2048.spawnTile();
+						})
+					// msetting2(function (object) {
+						msetting(function (object) {
+							
+
+							txtsetting(function (object) {
+								time0 = performance.now();
+								fps = 0;
+								// console.log(txtlst);
+								camera.add( listener );
+								// scene.background = new THREE.Color(colorlst[colornum][0]);
+								skinsetting(function (object) {
+									setTimeout(function() {
+										animate();
+			        
+			      					}, 200);
+									
+								})
+								
+								// console.log(tilemold);
+								// console.log(textmold)
+
+							})
+							
+						})
+					// })
 					
-					// console.log(tilemold);
-					// console.log(textmold)
-
 				})
 				
-			})
-		// })
-		
-	})
-	
-});
+			});
+
+
+	    })
+	    .catch(error => {
+	        console.error(error);
+	    });
+
+
+
+
+
 // setting(stack);
 
 
@@ -10545,6 +10600,7 @@ if(dimlines.length>0){
 				// console.log(String(item.c)+", "+String(item.d))
 				if(item.body.boardpointer[item.c][item.d]!=""){
 					item.body.boardpointer[item.c][item.d].userData["time"]=elapsedTime;
+					item.body.boardpointer[item.c][item.d].userData["skin"]="tile";
 					item.body.boardpointer[item.c][item.d].userData["merge"]=1;
 					const color = getColorForNumber(num);
 					var tile=item.body.boardpointer[item.c][item.d];
@@ -10564,7 +10620,9 @@ if(dimlines.length>0){
 					ntext.material= new THREE.MeshBasicMaterial({ color: 0xffffff });
 					ntext.userData["time"]=elapsedTime;
 					ntext.userData["merge"]=1;
+
 					tile.add(ntext);
+					tile.userData["skin"]=="tile"
 						atchanged=elapsedTime;
 						var tempflag=true
 						
@@ -12840,6 +12898,41 @@ function skinplay() {
 
 	rotationend=Math.PI/4
 }
+
+async function fetchCSV(url) {
+    // Fetch the CSV data from the URL
+    const response = await fetch(url);
+
+    // Ensure the request was successful
+    if (response.status !== 200) {
+        throw new Error(`Error fetching CSV data: ${response.status}`);
+    }
+
+    // Parse the CSV data into a string
+    const csvData = await response.text();
+
+    // Split the CSV data into an array of lines
+    const dataArray = csvData.trim().split('\n').map(line => line.split(','));
+
+    // The first row contains the labels
+    const labels = dataArray.shift();
+
+    // Convert each row into a dictionary object
+    const dictionaries = dataArray.map(row => {
+        return row.reduce((acc, value, index) => {
+            acc[labels[index]] = value;
+            return acc;
+        }, {});
+    });
+
+    var dict={};
+    dictionaries.forEach((item)=>{
+    	dict[item["name"]]=item;
+    })
+
+    return dict;
+}
+
 
 function skinpay() {
 	const button1 = document.getElementById('button1');
