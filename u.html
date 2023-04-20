@@ -374,6 +374,21 @@
      /*color: rgba(255, 0, 255, 0.0);*/
      /*font-size: 0;*/
   }
+  #intro{
+    position: absolute;
+    
+    /*position: fixed;*/
+    /*position: absolute;*/
+    /*right: 4000px;*/
+    /*top: 0;
+    left: 0;*/
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 1);
+    /*align-items: center;*/
+    z-index: 3;
+  }
+
 
   .options-overlay {
     position: absolute;
@@ -9831,9 +9846,14 @@ const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.cs
 								// scene.background = new THREE.Color(colorlst[colornum][0]);
 								skinsetting(function (object) {
 									setTimeout(function() {
+										document.getElementById("intro").classList.add("fade");
+									      setTimeout(function() {
+									        document.getElementById("intro").classList.add("hidden");
+									        
+									      }, 150);
 										animate();
 			        
-			      					}, 200);
+			      					}, 300);
 									
 								})
 								
@@ -13657,7 +13677,9 @@ var step1=document.getElementById("step1");
     }
   }
 </script>
-
+<div id="intro">
+<h1>V 0.7</h1>
+</div>
 <button id="left" class="left" onclick="skinon()"></button>
 
 <button id="right"class="right" onclick="optionon()">
