@@ -4,8 +4,8 @@
 	<meta name="viewport" content=user-scalable=no>
 	<title>Tower Stacking Game</title>
 	<style>
-			 
-        #song-info {
+
+      #song-info {
         font-family:'GG';
 	      color: white;
 	      font-size: 1vh;
@@ -25,7 +25,7 @@
 		.visible {
 		  opacity: 1;
 		  display: inline;
-		  
+
 		}
 
 	  .fade {
@@ -96,12 +96,9 @@
   #skin-middle img{
     width: 12vw;
     margin:0 1vw;
-    
+
 
   }
-  
-
-
 
   .option-RL{
       display: flex;
@@ -172,7 +169,7 @@
     height: 21vw;
 
     top:-21vw;
-    
+
     /*right: 4000px;*/
     background-color: rgba(255, 255, 0, 0.1);
     /*padding: 20px;*/
@@ -191,7 +188,7 @@
     height: 21vw;
 
     top:-21vw;
-    
+
     /*right: 4000px;*/
     background-color: rgba(0, 0, 255, 0.1);
     /*padding: 20px;*/
@@ -210,7 +207,7 @@
     height: 21vw;
 
     top:-21vw;
-    
+
     /*right: 4000px;*/
     background-color: rgba(0, 255, 255, 0.1);
     /*padding: 20px;*/
@@ -291,7 +288,7 @@
     z-index: 1;
   }
 
-  
+
 
   .ad-button:active {
 
@@ -326,7 +323,7 @@
     z-index: 1;
   }
 
-  
+
 
   .ap-button:active {
 
@@ -341,7 +338,7 @@
   }
 
   .c-button {
-    
+
     width: 75vw;
     height: 21vw;
     /*background-color: #ccc;*/
@@ -353,7 +350,7 @@
     border-radius: 5px;
     color: #000;
     cursor: pointer;
-    
+
 
     margin-bottom: 3vw;
     padding: 2vw 0;
@@ -363,7 +360,7 @@
     z-index: 1;
   }
 
-  
+
   .c-button:active {
     background-image: url("png/yellow_button01.png");
     transform: translate(0, 2vw);
@@ -376,7 +373,7 @@
   }
   #intro{
     position: absolute;
-    
+
     /*position: fixed;*/
     /*position: absolute;*/
     /*right: 4000px;*/
@@ -393,6 +390,7 @@
   .options-overlay {
     position: absolute;
     overflow-x: scroll;
+		/* overscroll-behavior-y: none; */
     font-family:'GG';
     /*position: fixed;*/
     /*position: absolute;*/
@@ -416,7 +414,7 @@
     height: 100%;
     justify-content: center;
     align-items: center;
-    
+
   }
 
   .gameover-container {
@@ -453,7 +451,7 @@
   justify-content: center;
   align-items: center;
 
-   
+
   }
 
   .gameoverbt{
@@ -461,7 +459,7 @@
     background-color: transparent;
     background-image: url("png/green_button09.png");
     background-size: 6vh 4vh;
-    
+
     width: 6vh;
     height: 4vh;
     z-index: 2;
@@ -479,7 +477,7 @@
     background-image: url("png/green_button10.png");
     transform: translate(0, 0.2vh);
     background-size: 6vh 3.8vh;
-    
+
     width: 6vh;
     height: 3.8vh;
 
@@ -509,7 +507,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 3vw;
-    
+
   }
 
   .setting-grid button{
@@ -610,7 +608,7 @@
     background-image: url("png/green_button10.png");
     transform: translate(0, 0.2vh);
     background-size: 6vh 3.8vh;
-    
+
     width: 6vh;
     height: 3.8vh;
   }
@@ -632,12 +630,12 @@
     background-image: url("png/blue_button10.png");
     transform: translate(0, 0.2vh);
     background-size: 6vh 3.8vh;
-    
+
     width: 6vh;
     height: 3.8vh;
 
 /*     margin-bottom: 1vw;*/
-     
+
      /*font-size: 0;*/
   }
 
@@ -665,7 +663,7 @@
     background-image: url("png/green_button10.png");
     transform: translate(0, 0.2vh);
     background-size: 6vh 3.8vh;
-    
+
     width: 6vh;
     height: 3.8vh;
   }
@@ -678,7 +676,7 @@
     align-items: center;
     bottom: 7vh;
     right: 8%;
-   
+
   }
 
   .setting{
@@ -703,7 +701,7 @@
     background-image: url("png/green_button10.png");
     transform: translate(0, 0.2vh);
     background-size: 6vh 3.8vh;
-    
+
     width: 6vh;
     height: 3.8vh;
 
@@ -717,7 +715,7 @@
     background-color: transparent;
     background-image: url("png/green_button09.png");
     background-size: 6vh 4vh;
-    
+
     width: 6vh;
     height: 4vh;
     z-index: 2;
@@ -777,20 +775,20 @@
     filter: grayscale(100%);
   }
 
-		  		  
-		 
 
-			body { margin: 0; , overscroll-behavior-y: none;}
 
-			canvas { display: white; }
 
-			
+			body { margin: 0; , overscroll-behavior-y: none;, overscroll-behavior-x: none;}
 
-			
+			canvas { position: absolute;, display: white;, z-index: 1000}
 
-			
 
-			
+
+
+
+
+
+
 		</style>
 </head>
 <body>
@@ -848,7 +846,7 @@
 				"three/addons/": "https://unpkg.com/three@0.150.1/examples/jsm/",
 				"three/addons/utils": "https://unpkg.com/three@0.150.1/examples/jsm/utils/"
 
-				
+
 		}
 		}
 </script>
@@ -1015,7 +1013,7 @@ var skinidx=0;
 // 			// lablst[i].style.outline= "2px solid grey";
 // 			lablst[i].style.background="rgba(80, 1, 0, 0.4)"
 // 		}
-		
+
 
 // 	  // label.style.display="none"
 //   	// label.classList.add('unpaid');
@@ -1114,10 +1112,10 @@ var uidelta=1;
 var tilemold=[];
 var textmold=[];
 let mouth1=[];
-let mouth2=[]; 
-let mouth3=[]; 
+let mouth2=[];
+let mouth3=[];
 let eye1=[];
-let eye2=[]; 
+let eye2=[];
 let eye3=[];
 let timlst=[]
 window.tlst=timlst;
@@ -1347,7 +1345,7 @@ var futurebass04 = {
 		0: "IbizaHouse-Synth-Loop.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "IbizaHouse-Kick-IH Kick 05.WAV",
 		8: "IbizaHouse-Clap-IH Clap 03.WAV",
 		16: "IbizaHouse-Snare-IH Snare 03.WAV",
@@ -1370,7 +1368,7 @@ var futurebass04 = {
 		0: "midnight.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "LoFi-kICK-ADSR Kick 1.WAV",
 		8: "LoFi-Snare-ADSR Snr 1.WAV",
 		16: "LoFi-Clap-ADSR Clap.WAV",
@@ -1393,7 +1391,7 @@ var futurebass04 = {
 		0: "somepluk.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "LoFi-Kick-ADSR Kick Lite.WAV",
 		8: "LoFi-Snare-ADSR Rim.WAV",
 		16: "LoFi-Perc-ADSR Perc 6.WAV",
@@ -1416,7 +1414,7 @@ var futurebass04 = {
 		0: "slowdown.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "LoFi-Kick-ADSR Kick Slam.WAV",
 		8: "LoFi-Clap-ADSR Clap.WAV",
 		16: "LoFi-Snare-ADSR Snr 1.WAV",
@@ -1439,7 +1437,7 @@ var lofi_touch = {
 		0: "touch.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "LoFi-Kick-ADSR Touch Kick 1.WAV",
 		8: "LoFi-Snare-ADSR OV Snr 1.WAV",
 		16: "LoFi-Snare-ADSR OV Snr 2.WAV",
@@ -1457,12 +1455,12 @@ var lofi_touch = {
 		"upper":"11.ogg",
 		"lower":"LoFi-Perc-LS Final Perc 3.WAV",
 	}
-	
+
 var lofi_bedroom = {
 		0: "bedroom.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "LoFi-kICK-ADSR Kick 1.WAV",
 		8: "LoFi-Clap-ADSR Clap.WAV",
 		16: "LoFi-Perc-ADSR Perc 3.WAV",
@@ -1485,7 +1483,7 @@ var lofi_bedroom = {
 		0: "Trap-Synth-TR CK SynLp G.WAV",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "Trap-Hat-TR CK 07 Hats.WAV",
 		8: "Trap-Kick-TR CK 01 Kick.WAV",
 		16: "Trap-Snare-TR CK 01 Snare.WAV",
@@ -1508,7 +1506,7 @@ var lofi_bedroom = {
 		0: "LoFi-Loop-Music-LS Final Call 90.WAV",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "LoFi-Kick-LS Final Kick 1.WAV",
 		8: "LoFi-Snare-LS Final Snare.WAV",
 		16: "LoFi-Perc-LS Final Perc 1.WAV",
@@ -1531,7 +1529,7 @@ var lofi_bedroom = {
 		0: "LoFi-Loop-Music-LS With U Lp.WAV",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "LoFi-Kick-LS With U Kick 1.WAV",
 		8: "LoFi-Snare-LS With U Snare 1.WAV",
 		16: "LoFi-Perc-LS With U Cave.WAV",
@@ -1554,7 +1552,7 @@ var lofi_bedroom = {
 		0: "dance_loop0.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		8: "ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		16: "ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
@@ -1577,7 +1575,7 @@ var lofi_bedroom = {
 		0: "80s.ogg",
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "80s-Kick-F9 GH Grid Kick Amb.WAV",
 		8: "80s-Snare-F9 GH Grid Amb Snr.WAV",
 		16: "80s-Tom-F9 GH Simm Mid.WAV",
@@ -1636,14 +1634,14 @@ var soundset=[wooden, wooden, lofi_bedroom, lofi_touch, lofi_midnight, lofi_slow
 // 		sdic.sort(() => Math.random() - 0.5);
 // 	}
 
-	
+
 
 
 
 // 	// sdic.push(dancehall2)
 
 
-	
+
 // 	// sdic[4]=wooden;
 // }else{
 // 	sdic.push(soundset[skinidx]);
@@ -1655,16 +1653,16 @@ var soundset=[wooden, wooden, lofi_bedroom, lofi_touch, lofi_midnight, lofi_slow
 // }
 
 
-	
 
-	
+
+
 
 
 
 var soundic={};
 
 // audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+wooden[0], function( buffer )
-// 	{   
+// 	{
 // 		var sound = new THREE.Audio( listener );
 // 		sound.setBuffer( buffer );
 // 		sound.setVolume( 0.3 );
@@ -2698,7 +2696,7 @@ unitmotion["uiimg"]={ "frames": {
 var floader=new FontLoader();
 var font0=floader.parse(fontjson);
 
-// var font0=floader.load("https://raw.githubusercontent.com/Radetzki87/web1/master/doh.json") 
+// var font0=floader.load("https://raw.githubusercontent.com/Radetzki87/web1/master/doh.json")
 
 class ftile{
 		constructor (a, b, c, d, index,direction, flag, me,me2){
@@ -2720,7 +2718,7 @@ class ftile{
 				// this.dt=Math.sqrt(this.mx*this.mx+this.mz*this.mz+this.dx*this.dx+this.dz*this.dz-2*(this.mx*this.dx)-2*(this.mz*this.dz))*this.speed;
 				// this.vx=(this.dx-this.mx)/(this.dt*this.speed);
 				// this.vz=(this.dz-this.mz)/(this.dt*this.speed);
-				
+
 				// console.log("x 변위: "+String(this.vx)+"  z 변위: "+String(this.vz))
 				console.log(this)
 				this.merge=flag;
@@ -2732,7 +2730,7 @@ class ftile{
 				}else{
 					this.q=0;
 				}
-				
+
 		}
 }
 
@@ -2753,10 +2751,10 @@ class Game2048 {
 				}
 				this.boardpointer.push(temp);
 		}
-		
 
 
-		
+
+
 		// this.move();
 	}
 
@@ -2767,7 +2765,7 @@ class Game2048 {
 
 		// }
 
-	 
+
 
 		var emptyPositions = [];
 		// if(direction==5){
@@ -2834,7 +2832,7 @@ class Game2048 {
 
 // console.log(direction)
 // console.log(direction)
- 
+
 		if(direction === "up"){
 			emptyPositions.sort(function(a, b) {
 			 return b.row - a.row;
@@ -2870,7 +2868,7 @@ class Game2048 {
 				ntile=tilemold[1].clone();
 				ntile.material= new THREE.MeshLambertMaterial({ color: getColorForNumber(4) });
 				ntile.children[0].material= new THREE.MeshBasicMaterial({ color: getColorForNumber(2) });
-			} 
+			}
 
 			ntile.position.set(
 				0 - bw/2 + tw/2 + position.col * tw,
@@ -2887,7 +2885,7 @@ class Game2048 {
 			})
 			cubes[this.index].mesh.add(ntile);
 			this.boardpointer[position.row][position.col]=ntile;
-			
+
 
 			// createTile(this.index,th*0.6, tw, this.board[position.row][position.col], (tile) => {
 			//   tile.position.set(
@@ -2907,8 +2905,8 @@ class Game2048 {
 			//     cubes[this.index].mesh.add(tile);
 			//     this.boardpointer[position.row][position.col]=tile;
 			//   });
-				
-				
+
+
 			// });
 			atchanged=elapsedTime;
 		}
@@ -2927,7 +2925,7 @@ class Game2048 {
 			this.boardChanged = true;
 
 		}else if(this.board[newRow][newCol] === this.board[row][col]){
-			
+
 			// console.log(this.boardpointer[col][row]);
 			this.board[newRow][newCol] += this.board[row][col];
 			this.board[row][col] = 0;
@@ -2951,8 +2949,8 @@ class Game2048 {
 					}
 				}
 			}
-			
-			
+
+
 			// if(true){
 			//   let force = new CANNON.Vec3();
 			//   // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
@@ -2975,10 +2973,10 @@ class Game2048 {
 			//   // var a=cubes[this.index].body.position
 			//   // cubes[activeFloor].body.applyForce(force, cubes[activeFloor].body.position.clone().vadd(offset));
 			//   cubes[this.index].body.applyForce(force, cubes[this.index].body.position);
-				
+
 
 			// }
-			
+
 		}
 	}
 
@@ -3026,21 +3024,21 @@ class Game2048 {
 							dup=true;
 						}
 					}
-					
+
 					if(dup==false){
 						temp.push([row, col, newRow, newCol, direction]);
 					}
-					
-					
+
+
 				}
 			}
 		}
 		// console.log(temp)
-		
+
 
 		var temp2=this.moveBoard0(direction, temp);
 		// console.log(temp2)
-		
+
 		if(direction === "up"){
 			temp2.sort(function(a, b) {
 			return a[0] - b[0];
@@ -3063,17 +3061,17 @@ class Game2048 {
 			this.move(item[0], item[1], item[2], item[3], item[4]);
 		})
 
-		
 
-		
-		
+
+
+
 		// moveBoard0(direction, lst).forEach((item)=>{
 		//   this.move(item[0], item[1], item[2], item[3], item[4]);
 		// })
-	 
-		
 
-		
+
+
+
 
 		if (this.boardChanged) {
 			// temp2.forEach((item)=>{
@@ -3100,9 +3098,9 @@ class Game2048 {
 				tempbd[item[2]][item[3]] += tempbd[item[0]][item[1]];
 				tempbd[item[0]][item[1]] = 0;
 			}
-			
+
 		});
-		
+
 		let rowStep, colStep, startRow, startCol;
 		if (direction === "down" || direction === "right") {
 			rowStep = 1;
@@ -3136,7 +3134,7 @@ class Game2048 {
 						newCol = nextCol;
 					} else {
 						break;
-						
+
 					}
 				}
 
@@ -3147,12 +3145,12 @@ class Game2048 {
 							dup=true;
 						}
 					}
-					
+
 					if(dup==false){
 						temp0.push([row, col, newRow, newCol, direction]);
 					}
-					
-					
+
+
 				}
 			}
 		}
@@ -3180,7 +3178,7 @@ class Game2048 {
 
 		// console.log("전")
 		// console.log(lst)
-		
+
 		for(var j=0;j<temp0.length;j++){
 			var dup=true
 			for(var i=0;i<lst.length;i++){
@@ -3190,17 +3188,17 @@ class Game2048 {
 				}else if(lst[i][2]==temp0[j][0]&&lst[i][3]==temp0[j][1]){
 					lst[i][2]=temp0[j][2];
 					lst[i][3]=temp0[j][3];
-					
+
 					dup=false
 				}else{
-					
+
 				}
 
 			}
 			if(dup) lst.push(temp0[j]);
 		}
-		
-		
+
+
 
 		// lst.forEach((item0,index)=>{
 		//   temp0.forEach((item1)=>{
@@ -3209,9 +3207,9 @@ class Game2048 {
 		//       item0[3]=item1[3];
 		//     }
 		//   })
-			
+
 		// })
-		
+
 		removelst.sort(function(a, b) {
 			return b - a;
 		});
@@ -3222,25 +3220,25 @@ class Game2048 {
 		// console.log("후")
 		// console.log(lst)
 
-		
 
 
-		
-		
+
+
+
 		// temp0.forEach((item, index)=>{
 		//   if(removelst.indexOf(index)==-1) lst.push(item);
 		// })
-		
+
 
 
 
 
 
 		return lst;
-		
 
-		
-		
+
+
+
 	}
 	}
 
@@ -3256,7 +3254,7 @@ function createimg() {
 	var ctx = canvas.getContext('2d');
 
 	// const padding = 10;
-	
+
 
 	canvas.width = 314;
 	canvas.height = 1664;
@@ -3280,7 +3278,7 @@ function createtxt(text, i, mode) {
 	var ctx = canvas.getContext('2d');
 
 	// const padding = 10;
-	
+
 	ctx.globalAlpha = 1;
 	canvas.width = 16.5*4;
 	canvas.height = 5.6*4;
@@ -3308,7 +3306,7 @@ function createtxt(text, i, mode) {
 		ctx.fillText(text, 0-(i)*(textw/100),canvas.height*0.73, textw, canvas.height);
 		ctx.fillText(text, textw-(i)*(textw/100),canvas.height*0.73, textw, canvas.height);
 	}
-	
+
 	// ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
 	var img3 = new THREE.CanvasTexture(canvas);
 
@@ -3350,7 +3348,7 @@ function type(){
 		console.log(String(temp[0])+" "+String(temp[1])+" "+String(temp[2])+" "+String(temp[3]));
 
 	}
-	
+
 }
 
 
@@ -3401,13 +3399,14 @@ var touch0=1-((window.innerWidth*0.53)/(window.innerHeight/2))
 
 function handleTouchStart(event) {
 	if(gameoverflag) return;
-	if(document.getElementById("setting-overlay").classList.contains("show")||!document.getElementById("gameover-overlay").classList.contains("hidden")||document.getElementById("options-overlay").classList.contains("show")||document.getElementById("optionlst").classList.contains("show")) return;
-    
-    // if(!document.getElementById("optionlst").classList.contains("hidden")) return;
-// if(inflag) return;
-	event.preventDefault();
+	if(document.getElementById("setting-overlay").classList.contains("show")||!document.getElementById("gameover-overlay").classList.contains("hidden")||document.getElementById("options-overlay").classList.contains("show")||document.getElementById("optionlst").classList.contains("show")){
+    return;
+  }else{
+    // event.preventDefault();
+    // event.stopPropagation(); 
+  } 
 
-	
+
 	if(window.innerWidth>=window.innerHeight){
 		mouse.x=(event.touches[0].clientX / window.innerHeight);
 		mouse.y=(event.touches[0].clientY / window.innerHeight);
@@ -3419,7 +3418,7 @@ function handleTouchStart(event) {
 		mouse.x=(event.touches[0].clientX / window.innerWidth);
 		mouse.y=(event.touches[0].clientY / window.innerWidth);
 	}
-	
+
 	console.log(mouse.x)
 	console.log(mouse.y)
 	// if(uiflag){
@@ -3447,7 +3446,7 @@ function handleTouchStart(event) {
 	//       stage2=true;
 	//     }else if (clickedObjectName === 'Game3') {
 	//       console.log('Settings button clicked');
-				
+
 
 	//       uiflag=false;
 	//       stage1=true;
@@ -3458,7 +3457,7 @@ function handleTouchStart(event) {
 	//       tw=bw/칸
 	//       th=bh/3
 	//       setting(stack);
-				
+
 	//     }else if (clickedObjectName === 'Game4') {
 	//       console.log('Settings button clicked');
 	//       setting(1);
@@ -3538,9 +3537,9 @@ function handleTouchStart(event) {
 			// 	for(var i=0;i<cubes.length;i++){
 			// 		restartloc.push(cubes[i].mesh.position);
 			// 		restartrot.push(cubes[i].mesh.rotation);
-					
-					
-					
+
+
+
 			// 	}
 			// 	ncolornum=parseInt(Math.random()*colorlst.length);
 			// 	ncolornum0=parseInt(Math.random()*colorlst0.length);
@@ -3639,13 +3638,13 @@ function handleTouchStart(event) {
 						soundic[sdic[activeFloor]["upper"]].play();
 
 
-				
-				
+
+
 				var thisnum=activeFloor
 				var playable=true
 				for(let i=0;i<6;i++){
 					if(i==thisnum||sdic[i][0]==sdic[thisnum][0]) continue
-					
+
 					if(soundic[sdic[i][0]].isPlaying){
 							soundic[sdic[i][0]].stop();
 					}
@@ -3660,12 +3659,12 @@ function handleTouchStart(event) {
 				    setTimeout(function() {
 				    	songInfo.classList.remove("show");
 				        songInfo.classList.add("fade");
-				      
+
 				    }, 1000);
 					soundic[sdic[thisnum][0]].play();
 				}else{
 
-				} 
+				}
 			}
 		}
 		dragflag=true;
@@ -3676,7 +3675,12 @@ function handleTouchStart(event) {
 
 function handleTouchMove(event) {
 	if(gameoverflag) return;
-	if(document.getElementById("setting-overlay").classList.contains("show")||!document.getElementById("gameover-overlay").classList.contains("hidden")||document.getElementById("options-overlay").classList.contains("show")||document.getElementById("optionlst").classList.contains("show")) return;
+	if(document.getElementById("setting-overlay").classList.contains("show")||!document.getElementById("gameover-overlay").classList.contains("hidden")||document.getElementById("options-overlay").classList.contains("show")||document.getElementById("optionlst").classList.contains("show")){
+    return;
+  }else{
+    // event.preventDefault();
+    // event.stopPropagation(); 
+  } 
 		// if(inflag) return;
 	// event.preventDefault();
 		touchx = (event.touches[0].clientX / window.innerWidth)*2 - 1;
@@ -3704,11 +3708,11 @@ function handleTouchMove(event) {
 						}
 
 
-				
+
 			}else if(!aniflag){
-				
+
 				if(touchx-lastX>0.14){
-						
+
 						if(gameoverflag){
 							ontouch=false
 							if(!rotationflag){
@@ -3746,15 +3750,15 @@ function handleTouchMove(event) {
 								rotationend=Math.PI/4
 							}
 							return
-							
+
 						}else{
 							const game2048 = cubes[activeFloor].mesh.userData.game2048;
 							game2048.moveBoard("right");
 						}
-						
+
 						ontouch=false;
 				}else if(-touchx+lastX>0.14){
-						
+
 						if(gameoverflag){
 							ontouch=false
 							if(!rotationflag){
@@ -3765,8 +3769,8 @@ function handleTouchMove(event) {
 								for(var i=0;i<cubes.length;i++){
 									restartloc.push(cubes[i].mesh.position);
 									restartrot.push(cubes[i].mesh.rotation);
-									
-									
+
+
 								}
 								ncolornum=parseInt(Math.random()*colorlst.length);
 								ncolornum0=parseInt(Math.random()*colorlst0.length);
@@ -3793,15 +3797,15 @@ function handleTouchMove(event) {
 								rotationend=Math.PI/4
 							}
 							return
-							
+
 						}else{
 							const game2048 = cubes[activeFloor].mesh.userData.game2048;
 							game2048.moveBoard("left");
 						}
-						
+
 						ontouch=false;
 				}else if(touchy-lastY>0.2){
-						
+
 						if(gameoverflag){
 							ontouch=false
 							if(!rotationflag){
@@ -3812,8 +3816,8 @@ function handleTouchMove(event) {
 								for(var i=0;i<cubes.length;i++){
 									restartloc.push(cubes[i].mesh.position);
 									restartrot.push(cubes[i].mesh.rotation);
-									
-									
+
+
 								}
 								ncolornum=parseInt(Math.random()*colorlst.length);
 								ncolornum0=parseInt(Math.random()*colorlst0.length);
@@ -3840,16 +3844,16 @@ function handleTouchMove(event) {
 								rotationend=Math.PI/4
 							}
 							return
-							
+
 						}else{
 							const game2048 = cubes[activeFloor].mesh.userData.game2048;
 							game2048.moveBoard("up");
 						}
-						
+
 						ontouch=false;
 				}else if(-touchy+lastY>0.2){
 
-						
+
 						if(gameoverflag){
 							ontouch=false
 							if(!rotationflag){
@@ -3860,8 +3864,8 @@ function handleTouchMove(event) {
 								for(var i=0;i<cubes.length;i++){
 									restartloc.push(cubes[i].mesh.position);
 									restartrot.push(cubes[i].mesh.rotation);
-									
-									
+
+
 								}
 								ncolornum=parseInt(Math.random()*colorlst.length);
 								ncolornum0=parseInt(Math.random()*colorlst0.length);
@@ -3888,22 +3892,22 @@ function handleTouchMove(event) {
 								rotationend=Math.PI/4
 							}
 							return
-							
+
 						}else{
 							const game2048 = cubes[activeFloor].mesh.userData.game2048;
 							game2048.moveBoard("down");
 						}
-						
+
 						ontouch=false;
 				}
 			}
 
-					
 
-					
+
+
 					// console.log(game2048.)
-				
-			
+
+
 		}else if(dragflag){
 			if(bufflag){
 				buffloor=activeFloor
@@ -3934,18 +3938,23 @@ function handleTouchMove(event) {
 					 	soundic[sdic[thisnum][0]].play();
 					}
 				}
-				
+
 		}
-		
-		
+
+
 		// lastX=pointx
 		// lastY=pointy
-	
+
 }
 
 function handleTouchEnd(event) {
 	if(gameoverflag) return;
-	if(document.getElementById("setting-overlay").classList.contains("show")||!document.getElementById("gameover-overlay").classList.contains("hidden")||document.getElementById("options-overlay").classList.contains("show")||document.getElementById("optionlst").classList.contains("show")) return;
+	if(document.getElementById("setting-overlay").classList.contains("show")||!document.getElementById("gameover-overlay").classList.contains("hidden")||document.getElementById("options-overlay").classList.contains("show")||document.getElementById("optionlst").classList.contains("show")){
+    return;
+  }else{
+    // event.preventDefault();
+    // event.stopPropagation(); 
+  } 
 
 		// if(inflag) return;
 	// event.preventDefault();
@@ -3968,7 +3977,7 @@ function handleTouchEnd(event) {
 		//     pointx=lastX;
 		//     pointy=lastY;
 		//     ontouch=false;
-				
+
 		//   }else{
 		//     touchendx=lastX;
 		//     touchendy=lastY;
@@ -3977,7 +3986,7 @@ function handleTouchEnd(event) {
 		//     ontouch=false;
 		//   }
 		// }
-		
+
 
 }
 
@@ -4008,7 +4017,7 @@ function handleTouchEnd(event) {
 //         stage2=true;
 //       }else if (clickedObjectName === 'Game3') {
 //         console.log('Settings button clicked');
-				
+
 
 //         uiflag=false;
 //         stage1=true;
@@ -4019,7 +4028,7 @@ function handleTouchEnd(event) {
 //         tw=bw/칸
 //         th=bh/3
 //         setting(stack);
-				
+
 //       }else if (clickedObjectName === 'Game4') {
 //         console.log('Settings button clicked');
 //         setting(1);
@@ -4052,17 +4061,17 @@ function handleTouchEnd(event) {
 
 //       force2.set(10000*(firstIntersect.point.x-camera.position.x), 10000*(firstIntersect.point.y-camera.position.y), 10000*(firstIntersect.point.z-camera.position.z));
 //       firstIntersect.object.userData["body"].applyForce(force2, firstIntersect.object.userData["body"].position);
- 
+
 //     }
 //   }
-	
+
 // }
 
 // window.addEventListener('click', onClick, false);
 
-window.addEventListener("touchstart", handleTouchStart, false);
-window.addEventListener("touchmove", handleTouchMove, false);
-window.addEventListener("touchend", handleTouchEnd, false);
+window.addEventListener("touchstart", handleTouchStart, { passive: false });
+window.addEventListener("touchmove", handleTouchMove, { passive: false });
+window.addEventListener("touchend", handleTouchEnd, { passive: false });
 
 
 let boxSize = 1;
@@ -4094,7 +4103,7 @@ if(lighton){
 
       dl2.castShadow = true;
       dl2.shadow.mapSize = new THREE.Vector2(3090,3090);
-      
+
 		}
 		scene.add(dl2)
 }
@@ -4102,7 +4111,7 @@ if(lighton){
 
 if(orthoflag){//메인카메라
 		var camera = new THREE.OrthographicCamera(-bw*1.3, bw*1.3*4, bw*1.3, -bw*1.3*4, 0.1, 1000);
-		
+
 		camera.position.set(bw*2, 0, bw*2);
 		camera.lookAt(0, 0, 0);
 		camera.rotation.order = 'YXZ';
@@ -4137,7 +4146,7 @@ if(sidecam){
 	sideViewCamera.position.set(bw*1.5, bw*0.8, 0);
 	sideViewCamera.lookAt(0, bw*0.8, 0);
 
-	
+
 }
 	var topViewCamera = new THREE.OrthographicCamera(-bw/1.3, bw/1.3, bw/1.3, -bw/1.3, 0.1, 1000);
 	topViewCamera.position.set(0, bh*20, 0);
@@ -4322,9 +4331,9 @@ if (event.code === 'KeyW') {
 	// }else if(lookright){
 
 	// }
-	 
-	
-	
+
+
+
 }else if (event.code === 'KeyH') {
 	if(!rotationflag){
 		rotationflag=true
@@ -4335,7 +4344,7 @@ if (event.code === 'KeyW') {
 			restartloc.push(cubes[i].mesh.position);
 			restartrot.push(cubes[i].mesh.rotation);
 
-			
+
 		}
 		ncolornum=parseInt(Math.random()*colorlst.length);
 		ncolornum0=parseInt(Math.random()*colorlst0.length);
@@ -4349,7 +4358,7 @@ if (event.code === 'KeyW') {
 		renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
 		rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
 		renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
-		
+
 		bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
 		nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
 		bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
@@ -4369,9 +4378,9 @@ if (event.code === 'KeyW') {
 	// }else if(lookright){
 
 	// }
-	 
-	
-	
+
+
+
 }else if (event.code === 'KeyZ') {
 	skinnum++;
 	if(skinnum>=skinset.length){
@@ -4383,9 +4392,9 @@ if (event.code === 'KeyW') {
 	// }else if(lookright){
 
 	// }
-	 
-	
-	
+
+
+
 }else if (event.code === 'KeyE') {
 	if(!startflag){
 		startflag=true
@@ -4397,13 +4406,13 @@ if (event.code === 'KeyW') {
 	}
 }else if (event.code === 'KeyC') {
 	var songInfo = document.getElementById('song-info');
-	
+
     songInfo.classList.remove("hidden");
     songInfo.classList.add("show");
     setTimeout(function() {
     	songInfo.classList.remove("show");
         songInfo.classList.add("fade");
-      
+
     }, 1500);
     // setTimeout(() => {
     //   songInfo.classList.add('hidden');
@@ -4464,13 +4473,13 @@ document.addEventListener('keydown', (event) => {
 	//     }
 	//   }
 	// } else {
-		
+
 
 	// }
 	// cube.body.applyForce(force, cube.body.position);
 			// for(item of cubes){
 			//   item.body.applyForce(force, item.body.position);
-			// } 
+			// }
 			if(activeFloor==cubes.length){
 				// fcubes.forEach((item)=>{
 				//   item.body.applyForce(force, item.body.position);
@@ -4489,12 +4498,12 @@ document.addEventListener('keydown', (event) => {
 					}
 				}
 			}
-				
+
 	});
 
 // for(item of cubes){
 //     item.body.applyForce(force, item.body.position);
-//   } 
+//   }
 
 // Create a function to add a new box to the stack
 
@@ -4519,7 +4528,7 @@ function restart(){
 	world.gravity.set(0,-7,0);
 	world.broadphase = new CANNON.NaiveBroadphase();
 	world.solver.iterations = 5;
-	renderer.clearDepth(); 
+	renderer.clearDepth();
 
 	scene = new THREE.Scene();
 	colornum=ncolornum
@@ -4548,10 +4557,10 @@ function restart(){
 	coinchg=[];
 	topcam=true;
 	endtext=false;
-	
+
 	initflag=true;
 	restartflag=false;
-	
+
 	// txtlst=[];
 
 	timlst=[]
@@ -4605,13 +4614,13 @@ function restart(){
 	// 	sdic.push(soundset[skinidx]);
 	// 	sdic.push(soundset[skinidx]);
 	// }
-	
+
 
 
 	var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
 	var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"]*0.75)+'%, '+String(newcl["l"]+20)+'%)');
 	var material2 = new THREE.ShaderMaterial( {
-		
+
 		uniforms: {
 			color: { value: tc },
 			opacity: 0.1,
@@ -4637,29 +4646,29 @@ function restart(){
 	for(let i=0;i<6;i++){
 		let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
 		var sdickeys=Object.keys(soundic);
-		
+
 		for(let j=0;j<temp.length;j++){
 			if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
-				// 
+				//
 				// var audioLoader = new THREE.AudioLoader();
 				audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
-				{   
+				{
 					var sound = new THREE.Audio( listener );
 					sound.setBuffer( buffer );
 					sound.setVolume( 0.3 );
 					soundic[sdic[i][temp[j]]]=sound;
-						
-						
+
+
 				});
-					
-					
+
+
 			}
 		}
 
 
 	}
-	
-	
+
+
 	if(lighton){
 		// let ambientLight= new THREE.AmbientLight(0xffffff,0.4);
 		scene.add(ambientLight);
@@ -4682,13 +4691,13 @@ function restart(){
 
   //     dl2.castShadow = true;
   //     dl2.shadow.mapSize = new THREE.Vector2(2048,2048);
-      
+
 		// }
 		scene.add(dl2)
-	}	
+	}
 
 
-	
+
 	arrows.forEach((item)=>{
 		item.children.forEach((thing)=>{
 			item.remove(thing);
@@ -4697,9 +4706,9 @@ function restart(){
 	})
 	arrows=[];
 
-	
-	
-	
+
+
+
 
 	// scene.children.forEach((object) => {
 	// 		scene.remove(object);
@@ -4719,11 +4728,11 @@ function restart(){
 	// 		//     }
 	// 		//   });
 	// 		// }
-			
+
 
 
 	// 	})
-	
+
 	// txts=[];
 	// cubes=[];
 	// mouth1=[];
@@ -4764,7 +4773,7 @@ function restart(){
 					fps = 0;
 					// console.log(txtlst);
 					activeFloor=cubes.length;
-					
+
 					gameoverflag=false;
 					startflag=false
 					// animate();
@@ -4772,11 +4781,11 @@ function restart(){
 					// console.log(textmold)
 
 				})
-				
+
 			})
-		
-	
-	
+
+
+
 	});
 
 	// for (let i = 0; i < stackHeight; i++) {
@@ -4791,7 +4800,7 @@ function restart(){
 	// for (let i = 0; i < stackHeight; i++) {
 	//   cubes[i].mesh.userData.body = cubes[i].body;
 	// }
-	
+
 
 }
 
@@ -4845,14 +4854,14 @@ function createTextMesh(text, fontSize, callback) {
 		}else{
 			var material = new THREE.MeshBasicMaterial({ color: fcolor });
 		}
-		
+
 		const mesh = new THREE.Mesh(geometry, material);
 
 		if (callback) {
 			callback(mesh);
 		}
 
-	
+
 	// fontLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/fonts/helvetiker_regular.typeface.json', (font) => {
 	//   const geometry = new THREE.TextGeometry(text, {
 	//     font: font,
@@ -4872,13 +4881,13 @@ function createTextMesh(text, fontSize, callback) {
 
 
 
-function createBox(x, y, z, width, height, depth, game2048,idx) {  
+function createBox(x, y, z, width, height, depth, game2048,idx) {
 	if(skin0){
 		var geometry = new THREE.BoxGeometry(width*0.95, height, depth*0.95);
 	}else{
 		var geometry = new THREE.BoxGeometry(width, height, depth);
 	}
-	
+
 	// const color =new THREE.Color('hsl('+String(30+6*(y/boxh))+', 100%, 50%)');
 	// const material = new THREE.MeshLambertMaterial({color});
 	if(lighton){
@@ -4967,8 +4976,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		
-		
+
+
 
 		//전면매꿈
 		originHelper.position.set(-(width*1.0)/2+(width/10)*1,bh/8,depth/2-depth*0.025)
@@ -4997,8 +5006,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 		//  ((우측면))
-		
-		
+
+
 		//하측
 		originHelper.position.set(depth/2-depth*0.025,-bh/2+height/16,0)
 		originHelper.updateWorldMatrix(true, false);
@@ -5026,13 +5035,13 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 		mesh1.position.set(0, -bh/2+(height*0.04)/2, 0);
 
-		 	
+
 
 		// mesh1.position.set(0, 0, 0);
-			
+
 		 // mesh1.userData["5"]=true;
 		 mesh1.userData["skin"]="1";
-		 
+
 		 if(shadowon) {
 	    mesh1.receiveShadow=true;
 	    mesh1.castShadow=true;
@@ -5102,7 +5111,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
 
-		
+
 
 
 		originHelper.position.set(-(width*1.0)/2+(width/10)*1,-bh/3.75+height*0.08,depth/2-depth*0.025)
@@ -5247,14 +5256,14 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		 mesh1.userData["1"]=true;
 		 mesh1.userData["skin"]="1";
 		 clmeshlst[idx].push(mesh1.material);
-		 
+
 		 mesh.add(mesh1);
 
 
 
 		}
 			var geoms=[];
-		if(true){//신스킨 
+		if(true){//신스킨
 		originHelper.position.set(0,0,-depth/2+depth*0.025)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width*1.0, height, depth*0.05);
@@ -5370,19 +5379,19 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			var tg=new THREE.BoxGeometry(width/6, height*0.15, depth*0.05);
 			tg.applyMatrix4(originHelper.matrixWorld);
 			geoms.push(tg)
-	
+
 
 		if(false){
 			// 기존
-			
 
-			
 
-			
+
+
+
 
 
 			//  ((우측면)) 카세트
-			
+
 			//지붕
 			originHelper.position.set(depth/2-depth*0.025,bh/2-height/16,0)
 			originHelper.updateWorldMatrix(true, false);
@@ -5397,7 +5406,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			geoms.push(tg)
 
 
-			
+
 
 			// originHelper.position.set(depth/2,difx+height/2-(width*0.03)*8.4,0.17+depth/2-(width*0.03)*4)
 			// originHelper.updateWorldMatrix(true, false);
@@ -5514,7 +5523,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			tg.applyMatrix4(originHelper.matrixWorld);
 			geoms.push(tg)
 		}
-		
+
 
 		var mgeo=new BufferGeometryUtils.mergeBufferGeometries(
 	      geoms, false);
@@ -5550,7 +5559,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		var tg=new THREE.BoxGeometry(width/3.5, height*0.07, depth*0.002);
 		tg.applyMatrix4(originHelper.matrixWorld);
 		geoms.push(tg)
-		
+
 
 		//카세트 슬라이더 눈금 (오른쪽)
 		originHelper.position.set(bw/12,0+height*0.3,depth/2)
@@ -5567,111 +5576,111 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 		originHelper.position.set(bw/12,0+height*0.3-height*0.2,depth/2)
 		originHelper.updateWorldMatrix(true, false);
-		
+
 		var tg=new THREE.BoxGeometry(height*0.1*ratio, height*0.02*ratio, depth*0.003);
-		
+
 		tg.applyMatrix4(originHelper.matrixWorld);
-		
+
 		geoms.push(tg)
 
 		originHelper.position.set(bw/12,0+height*0.3-height*0.3,depth/2)
 		originHelper.updateWorldMatrix(true, false);
-		
+
 		var tg=new THREE.BoxGeometry(height*0.14*ratio, height*0.03*ratio, depth*0.003);
-		
+
 		tg.applyMatrix4(originHelper.matrixWorld);
-		
+
 		geoms.push(tg)
 
 		originHelper.position.set(bw/12,0+height*0.3-height*0.4,depth/2)
 		originHelper.updateWorldMatrix(true, false);
-		
+
 		var tg=new THREE.BoxGeometry(height*0.1*ratio, height*0.02*ratio, depth*0.003);
-		
+
 		tg.applyMatrix4(originHelper.matrixWorld);
-		
+
 		geoms.push(tg)
 
 		originHelper.position.set(bw/12,0+height*0.3-height*0.5,depth/2)
 		originHelper.updateWorldMatrix(true, false);
-		
+
 		var tg=new THREE.BoxGeometry(height*0.1*ratio, height*0.02*ratio, depth*0.003);
-		
+
 		tg.applyMatrix4(originHelper.matrixWorld);
-		
+
 		geoms.push(tg)
 
 		originHelper.position.set(bw/12,0+height*0.3-height*0.6,depth/2)
 		originHelper.updateWorldMatrix(true, false);
-		
+
 		var tg=new THREE.BoxGeometry(height*0.14*ratio, height*0.03*ratio, depth*0.003);
-		
+
 		tg.applyMatrix4(originHelper.matrixWorld);
-		
+
 		geoms.push(tg)
 
 		//카세트 슬라이더 눈금 (왼쪽)
 		originHelper.position.set(-bw/32,0+height*0.3,depth/2)
 		originHelper.updateWorldMatrix(true, false);
-		
+
 		var tg=new THREE.BoxGeometry(height*0.14*ratio, height*0.03*ratio, depth*0.003);
-		
+
 		tg.applyMatrix4(originHelper.matrixWorld);
-		
+
 		geoms.push(tg)
 
 		originHelper.position.set(-bw/32,0+height*0.3-height*0.1,depth/2)
 		originHelper.updateWorldMatrix(true, false);
-		
+
 		var tg=new THREE.BoxGeometry(height*0.1*ratio, height*0.02*ratio, depth*0.003);
-		
+
 		tg.applyMatrix4(originHelper.matrixWorld);
-		
+
 		geoms.push(tg)
 
 		originHelper.position.set(-bw/32,0+height*0.3-height*0.2,depth/2)
 		originHelper.updateWorldMatrix(true, false);
-		
+
 		var tg=new THREE.BoxGeometry(height*0.1*ratio, height*0.02*ratio, depth*0.003);
-		
+
 		tg.applyMatrix4(originHelper.matrixWorld);
-		
+
 		geoms.push(tg)
 
 		originHelper.position.set(-bw/32,0+height*0.3-height*0.3,depth/2)
 		originHelper.updateWorldMatrix(true, false);
-		
+
 		var tg=new THREE.BoxGeometry(height*0.14*ratio, height*0.03*ratio, depth*0.003);
-		
+
 		tg.applyMatrix4(originHelper.matrixWorld);
-		
+
 		geoms.push(tg)
 
 		originHelper.position.set(-bw/32,0+height*0.3-height*0.4,depth/2)
 		originHelper.updateWorldMatrix(true, false);
-		
+
 		var tg=new THREE.BoxGeometry(height*0.1*ratio, height*0.02*ratio, depth*0.003);
-		
+
 		tg.applyMatrix4(originHelper.matrixWorld);
-		
+
 		geoms.push(tg)
 
 		originHelper.position.set(-bw/32,0+height*0.3-height*0.5,depth/2)
 		originHelper.updateWorldMatrix(true, false);
-	
+
 		var tg=new THREE.BoxGeometry(height*0.1*ratio, height*0.02*ratio, depth*0.003);
-		
+
 		tg.applyMatrix4(originHelper.matrixWorld);
-		
+
 		geoms.push(tg)
 
 		originHelper.position.set(-bw/32,0+height*0.3-height*0.6,depth/2)
 		originHelper.updateWorldMatrix(true, false);
-		
+
 		var tg=new THREE.BoxGeometry(height*0.14*ratio, height*0.03*ratio, depth*0.003);
-	
+
 		tg.applyMatrix4(originHelper.matrixWorld);
-		
+
 		geoms.push(tg)
 
 		var mgeo=new BufferGeometryUtils.mergeBufferGeometries(
@@ -5694,8 +5703,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		// tg.applyMatrix4(originHelper.matrixWorld);
 		// geoms.push(tg)
 
-		
-		
+
+
 
 // originHelper.position.set(bw/2-width/4.7,0-depth*0.01,depth/2)
 // 		originHelper.updateWorldMatrix(true, false);
@@ -5723,21 +5732,21 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		});
 
 
-		
+
 		  var loader = new OBJLoader();
 
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/caside-0.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	// object.children[0].scale.x=2.57;
-		  	
+
 		  	// object.children[0].scale.z=2.57;
 		  	// object.children[0].scale.y=2.57;
 		  	object.children[0].scale.x=2.25;
-		  	
+
 		  	object.children[0].scale.z=2.25;
 		  	object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="카세트"
@@ -5756,15 +5765,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/test5.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,0,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="test5"
@@ -5783,15 +5792,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/test4.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,0,0)
 		  	object.children[0].scale.x=2.8;
-		  	
+
 		  	object.children[0].scale.z=2.8;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="test4"
@@ -5806,7 +5815,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  });
 
 
-		
+
 		  //archer
 
 
@@ -5815,15 +5824,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-0.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,0,0)
 		  	object.children[0].scale.x=2.57/2;
-		  	
+
 		  	object.children[0].scale.z=2.57/2;
 		  	object.children[0].scale.y=2.57/2;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="archer"
@@ -5845,15 +5854,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-1.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,0,0)
 		  	object.children[0].scale.x=2.57/2;
-		  	
+
 		  	object.children[0].scale.z=2.57/2;
 		  	object.children[0].scale.y=2.57/2;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="archer"
@@ -5875,15 +5884,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			  // Load OBJ file
 			  // loader.setMaterials(materials);
 			  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-2.obj', (object) => {
-			  	
+
 			  	object.children[0].rotation.y=Math.PI/2
 			  	object.children[0].position.set(0,0,0)
 			  	object.children[0].scale.x=2.57/2;
-			  	
+
 			  	object.children[0].scale.z=2.57/2;
 			  	object.children[0].scale.y=2.57/2;
 			  	// object.children[0].scale.x=2.25;
-			  	
+
 			  	// object.children[0].scale.z=2.25;
 			  	// object.children[0].scale.y=1.92;
 			  	object.children[0].userData["skin"]="archer"
@@ -5900,7 +5909,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 			  });
 		  }
-		  
+
 
 
 
@@ -5909,15 +5918,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-3.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,0,0)
 		  	object.children[0].scale.x=2.57/2;
-		  	
+
 		  	object.children[0].scale.z=2.57/2;
 		  	object.children[0].scale.y=2.57/2;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="archer"
@@ -5931,7 +5940,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 		  });
 
-		  
+
 
 
 
@@ -5947,11 +5956,11 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,0,0)
 		  	object.children[0].scale.x=2.57/2;
-		  	
+
 		  	object.children[0].scale.z=2.57/2;
 		  	object.children[0].scale.y=2.57/2;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 
@@ -5972,15 +5981,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-2.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="r808"
@@ -5999,15 +6008,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-0.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="r808"
@@ -6025,15 +6034,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  });
 
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-3.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="r808"
@@ -6064,11 +6073,11 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 
@@ -6083,7 +6092,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 
-		var geoms=[]; 
+		var geoms=[];
 		originHelper.position.set(0,2*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
@@ -6104,8 +6113,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		originHelper.position.set(width/20+width/60,2*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
-		
-	
+
+
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
 		var colors = new Uint8Array(itemSize * numVerts);
@@ -6120,8 +6129,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		originHelper.position.set(2*(width/20+width/60),2*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
-		
-	
+
+
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
 		var colors = new Uint8Array(itemSize * numVerts);
@@ -6136,8 +6145,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		originHelper.position.set(3*(width/20+width/60),2*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
-		
-		
+
+
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
 		var colors = new Uint8Array(itemSize * numVerts);
@@ -6172,8 +6181,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		originHelper.position.set(width/20+width/60,1*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
-		
-	
+
+
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
 		var colors = new Uint8Array(itemSize * numVerts);
@@ -6188,8 +6197,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		originHelper.position.set(2*(width/20+width/60),1*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
-		
-	
+
+
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
 		var colors = new Uint8Array(itemSize * numVerts);
@@ -6204,8 +6213,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		originHelper.position.set(3*(width/20+width/60),1*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
-		
-		
+
+
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
 		var colors = new Uint8Array(itemSize * numVerts);
@@ -6223,8 +6232,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			originHelper.position.set(width/20+width/60,0*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
-		
-	
+
+
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
 		var colors = new Uint8Array(itemSize * numVerts);
@@ -6239,8 +6248,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		originHelper.position.set(2*(width/20+width/60),0*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
-		
-	
+
+
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
 		var colors = new Uint8Array(itemSize * numVerts);
@@ -6255,8 +6264,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		originHelper.position.set(width/20+width/60,-1*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
-		
-	
+
+
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
 		var colors = new Uint8Array(itemSize * numVerts);
@@ -6271,8 +6280,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		originHelper.position.set(2*(width/20+width/60),-1*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
-		
-	
+
+
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
 		var colors = new Uint8Array(itemSize * numVerts);
@@ -6287,8 +6296,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		originHelper.position.set(width/20+width/60,-2*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
-		
-	
+
+
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
 		var colors = new Uint8Array(itemSize * numVerts);
@@ -6303,8 +6312,8 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		originHelper.position.set(width/20+width/60,-3*(-bh/15),depth/2.15)
 		originHelper.updateWorldMatrix(true, false);
 		var tg=new THREE.BoxGeometry(width/20, height*0.03, depth*0.002);
-		
-	
+
+
 		var numVerts = geometry.getAttribute('position').count;
 		var itemSize = 3;  // r, g, b
 		var colors = new Uint8Array(itemSize * numVerts);
@@ -6319,7 +6328,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 
-		
+
 		var mgeo2=new BufferGeometryUtils.mergeBufferGeometries(geoms, false);
 		var mesh2=new THREE.Mesh(mgeo2, new THREE.MeshLambertMaterial({vertexColors: true}));
 		if(shadowon) {
@@ -6335,21 +6344,21 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 			//tower
-		
+
 			var loader = new OBJLoader();
 
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tower-1.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57/2;
-		  	
+
 		  	object.children[0].scale.z=2.57/2;
 		  	object.children[0].scale.y=2.57/2;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="tower"
@@ -6366,15 +6375,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tower-0.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57/2;
-		  	
+
 		  	object.children[0].scale.z=2.57/2;
 		  	object.children[0].scale.y=2.57/2.2;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="tower"
@@ -6400,15 +6409,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-0.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=donutrand*Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="donut"
@@ -6427,15 +6436,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-1.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="donut"
@@ -6447,7 +6456,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		    object.children[0].receiveShadow=true;
 		    object.children[0].castShadow=true;
 		  }
-		  
+
 		  mesh.add(object.children[0]);
 
 		  });
@@ -6465,11 +6474,11 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  	object.children[0].rotation.y=donutrand*Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 
@@ -6491,15 +6500,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-0.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=donutrand*Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="building"
@@ -6518,15 +6527,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-1.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="building"
@@ -6548,15 +6557,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-2.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="building"
@@ -6579,15 +6588,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="building"
@@ -6599,7 +6608,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		    object.children[0].receiveShadow=true;
 		    object.children[0].castShadow=true;
 		  }
-		  
+
 		  mesh.add(object.children[0]);
 
 		  });
@@ -6620,11 +6629,11 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		//   	object.children[0].rotation.y=donutrand*Math.PI/2
 		//   	object.children[0].position.set(0,-bh/2,0)
 		//   	object.children[0].scale.x=2.57;
-		  	
+
 		//   	object.children[0].scale.z=2.57;
 		//   	object.children[0].scale.y=2.57;
 		//   	// object.children[0].scale.x=2.25;
-		  	
+
 		//   	// object.children[0].scale.z=2.25;
 		//   	// object.children[0].scale.y=1.92;
 
@@ -6644,15 +6653,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-0.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="radio"
@@ -6671,15 +6680,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  // Load OBJ file
 		  // loader.setMaterials(materials);
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-1.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="radio"
@@ -6697,15 +6706,15 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  });
 
 		  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-3.obj', (object) => {
-		  	
+
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 		  	object.children[0].userData["skin"]="radio"
@@ -6736,11 +6745,11 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  	object.children[0].rotation.y=Math.PI/2
 		  	object.children[0].position.set(0,-bh/2,0)
 		  	object.children[0].scale.x=2.57;
-		  	
+
 		  	object.children[0].scale.z=2.57;
 		  	object.children[0].scale.y=2.57;
 		  	// object.children[0].scale.x=2.25;
-		  	
+
 		  	// object.children[0].scale.z=2.25;
 		  	// object.children[0].scale.y=1.92;
 
@@ -6931,7 +6940,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 
-		
+
 		var mgeo2=new BufferGeometryUtils.mergeBufferGeometries(geoms, false);
 		var mesh2=new THREE.Mesh(mgeo2, new THREE.MeshLambertMaterial({vertexColors: true}));
 		if(shadowon) {
@@ -6947,10 +6956,10 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 		}
-		
 
 
-		
+
+
 
 
 		// originHelper.position.set(-width/2+width*0.09,-bh/2+height/20,depth/2)
@@ -6959,12 +6968,12 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		// tg.applyMatrix4(originHelper.matrixWorld);
 		// geoms.push(tg)
 
-		 
 
-		
 
-		
-		// var geoms=[]; 
+
+
+
+		// var geoms=[];
 
 		// originHelper.position.set(0,0,-depth/2+depth*0.025)
 		// originHelper.updateWorldMatrix(true, false);
@@ -7001,11 +7010,11 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		var mesh1 = new THREE.Mesh(geometry, material);
 
 			// mesh1.position.set(0, 0, 0);
-			
+
 		 // mesh1.userData["5"]=true;
 		 mesh1.userData["skin"]="adam";
-		 
-		 
+
+
 		  mesh.add(mesh1);
 		  clmeshlst[idx].push(mesh1.material)
 
@@ -7019,10 +7028,10 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		var mesh1 = new THREE.Mesh(geometry, material);
 
 			// mesh1.position.set(0, 0, 0);
-			
+
 		 // mesh1.userData["5"]=true;
 		 mesh1.userData["skin"]="base";
-		 
+
 		 if(shadowon) {
 		    mesh1.receiveShadow=true;
 		    mesh1.castShadow=true;
@@ -7030,7 +7039,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		  mesh.add(mesh1);
 		  clmeshlst[idx].push(mesh1.material)
 		  // mesh.userData["cl"]=mesh1.material;
-				var geoms=[]; 
+				var geoms=[];
 				// tapemold[idx].userData["1"]=true;
 				// tapemold[idx].userData["skin"]="5";
 				//신스킨
@@ -7039,7 +7048,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		if(true){
 
 			//좌측 키(검정 카세트)
-			
+
 
 			originHelper.position.set(-width/2.15, 0+height*0.3,depth/1.9-depth*0.025)
 			originHelper.updateWorldMatrix(true, false);
@@ -7080,7 +7089,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			geoms.push(tg)
 
 
-			
+
 
 
 			//화면(블랙) 카세트
@@ -7479,9 +7488,9 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			var tc=new THREE.Color(colorlst0[colornum0][idx])
 			// var tc=new THREE.Color(0xD4DFD8)
 			var tc1=hexToHSL(colorlst0[colornum0][idx]);
-			
+
 			// tc.setHSL(tc1["h"], tc1["s"], tc1["l"]);
-			
+
 			var tg=new THREE.BoxGeometry(depth*0.03, height*0.8*ratio, width*0.9*ratio);
 			var rgb = tc.toArray().map(v => v * 255);
 			var numVerts = geometry.getAttribute('position').count;
@@ -7673,7 +7682,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 			}
 
-			
+
 
 
 
@@ -7721,7 +7730,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			mesh3.userData["4"]=true;
 			mesh3.userData["skin"]="카세트b";
 			mesh.add(mesh3)
-			
+
 			var mesh4 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.2*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
 			mesh4.position.set(-bw/4-height*0.3*ratio,-height*0.05+dify*2,depth/2-depth*0.016)
 			mesh4.userData["4"]=true;
@@ -7778,7 +7787,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 		}
-			
+
 
 		var geoms=[];
 		if(true){
@@ -7941,9 +7950,9 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			var tc=new THREE.Color(colorlst0[colornum0][idx])
 			// var tc=new THREE.Color(0xD4DFD8)
 			var tc1=hexToHSL(colorlst0[colornum0][idx]);
-			
+
 			// tc.setHSL(tc1["h"], tc1["s"], tc1["l"]);
-			
+
 			var tg=new THREE.BoxGeometry(depth*0.03, height*0.8*ratio, width*0.9*ratio);
 			var rgb = tc.toArray().map(v => v * 255);
 			var numVerts = geometry.getAttribute('position').count;
@@ -8301,7 +8310,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			mesh3.userData["4"]=true;
 			mesh3.userData["skin"]="1b";
 			mesh.add(mesh3)
-			
+
 			var mesh4 = new THREE.Mesh(new THREE.BoxGeometry(height*0.1*ratio, height*0.2*ratio, depth*0.01), new THREE.MeshLambertMaterial({ color: 0xF86F08,visible:false}));
 			mesh4.position.set(-height*0.3*ratio,-height*0.05+dify*2,depth/2-depth*0.016)
 			mesh4.userData["4"]=true;
@@ -8327,14 +8336,14 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			mouth2.push(mesh1)
 
 		}
-	
-		
+
+
 	}
-	
+
 	let originHelper = new THREE.Object3D();
-	
-	var geoms=[]; 
-		
+
+	var geoms=[];
+
 
 	for (let row = 0; row < 칸; row++) {
 		for (let col = 0; col < 칸; col++) {
@@ -8345,12 +8354,12 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 			);
 			originHelper.updateWorldMatrix(true, false);
 			var tg=new THREE.BoxGeometry(tw*0.9, th/3.2, tw*0.9);
-			
+
 			tg.applyMatrix4(originHelper.matrixWorld);
 			geoms.push(tg)
-			
-			
-			
+
+
+
 		}
 	}
 	var mgeo=new BufferGeometryUtils.mergeBufferGeometries(
@@ -8375,9 +8384,9 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 
 
 
-	 
 
-	
+
+
 		 //우측출력
 		var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width*0.9*ratio,height*0.8*ratio), new THREE.MeshLambertMaterial({ color: 0x000000, opacity:1, transparent:false}), );
 		mesh1.position.set(depth/1.99-depth*0.015,0+dify,0-depth/8)
@@ -8397,9 +8406,9 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		mesh1.userData["skin"]="txtback1";
 		clmeshlst1[idx].push(mesh1.material)
 		mesh.add(mesh1)
-	
-	 
-	
+
+
+
 	// txts.push(mesh1)
 
 
@@ -8408,7 +8417,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	// mesh1.rotation.y=Math.PI/2
 	// mesh1.userData["1"]=true;
 	// mesh.add(mesh1)
-	
+
 
 	if(shadowon) {
     mesh.receiveShadow=true;
@@ -8419,7 +8428,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	scene.add(mesh);
 	const shape = new CANNON.Box(new CANNON.Vec3(width/2, height/2, depth/2));
 
-	
+
 	// const cylinderShape = new CANNON.Cylinder(width, width, bh, 16);
 
 	// const shape2 = new CANNON.Cylinder(width,width,height,1)
@@ -8432,7 +8441,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		customMaterial.friction = 0.3
 	}
 
-	const body = new CANNON.Body({ mass: 3, shape: shape, material: customMaterial, allowSleep: true,  sleepSpeedLimit: 100, 
+	const body = new CANNON.Body({ mass: 3, shape: shape, material: customMaterial, allowSleep: true,  sleepSpeedLimit: 100,
 	sleepTimeLimit: 0
  });
 	body.position.set(0, y, 0);
@@ -8444,7 +8453,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	// tile.position.set(0,1-bh/2+tw/2,0)
 	// mesh.add(tile);
 
-	
+
 
 
 	// createTile(th/4, bw, 0, (tile) => {
@@ -8453,9 +8462,9 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 	//     0-th,
 	//     0
 	//   );
-		
+
 	//   mesh.add(tile);
-		
+
 	// });
 
 
@@ -8475,7 +8484,7 @@ function createBox(x, y, z, width, height, depth, game2048,idx) {
 		//         game2048.boardpointer[row][col]=tile;
 		//       });
 		//     }
-				
+
 		//   }
 		// }
 	}
@@ -8523,9 +8532,9 @@ function msetting(callback){
 	// for(let i=0;i<6;i++){
 	// 	var sdickeys=Object.keys(soundic);
 	// 	if(sdickeys.indexOf(sdic[i][0])==-1){
-			
+
 	// 		audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][0], function( buffer )
-	// 		{   
+	// 		{
 	// 			var sound = new THREE.Audio( listener );
 	// 			sound.setBuffer( buffer );
 	// 			sound.setVolume( 0.3 );
@@ -8546,22 +8555,22 @@ function msetting2(callback){
 
 		let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
 		var sdickeys=Object.keys(soundic);
-		
+
 		for(let j=1;j<temp.length;j++){
 			if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
 				// var listener = new THREE.AudioListener();
 				// var audioLoader = new THREE.AudioLoader();
 				audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
-				{   
+				{
 					var sound = new THREE.Audio( listener );
 					sound.setBuffer( buffer );
 					sound.setVolume( 0.3 );
 					soundic[sdic[i][temp[j]]]=sound;
-						
-						
+
+
 				});
-					
-					
+
+
 			}
 		}
 
@@ -8580,7 +8589,7 @@ function txtsetting(callback){
 	// 	canvas.width = 1000;
 	// 	canvas.height = 1000;
 	// 	var grd = ctx.createLinearGradient(0, 0, 0, 1000);
-		
+
 	// 	var newcl0=hslToHex(renhsl1["h"]-(renhsl1["h"]-rehsl1["h"])*Math.abs(camera.rotation.x-restartend),renhsl1["s"]-(renhsl1["s"]-rehsl1["s"])*Math.abs(camera.rotation.x-restartend),renhsl1["l"]-(renhsl1["l"]-rehsl1["l"])*Math.abs(camera.rotation.x-restartend))
 	// 	var newcl1=hslToHex(renhsl2["h"]-(renhsl2["h"]-rehsl2["h"])*Math.abs(camera.rotation.x-restartend),renhsl2["s"]-(renhsl2["s"]-rehsl2["s"])*Math.abs(camera.rotation.x-restartend),renhsl2["l"]-(renhsl2["l"]-rehsl2["l"])*Math.abs(camera.rotation.x-restartend))
 	// 	console.log(newcl1);
@@ -8655,11 +8664,11 @@ function txtsetting(callback){
 	// var ctx = canvas.getContext('2d');
 	// canvas.width = 400;
 	// canvas.height = 400;
-	
+
 	// // var hex=colorlst0[colornum0][0].toString(16);
 	// // if(hex.length==5) hex+="0"
 	// // grd.addColorStop(0, hexToHtmlColor(colorlst0[colornum0][0]));
-	
+
 	// ctx.fillStyle = "white";
 	// ctx.fillRect(0, 0, 400, 400);
 	// var img3 = new THREE.CanvasTexture(canvas);
@@ -8754,7 +8763,7 @@ function txtsetting(callback){
 		// textMesh.rotation.y =Math.PI / 4;
 		// scene.add(textMesh)
 		// gradback.push(textMesh);
-		
+
 	// })
 
 	var geometry12 = new TextGeometry("2", {
@@ -8783,7 +8792,7 @@ function txtsetting(callback){
 	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
 	var material = new THREE.MeshBasicMaterial({ color: colorlst[colornum][2]  });
 	var tmesh1 = new THREE.Mesh(geometry12, material);
-	// tmesh1.position.y 
+	// tmesh1.position.y
 	tmesh1.position.x=4.8;
 	tmesh1.depth=10;
 	tmesh1.rotation.order = 'YXZ';
@@ -8799,7 +8808,7 @@ function txtsetting(callback){
 	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
 	var material = new THREE.MeshBasicMaterial({ color:colorlst[colornum][1]  });
 	var tmesh1 = new THREE.Mesh(geometry12, material);
-	// tmesh1.position.y 
+	// tmesh1.position.y
 	tmesh1.position.x=4.8*2;
 	tmesh1.depth=10;
 	tmesh1.rotation.order = 'YXZ';
@@ -8815,7 +8824,7 @@ function txtsetting(callback){
 	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
 	var material = new THREE.MeshBasicMaterial({ color: colorlst[colornum][0]  });
 	var tmesh1 = new THREE.Mesh(geometry12, material);
-	// tmesh1.position.y 
+	// tmesh1.position.y
 	tmesh1.position.x=4.8*3;
 	tmesh1.depth=10;
 	tmesh1.rotation.order = 'YXZ';
@@ -8855,7 +8864,7 @@ function txtsetting(callback){
 	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
 	var material = new THREE.MeshBasicMaterial({ color: colorlst0[colornum0][2]  });
 	var tmesh1 = new THREE.Mesh(geometry12, material);
-	// tmesh1.position.y 
+	// tmesh1.position.y
 	tmesh1.position.x=4.8;
 	tmesh1.depth=10;
 	tmesh1.rotation.order = 'YXZ';
@@ -8871,7 +8880,7 @@ function txtsetting(callback){
 	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
 	var material = new THREE.MeshBasicMaterial({ color:colorlst0[colornum0][1]  });
 	var tmesh1 = new THREE.Mesh(geometry12, material);
-	// tmesh1.position.y 
+	// tmesh1.position.y
 	tmesh1.position.x=4.8*2;
 	tmesh1.depth=10;
 	tmesh1.rotation.order = 'YXZ';
@@ -8887,7 +8896,7 @@ function txtsetting(callback){
 	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
 	var material = new THREE.MeshBasicMaterial({ color: colorlst0[colornum0][0]  });
 	var tmesh1 = new THREE.Mesh(geometry12, material);
-	// tmesh1.position.y 
+	// tmesh1.position.y
 	tmesh1.position.x=4.8*3;
 	tmesh1.depth=10;
 	tmesh1.rotation.order = 'YXZ';
@@ -8899,7 +8908,7 @@ function txtsetting(callback){
 	textscene.push(tmesh)
 	gradback.push(tmesh);
 	scene.add(tmesh)
-	
+
 	// var canvas = document.createElement('canvas');
 	// var ctx = canvas.getContext('2d');
 	// canvas.width = 1000;
@@ -8945,14 +8954,14 @@ function txtsetting(callback){
 	geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
 	var material = new THREE.MeshBasicMaterial({ color: colorlst[colornum][3]   });
 	var tmesh1 = new THREE.Mesh(geometry12, material);
-	
+
 	tmesh1.position.x=4.5
-	
+
 	// textMesh.position.x=0;
 	// tmesh1.depth=10;
 	tmesh.add(tmesh1)
-	// tmesh1.position.y 
-	
+	// tmesh1.position.y
+
 	scene.add(tmesh)
 	gradback.push(tmesh);
 	가장자리.push(tmesh);
@@ -8969,7 +8978,7 @@ function txtsetting(callback){
 	// var img3 = new THREE.CanvasTexture(canvas);
 	// var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
 	// var sprite = new THREE.Sprite(material4);
-	
+
 	// sprite.position.set(0.7*bw,bh*11.6,2.2*bw);
 	// sprite.scale.x=3;
 	// sprite.scale.y=3;
@@ -8990,7 +8999,7 @@ function txtsetting(callback){
 	// var img3 = new THREE.CanvasTexture(canvas);
 	// var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:1});
 	// var sprite = new THREE.Sprite(material4);
-	
+
 	// sprite.position.set(2.2*bw,bh*11.6,0.7*bw);
 	// sprite.scale.x=3.2;
 	// sprite.scale.y=3.2;
@@ -8998,7 +9007,7 @@ function txtsetting(callback){
 
 	// gradback.push(sprite);
 	// uiScene2.add(sprite);
-	
+
 
 	var canvas = document.createElement('canvas');
 	var ctx = canvas.getContext('2d');
@@ -9016,7 +9025,7 @@ function txtsetting(callback){
 	var img3 = new THREE.CanvasTexture(canvas);
 	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:0.9});
 	var sprite = new THREE.Sprite(material4);
-	
+
 	sprite.position.set(-2*bw,bh*0.4,2*bw);
 	sprite.scale.x=27;
 	sprite.scale.y=27*676/552;
@@ -9030,13 +9039,13 @@ function txtsetting(callback){
 	var ctx = canvas.getContext('2d');
 	canvas.width = 552;
 	canvas.height =676;
-	
+
 	var fr= motion("ui0", 1)
 	if(!paidflag){
 		var dur=4;
 		ctx.drawImage(unitimg["ui0"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
 	}
-	
+
 
 	var dur=1;
 	ctx.drawImage(unitimg["ui0"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
@@ -9052,14 +9061,14 @@ function txtsetting(callback){
 		var dur=3;
 	}
 	ctx.drawImage(unitimg["ui0"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
-	
+
 	if(skinflag){
 		var dur=1;
 	}else{
 		var dur=4;
 	}
 	ctx.drawImage(unitimg["ui0"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
-	
+
 	if(sidecam){
 		var dur=2;
 	}else{
@@ -9069,7 +9078,7 @@ function txtsetting(callback){
 	var img3 = new THREE.CanvasTexture(canvas);
 	var material4 = new THREE.SpriteMaterial({ map: img3, transparent:true, opacity:0.9});
 	var sprite = new THREE.Sprite(material4);
-	
+
 	sprite.position.set(-2*bw,bh*0.4,2*bw);
 	sprite.scale.x=27;
 	sprite.scale.y=27*676/552;
@@ -9115,7 +9124,7 @@ function txtsetting(callback){
 // scene.add(mesh)
 
 
-	
+
 
 
 
@@ -9128,7 +9137,7 @@ function txtsetting(callback){
 			var ctx = canvas.getContext('2d');
 
 			// const padding = 10;
-			
+
 			ctx.globalAlpha = 1;
 			canvas.width = 16.5*6;
 			canvas.height = 5.6*6;
@@ -9142,14 +9151,14 @@ function txtsetting(callback){
 			// ctx.fillStyle = 0x009F4D;
 			ctx.fillStyle = 0xFFFFFF;
 			// // ctx.fillText(text, padding, padding + textHeight * 0.8);
-			
+
 			ctx.fillText(text, 0-(i)*(textw/100),canvas.height*0.8, textw, canvas.height);
 			ctx.fillText(text, textw-(i)*(textw/100),canvas.height*0.8, textw, canvas.height);
 
 			ctx.font = `${7}px Arial`;
 			ctx.fillText("  AKAI PRO ", 0,canvas.height*0.35, canvas.width/2.5, canvas.height);
-			
-			
+
+
 			// ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
 			var img3 = new THREE.CanvasTexture(canvas);
 			var material5 = new THREE.MeshLambertMaterial({ map: img3, side: THREE.DoubleSide, transparent:true, opacity:1});
@@ -9162,7 +9171,7 @@ function txtsetting(callback){
 		txtlst.push(temp);
 	}
 
-	
+
 
 
 
@@ -9231,7 +9240,7 @@ function resetting(n= 8, callback){
 				tile.material.transparent = true;
 			}
 
-			
+
 		});
 	})
 	for (let i = 0; i < 5; i++) {
@@ -9249,7 +9258,7 @@ function resetting(n= 8, callback){
 		cubes[i].body.position.set(0, (i) * bh+bh/2, 0);
 		cubes[i].body.quaternion.copy(cubes[i].mesh.quaternion);
 
-		
+
 		world.addBody(cubes[i].body);
 		scene.add(cubes[i].mesh)
 		var game2048 = new Game2048(칸, i);
@@ -9280,14 +9289,14 @@ function resetting(n= 8, callback){
 				item.material.opacity=0;
 				item.material.transparent=true;
 			})
-			arrows.push(arrowHelper); 
+			arrows.push(arrowHelper);
 
 			// scene.add( arrowHelper );
 			}
-		
-		
+
+
 	}
-	
+
 
 	var dir = new THREE.Vector3(0, 1, 0);
 
@@ -9344,7 +9353,7 @@ function resetting(n= 8, callback){
 	line.computeLineDistances();
 	scene.add(line);
 	guide.push(line);
-	
+
 
 	}
 	if (callback) {
@@ -9385,12 +9394,12 @@ function setting(n= 8, callback){
 				item.material.opacity=0;
 				item.material.transparent=true;
 			})
-			arrows.push(arrowHelper); 
+			arrows.push(arrowHelper);
 
 			// scene.add( arrowHelper );
 			}
-		
-		
+
+
 	}
 
 	activeFloor=cubes.length;
@@ -9450,7 +9459,7 @@ function setting(n= 8, callback){
 	line.computeLineDistances();
 	scene.add(line);
 	guide.push(line);
-	
+
 
 	}
 	if (callback) {
@@ -9472,7 +9481,7 @@ function addbox(){
 			const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
 			boxMesh.userData.body=boxBody
 			scene.add(boxMesh);
-			
+
 			cubes.push({mesh: boxMesh,body: boxBody})
 
 	}
@@ -9495,7 +9504,7 @@ function createTile(idx,height, size,  number = 0, callback){
 		}else{
 				var material = new THREE.MeshBasicMaterial({ color: getColorForNumber(number) });
 		}
-	
+
 	var geometry = new THREE.BoxGeometry(size*0.9, height, size*0.9);
 	if(number==0){
 			// material = new THREE.MeshBasicMaterial({ color:new THREE.Color('hsl('+String(70+4*(2))+', 70%, 60%)')});
@@ -9504,7 +9513,7 @@ function createTile(idx,height, size,  number = 0, callback){
 		}else{
 				material = new THREE.MeshBasicMaterial({ color:colorlst0[colornum0][idx]});
 		}
-			
+
 			geometry = new THREE.BoxGeometry(size*0.9, height, size*0.9);
 	}
 	// const material = new THREE.MeshBasicMaterial({ color: getColorForNumber(number) });
@@ -9553,7 +9562,7 @@ function getColorForNumber(number) {
 function animate2() {
 	requestAnimationFrame(animate2);
 	renderer.render(uiScene0, uicamera0);
-	renderer.clearDepth(); 
+	renderer.clearDepth();
 	console.log(0)
 }
 
@@ -9573,74 +9582,74 @@ var sounds=[];
 // if(soundon){
 //     var listener = new THREE.AudioListener();
 //     var audioLoader = new THREE.AudioLoader();
-		
+
 //     for(let k=0;k<soundname.length;k++){
 //         audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+soundname[k], function( buffer )
-//         {   
+//         {
 //             var sound = new THREE.Audio( listener );
 //             sound.setBuffer( buffer );
 //             sound.setVolume( 0.3 );
 //             soundic[soundname[k]]=sound;
-						
+
 //         });
 
 //     }
 
 //     for(let i=0;i<12;i++){
 //         audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+String(i)+".ogg", function( buffer )
-//         {   
+//         {
 //             var sound = new THREE.Audio( listener );
 //             sound.setBuffer( buffer );
 //             sound.setVolume( 0.3 );
 //             sounds.push([sound, i])
 //             soundic[String(i)+".ogg"]=sound;
-						
+
 //         });
-				
+
 //     }
 
 //     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/0.ogg', function( buffer )
-//         {   
+//         {
 //             var sound = new THREE.Audio( listener );
 //             sound.setBuffer( buffer );
 //             sound.setLoop( true );
 //             sound.setVolume( 0.3 );
 //             bsounds.push([sound, 5])
-						
+
 //         });
 
 //     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/a0.ogg', function( buffer )
-//         {   
+//         {
 //             var sound = new THREE.Audio( listener );
 //             sound.setBuffer( buffer );
 //             sound.setVolume( 0.3 );
 //             sound.setLoop( true );
 //             bsounds.push([sound, 1])
 //             soundic["a0.ogg"]=sound;
-						
+
 //         });
 //     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/b0.ogg', function( buffer )
-//         {   
+//         {
 //             var sound = new THREE.Audio( listener );
 //             sound.setBuffer( buffer );
 //             sound.setVolume( 0.3 );
 //             sound.setLoop( true );
 //             bsounds.push([sound, 0])
 //             soundic["b0.ogg"]=sound;
-						
+
 //         });
 //     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/c0.ogg', function( buffer )
-//         {   
+//         {
 //             var sound = new THREE.Audio( listener );
 //             sound.setBuffer( buffer );
 //             sound.setVolume( 0.3 );
 //             sound.setLoop( true );
 //             bsounds.push([sound, 3])
 //             soundic["c0.ogg"]=sound;
-						
+
 //         });
 //     // audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/d0.ogg', function( buffer )
-//     //     {   
+//     //     {
 //     //         var sound = new THREE.Audio( listener );
 //     //         sound.setBuffer( buffer );
 //     //         sound.setVolume( 0.3 );
@@ -9648,21 +9657,21 @@ var sounds=[];
 
 //     //         bsounds.push([sound, 4])
 //     //         soundic["d0.ogg"]=sound;
-						
+
 //     //     });
 //     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/e0.ogg', function( buffer )
-//         {   
+//         {
 //             var sound = new THREE.Audio( listener );
 //             sound.setBuffer( buffer );
 //             sound.setVolume( 0.3 );
 //             sound.setLoop( true );
 //             bsounds.push([sound, 2])
 //             soundic["e0.ogg"]=sound;
-						
+
 //         });
 
 //     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/FutureBass-Loop-Synth-FD chugsC.WAV', function( buffer )
-//         {   
+//         {
 //             var sound = new THREE.Audio( listener );
 //             sound.setBuffer( buffer );
 //             sound.setVolume( 0.3 );
@@ -9674,7 +9683,7 @@ var sounds=[];
 //             bsounds.push([sound, 4])
 //             // bsounds.push([sound, 5])
 //             soundic["FutureBass-Loop-Synth-FD chugsC.WAV"]=sound;
-						
+
 //         });
 //     // create a global audio source
 // }
@@ -9695,15 +9704,15 @@ material0.transparent=true
 //     var listener = new THREE.AudioListener();
 //     var audioLoader = new THREE.AudioLoader();
 //     audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][0], function( buffer )
-//         {   
+//         {
 //             var sound = new THREE.Audio( listener );
 //             sound.setBuffer( buffer );
 //             sound.setVolume( 0.3 );
 //             sound.setLoop( true );
 //             soundic[sdic[i][0]]=sound;
-					 
-						
-						
+
+
+
 //         });
 // }
 var particlenum=25;
@@ -9742,7 +9751,7 @@ geometry.setAttribute( 'scale', new THREE.Float32BufferAttribute( scales, 1 ) );
 var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
 var tc=new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"]*0.75)+'%, '+String(newcl["l"]+20)+'%)');
 const material2 = new THREE.ShaderMaterial( {
-	
+
 	uniforms: {
 		color: { value: tc },
 		opacity: 0.1,
@@ -9789,23 +9798,23 @@ const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.cs
 			for(let i=0;i<6;i++){
 				let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
 				var sdickeys=Object.keys(soundic);
-				
+
 				for(let j=0;j<temp.length;j++){
 					if(sdickeys.indexOf(sdic[i][temp[j]])==-1){
 						// var listener = new THREE.AudioListener();
 						// var audioLoader = new THREE.AudioLoader();
 						audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/'+sdic[i][temp[j]], function( buffer )
-						{   
+						{
 							var sound = new THREE.Audio( listener );
 							sound.setBuffer( buffer );
 							sound.setVolume( 0.3 );
 							if(j==0) sound.setLoop( true );
 							soundic[sdic[i][temp[j]]]=sound;
-								
-								
+
+
 						});
-							
-							
+
+
 					}
 				}
 
@@ -9818,7 +9827,7 @@ const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.cs
 					cubes.forEach((item)=>{
 							item.mesh.userData.game2048.spawnTile();
 							item.mesh.userData.game2048.spawnTile();
-							
+
 							// item.mesh.userData.game2048.spawnTile();
 							// item.mesh.userData.game2048.spawnTile();
 							// item.mesh.userData.game2048.spawnTile();
@@ -9836,7 +9845,7 @@ const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.cs
 						})
 					// msetting2(function (object) {
 						msetting(function (object) {
-							
+
 
 							txtsetting(function (object) {
 								time0 = performance.now();
@@ -9849,24 +9858,24 @@ const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.cs
 										document.getElementById("intro").classList.add("fade");
 									      setTimeout(function() {
 									        document.getElementById("intro").classList.add("hidden");
-									        
+
 									      }, 150);
 										animate();
-			        
+
 			      					}, 300);
-									
+
 								})
-								
+
 								// console.log(tilemold);
 								// console.log(textmold)
 
 							})
-							
+
 						})
 					// })
-					
+
 				})
-				
+
 			});
 
 
@@ -9892,8 +9901,8 @@ const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.cs
 // Animate the scene
 function animate() {
 	// if(skinshot){
-		
-		
+
+
 	// 	// uilst[0].material.visible=false;
 	// 	skinidx=3
 	// 	var thisctx=document.querySelector("body > canvas")
@@ -9907,7 +9916,7 @@ function animate() {
 	// 	var uiimg2=document.querySelector("#ui")
 	// 	uiimg2.style.backgroundImage=img2
 
-		
+
 
 
 	// 	// textscene[0].material.visible=false;
@@ -9916,13 +9925,13 @@ function animate() {
 	// 	// })
 	// 	// gradback[0].material.visible=false;
 	// 	// groundmesh.material.visible=false;
-		
-		
-		
-		
 
-		
-		
+
+
+
+
+
+
 	// 	groundmesh.material= new THREE.MeshBasicMaterial({ map: img1, transparent:true, opacity:1});
 	// 	skinshot=false;
 	// }else{
@@ -9956,8 +9965,8 @@ function animate() {
 				item.material.visible=true;
 			})
 		}
-		
-		
+
+
 	}else{
 		포인트.forEach((item)=>{
 			item.material.visible=false;
@@ -9970,7 +9979,7 @@ function animate() {
 		})
 
 	}
-	
+
 
 	// if(skinflag){ //스킨플래그
 	// 	for(var i=0;i<cubes.length;i++){
@@ -9987,16 +9996,16 @@ function animate() {
 	// 		cubes[i].mesh.children.forEach((item)=> {
 	// 	        if(item.userData["1"]||item.userData["2"]||item.userData["3"]||item.userData["4"]){
 	// 	          	item.material.visible=false;
-		          	
+
 	// 	        }else if(item.userData["5"]){
 	// 	        	item.material.visible=true;
 	// 	        }
 	// 		})
 	// 	}
 	// }
-	
+
 	if(restartflag&&lookcenter){
-		
+
 		포인트.forEach((item)=>{
 		item.material.visible=false;
 		})
@@ -10009,7 +10018,7 @@ function animate() {
         가장자리[0].children[0].material.visible=false;
 
 		if(Math.abs(camera.rotation.x-restartend)<0.02){
-			
+
 			restart();
 		}else{
 			if(coinchg.length==0){
@@ -10018,15 +10027,15 @@ function animate() {
 					coinupdate.forEach((item)=>{
 						item.material.visible=false;
 					})
-				} 
-                
+				}
+
 
 				var geometry12 = new TextGeometry("★ :", {
 					font: font0,
 					size: bw/10,
 					height:th/3
 				});
-				
+
 				geometry12.computeBoundingBox();
 				geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
 				var material = new THREE.MeshBasicMaterial({ color: colorlst[colornum][3]   });
@@ -10049,9 +10058,9 @@ function animate() {
 				geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y-0.13, 0);
 				var material = new THREE.MeshBasicMaterial({ color: colorlst[colornum][3]  });
 				var tmesh1 = new THREE.Mesh(geometry12, material);
-				
+
 				tmesh1.position.x=4.5
-				
+
 				// textMesh.position.x=0;
 				// tmesh1.depth=10;
 				tmesh.add(tmesh1)
@@ -10078,12 +10087,12 @@ function animate() {
 				tmesh.rotation.x =-Math.PI / 8;
 				tmesh.rotation.order = 'YXZ';
 				tmesh.rotation.y =Math.PI / 4;
-				// tmesh1.position.y 
+				// tmesh1.position.y
 				scene.add(tmesh)
 				coinchg.push(tmesh);
 			}else{
                 coinchg[0].rotation.x=-restartend+Math.PI / 12+Math.abs(camera.rotation.x-restartend)*(+restartend-Math.PI / 8)
-                coinfinal[0].rotation.x=-restartend+Math.PI / 12+Math.abs(camera.rotation.x-restartend)*(+restartend-Math.PI / 8)				
+                coinfinal[0].rotation.x=-restartend+Math.PI / 12+Math.abs(camera.rotation.x-restartend)*(+restartend-Math.PI / 8)
 
 
 				coinchg[0].material.transparent=true;
@@ -10093,12 +10102,12 @@ function animate() {
 					item.material.transparent=true;
 					item.material.opacity=0.6*Math.abs(camera.rotation.x-restartend)
 				})
-				
+
 			}
 
-			
+
 			camera.rotation.x+=Math.PI/256
-			
+
 
 
 			var canvas = document.createElement('canvas');
@@ -10106,7 +10115,7 @@ function animate() {
 			canvas.width = 100;
 			canvas.height = 100;
 			var grd = ctx.createLinearGradient(0, 0, 0, 100);
-			
+
 			var newcl0=hslToHex(renhsl1["h"]-(renhsl1["h"]-rehsl1["h"])*Math.abs(camera.rotation.x-restartend),renhsl1["s"]-(renhsl1["s"]-rehsl1["s"])*Math.abs(camera.rotation.x-restartend),renhsl1["l"]-(renhsl1["l"]-rehsl1["l"])*Math.abs(camera.rotation.x-restartend))
 			var newcl1=hslToHex(renhsl2["h"]-(renhsl2["h"]-rehsl2["h"])*Math.abs(camera.rotation.x-restartend),renhsl2["s"]-(renhsl2["s"]-rehsl2["s"])*Math.abs(camera.rotation.x-restartend),renhsl2["l"]-(renhsl2["l"]-rehsl2["l"])*Math.abs(camera.rotation.x-restartend))
 
@@ -10121,8 +10130,8 @@ function animate() {
 			var boxcl3=hslToHex0(nbhsl3["h"]-(nbhsl3["h"]-bhsl3["h"])*Math.abs(camera.rotation.x-restartend),nbhsl3["s"]-(nbhsl3["s"]-bhsl3["s"])*Math.abs(camera.rotation.x-restartend),nbhsl3["l"]-(nbhsl3["l"]-bhsl3["l"])*Math.abs(camera.rotation.x-restartend))
 			var boxcl4=hslToHex0(nbhsl4["h"]-(nbhsl4["h"]-bhsl4["h"])*Math.abs(camera.rotation.x-restartend),nbhsl4["s"]-(nbhsl4["s"]-bhsl4["s"])*Math.abs(camera.rotation.x-restartend),nbhsl4["l"]-(nbhsl4["l"]-bhsl4["l"])*Math.abs(camera.rotation.x-restartend))
 
-			
-			
+
+
 			// console.log(parseInt(boxcl0, 16));
 			clmeshlst[0].forEach((item)=>{
 					item.color=new THREE.Color(parseInt(boxcl0, 16));
@@ -10200,9 +10209,9 @@ function animate() {
 					// item.color=new THREE.Color(colorlst[colornum][3]);
 					item.color=new THREE.Color(parseInt(newcl30, 16));
 			})
-			
 
-			
+
+
 
 
 
@@ -10238,12 +10247,12 @@ function animate() {
 		}else{
 			camera.rotation.x-=Math.PI/128
 			// camera.position.y-=100000*(Math.PI/128)
-			
+
 		}
 	}
 
 	if(rotationflag){
-		var myui = document.getElementById("ui"); 
+		var myui = document.getElementById("ui");
 		// myui.style.left = String(parseInt(5000*Math.abs(left-camera.rotation.y)))+"px";
 		// myui.style.right = String(parseInt(5000*Math.abs(left-camera.rotation.y)))+"px";
 		// optionsScreen.style.right = String(parseInt(5000*Math.abs(left-camera.rotation.y)))+"px";
@@ -10262,9 +10271,9 @@ function animate() {
 				lookright=false;
 				lookcenter=false
 				lookleft=true
-				
 
-			
+
+
 			}
 
 
@@ -10277,7 +10286,7 @@ function animate() {
 				camera.rotation.x = -isoAngle+isoAngle*Math.abs(Math.PI/4-camera.rotation.y)
 
 			}else{
-				
+
 			}
 			camera.rotation.y-=Math.PI/64
 
@@ -10303,7 +10312,7 @@ function animate() {
 	// gradback[0].scale.y=100-1*activeFloor;
 	// gradback[0].position.y=bh*2+1*activeFloor;
 	// // scene.background = new THREE.Color(colorlst[colornum][0]);
-	
+
 	// var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
 
 	// console.log(-isoAngle-camera.rotation.x)
@@ -10328,7 +10337,7 @@ function animate() {
 		avx=cubes[0].mesh.position.x;
 		avz=cubes[0].mesh.position.z;
 	}
-	
+
 
 	if(uiflag){
 		requestAnimationFrame(animate);
@@ -10343,7 +10352,7 @@ function animate() {
 				while(guide.length>0){
 						scene.remove(guide.pop());
 				}
-				
+
 			endtext=true
 
 			var geometry12 = new TextGeometry("SCORE:"+String(점수), {
@@ -10363,8 +10372,8 @@ function animate() {
 			tmesh.rotation.x =-Math.PI / 8;
 			tmesh.rotation.order = 'YXZ';
 			tmesh.rotation.y =Math.PI / 4;
-			// tmesh1.position.y 
-			
+			// tmesh1.position.y
+
 			scene.add(tmesh)
 			coinupdate.push(tmesh)
 
@@ -10385,8 +10394,8 @@ function animate() {
 			tmesh.rotation.x =-Math.PI / 8;
 			tmesh.rotation.order = 'YXZ';
 			tmesh.rotation.y =Math.PI / 4;
-			// tmesh1.position.y 
-			
+			// tmesh1.position.y
+
 			scene.add(tmesh)
 
 			coinupdate.push(tmesh)
@@ -10422,12 +10431,12 @@ function animate() {
 			tmesh1.position.x=4.5
 			coinupdate.push(tmesh1)
 			coinupdate.push(tmesh)
-			
+
 			// textMesh.position.x=0;
 			// tmesh1.depth=10;
 			tmesh.add(tmesh1)
-			// tmesh1.position.y 
-			
+			// tmesh1.position.y
+
 			scene.add(tmesh)
 
 
@@ -10459,12 +10468,12 @@ function animate() {
 			// 			item.position.z=+7+bw/2
 			// 			item.position.y=textMesh.position.y+3
 			// 		}
-					
-					
+
+
 			// 		// item.rotation.y =Math.PI / 4;
 			// 	})
 			// 	시간.forEach((item)=>{
-					
+
 			// 		if(String(pointbuf+parseInt(elapsedTime)).length>=4){
 			// 			item.position.x=+8.75+bw/2
 			// 			item.position.z=+7+bw/2
@@ -10479,7 +10488,7 @@ function animate() {
 			// 			item.position.y=textMesh.position.y+1.7
 			// 		}
 			// 		// item.position.x=+11.75
-					
+
 			// 		// item.rotation.y =Math.PI / 4;
 			// 	})
 			// 	// textMesh.position.x=0;
@@ -10490,17 +10499,17 @@ function animate() {
 			// 	renderer.setViewport(0, window.innerHeight-window.innerWidth, window.innerWidth, window.innerHeight);
 			// 	renderer.setScissor(0, window.innerHeight-window.innerWidth, window.innerWidth, window.innerHeight);
 			// 	renderer.setScissorTest(true);
-			// 	renderer.render(scene, camera);   
-				
-			// });
-				
+			// 	renderer.render(scene, camera);
+
 			// });
 
+			// });
 
 
-			
+
+
 		}
-		
+
 
 		// return;
 
@@ -10524,20 +10533,20 @@ function animate() {
 	// 	if(!soundic[sdic[i][0]]?.isPlaying){
 	// 		soundic[sdic[activeFloor][0]]?.play();
 	// 	}
-		
+
 	// }
-	
-	
+
+
 
 
 	if(skin0&&skinflag){
-		
+
 		if(txtcount!=txttimebuf){
 			const positions0 = particles.geometry.attributes.position.array;
 			// const size0 = particles.geometry.attributes.size.array;
 			const scales0 = particles.geometry.attributes.scale.array;
 			// console.log(positions)
-			
+
 			var i = 0, j = 0;
 
 			for ( let ix = 0; ix < 5; ix ++ ) {
@@ -10571,17 +10580,17 @@ function animate() {
 			}
 
 			txttimebuf=txtcount;
-			
+
 		}
 	}else if(!skinflag){
 
 	}
 
-	
+
 
 	if(tilting){
 		for(var i=0;i<cubes.length;i++){
-			
+
 			let force0 = new CANNON.Vec3();
 			if(i==0){
 				var forcex=0
@@ -10590,9 +10599,9 @@ function animate() {
 				var forcex=(-cubes[i-1].body.position.x+cubes[i].body.position.x)
 				var forcez=(-cubes[i-1].body.position.z+cubes[i].body.position.z)
 			}
-			// if(txttimebuf==txtcount) 
+			// if(txttimebuf==txtcount)
 
-			
+
 			if(skinflag){
 				if(skin1||skin0){
 					if(gameoverflag){
@@ -10606,7 +10615,7 @@ function animate() {
 						eye2[i][1].material.visible=true;
 						eye2[i][2].material.visible=true;
 						eye2[i][3].material.visible=true;
-						
+
 					}else{
 						if(Math.abs(cubes[i].mesh.rotation.x)>0.07||Math.abs(cubes[i].mesh.rotation.z)>0.07||Math.abs(forcex>bw/6)||Math.abs(forcez>bw/6)){
 							mouth1[i].material.visible=false;
@@ -10622,8 +10631,8 @@ function animate() {
 					}
 				}
 			}
-			
-			
+
+
 			if(i==0)continue;
 			if(Math.abs(forcex>bw/2)||Math.abs(forcez>bw/2)){
 				forcex=0
@@ -10656,7 +10665,7 @@ function animate() {
 		}
 
 	}
-	
+
 
 	if(arrowon){
 		while(arrows.length>0){
@@ -10668,7 +10677,7 @@ function animate() {
 				let force0 = new CANNON.Vec3();
 				force0.set((-cubes[i-1].body.position.x+cubes[i].body.position.x), 0, (-cubes[i-1].body.position.z+cubes[i].body.position.z));
 				if(!gameoverflag) cubes[i].body.applyForce(force0, cubes[i].body.position);
-			
+
 				var dir = new THREE.Vector3(2*(-cubes[i-1].body.position.x+cubes[i].body.position.x), 0, 2*(-cubes[i-1].body.position.z+cubes[i].body.position.z));
 				dir.normalize();
 				var origin = new THREE.Vector3( cubes[i].body.position.x, cubes[i].mesh.position.y, cubes[i].body.position.z );
@@ -10698,7 +10707,7 @@ function animate() {
 
 		}
 	}
-	
+
 
 
 if(guideflag&&!gameoverflag){
@@ -10713,8 +10722,8 @@ if(guideflag&&!gameoverflag){
 	}else{
 		guide[2].material.opacity=0.4;
 	}
-	
-	
+
+
 }
 
 if(dimlines.length>0){
@@ -10734,14 +10743,14 @@ if(dimlines.length>0){
 			// var material = new THREE.LineDashedMaterial( { color: colorlst[colornum][3], dashSize:1, gapSize: 0.5 ,linewidth: 0.5,  scale: 4
 			// })
 
-				
+
 			// var points = [];
 			// if(averageflag){
 			//   points.push( new THREE.Vector3( avx, pointlst[i].y, avz ) );
 			// }else{
 			//   points.push( new THREE.Vector3( cubes[0].mesh.position.x, pointlst[i].y, cubes[0].mesh.position.z ) );
 			// }
-			
+
 			// points.push( pointlst[i] );
 			// var geometry = new THREE.BufferGeometry().setFromPoints( points );
 			// var line = new THREE.Line( geometry, material );
@@ -10749,14 +10758,14 @@ if(dimlines.length>0){
 
 			var dir = new THREE.Vector3(-pointlst[i].x+avx, 0, -pointlst[i].z+avz);
 
-		
+
 			dir.normalize();
 
 			var origin = new THREE.Vector3(pointlst[i].x, th+pointlst[i].y,  pointlst[i].z);
 			var length=Math.sqrt((pointlst[i].x-avx)*(pointlst[i].x-avx)+(pointlst[i].z-avz)*(pointlst[i].z-avz));
 			var hex = colorlst0[colornum0][0];
 			var arrowHelper= new THREE.ArrowHelper( dir, origin, length, hex,length, 0.2*Math.sqrt(length))
-			
+
 
 			if(i==activeFloor){
 				arrowHelper.children.forEach((item)=>{
@@ -10769,7 +10778,7 @@ if(dimlines.length>0){
 					item.material.transparent=true;
 				})
 			}
-			
+
 
 			// scene.add(arrowHelper);
 			// dimlines.push(arrowHelper);
@@ -10778,17 +10787,17 @@ if(dimlines.length>0){
 	}
 
 
-	// cubes.forEach((item)=>{ 
+	// cubes.forEach((item)=>{
 	//     // var matrix=item.mesh.userData["game2048"].board;
 	//   let force0 = new CANNON.Vec3();
-	//   force0.set(-0.04, 0, -0.36);    
+	//   force0.set(-0.04, 0, -0.36);
 	//   item.body.applyForce(force0, item.body.position);
 	// })
-						
+
 
 	if(ftiles.length!=0){
 		aniflag=true;
-		
+
 		// ftiles.sort(function(a, b) {
 		//   return a.elapsedTime - b.elapsedTime;
 		// });
@@ -10815,7 +10824,7 @@ if(dimlines.length>0){
 		// });
 		// }
 
-	
+
 	// let speed= 0.15*(Math.abs((item.c-item.a)+(item.d-item.b))/8);
 	let speed= bw/20;
 
@@ -10839,13 +10848,13 @@ if(dimlines.length>0){
 				item.body0.position.z-=speed;
 				// console.log("up")
 				// console.log(String(item.a)+","+String(item.b)+" -> "+String(item.c)+","+String(item.d));
-				
-			 
+
+
 				// item.nx-=vspeed;
 				// console.log(item.body0.position.z);
 				// console.log(item.dz);
 				// console.log("result: "+String(item.body0.position.z-item.dz));
-				
+
 				var 결과=item.body0.position.z-item.dz;
 				// console.log(결과)
 				break;
@@ -10860,7 +10869,7 @@ if(dimlines.length>0){
 			// console.log(String(item.a)+","+String(item.b)+" -> "+String(item.c)+","+String(item.d));
 				// console.log(item.dz);
 				// console.log("result: "+String(item.body0.position.z-item.dz));
-				
+
 				var 결과=item.dz-item.body0.position.z;
 				// console.log(결과)
 				break;
@@ -10873,8 +10882,8 @@ if(dimlines.length>0){
 				item.body0.position.x-=speed;
 				// console.log("left")
 			// console.log(String(item.a)+","+String(item.b)+" -> "+String(item.c)+","+String(item.d));
-				
-				
+
+
 				// console.log(item.dx);
 				// console.log("result: "+String(item.body0.position.x-item.dx));
 				var 결과=item.body0.position.x-item.dx;
@@ -10889,9 +10898,9 @@ if(dimlines.length>0){
 				item.body0.position.x+=speed;
 				// console.log("rigth")
 			// console.log(String(item.a)+","+String(item.b)+" -> "+String(item.c)+","+String(item.d));
-				
 
-				
+
+
 				// console.log(item.body.position.x);
 				// console.log(item.dx);
 				// console.log("result: "+String(item.body0.position.x-item.dx));
@@ -10913,9 +10922,9 @@ if(dimlines.length>0){
 				// type();
 				// console.log(ftiles)
 				var num=parseInt(item.body.board[item.c][item.d])
-				
+
 				// item.body.boardpointer[item.c][item.d].userData["text"]=String(num*2);
-				cubes[item.index].mesh.remove(item.body0);      
+				cubes[item.index].mesh.remove(item.body0);
 				item.body.boardpointer[item.a][item.b]=[];
 				// console.log(String(item.c)+", "+String(item.d))
 				if(item.body.boardpointer[item.c][item.d]!=""){
@@ -10945,7 +10954,7 @@ if(dimlines.length>0){
 					tile.userData["skin"]=="tile"
 						atchanged=elapsedTime;
 						var tempflag=true
-						
+
 						tempeffects.forEach((object)=>{
 							if(object[1]>=num&&object[2]==item.direction){
 								tempflag=false
@@ -10956,13 +10965,13 @@ if(dimlines.length>0){
 										soundic[sdic[activeFloor][num]].stop();
 								}
 								soundic[sdic[activeFloor][num]].play();
-								
+
 								tempeffects.push([item.index,num,item.direction]);
 								이펙트2(item.index,num,item.direction);
 						}
-					
 
-					
+
+
 
 					// createTextMesh(num.toString(), bw / 8, (textMesh) => {
 					// 	textMesh.position.y = th/32
@@ -10975,7 +10984,7 @@ if(dimlines.length>0){
 					// 	tile.add(textMesh);
 					// 	atchanged=elapsedTime;
 					// 	var tempflag=true
-						
+
 					// 	tempeffects.forEach((object)=>{
 					// 		if(object[1]>=num&&object[2]==item.direction){
 					// 			tempflag=false
@@ -10986,11 +10995,11 @@ if(dimlines.length>0){
 					// 					soundic[sdic[activeFloor][num]].stop();
 					// 			}
 					// 			soundic[sdic[activeFloor][num]].play();
-							
+
 					// 			tempeffects.push([item.index,num,item.direction]);
 					// 		이펙트2(item.index,num,item.direction);
 					// 	}
-				
+
 					// });
 					if(true){
 						var force = new CANNON.Vec3();
@@ -11014,14 +11023,14 @@ if(dimlines.length>0){
 						// var a=cubes[this.index].body.position
 						// cubes[activeFloor].body.applyForce(force, cubes[activeFloor].body.position.clone().vadd(offset));
 						cubes[item.index].body.applyForce(force, cubes[item.index].body.position);
-					 
-						
 
-						
+
+
+
 
 					}
 
-					
+
 
 					// if (tile.children.length === 0) {
 					//   if (tile.children.length >0) {
@@ -11042,7 +11051,7 @@ if(dimlines.length>0){
 					//     tile.remove(tile.children[0]);
 					//     if (tile.children.length >0) {
 					//       tile.remove(tile.children[0]);
-								
+
 					//     }
 					//   }
 					//   if(num!=0){
@@ -11054,18 +11063,18 @@ if(dimlines.length>0){
 					//       tile.userData["text"]=text
 					//       tile.add(textMesh);
 					//     });
-					//     
+					//
 
 					//   }
 					// }
-					
+
 				}else{
 
 
 				}
-				
+
 				// type();
-				
+
 
 			}else{
 				// if (soundic[sdic[activeFloor][item.direction]][0].isPlaying) {
@@ -11073,7 +11082,7 @@ if(dimlines.length>0){
 				// }
 						soundic[sdic[activeFloor][item.direction]].play();
 				// cubes[item.index].mesh.userData.game2048.boardpointer[item.c][item.d].push(cubes[item.index].mesh.userData.game2048.boardpointer[item.a][item.b].pop());
-				
+
 				// item.body.boardpointer[item.a][item.b]=[];
 				// item.body.boardpointer[item.c][item.d]=item.body.boardpointer[item.a][item.b];
 				// type();
@@ -11083,7 +11092,7 @@ if(dimlines.length>0){
 				// console.log(item.body.boardpointer[item.a][item.b])
 
 
-				
+
 			}
 			rmvftile.push(index);
 		}
@@ -11092,12 +11101,12 @@ if(dimlines.length>0){
 	// rmvftile.sort(function(a, b) {
 	//   return b - a;
 	// });
-	
+
 	if(rmvftile.length!=0&&ftiles.length==rmvftile.length&&ftiles[0].body.boardChanged){
 
 		ftiles[0].body.spawnTile(ftiles[0].direction);
 
-		
+
 		tempeffects=[];
 		// var dupeffects=findDuplicates(tempeffects);
 		// var neweffects=removeDuplicates(tempeffects);
@@ -11107,8 +11116,8 @@ if(dimlines.length>0){
 		//     sounds[0][0].stop();
 		// }
 
-		
-		
+
+
 
 		if(sleepflag){
 			sleepflag=false;
@@ -11118,7 +11127,7 @@ if(dimlines.length>0){
 		return b - a;
 	});
 
-	rmvftile.forEach((item)=>{ 
+	rmvftile.forEach((item)=>{
 			ftiles.splice(item, 1);
 
 	})
@@ -11192,15 +11201,15 @@ if(dimlines.length>0){
 		}else{
 
 		}
-	
+
 }
-		
+
 
 	if(false){
 		cubes.forEach((item)=>{
 			var matrix=item.mesh.userData["game2048"].board;
 			let force0 = new CANNON.Vec3();
-			
+
 			for(i=0;i<4;i++){
 				for(j=0;j<4;j++){
 					if(matrix[i][j]>0){
@@ -11209,8 +11218,8 @@ if(dimlines.length>0){
 						item.body.applyForce(force0, item.body.position.clone().vadd(offset));
 						// console.log(matrix[i][j])
 					}
-					
-				}  
+
+				}
 			}
 		})
 	}
@@ -11219,31 +11228,31 @@ if(dimlines.length>0){
 	if(false){
 		cubes.forEach((item)=>{
 			// var matrix=item.mesh.userData["game2048"].board;
-		 
+
 			let force0 = new CANNON.Vec3();
 			if(Math.sqrt(Math.abs((item.body.position.x)*(item.body.position.z)))<0.2){
-				force0.set(50*(0-item.body.position.x), 0, 50*(0-item.body.position.z)); 
+				force0.set(50*(0-item.body.position.x), 0, 50*(0-item.body.position.z));
 				item.body.applyForce(force0, item.body.position);
 			}else{
-				force0.set(10*(0-item.body.position.x), 0, 10*(0-item.body.position.z)); 
+				force0.set(10*(0-item.body.position.x), 0, 10*(0-item.body.position.z));
 				item.body.applyForce(force0, item.body.position);
 			}
-			
 
-			
+
+
 		})
 	}
 if(effects.length!=0){
 	if(activeFloor==effects[0][3]){
 
-		
+
 
 		ring[0].position.set(cubes[effects[0][3]].mesh.position.x,cubes[effects[0][3]].mesh.position.y-th/3,cubes[effects[0][3]].mesh.position.z)
 			ring[0].children.forEach((item)=>{
 				item.material.visible=false;
 			})
-		
-		
+
+
 		ring[0].rotation.x=cubes[effects[0][3]].mesh.rotation.x-Math.PI/2
 		ring[0].rotation.z=cubes[effects[0][3]].mesh.rotation.z
 
@@ -11263,7 +11272,7 @@ if(effects.length!=0){
 		default:
 			return;
 		}
-		
+
 		}
 	// ring[0].quaternion.copy(cubes[activeFloor].body.quaternion);
 	effects.forEach((item,index)=>{
@@ -11276,7 +11285,7 @@ if(effects.length!=0){
 			item[0].rotation.z=cubes[effects[0][3]].mesh.rotation.z
 			item[0].position.set(cubes[effects[0][3]].mesh.position.x,cubes[effects[0][3]].mesh.position.y-th/3+(th/16)*index,cubes[effects[0][3]].mesh.position.z)
 		}
-		
+
 		item[0].scale.y*=1.01;
 
 		// item[0].position.y+=0.03;
@@ -11305,7 +11314,7 @@ if(effects.length!=0){
 
 
 	if(elapsedTime-atchanged>0&&elapsedTime-atchanged<0.1){
-		
+
 		bounceflag=true;
 		if(activeFloor!=cubes.length){
 			cubes[activeFloor].mesh.children.forEach((item)=>{
@@ -11323,7 +11332,7 @@ if(effects.length!=0){
 						//   item.scale.z = 1
 						//   item.scale.y = 0.9
 						// }
-					
+
 					}else{
 						if(elapsedTime-item.userData.time>0&&elapsedTime-item.userData.time<0.1){
 							item.scale.x = 0.7+4*(elapsedTime-item.userData.time);
@@ -11339,7 +11348,7 @@ if(effects.length!=0){
 						// }
 					}
 			// for(item of cubes[activeFloor].mesh.children){
-					
+
 			})
 		}
 	}else{
@@ -11352,12 +11361,12 @@ if(effects.length!=0){
 				item.scale.y = 0.9
 			})
 		}
-		
+
 		bounceflag=false;
 	}
 
-	
-	
+
+
 
 
 	var overlimit=0;
@@ -11380,7 +11389,7 @@ if(effects.length!=0){
 				// console.log(gameOverPanel.children)
 				activeFloor=cubes.length
 			}
-			
+
 		})
 	}
 	// if(overlimit>cubes.length-3){
@@ -11389,8 +11398,8 @@ if(effects.length!=0){
 	// 	document.getElementById("gameover-overlay").classList.remove("fade");
 	// 	document.getElementById("gameover-overlay").classList.remove("hidden");
 	//     document.getElementById("gameover-overlay").classList.add("show");
-	   
-		
+
+
 	// 	activeFloor=cubes.length
 	// }
 
@@ -11403,7 +11412,7 @@ if(effects.length!=0){
 					// cubes[cubes.length-1].mesh.position.y+bh*5,
 					bh*(cubes.length+3.5),
 					bw*2+avz,
-					
+
 				);
 
 				// camera.lookAt(cubes[0].body.position.x,cubes[cubes.length-1].mesh.position.y+bh*5,cubes[0].body.position.y)
@@ -11429,7 +11438,7 @@ if(effects.length!=0){
 								text.material.opacity = 1;
 								text.material.visible=false;
 								text.material.transparent = true;
-								
+
 							})
 						}else if(tile.userData["skin"]=="bottom"){
 							tile.material.visible=false;
@@ -11525,7 +11534,7 @@ if(effects.length!=0){
 								text.material.opacity = 1;
 								text.material.visible=true;
 								text.material.transparent = false;
-								
+
 							})
 						}else if(tile.userData["skin"]=="bottom"){
 							if(skinset[skinnum]=="adam"){
@@ -11535,7 +11544,7 @@ if(effects.length!=0){
 								tile.material.opacity =  1
 								tile.material.transparent = false;
 							}
-							
+
 						}else if(tile.userData["skin"]=="bottom2"){
 							if(skinset[skinnum]!="adam"){
 								tile.material.visible=false;
@@ -11544,13 +11553,13 @@ if(effects.length!=0){
 								tile.material.opacity =  1
 								tile.material.transparent = false;
 							}
-							
+
 						}else if(tile.userData["skin"]==skinset[skinnum]){
 							tile.material.visible=true;
 							tile.material.opacity =  0.03;
 							tile.material.alphaTest =  0.03;
 							tile.material.transparent = true;
-							
+
 						}else if(tile.userData["skin"]=="text1"){
 							if(skinnum==1){
 								tile.position.z=-bw/8
@@ -11590,17 +11599,17 @@ if(effects.length!=0){
 							// }else if(tile.userData["1"]==true){
 							// 	tile.material.opacity =  0.03
 							// 	tile.material.transparent = true;
-								
+
 							// }else if(tile.userData["4"]==true){
 							// 	// tile.material.alphaTest=0.1
 							// 	tile.material.opacity =  0.0
 							// 	tile.material.transparent = true;
-								
+
 							// }else if(tile.userData["5"]==true){
 							// 	tile.material.alphaTest=0.02
 							// 	tile.material.opacity =  0.05
 							// 	tile.material.transparent = true;
-								
+
 							// }else{
 							// 	tile.material.visible=true;
 							// 	tile.material.opacity =  1
@@ -11611,7 +11620,7 @@ if(effects.length!=0){
 
 							// 	})
 							// }
-							
+
 						});
 
 
@@ -11631,7 +11640,7 @@ if(effects.length!=0){
 										text.material.opacity = 1;
 										text.material.visible=false;
 										text.material.transparent = false;
-										
+
 									})
 								}else if(tile.userData["skin"]=="bottom"){
 									tile.material.visible=false;
@@ -11699,7 +11708,7 @@ if(effects.length!=0){
 								// }
 								// tile.material.opacity = 0-((i-activeFloor)/cubes.length);
 								// tile.material.alphaTest=0.1
-								
+
 							});
 						}else{
 							// cubes[i].mesh.material.alphaTest =  1;
@@ -11715,7 +11724,7 @@ if(effects.length!=0){
 										text.material.opacity = 1;
 										text.material.visible=false;
 										text.material.transparent = false;
-										
+
 									})
 								}else if(tile.userData["skin"]=="bottom"){
 									tile.material.visible=false;
@@ -11768,7 +11777,7 @@ if(effects.length!=0){
 							// 	// tile.material.alphaTest=0.5
 							// 	tile.material.opacity = 1
 							// 	tile.material.transparent = false;
-								
+
 							// }else if(tile.userData["2"]||tile.userData["5"]){
 							// 	tile.material.opacity =  1;
 							// 	tile.material.transparent = true;
@@ -11778,9 +11787,9 @@ if(effects.length!=0){
 							// 	// 	text.material.transparent = true;
 							// 	// 	// tile.material.alphaTest=0.1
 							// 	// })
-								
-									
-								
+
+
+
 							// 	// tile.material.opacity = 0.1-((i-activeFloor)/cubes.length);
 							// 	// tile.material.alphaTest=0.1
 
@@ -11802,9 +11811,9 @@ if(effects.length!=0){
 							// 	// 	text.material.transparent = true;
 							// 	// 	// tile.material.alphaTest=0.1
 							// 	// })
-								
-									
-								
+
+
+
 							// 	// tile.material.opacity = 0.1-((i-activeFloor)/cubes.length);
 							// 	// tile.material.alphaTest=0.1
 
@@ -11821,12 +11830,12 @@ if(effects.length!=0){
 							// 	tile.material.visible=false;
 							// }
 
-							
+
 							});
-							
+
 						}
 						// cubes[i].mesh.material.opacity =  0.25-((i-activeFloor)/(cubes.length+1));
-						
+
 					}
 				}
 			}
@@ -11855,8 +11864,8 @@ if(effects.length!=0){
 			item.mesh.quaternion.copy(item.body.quaternion);
 		})
 	}
-	
-	
+
+
 
 	// Update the position and rotation of the meshes to match their physics bodies
 	// scene.children.forEach((object) => {
@@ -11869,7 +11878,7 @@ if(effects.length!=0){
 	//   object.position.copy(object.userData.body.position);
 	//   object.quaternion.copy(object.userData.body.quaternion);
 	// }
-	
+
 
 // });
 
@@ -11878,8 +11887,8 @@ if(effects.length!=0){
 // 렌더러
 // renderer.setSize(window.innerWidth, window.innerHeight);
 // camera.aspect = window.innerWidth / window.innerHeight;
-	
-	
+
+
 
 
 	uilst[0].position.set(bw/1.4, bh*4, bw/1.4)
@@ -11896,7 +11905,7 @@ if(effects.length!=0){
 			renderer.setScissorTest(true);
 			renderer.render(scene, camera);
 		}
-		
+
 	}else{
 		if(restartflag){
 			// renderer.setViewport(0, window.innerHeight-window.innerWidth-2000*Math.abs(-isoAngle-camera.rotation.x), window.innerWidth, window.innerWidth);
@@ -11914,14 +11923,14 @@ if(effects.length!=0){
 			renderer.setScissorTest(true);
 			renderer.render(scene, camera);
 		}
-		
+
 	}
- 
+
 
 // gradback.forEach((item)=>{
 // 	item.material.visible=false;
 // })
-	
+
 
 
 
@@ -11931,7 +11940,7 @@ if(!gameoverflag){
 	점수=0;
 
 	for(var i=0;i<cubes.length;i++){
-		
+
 
 
 		cubes[i].mesh.userData.game2048.board.forEach((row) => {
@@ -11945,7 +11954,7 @@ if(!gameoverflag){
 
 				})
 		});
-		
+
 	}
 
 	if(averageflag){
@@ -11963,7 +11972,7 @@ if(!gameoverflag){
 		시간.forEach((item) => {
 			item.position.x=avx-bw/2;
 			item.position.z=avz-bw/1.5;
-			
+
 		})
 	}
 
@@ -12013,7 +12022,7 @@ if(!gameoverflag){
 				var timestring="0"+String(parseInt(elapsedTime/60))+":0"+String(parseInt(elapsedTime)%60);
 			}
 		}
-		
+
 		createTextMesh(timestring, 998, (textMesh) => {
 		textMesh.position.y =cubes.length*bh-th*0.2
 		textMesh.position.x=avx-bw/2;
@@ -12059,8 +12068,8 @@ if(!gameoverflag){
 	// // sprite.position.set(0, -window.innerHeight/200+texture.image.width / 200, -1);
 	// sprite.position.set(0, window.innerHeight/200- texture.image.height / 200, 0);
 
-	
-	
+
+
 
 }
 //유아이
@@ -12125,25 +12134,25 @@ if(topcam){
 
 		topViewCamera.position.set(cubes[cubes.length-1].body.position.x, bh*20, cubes[cubes.length-1].body.position.z);
 		topViewCamera.rotation.order = 'YXZ';
-					
+
 		topViewCamera.lookAt(cubes[cubes.length-1].body.position.x, 0, cubes[cubes.length-1].body.position.z);
 		topViewCamera.rotation.y=cubes[cubes.length-1].mesh.rotation.y
 
 	}else{
 		for(var i=0;i<cubes.length;i++){
-			
+
 			if(i==activeFloor){
 
 				cubes[i].mesh.material.opacity = 0.1;
 				if(!gameoverflag){
 					topViewCamera.position.set(cubes[i].body.position.x, bh*20, cubes[i].body.position.z);
 					topViewCamera.rotation.order = 'YXZ';
-					
+
 					topViewCamera.lookAt(cubes[i].body.position.x, 0, cubes[i].body.position.z);
 					topViewCamera.rotation.y=cubes[i].mesh.rotation.y
 				}
-				
-				
+
+
 			}else if(i>activeFloor){
 
 				cubes[i].mesh.material.opacity = 0.0;
@@ -12160,13 +12169,13 @@ if(topcam){
 				// });
 			}
 
-			
+
 		}
-		
+
 	}
 }
 
-	
+
 // }
 
 effects.forEach((item) => {
@@ -12196,14 +12205,14 @@ if(topcam){
 		renderer.setScissorTest(true);
 		renderer.render(scene, topViewCamera);
 	}
-	
+
 }
 
 // if(Math.abs(restartend-camera.rotation.x)<0.5){
 // 	renderer.render(scene, camera);
 // 	console.log(restartend-camera.rotation.x);
 // }else{
-	
+
 // }
 
 uilst[0].material.visible=true;
@@ -12237,7 +12246,7 @@ if(sidecam&&!gameoverflag){
 
 						})
 					}
-					
+
 				});
 			}else{
 				cubes[i].mesh.material.opacity = 1;
@@ -12260,13 +12269,13 @@ if(sidecam&&!gameoverflag){
 						})
 					}
 
-					
+
 				});
 			}
 		}
 	}
 
-	
+
 	frontalViewCamera.position.set(avx, bw*0.8, bw*1.5);
 	frontalViewCamera.lookAt(avx, bw*0.8, 0);
 
@@ -12294,12 +12303,12 @@ if(sidecam&&!gameoverflag){
 	// }else{
 		renderer.render(scene, frontalViewCamera);
 	// }
-	
+
 	uilst[0].position.set(bw/1.4, bh*3, 0)
 	uilst[0].scale.set(6,20*uidelta,6);
 	// scene.background = new THREE.Color(0x8eA01d);
 	// scene.background = new THREE.Color(colorlst[colornum][0]);
-	
+
 	renderer.setViewport(window.innerWidth - width+500*Math.abs(-isoAngle-camera.rotation.x)+500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5,  width, height);
 	renderer.setScissor(window.innerWidth - width+500*Math.abs(-isoAngle-camera.rotation.x)+500*Math.abs(Math.PI/4-camera.rotation.y), height*3.5,  width, height);
 
@@ -12312,12 +12321,12 @@ if(sidecam&&!gameoverflag){
 	// }else{
 		renderer.render(scene, sideViewCamera);
 	// }
-	
+
 
 }
 
 if(elapsedTime>2&&sload) {
-		
+
 	sload=false;
 	// console.log(bw*0.9/bh*0.8)
 	// var aa=createtxt("ABC")
@@ -12328,18 +12337,18 @@ if(elapsedTime>2&&sload) {
 	// for(var i=0;i<5;i++){
  //      geos.push(cubes[i].mesh.geometry);
  //    }
-    
 
-  	
+
+
   	// console.log(mergeBufferGeometries);
 		// for(var i=0;i<6;i++){
 		//     soundic[sdic[i][0]].setLoop( true );
 		// }
-		
+
 		// inflag=false;
 		// soundic[sdic[5][0]].play();
-		
-} 
+
+}
 
 
 
@@ -12357,10 +12366,10 @@ if(elapsedTime<3&&!gameoverflag){
 	// // scene.remove(uilst.pop());
 	// scene.add(sprite0)
 	// uilst.push(sprite0);
-	
+
 	// sprite0.scale.set(scrollimg.image.width/100, scrollimg.image.height/(532+20*Math.cos(Math.PI+5*elapsedTime%(2*Math.PI))), 1);
 	// scene.add(sprite0)
-	// 
+	//
 	// uiScene2.remove(uiScene2.children[uiScene2.children.length-1]);
 	// uiScene2.add(sprite0);
 	// renderer.setViewport(width/9.8, -window.innerHeight/100+scrollimg.image.height/300, width, height*4);
@@ -12412,7 +12421,7 @@ camera.updateProjectionMatrix();
 
 function addring(){
 	var w=bw/8
-	
+
 	var geometry0 = new THREE.PlaneGeometry( bw, bw/2 );
 	var material0 = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity:0, transparent:true} );
 	var mesh0 = new THREE.Mesh( geometry0, material0 );
@@ -12487,7 +12496,7 @@ function 이펙트2(floor,num,direction){
 	mesh0.rotation.order = 'YXZ';
 	mesh0.rotation.z = cubes[floor].mesh.rotation.z;
 	mesh0.rotation.x = cubes[floor].mesh.rotation.x-Math.PI / 2;
-	
+
 
 	mesh0.position.set(cubes[floor].mesh.position.x,cubes[floor].body.position.y-th/3-(th/16)*effects.length,cubes[floor].body.position.z)
 
@@ -12506,7 +12515,7 @@ function 이펙트2(floor,num,direction){
 
 			// mesh2.rotation.y =cubes[floor].mesh.rotation.y
 			// mesh3.rotation.y =cubes[floor].mesh.rotation.y
-			
+
 			break;
 		case 'down':
 		 // mesh1.position.set(cubes[floor].mesh.rotation.x,cubes[floor].body.position.y-tw/3,cubes[floor].body.position.z+bw/2)
@@ -12525,7 +12534,7 @@ function 이펙트2(floor,num,direction){
 			mesh0.rotation.y =cubes[floor].mesh.rotation.y-Math.PI / 2;
 			// mesh2.rotation.y =cubes[floor].mesh.rotation.y-Math.PI / 2;
 			// mesh3.rotation.y =cubes[floor].mesh.rotation.y-Math.PI / 2;
-			
+
 			break;
 		default:
 			return;
@@ -12546,7 +12555,7 @@ function 이펙트(floor,num,direction){
 	const geometry = new THREE.PlaneGeometry( bw, bw/2 );
 	const material = new THREE.MeshBasicMaterial( { color: colorlst0[colornum0][floor], side: THREE.DoubleSide ,opacity:0, transparent:true} );
 	const mesh = new THREE.Mesh( geometry, material );
-	
+
 	mesh.rotation.order = 'YXZ';
 	mesh.rotation.x = cubes[floor].mesh.rotation.x-Math.PI / 2;
 	switch (direction) {
@@ -12600,7 +12609,7 @@ function findDuplicates(arr) {
 			}
 		}
 	})
-	
+
 
 	return duplicates;
 }
@@ -12680,12 +12689,12 @@ function soundnum(num){
 
 
 function loadman(callback){
-	
+
 	mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/face.mtl', function(materials) {
 		materials.preload();
-		
+
 		loader.setMaterials(materials);
-		
+
 		textureLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/face.png', function(texture) {
 			// console.log(materials)
 			// materials.forEach(function(material) {
@@ -12699,7 +12708,7 @@ function loadman(callback){
 	'https://raw.githubusercontent.com/Radetzki87/web1/master/face.obj',
 	// called when resource is loaded
 	function ( object ) {
-	 
+
 		// scene.add( object );
 		// face.push(object);
 
@@ -12724,8 +12733,8 @@ function loadman(callback){
 	}
 );
 
-			
-	 
+
+
 	});
 
 
@@ -12755,18 +12764,18 @@ function hexToHSL(hex0) {
 
   var hex=hex0.toString();
 
- 
+
   const r = parseInt(hex.substring(1,3), 16) / 255;
   const g = parseInt(hex.substring(3,5), 16) / 255;
   const b = parseInt(hex.substring(5,7), 16) / 255;
-  
+
   // RGB 값으로 HSL 값을 계산
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
   const diff = max - min;
-  
+
   let h = 0, s = 0, l = (max + min) / 2;
-  
+
   if (diff !== 0) {
     s = l > 0.5 ? diff / (2 - max - min) : diff / (max + min);
     switch(max) {
@@ -12782,7 +12791,7 @@ function hexToHSL(hex0) {
     }
     h /= 6;
   }
-  
+
   // HSL 값을 리턴
   return {
     h: Math.round(h * 360),
@@ -12801,7 +12810,7 @@ function hexToRGB(hex0, opa) {
 
   var hex=hexToHtmlColor(hex0)
 
- 
+
   const r = parseInt(hex.substring(1,3), 16) ;
   const g = parseInt(hex.substring(3,5), 16) ;
   const b = parseInt(hex.substring(5,7), 16) ;
@@ -12849,7 +12858,7 @@ function motion(name, n) {
                 temp1.push([x0, y0, w0, h0])
             }
             // console.log(temp1)
-            
+
 
            }
         });
@@ -12862,7 +12871,7 @@ function getui(row, col){
 	var ctx = canvas.getContext('2d');
 	canvas.width = 552;
 	canvas.height =676;
-	
+
 	var fr= motion("ui0", 1)
 	if(!paidflag){
 		var dur=5;
@@ -12880,21 +12889,21 @@ function getui(row, col){
 		var dur=2;
 		ctx.drawImage(unitimg["ui0"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
 	}
-	
+
 	if(row==1&&col==3){
 
 	}else{
 		var dur=3;
 		ctx.drawImage(unitimg["ui0"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
 	}
-	
+
 	if(row==1&&col==1){
 
 	}else{
 		var dur=1;
 		ctx.drawImage(unitimg["ui0"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
 	}
-	
+
 	var fr= motion("ui0", 2)
 
 	if(soundflag){
@@ -12903,14 +12912,14 @@ function getui(row, col){
 		var dur=3;
 	}
 	ctx.drawImage(unitimg["ui0"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
-	
+
 	if(skinflag){
 		var dur=1;
 	}else{
 		var dur=4;
 	}
 	ctx.drawImage(unitimg["ui0"],fr[dur][0],fr[dur][1],fr[dur][2],fr[dur][3],0,0,552,676)
-	
+
 	if(sidecam){
 		var dur=2;
 	}else{
@@ -13038,7 +13047,7 @@ function woodmix() {
 		0: mainmusic[0],
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		8: "ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		16: "ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
@@ -13061,7 +13070,7 @@ function woodmix() {
 		0: mainmusic[1],
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		8: "ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		16: "ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
@@ -13084,7 +13093,7 @@ function woodmix() {
 		0: mainmusic[2],
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		8: "ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		16: "ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
@@ -13107,7 +13116,7 @@ function woodmix() {
 		0: mainmusic[3],
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		8: "ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		16: "ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
@@ -13130,7 +13139,7 @@ function woodmix() {
 		0: mainmusic[4],
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		8: "ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		16: "ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
@@ -13153,7 +13162,7 @@ function woodmix() {
 		0: mainmusic[5],
 		2: "4.ogg",
 		// 4: "LoFi-Snare-ADSR Snr 1.WAV",
-		
+
 		4: "ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		8: "ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
 		16: "ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav",
@@ -13187,7 +13196,7 @@ function skinplay() {
   const button1 = document.getElementById('button1');
 	const button2 = document.getElementById('button2');
 	const button3 = document.getElementById('button1');
-	
+
  	skinnum=skinselect;
  	skinidx=skinselect;
  	// button1.style.display = 'none';
@@ -13200,9 +13209,9 @@ function skinplay() {
 	for(var i=0;i<cubes.length;i++){
 		restartloc.push(cubes[i].mesh.position);
 		restartrot.push(cubes[i].mesh.rotation);
-		
-		
-		
+
+
+
 	}
 	ncolornum=parseInt(Math.random()*colorlst.length);
 	ncolornum0=parseInt(Math.random()*colorlst0.length);
@@ -13285,7 +13294,7 @@ function skinpay() {
   	console.log("돈이 없습니다")
   }
 
- 
+
 }
 
 
@@ -13296,10 +13305,10 @@ function skinpay() {
 function restartGame() {
   console.log('Restart game...');
   // Hide the game over panel
-  
-  
-  
-  
+
+
+
+
 	rotationflag=true
 	restartflag=true
 	pluscoin=parseInt(점수/10)
@@ -13307,9 +13316,9 @@ function restartGame() {
 	for(var i=0;i<cubes.length;i++){
 		restartloc.push(cubes[i].mesh.position);
 		restartrot.push(cubes[i].mesh.rotation);
-		
-		
-		
+
+
+
 	}
 	ncolornum=parseInt(Math.random()*colorlst.length);
 	ncolornum0=parseInt(Math.random()*colorlst0.length);
@@ -13341,9 +13350,9 @@ function restartGame() {
 
 function viewAds() {
   console.log('View ads and earn 2x coins...');
-  
-  
- 	
+
+
+
 	rotationflag=true
 	restartflag=true
 	pluscoin=2*parseInt(점수/10)
@@ -13382,7 +13391,7 @@ function viewAds() {
 
 document.addEventListener("DOMContentLoaded", function() {
   // Select all radio buttons with the class 'voxel-radio'
-  
+
   var reBtn = document.getElementById('restartbtn');
 
   reBtn.addEventListener('click', function() {
@@ -13401,7 +13410,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					restartloc.push(cubes[i].mesh.position);
 					restartrot.push(cubes[i].mesh.rotation);
 
-					
+
 				}
 				ncolornum=parseInt(Math.random()*colorlst.length);
 				ncolornum0=parseInt(Math.random()*colorlst0.length);
@@ -13415,7 +13424,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
 				rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
 				renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
-				
+
 				bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
 				nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
 				bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
@@ -13431,9 +13440,9 @@ document.addEventListener("DOMContentLoaded", function() {
 			}
 		}
 	})
-  	
+
   // Loop through each radio button and add an event listener
-  
+
 });
 
 
@@ -13459,8 +13468,8 @@ var step1=document.getElementById("step1");
     document.getElementById("right").children[1].classList.add("hidden");
     document.getElementById("right").children[0].classList.remove("hidden");
     document.getElementById("right").children[0].style.display=""
-    
-   
+
+
 
     setTimeout(function() {
       document.getElementById("left").classList.add("hidden");
@@ -13487,7 +13496,7 @@ var step1=document.getElementById("step1");
       document.getElementById("bgm").children[0].style.display=""
       document.getElementById("bgm").style.backgroundImage= 'url("PNG/green_button09.png")'
     }
-    
+
   }
 
   function musicon() {
@@ -13497,14 +13506,14 @@ var step1=document.getElementById("step1");
       document.getElementById("music").children[1].classList.remove("hidden");
       document.getElementById("music").children[1].style.display=""
       document.getElementById("music").style.backgroundImage= 'url("PNG/red_button09.png")'
-   
+
     }else{
       document.getElementById("music").children[1].classList.add("hidden");
       document.getElementById("music").children[0].classList.remove("hidden");
       document.getElementById("music").children[0].style.display=""
       document.getElementById("music").style.backgroundImage= 'url("PNG/green_button09.png")'
     }
-    
+
   }
 
 
@@ -13519,8 +13528,8 @@ var step1=document.getElementById("step1");
       document.getElementById("right").children[1].classList.remove("hidden");
       document.getElementById("right").children[1].style.display=""
       setTimeout(function() {
-        
-        
+
+
       }, 150);
     }else{
       document.getElementById("optionlst").classList.remove("show");
@@ -13531,10 +13540,10 @@ var step1=document.getElementById("step1");
 
       setTimeout(function() {
         document.getElementById("optionlst").classList.add("hidden");
-        
+
       }, 150);
     }
-    
+
   }
 
   function showsetting(n) {
@@ -13546,7 +13555,7 @@ var step1=document.getElementById("step1");
      document.getElementById("optionlst").classList.remove("show");
 
     setTimeout(function() {
-      
+
       document.getElementById("left").classList.add("hidden");
       document.getElementById("right").classList.add("hidden");
 
@@ -13592,10 +13601,10 @@ var step1=document.getElementById("step1");
 	        document.getElementById("setting-overlay").classList.add("hidden");
 	    	}, 150);
 
-  		
+
   	}
-    
-    
+
+
     if(!document.getElementById("gameover-overlay").classList.contains("hidden")){
     	document.getElementById("gameover-overlay").classList.remove("show");
   		document.getElementById("gameover-overlay").classList.add("fade");
@@ -13623,7 +13632,7 @@ var step1=document.getElementById("step1");
 			renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
 			rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
 			renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
-			
+
 			bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
 			nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
 			bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
@@ -13638,25 +13647,25 @@ var step1=document.getElementById("step1");
 			rotationend=Math.PI/4
 		}
 
-  		
+
 
 
     }
 
 
-    
+
 
     if(!document.getElementById("step1").classList.contains("hidden")){
       document.getElementById("options-overlay").classList.add("fade");
       document.getElementById("options-overlay").classList.remove("show");
-      
+
       setTimeout(function() {
         document.getElementById("options-overlay").classList.add("hidden");
          document.getElementById("left").classList.add("show");
         document.getElementById("right").classList.add("show");
         document.getElementById("left").classList.remove("hidden");
         document.getElementById("right").classList.remove("hidden");
-        
+
     	}, 150);
     }else if (!document.getElementById("categ"+String(n)).classList.contains("hidden")) {
       document.getElementById("categ"+String(n)).classList.remove("show");
@@ -13708,7 +13717,7 @@ var step1=document.getElementById("step1");
   <!-- <button id="option" onclick="optionon()">
   <img src="png/musicOn.png" id="rightimg">
   </button> -->
-  <!-- 
+  <!--
   <button id="option" onclick="optionon()">
   <img src="png/buttonSelect.png" id="rightimg">
   </button> -->
@@ -13775,7 +13784,7 @@ var step1=document.getElementById("step1");
 
 <div id="gameover-overlay" class="gameover-overlay hidden" >
    <div class="gameover-container">
-      
+
     <div class="gameover">
       <label class="glabel">RETRY</label>
       <button id="restartbtn" class="gameoverbt" >
@@ -13787,7 +13796,7 @@ var step1=document.getElementById("step1");
       <label class="glabel">SHARE</label>
       <button id="" class="gameoverbt" onclick="">
       <img src="png/share2.png" id="rightimg">
-      
+
       </button>
     </div>
 
@@ -13795,7 +13804,7 @@ var step1=document.getElementById("step1");
       <label class="glabel">VIEW ADS & COINS 2x </label>
       <button id="" class="gameoverbt">
       <img src="png/movie.png" id="rightimg">
-      
+
       </button>
     </div>
 
@@ -13803,11 +13812,9 @@ var step1=document.getElementById("step1");
 </div>
 
 <div id="options-overlay" class="options-overlay hidden" >
-<div class="upper">
-    <!-- <h1 class="title">THEME</h1> -->
-</div>
+
 <div class="container">
-  <div id="step1">
+  <div id="step1" >
     <button class="backbutton" onclick="goBack(1)">◀</button>
      <div class="button-column">
       <h1 class="title">NO ADS</h1>
@@ -13816,7 +13823,7 @@ var step1=document.getElementById("step1");
       <!-- <h4>&</h4> -->
       <!-- <h3>Custom Option 🔓</h3> -->
       </button>
-      
+
       <h1 class="title">SKIN</h1>
       <button class="ap-button" onclick="showGrid(1)">
       <h2>appearance shop</h2>
@@ -13831,9 +13838,9 @@ var step1=document.getElementById("step1");
         </label>
         <button id="skin-right">R</button>
       </div>
-      
+
       <!-- <h1 class="title">BGM</h1>
-     
+
       <div class="option-RL">
         <button id="skin-left">L</button>
         <label for="skinnum" id="skin-middle">Default</label>
@@ -13845,21 +13852,21 @@ var step1=document.getElementById("step1");
       <img src="png/0.png" alt="Mute" id="img">
       CUBE (DEFAULT)
       <div class="color1"></div>
-          
+
       </button>
 
       <button class="cat-button" onclick="showGrid(2)">
         <img src="png/1.png" alt="Mute" id="img">
         LO-FI
         <div class="color2"></div>
-          
+
       </button>
 
       <button class="cat-button" onclick="showGrid(3)">
         <img src="png/2.png" alt="Mute" id="img">
         RETRO
         <div class="color3"></div>
-          
+
       </button>
 
       <button class="cat-button" onclick="showGrid(4)">
@@ -13867,39 +13874,39 @@ var step1=document.getElementById("step1");
         808
         <div class="color4"></div>
 
-          
+
       </button>
 
       <button class="cat-button" onclick="showGrid(5)">
          <img src="png/4.png" alt="Mute" id="img">
         tower
         <div class="color4"></div>
-          
+
       </button>
 
       <button class="cat-button" onclick="showGrid(6)">
          <img src="png/5.png" alt="Mute" id="img">
         donut
         <div class="color4"></div>
-          
+
       </button>
 
       <button class="cat-button" onclick="showGrid(7)">
          <img src="png/6.png" alt="Mute" id="img">
         building
         <div class="color4"></div>
-          
+
       </button>
-      
+
       <button class="cat-button" onclick="showGrid(8)">
          <img src="png/7.png" alt="Mute" id="img">
         hip-hop
         <div class="color4"></div>
-          
+
       </button>
-      
+
       <button class="cat-button" onclick="showGrid(8)">comming soon!
-          
+
       </button>
       <!-- Add more categories -->
     </div>
@@ -13912,7 +13919,7 @@ var step1=document.getElementById("step1");
         <img src="png/0.png" alt="Mute" id="img">
         CUBE
         <div class="color1"></div>
-        
+
     </button>
     <div class="progress-container">
       <div class="progress">
@@ -13986,7 +13993,7 @@ var step1=document.getElementById("step1");
       <img src="png/1.png" alt="Mute" id="img">
       LO-FI
       <div class="color2"></div>
-        
+
     </button>
     <div class="progress-container">
       <div class="progress">
@@ -14055,7 +14062,7 @@ var step1=document.getElementById("step1");
       <img src="png/2.png" alt="Mute" id="img">
       RETRO
       <div class="color3"></div>
-        
+
     </button>
     <div class="progress-container">
       <div class="progress">
@@ -14470,14 +14477,14 @@ var step1=document.getElementById("step1");
 </div>
 
 <div class="lower hidden">
-    
-</div>
-</div>
-	 
 
-	  
-	
-	   
-  	
+</div>
+</div>
+
+
+
+
+
+
 </body>
 </html>
