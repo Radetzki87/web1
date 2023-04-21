@@ -956,7 +956,7 @@ var lastX;
 var lastY;
 var touchx;
 var touchy;
-let forceAmount = bw*bw*bh/1;
+let forceAmount = bw*bw*bh/15;
 
 let unitimg={};
 
@@ -12531,9 +12531,53 @@ var step1=document.getElementById("step1");
     }, 100);
   }
 
-  var themelst=[]
+  var themelst=["wooden", "lofi", "retro", "808", "hiphop"]
+  var imglst=["0.png", "1.png", "2.png", "3a.png", "7.png"]
+
   function showGrid(n) {
-    // if(n)
+    var ulcount=0;
+    var tkey=Object.keys(nslst);
+    var templst=[];
+    tkey.forEach((item)=>{
+      if(nslst[item].type==themelst[n]){
+        templst.push(nslst[item])
+        if(nslst[item].unlock=="0") ulcount++;
+      }
+    })
+
+    templst.sort(function(a, b) {
+    return parseInt(a.idx) - parseInt(b.idx);
+    });
+
+    console.log(templst);
+    console.log(ulcount);
+
+
+   
+    var gridlst=document.querySelectorAll("#categ1 >.grid >div");
+    var gbutton=document.querySelectorAll("#categ1 >.c-button>label")
+    gbutton[0].innerText=themelst[n]
+    var gbuttonimg=document.querySelectorAll("#categ1 >.c-button>img");
+    gbuttonimg[0].src="png/"+imglst[n]
+
+
+
+
+    if(ulcount>=5){
+
+    }else if(>=2){
+
+    }else{
+
+    }
+
+    
+
+    // console.log();
+
+
+
+
 
 
     document.getElementById("step1").classList.remove("show");
@@ -12781,14 +12825,14 @@ var step1=document.getElementById("step1");
     <button class="backbutton" onclick="goBack(1)">◀</button>
      <div class="button-column">
       <h1 class="title">NO ADS</h1>
-      <button class="ad-button" onclick="showGrid(1)">
+      <button class="ad-button" onclick="">
       <h2>GET AD-FREE</h2>
       <!-- <h4>&</h4> -->
       <!-- <h3>Custom Option 🔓</h3> -->
       </button>
 
       <h1 class="title">SKIN</h1>
-      <button class="ap-button" onclick="showGrid(1)">
+      <button class="ap-button" onclick="">
       <h2>appearance shop</h2>
       <!-- <h4>&</h4> -->
       <!-- <h3>Custom Option 🔓</h3> -->
@@ -12811,28 +12855,28 @@ var step1=document.getElementById("step1");
       </div> -->
 
       <h1 class="title">THEME</h1>
-      <button class="cat-button" onclick="showGrid(1)">
+      <button class="cat-button" onclick="showGrid(0)">
       <img src="png/0.png" alt="Mute" id="img">
       CUBE (DEFAULT)
       <div class="color1"></div>
 
       </button>
 
-      <button class="cat-button" onclick="showGrid(2)">
+      <button class="cat-button" onclick="showGrid(1)">
         <img src="png/1.png" alt="Mute" id="img">
         LO-FI
         <div class="color2"></div>
 
       </button>
 
-      <button class="cat-button" onclick="showGrid(3)">
+      <button class="cat-button" onclick="showGrid(2)">
         <img src="png/2.png" alt="Mute" id="img">
         RETRO
         <div class="color3"></div>
 
       </button>
 
-      <button class="cat-button" onclick="showGrid(4)">
+      <button class="cat-button" onclick="showGrid(3)">
         <img src="png/3a.png" alt="Mute" id="img">
         808
         <div class="color4"></div>
@@ -12840,33 +12884,14 @@ var step1=document.getElementById("step1");
 
       </button>
 
-      <button class="cat-button" onclick="showGrid(5)">
-         <img src="png/4.png" alt="Mute" id="img">
-        tower
-        <div class="color4"></div>
-
-      </button>
-
-      <button class="cat-button" onclick="showGrid(6)">
-         <img src="png/5.png" alt="Mute" id="img">
-        donut
-        <div class="color4"></div>
-
-      </button>
-
-      <button class="cat-button" onclick="showGrid(7)">
-         <img src="png/6.png" alt="Mute" id="img">
-        building
-        <div class="color4"></div>
-
-      </button>
-
-      <button class="cat-button" onclick="showGrid(8)">
+      <button class="cat-button" onclick="showGrid(4)">
          <img src="png/7.png" alt="Mute" id="img">
-        hip-hop
+        hiphop
         <div class="color4"></div>
 
       </button>
+
+      
 
       <button class="cat-button" onclick="showGrid(8)">comming soon!
 
@@ -12880,7 +12905,7 @@ var step1=document.getElementById("step1");
     <h1 class="title">Category</h1>
     <button class="c-button" onclick="">
         <img src="png/0.png" alt="Mute" id="img">
-        CUBE
+        <label>CUBE</label>
         <div class="color1"></div>
 
     </button>
