@@ -10,31 +10,105 @@
             color: white;
             font-size: 1vh;
             position: absolute;
-            top: 0;
-            left: 2vw;
+            top: 45%;
+            /* left: 4vw; */
+            width:100%;
             display: inline-flex;
             z-index: 1;
             align-items: center;
-            justify-content: center;
-
+            justify-content: left;
+            text-align: left;
             /*opacity: 1;*/
             /*transition: opacity 0.15s ease-in-out;*/
         }
         #playing{
+            margin-left: 6vw;
             margin-right: 1vw;
-            font-size: 1.5vh;
+            font-size: 3vh;
 
         }
+        #artist-name{
+            margin-bottom: : 0;
+            transform: translate(0, 1.8vw);
+            /* margin-left: 1vw; */
+            font-size: 1.2vh;
+            color:black;
+
+        }
+
+        #song-title{
+            /* margin-left: 1vw; */
+            transform: translate(0, -1vw);
+            font-size: 1.8vh;
+            color:black;
+            margin-top: 0;
+
+        }
+
+        #songtxt{
+            align-items: left;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            margin-top: 0;
+
+
+        }
+
 
         #song-dash1{
             margin-left: 1vw;
             font-size: 1.5vh;
+            color:black;
 
         }
 
         #song-dash2{
             font-size: 1.5vh;
+            color:black;
+        }
 
+        #songback{
+            position: absolute;
+            width: 500vw;
+            left:-24%;
+            height: 60%;
+            background-color: rgba(0, 0, 0, 0.2);
+            background-size: cover;
+            /* z-index: 2; */
+            display: inline-flex;
+            /* flex-direction: ; */
+
+        }
+
+        #songback1{
+          width: 1.5%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.8);
+            /* position: absolute; */
+            /* z-index: 2; */
+        }
+        #songback2{
+          width: 1.5%;
+          height: 100%;
+          background-color: rgba(200, 0, 0, 0.8);
+            /* position: absolute; */
+            /* z-index: 2; */
+        }
+        #songback3{
+          width: 1.5%;
+          height: 100%;
+          background-color: rgba(0, 200, 0, 0.8);
+            /* position: absolute; */
+            /* z-index: 2; */
+        }
+
+        #songback4{
+          width: 1%;
+          height: 100%;
+          background-color: rgba(0, 200, 0, 0.8);
+            /* position: absolute; */
+            /* z-index: 2; */
         }
 
 
@@ -52,6 +126,12 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.1s ease;
+        }
+
+        .show1 {
+            opacity: 1;
+            pointer-events: none;
+            transition: opacity 1s ease;
         }
 
         .show {
@@ -432,21 +512,13 @@
         .options-overlay {
             position: absolute;
             overflow-x: scroll;
-            /*overscroll-behavior-y: none; 
-         overscroll-behavior-x: none; */
             font-family: 'GG';
-            /*position: fixed;*/
-            /*position: absolute;*/
-            /*right: 4000px;*/
-            /*top: 0;
-        left: 0;*/
             width: 100%;
             height: 100%;
             background-color: rgba(50, 100, 250, 0.5);
             display: flex;
             justify-content: center;
-            /*z-index: 3;*/
-            /*align-items: center;*/
+
         }
 
         .gameover-overlay {
@@ -661,7 +733,7 @@
             background-image: url("png/blue_button09.png");
             background-size: 6vh 4vh;
             bottom: 1vh;
-            left: 8%;
+            left: 3%;
             width: 6vh;
             height: 4vh;
             z-index: 2;
@@ -684,7 +756,7 @@
             background-image: url("png/green_button09.png");
             background-size: 6vh 4vh;
             bottom: 1vh;
-            right: 8%;
+            right: 3%;
             width: 6vh;
             height: 4vh;
             z-index: 2;
@@ -711,7 +783,7 @@
             flex-direction: column;
             align-items: center;
             bottom: 5vh;
-            right: 8%;
+            right: 3%;
         }
 
         .setting {
@@ -820,21 +892,20 @@
 </head>
 
 <body>
-    
 
-    <script type="x-shader/x-vertex" id="vertexshader">
-        attribute float scale;
+  <script type="x-shader/x-vertex" id="vertexshader">
+    attribute float scale;
 		void main() {
 			vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
 			gl_PointSize = scale * ( 300.0 / - mvPosition.z );
 			gl_Position = projectionMatrix * mvPosition;
 		}
 	</script>
-    <script type="x-shader/x-fragment" id="fragmentshader">
-        uniform vec3 color;
+  <script type="x-shader/x-fragment" id="fragmentshader">
+    uniform vec3 color;
 		void main() {
 			if ( length( gl_PointCoord - vec2( 0.5, 0.5 ) ) > 0.475 ) discard;
-			gl_FragColor = vec4( color, 1.0 );
+			gl_FragColor = vec4( color, 0.5 );
 		}
 	</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
@@ -973,7 +1044,7 @@
         var skinflag = true;
         var shadowon = true;
         var initflag = true;
-        
+
         var skinset = ["base", "1", "카세트", "r808", "archer", "radio", "donut", "building", "tower", "test5", "adam"]
         var skinnum = 0;
         var skinselect = 0;
@@ -1106,6 +1177,9 @@
         var stack = 5;
         var tipflag = true;
         var sdic = []
+
+        var songfade;
+
         var mainmusic = ["dance_loop0.ogg", "Puzzles.ogg", "Radiohead.ogg", "Magical Forest.ogg", "Lost in the Dessert.ogg", "High End Party.ogg", "Forever Lost.ogg", "Catwalk.ogg", "You_re in the Future.ogg", "Warmth.ogg", "Beach House.ogg", "Sweet Treats.ogg"]
         var soundic = {};
         var soundlst = ["Retro", "Minimalist", "Modern"]
@@ -2877,7 +2951,7 @@
                             }
                         }
                     }
-                    
+
                 }
             }
             moveBoard(direction) {
@@ -3193,7 +3267,7 @@
                 return;
             } else {
                 // event.preventDefault();
-                // event.stopPropagation(); 
+                // event.stopPropagation();
             }
             if (window.innerWidth >= window.innerHeight) {
                 mouse.x = (event.touches[0].clientX / window.innerHeight);
@@ -3406,39 +3480,47 @@
                             }
                         }
                         if (!soundic[sdic[thisnum][0]].isPlaying) {
+                            songfade=elapsedTime;
+                            console.log(songfade);
                             soundic[sdic[thisnum][0]].play();
                             songTitleElement.innerText = sdic[thisnum]["title"];
                             artistNameElement.innerText = sdic[thisnum]["producer"];
                             var songInfo = document.getElementById('song-info');
+                            songInfo.style.left="0px"
+                            document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+                            document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+                            document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+
+
+
                             if(thisnum==5){
                                 document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
                                 document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
+                                document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
 
                             }else{
+                                document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][thisnum])
                                 document.getElementById('song-title').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
-                                document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
+
+                                var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
+                                document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.60, newcl.l*1.15)
                             }
-                            
-                            
+
+
                             document.getElementById('playing').style.color=hexToHtmlColor(colorlst[colornum][3])
-                            document.getElementById('song-dash1').style.color=hexToHtmlColor(colorlst[colornum][3])
-                            document.getElementById('song-dash2').style.color=hexToHtmlColor(colorlst[colornum][3])
+                            // document.getElementById('song-dash1').style.color=hexToHtmlColor(colorlst[colornum][3])
+                            // document.getElementById('song-dash2').style.color=hexToHtmlColor(colorlst[colornum][3])
 
                             // songInfo.classList.add("hidden");
                             if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
-                            if (songInfo.classList.contains("fade")) songInfo.classList.remove("fade");
-                            if (songInfo.classList.contains("during")) {
-                                songInfo.classList.remove("during");
-                                songInfo.classList.add("during");
-                            } else {
-                                songInfo.classList.add("during");
-                            }
+                            // // songInfo.classList.remove("show1");
+                            //
+                            //
+                            //
+                            // if (songInfo.classList.contains("fade")) songInfo.classList.remove("fade");
+                            songInfo.classList.add("show1");
                             // songInfo.classList.add("show");
-                            setTimeout(function() {
-                                if (!songInfo.classList.contains("during")) return;
-                                // songInfo.classList.remove("show");
-                                songInfo.classList.add("fade");
-                            }, 2000);
+
                         }
                     }
                 }
@@ -3454,7 +3536,7 @@
                 return;
             } else {
                 // event.preventDefault();
-                // event.stopPropagation(); 
+                // event.stopPropagation();
             }
             // if(inflag) return;
             // event.preventDefault();
@@ -3676,6 +3758,19 @@
                             songTitleElement.innerText = sdic[thisnum]["title"];
                             artistNameElement.innerText = sdic[thisnum]["producer"];
                             var songInfo = document.getElementById('song-info');
+                            if(thisnum==5){
+                                document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
+                                document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
+
+                            }else{
+                                document.getElementById('song-title').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
+                                document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
+                            }
+
+
+                            document.getElementById('playing').style.color=hexToHtmlColor(colorlst[colornum][3])
+                            // document.getElementById('song-dash1').style.color=hexToHtmlColor(colorlst[colornum][3])
+                            // document.getElementById('song-dash2').style.color=hexToHtmlColor(colorlst[colornum][3])
                             // songInfo.classList.add("hidden");
                             if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
                             if (songInfo.classList.contains("fade")) songInfo.classList.remove("fade");
@@ -3705,7 +3800,7 @@
                 return;
             } else {
                 // event.preventDefault();
-                // event.stopPropagation(); 
+                // event.stopPropagation();
             }
             // if(inflag) return;
             // event.preventDefault();
@@ -3980,6 +4075,19 @@
                             songTitleElement.innerText = sdic[thisnum]["title"];
                             artistNameElement.innerText = sdic[thisnum]["producer"];
                             var songInfo = document.getElementById('song-info');
+                            if(thisnum==5){
+                                document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
+                                document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
+
+                            }else{
+                                document.getElementById('song-title').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
+                                document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
+                            }
+
+
+                            document.getElementById('playing').style.color=hexToHtmlColor(colorlst[colornum][3])
+                            // document.getElementById('song-dash1').style.color=hexToHtmlColor(colorlst[colornum][3])
+                            // document.getElementById('song-dash2').style.color=hexToHtmlColor(colorlst[colornum][3])
                             // songInfo.classList.add("hidden");
                             if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
                             if (songInfo.classList.contains("fade")) songInfo.classList.remove("fade");
@@ -4024,6 +4132,19 @@
                             songTitleElement.innerText = sdic[thisnum]["title"];
                             artistNameElement.innerText = sdic[thisnum]["producer"];
                             var songInfo = document.getElementById('song-info');
+                            if(thisnum==5){
+                                document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
+                                document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
+
+                            }else{
+                                document.getElementById('song-title').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
+                                document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
+                            }
+
+
+                            document.getElementById('playing').style.color=hexToHtmlColor(colorlst[colornum][3])
+                            // document.getElementById('song-dash1').style.color=hexToHtmlColor(colorlst[colornum][3])
+                            // document.getElementById('song-dash2').style.color=hexToHtmlColor(colorlst[colornum][3])
                             // songInfo.classList.add("hidden");
                             if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
                             if (songInfo.classList.contains("fade")) songInfo.classList.remove("fade");
@@ -5665,7 +5786,7 @@
                         // object.children[0].scale.y=1.92;
                         object.children[0].userData["skin"] = "tower"
                         var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] + 10) + '%)');
+                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
                         object.children[0].material = new THREE.MeshLambertMaterial({
                             color: tc
                         });
@@ -6096,7 +6217,7 @@
                     tg.setAttribute('color', colorAttrib);
                     geoms.push(tg)
 
-                  
+
 
 
                     originHelper.position.set(bw / 2 - (width / 20) / 2, bh / 2 - height * 0.19 / 2, bw / 2.3 - (width / 13) / 2 - 3 * (gap))
@@ -7019,7 +7140,7 @@
                     tg.setAttribute('color', colorAttrib);
                     geoms.push(tg)
                     // 우측화면(블랙)
-                    
+
                     //우측화면(그레이)
                     originHelper.position.set(depth / 1.97 - depth * 0.025, height * 0.45 * ratio + dify, 0 - depth / 8)
                     originHelper.updateWorldMatrix(true, false);
@@ -7446,7 +7567,7 @@
             mesh1.rotation.y = Math.PI / 2
             // mesh1.userData["3"]=true;
             mesh1.userData["skin"] = "txtback1";
-            
+
             mesh.position.set(0, y, 0);
             mesh.material.visible = true;
             // clmeshlst2[idx].push(mesh1.material)
@@ -7458,7 +7579,7 @@
                 mesh.castShadow = true;
             }
 
-            
+
             scene.add(mesh);
 
 
@@ -7486,7 +7607,7 @@
             if (game2048) {
                 const boardSize = game2048.size;
                 const tileSize = width / boardSize;
-                
+
             }
             return {
                 mesh: mesh,
@@ -7610,7 +7731,7 @@
             backmesh.position.y = -40;
             scene.add(backmesh);
             gradback.push(backmesh);
- 
+
 
             var geometry12 = new TextGeometry("2", {
                 font: font0,
@@ -8282,7 +8403,7 @@
                 sdic.push(nslst[templst[3]])
                 sdic.push(nslst[templst[4]])
                 sdic.push(nslst[templst[5]])
-                
+
                 window.nslst = nslst;
                 for (let i = 0; i < 6; i++) {
                     let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
@@ -8324,7 +8445,7 @@
                                             document.getElementById("intro").classList.add("hidden");
                                         }, 150);
                                         animate();
-                                    }, 300);
+                                    }, 500);
                                 })
                                 // console.log(tilemold);
                                 // console.log(textmold)
@@ -8390,7 +8511,7 @@
                     item.material.visible = true;
                 })
             }
-            
+
             if (restartflag && lookcenter) {
                 포인트.forEach((item) => {
                     item.material.visible = false;
@@ -8612,7 +8733,7 @@
                 }
             }
             if (rotationflag) {
-                
+
                 if (Math.abs(camera.rotation.y - rotationend) < 0.0001) {
                     rotationflag = false;
                     if (rotationend == 0) {
@@ -8773,9 +8894,9 @@
                     tmesh.add(tmesh1)
                     // tmesh1.position.y
                     scene.add(tmesh)
-                    
+
                 }
-                
+
             } else if (!stage1) {
                 return;
             }
@@ -9139,7 +9260,7 @@
                                     tempeffects.push([item.index, num, item.direction]);
                                     이펙트2(item.index, num, item.direction);
                                 }
-                                
+
                                 if (true) {
                                     var force = new CANNON.Vec3();
                                     // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
@@ -9163,7 +9284,7 @@
                                     // cubes[activeFloor].body.applyForce(force, cubes[activeFloor].body.position.clone().vadd(offset));
                                     cubes[item.index].body.applyForce(force, cubes[item.index].body.position);
                                 }
-                               
+
                             } else {}
                             // type();
                         } else {
@@ -9171,7 +9292,7 @@
                             //     soundic[sdic[activeFloor][item.direction]][0].stop();
                             // }
                             soundic[sdic[activeFloor][item.direction]].play();
-                            
+
                         }
                         rmvftile.push(index);
                     }
@@ -9295,6 +9416,19 @@
             }
 
 
+            if(elapsedTime - songfade > 1.5){
+              document.getElementById('song-info').style.left=String(parseInt((elapsedTime - songfade-1.5)*1000))+"px";
+
+              if(elapsedTime - songfade > 3){
+                document.getElementById('song-info').classList.remove("show1");
+                document.getElementById('song-info').classList.add("hidden");
+              }
+
+              // document.getElementById('song-info').style.opacity=1-0.5*parseInt((elapsedTime - songfade-1.5))
+
+
+            }
+
             if (elapsedTime - atchanged > 0 && elapsedTime - atchanged < 0.1) {
                 bounceflag = true;
                 if (activeFloor != cubes.length) {
@@ -9355,12 +9489,13 @@
                         document.getElementById("gameover-overlay").classList.remove("fade");
                         document.getElementById("gameover-overlay").classList.remove("hidden");
                         document.getElementById("gameover-overlay").classList.add("show");
-                        
+
                         activeFloor = cubes.length
                     }
                 })
             }
-            
+
+
             if (orthoflag && lookcenter) {
                 if (!gameoverflag) {
                     if (activeFloor == cubes.length) {
@@ -9434,7 +9569,7 @@
                                     tile.material.opacity = 0
                                     tile.material.transparent = true;
                                 }
-                                
+
                             });
                         })
                     } else {
@@ -9447,9 +9582,9 @@
                                     bh * (cubes.length + 3.5),
                                     bw * 2 + avz,
                                 );
-                                
+
                                 if (arrowon) arrows[i].children[0].material.opacity = 0.5
-                                
+
                                 cubes[i].mesh.children.forEach((tile, index) => {
                                     if (tile.userData["skin"] == "tile") {
                                         tile.material.visible = true;
@@ -9514,7 +9649,7 @@
                                         tile.material.opacity = 0
                                         tile.material.transparent = true;
                                     }
-                                    
+
                                 });
                             } else {
                                 if (i > activeFloor) {
@@ -9574,10 +9709,10 @@
                                             tile.material.opacity = 0.1;
                                             tile.material.transparent = true;
                                         }
-                                        
+
                                     });
                                 } else {
-                                    
+
                                     cubes[i].mesh.material.opacity = 1;
                                     cubes[i].mesh.material.transparent = false;
                                     cubes[i].mesh.children.forEach((tile, index) => {
@@ -9676,7 +9811,7 @@
                 }
             } else {
                 if (restartflag) {
-                    
+
                     renderer.setViewport(0, window.innerHeight - window.innerWidth * 2.5, window.innerWidth * 2.5, window.innerWidth * 2.5);
                     renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
                     renderer.setScissorTest(true);
@@ -9788,9 +9923,9 @@
                 // uiScene.remove(uiScene.children[uiScene.children.length-1]);
                 // uiScene.add(sprite);
             } else {
-                
+
             }
-            
+
             ring[0].children.forEach((item) => {
                 item.material.visible = false;
             })
@@ -9831,7 +9966,7 @@
                             cubes[i].mesh.children.forEach((tile) => {
                                 tile.material.opacity = 0
                             })
-                            
+
                         }
                     }
                 }
@@ -9970,9 +10105,9 @@
                 // soundic[sdic[5][0]].play();
             }
             if (elapsedTime < 3 && !gameoverflag) {
-                
+
             } else {
-                
+
             }
             포인트.forEach((item) => {
                 item.material.visible = true
@@ -10103,7 +10238,7 @@
             mesh0.rotation.z = cubes[floor].mesh.rotation.z;
             mesh0.rotation.x = cubes[floor].mesh.rotation.x - Math.PI / 2;
             mesh0.position.set(cubes[floor].mesh.position.x, cubes[floor].body.position.y - th / 3 - (th / 16) * effects.length, cubes[floor].body.position.z)
-           
+
             switch (direction) {
                 case 'up':
                     // mesh1.position.set(cubes[floor].mesh.rotation.x,cubes[floor].body.position.y-tw/3,cubes[floor].body.position.z-bw/2)
@@ -10774,7 +10909,7 @@
                 document.getElementById("optionlst").classList.add("hidden");
                 document.getElementById("step1").classList.remove("hidden");
                 document.getElementById("step1").classList.add("show");
-                
+
             }, 100);
         }
 
@@ -11048,10 +11183,17 @@
 
     <div id="song-info" class="hidden">
         <h2 id="playing">Playing: </h2>
-        <h2 id="song-title">Song Title</h2>
-        <h2 id="song-dash1"> ( </h2>
+        <div id="songtxt">
         <h2 id="artist-name">Artist Name</h2>
-        <h2 id="song-dash2"> ) </h2>
+        <h2 id="song-title">Song Title</h2>
+        </div>
+        <div id="songback">
+        <div id="songback1"></div>
+        <div id="songback2"></div>
+        <div id="songback3"></div>
+        <div id="songback4"></div>
+        </div>
+
     </div>
     <div id="intro">
         <h1>V 0.7</h1>
@@ -11191,21 +11333,21 @@
                     <button class="cat-button" onclick="showGrid(0)">
                         <img src="png/0.png" alt="Mute" id="img">
                         CUBE (DEFAULT)
-                        <div class="color1"></div>
+                        <div class="color4"></div>
 
                     </button>
 
                     <button class="cat-button" onclick="showGrid(1)">
                         <img src="png/1.png" alt="Mute" id="img">
                         LO-FI
-                        <div class="color2"></div>
+                        <div class="color4"></div>
 
                     </button>
 
                     <button class="cat-button" onclick="showGrid(2)">
                         <img src="png/2.png" alt="Mute" id="img">
                         RETRO
-                        <div class="color3"></div>
+                        <div class="color4"></div>
 
                     </button>
 
