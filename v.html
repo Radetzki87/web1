@@ -339,6 +339,53 @@
      /*font-size: 0;*/
   }
 
+  .pbutton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom:1vh;
+    font-family:'GG';
+    width: 75vw;
+    height: 21vw;
+    /*background-color: #ccc;*/
+    /*width:500px;*/
+    background-color: transparent;
+    background-image: url("png/blue_button00.png");
+    background-size: 75vw 21vw;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    font-size: 3vw;
+    margin-bottom: 3vw;
+    padding: 0 0;
+    text-align:center;
+    z-index: 1;
+  }
+
+  .pbutton img{
+    margin-right: 4vw;
+    width: 25%;
+  }
+
+  .pbutton h1{
+    display:none;
+  }
+
+
+  .pbutton:active {
+    background-image: url("png/blue_button01.png");
+    transform: translate(0, 2vw);
+    width: 75vw;
+    height: 19vw;
+    background-size: 75vw 19vw;
+     /*margin-bottom: 5vw;*/
+     /*color: rgba(255, 0, 255, 0.0);*/
+     /*font-size: 0;*/
+  }
+
   .c-button {
 
     width: 75vw;
@@ -351,15 +398,14 @@
     border: none;
     border-radius: 5px;
     color: #000;
-    cursor: pointer;
-
+    /*cursor: pointer;*/
 
     margin-bottom: 3vw;
     padding: 2vw 0;
     font-family:'GG';
     text-align:center;
     font-size: 3vw;
-    z-index: 1;
+    z-index: 0;
   }
 
 
@@ -607,6 +653,7 @@
     padding: 10px 20px;
   }*/
 
+
   .backbutton {
     position: fixed;
     border: none;
@@ -620,6 +667,10 @@
     z-index: 2;
     align-items: center;
   }
+
+  
+
+
 
   .backbutton:active{
     background-image: url("png/green_button10.png");
@@ -963,6 +1014,7 @@ let unitimg={};
 let 점수=0
 let bestscore;
 let coin=400;
+window.coin=coin;
 let pluscoin=0;
 
 let 가장자리=[];
@@ -3533,7 +3585,7 @@ function restart(){
 	// init();
 	// return location.reload();
 	for(let i=0;i<6;i++){
-		if(soundic[sdic[i][0]].isPlaying) {
+		if(soundic[sdic[i][0]]?.isPlaying) {
 			soundic[sdic[i][0]].stop();
 		}
 	}
@@ -3589,7 +3641,7 @@ function restart(){
 	gradback=[];
 	uilst0=[];
 	uilst1=[];
-	sdic=[];
+	// sdic=[];
 
 
 	wooden[0]=mainmusic[parseInt(Math.random()*mainmusic.length)];
@@ -3656,13 +3708,13 @@ function restart(){
 
 
 	scene.add( particles );
-	sdic=[];
-	sdic.push(nslst["wooden"])
-	sdic.push(nslst["wooden"])
-	sdic.push(nslst["wooden"])
-	sdic.push(nslst["new3"])
-	sdic.push(nslst["ibiza_deep"])
-	sdic.push(nslst["rnb_demo"])
+	// sdic=[];
+	// sdic.push(nslst["wooden"])
+	// sdic.push(nslst["wooden"])
+	// sdic.push(nslst["wooden"])
+	// sdic.push(nslst["new3"])
+	// sdic.push(nslst["ibiza_deep"])
+	// sdic.push(nslst["rnb_demo"])
 
 	for(let i=0;i<6;i++){
 		let temp=[0,2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right", "upper", "lower"]
@@ -12350,6 +12402,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Select all radio buttons with the class 'voxel-radio'
 
   var reBtn = document.getElementById('restartbtn');
+  var playbtn = document.getElementById('pbt');
 
   reBtn.addEventListener('click', function() {
 	   if(!document.getElementById("gameover-overlay").classList.contains("hidden")){
@@ -12392,12 +12445,90 @@ document.addEventListener("DOMContentLoaded", function() {
 				nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
 				bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
 				nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
-
 				rotationend=Math.PI/4
 			}
 		}
 	})
+  
+  playbtn.addEventListener('click', function() {
+    document.getElementById("step1").classList.remove("show");
+    document.getElementById("step1").classList.add("fade");
+    document.getElementById("step3").classList.remove("show");
+    document.getElementById("step3").classList.add("fade");
+    document.getElementById("options-overlay").classList.remove("show");
+    document.getElementById("options-overlay").classList.add("fade");
+    
+    document.getElementById("left").classList.remove("fade");
+    
+    document.getElementById("right").classList.remove("fade");
+    setTimeout(function() {
+      document.getElementById("step3").classList.add("hidden");
+      document.getElementById("step1").classList.add("hidden");
+      document.getElementById("options-overlay").classList.add("hidden");
+      document.getElementById("left").classList.remove("hidden");
+      document.getElementById("right").classList.remove("hidden");
+      document.getElementById("left").classList.add("show");
+      document.getElementById("right").classList.add("show");
+      
+    }, 100);
+    var ptxt=playbtn.children[2].innerText;
 
+    if(ptxt[0]=="2"){
+      var ptitle=ptxt.substring(2, ptxt.length)
+      for(let i=0;i<6;i++){
+        if(soundic[sdic[i][0]].isPlaying) {
+          soundic[sdic[i][0]].stop();
+        }
+      }
+      sdic=[];
+      console.log(ptitle)
+      sdic.push(nslst[ptitle])
+      sdic.push(nslst[ptitle])
+      sdic.push(nslst[ptitle])
+      sdic.push(nslst[ptitle])
+      sdic.push(nslst[ptitle])
+      sdic.push(nslst[ptitle])
+
+      if(!rotationflag){
+        rotationflag=true
+        restartflag=true
+        pluscoin=parseInt(점수/10)
+        coin+=pluscoin;
+        for(var i=0;i<cubes.length;i++){
+          restartloc.push(cubes[i].mesh.position);
+          restartrot.push(cubes[i].mesh.rotation);
+        }
+        ncolornum=parseInt(Math.random()*colorlst.length);
+        ncolornum0=parseInt(Math.random()*colorlst0.length);
+
+        rehsl1=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+        renhsl1=hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+        rehsl2=hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+        renhsl2=hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+        rehsl3=hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+        renhsl3=hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+        rehsl4=hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+        renhsl4=hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+
+        bhsl0=hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+        nbhsl0=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+        bhsl1=hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+        nbhsl1=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+        bhsl2=hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+        nbhsl2=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+        bhsl3=hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+        nbhsl3=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+        bhsl4=hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+        nbhsl4=hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+
+        rotationend=Math.PI/4
+      }
+    }
+
+    
+
+  })
   // Loop through each radio button and add an event listener
 
 });
@@ -12427,8 +12558,6 @@ var step1=document.getElementById("step1");
     document.getElementById("right").children[1].classList.add("hidden");
     document.getElementById("right").children[0].classList.remove("hidden");
     document.getElementById("right").children[0].style.display=""
-
-
 
     setTimeout(function() {
       document.getElementById("left").classList.add("hidden");
@@ -12472,7 +12601,6 @@ var step1=document.getElementById("step1");
       document.getElementById("music").children[0].style.display=""
       document.getElementById("music").style.backgroundImage= 'url("PNG/green_button09.png")'
     }
-
   }
 
 
@@ -12514,15 +12642,11 @@ var step1=document.getElementById("step1");
      document.getElementById("optionlst").classList.remove("show");
 
     setTimeout(function() {
-
       document.getElementById("left").classList.add("hidden");
       document.getElementById("right").classList.add("hidden");
-
       document.getElementById("optionlst").classList.add("hidden");
-
       document.getElementById("step1").classList.remove("hidden");
       document.getElementById("step1").classList.add("show");
-
       document.getElementById("setting-overlay").classList.remove("hidden");
       document.getElementById("setting-overlay").classList.add("show");
       document.getElementById("right").children[1].classList.add("hidden");
@@ -12531,13 +12655,15 @@ var step1=document.getElementById("step1");
     }, 100);
   }
 
-  var themelst=["wooden", "lofi", "retro", "808", "hiphop"]
-  var imglst=["0.png", "1.png", "2.png", "3a.png", "7.png"]
+  var themelst=["wooden", "lofi", "retro", "808", "hiphop"];
+  var imglst=["0.png", "1.png", "2.png", "3a.png", "7.png"];
+  var imglst1=["s00.png", "s01.png", "s02.png", "s03.png", "s04.png"];
+  var templst=[];
 
   function showGrid(n) {
     var ulcount=0;
     var tkey=Object.keys(nslst);
-    var templst=[];
+    templst=[];
     tkey.forEach((item)=>{
       if(nslst[item].type==themelst[n]){
         templst.push(nslst[item])
@@ -12550,9 +12676,6 @@ var step1=document.getElementById("step1");
     });
 
     console.log(templst);
-    console.log(ulcount);
-
-
    
     var gridlst=document.querySelectorAll("#categ1 >.grid >div");
     var gbutton=document.querySelectorAll("#categ1 >.c-button>label")
@@ -12560,16 +12683,33 @@ var step1=document.getElementById("step1");
     var gbuttonimg=document.querySelectorAll("#categ1 >.c-button>img");
     gbuttonimg[0].src="png/"+imglst[n]
 
+    console.log(gridlst[0].children);
+    if(ulcount>=5){
+      gridlst[1].classList.remove("locked");
+      gridlst[0].classList.remove("locked");
+    }else if(ulcount>=2){
+      if(!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
+      gridlst[0].classList.remove("locked");
+    }else{
+      if(!gridlst[0].classList.contains("locked")) gridlst[0].classList.add("locked");
+      if(!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
+    }
 
-
-
-    // if(ulcount>=5){
-
-    // }else if(>=2){
-
-    // }else{
-
-    // }
+    for(var i=0;i<gridlst.length-2;i++){
+      if(i>=templst.length){
+        if(!gridlst[2+i].classList.contains("hidden")) gridlst[2+i].classList.add("hidden");
+      }else{
+        gridlst[2+i].classList.remove("hidden");
+        gridlst[2+i].children[1].innerText=templst[i].title
+        gridlst[2+i].children[0].src="png/"+imglst1[n]
+        if(templst[i].unlock=="0"){
+          gridlst[2+i].classList.remove("locked");
+        }else{
+          if(!gridlst[2+i].classList.contains("locked")) gridlst[2+i].classList.add("locked");
+        }
+      }
+      
+    }
 
     
 
@@ -12589,17 +12729,73 @@ var step1=document.getElementById("step1");
     }, 100);
   }
 
-   function showPopup(n) {
-    document.getElementById("categ"+String(n)).classList.remove("show");
-    document.getElementById("categ"+String(n)).classList.add("fade");
+  function showPopup(n) {
+    var gridlst=document.querySelectorAll("#categ1 >.grid >div");
+    var ptxt=document.querySelectorAll(".pbutton>label");
+    var pbtn=document.querySelectorAll(".pbutton");
+    var pimg=document.querySelectorAll(".pbutton>img");
+    var pcode=document.querySelectorAll(".pbutton>h1");
+    console.log(gridlst[n].children[1].innerText);
+    if(n>1){
+      if(templst[n-2].unlock==0){
+        pbtn[0].style.backgroundImage= 'url("PNG/blue_button00.png")'
+        ptxt[0].innerText=gridlst[n].children[1].innerText+"\n Play ▶"
+        pcode[0].innerText="2"+" "+templst[n-2].name;
+
+      }else{
+        pbtn[0].style.backgroundImage= 'url("PNG/green_button00.png")'
+        ptxt[0].innerText=gridlst[n].children[1].innerText+"\n ⭐: "+templst[n-2].price
+      }
+    }else if(n==1){
+      if(!gridlst[n].classList.contains("locked")){
+        pbtn[0].style.backgroundImage= 'url("PNG/blue_button00.png")'
+        ptxt[0].innerText=gridlst[n].children[1].innerText+"\n Play ▶"
+        pcode[0].innerText="1"+" "+templst[0].type;
+      }else{
+        pbtn[0].style.backgroundImage= 'url("PNG/red_button00.png")'
+        ptxt[0].innerText=gridlst[n].children[1].innerText+"\n  unlock more"
+        pcode[0].innerText="";
+      }
+    }else if(n==0){
+      if(!gridlst[n].classList.contains("locked")){
+        pbtn[0].style.backgroundImage= 'url("PNG/blue_button00.png")'
+        ptxt[0].innerText=gridlst[n].children[1].innerText+"\n Play ▶"
+        pcode[0].innerText="0"+" "+templst[0].type;
+      }else{
+        pbtn[0].style.backgroundImage= 'url("PNG/red_button00.png")'
+        ptxt[0].innerText=gridlst[n].children[1].innerText+"\n  unlock more"
+        pcode[0].innerText="";
+      }
+      
+    }
+    
+
+    
+    if(templst[0].type=="wooden"){
+      pimg[0].src="png/"+imglst1[0]
+    }else if(templst[0].type=="lofi"){
+      pimg[0].src="png/"+imglst1[1]
+    }else if(templst[0].type=="retro"){
+      pimg[0].src="png/"+imglst1[2]
+    }else if(templst[0].type=="808"){
+      pimg[0].src="png/"+imglst1[3]
+    }else if(templst[0].type=="hiphop"){
+      pimg[0].src="png/"+imglst1[4]
+    }
+    // console.log(pcode[0].innerText);
+
+    // document.getElementById("step3").classList.remove("fade");
+    // document.getElementById("categ1").classList.remove("show");
+    // document.getElementById("categ1").classList.add("fade");
     setTimeout(function() {
-      document.getElementById("categ"+String(n)).classList.add("hidden");
-      document.getElementById("step3").classList.remove("hidden");
-      document.getElementById("step3").classList.add("show");
+      // document.getElementById("categ1").classList.add("hidden");
+      // document.getElementById("step3").classList.remove("hidden");
+      // document.getElementById("step3").classList.add("show");
     }, 100);
   }
 
   function goBack(n) {
+    window.scrollTo(0, 0);
   	if(document.getElementById("setting-overlay").classList.contains("show")){
   		document.getElementById("setting-overlay").classList.remove("show");
   		document.getElementById("setting-overlay").classList.add("fade");
@@ -12673,21 +12869,21 @@ var step1=document.getElementById("step1");
         document.getElementById("right").classList.remove("hidden");
 
     	}, 100);
-    }else if (!document.getElementById("categ"+String(n)).classList.contains("hidden")) {
-      document.getElementById("categ"+String(n)).classList.remove("show");
-      document.getElementById("categ"+String(n)).classList.add("fade");
+    }else if (!document.getElementById("categ1").classList.contains("hidden")) {
+      document.getElementById("categ1").classList.remove("show");
+      document.getElementById("categ1").classList.add("fade");
       setTimeout(function() {
-        document.getElementById("categ"+String(n)).classList.add("hidden");
+        document.getElementById("categ1").classList.add("hidden");
         document.getElementById("step1").classList.remove("hidden");
         document.getElementById("step1").classList.add("show");
       }, 100);
-    } else {
+    }else {
       document.getElementById("step3").classList.remove("show");
       document.getElementById("step3").classList.add("fade");
       setTimeout(function() {
         document.getElementById("step3").classList.add("hidden");
-        document.getElementById("categ"+String(n)).classList.remove("hidden");
-        document.getElementById("categ"+String(n)).classList.add("show");
+        document.getElementById("categ1").classList.remove("hidden");
+        document.getElementById("categ1").classList.add("show");
       }, 100);
     }
   }
@@ -12893,21 +13089,19 @@ var step1=document.getElementById("step1");
 
       
 
-      <button class="cat-button" onclick="showGrid(8)">comming soon!
+      <button class="cat-button" onclick="">comming soon!
 
       </button>
       <!-- Add more categories -->
     </div>
   </div>
-
   <div id="categ1" class="selection hidden">
     <button class="backbutton" onclick="goBack(1)">◀</button>
     <h1 class="title">Category</h1>
-    <button class="c-button" onclick="">
+    <button class="c-button" disabled>
         <img src="png/0.png" alt="Mute" id="img">
         <label>CUBE</label>
         <div class="color1"></div>
-
     </button>
     <div class="progress-container">
       <div class="progress">
@@ -12916,12 +13110,12 @@ var step1=document.getElementById("step1");
       <span class="unlocked-count">3/10</span>
     </div>
     <div class="grid">
-      <div class="character" onclick="showPopup(0)">
-        <img src="png/s000.png" alt="Character 1">
+      <div class="character locked" onclick="showPopup(0)">
+        <img src="" alt="Character 1">
         <span>SHUFFLE</span>
       </div>
       <div class="character locked" onclick="showPopup(1)">
-        <img src="png/s000.png" alt="Character 2">
+        <img src="" alt="Character 2">
         <span>MIX</span>
         <span>🎨🎵</span>
       </div>
@@ -12929,45 +13123,49 @@ var step1=document.getElementById("step1");
         <img src="path/to/character2.png" alt="Character 2">
         <span>Character 3</span>
       </div>
-      <div class="character" onclick="showPopup(3)">
+      <div class="character locked" onclick="showPopup(3)">
         <img src="path/to/character2.png" alt="Character 2">
         <span>Character 4</span>
       </div>
-      <div class="character" onclick="showPopup(4)">
+      <div class="character locked" onclick="showPopup(4)">
         <img src="path/to/character1.png" alt="Character 1">
         <span>Character 1</span>
       </div>
-      <div class="character" onclick="showPopup(5)">
+      <div class="character locked" onclick="showPopup(5)">
         <img src="path/to/character2.png" alt="Character 2">
         <span>Character 2</span>
       </div>
-      <div class="character" onclick="showPopup(6)">
+      <div class="character locked" onclick="showPopup(6)">
         <img src="path/to/character2.png" alt="Character 2">
         <span>Character 3</span>
       </div>
-      <div class="character" onclick="showPopup(7)">
+      <div class="character locked" onclick="showPopup(7)">
         <img src="path/to/character2.png" alt="Character 2">
         <span>Character 4</span>
       </div>
-      <div class="character" onclick="showPopup(8)">
+      <div class="character locked" onclick="showPopup(8)">
         <img src="path/to/character1.png" alt="Character 1">
         <span>Character 1</span>
       </div>
-      <div class="character" onclick="showPopup(9)">
+      <div class="character locked" onclick="showPopup(9)">
         <img src="path/to/character2.png" alt="Character 2">
         <span>Character 2</span>
       </div>
-      <div class="character" onclick="showPopup(10)">
+      <div class="character locked" onclick="showPopup(10)">
         <img src="path/to/character2.png" alt="Character 2">
         <span>Character 3</span>
       </div>
-      <div class="character" onclick="showPopup(11)">
+      <div class="character locked" onclick="showPopup(11)">
         <img src="path/to/character2.png" alt="Character 2">
         <span>Character 4</span>
       </div>
       <!-- Add more characters -->
     </div>
-    <button class="button play-buy" onclick="alert('You selected a character!')">Play</button>
+    <button class="pbutton" onclick="" id="pbt">
+      <img src="png/s000.png" alt="Character 2">
+      <label>Play</label>
+      <h1>a</h1>
+    </button>
   </div>
 
   
