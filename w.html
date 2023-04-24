@@ -8254,7 +8254,7 @@
             가장자리.push(tmesh);
 
 
-            for (var j = 0; j < 5; j++) {
+            for (var j = 0; j < 6; j++) {
                 var temp = [];
                 var text = "재생 중: " + sdic[j][0].substring(0, sdic[j][0].length - 4) + " "
                 for (var i = 0; i < 100; i++) {
@@ -9590,11 +9590,12 @@
                                     tempeffects.push([item.index, num, item.direction]);
                                     이펙트2(item.index, num, item.direction);
                                 }
-                                
+
                                 if(gamemod==2){
                                   // var tnum=Math.pow(2, (cubes.length-3))
                                   if(num==stacknum[activeFloor]&&activeFloor==cubes.length-1){
-                                    sdic.push(nslst[templst[cubes.length]])
+                                    sdic.push(nslst[templst[cubes.length+2]])
+
                                     var temp2 = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
                                     var sdickeys = Object.keys(soundic);
                                     for (let j = 0; j < temp2.length; j++) {
@@ -9833,8 +9834,6 @@
                     }
                 }
               }
-
-
 
               activeFloor=cubes.length-1;
               if (!soundic[sdic[activeFloor][0]].isPlaying) {
