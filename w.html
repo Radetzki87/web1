@@ -10,7 +10,7 @@
             color: white;
             font-size: 1vh;
             position: absolute;
-            top: 45%;
+            top: 50%;
             /* left: 4vw; */
             width:100%;
             display: inline-flex;
@@ -4447,10 +4447,7 @@
             camera.bottom = -bw * 1.3 * 4
             camera.near = 0.1;
             camera.far = 1000;
-<<<<<<< HEAD
             // dl2.shadow.camera.position.y=bh * (cubes.length + 3.5);
-=======
->>>>>>> cd5a39e3a9295b50f872d89f46e14ca6bad5aec7
             if (gamemod==0){
               cubes[3].body.material.friction = 0.2;
               cubes[3].body.material.restitution = 0.4;
@@ -4466,11 +4463,7 @@
               cubes[3].body.material.friction = 0.2;
               cubes[3].body.material.restitution = 0.4;
               stack=5;
-<<<<<<< HEAD
               forceAmount = bw * bw * bh / 25;
-=======
-              forceAmount = bw * bw * bh / 15;
->>>>>>> cd5a39e3a9295b50f872d89f46e14ca6bad5aec7
               groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
 
               world.gravity.set(0, -7, 0);
@@ -4608,12 +4601,8 @@
                   ambientLight.intensity=0.4
                   dl2.color=new THREE.Color(0xffffff);
                   dl2.intensity=0.75
-<<<<<<< HEAD
 
 
-=======
-                  dl2.position.set(10, 50, 40);
->>>>>>> cd5a39e3a9295b50f872d89f46e14ca6bad5aec7
                   // dl2.position.set(-40, 50, -20);
                 }
                 scene.add(ambientLight);
@@ -4667,10 +4656,7 @@
             if(gamemod==2) {
               var temp0=[4, 7,8]
               skinnum = temp0[parseInt(Math.random()*temp0.length)];
-<<<<<<< HEAD
               camera.position.y= bh * (cubes.length)
-=======
->>>>>>> cd5a39e3a9295b50f872d89f46e14ca6bad5aec7
             }
             resetting(stack, function(object) { //재시작
                 msetting(function(object) {
@@ -7993,7 +7979,7 @@
             });
 
 
-            var geometry = new THREE.BoxGeometry(1000, 200, 2);
+            var geometry = new THREE.BoxGeometry(1000, 300, 2);
             var backmesh = new THREE.Mesh(geometry, material4);
             // backmesh.material.depthTest = false;
             backmesh.material.depthWrite = false;
@@ -8002,7 +7988,7 @@
             backmesh.rotation.y = Math.PI / 4;
             // backmesh.rotation.x = Math.PI/2;
             // backmesh.rotation.z = Math.PI/2;
-            backmesh.position.z = -40;
+            backmesh.position.z = -20;
             backmesh.position.x = -40;
             backmesh.position.y = -40;
             scene.add(backmesh);
@@ -8917,7 +8903,6 @@
                                             document.getElementById("intro").classList.add("hidden");
                                         }, 150);
                                         console.log(skinmold)
-<<<<<<< HEAD
                                         for(var i=0;i<cubes.length;i++){
                                           cubes[i].mesh.children.forEach((item)=>{
                                             if (item.userData["skin"] != skinset[skinnum]) {
@@ -8926,8 +8911,6 @@
                                           })
                                         }
 
-=======
->>>>>>> cd5a39e3a9295b50f872d89f46e14ca6bad5aec7
                                         animate();
                                     }, 1000);
                                 })
@@ -9011,6 +8994,7 @@
                 if (Math.abs(camera.rotation.x - restartend) < 0.02) {
                     restart();
                 } else {
+
                     if (coinchg.length == 0) {
                         if (coinupdate.length != 0) {
                             coinupdate.forEach((item) => {
@@ -9811,12 +9795,9 @@
                                     activeFloor=cubes.length;
                                     stacktime=elapsedTime;
 
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> cd5a39e3a9295b50f872d89f46e14ca6bad5aec7
                                     camera.left = -bw * 1.3-cubes.length/2;
                                     camera.right = bw * 1.3 * 4+cubes.length/2;
                                     camera.top = bw * 1.3+cubes.length/2;
@@ -10137,14 +10118,10 @@
                             bh * (cubes.length + 3.5),
                             bw * 2 + avz,
                         );
-<<<<<<< HEAD
                         if(gamemod==2) {
                           camera.position.y= bh * (cubes.length)
 
                         }
-=======
-                        if(gamemod==2) camera.position.y= bh * (cubes.length)
->>>>>>> cd5a39e3a9295b50f872d89f46e14ca6bad5aec7
                         // camera.lookAt(cubes[0].body.position.x,cubes[cubes.length-1].mesh.position.y+bh*5,cubes[0].body.position.y)
                         // var isoAngle = Math.atan(1 / Math.sqrt(2));
                         // camera.rotation.order = 'YXZ';
@@ -10704,7 +10681,7 @@
                 item.material.visible = false;
             })
             gradback[0].material.visible = true;
-            if (topcam) {
+            if (topcam&&!restartflag) {
                 particles.material.visible=false;
                 groundmesh.material.visible = true;
                 if (shadowon) groundmesh.receiveShadow = false
@@ -10753,7 +10730,7 @@
             // uilst[0].material.visible=false;
             // scene.background = new THREE.Color(0x4e808d);
             // scene.background = new THREE.Color(colorlst[colornum][0]);
-            if (topcam) {
+            if (topcam&&!restartflag) {
                 if ((window.innerWidth / window.innerHeight) < 3 / 5) {
                     var width = window.innerWidth / 1.2;
                     var height = window.innerWidth / 1.2;
