@@ -1044,6 +1044,8 @@
         var stacktime;
         var stacknum=[0,0,0,0,8,8,16,16,32,32,64,64,128,128,256,256,512,512,1024,1024,2048,2048,2048,2048,2048,2048]
 
+        var skinmold={};
+
         var songTitle = 'Song Title';
         var artistName = 'Artist Name';
         var songTitleElement = document.getElementById('song-title');
@@ -1131,6 +1133,11 @@
         var initflag = true;
 
         var skinset = ["base", "1", "카세트", "r808", "archer", "radio", "donut", "building", "tower", "test5", "adam"]
+        skinset.forEach((item)=>{
+          skinmold[item]=[];
+        })
+
+
         var skinnum = 0;
         var skinselect = 0;
         var skinidx = 0;
@@ -3552,7 +3559,7 @@
                       if(cubes.length==5){
                         if(j<4) continue;
                       }else{
-                        
+
                         return;
                       }
 
@@ -4628,7 +4635,7 @@
               document.getElementById("right").classList.add("show")
             }
             if(gamemod==2) {
-              var temp0=[4,7,8]
+              var temp0=[4, 7,8]
               skinnum = temp0[parseInt(Math.random()*temp0.length)];
             }
             resetting(stack, function(object) { //재시작
@@ -4742,7 +4749,6 @@
             var geoms = [];
             if (skin0) {
                 let originHelper = new THREE.Object3D();
-
                 if (true) {
                     originHelper.position.set(0, 0, -depth / 2 + depth * 0.025)
                     originHelper.updateWorldMatrix(true, false);
@@ -4818,6 +4824,8 @@
                         mesh1.castShadow = true;
                     }
                     mesh.add(mesh1);
+
+
 
 
                     var geometry = new THREE.BoxGeometry(width, height * 0.04, depth);
@@ -5352,6 +5360,7 @@
                     mesh1.userData["skin"] = "카세트";
                     mesh1.userData["skintype"] =1;
                     clmeshlst1[idx].push(mesh1.material);
+
                     mesh.add(mesh1);
                     // originHelper.position.set(bw/2-width/4.7,0-depth*0.01,depth/2)
                     // originHelper.updateWorldMatrix(true, false);
@@ -5363,319 +5372,753 @@
                     // 		var tg=new THREE.BoxGeometry(width/3.5, height*0.55, depth*0.002);
                     // 		tg.applyMatrix4(originHelper.matrixWorld);
                     // geoms.push(tg)
-                    //카세트
-                    var mtlLoader = new MTLLoader();
-                    mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tape0.mtl', function(materials) {
-                        materials.preload();
-                        var loader = new OBJLoader();
-                        // Load OBJ file
-                        loader.setMaterials(materials);
-                        loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tape0.obj', (object) => {
-                            object.children[0].position.set(bw / 3.3, -bh / 3, bw / 2.15)
-                            object.children[0].scale.x = 1.3;
-                            object.children[0].scale.z = 1.3;
-                            object.children[0].userData["skin"] = "카세트"
-                            mesh.add(object.children[0]);
-                        });
-                    });
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/caside-0.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        // object.children[0].scale.x=2.57;
-                        // object.children[0].scale.z=2.57;
-                        // object.children[0].scale.y=2.57;
-                        object.children[0].scale.x = 2.25;
-                        object.children[0].scale.z = 2.25;
-                        object.children[0].scale.y = 1.92;
-                        object.children[0].userData["skin"] = "카세트"
-                        object.children[0].userData["skintype"] =0;
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: colorlst0[colornum0][idx]
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/test5.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, 0, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "test5"
-                        object.children[0].userData["skintype"] =0;
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: colorlst0[colornum0][idx]
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/test4.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, 0, 0)
-                        object.children[0].scale.x = 2.8;
-                        object.children[0].scale.z = 2.8;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "test4"
-                        object.children[0].userData["skintype"] =0;
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: colorlst0[colornum0][idx]
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    //archer
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-0.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, 0, 0)
-                        object.children[0].scale.x = 2.57 / 2;
-                        object.children[0].scale.z = 2.57 / 2;
-                        object.children[0].scale.y = 2.57 / 2;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "archer"
-                        object.children[0].userData["skintype"] =2;
-                        var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] - 10) + '%)');
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: tc
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst2[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-1.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, 0, 0)
-                        object.children[0].scale.x = 2.57 / 2;
-                        object.children[0].scale.z = 2.57 / 2;
-                        object.children[0].scale.y = 2.57 / 2;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "archer"
-                        object.children[0].userData["skintype"] =1;
-                        var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] + 5) + '%)');
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: tc
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst1[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    if (idx == 4) {
-                        var loader = new OBJLoader();
-                        // Load OBJ file
-                        // loader.setMaterials(materials);
-                        loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-2.obj', (object) => {
-                            object.children[0].rotation.y = Math.PI / 2
-                            object.children[0].position.set(0, 0, 0)
-                            object.children[0].scale.x = 2.57 / 2;
-                            object.children[0].scale.z = 2.57 / 2;
-                            object.children[0].scale.y = 2.57 / 2;
-                            // object.children[0].scale.x=2.25;
-                            // object.children[0].scale.z=2.25;
-                            // object.children[0].scale.y=1.92;
-                            object.children[0].userData["skin"] = "archer"
-                            object.children[0].userData["skintype"] =2;
-                            var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-                            var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] - 5) + '%)');
-                            object.children[0].material = new THREE.MeshLambertMaterial({
-                                color: tc
-                            });
-                            if (shadowon) {
-                                object.children[0].receiveShadow = true;
-                                object.children[0].castShadow = true;
-                            }
-                            clmeshlst2[idx].push(object.children[0].material)
-                            mesh.add(object.children[0]);
-                        });
-                    }
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-3.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, 0, 0)
-                        object.children[0].scale.x = 2.57 / 2;
-                        object.children[0].scale.z = 2.57 / 2;
-                        object.children[0].scale.y = 2.57 / 2;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "archer"
-                        object.children[0].userData["skintype"] =0;
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: colorlst0[colornum0][idx]
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    var mtlLoader = new MTLLoader();
-                    mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-4.mtl', function(materials) {
-                        materials.preload();
-                        var loader = new OBJLoader();
-                        // Load OBJ file
-                        loader.setMaterials(materials);
-                        loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-4.obj', (object) => {
-                            object.children[0].rotation.y = Math.PI / 2
-                            object.children[0].position.set(0, 0, 0)
-                            object.children[0].scale.x = 2.57 / 2;
-                            object.children[0].scale.z = 2.57 / 2;
-                            object.children[0].scale.y = 2.57 / 2;
-                            // object.children[0].scale.x=2.25;
-                            // object.children[0].scale.z=2.25;
-                            // object.children[0].scale.y=1.92;
-                            object.children[0].userData["skin"] = "archer"
-                            if (shadowon) {
-                                object.children[0].receiveShadow = true;
-                                object.children[0].castShadow = true;
-                            }
-                            mesh.add(object.children[0]);
-                        });
-                    });
-                    //R808
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-2.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "r808"
-                        object.children[0].userData["skintype"] =0;
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: colorlst0[colornum0][idx]
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-0.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "r808"
-                        object.children[0].userData["skintype"] =2;
-                        var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] + 5) + '%)');
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: tc
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst2[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-3.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "r808"
-                        object.children[0].userData["skintype"] =1;
+                    if(true){//몰드
+                      //카세트
+                      var mtlLoader = new MTLLoader();
+                      mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tape0.mtl', function(materials) {
+                          materials.preload();
+                          var loader = new OBJLoader();
+                          // Load OBJ file
+                          loader.setMaterials(materials);
+                          loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tape0.obj', (object) => {
 
-                        var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.65) + '%, ' + String(newcl["l"] + 20) + '%)');
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: tc
+                              object.children[0].position.set(bw / 3.3, -bh / 3, bw / 2.15)
+                              object.children[0].scale.x = 1.3;
+                              object.children[0].scale.z = 1.3;
+                              object.children[0].userData["skin"] = "카세트"
+                              if(idx==0){
+                                skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                              }
+                              mesh.add(object.children[0]);
+                          });
+                      });
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/caside-0.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          // object.children[0].scale.x=2.57;
+                          // object.children[0].scale.z=2.57;
+                          // object.children[0].scale.y=2.57;
+                          object.children[0].scale.x = 2.25;
+                          object.children[0].scale.z = 2.25;
+                          object.children[0].scale.y = 1.92;
+                          object.children[0].userData["skin"] = "카세트"
+                          object.children[0].userData["skintype"] =0;
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: colorlst0[colornum0][idx]
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          clmeshlst[idx].push(object.children[0].material)
+                          mesh.add(object.children[0]);
+                      });
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/test5.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "test5"
+                          object.children[0].userData["skintype"] =0;
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: colorlst0[colornum0][idx]
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+
+                      //archer
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-0.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 2.57 / 2;
+                          object.children[0].scale.z = 2.57 / 2;
+                          object.children[0].scale.y = 2.57 / 2;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "archer"
+                          object.children[0].userData["skintype"] =2;
+                          var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] - 10) + '%)');
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: tc
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst2[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-1.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 2.57 / 2;
+                          object.children[0].scale.z = 2.57 / 2;
+                          object.children[0].scale.y = 2.57 / 2;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "archer"
+                          object.children[0].userData["skintype"] =1;
+                          var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] + 5) + '%)');
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: tc
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst1[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      if (idx == 4) {
+                          var loader = new OBJLoader();
+                          // Load OBJ file
+                          // loader.setMaterials(materials);
+                          loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-2.obj', (object) => {
+                              object.children[0].rotation.y = Math.PI / 2
+                              object.children[0].position.set(0, 0, 0)
+                              object.children[0].scale.x = 2.57 / 2;
+                              object.children[0].scale.z = 2.57 / 2;
+                              object.children[0].scale.y = 2.57 / 2;
+                              // object.children[0].scale.x=2.25;
+                              // object.children[0].scale.z=2.25;
+                              // object.children[0].scale.y=1.92;
+                              object.children[0].userData["skin"] = "archer"
+                              object.children[0].userData["skintype"] =2;
+                              var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                              var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] - 5) + '%)');
+                              object.children[0].material = new THREE.MeshLambertMaterial({
+                                  color: tc
+                              });
+                              if (shadowon) {
+                                  object.children[0].receiveShadow = true;
+                                  object.children[0].castShadow = true;
+                              }
+                              clmeshlst2[idx].push(object.children[0].material)
+                              if(idx==0){
+                                skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                              }
+                              mesh.add(object.children[0]);
+                          });
+                      }
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-3.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 2.57 / 2;
+                          object.children[0].scale.z = 2.57 / 2;
+                          object.children[0].scale.y = 2.57 / 2;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "archer"
+                          object.children[0].userData["skintype"] =0;
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: colorlst0[colornum0][idx]
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      var mtlLoader = new MTLLoader();
+                      mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-4.mtl', function(materials) {
+                          materials.preload();
+                          var loader = new OBJLoader();
+                          // Load OBJ file
+                          loader.setMaterials(materials);
+                          loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-4.obj', (object) => {
+
+                              object.children[0].rotation.y = Math.PI / 2
+                              object.children[0].position.set(0, 0, 0)
+                              object.children[0].scale.x = 2.57 / 2;
+                              object.children[0].scale.z = 2.57 / 2;
+                              object.children[0].scale.y = 2.57 / 2;
+                              // object.children[0].scale.x=2.25;
+                              // object.children[0].scale.z=2.25;
+                              // object.children[0].scale.y=1.92;
+                              object.children[0].userData["skin"] = "archer"
+                              if (shadowon) {
+                                  object.children[0].receiveShadow = true;
+                                  object.children[0].castShadow = true;
+                              }
+                              if(idx==0){
+                                skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                              }
+                              mesh.add(object.children[0]);
+                          });
+                      });
+                      //R808
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-2.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "r808"
+                          object.children[0].userData["skintype"] =0;
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: colorlst0[colornum0][idx]
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-0.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "r808"
+                          object.children[0].userData["skintype"] =2;
+                          var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] + 5) + '%)');
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: tc
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst2[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-3.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "r808"
+                          object.children[0].userData["skintype"] =1;
+
+                          var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.65) + '%, ' + String(newcl["l"] + 20) + '%)');
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: tc
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst1[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      var mtlLoader = new MTLLoader();
+                      mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-1.mtl', function(materials) {
+                          materials.preload();
+                          var loader = new OBJLoader();
+                          // Load OBJ file
+                          loader.setMaterials(materials);
+                          loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-1.obj', (object) => {
+                              object.children[0].rotation.y = Math.PI / 2
+                              object.children[0].position.set(0, -bh / 2, 0)
+                              object.children[0].scale.x = 2.57;
+                              object.children[0].scale.z = 2.57;
+                              object.children[0].scale.y = 2.57;
+                              // object.children[0].scale.x=2.25;
+                              // object.children[0].scale.z=2.25;
+                              // object.children[0].scale.y=1.92;
+                              object.children[0].userData["skin"] = "r808"
+                              if (shadowon) {
+                                  object.children[0].receiveShadow = true;
+                                  object.children[0].castShadow = true;
+                              }
+                              if(idx==0){
+                                skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                              }
+                              mesh.add(object.children[0]);
+                          });
+                      });
+
+                      //tower
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tower-1.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57 / 2;
+                          object.children[0].scale.z = 2.57 / 2;
+                          object.children[0].scale.y = 2.57 / 2;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "tower"
+                          object.children[0].userData["skintype"] =0;
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: colorlst0[colornum0][idx]
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tower-0.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57 / 2;
+                          object.children[0].scale.z = 2.57 / 2;
+                          object.children[0].scale.y = 2.57 / 2.2;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "tower"
+                          object.children[0].userData["skintype"] =1;
+                          var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: tc
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst1[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      //donut
+                      var donutrand = parseInt(Math.random() * 4);
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-0.obj', (object) => {
+                          object.children[0].rotation.y = donutrand * Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "donut"
+                          object.children[0].userData["skintype"] =0;
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: colorlst0[colornum0][idx]
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-1.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "donut"
+                          // object.children[0].userData["skintype"] =1;
+                          var newcl = hexToHSL(hexToHtmlColor(0xFBB45F))
+                          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"] + 5) + '%)');
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: tc
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      var mtlLoader = new MTLLoader();
+                      mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-2.mtl', function(materials) {
+                          materials.preload();
+                          var loader = new OBJLoader();
+                          // Load OBJ file
+                          loader.setMaterials(materials);
+                          loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-2.obj', (object) => {
+                              object.children[0].rotation.y = donutrand * Math.PI / 2
+                              object.children[0].position.set(0, -bh / 2, 0)
+                              object.children[0].scale.x = 2.57;
+                              object.children[0].scale.z = 2.57;
+                              object.children[0].scale.y = 2.57;
+                              // object.children[0].scale.x=2.25;
+                              // object.children[0].scale.z=2.25;
+                              // object.children[0].scale.y=1.92;
+                              object.children[0].userData["skin"] = "donut"
+                              if (shadowon) {
+                                  object.children[0].receiveShadow = true;
+                                  object.children[0].castShadow = true;
+                              }
+                              if(idx==0){
+                                skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                              }
+                              mesh.add(object.children[0]);
+                          });
+                      });
+                      //building
+                      var donutrand = parseInt(Math.random() * 4);
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-0.obj', (object) => {
+                          object.children[0].rotation.y = donutrand * Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "building"
+                          object.children[0].userData["skintype"] =0;
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: colorlst0[colornum0][idx]
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-1.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "building"
+                          object.children[0].userData["skintype"] =1;
+                          var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.8) + '%, ' + String(newcl["l"] + 15) + '%)');
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: tc
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst1[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-2.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "building"
+                          var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"] + 5) + '%)');
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: tc
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst0[3].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "building"
+                          var newcl = hexToHSL(hexToHtmlColor(0x1F9394))
+                          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"] + 5) + '%)');
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: tc
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      //   var mtlLoader = new MTLLoader();
+                      // 	mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.mtl', function(materials) {
+                      //   materials.preload();
+                      //   var loader = new OBJLoader();
+                      //   // Load OBJ file
+                      //   loader.setMaterials(materials);
+                      //   loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.obj', (object) => {
+                      //   	object.children[0].rotation.y=donutrand*Math.PI/2
+                      //   	object.children[0].position.set(0,-bh/2,0)
+                      //   	object.children[0].scale.x=2.57;
+                      //   	object.children[0].scale.z=2.57;
+                      //   	object.children[0].scale.y=2.57;
+                      //   	// object.children[0].scale.x=2.25;
+                      //   	// object.children[0].scale.z=2.25;
+                      //   	// object.children[0].scale.y=1.92;
+                      //   	object.children[0].userData["skin"]="building"
+                      //   	if(shadowon) {
+                      //     object.children[0].receiveShadow=true;
+                      //     object.children[0].castShadow=true;
+                      //   }
+                      //    mesh.add(object.children[0]);
+                      //   });
+                      // });
+                      //radio
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-0.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "radio"
+                          object.children[0].userData["skintype"] =0;
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: colorlst0[colornum0][idx]
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      // loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-1.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "radio"
+                          object.children[0].userData["skintype"] =2;
+                          var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] + 5) + '%)');
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: tc
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-3.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh / 2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "radio"
+                          object.children[0].userData["skintype"] =1;
+                          var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.65) + '%, ' + String(newcl["l"] + 20) + '%)');
+                          object.children[0].material = new THREE.MeshLambertMaterial({
+                              color: tc
+                          });
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          clmeshlst1[idx].push(object.children[0].material)
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                      var mtlLoader = new MTLLoader();
+                      mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-2.mtl', function(materials) {
+                          materials.preload();
+                          var loader = new OBJLoader();
+                          // Load OBJ file
+                          loader.setMaterials(materials);
+                          loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-2.obj', (object) => {
+                              object.children[0].rotation.y = Math.PI / 2
+                              object.children[0].position.set(0, -bh / 2, 0)
+                              object.children[0].scale.x = 2.57;
+                              object.children[0].scale.z = 2.57;
+                              object.children[0].scale.y = 2.57;
+                              // object.children[0].scale.x=2.25;
+                              // object.children[0].scale.z=2.25;
+                              // object.children[0].scale.y=1.92;
+                              object.children[0].userData["skin"] = "radio"
+                              if (shadowon) {
+                                  object.children[0].receiveShadow = true;
+                                  object.children[0].castShadow = true;
+                              }
+                              if(idx==0){
+                                skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                              }
+                              mesh.add(object.children[0]);
+                          });
+                      });
+
+                    }else{
+                      var moldkey=Object.keys(skinmold);
+                      moldkey.forEach((item) => {
+                        skinmold[item].forEach((obj) => {
+                          switch (obj.userData["skintype"]) {
+                              case 0:
+                                  var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                                  obj.material.color=new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
+                                  break;
+                              case 1:
+                                  var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                                  obj.material.color=new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.65) + '%, ' + String(newcl["l"] + 15) + '%)');
+                                  break;
+                              case 2:
+                                  var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                                  obj.material.color=new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] - 10) + '%)');
+                                  break;
+                              default:
+                                  return;
+                          }
+                          mesh.add(obj);
+
+
+
                         });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst1[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    var mtlLoader = new MTLLoader();
-                    mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-1.mtl', function(materials) {
-                        materials.preload();
-                        var loader = new OBJLoader();
-                        // Load OBJ file
-                        loader.setMaterials(materials);
-                        loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-1.obj', (object) => {
-                            object.children[0].rotation.y = Math.PI / 2
-                            object.children[0].position.set(0, -bh / 2, 0)
-                            object.children[0].scale.x = 2.57;
-                            object.children[0].scale.z = 2.57;
-                            object.children[0].scale.y = 2.57;
-                            // object.children[0].scale.x=2.25;
-                            // object.children[0].scale.z=2.25;
-                            // object.children[0].scale.y=1.92;
-                            object.children[0].userData["skin"] = "r808"
-                            if (shadowon) {
-                                object.children[0].receiveShadow = true;
-                                object.children[0].castShadow = true;
-                            }
-                            mesh.add(object.children[0]);
-                        });
-                    });
+
+                      });
+
+
+                    }
+
+
                     var geoms = [];
                     originHelper.position.set(0, 2 * (-bh / 15), depth / 2.15)
                     originHelper.updateWorldMatrix(true, false);
@@ -5875,352 +6318,11 @@
                     }
                     mesh2.userData["1"] = true;
                     mesh2.userData["skin"] = "r808";
+
                     mesh.add(mesh2);
-                    //tower
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tower-1.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57 / 2;
-                        object.children[0].scale.z = 2.57 / 2;
-                        object.children[0].scale.y = 2.57 / 2;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "tower"
-                        object.children[0].userData["skintype"] =0;
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: colorlst0[colornum0][idx]
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tower-0.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57 / 2;
-                        object.children[0].scale.z = 2.57 / 2;
-                        object.children[0].scale.y = 2.57 / 2.2;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "tower"
-                        object.children[0].userData["skintype"] =1;
-                        var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: tc
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst1[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    //donut
-                    var donutrand = parseInt(Math.random() * 4);
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-0.obj', (object) => {
-                        object.children[0].rotation.y = donutrand * Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "donut"
-                        object.children[0].userData["skintype"] =0;
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: colorlst0[colornum0][idx]
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-1.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "donut"
-                        // object.children[0].userData["skintype"] =1;
-                        var newcl = hexToHSL(hexToHtmlColor(0xFBB45F))
-                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"] + 5) + '%)');
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: tc
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        mesh.add(object.children[0]);
-                    });
-                    var mtlLoader = new MTLLoader();
-                    mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-2.mtl', function(materials) {
-                        materials.preload();
-                        var loader = new OBJLoader();
-                        // Load OBJ file
-                        loader.setMaterials(materials);
-                        loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-2.obj', (object) => {
-                            object.children[0].rotation.y = donutrand * Math.PI / 2
-                            object.children[0].position.set(0, -bh / 2, 0)
-                            object.children[0].scale.x = 2.57;
-                            object.children[0].scale.z = 2.57;
-                            object.children[0].scale.y = 2.57;
-                            // object.children[0].scale.x=2.25;
-                            // object.children[0].scale.z=2.25;
-                            // object.children[0].scale.y=1.92;
-                            object.children[0].userData["skin"] = "donut"
-                            if (shadowon) {
-                                object.children[0].receiveShadow = true;
-                                object.children[0].castShadow = true;
-                            }
-                            mesh.add(object.children[0]);
-                        });
-                    });
-                    //building
-                    var donutrand = parseInt(Math.random() * 4);
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-0.obj', (object) => {
-                        object.children[0].rotation.y = donutrand * Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "building"
-                        object.children[0].userData["skintype"] =0;
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: colorlst0[colornum0][idx]
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-1.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "building"
-                        object.children[0].userData["skintype"] =1;
-                        var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.8) + '%, ' + String(newcl["l"] + 15) + '%)');
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: tc
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst1[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-2.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "building"
-                        var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
-                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"] + 5) + '%)');
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: tc
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst0[3].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "building"
-                        var newcl = hexToHSL(hexToHtmlColor(0x1F9394))
-                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"] + 5) + '%)');
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: tc
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        mesh.add(object.children[0]);
-                    });
-                    //   var mtlLoader = new MTLLoader();
-                    // 	mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.mtl', function(materials) {
-                    //   materials.preload();
-                    //   var loader = new OBJLoader();
-                    //   // Load OBJ file
-                    //   loader.setMaterials(materials);
-                    //   loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.obj', (object) => {
-                    //   	object.children[0].rotation.y=donutrand*Math.PI/2
-                    //   	object.children[0].position.set(0,-bh/2,0)
-                    //   	object.children[0].scale.x=2.57;
-                    //   	object.children[0].scale.z=2.57;
-                    //   	object.children[0].scale.y=2.57;
-                    //   	// object.children[0].scale.x=2.25;
-                    //   	// object.children[0].scale.z=2.25;
-                    //   	// object.children[0].scale.y=1.92;
-                    //   	object.children[0].userData["skin"]="building"
-                    //   	if(shadowon) {
-                    //     object.children[0].receiveShadow=true;
-                    //     object.children[0].castShadow=true;
-                    //   }
-                    //    mesh.add(object.children[0]);
-                    //   });
-                    // });
-                    //radio
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-0.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "radio"
-                        object.children[0].userData["skintype"] =0;
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: colorlst0[colornum0][idx]
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    var loader = new OBJLoader();
-                    // Load OBJ file
-                    // loader.setMaterials(materials);
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-1.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "radio"
-                        object.children[0].userData["skintype"] =2;
-                        var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] + 5) + '%)');
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: tc
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-3.obj', (object) => {
-                        object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, -bh / 2, 0)
-                        object.children[0].scale.x = 2.57;
-                        object.children[0].scale.z = 2.57;
-                        object.children[0].scale.y = 2.57;
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-                        object.children[0].userData["skin"] = "radio"
-                        object.children[0].userData["skintype"] =1;
-                        var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.65) + '%, ' + String(newcl["l"] + 20) + '%)');
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: tc
-                        });
-                        if (shadowon) {
-                            object.children[0].receiveShadow = true;
-                            object.children[0].castShadow = true;
-                        }
-                        clmeshlst1[idx].push(object.children[0].material)
-                        mesh.add(object.children[0]);
-                    });
-                    var mtlLoader = new MTLLoader();
-                    mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-2.mtl', function(materials) {
-                        materials.preload();
-                        var loader = new OBJLoader();
-                        // Load OBJ file
-                        loader.setMaterials(materials);
-                        loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-2.obj', (object) => {
-                            object.children[0].rotation.y = Math.PI / 2
-                            object.children[0].position.set(0, -bh / 2, 0)
-                            object.children[0].scale.x = 2.57;
-                            object.children[0].scale.z = 2.57;
-                            object.children[0].scale.y = 2.57;
-                            // object.children[0].scale.x=2.25;
-                            // object.children[0].scale.z=2.25;
-                            // object.children[0].scale.y=1.92;
-                            object.children[0].userData["skin"] = "radio"
-                            if (shadowon) {
-                                object.children[0].receiveShadow = true;
-                                object.children[0].castShadow = true;
-                            }
-                            mesh.add(object.children[0]);
-                        });
-                    });
+
+
+
                     originHelper.position.set(-width / 11, -bh / 2 + (height * 0.13) / 2, depth / 2)
                     originHelper.updateWorldMatrix(true, false);
                     var tg = new THREE.BoxGeometry(width / 22, height * 0.12, depth * 0.014);
@@ -6398,6 +6500,7 @@
                     }
                     mesh2.userData["1"] = true;
                     mesh2.userData["skin"] = "radio";
+
                     mesh.add(mesh2);
                 }
                 // originHelper.position.set(-width/2+width*0.09,-bh/2+height/20,depth/2)
@@ -7680,8 +7783,6 @@
             clmeshlst[idx].push(mesh2.material)
             mesh.add(mesh2);
 
-
-
             //우측출력
             var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width * 0.9 * ratio, height * 0.8 * ratio), new THREE.MeshLambertMaterial({
                 color: 0x000000,
@@ -8781,6 +8882,7 @@
                                         setTimeout(function() {
                                             document.getElementById("intro").classList.add("hidden");
                                         }, 150);
+                                        console.log(skinmold)
                                         animate();
                                     }, 500);
                                 })
@@ -9833,6 +9935,10 @@
                 })
             }
             if(elapsedTime - stacktime > 2&&elapsedTime - stacktime < 2.1){
+              console.log(sdic);
+              console.log(cubes);
+              console.log(txtlst);
+              console.log(txts);
               if(cubes.length>=7){
                 for (var j = cubes[cubes.length-2].mesh.children.length - 1; j >= 0; j--) {
                     if (cubes[cubes.length-2].mesh.children[j].userData["skin"] != skinset[skinnum]) {
@@ -9840,6 +9946,11 @@
                     }
                 }
               }
+
+              cubes[cubes.length-2].mesh.children.forEach((item, i) => {
+                if(item.userData["skin"] == skinset[skinnum]) item.material.transparent=false;
+              });
+
 
               activeFloor=cubes.length-1;
               if (!soundic[sdic[activeFloor][0]].isPlaying) {
@@ -10353,7 +10464,10 @@
                         console.log(textMesh);
                     });
                 }
+
+
                 if (timebuf != parseInt(elapsedTime)) {
+
                     timebuf = parseInt(elapsedTime)
                     while (시간.length > 0) {
                         scene.remove(시간.pop());
@@ -11139,318 +11253,682 @@
                   // 		var tg=new THREE.BoxGeometry(width/3.5, height*0.55, depth*0.002);
                   // 		tg.applyMatrix4(originHelper.matrixWorld);
                   // geoms.push(tg)
-                  //카세트
-                  var mtlLoader = new MTLLoader();
-                  mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tape0.mtl', function(materials) {
-                      materials.preload();
-                      var loader = new OBJLoader();
-                      // Load OBJ file
-                      loader.setMaterials(materials);
-                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tape0.obj', (object) => {
-                          object.children[0].position.set(bw / 3.3, -bh / 3, bw / 2.15)
-                          object.children[0].scale.x = 1.3;
-                          object.children[0].scale.z = 1.3;
-                          object.children[0].userData["skin"] = "카세트"
-                          mesh.add(object.children[0]);
-                      });
-                  });
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/caside-0.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      // object.children[0].scale.x=2.57;
-                      // object.children[0].scale.z=2.57;
-                      // object.children[0].scale.y=2.57;
-                      object.children[0].scale.x = 2.25;
-                      object.children[0].scale.z = 2.25;
-                      object.children[0].scale.y = 1.92;
-                      object.children[0].userData["skin"] = "카세트"
-                      object.children[0].userData["skintype"] =0;
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: newcolor3
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
+
+                  var moldkey=Object.keys(skinmold);
+                  moldkey.forEach((item) => {
+                    skinmold[item].forEach((obj) => {
+                      let obj1=obj.clone();
+                      let mat1=obj.material.clone();
+                      if(obj1.userData["skintype"]==0){
+                        obj1.material=new THREE.MeshLambertMaterial({
+                            color: newcolor3
+                        });
+                      }else if(obj1.userData["skintype"]==1){
+                        obj1.material=new THREE.MeshLambertMaterial({
+                            color: newcolor4
+                        });
+                      }else if(obj1.userData["skintype"]==2){
+                        obj1.material=new THREE.MeshLambertMaterial({
+                            color: newcolor5
+                        });
+                      }else{
+                        obj1.material=mat1
                       }
 
-                      mesh.add(object.children[0]);
-                  });
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/test5.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, 0, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "test5"
-                      object.children[0].userData["skintype"] =0;
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: newcolor3
-                      });
                       if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
+                          obj1.receiveShadow = true;
+                          obj1.castShadow = true;
                       }
 
-                      mesh.add(object.children[0]);
+                      mesh.add(obj1);
+
+                    });
                   });
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/test4.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, 0, 0)
-                      object.children[0].scale.x = 2.8;
-                      object.children[0].scale.z = 2.8;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "test4"
-                      object.children[0].userData["skintype"] =0;
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: newcolor3
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
 
-                      mesh.add(object.children[0]);
-                  });
-                  //archer
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-0.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, 0, 0)
-                      object.children[0].scale.x = 2.57 / 2;
-                      object.children[0].scale.z = 2.57 / 2;
-                      object.children[0].scale.y = 2.57 / 2;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "archer"
-                      object.children[0].userData["skintype"] =2;
-                      var tc = newcolor5
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: tc
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
+                  if(false){
+                    //카세트
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tape0.mtl', function(materials) {
+                        materials.preload();
+                        var loader = new OBJLoader();
+                        // Load OBJ file
+                        loader.setMaterials(materials);
+                        loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tape0.obj', (object) => {
+                            object.children[0].position.set(bw / 3.3, -bh / 3, bw / 2.15)
+                            object.children[0].scale.x = 1.3;
+                            object.children[0].scale.z = 1.3;
+                            object.children[0].userData["skin"] = "카세트"
+                            mesh.add(object.children[0]);
+                        });
+                    });
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/caside-0.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        // object.children[0].scale.x=2.57;
+                        // object.children[0].scale.z=2.57;
+                        // object.children[0].scale.y=2.57;
+                        object.children[0].scale.x = 2.25;
+                        object.children[0].scale.z = 2.25;
+                        object.children[0].scale.y = 1.92;
+                        object.children[0].userData["skin"] = "카세트"
+                        object.children[0].userData["skintype"] =0;
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: newcolor3
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
 
-                      mesh.add(object.children[0]);
-                  });
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-1.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, 0, 0)
-                      object.children[0].scale.x = 2.57 / 2;
-                      object.children[0].scale.z = 2.57 / 2;
-                      object.children[0].scale.y = 2.57 / 2;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "archer"
-                      object.children[0].userData["skintype"] =1;
+                        mesh.add(object.children[0]);
+                    });
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/test5.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, 0, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "test5"
+                        object.children[0].userData["skintype"] =0;
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: newcolor3
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
 
-                      var tc = newcolor4
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: tc
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
+                        mesh.add(object.children[0]);
+                    });
 
-                      mesh.add(object.children[0]);
-                  });
-                  if (idx == 4) {
-                      var loader = new OBJLoader();
-                      // Load OBJ file
-                      // loader.setMaterials(materials);
-                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-2.obj', (object) => {
-                          object.children[0].rotation.y = Math.PI / 2
-                          object.children[0].position.set(0, 0, 0)
-                          object.children[0].scale.x = 2.57 / 2;
-                          object.children[0].scale.z = 2.57 / 2;
-                          object.children[0].scale.y = 2.57 / 2;
-                          // object.children[0].scale.x=2.25;
-                          // object.children[0].scale.z=2.25;
-                          // object.children[0].scale.y=1.92;
-                          object.children[0].userData["skin"] = "archer"
-                          object.children[0].userData["skintype"] =2;
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
 
-                          var tc = newcolor3
-                          object.children[0].material = new THREE.MeshLambertMaterial({
-                              color: tc
-                          });
-                          if (shadowon) {
-                              object.children[0].receiveShadow = true;
-                              object.children[0].castShadow = true;
-                          }
+                    //archer
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-0.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, 0, 0)
+                        object.children[0].scale.x = 2.57 / 2;
+                        object.children[0].scale.z = 2.57 / 2;
+                        object.children[0].scale.y = 2.57 / 2;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "archer"
+                        object.children[0].userData["skintype"] =2;
+                        var tc = newcolor5
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: tc
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
 
-                          mesh.add(object.children[0]);
-                      });
+                        mesh.add(object.children[0]);
+                    });
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-1.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, 0, 0)
+                        object.children[0].scale.x = 2.57 / 2;
+                        object.children[0].scale.z = 2.57 / 2;
+                        object.children[0].scale.y = 2.57 / 2;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "archer"
+                        object.children[0].userData["skintype"] =1;
+
+                        var tc = newcolor4
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: tc
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    if (idx == 4) {
+                        var loader = new OBJLoader();
+                        // Load OBJ file
+                        // loader.setMaterials(materials);
+                        loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-2.obj', (object) => {
+                            object.children[0].rotation.y = Math.PI / 2
+                            object.children[0].position.set(0, 0, 0)
+                            object.children[0].scale.x = 2.57 / 2;
+                            object.children[0].scale.z = 2.57 / 2;
+                            object.children[0].scale.y = 2.57 / 2;
+                            // object.children[0].scale.x=2.25;
+                            // object.children[0].scale.z=2.25;
+                            // object.children[0].scale.y=1.92;
+                            object.children[0].userData["skin"] = "archer"
+                            object.children[0].userData["skintype"] =2;
+
+                            var tc = newcolor3
+                            object.children[0].material = new THREE.MeshLambertMaterial({
+                                color: tc
+                            });
+                            if (shadowon) {
+                                object.children[0].receiveShadow = true;
+                                object.children[0].castShadow = true;
+                            }
+
+                            mesh.add(object.children[0]);
+                        });
+                    }
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-3.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, 0, 0)
+                        object.children[0].scale.x = 2.57 / 2;
+                        object.children[0].scale.z = 2.57 / 2;
+                        object.children[0].scale.y = 2.57 / 2;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "archer"
+                        object.children[0].userData["skintype"] =0;
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: newcolor3
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-4.mtl', function(materials) {
+                        materials.preload();
+                        var loader = new OBJLoader();
+                        // Load OBJ file
+                        loader.setMaterials(materials);
+                        loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-4.obj', (object) => {
+                            object.children[0].rotation.y = Math.PI / 2
+                            object.children[0].position.set(0, 0, 0)
+                            object.children[0].scale.x = 2.57 / 2;
+                            object.children[0].scale.z = 2.57 / 2;
+                            object.children[0].scale.y = 2.57 / 2;
+                            // object.children[0].scale.x=2.25;
+                            // object.children[0].scale.z=2.25;
+                            // object.children[0].scale.y=1.92;
+                            object.children[0].userData["skin"] = "archer"
+                            if (shadowon) {
+                                object.children[0].receiveShadow = true;
+                                object.children[0].castShadow = true;
+                            }
+                            mesh.add(object.children[0]);
+                        });
+                    });
+                    //R808
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-2.obj', (object) => {
+                        var d=object.children[0].clone();
+                        console.log(d);
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "r808"
+                        object.children[0].userData["skintype"] =0;
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: newcolor3
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-0.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "r808"
+                        object.children[0].userData["skintype"] =2;
+
+                        var tc = newcolor3
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: tc
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-3.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "r808"
+                        object.children[0].userData["skintype"] =1;
+
+
+                        var tc = newcolor4
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: tc
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-1.mtl', function(materials) {
+                        materials.preload();
+                        var loader = new OBJLoader();
+                        // Load OBJ file
+                        loader.setMaterials(materials);
+                        loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-1.obj', (object) => {
+                            object.children[0].rotation.y = Math.PI / 2
+                            object.children[0].position.set(0, -bh / 2, 0)
+                            object.children[0].scale.x = 2.57;
+                            object.children[0].scale.z = 2.57;
+                            object.children[0].scale.y = 2.57;
+                            // object.children[0].scale.x=2.25;
+                            // object.children[0].scale.z=2.25;
+                            // object.children[0].scale.y=1.92;
+                            object.children[0].userData["skin"] = "r808"
+                            if (shadowon) {
+                                object.children[0].receiveShadow = true;
+                                object.children[0].castShadow = true;
+                            }
+                            mesh.add(object.children[0]);
+                        });
+                    });
+                    //tower
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tower-1.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57 / 2;
+                        object.children[0].scale.z = 2.57 / 2;
+                        object.children[0].scale.y = 2.57 / 2;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "tower"
+                        object.children[0].userData["skintype"] =0;
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: newcolor3
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tower-0.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57 / 2;
+                        object.children[0].scale.z = 2.57 / 2;
+                        object.children[0].scale.y = 2.57 / 2.2;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "tower"
+                        object.children[0].userData["skintype"] =1;
+
+                        var tc = newcolor4
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: tc
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    //donut
+                    var donutrand = parseInt(Math.random() * 4);
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-0.obj', (object) => {
+                        object.children[0].rotation.y = donutrand * Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "donut"
+                        object.children[0].userData["skintype"] =0;
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: newcolor3
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-1.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "donut"
+                        // object.children[0].userData["skintype"] =1;
+
+                        var tc = newcolor3
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: tc
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+                        mesh.add(object.children[0]);
+                    });
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-2.mtl', function(materials) {
+                        materials.preload();
+                        var loader = new OBJLoader();
+                        // Load OBJ file
+                        loader.setMaterials(materials);
+                        loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-2.obj', (object) => {
+                            object.children[0].rotation.y = donutrand * Math.PI / 2
+                            object.children[0].position.set(0, -bh / 2, 0)
+                            object.children[0].scale.x = 2.57;
+                            object.children[0].scale.z = 2.57;
+                            object.children[0].scale.y = 2.57;
+                            // object.children[0].scale.x=2.25;
+                            // object.children[0].scale.z=2.25;
+                            // object.children[0].scale.y=1.92;
+                            object.children[0].userData["skin"] = "donut"
+                            if (shadowon) {
+                                object.children[0].receiveShadow = true;
+                                object.children[0].castShadow = true;
+                            }
+                            mesh.add(object.children[0]);
+                        });
+                    });
+                    //building
+                    var donutrand = parseInt(Math.random() * 4);
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-0.obj', (object) => {
+                        object.children[0].rotation.y = donutrand * Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "building"
+                        object.children[0].userData["skintype"] =0;
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: newcolor3
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-1.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "building"
+                        object.children[0].userData["skintype"] =1;
+
+                        var tc = newcolor4
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: tc
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-2.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "building"
+                        var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"] + 5) + '%)');
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: tc
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "building"
+                        var newcl = hexToHSL(hexToHtmlColor(0x1F9394))
+                        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"] + 5) + '%)');
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: tc
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+                        mesh.add(object.children[0]);
+                    });
+                    //   var mtlLoader = new MTLLoader();
+                    // 	mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.mtl', function(materials) {
+                    //   materials.preload();
+                    //   var loader = new OBJLoader();
+                    //   // Load OBJ file
+                    //   loader.setMaterials(materials);
+                    //   loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.obj', (object) => {
+                    //   	object.children[0].rotation.y=donutrand*Math.PI/2
+                    //   	object.children[0].position.set(0,-bh/2,0)
+                    //   	object.children[0].scale.x=2.57;
+                    //   	object.children[0].scale.z=2.57;
+                    //   	object.children[0].scale.y=2.57;
+                    //   	// object.children[0].scale.x=2.25;
+                    //   	// object.children[0].scale.z=2.25;
+                    //   	// object.children[0].scale.y=1.92;
+                    //   	object.children[0].userData["skin"]="building"
+                    //   	if(shadowon) {
+                    //     object.children[0].receiveShadow=true;
+                    //     object.children[0].castShadow=true;
+                    //   }
+                    //    mesh.add(object.children[0]);
+                    //   });
+                    // });
+                    //radio
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-0.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "radio"
+                        object.children[0].userData["skintype"] =0;
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: newcolor3
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    // loader.setMaterials(materials);
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-1.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "radio"
+                        object.children[0].userData["skintype"] =2;
+
+                        var tc = newcolor4
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: tc
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-3.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, -bh / 2, 0)
+                        object.children[0].scale.x = 2.57;
+                        object.children[0].scale.z = 2.57;
+                        object.children[0].scale.y = 2.57;
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        object.children[0].userData["skin"] = "radio"
+                        object.children[0].userData["skintype"] =1;
+
+                        var tc = newcolor3
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: tc
+                        });
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        mesh.add(object.children[0]);
+                    });
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-2.mtl', function(materials) {
+                        materials.preload();
+                        var loader = new OBJLoader();
+                        // Load OBJ file
+                        loader.setMaterials(materials);
+                        loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-2.obj', (object) => {
+                            object.children[0].rotation.y = Math.PI / 2
+                            object.children[0].position.set(0, -bh / 2, 0)
+                            object.children[0].scale.x = 2.57;
+                            object.children[0].scale.z = 2.57;
+                            object.children[0].scale.y = 2.57;
+                            // object.children[0].scale.x=2.25;
+                            // object.children[0].scale.z=2.25;
+                            // object.children[0].scale.y=1.92;
+                            object.children[0].userData["skin"] = "radio"
+                            if (shadowon) {
+                                object.children[0].receiveShadow = true;
+                                object.children[0].castShadow = true;
+                            }
+                            mesh.add(object.children[0]);
+                        });
+                    });
                   }
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-3.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, 0, 0)
-                      object.children[0].scale.x = 2.57 / 2;
-                      object.children[0].scale.z = 2.57 / 2;
-                      object.children[0].scale.y = 2.57 / 2;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "archer"
-                      object.children[0].userData["skintype"] =0;
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: newcolor3
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-
-                      mesh.add(object.children[0]);
-                  });
-                  var mtlLoader = new MTLLoader();
-                  mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-4.mtl', function(materials) {
-                      materials.preload();
-                      var loader = new OBJLoader();
-                      // Load OBJ file
-                      loader.setMaterials(materials);
-                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/archero-4.obj', (object) => {
-                          object.children[0].rotation.y = Math.PI / 2
-                          object.children[0].position.set(0, 0, 0)
-                          object.children[0].scale.x = 2.57 / 2;
-                          object.children[0].scale.z = 2.57 / 2;
-                          object.children[0].scale.y = 2.57 / 2;
-                          // object.children[0].scale.x=2.25;
-                          // object.children[0].scale.z=2.25;
-                          // object.children[0].scale.y=1.92;
-                          object.children[0].userData["skin"] = "archer"
-                          if (shadowon) {
-                              object.children[0].receiveShadow = true;
-                              object.children[0].castShadow = true;
-                          }
-                          mesh.add(object.children[0]);
-                      });
-                  });
-                  //R808
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-2.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "r808"
-                      object.children[0].userData["skintype"] =0;
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: newcolor3
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-
-                      mesh.add(object.children[0]);
-                  });
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-0.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "r808"
-                      object.children[0].userData["skintype"] =2;
-
-                      var tc = newcolor3
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: tc
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-
-                      mesh.add(object.children[0]);
-                  });
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-3.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "r808"
-                      object.children[0].userData["skintype"] =1;
 
 
-                      var tc = newcolor4
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: tc
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
 
-                      mesh.add(object.children[0]);
-                  });
-                  var mtlLoader = new MTLLoader();
-                  mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-1.mtl', function(materials) {
-                      materials.preload();
-                      var loader = new OBJLoader();
-                      // Load OBJ file
-                      loader.setMaterials(materials);
-                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/R8-1.obj', (object) => {
-                          object.children[0].rotation.y = Math.PI / 2
-                          object.children[0].position.set(0, -bh / 2, 0)
-                          object.children[0].scale.x = 2.57;
-                          object.children[0].scale.z = 2.57;
-                          object.children[0].scale.y = 2.57;
-                          // object.children[0].scale.x=2.25;
-                          // object.children[0].scale.z=2.25;
-                          // object.children[0].scale.y=1.92;
-                          object.children[0].userData["skin"] = "r808"
-                          if (shadowon) {
-                              object.children[0].receiveShadow = true;
-                              object.children[0].castShadow = true;
-                          }
-                          mesh.add(object.children[0]);
-                      });
-                  });
                   var geoms = [];
                   originHelper.position.set(0, 2 * (-bh / 15), depth / 2.15)
                   originHelper.updateWorldMatrix(true, false);
@@ -11651,351 +12129,8 @@
                   mesh2.userData["1"] = true;
                   mesh2.userData["skin"] = "r808";
                   mesh.add(mesh2);
-                  //tower
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tower-1.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57 / 2;
-                      object.children[0].scale.z = 2.57 / 2;
-                      object.children[0].scale.y = 2.57 / 2;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "tower"
-                      object.children[0].userData["skintype"] =0;
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: newcolor3
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
 
-                      mesh.add(object.children[0]);
-                  });
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tower-0.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57 / 2;
-                      object.children[0].scale.z = 2.57 / 2;
-                      object.children[0].scale.y = 2.57 / 2.2;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "tower"
-                      object.children[0].userData["skintype"] =1;
 
-                      var tc = newcolor4
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: tc
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-
-                      mesh.add(object.children[0]);
-                  });
-                  //donut
-                  var donutrand = parseInt(Math.random() * 4);
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-0.obj', (object) => {
-                      object.children[0].rotation.y = donutrand * Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "donut"
-                      object.children[0].userData["skintype"] =0;
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: newcolor3
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-
-                      mesh.add(object.children[0]);
-                  });
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-1.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "donut"
-                      // object.children[0].userData["skintype"] =1;
-
-                      var tc = newcolor3
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: tc
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-                      mesh.add(object.children[0]);
-                  });
-                  var mtlLoader = new MTLLoader();
-                  mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-2.mtl', function(materials) {
-                      materials.preload();
-                      var loader = new OBJLoader();
-                      // Load OBJ file
-                      loader.setMaterials(materials);
-                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/donut-2.obj', (object) => {
-                          object.children[0].rotation.y = donutrand * Math.PI / 2
-                          object.children[0].position.set(0, -bh / 2, 0)
-                          object.children[0].scale.x = 2.57;
-                          object.children[0].scale.z = 2.57;
-                          object.children[0].scale.y = 2.57;
-                          // object.children[0].scale.x=2.25;
-                          // object.children[0].scale.z=2.25;
-                          // object.children[0].scale.y=1.92;
-                          object.children[0].userData["skin"] = "donut"
-                          if (shadowon) {
-                              object.children[0].receiveShadow = true;
-                              object.children[0].castShadow = true;
-                          }
-                          mesh.add(object.children[0]);
-                      });
-                  });
-                  //building
-                  var donutrand = parseInt(Math.random() * 4);
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-0.obj', (object) => {
-                      object.children[0].rotation.y = donutrand * Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "building"
-                      object.children[0].userData["skintype"] =0;
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: newcolor3
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-
-                      mesh.add(object.children[0]);
-                  });
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-1.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "building"
-                      object.children[0].userData["skintype"] =1;
-
-                      var tc = newcolor4
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: tc
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-
-                      mesh.add(object.children[0]);
-                  });
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-2.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "building"
-                      var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
-                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"] + 5) + '%)');
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: tc
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-
-                      mesh.add(object.children[0]);
-                  });
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "building"
-                      var newcl = hexToHSL(hexToHtmlColor(0x1F9394))
-                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"] + 5) + '%)');
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: tc
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-                      mesh.add(object.children[0]);
-                  });
-                  //   var mtlLoader = new MTLLoader();
-                  // 	mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.mtl', function(materials) {
-                  //   materials.preload();
-                  //   var loader = new OBJLoader();
-                  //   // Load OBJ file
-                  //   loader.setMaterials(materials);
-                  //   loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/building-3.obj', (object) => {
-                  //   	object.children[0].rotation.y=donutrand*Math.PI/2
-                  //   	object.children[0].position.set(0,-bh/2,0)
-                  //   	object.children[0].scale.x=2.57;
-                  //   	object.children[0].scale.z=2.57;
-                  //   	object.children[0].scale.y=2.57;
-                  //   	// object.children[0].scale.x=2.25;
-                  //   	// object.children[0].scale.z=2.25;
-                  //   	// object.children[0].scale.y=1.92;
-                  //   	object.children[0].userData["skin"]="building"
-                  //   	if(shadowon) {
-                  //     object.children[0].receiveShadow=true;
-                  //     object.children[0].castShadow=true;
-                  //   }
-                  //    mesh.add(object.children[0]);
-                  //   });
-                  // });
-                  //radio
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-0.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "radio"
-                      object.children[0].userData["skintype"] =0;
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: newcolor3
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-
-                      mesh.add(object.children[0]);
-                  });
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-1.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "radio"
-                      object.children[0].userData["skintype"] =2;
-
-                      var tc = newcolor4
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: tc
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-
-                      mesh.add(object.children[0]);
-                  });
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-3.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "radio"
-                      object.children[0].userData["skintype"] =1;
-
-                      var tc = newcolor3
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: tc
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-
-                      mesh.add(object.children[0]);
-                  });
-                  var mtlLoader = new MTLLoader();
-                  mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-2.mtl', function(materials) {
-                      materials.preload();
-                      var loader = new OBJLoader();
-                      // Load OBJ file
-                      loader.setMaterials(materials);
-                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/radio-2.obj', (object) => {
-                          object.children[0].rotation.y = Math.PI / 2
-                          object.children[0].position.set(0, -bh / 2, 0)
-                          object.children[0].scale.x = 2.57;
-                          object.children[0].scale.z = 2.57;
-                          object.children[0].scale.y = 2.57;
-                          // object.children[0].scale.x=2.25;
-                          // object.children[0].scale.z=2.25;
-                          // object.children[0].scale.y=1.92;
-                          object.children[0].userData["skin"] = "radio"
-                          if (shadowon) {
-                              object.children[0].receiveShadow = true;
-                              object.children[0].castShadow = true;
-                          }
-                          mesh.add(object.children[0]);
-                      });
-                  });
                   originHelper.position.set(-width / 11, -bh / 2 + (height * 0.13) / 2, depth / 2)
                   originHelper.updateWorldMatrix(true, false);
                   var tg = new THREE.BoxGeometry(width / 22, height * 0.12, depth * 0.014);
