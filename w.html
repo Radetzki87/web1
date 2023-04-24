@@ -9590,11 +9590,27 @@
                                     tempeffects.push([item.index, num, item.direction]);
                                     이펙트2(item.index, num, item.direction);
                                 }
-
+                                
                                 if(gamemod==2){
                                   // var tnum=Math.pow(2, (cubes.length-3))
                                   if(num==stacknum[activeFloor]&&activeFloor==cubes.length-1){
                                     sdic.push(nslst[templst[cubes.length]])
+                                    var temp2 = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
+                                    var sdickeys = Object.keys(soundic);
+                                    for (let j = 0; j < temp2.length; j++) {
+                                        if (sdickeys.indexOf(sdic[sdic.length-1][temp2[j]]) == -1) {
+                                            // var listener = new THREE.AudioListener();
+                                            // var audioLoader = new THREE.AudioLoader();
+                                            audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/' + sdic[sdic.length-1][temp2[j]], function(buffer) {
+                                                var sound = new THREE.Audio(listener);
+                                                sound.setBuffer(buffer);
+                                                sound.setVolume(0.3);
+                                                if (j == 0) sound.setLoop(true);
+                                                soundic[sdic[sdic.length-1][temp2[j]]] = sound;
+                                            });
+                                        }
+                                    }
+
                                     var temp = [];
                                     var text1 = "재생 중: " + sdic[cubes.length][0].substring(0, sdic[cubes.length][0].length - 4) + " "
                                     for (var i = 0; i < 100; i++) {
@@ -9687,7 +9703,7 @@
                             // if (soundic[sdic[activeFloor][item.direction]][0].isPlaying) {
                             //     soundic[sdic[activeFloor][item.direction]][0].stop();
                             // }
-                            if(activeFloor<5 ) soundic[sdic[activeFloor][item.direction]].play();
+                            soundic[sdic[item.index][item.direction]].play();
 
 
                         }
@@ -9809,7 +9825,7 @@
                     item.material.visible = false;
                 })
             }
-            if(elapsedTime - stacktime > 1.4&&elapsedTime - stacktime < 1.41){
+            if(elapsedTime - stacktime > 2&&elapsedTime - stacktime < 2.1){
               if(cubes.length>=7){
                 for (var j = cubes[cubes.length-2].mesh.children.length - 1; j >= 0; j--) {
                     if (cubes[cubes.length-2].mesh.children[j].userData["skin"] != skinset[skinnum]) {
@@ -9818,7 +9834,29 @@
                 }
               }
 
+
+
               activeFloor=cubes.length-1;
+              if (!soundic[sdic[activeFloor][0]].isPlaying) {
+                  if(soundic[sdic[activeFloor-1][0]].isPlaying) soundic[sdic[activeFloor-1][0]].stop();
+                  songfade=elapsedTime;
+                  console.log(songfade);
+                  soundic[sdic[activeFloor][0]].play();
+                  songTitleElement.innerText = sdic[activeFloor]["title"];
+                  artistNameElement.innerText = sdic[activeFloor]["producer"];
+                  var songInfo = document.getElementById('song-info');
+                  songInfo.style.left="0px"
+                  document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+                  document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+                  document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+                  document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
+                  document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
+                  document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
+                  document.getElementById('playing').style.color=hexToHtmlColor(colorlst[colornum][3])
+                  if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
+                  songInfo.classList.add("show1");
+              }
+
             }
 
 
