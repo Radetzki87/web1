@@ -9179,7 +9179,88 @@
                     document.getElementById("mod-overlay").classList.add("hidden");
                     document.getElementById("credit-info").classList.add("hidden");
                 }, 100);
-                
+
+
+                window.scrollTo(0, 0);
+                if (document.getElementById("setting-overlay").classList.contains("show")) {
+                    document.getElementById("setting-overlay").classList.remove("show");
+                    document.getElementById("setting-overlay").classList.add("fade");
+                    setTimeout(function() {
+                        document.getElementById("setting-overlay").classList.add("hidden");
+                    }, 100);
+                }
+                if (!document.getElementById("gameover-overlay").classList.contains("hidden")) {
+                    document.getElementById("gameover-overlay").classList.remove("show");
+                    document.getElementById("gameover-overlay").classList.add("fade");
+                    setTimeout(function() {
+                        document.getElementById("gameover-overlay").classList.add("hidden");
+                    }, 100);
+                    if (!rotationflag) {
+                        rotationflag = true
+                        restartflag = true
+                        pluscoin = parseInt(점수 / 10)
+                        coin += pluscoin;
+                        for (var i = 0; i < cubes.length; i++) {
+                            restartloc.push(cubes[i].mesh.position);
+                            restartrot.push(cubes[i].mesh.rotation);
+                        }
+                        ncolornum = parseInt(Math.random() * colorlst.length);
+                        ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                        rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                        renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                        rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                        renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+                        rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                        renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+                        rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                        renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+                        bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+                        nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+                        bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+                        nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+                        bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+                        nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+                        bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+                        nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+                        bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+                        nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+                        rotationend = Math.PI / 4
+                    }
+                }
+                if (!document.getElementById("step1").classList.contains("hidden")) {
+                    document.getElementById("options-overlay").classList.add("fade");
+                    document.getElementById("options-overlay").classList.remove("show");
+                    document.getElementById("center").classList.remove("fade");
+                    document.getElementById("left").classList.remove("fade");
+                    document.getElementById("right").classList.remove("fade");
+                    setTimeout(function() {
+                        document.getElementById("options-overlay").classList.add("hidden");
+                        document.getElementById("left").classList.add("show");
+                        document.getElementById("right").classList.add("show");
+                        document.getElementById("left").classList.remove("hidden");
+                        document.getElementById("right").classList.remove("hidden");
+                        document.getElementById("center").classList.add("show");
+                        document.getElementById("center").classList.remove("hidden");
+
+                    }, 100);
+                } else if (!document.getElementById("categ1").classList.contains("hidden")) {
+                    document.getElementById("categ1").classList.remove("show");
+                    document.getElementById("categ1").classList.add("fade");
+                    setTimeout(function() {
+                        document.getElementById("categ1").classList.add("hidden");
+                        document.getElementById("step1").classList.remove("hidden");
+                        document.getElementById("step1").classList.add("show");
+                    }, 100);
+                } else {
+                    document.getElementById("step3").classList.remove("show");
+                    document.getElementById("step3").classList.add("fade");
+                    setTimeout(function() {
+                        document.getElementById("step3").classList.add("hidden");
+                        document.getElementById("categ1").classList.remove("hidden");
+                        document.getElementById("categ1").classList.add("show");
+                    }, 100);
+                }
+
                 setting(stack, function(object) { //시작
                     addring();
                     tsetting(function(object) {
