@@ -5,6 +5,119 @@
     <meta name="viewport" content=user-scalable=no>
     <title>Tower Stacking Game</title>
     <style>
+
+        #colorline {
+            font-family: 'GG';
+            color: white;
+            font-size: 1vh;
+            position: absolute;
+            top: 0%;
+            /* left: 4vw; */
+            width:50%;
+            height: 15%;
+            display: flex;
+            flex-direction: column;
+            z-index: 1;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            /*opacity: 1;*/
+            /*transition: opacity 0.15s ease-in-out;*/
+        }
+
+        #cl1{
+          display: inline-flex;
+          /* position: absolute; */
+          width: 100%;
+          /* left:-24%; */
+          height: 50%;
+          background-color: rgba(0, 0, 0, 0.1);
+          background-size: cover;
+          /* z-index: 2; */
+
+        }
+        #cl2{
+          display: inline-flex;
+          /* position: absolute; */
+          width: 100%;
+          /* left:-24%; */
+          height: 50%;
+          background-color: rgba(0, 0, 0, 0.1);
+          background-size: cover;
+          /* z-index: 2; */
+
+        }
+
+        #cl10{
+          width: 25%;
+          height: 100%;
+          background-color: rgba(255, 0, 0, 0.8);
+        }
+        #cl11{
+          width: 25%;
+          height: 100%;
+          background-color: rgba(0, 255, 0, 0.8);
+        }
+        #cl12{
+          width: 25%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+        #cl13{
+          width: 25%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        #cl20{
+          width: 20%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+        #cl21{
+          width: 20%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+        #cl22{
+          width: 20%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+        #cl23{
+          width: 20%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+        #cl24{
+          width: 20%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+
+
+
+
+
+        #coin-info {
+            font-family: 'GG';
+            color: white;
+            font-size: 2vh;
+            position: absolute;
+            top: 0%;
+            right: 6%;
+            /* left: 4vw; */
+            display: inline-flex;
+            z-index: 1;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            /*opacity: 1;*/
+            /*transition: opacity 0.15s ease-in-out;*/
+        }
+
+
+
         #song-info {
             font-family: 'GG';
             color: white;
@@ -247,7 +360,7 @@
             top: -21vw;
             /*    left:vw;*/
             /*right: 4000px;*/
-            background-color: rgba(255, 0, 255, 0.1);
+            /* background-color: rgba(255, 0, 255, 0.1); */
             /*padding: 20px;*/
             border-radius: 2vw;
             /*max-width: 90%;*/
@@ -265,7 +378,7 @@
             height: 21vw;
             top: -21vw;
             /*right: 4000px;*/
-            background-color: rgba(255, 255, 0, 0.1);
+            /* background-color: rgba(255, 255, 0, 0.1); */
             /*padding: 20px;*/
             border-radius: 2vw;
             /*max-width: 90%;*/
@@ -283,7 +396,7 @@
             height: 21vw;
             top: -21vw;
             /*right: 4000px;*/
-            background-color: rgba(0, 0, 255, 0.1);
+            /* background-color: rgba(0, 0, 255, 0.1); */
             /*padding: 20px;*/
             border-radius: 2vw;
             /*max-width: 90%;*/
@@ -301,7 +414,7 @@
             height: 21vw;
             top: -21vw;
             /*right: 4000px;*/
-            background-color: rgba(0, 255, 255, 0.1);
+            /* background-color: rgba(0, 255, 255, 0.1); */
             /*padding: 20px;*/
             border-radius: 2vw;
             /*max-width: 90%;*/
@@ -511,11 +624,11 @@
 
         .options-overlay {
             position: absolute;
-            overflow-x: scroll;
+            /* overflow-x: scroll; */
             font-family: 'GG';
             width: 100%;
             height: 100%;
-            background-color: rgba(50, 100, 250, 0.5);
+            background-color: rgba(200, 200, 200, 0.5);
             display: flex;
             justify-content: center;
 
@@ -620,7 +733,7 @@
             /* position: fixed; */
             right: 10%;
             font-family: 'GG';
-            font-size: 3vh;
+            font-size: 2vh;
             margin: 4vw 0;
         }
 
@@ -630,7 +743,7 @@
             flex-direction: column;
             background-color: rgba(50, 100, 250, 0.3);
             width: 100%;
-            height: 30%;
+            height: 40%;
             justify-content: center;
             align-items: center;
         }
@@ -684,7 +797,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: rgba(50, 100, 250, 0.3);
+            background-color: rgba(100, 100, 100, 0.4);
             z-index: 2;
         }
 
@@ -708,8 +821,8 @@
         }
 
         .setting-grid label {
-            margin: 1vh 0;
-            font-size: 1.2vh;
+            margin: 2vh 1vh;
+            font-size: 1.4vh;
         }
 
         .container {
@@ -719,7 +832,7 @@
             /*top:1000px;*/
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 250, 0.4);
+            background-color: rgba(100, 100, 100, 0.4);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -731,10 +844,11 @@
             z-index: 1;
             font-family: 'GG';
             /*position: absolute;*/
+            color:white;
             left: 40%;
             text-align: center;
             /*align-items: center;*/
-            /*font-size: 16px;*/
+            font-size: 4vh;
             margin: 20px 0;
         }
 
@@ -780,7 +894,7 @@
             position: fixed;
             border: none;
             background-color: transparent;
-            background-image: url("png/green_button09.png");
+            background-image: url("png/red_button09.png");
             background-size: 6vh 4vh;
             top: 3vh;
             left: 8%;
@@ -791,18 +905,23 @@
         }
 
         .backbutton:active {
-            background-image: url("png/green_button10.png");
+            background-image: url("png/red_button10.png");
             transform: translate(0, 0.2vh);
             background-size: 6vh 3.8vh;
             width: 6vh;
             height: 3.8vh;
         }
 
+        .backbutton img{
+            width: 4vh;
+            height: 4vh;
+        }
+
         .left {
             position: absolute;
             border: none;
             background-color: transparent;
-            background-image: url("png/blue_button09.png");
+            /* background-image: url("png/blue_button09.png"); */
             background-size: 6vh 4vh;
             bottom: 1vh;
             left: 3%;
@@ -812,7 +931,7 @@
         }
 
         .left:active {
-            background-image: url("png/blue_button10.png");
+            /* background-image: url("png/blue_button10.png"); */
             transform: translate(0, 0.2vh);
             background-size: 6vh 3.8vh;
             width: 6vh;
@@ -821,11 +940,44 @@
             /*font-size: 0;*/
         }
 
+        .left img {
+            width: 4vh;
+            height: 4vh;
+            z-index: 2;
+        }
+
+        .center {
+            position: absolute;
+            border: none;
+            background-color: transparent;
+            /* background-image: url("png/green_button09.png"); */
+            background-size: 6vh 4vh;
+            bottom: 1vh;
+            right: 45%;
+            width: 6vh;
+            height: 4vh;
+            z-index: 2;
+        }
+
+        .center img {
+            width: 4vh;
+            height: 4vh;
+            z-index: 2;
+        }
+
+        .center:active {
+            /* background-image: url("png/green_button10.png"); */
+            transform: translate(0, 0.2vh);
+            background-size: 6vh 3.8vh;
+            width: 6vh;
+            height: 3.8vh;
+        }
+
         .right {
             position: absolute;
             border: none;
             background-color: transparent;
-            background-image: url("png/green_button09.png");
+            /* background-image: url("png/green_button09.png"); */
             background-size: 6vh 4vh;
             bottom: 1vh;
             right: 3%;
@@ -835,13 +987,13 @@
         }
 
         .right img {
-            width: 3vh;
-            height: 3vh;
+            width: 4vh;
+            height: 4vh;
             z-index: 2;
         }
 
         .right:active {
-            background-image: url("png/green_button10.png");
+            /* background-image: url("png/green_button10.png"); */
             transform: translate(0, 0.2vh);
             background-size: 6vh 3.8vh;
             width: 6vh;
@@ -862,32 +1014,32 @@
             border: none;
             background-color: transparent;
             background-image: url("png/green_button09.png");
-            background-size: 6vh 4vh;
-            width: 6vh;
-            height: 4vh;
+            background-size: 9vh 6vh;
+            width: 9vh;
+            height: 6vh;
             z-index: 2;
-            margin-bottom: 1vw;
+            margin-bottom: 2vw;
         }
 
         .setting img {
-            width: 3vh;
-            height: 3vh;
+            width: 4vh;
+            height: 4vh;
             z-index: 2;
         }
 
         .setting:active {
-            background-image: url("png/green_button10.png");
-            transform: translate(0, 0.2vh);
-            background-size: 6vh 3.8vh;
-            width: 6vh;
-            height: 3.8vh;
+            /* background-image: url("png/green_button10.png"); */
+            transform: translate(0, 0.4vh);
+            background-size: 9vh 5.6vh;
+            width: 9vh;
+            height: 5.6vh;
         }
 
         #option {
             /*    position: re;*/
             border: none;
             background-color: transparent;
-            background-image: url("png/green_button09.png");
+            /* background-image: url("png/green_button09.png"); */
             background-size: 6vh 4vh;
             width: 6vh;
             height: 4vh;
@@ -896,13 +1048,13 @@
         }
 
         #option img {
-            width: 3vh;
-            height: 3vh;
+            width: 4vh;
+            height: 4vh;
             z-index: 2;
         }
 
         #option:active {
-            background-image: url("png/green_button10.png");
+            /* background-image: url("png/green_button10.png"); */
             transform: translate(0, 0.2vh);
             background-size: 6vh 3.8vh;
             margin-top: 0.2vh;
@@ -923,9 +1075,9 @@
 
         .character {
             /*font-size: 10px;*/
-            background-color: #fff;
+            background-color: rgba(200, 200, 200, 0.4);;
             border: 2px solid #ccc;
-            border-radius: 5px;
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1330,6 +1482,7 @@
             [0xfec8c9, 0xfd999a, 0x444f59, 0x3e4149]
         ]
         var colornum = parseInt(Math.random() * colorlst.length);
+
         var colorlst0 = [
             [0x8ECAE6, 0x219EBC, 0x023047, 0xFFB703, 0xFB8500],
             [0xE63946, 0xF1FAEE, 0xA8DADC, 0x457B9D, 0x1D3557],
@@ -1521,6 +1674,18 @@
             [0x134074, 0x13315C, 0x0B2545, 0x8DA9C4, 0xEEF4ED]
         ]
         var colornum0 = parseInt(Math.random() * colorlst0.length);
+
+        document.getElementById("cl10").style.backgroundColor=hexToHtmlColor(colorlst[colornum][0])
+        document.getElementById("cl11").style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+        document.getElementById("cl12").style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+        document.getElementById("cl13").style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+
+        document.getElementById("cl20").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
+        document.getElementById("cl21").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][1])
+        document.getElementById("cl22").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][2])
+        document.getElementById("cl23").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][3])
+        document.getElementById("cl24").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][4])
+
         let unitmotion = {};
         var ftiles = [];
         var fontjson = {
@@ -3542,6 +3707,7 @@
                         if (skinnum >= skinset.length) {
                             skinnum = 0;
                         }
+                        bf=999;
                         // if(!rotationflag){
                         // 	lookcenter=false
                         // 	rotationflag=true
@@ -4019,9 +4185,7 @@
         if (lighton) {
 
 
-            var plight = new THREE.PointLight( 0xffffff, 0.1, 100 );
-            plight.position.set( 20, 20, 10 );
-            scene.add( plight );
+
 
             var ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
             scene.add(ambientLight);
@@ -4041,7 +4205,7 @@
                 dl2.shadow.camera.near = 0.1;
                 dl2.shadow.camera.far = 1000;
                 dl2.castShadow = true;
-                dl2.shadow.mapSize = new THREE.Vector2(3090, 3090);
+                dl2.shadow.mapSize = new THREE.Vector2(2048, 2048);
             }
             scene.add(dl2)
         }
@@ -4575,19 +4739,11 @@
             }
             if (lighton) {
                 // let ambientLight= new THREE.AmbientLight(0xffffff,0.4);
-
-
-
-
                 if (gamemod==0||gamemod==2) {
-                  plight.color=new THREE.Color(0xffffff);
-                  plight.intensity=0
                   ambientLight.color=new THREE.Color(0xffffff);
                   ambientLight.intensity=0.4
                   dl2.color=new THREE.Color(0xffffff);
                   dl2.intensity=0.75
-
-
                   if(gamemod==2){
                     dl2.intensity=0.65
 
@@ -4595,8 +4751,7 @@
                   }
 
                 }else if(gamemod==1){
-                  plight.color=new THREE.Color(0xffffff);
-                  plight.intensity=0
+
                   ambientLight.color=new THREE.Color(0xffffff);
                   ambientLight.intensity=0.4
                   dl2.color=new THREE.Color(0xffffff);
@@ -4606,7 +4761,7 @@
                   // dl2.position.set(-40, 50, -20);
                 }
                 scene.add(ambientLight);
-                // scene.add(plight);
+
                 scene.add(dl2)
             }
             arrows.forEach((item) => {
@@ -4644,15 +4799,27 @@
             // eye3=[];
             // clmeshlst={0:[], 1:[],2:[],3:[],4:[]}
             txtlst = [];
+            document.getElementById("cl10").style.backgroundColor=hexToHtmlColor(colorlst[colornum][0])
+            document.getElementById("cl11").style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+            document.getElementById("cl12").style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+            document.getElementById("cl13").style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+
+            document.getElementById("cl20").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
+            document.getElementById("cl21").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][1])
+            document.getElementById("cl22").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][2])
+            document.getElementById("cl23").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][3])
+            document.getElementById("cl24").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][4])
+            gameoverflag = false;
             elapsedTime = 0
-            if(document.getElementById("left").classList.contains("hidden")) {
-              document.getElementById("left").classList.remove("hidden")
-              document.getElementById("left").classList.add("show")
-            }
-            if(document.getElementById("right").classList.contains("hidden")){
-              document.getElementById("right").classList.remove("hidden")
-              document.getElementById("right").classList.add("show")
-            }
+            startflag = false
+            // if(document.getElementById("left").classList.contains("hidden")) {
+            //   document.getElementById("left").classList.remove("hidden")
+            //   document.getElementById("left").classList.add("show")
+            // }
+            // if(document.getElementById("right").classList.contains("hidden")){
+            //   document.getElementById("right").classList.remove("hidden")
+            //   document.getElementById("right").classList.add("show")
+            // }
             if(gamemod==2) {
               var temp0=[4, 7,8]
               skinnum = temp0[parseInt(Math.random()*temp0.length)];
@@ -4674,7 +4841,15 @@
                         fps = 0;
                         activeFloor = cubes.length;
                         gameoverflag = false;
-                        startflag = false
+
+                        document.getElementById("coin-info").classList.remove("hidden");
+                        document.getElementById("coin-info").classList.remove("fade");
+                        document.getElementById("coin-info").classList.add("show");
+                        document.getElementById("coin2").innerText=String(coin);
+
+
+
+
 
                     })
                 })
@@ -7964,9 +8139,9 @@
             // grd.addColorStop(1, hexToHtmlColor(colorlst[colornum][0]));
             // grd.addColorStop(0, hexToHtmlColor(colorlst[colornum0][4]));
             // grd.addColorStop(0, hexToHtmlColor(colorlst[colornum][3]));
-            grd.addColorStop(0.2, hexToHtmlColor(colorlst[colornum][1]));
+            grd.addColorStop(0.3, hexToHtmlColor(colorlst[colornum][1]));
             // grd.addColorStop(0.33, "white");
-            grd.addColorStop(0.41, hexToHtmlColor(colorlst[colornum][0]));
+            grd.addColorStop(0.45, hexToHtmlColor(colorlst[colornum][0]));
             grd.addColorStop(1, hexToHtmlColor(colorlst[colornum][0]));
             ctx.fillStyle = grd;
             ctx.fillRect(0, 0, 100, 100);
@@ -8068,10 +8243,6 @@
             tmesh.add(tmesh1)
             gradback.push(tmesh);
             scene.add(tmesh)
-
-
-
-
 
             if(gamemod==1){
               var geometry12 = new TextGeometry("H", {
@@ -8360,11 +8531,15 @@
             tmesh.rotation.x = -Math.PI / 8;
             tmesh.rotation.order = 'YXZ';
             tmesh.rotation.y = Math.PI / 4;
+
+
             var geometry12 = new TextGeometry(String(coin), {
                 font: font0,
                 size: bw / 10,
                 height: th / 3
             });
+
+
             geometry12.computeBoundingBox();
             geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
             var material = new THREE.MeshBasicMaterial({
@@ -8376,7 +8551,7 @@
             // tmesh1.depth=10;
             tmesh.add(tmesh1)
             // tmesh1.position.y
-            scene.add(tmesh)
+            // scene.add(tmesh)
             gradback.push(tmesh);
             가장자리.push(tmesh);
 
@@ -8861,7 +9036,6 @@
                 sdic.push(nslst[templst[3]])
                 sdic.push(nslst[templst[4]])
                 sdic.push(nslst[templst[5]])
-
                 window.nslst = nslst;
                 for (let i = 0; i < 6; i++) {
                     let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
@@ -8910,7 +9084,8 @@
                                             }
                                           })
                                         }
-
+                                        document.getElementById("coin2").innerText=String(coin);
+                                        bf=999;
                                         animate();
                                     }, 1000);
                                 })
@@ -8929,7 +9104,21 @@
         // Animate the scene
         function animate() {
 
-            if (startflag) {
+            if (startflag) { //스타트
+                document.getElementById("coin-info").classList.remove("show");
+                document.getElementById("coin-info").classList.add("fade");
+
+                document.getElementById("left").classList.remove("show");
+                document.getElementById("left").classList.add("fade");
+
+                document.getElementById("center").classList.remove("show");
+                document.getElementById("center").classList.add("fade");
+                setTimeout(function() {
+                    document.getElementById("coin-info").classList.add("hidden");
+                    document.getElementById("left").classList.add("hidden");
+                    document.getElementById("center").classList.add("hidden");
+
+                }, 100);
                 gradback.forEach((item, index) => {
                     if (index == 0) return;
                     item.material.visible = false;
@@ -8979,7 +9168,7 @@
                 })
             }
 
-            if (restartflag && lookcenter) {
+            if (restartflag && lookcenter) { //리스타트
                 포인트.forEach((item) => {
                     item.material.visible = false;
                 })
@@ -8995,82 +9184,82 @@
                     restart();
                 } else {
 
-                    if (coinchg.length == 0) {
-                        if (coinupdate.length != 0) {
-                            coinupdate.forEach((item) => {
-                                item.material.visible = false;
-                            })
-                        }
-                        var geometry12 = new TextGeometry("★ :", {
-                            font: font0,
-                            size: bw / 10,
-                            height: th / 3
-                        });
-                        geometry12.computeBoundingBox();
-                        geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-                        var material = new THREE.MeshBasicMaterial({
-                            color: colorlst[colornum][3]
-                        });
-                        var tmesh = new THREE.Mesh(geometry12, material);
-                        tmesh.position.y = bh * 11
-                        tmesh.position.x = bw * (1.8)
-                        tmesh.position.z = bw * (0.7)
-                        // textMesh.position.x=0;
-                        tmesh.depth = 10;
-                        tmesh.rotation.x = -Math.PI / 8;
-                        tmesh.rotation.order = 'YXZ';
-                        tmesh.rotation.y = Math.PI / 4;
-                        var geometry12 = new TextGeometry(String(coin), {
-                            font: font0,
-                            size: bw / 10,
-                            height: th / 3
-                        });
-                        geometry12.computeBoundingBox();
-                        geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-                        var material = new THREE.MeshBasicMaterial({
-                            color: colorlst[colornum][3]
-                        });
-                        var tmesh1 = new THREE.Mesh(geometry12, material);
-                        tmesh1.position.x = 4.5
-                        // textMesh.position.x=0;
-                        // tmesh1.depth=10;
-                        tmesh.add(tmesh1)
-                        scene.add(tmesh);
-                        coinfinal.push(tmesh)
-                        var geometry12 = new TextGeometry("+" + String(pluscoin), {
-                            font: font0,
-                            size: bw / 10,
-                            height: th / 3
-                        });
-                        geometry12.computeBoundingBox();
-                        geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-                        var material = new THREE.MeshBasicMaterial({
-                            color: colorlst[colornum][3],
-                            transparent: true,
-                            opacity: 0.6
-                        });
-                        var tmesh = new THREE.Mesh(geometry12, material);
-                        tmesh.position.y = bh * 11.8
-                        tmesh.position.x = bw * (2.3)
-                        tmesh.position.z = bw * (0.7)
-                        // textMesh.position.x=0;
-                        tmesh.depth = 10;
-                        tmesh.rotation.x = -Math.PI / 8;
-                        tmesh.rotation.order = 'YXZ';
-                        tmesh.rotation.y = Math.PI / 4;
-                        // tmesh1.position.y
-                        scene.add(tmesh)
-                        coinchg.push(tmesh);
-                    } else {
-                        coinchg[0].rotation.x = -restartend + Math.PI / 12 + Math.abs(camera.rotation.x - restartend) * (+restartend - Math.PI / 8)
-                        coinfinal[0].rotation.x = -restartend + Math.PI / 12 + Math.abs(camera.rotation.x - restartend) * (+restartend - Math.PI / 8)
-                        coinchg[0].material.transparent = true;
-                        coinchg[0].material.opacity = 0.6 * Math.abs(camera.rotation.x - restartend)
-                        coinchg[0].children.forEach((item) => {
-                            item.material.transparent = true;
-                            item.material.opacity = 0.6 * Math.abs(camera.rotation.x - restartend)
-                        })
-                    }
+                    // if (coinchg.length == 0) {
+                    //     if (coinupdate.length != 0) {
+                    //         coinupdate.forEach((item) => {
+                    //             item.material.visible = false;
+                    //         })
+                    //     }
+                    //     var geometry12 = new TextGeometry("★ :", {
+                    //         font: font0,
+                    //         size: bw / 10,
+                    //         height: th / 3
+                    //     });
+                    //     geometry12.computeBoundingBox();
+                    //     geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+                    //     var material = new THREE.MeshBasicMaterial({
+                    //         color: colorlst[colornum][3]
+                    //     });
+                    //     var tmesh = new THREE.Mesh(geometry12, material);
+                    //     tmesh.position.y = bh * 11
+                    //     tmesh.position.x = bw * (1.8)
+                    //     tmesh.position.z = bw * (0.7)
+                    //     // textMesh.position.x=0;
+                    //     tmesh.depth = 10;
+                    //     tmesh.rotation.x = -Math.PI / 8;
+                    //     tmesh.rotation.order = 'YXZ';
+                    //     tmesh.rotation.y = Math.PI / 4;
+                    //     var geometry12 = new TextGeometry(String(coin), {
+                    //         font: font0,
+                    //         size: bw / 10,
+                    //         height: th / 3
+                    //     });
+                    //     geometry12.computeBoundingBox();
+                    //     geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+                    //     var material = new THREE.MeshBasicMaterial({
+                    //         color: colorlst[colornum][3]
+                    //     });
+                    //     var tmesh1 = new THREE.Mesh(geometry12, material);
+                    //     tmesh1.position.x = 4.5
+                    //     // textMesh.position.x=0;
+                    //     // tmesh1.depth=10;
+                    //     tmesh.add(tmesh1)
+                    //     // scene.add(tmesh);
+                    //     coinfinal.push(tmesh)
+                    //     var geometry12 = new TextGeometry("+" + String(pluscoin), {
+                    //         font: font0,
+                    //         size: bw / 10,
+                    //         height: th / 3
+                    //     });
+                    //     geometry12.computeBoundingBox();
+                    //     geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+                    //     var material = new THREE.MeshBasicMaterial({
+                    //         color: colorlst[colornum][3],
+                    //         transparent: true,
+                    //         opacity: 0.6
+                    //     });
+                    //     var tmesh = new THREE.Mesh(geometry12, material);
+                    //     tmesh.position.y = bh * 11.8
+                    //     tmesh.position.x = bw * (2.3)
+                    //     tmesh.position.z = bw * (0.7)
+                    //     // textMesh.position.x=0;
+                    //     tmesh.depth = 10;
+                    //     tmesh.rotation.x = -Math.PI / 8;
+                    //     tmesh.rotation.order = 'YXZ';
+                    //     tmesh.rotation.y = Math.PI / 4;
+                    //     // tmesh1.position.y
+                    //     // scene.add(tmesh)
+                    //     coinchg.push(tmesh);
+                    // } else {
+                    //     coinchg[0].rotation.x = -restartend + Math.PI / 12 + Math.abs(camera.rotation.x - restartend) * (+restartend - Math.PI / 8)
+                    //     coinfinal[0].rotation.x = -restartend + Math.PI / 12 + Math.abs(camera.rotation.x - restartend) * (+restartend - Math.PI / 8)
+                    //     coinchg[0].material.transparent = true;
+                    //     coinchg[0].material.opacity = 0.6 * Math.abs(camera.rotation.x - restartend)
+                    //     coinchg[0].children.forEach((item) => {
+                    //         item.material.transparent = true;
+                    //         item.material.opacity = 0.6 * Math.abs(camera.rotation.x - restartend)
+                    //     })
+                    // }
                     camera.rotation.x += Math.PI / 256
                     var canvas = document.createElement('canvas');
                     var ctx = canvas.getContext('2d');
@@ -9195,6 +9384,13 @@
             if (!restartflag && lookcenter && !startflag) {
                 if (Math.abs(-isoAngle - camera.rotation.x) < 0.01) {
                     restartloc = [];
+                    document.getElementById("center").classList.remove("hidden");
+                    document.getElementById("center").classList.remove("fade");
+                    document.getElementById("center").classList.add("show");
+
+                    document.getElementById("left").classList.remove("hidden");
+                    document.getElementById("left").classList.remove("fade");
+                    document.getElementById("left").classList.add("show");
                 } else {
                     camera.rotation.x -= Math.PI / 128
                     // camera.position.y-=100000*(Math.PI/128)
@@ -9408,14 +9604,18 @@
                     // particles.geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
                     // particles.geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
                     // particles.geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( THREE.DynamicDrawUsage ) );
-                    txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
 
-                    for (var i = 0; i < cubes.length; i++) {
+                    if(skinnum==1||skinnum==2){
+                      txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
 
-                        if(i==0) continue;
-                        txts[i].material = txtlst[i][txtcount];
+                      for (var i = 0; i < cubes.length; i++) {
 
+                          if(i==0) continue;
+                          txts[i].material = txtlst[i][txtcount];
+
+                      }
                     }
+
                     txttimebuf = txtcount;
                 }
             } else if (!skinflag) {}
@@ -10405,107 +10605,110 @@
                   }
                 })
               }
-              for (var i = 0; i < cubes.length; i++) {
-                  if (i == activeFloor) {
-                      cubes[i].mesh.children.forEach((tile, index) => {
-                          if (tile.userData["skin"] == "text1") {
-                              if (skinnum == 1) {
-                                  tile.position.z = -bw / 8
-                                  tile.material.visible = true;
-                                  tile.material.opacity = 0.2
-                                  tile.material.transparent = true;
-                              } else if (skinnum == 2) {
-                                  tile.position.z = 0
-                                  tile.material.visible = true;
-                                  tile.material.opacity = 0.2
-                                  tile.material.transparent = true;
-                              } else {
-                                  tile.material.visible = false;
-                              }
-                          } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
-                              if (skinnum == 1) {
-                                  tile.position.z = -bw / 8
-                                  tile.material.visible = true;
-                                  tile.material.opacity = 0.05
-                                  tile.material.transparent = true;
-                              } else if (skinnum == 2) {
-                                  tile.position.z = 0
-                                  tile.material.visible = true;
-                                  tile.material.opacity = 0.05
-                                  tile.material.transparent = true;
-                              } else {
-                                  tile.material.visible = false;
-                              }
-                          }
-                      });
-                  } else {
-                      if (i > activeFloor) {
-                          cubes[i].mesh.children.forEach((tile) => {
-                              if (tile.userData["skin"] == "text1") {
-                                  if (skinnum == 1) {
-                                      tile.position.z = -bw / 8
-                                      tile.material.visible = true;
-                                      tile.material.opacity = 0.2
-                                      tile.material.transparent = true;
-                                  } else if (skinnum == 2) {
-                                      tile.position.z = 0
-                                      tile.material.visible = true;
-                                      tile.material.opacity = 0.2
-                                      tile.material.transparent = true;
-                                  } else {
-                                      tile.material.visible = false;
-                                  }
-                              } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
-                                  if (skinnum == 1) {
-                                      tile.position.z = -bw / 8
-                                      tile.material.visible = true;
-                                      tile.material.opacity = 0.05
-                                      tile.material.transparent = true;
-                                  } else if (skinnum == 2) {
-                                      tile.position.z = 0
-                                      tile.material.visible = true;
-                                      tile.material.opacity = 0.05
-                                      tile.material.transparent = true;
-                                  } else {
-                                      tile.material.visible = false;
-                                  }
-                              }
+              if(skinnum==1||skinnum==2){
+                for (var i = 0; i < cubes.length; i++) {
+                    if (i == activeFloor) {
+                        cubes[i].mesh.children.forEach((tile, index) => {
+                            if (tile.userData["skin"] == "text1") {
+                                if (skinnum == 1) {
+                                    tile.position.z = -bw / 8
+                                    tile.material.visible = true;
+                                    tile.material.opacity = 0.2
+                                    tile.material.transparent = true;
+                                } else if (skinnum == 2) {
+                                    tile.position.z = 0
+                                    tile.material.visible = true;
+                                    tile.material.opacity = 0.2
+                                    tile.material.transparent = true;
+                                } else {
+                                    tile.material.visible = false;
+                                }
+                            } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
+                                if (skinnum == 1) {
+                                    tile.position.z = -bw / 8
+                                    tile.material.visible = true;
+                                    tile.material.opacity = 0.05
+                                    tile.material.transparent = true;
+                                } else if (skinnum == 2) {
+                                    tile.position.z = 0
+                                    tile.material.visible = true;
+                                    tile.material.opacity = 0.05
+                                    tile.material.transparent = true;
+                                } else {
+                                    tile.material.visible = false;
+                                }
+                            }
+                        });
+                    } else {
+                        if (i > activeFloor) {
+                            cubes[i].mesh.children.forEach((tile) => {
+                                if (tile.userData["skin"] == "text1") {
+                                    if (skinnum == 1) {
+                                        tile.position.z = -bw / 8
+                                        tile.material.visible = true;
+                                        tile.material.opacity = 0.2
+                                        tile.material.transparent = true;
+                                    } else if (skinnum == 2) {
+                                        tile.position.z = 0
+                                        tile.material.visible = true;
+                                        tile.material.opacity = 0.2
+                                        tile.material.transparent = true;
+                                    } else {
+                                        tile.material.visible = false;
+                                    }
+                                } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
+                                    if (skinnum == 1) {
+                                        tile.position.z = -bw / 8
+                                        tile.material.visible = true;
+                                        tile.material.opacity = 0.05
+                                        tile.material.transparent = true;
+                                    } else if (skinnum == 2) {
+                                        tile.position.z = 0
+                                        tile.material.visible = true;
+                                        tile.material.opacity = 0.05
+                                        tile.material.transparent = true;
+                                    } else {
+                                        tile.material.visible = false;
+                                    }
+                                }
 
-                          });
-                      } else {
-                          cubes[i].mesh.children.forEach((tile, index) => {
-                              if (tile.userData["skin"] == "text1") {
-                                  if (skinnum == 1) {
-                                      tile.position.z = -bw / 8
-                                      tile.material.visible = true;
-                                      tile.material.opacity = 1
-                                      tile.material.transparent = true;
-                                  } else if (skinnum == 2) {
-                                      tile.position.z = 0
-                                      tile.material.visible = true;
-                                      tile.material.opacity = 1
-                                      tile.material.transparent = true;
-                                  } else {
-                                      tile.material.visible = false;
-                                  }
-                              } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
-                                  if (skinnum == 1) {
-                                      tile.position.z = -bw / 8
-                                      tile.material.visible = true;
-                                      tile.material.opacity = 0.3
-                                      tile.material.transparent = true;
-                                  } else if (skinnum == 2) {
-                                      tile.position.z = 0
-                                      tile.material.visible = true;
-                                      tile.material.opacity = 0.3
-                                      tile.material.transparent = true;
-                                  } else {
-                                      tile.material.visible = false;
-                                  }
-                              }
-                          });
-                      }
-                  }
+                            });
+                        } else {
+                            cubes[i].mesh.children.forEach((tile, index) => {
+                                if (tile.userData["skin"] == "text1") {
+                                    if (skinnum == 1) {
+                                        tile.position.z = -bw / 8
+                                        tile.material.visible = true;
+                                        tile.material.opacity = 1
+                                        tile.material.transparent = true;
+                                    } else if (skinnum == 2) {
+                                        tile.position.z = 0
+                                        tile.material.visible = true;
+                                        tile.material.opacity = 1
+                                        tile.material.transparent = true;
+                                    } else {
+                                        tile.material.visible = false;
+                                    }
+                                } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
+                                    if (skinnum == 1) {
+                                        tile.position.z = -bw / 8
+                                        tile.material.visible = true;
+                                        tile.material.opacity = 0.3
+                                        tile.material.transparent = true;
+                                    } else if (skinnum == 2) {
+                                        tile.position.z = 0
+                                        tile.material.visible = true;
+                                        tile.material.opacity = 0.3
+                                        tile.material.transparent = true;
+                                    } else {
+                                        tile.material.visible = false;
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+
               }
 
             }
@@ -14321,7 +14524,7 @@
             // 	button2.style.display = 'none';
             rotationflag = true
             restartflag = true
-            pluscoin = parseInt(점수 / 10)
+            pluscoin = parseInt(점수 / 10);
             coin += pluscoin;
             for (var i = 0; i < cubes.length; i++) {
                 restartloc.push(cubes[i].mesh.position);
@@ -14969,6 +15172,14 @@
         }
 
         function goBack(n) {
+            if(n==5){
+              document.getElementById("mod-overlay").classList.remove("show");
+              document.getElementById("mod-overlay").classList.add("fade");
+              setTimeout(function() {
+                  document.getElementById("mod-overlay").classList.add("hidden");
+              }, 100);
+
+            }
             window.scrollTo(0, 0);
             if (document.getElementById("setting-overlay").classList.contains("show")) {
                 document.getElementById("setting-overlay").classList.remove("show");
@@ -15044,6 +15255,27 @@
             }
         }
     </script>
+    <div id="colorline" class="hidden">
+        <div id="cl1">
+        <div id="cl10">c10</div>
+        <div id="cl11">c11</div>
+        <div id="cl12">c12</div>
+        <div id="cl13">c13</div>
+        </div>
+        <div id="cl2">
+        <div id="cl20">c20</div>
+        <div id="cl21">c21</div>
+        <div id="cl22">c22</div>
+        <div id="cl23">c23</div>
+        <div id="cl24">c24</div>
+        </div>
+    </div>
+
+
+    <div id="coin-info" class="">
+        <h2 id="coin1">★ : </h2>
+        <h2 id="coin2">11</h2>
+    </div>
 
     <div id="song-info" class="hidden">
         <h2 id="playing">Playing: </h2>
@@ -15062,7 +15294,14 @@
     <div id="intro">
         <h1>V 0.7</h1>
     </div>
-    <button id="left" class="left" onclick="skinon()"></button>
+    <button id="left" class="left" onclick="skinon()">
+    <img class="" src="png/left0.png">
+    </button>
+
+    <button id="center" class="center" onclick="showmod()">
+        <img class="" src="png/gamepad.png">
+
+    </button>
 
     <button id="right" class="right" onclick="optionon()">
         <img class="" src="png/up.png">
@@ -15174,7 +15413,9 @@
     <div id="options-overlay" class="options-overlay hidden">
         <div class="container">
             <div id="step1">
-                <button class="backbutton" onclick="goBack(1)">◀</button>
+                <button class="backbutton" onclick="goBack(1)">
+                <img class="" src="png/return.png">
+                </button>
                 <div class="button-column">
                     <h1 class="title">NO ADS</h1>
                     <button class="ad-button" onclick="">
@@ -15330,29 +15571,36 @@
     </div>
 
     <div id="mod-overlay" class="mod-overlay hidden">
+        <button class="backbutton" onclick="goBack(5)">◀</button>
         <div class="mod-container">
 
             <div class="mod">
                 <button id="mod0" class="modbt">
-                    <img src="png/return.png" id="rightimg">
+                    <img src="png/joystick.png" id="rightimg">
                 </button>
                 <label class="mlabel">BASIC</label>
+                <b>기본</b>
+                오리지날 모드 오리지날 모드 오리지날 모드 오리지날 모드 오리지날 모드
             </div>
 
             <div class="mod">
                 <button id="mod1" class="modbt" onclick="">
-                    <img src="png/share2.png" id="rightimg">
+                    <img src="png/joystickRight.png" id="rightimg">
 
                 </button>
                 <label class="mlabel">HARD</label>
+                <b>어려움</b>
+                더 잘넘어집니다 더 잘넘어집니다 더 잘넘어집니다 더 잘넘어집니다 더 잘넘어집니다
+
             </div>
 
             <div class="mod">
                 <button id="mod2" class="modbt">
-                    <img src="png/movie.png" id="rightimg">
-
+                    <img src="png/barsHorizontal.png" id="rightimg">
                 </button>
                 <label class="mlabel">STACK</label>
+                <b>스택</b>
+                높게 쌓아보세요 높게 쌓아보세요 높게 쌓아보세요 높게 쌓아보세요 높게 쌓아보세요
             </div>
 
         </div>
