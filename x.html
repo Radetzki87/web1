@@ -6,45 +6,43 @@
     <title>Tower Stacking Game</title>
     <style>
 
-        #colorline {
+        /* #colorline {
             font-family: 'GG';
             color: white;
             font-size: 1vh;
             position: absolute;
             top: 0%;
-            /* left: 4vw; */
+
             width:50%;
             height: 15%;
-            display: flex;
+            display: none;
             flex-direction: column;
             z-index: 1;
             align-items: center;
             justify-content: center;
             text-align: center;
-            /*opacity: 1;*/
-            /*transition: opacity 0.15s ease-in-out;*/
+
         }
 
         #cl1{
           display: inline-flex;
-          /* position: absolute; */
+
           width: 100%;
-          /* left:-24%; */
+
           height: 50%;
           background-color: rgba(0, 0, 0, 0.1);
           background-size: cover;
-          /* z-index: 2; */
+
 
         }
         #cl2{
           display: inline-flex;
-          /* position: absolute; */
+
           width: 100%;
-          /* left:-24%; */
+
           height: 50%;
           background-color: rgba(0, 0, 0, 0.1);
           background-size: cover;
-          /* z-index: 2; */
 
         }
 
@@ -93,7 +91,7 @@
           width: 20%;
           height: 100%;
           background-color: rgba(0, 0, 0, 0.8);
-        }
+        } */
 
 
         #credit-info {
@@ -142,7 +140,7 @@
         }
 
         #credit-info button{
-          z-index: 3;
+          /* z-index: 3; */
             /* z-index: 1; */
             /* font-size: 1vh; */
             /* background-color: rgba(0, 0, 0, 0.8); */
@@ -1736,16 +1734,16 @@
         ]
         var colornum0 = parseInt(Math.random() * colorlst0.length);
 
-        document.getElementById("cl10").style.backgroundColor=hexToHtmlColor(colorlst[colornum][0])
-        document.getElementById("cl11").style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
-        document.getElementById("cl12").style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
-        document.getElementById("cl13").style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
-
-        document.getElementById("cl20").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
-        document.getElementById("cl21").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][1])
-        document.getElementById("cl22").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][2])
-        document.getElementById("cl23").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][3])
-        document.getElementById("cl24").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][4])
+        // document.getElementById("cl10").style.backgroundColor=hexToHtmlColor(colorlst[colornum][0])
+        // document.getElementById("cl11").style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+        // document.getElementById("cl12").style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+        // document.getElementById("cl13").style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+        //
+        // document.getElementById("cl20").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
+        // document.getElementById("cl21").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][1])
+        // document.getElementById("cl22").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][2])
+        // document.getElementById("cl23").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][3])
+        // document.getElementById("cl24").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][4])
 
         let unitmotion = {};
         var ftiles = [];
@@ -4860,16 +4858,16 @@
             // eye3=[];
             // clmeshlst={0:[], 1:[],2:[],3:[],4:[]}
             txtlst = [];
-            document.getElementById("cl10").style.backgroundColor=hexToHtmlColor(colorlst[colornum][0])
-            document.getElementById("cl11").style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
-            document.getElementById("cl12").style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
-            document.getElementById("cl13").style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
-
-            document.getElementById("cl20").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
-            document.getElementById("cl21").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][1])
-            document.getElementById("cl22").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][2])
-            document.getElementById("cl23").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][3])
-            document.getElementById("cl24").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][4])
+            // document.getElementById("cl10").style.backgroundColor=hexToHtmlColor(colorlst[colornum][0])
+            // document.getElementById("cl11").style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+            // document.getElementById("cl12").style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+            // document.getElementById("cl13").style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+            //
+            // document.getElementById("cl20").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
+            // document.getElementById("cl21").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][1])
+            // document.getElementById("cl22").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][2])
+            // document.getElementById("cl23").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][3])
+            // document.getElementById("cl24").style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][4])
             gameoverflag = false;
             elapsedTime = 0
             startflag = false
@@ -9172,6 +9170,16 @@
                   document.getElementById("opt3").classList.remove("locked")
 
                 }
+                document.getElementById("mod-overlay").classList.remove("show");
+                document.getElementById("mod-overlay").classList.add("fade");
+
+                document.getElementById("credit-info").classList.remove("show");
+                document.getElementById("credit-info").classList.add("fade");
+                setTimeout(function() {
+                    document.getElementById("mod-overlay").classList.add("hidden");
+                    document.getElementById("credit-info").classList.add("hidden");
+                }, 100);
+                
                 setting(stack, function(object) { //시작
                     addring();
                     tsetting(function(object) {
@@ -15476,8 +15484,6 @@
         }
     </script>
 
-
-
     <div id="credit-info" class="hidden">
     <button class="backbutton" onclick="goBack(5)">
     <img class="" src="png/return.png">
@@ -15489,29 +15495,7 @@
         <h2 id="제작">REFERENCE:</h2>
         </div>
 
-
-
-        </div>
-
     </div>
-
-
-    <div id="colorline" class="hidden">
-        <div id="cl1">
-        <div id="cl10">c10</div>
-        <div id="cl11">c11</div>
-        <div id="cl12">c12</div>
-        <div id="cl13">c13</div>
-        </div>
-        <div id="cl2">
-        <div id="cl20">c20</div>
-        <div id="cl21">c21</div>
-        <div id="cl22">c22</div>
-        <div id="cl23">c23</div>
-        <div id="cl24">c24</div>
-        </div>
-    </div>
-
 
     <div id="coin-info" class="">
         <h2 id="coin1">★ : </h2>
@@ -15541,7 +15525,6 @@
 
     <button id="center" class="center" onclick="showmod()">
         <img class="" src="png/gamepad.png">
-
     </button>
 
     <button id="right" class="right" onclick="optionon()">
