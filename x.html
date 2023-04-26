@@ -4758,7 +4758,7 @@
               cubes[3].body.material.friction = 0.2;
               cubes[3].body.material.restitution = 0.4;
               stack=5;
-              forceAmount = bw * bw * bh / 25;
+              forceAmount = bw * bw * bh / 45;
               groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
 
               world.gravity.set(0, -7, 0);
@@ -9459,6 +9459,8 @@
             }
 
             if (restartflag && lookcenter) { //리스타트
+
+
                 포인트.forEach((item) => {
                     item.material.visible = false;
                 })
@@ -9679,16 +9681,17 @@
             if (!restartflag && lookcenter && !startflag) {
                 if (Math.abs(-isoAngle - camera.rotation.x) < 0.01) {
                     restartloc = [];
-                    if(onceflag0){
-                      for (var i = 0; i < cubes.length; i++) {
-                        cubes[i].mesh.children.forEach((item, idx) => {
-                          if (item.userData["skin"]=="tile") {
+                    for (var i = 0; i < cubes.length; i++) {
+                      cubes[i].mesh.children.forEach((item, idx) => {
+                        if (skinset.indexOf(item.userData["skin"])!=-1){
+                          if(item.userData["skin"]!=skinset[skinnum]) {
                             item.material.visible=false;
                           }
-                        });
+                        }
+                      });
+                    }
 
-                      }
-
+                    if(onceflag0){
                       document.getElementById("left").classList.remove("hidden");
                       document.getElementById("left").classList.remove("fade");
                       document.getElementById("left").classList.add("show");
@@ -9712,6 +9715,17 @@
 
 
                 } else {
+                    for (var i = 0; i < cubes.length; i++) {
+                      cubes[i].mesh.children.forEach((item, idx) => {
+                        if(item.userData["skin"]=="tile") {
+                          item.material.visible=false;
+                          item.children.forEach((txt) => {
+                            txt.material.visible=false;
+                          });
+
+                        }
+                      });
+                    }
                     camera.rotation.x -= Math.PI / 128
                     // camera.position.y-=100000*(Math.PI/128)
                 }
