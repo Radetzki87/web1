@@ -1032,6 +1032,33 @@
             z-index: 2;
         }
 
+        #leftup {
+            position: absolute;
+            border: none;
+            background-color: transparent;
+            /* background-image: url("png/green_button09.png"); */
+            background-size: 6vh 4vh;
+            top: 1vh;
+            left: 3%;
+            width: 6vh;
+            height: 4vh;
+            z-index: 2;
+        }
+
+        #leftup img {
+            width: 4vh;
+            height: 4vh;
+            z-index: 2;
+        }
+
+        #leftup:active {
+            /* background-image: url("png/green_button10.png"); */
+            transform: translate(0, 0.2vh);
+            background-size: 6vh 3.8vh;
+            width: 6vh;
+            height: 3.8vh;
+        }
+
         .center {
             position: absolute;
             border: none;
@@ -1287,11 +1314,12 @@
         var bf;
 
         var gamemod=0;
+        window.gamemod=gamemod;
 
         var stacktime;
         var stacknum=[0,0,0,0,8,8,16,16,32,32,64,64,128,128,256,256,512,512,1024,1024,2048,2048,2048,2048,2048,2048]
 
-        var greylst=[27,26,4,1,3,30,40,46,20,39,16,38,23, 38]
+        var greylst=[27,26,4,1,3,30,40,46,20,39,16,38,23,38,27]
 
 
         var skinmold={};
@@ -4685,6 +4713,7 @@
                 }
             }
         });
+
         // for(item of cubes){
         //     item.body.applyForce(force, item.body.position);
         //   }
@@ -4692,6 +4721,7 @@
         function restart() {
             // init();
             // return location.reload();
+            window.gamemod=gamemod;
             for (let i = 0; i < sdic.length; i++) {
                 if (soundic[sdic[i][0]]?.isPlaying) {
                     soundic[sdic[i][0]].stop();
@@ -4971,6 +5001,8 @@
                         document.getElementById("coin-info").classList.remove("fade");
                         document.getElementById("coin-info").classList.add("show");
                         document.getElementById("coin2").innerText=String(coin);
+
+
 
 
 
@@ -9360,11 +9392,15 @@
                 document.getElementById("left").classList.remove("show");
                 document.getElementById("left").classList.add("fade");
 
+                document.getElementById("leftup").classList.remove("show");
+                document.getElementById("leftup").classList.add("fade");
+
                 document.getElementById("center").classList.remove("show");
                 document.getElementById("center").classList.add("fade");
                 setTimeout(function() {
                     document.getElementById("coin-info").classList.add("hidden");
                     document.getElementById("left").classList.add("hidden");
+                    document.getElementById("leftup").classList.add("hidden");
                     document.getElementById("center").classList.add("hidden");
 
                 }, 100);
@@ -9655,6 +9691,10 @@
                       document.getElementById("center").classList.remove("hidden");
                       document.getElementById("center").classList.remove("fade");
                       document.getElementById("center").classList.add("show");
+
+                      document.getElementById("leftup").classList.remove("hidden");
+                      document.getElementById("leftup").classList.remove("fade");
+                      document.getElementById("leftup").classList.add("show");
 
                       if(document.getElementById("right").classList.contains("hidden")){
                         document.getElementById("right").classList.remove("hidden");
@@ -15263,6 +15303,8 @@
         function skinon() {
             document.getElementById("left").classList.add("fade");
             document.getElementById("left").classList.remove("show");
+            document.getElementById("leftup").classList.add("fade");
+            document.getElementById("leftup").classList.remove("show");
             document.getElementById("right").classList.add("fade");
             document.getElementById("right").classList.remove("show");
             document.getElementById("center").classList.add("fade");
@@ -15276,6 +15318,7 @@
             document.getElementById("options-overlay").classList.add("show");
             setTimeout(function() {
                 document.getElementById("left").classList.add("hidden");
+                document.getElementById("leftup").classList.add("hidden");
                 document.getElementById("right").classList.add("hidden");
                 document.getElementById("center").classList.add("hidden");
                 document.getElementById("optionlst").classList.add("hidden");
@@ -15323,6 +15366,13 @@
                 document.getElementById("right").children[1].style.display = ""
                 setTimeout(function() {}, 100);
             } else {
+              if(!document.getElementById("tutorial").classList.contains("hidden")){
+                document.getElementById("tutorial").classList.remove("show");
+                document.getElementById("tutorial").classList.add("fade");
+                setTimeout(function() {
+                  document.getElementById("tutorial").classList.add("hidden");
+                }, 100);
+              }
                 document.getElementById("optionlst").classList.remove("show");
                 document.getElementById("optionlst").classList.add("fade");
                 document.getElementById("right").children[1].classList.add("hidden");
@@ -15335,8 +15385,17 @@
         }
 
         function showsetting(n) {
+          if(!document.getElementById("tutorial").classList.contains("hidden")){
+            document.getElementById("tutorial").classList.remove("show");
+            document.getElementById("tutorial").classList.add("fade");
+            setTimeout(function() {
+              document.getElementById("tutorial").classList.add("hidden");
+            }, 100);
+          }
             document.getElementById("left").classList.add("fade");
             document.getElementById("left").classList.remove("show");
+            document.getElementById("leftup").classList.add("fade");
+            document.getElementById("leftup").classList.remove("show");
             document.getElementById("center").classList.add("fade");
             document.getElementById("center").classList.remove("show");
             document.getElementById("right").classList.add("fade");
@@ -15347,6 +15406,7 @@
             document.getElementById("setting-overlay").classList.add("show");
             setTimeout(function() {
                 document.getElementById("left").classList.add("hidden");
+                document.getElementById("leftup").classList.add("hidden");
                 document.getElementById("right").classList.add("hidden");
                 document.getElementById("center").classList.add("hidden");
                 document.getElementById("optionlst").classList.add("hidden");
@@ -15363,8 +15423,20 @@
               return goBack(5);
             }
 
+            if(!document.getElementById("tutorial").classList.contains("hidden")){
+              document.getElementById("tutorial").classList.remove("show");
+              document.getElementById("tutorial").classList.add("fade");
+              setTimeout(function() {
+                document.getElementById("tutorial").classList.add("hidden");
+              }, 100);
+            }
+
+
+
             document.getElementById("left").classList.add("fade");
             document.getElementById("left").classList.remove("show");
+            document.getElementById("leftup").classList.add("fade");
+            document.getElementById("leftup").classList.remove("show");
             document.getElementById("right").classList.add("fade");
             document.getElementById("right").classList.remove("show");
             // document.getElementById("center").classList.add("fade");
@@ -15375,6 +15447,7 @@
             document.getElementById("mod-overlay").classList.add("show");
             setTimeout(function() {
                 document.getElementById("left").classList.add("hidden");
+                document.getElementById("leftup").classList.add("hidden");
                 document.getElementById("right").classList.add("hidden");
                 // document.getElementById("center").classList.add("hidden");
                 document.getElementById("optionlst").classList.add("hidden");
@@ -15626,6 +15699,7 @@
         }
 
         function showcredit(n){
+
           document.getElementById("credit-info").classList.remove("fade");
           document.getElementById("credit-info").classList.remove("hidden");
           document.getElementById("credit-info").classList.add("show");
@@ -15649,9 +15723,29 @@
         }
 
         function showtut(n){
-          document.getElementById("tutorial").classList.remove("fade");
-          document.getElementById("tutorial").classList.remove("hidden");
-          document.getElementById("tutorial").classList.add("show");
+          if(gamemod==2){
+            document.getElementById("tutorial").children[1].style.display = "none"
+            document.getElementById("tutorial").children[2].style.display = ""
+
+
+            // document.getElementById("tutorial").children[0].style.display = ""
+          }else{
+            document.getElementById("tutorial").children[2].style.display = "none"
+            document.getElementById("tutorial").children[1].style.display = ""
+
+          }
+          if(!document.getElementById("tutorial").classList.contains("hidden")){
+            document.getElementById("tutorial").classList.remove("show");
+            document.getElementById("tutorial").classList.add("fade");
+            setTimeout(function() {
+              document.getElementById("tutorial").classList.add("hidden");
+            }, 100);
+          }else{
+            document.getElementById("tutorial").classList.remove("fade");
+            document.getElementById("tutorial").classList.remove("hidden");
+            document.getElementById("tutorial").classList.add("show");
+          }
+
 
 
 
@@ -15665,6 +15759,7 @@
     <button class="backbutton6" onclick="goBack(6)">
     </button>
     <img class="tut1" src="png/tutorial.png">
+    <img class="tut2" src="png/tutorial2.png">
     </div>
 
 
@@ -15703,6 +15798,11 @@
     <div id="intro">
         <h1>V 0.7</h1>
     </div>
+
+    <button id="leftup" onclick="showtut()">
+        <img src="png/question.png" id="">
+    </button>
+
     <button id="left" class="left" onclick="skinon()">
     <img class="" src="png/left0.png">
     </button>
