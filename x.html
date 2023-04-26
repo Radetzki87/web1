@@ -207,7 +207,7 @@
             color: white;
             font-size: 2vh;
             position: absolute;
-            top: 0%;
+            top: -1%;
             right: 6%;
             /* left: 4vw; */
             display: inline-flex;
@@ -720,7 +720,7 @@
         left: 0;*/
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 1);
+            background-color: rgba(0, 0, 0, 0.95);
             /*align-items: center;*/
             z-index: 3;
         }
@@ -1342,6 +1342,8 @@
 
         var gamemod=0;
         window.gamemod=gamemod;
+
+        var originflag=false;
 
         var stacktime;
         var stacknum=[0,0,0,0,8,8,16,16,32,32,64,64,128,128,256,256,512,512,1024,1024,2048,2048,2048,2048,2048,2048]
@@ -3673,6 +3675,38 @@
         var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
         function handleTouchStart(event) {
+
+            if(!originflag){
+              listener= new THREE.AudioListener();
+              msetting0(function(object) {
+
+                document.getElementById("intro").classList.add("fade");
+                setTimeout(function() {
+                    document.getElementById("intro").classList.add("hidden");
+                }, 150);
+                originflag=true;
+
+                return;
+              })
+              return;
+
+            }else if(!startflag){
+              var go=true;
+              for (let i = 0; i < 6; i++) {
+                  let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
+                  for (let j = 0; j < temp.length; j++) {
+                    if(soundic[sdic[i][temp[j]]]==null){
+                      go=false;
+                    }
+
+                  }
+              }
+
+              if(!go) return;
+            }
+
+
+
             if (gameoverflag) return;
             if (document.getElementById("setting-overlay").classList.contains("show") || !document.getElementById("gameover-overlay").classList.contains("hidden") || document.getElementById("options-overlay").classList.contains("show") || document.getElementById("optionlst").classList.contains("show")) {
                 return;
@@ -3888,10 +3922,10 @@
                             startflag = true
                         }
                         activeFloor = j;
-                        if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
-                            soundic[sdic[activeFloor]["upper"]].stop();
-                        }
-                        soundic[sdic[activeFloor]["upper"]].play();
+                        // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
+                        //     soundic[sdic[activeFloor]["upper"]].stop();
+                        // }
+                        // soundic[sdic[activeFloor]["upper"]].play();
                         var thisnum = activeFloor
                         var playable = true
                         for (let i = 0; i < 6; i++) {
@@ -4483,10 +4517,10 @@
                 if (activeFloor > cubes.length) {
                     activeFloor = cubes.length;
                 } else {
-                    if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
-                        soundic[sdic[activeFloor]["upper"]].stop();
-                    }
-                    soundic[sdic[activeFloor]["upper"]].play();
+                    // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
+                    //     soundic[sdic[activeFloor]["upper"]].stop();
+                    // }
+                    // soundic[sdic[activeFloor]["upper"]].play();
                     if (true) {
                         var thisnum = activeFloor
                         var playable = true
@@ -8309,6 +8343,31 @@
             }
         }
 
+        function msetting0(callback) {
+
+            for (let i = 0; i < 6; i++) {
+                let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
+                var sdickeys = Object.keys(soundic);
+                for (let j = 0; j < temp.length; j++) {
+                    if (sdickeys.indexOf(sdic[i][temp[j]]) == -1) {
+                        // var listener = new THREE.AudioListener();
+                        // var audioLoader = new THREE.AudioLoader();
+                        audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/sound/' + sdic[i][temp[j]], function(buffer) {
+                            var sound = new THREE.Audio(listener);
+                            sound.setBuffer(buffer);
+                            sound.setVolume(0.3);
+                            soundic[sdic[i][temp[j]]] = sound;
+                            if (j == 0) sound.setLoop(true);
+
+                        });
+                    }
+                }
+            }
+            if (callback) {
+                callback();
+            }
+        }
+
         function txtsetting(callback) {
             //그라디
             var canvas = document.createElement('canvas');
@@ -9212,7 +9271,7 @@
         let particles = new THREE.Points(geometry, material2);
         scene.add(particles);
         // guideflag=false;
-        var listener = new THREE.AudioListener();
+        var listener;
         const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.csv';
         var nslst = {};
         var templst;
@@ -9229,23 +9288,23 @@
                 sdic.push(nslst[templst[4]])
                 sdic.push(nslst[templst[5]])
                 window.nslst = nslst;
-                for (let i = 0; i < 6; i++) {
-                    let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
-                    var sdickeys = Object.keys(soundic);
-                    for (let j = 0; j < temp.length; j++) {
-                        if (sdickeys.indexOf(sdic[i][temp[j]]) == -1) {
-                            // var listener = new THREE.AudioListener();
-                            // var audioLoader = new THREE.AudioLoader();
-                            audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/sound/' + sdic[i][temp[j]], function(buffer) {
-                                var sound = new THREE.Audio(listener);
-                                sound.setBuffer(buffer);
-                                sound.setVolume(0.3);
-                                if (j == 0) sound.setLoop(true);
-                                soundic[sdic[i][temp[j]]] = sound;
-                            });
-                        }
-                    }
-                }
+                // for (let i = 0; i < 6; i++) {
+                //     let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
+                //     var sdickeys = Object.keys(soundic);
+                //     for (let j = 0; j < temp.length; j++) {
+                //         if (sdickeys.indexOf(sdic[i][temp[j]]) == -1) {
+                //             // var listener = new THREE.AudioListener();
+                //             // var audioLoader = new THREE.AudioLoader();
+                //             audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/sound/' + sdic[i][temp[j]], function(buffer) {
+                //                 var sound = new THREE.Audio(listener);
+                //                 sound.setBuffer(buffer);
+                //                 sound.setVolume(0.3);
+                //                 if (j == 0) sound.setLoop(true);
+                //                 soundic[sdic[i][temp[j]]] = sound;
+                //             });
+                //         }
+                //     }
+                // }
                 console.log(sdic)
 
                 if(greylst.indexOf(colornum)!=-1){
@@ -9374,14 +9433,11 @@
                                 time0 = performance.now();
                                 fps = 0;
                                 // console.log(txtlst);
-                                camera.add(listener);
+                                // camera.add(listener);
                                 // scene.background = new THREE.Color(colorlst[colornum][0]);
                                 skinsetting(function(object) {
                                     setTimeout(function() {
-                                        document.getElementById("intro").classList.add("fade");
-                                        setTimeout(function() {
-                                            document.getElementById("intro").classList.add("hidden");
-                                        }, 150);
+
                                         console.log(skinmold)
                                         for(var i=0;i<cubes.length;i++){
                                           cubes[i].mesh.children.forEach((item)=>{
@@ -9393,7 +9449,7 @@
                                         document.getElementById("coin2").innerText=String(coin);
                                         bf=999;
                                         animate();
-                                    }, 500);
+                                    }, 500  );
                                 })
                                 // console.log(tilemold);
                                 // console.log(textmold)
@@ -9411,7 +9467,7 @@
         function animate() {
 
             if (startflag) { //스타트
-                console.log(colornum);
+                // console.log(colornum);
                 // console.log(colorlst[colornum][0]);
                 document.getElementById("coin-info").classList.remove("show");
                 document.getElementById("coin-info").classList.add("fade");
@@ -15886,6 +15942,9 @@
 
         }
 
+        function showshop(n) {
+            console.log("shop")
+        }
 
     </script>
 
@@ -15929,7 +15988,7 @@
         </div>
 
     </div>
-    <div id="intro">
+    <div id="intro" class="">
         <h1>V 0.7</h1>
     </div>
 
@@ -16070,7 +16129,7 @@
                     </button>
 
                     <h1 class="title">SKIN</h1>
-                    <button class="ap-button" onclick="">
+                    <button class="ap-button" onclick="showshop()">
                         <h2>appearance shop 🎨</h2>
                         <!-- <h4>&</h4> -->
                         <!-- <h3>Custom Option 🔓</h3> -->
