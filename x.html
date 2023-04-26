@@ -92,7 +92,43 @@
           height: 100%;
           background-color: rgba(0, 0, 0, 0.8);
         } */
+          #tutorial {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* justify-content: center; */
 
+
+          }
+
+          #tutorial img{
+            position: relative;
+            /* top:60vw%; */
+            width: 86vw;
+            top:7%;
+            z-index: 1;
+            /* height: 40vw; */
+            /* bottom:20%; */
+            /* height: 90%; */
+
+          }
+
+          .backbutton6 {
+              position: fixed;
+              border: none;
+              background-color: transparent;
+              background-image: url("png/red_boxCross.png");
+              background-size: 10vw 10vw;
+              top: 6vh;
+              left: 5%;
+              width: 10vw;
+              height: 10vw;
+              z-index: 2;
+              align-items: center;
+          }
 
         #credit-info {
 
@@ -1255,7 +1291,7 @@
         var stacktime;
         var stacknum=[0,0,0,0,8,8,16,16,32,32,64,64,128,128,256,256,512,512,1024,1024,2048,2048,2048,2048,2048,2048]
 
-        var greylst=[27,26,4,1,3,30,40,46,20,39,16,38,23, 39]
+        var greylst=[27,26,4,1,3,30,40,46,20,39,16,38,23, 38]
 
 
         var skinmold={};
@@ -4898,6 +4934,7 @@
               document.getElementById("opt1").classList.add("locked")
               document.getElementById("opt2").classList.add("locked")
               document.getElementById("opt3").classList.add("locked")
+              document.getElementById("opt4").classList.add("locked")
             }else{
               document.getElementById("left").classList.remove("locked")
               document.getElementById("center").classList.remove("locked")
@@ -4907,6 +4944,7 @@
               document.getElementById("opt1").classList.remove("locked")
               document.getElementById("opt2").classList.remove("locked")
               document.getElementById("opt3").classList.remove("locked")
+              document.getElementById("opt4").classList.remove("locked")
 
             }
 
@@ -9160,6 +9198,7 @@
                   document.getElementById("opt1").classList.add("locked")
                   document.getElementById("opt2").classList.add("locked")
                   document.getElementById("opt3").classList.add("locked")
+                  document.getElementById("opt4").classList.add("locked")
                 }else{
                   document.getElementById("left").classList.remove("locked")
                   document.getElementById("center").classList.remove("locked")
@@ -9169,6 +9208,7 @@
                   document.getElementById("opt1").classList.remove("locked")
                   document.getElementById("opt2").classList.remove("locked")
                   document.getElementById("opt3").classList.remove("locked")
+                  document.getElementById("opt4").classList.remove("locked")
 
                 }
                 document.getElementById("mod-overlay").classList.remove("show");
@@ -9580,6 +9620,11 @@
                     for (var i = 0; i < cubes.length; i++) {
                         cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) + (restartloc[i].y) * 1.39 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                         cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].y * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
+                        cubes[i].mesh.children.forEach((item, idx) => {
+                          if (item.userData["skin"]=="tile") {
+                            item.material.visible=false;
+                          }
+                        });
                     }
                 }
             } else {}
@@ -9594,6 +9639,14 @@
                 if (Math.abs(-isoAngle - camera.rotation.x) < 0.01) {
                     restartloc = [];
                     if(onceflag0){
+                      for (var i = 0; i < cubes.length; i++) {
+                        cubes[i].mesh.children.forEach((item, idx) => {
+                          if (item.userData["skin"]=="tile") {
+                            item.material.visible=false;
+                          }
+                        });
+
+                      }
 
                       document.getElementById("left").classList.remove("hidden");
                       document.getElementById("left").classList.remove("fade");
@@ -15458,6 +15511,27 @@
         }
 
         function goBack(n) {
+            if(n==6){
+              document.getElementById("tutorial").classList.remove("show");
+              document.getElementById("tutorial").classList.add("fade");
+
+              document.getElementById("right").children[1].classList.add("hidden");
+              document.getElementById("right").children[0].classList.remove("hidden");
+              document.getElementById("right").children[0].style.display = ""
+
+              document.getElementById("optionlst").classList.remove("show");
+              document.getElementById("optionlst").classList.add("fade");
+              setTimeout(function() {
+
+              }, 100);
+              setTimeout(function() {
+                  document.getElementById("tutorial").classList.add("hidden");
+                  document.getElementById("optionlst").classList.add("hidden");
+
+              }, 100);
+
+              // return;
+            }
             if(n==5){
               document.getElementById("mod-overlay").classList.remove("show");
               document.getElementById("mod-overlay").classList.add("fade");
@@ -15556,15 +15630,43 @@
           document.getElementById("credit-info").classList.remove("hidden");
           document.getElementById("credit-info").classList.add("show");
 
+
+
           document.getElementById("setting-overlay").classList.remove("show");
           document.getElementById("setting-overlay").classList.add("fade");
+
+
+
+
+
+
+
 
 
           // document.getElementById("credit-info").classList.add("show");
 
 
         }
+
+        function showtut(n){
+          document.getElementById("tutorial").classList.remove("fade");
+          document.getElementById("tutorial").classList.remove("hidden");
+          document.getElementById("tutorial").classList.add("show");
+
+
+
+
+        }
+
+
     </script>
+
+    <div id="tutorial" class="hidden">
+    <button class="backbutton6" onclick="goBack(6)">
+    </button>
+    <img class="tut1" src="png/tutorial.png">
+    </div>
+
 
     <div id="credit-info" class="hidden">
     <button class="backbutton" onclick="goBack(5)">
@@ -15615,7 +15717,7 @@
     </button>
 
     <div id="optionlst" class="optionlst hidden">
-        <button id="option" onclick="optionon()">
+        <button id="option" onclick="showtut()">
             <img src="png/question.png" id="opt0">
         </button>
 
@@ -15624,11 +15726,15 @@
         </button>
 
         <button id="option" onclick="optionon()">
-            <img src="png/medal2.png" id="opt2">
+            <img src="png/medal2.png" id="opt3">
+        </button>
+
+        <button id="option" onclick="showmod()">
+            <img src="png/gamepad.png" id="opt2">
         </button>
 
         <button id="option" onclick="showsetting()">
-            <img src="png/gear.png" id="opt3">
+            <img src="png/gear.png" id="opt4">
         </button>
     </div>
 
