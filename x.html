@@ -1188,7 +1188,7 @@
 
         .character {
             /*font-size: 10px;*/
-            background-color: rgba(100, 100, 100, 0.6);
+            background-color: rgba(100, 240, 100, 0.6);
             border: 8px solid #EEE;
             border-radius: 20px;
             display: flex;
@@ -1205,8 +1205,13 @@
             margin-bottom: 2vw;
         }
 
+        .character:active {
+          border: 8px solid #36A;
+        }
+
         .character.locked {
-            background-color: #ddd;
+            border: 8px solid #E44;
+            background-color: #eee;
             filter: grayscale(100%);
         }
 
@@ -10285,6 +10290,7 @@
                                         ctx.fillText(text1, 0 - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
                                         ctx.fillText(text1, textw - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
                                         ctx.font = `${7}px Arial`;
+                                        
                                         ctx.fillText("  AKAI PRO ", 0, canvas.height * 0.35, canvas.width / 2.5, canvas.height);
                                         // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
                                         var img3 = new THREE.CanvasTexture(canvas);
@@ -10304,6 +10310,9 @@
                                     const game2048 = new Game2048(칸, cubes.length);
 
                                     cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-3) * bh+bh, cubes[cubes.length-1].mesh.position.z, bw, bh, bw, game2048, cubes.length));
+                                    cubes[cubes.length-1].mesh.quaternion.copy(cubes[cubes.length-2].mesh.quaternion);
+                                    cubes[cubes.length-1].body.quaternion.copy(cubes[cubes.length-2].body.quaternion);
+
                                     cubes[cubes.length-1].mesh.userData.body = cubes[cubes.length-1].body;
                                     cubes[cubes.length-1].mesh.userData.game2048 = game2048
                                     cubes[cubes.length-1].mesh.userData.game2048.spawnTile();
