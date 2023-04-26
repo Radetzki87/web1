@@ -92,6 +92,24 @@
           height: 100%;
           background-color: rgba(0, 0, 0, 0.8);
         } */
+
+
+          .lockimg{
+            position: absolute;
+            width: 20vw;
+            height: 20vw;
+            top:-7%;
+            /* background-size: cover; */
+          }
+
+          .miximg{
+            position: absolute;
+            width: 15vw;
+            height: 15vw;
+            top:-0.1%;
+            /* background-size: cover; */
+          }
+
           #tutorial {
             position: absolute;
             width: 100%;
@@ -1199,7 +1217,7 @@
             cursor: pointer;
         }
 
-        .character img {
+        .charimg {
             width: 90%;
             /*height: 50px;*/
             margin-bottom: 2vw;
@@ -1213,6 +1231,10 @@
             border: 8px solid #E44;
             background-color: #eee;
             filter: grayscale(100%);
+        }
+
+        .character span{
+
         }
 
         .locked{
@@ -15364,6 +15386,8 @@
                         nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
                         rotationend = Math.PI / 4
                     }
+                }else if(ptxt[0] == "3"){
+                  console.log("unlock")
                 }
             })
             // Loop through each radio button and add an event listener
@@ -15566,25 +15590,52 @@
             if (ulcount >= 5) {
                 gridlst[1].classList.remove("locked");
                 gridlst[0].classList.remove("locked");
+                gridlst[1].children[1].style.display="none";
+                gridlst[0].children[1].style.display="none";
+
+                gridlst[0].children[3].style.color="white";
+                gridlst[1].children[3].style.color="white";
+
+
             } else if (ulcount >= 2) {
                 if (!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
                 gridlst[0].classList.remove("locked");
+                gridlst[0].children[1].style.display="none";
+                gridlst[0].children[3].style.color="white";
+                gridlst[1].children[3].style.color="black";
             } else {
                 if (!gridlst[0].classList.contains("locked")) gridlst[0].classList.add("locked");
                 if (!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
+                gridlst[0].children[3].style.color="black";
+                gridlst[1].children[3].style.color="black";
             }
             gridlst[0].children[0].src = "png/" + imglst1[n]
             gridlst[1].children[0].src = "png/" + imglst1[n]
+            gridlst[0].children[3].style.fontSize="3vw";
+            gridlst[1].children[3].style.fontSize="3vw";
             for (var i = 0; i < gridlst.length - 2; i++) {
                 if (i >= templst.length) {
                     if (!gridlst[2 + i].classList.contains("hidden")) gridlst[2 + i].classList.add("hidden");
                 } else {
                     gridlst[2 + i].classList.remove("hidden");
-                    gridlst[2 + i].children[1].innerText = templst[i].title
+                    gridlst[2 + i].children[2].innerText = templst[i].title
+                    gridlst[2 + i].children[3].innerText = "By: "+templst[i].producer
+                    gridlst[2 + i].children[4].innerText = "★ :"+ templst[i].price
                     gridlst[2 + i].children[0].src = "png/" + imglst1[n]
                     if (templst[i].unlock == "0") {
                         gridlst[2 + i].classList.remove("locked");
+                        gridlst[2 + i].children[1].style.display="none";
+                        gridlst[2 + i].children[3].style.fontSize="2vw";
+                        gridlst[2 + i].children[4].style.display="none";
+                        gridlst[2 + i].children[2].style.color="white";
+
+
                     } else {
+                        gridlst[2 + i].children[2].style.color="black";
+                        gridlst[2 + i].children[4].style.display="";
+                        gridlst[2 + i].children[3].style.fontSize="2vw";
+                        gridlst[2 + i].children[4].style.fontSize="3vw";
+                        gridlst[2 + i].children[1].style.display="";
                         if (!gridlst[2 + i].classList.contains("locked")) gridlst[2 + i].classList.add("locked");
                     }
                 }
@@ -15609,34 +15660,35 @@
             document.getElementById('pbt').classList.remove("hidden")
             document.getElementById('pbt').classList.add("show")
 
-            console.log(gridlst[n].children[1].innerText);
+            console.log(gridlst[n].children[2].innerText);
             if (n > 1) {
                 if (templst[n - 2].unlock == 0) {
                     pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
-                    ptxt[0].innerText = gridlst[n].children[1].innerText + "\n Play ▶"
+                    ptxt[0].innerText = gridlst[n].children[2].innerText + "\n Play ▶"
                     pcode[0].innerText = "2" + " " + templst[n - 2].name;
                 } else {
                     pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/green_button00.png")'
-                    ptxt[0].innerText = gridlst[n].children[1].innerText + "\n ⭐: " + templst[n - 2].price
+                    ptxt[0].innerText = gridlst[n].children[2].innerText + "\n ⭐: " + templst[n - 2].price
+                    pcode[0].innerText = "3" + " " + templst[n - 2].name;
                 }
             } else if (n == 1) {
                 if (!gridlst[n].classList.contains("locked")) {
                     pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
-                    ptxt[0].innerText = gridlst[n].children[1].innerText + "\n Play ▶"
+                    ptxt[0].innerText = gridlst[n].children[3].innerText + "\n Play ▶"
                     pcode[0].innerText = "1" + " " + templst[0].type;
                 } else {
                     pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/red_button00.png")'
-                    ptxt[0].innerText = gridlst[n].children[1].innerText + "\n  unlock more"
+                    ptxt[0].innerText = gridlst[n].children[2].innerText + "\n  unlock more"
                     pcode[0].innerText = "";
                 }
             } else if (n == 0) {
                 if (!gridlst[n].classList.contains("locked")) {
                     pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
-                    ptxt[0].innerText = gridlst[n].children[1].innerText + "\n Play ▶"
+                    ptxt[0].innerText = gridlst[n].children[3].innerText + "\n Play ▶"
                     pcode[0].innerText = "0" + " " + templst[0].type;
                 } else {
                     pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/red_button00.png")'
-                    ptxt[0].innerText = gridlst[n].children[1].innerText + "\n  unlock more"
+                    ptxt[0].innerText = gridlst[n].children[2].innerText + "\n  unlock more"
                     pcode[0].innerText = "";
                 }
             }
@@ -15663,6 +15715,7 @@
         }
 
         function goBack(n) {
+            window.scrollTo(0, 0);
             if(n==6){
               document.getElementById("tutorial").classList.remove("show");
               document.getElementById("tutorial").classList.add("fade");
@@ -15696,7 +15749,7 @@
               }, 100);
 
             }
-            window.scrollTo(0, 0);
+
             if (document.getElementById("setting-overlay").classList.contains("show")) {
                 document.getElementById("setting-overlay").classList.remove("show");
                 document.getElementById("setting-overlay").classList.add("fade");
@@ -15765,6 +15818,7 @@
                     document.getElementById("categ1").classList.add("hidden");
                     document.getElementById("step1").classList.remove("hidden");
                     document.getElementById("step1").classList.add("show");
+                    // window.scrollTo(0, 0);
                 }, 100);
             } else {
                 document.getElementById("step3").classList.remove("show");
@@ -15775,6 +15829,7 @@
                     document.getElementById("categ1").classList.add("show");
                 }, 100);
             }
+            // window.scrollTo(0, 0);
         }
 
         function showcredit(n){
@@ -16072,7 +16127,7 @@
                 </div>
             </div>
             <div id="categ1" class="selection hidden">
-                <button class="backbutton" onclick="goBack(1)">◀</button>
+                <button class="backbutton" onclick="goBack()">◀</button>
                 <h1 class="title">Category</h1>
                 <button class="c-button" disabled>
                     <img src="png/0.png" alt="Mute" id="img">
@@ -16087,53 +16142,88 @@
                 </div>
                 <div class="grid">
                     <div class="character locked" onclick="showPopup(0)">
-                        <img src="" alt="Character 1">
+                        <img src="" alt="Character 1" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <img src="png/return.png" alt="mix" class="miximg">
                         <span>SHUFFLE</span>
+
                     </div>
                     <div class="character locked" onclick="showPopup(1)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <img src="png/return.png" alt="mix" class="miximg">
                         <span>MIX</span>
-                        <span>🎨🎵</span>
+
                     </div>
                     <div class="character locked" onclick="showPopup(2)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 3</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(3)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 4</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(4)">
-                        <img src="" alt="Character 1">
+                        <img src="" alt="Character 1" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 1</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(5)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 2</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(6)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 3</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(7)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 4</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(8)">
-                        <img src="" alt="Character 1">
+                        <img src="" alt="Character 1" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 1</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(9)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 2</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(10)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 3</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(11)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 4</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <!-- Add more characters -->
                 </div>
