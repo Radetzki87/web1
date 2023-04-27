@@ -9969,6 +9969,13 @@
                 for (var i = 0; i < cubes.length; i++) {
                     avx += cubes[i].mesh.position.x;
                     avz += cubes[i].mesh.position.z;
+                    cubes[i].mesh.children.forEach((item) => {
+                      if (item.userData["skin"]==skinset[skinnum]) {
+                        item.receiveShadow = true;
+                        item.castShadow = true;
+                        item.material.visible=true;
+                      }
+                    });
                 }
                 avx /= cubes.length;
                 avz /= cubes.length;
@@ -10919,6 +10926,7 @@
                         })
                     } else {
                         for (var i = 0; i < cubes.length; i++) {
+
                             if (i == activeFloor) {
                                 camera.position.set(
                                     bw * 2 + avx,
@@ -11424,7 +11432,7 @@
                     // topViewCamera.position.set(0, bh*20, 0);
                     // topViewCamera.lookAt(0, 0, 0);
                     if(gamemod==2){
-                      topViewCamera.position.set(cubes[cubes.length - 1].body.position.x, bh *(cubes.length+1-3) , cubes[cubes.length - 1].body.position.z);
+                      topViewCamera.position.set(cubes[cubes.length - 1].body.position.x, bh *(cubes.length+1-2) , cubes[cubes.length - 1].body.position.z);
                     }else{
                       topViewCamera.position.set(cubes[cubes.length - 1].body.position.x, bh *(cubes.length+1) , cubes[cubes.length - 1].body.position.z);
                     }
@@ -11434,12 +11442,19 @@
                     topViewCamera.rotation.y = cubes[cubes.length - 1].mesh.rotation.y
                 } else {
                     for (var i = 0; i < cubes.length; i++) {
+                        cubes[i].mesh.children.forEach((item) => {
+                          if (i>=activeFloor&&item.userData["skin"]==skinset[skinnum]) {
+                            item.receiveShadow = false;
+                            item.castShadow = false;
+                            item.material.visible=false;
+                          }
+                        });
 
                         if (i == activeFloor) {
                             cubes[i].mesh.material.opacity = 0.1;
                             if (!gameoverflag) {
                                 if(gamemod==2){
-                                  topViewCamera.position.set(cubes[i].body.position.x, bh *(activeFloor+1-3), cubes[i].body.position.z);
+                                  topViewCamera.position.set(cubes[i].body.position.x, bh *(activeFloor+1-2), cubes[i].body.position.z);
                                 }else{
                                   topViewCamera.position.set(cubes[i].body.position.x, bh *(activeFloor+1), cubes[i].body.position.z);
                                 }
