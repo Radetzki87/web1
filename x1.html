@@ -1392,7 +1392,7 @@
         var lastY;
         var touchx;
         var touchy;
-        let forceAmount = bw * bw * bh / 12;
+        let forceAmount = bw * bw * bh / 10;
         let unitimg = {};
         let 점수 = 0
         let bestscore;
@@ -1510,7 +1510,7 @@
         let topcam = true;
         let sidecam = false;
         let arrowon = false;
-        let averageflag = false;
+        let averageflag = true;
         let lighton = true;
         let dragflag = true;
         var sload = true;
@@ -4476,7 +4476,7 @@
         scene.add(groundmesh);
         let groundshape = new CANNON.Box(new CANNON.Vec3(100 / 2, 2 / 2, 100 / 2));
         let customMaterial = new CANNON.Material('customMaterial');
-        customMaterial.friction = 0.7; // Friction coefficient, range: 0-1
+        customMaterial.friction = 0.3; // Friction coefficient, range: 0-1
         customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
         let groundBody = new CANNON.Body({
             mass: 0,
@@ -4489,7 +4489,7 @@
         // groundBody.position.y=boxh/2
         world.gravity.set(0, -8, 0);
         world.broadphase = new CANNON.NaiveBroadphase();
-        world.solver.iterations = 5;
+        world.solver.iterations = 3;
         // Add a ground plane to the physics world
         // const groundBody = new CANNON.Body({ mass: 0, shape: new CANNON.Plane() });
         // // groundBody.quaternion.setFromAxiwsAngle(new CANNON.Vec3(1, 0, 0), 0);
@@ -4512,6 +4512,34 @@
         document.addEventListener('keydown', (event) => {
             // if(inflag) return;
             if (event.code === 'KeyW') {
+                if(!originflag){
+                  listener= new THREE.AudioListener();
+                  msetting0(function(object) {
+
+                    document.getElementById("intro").classList.add("fade");
+                    setTimeout(function() {
+                        document.getElementById("intro").classList.add("hidden");
+                    }, 150);
+                    originflag=true;
+
+                    return;
+                  })
+                  return;
+
+                }else if(!startflag){
+                  var go=true;
+                  for (let i = 0; i < 6; i++) {
+                      let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
+                      for (let j = 0; j < temp.length; j++) {
+                        if(soundic[sdic[i][temp[j]]]==null){
+                          go=false;
+                        }
+
+                      }
+                  }
+
+                  if(!go) return;
+                }
                 if (!startflag) {
                     startflag = true;
                 }
@@ -4569,6 +4597,34 @@
                     }
                 }
             } else if (event.code === 'KeyS') {
+                if(!originflag){
+                  listener= new THREE.AudioListener();
+                  msetting0(function(object) {
+
+                    document.getElementById("intro").classList.add("fade");
+                    setTimeout(function() {
+                        document.getElementById("intro").classList.add("hidden");
+                    }, 150);
+                    originflag=true;
+
+                    return;
+                  })
+                  return;
+
+                }else if(!startflag){
+                  var go=true;
+                  for (let i = 0; i < 6; i++) {
+                      let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
+                      for (let j = 0; j < temp.length; j++) {
+                        if(soundic[sdic[i][temp[j]]]==null){
+                          go=false;
+                        }
+
+                      }
+                  }
+
+                  if(!go) return;
+                }
                 if (!startflag) {
                     startflag = true;
                 }
@@ -4805,10 +4861,10 @@
               cubes[3].body.material.friction = 0.2;
               cubes[3].body.material.restitution = 0.4;
               stack=5;
-              forceAmount = bw * bw * bh / 12;
+              forceAmount = bw * bw * bh / 10;
               groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
               world.gravity.set(0, -7, 0);
-              world.solver.iterations = 5;
+              world.solver.iterations = 3;
 
               // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
 
@@ -10460,16 +10516,16 @@
                                     // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                                     switch (item.direction) {
                                         case 'up':
-                                            force.set(0, 0, -forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5));
+                                            force.set(0, 0, -forceAmount * Math.sqrt(Math.sqrt(num) * 20 + (5 - item.index) * 10));
                                             break;
                                         case 'down':
-                                            force.set(0, 0, forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5));
+                                            force.set(0, 0, forceAmount * Math.sqrt(Math.sqrt(num) * 20 + (5 - item.index) * 10));
                                             break;
                                         case 'left':
-                                            force.set(-forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5), 0, 0);
+                                            force.set(-forceAmount * Math.sqrt(Math.sqrt(num) * 20 + (5 - item.index) * 10), 0, 0);
                                             break;
                                         case 'right':
-                                            force.set(forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5), 0, 0);
+                                            force.set(forceAmount * Math.sqrt(Math.sqrt(num) * 20 + (5 - item.index) * 10), 0, 0);
                                             break;
                                         default:
                                             return;
@@ -10484,16 +10540,16 @@
                                   // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                                   switch (item.direction) {
                                       case 'up':
-                                          force.set(0, 0, -forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5));
+                                          force.set(0, 0, -forceAmount * Math.log2((num) * 70 *(1+2.2* (5 - item.index))));
                                           break;
                                       case 'down':
-                                          force.set(0, 0, forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5));
+                                          force.set(0, 0, forceAmount * Math.log2((num) * 70 *(1+2.2* (5 - item.index))));
                                           break;
                                       case 'left':
-                                          force.set(-forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5), 0, 0);
+                                          force.set(-forceAmount * Math.log2((num) * 70 *(1+2.2* (5 - item.index))), 0, 0);
                                           break;
                                       case 'right':
-                                          force.set(forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5), 0, 0);
+                                          force.set(forceAmount * Math.log2((num) * 70 *(1+2.2* (5 - item.index))), 0, 0);
                                           break;
                                       default:
                                           return;
@@ -10781,7 +10837,7 @@
                             }
                             item.mesh.material.visible = false
                             item.mesh.material.opacity = 1
-                            // item.mesh.material.alphaTest=1
+                            item.mesh.material.alphaTest=1
                             item.mesh.material.transparent = false;
                             item.mesh.children.forEach((tile) => {
                                 if (tile.userData["skin"] == "tile") {
@@ -10801,6 +10857,7 @@
                                     tile.material.visible = true;
                                     tile.material.opacity = 1;
                                     tile.material.transparent = false;
+
                                 } else if (tile.userData["skin"] == "text1") {
                                     if (skinnum == 1) {
                                         tile.position.z = -bw / 8
@@ -10851,8 +10908,8 @@
 
                                 if (arrowon) arrows[i].children[0].material.opacity = 0.5
                                 // cubes[i].mesh.tile.material.visible = true
-                                cubes[i].mesh.opacity = 0.04;
-                                cubes[i].mesh.alphaTest = 0.04;
+                                cubes[i].mesh.opacity = 0.06;
+                                cubes[i].mesh.alphaTest = 0.06;
                                 cubes[i].mesh.transparent = true;
 
                                 cubes[i].mesh.children.forEach((tile, index) => {
@@ -10883,8 +10940,8 @@
                                         }
                                     } else if (tile.userData["skin"] == skinset[skinnum]) {
                                         tile.material.visible = true;
-                                        tile.material.opacity = 0.04;
-                                        tile.material.alphaTest = 0.04;
+                                        tile.material.opacity = 0.06;
+                                        tile.material.alphaTest = 0.06;
                                         tile.material.transparent = true;
                                     } else if (tile.userData["skin"] == "text1") {
                                         if (skinnum == 1) {
@@ -10942,8 +10999,8 @@
                                             tile.material.transparent = false;
                                         } else if (tile.userData["skin"] == skinset[skinnum]) {
                                             tile.material.visible = true;
-                                            tile.material.opacity = 0.01 + (i - activeFloor) * 0.02;
-                                            tile.material.alphaTest = 0.01 + (i - activeFloor) * 0.02;
+                                            tile.material.opacity = 0.06 + (i - activeFloor) * 0.02;
+                                            tile.material.alphaTest = 0.06 + (i - activeFloor) * 0.02;
                                             tile.material.transparent = true;
                                         } else if (tile.userData["skin"] == "text1") {
                                             if (skinnum == 1) {
@@ -11045,6 +11102,10 @@
                     }
                 }
             }else {
+              camera.position.x=bw * 2 + avx;
+              camera.position.z=bw * 2 + avz;
+
+
               if(gamemod==2&&activeFloor==cubes.length){
                 // dl2.shadow.camera.position.y= bh * (cubes.length)
                 cubes[cubes.length-2].mesh.children.forEach((tile, index) => {
@@ -11350,6 +11411,7 @@
                     topViewCamera.rotation.y = cubes[cubes.length - 1].mesh.rotation.y
                 } else {
                     for (var i = 0; i < cubes.length; i++) {
+
                         if (i == activeFloor) {
                             cubes[i].mesh.material.opacity = 0.1;
                             if (!gameoverflag) {
@@ -11398,7 +11460,7 @@
                     renderer.render(scene, topViewCamera);
                 }
             }
-            particles.material.visible=true;
+
             // if(Math.abs(restartend-camera.rotation.x)<0.5){
             // 	renderer.render(scene, camera);
             // 	console.log(restartend-camera.rotation.x);
@@ -11408,6 +11470,8 @@
             // groundmesh.material.visible=true;
             if (shadowon) groundmesh.receiveShadow = true
             if (sidecam && !gameoverflag) {
+              groundmesh.material.visible=false;
+                scene.background = new THREE.Color(colorlst[colornum][0]);
                 for (var i = 0; i < cubes.length; i++) {
                     if (!gameoverflag) {
                         if (i == activeFloor) {
@@ -11490,6 +11554,7 @@
                 renderer.render(scene, sideViewCamera);
                 // }
             }
+            particles.material.visible=true;
             if (elapsedTime > 2 && sload) {
                 sload = false;
                 // console.log(bw*0.9/bh*0.8)
