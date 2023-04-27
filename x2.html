@@ -5,7 +5,25 @@
     <meta name="viewport" content=user-scalable=no>
     <title>Tower Stacking Game</title>
     <style>
+        body {
+            overflow-x: hidden;
+            overflow-y: hidden;
+            width:100%;
+            height: 100%;
+            margin: 0;
+            /* overscroll-behavior-y: none;
+            overscroll-behavior-x: none; */
+        }
 
+        canvas {
+
+
+            position: absolute;
+            ,
+            display: white;
+            ,
+            z-index: 1000
+        }
         /* #colorline {
             font-family: 'GG';
             color: white;
@@ -94,6 +112,60 @@
         } */
 
 
+          .lockimg{
+            position: absolute;
+            width: 20vw;
+            height: 20vw;
+            top:-7%;
+            /* background-size: cover; */
+          }
+
+          .miximg{
+            position: absolute;
+            width: 15vw;
+            height: 15vw;
+            top:-0.1%;
+            /* background-size: cover; */
+          }
+
+          #tutorial {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* justify-content: center; */
+
+
+          }
+
+          #tutorial img{
+            position: relative;
+            /* top:60vw%; */
+            width: 86vw;
+            top:7%;
+            z-index: 1;
+            /* height: 40vw; */
+            /* bottom:20%; */
+            /* height: 90%; */
+
+          }
+
+          .backbutton6 {
+              position: fixed;
+              border: none;
+              background-color: transparent;
+              background-image: url("png/red_boxCross.png");
+              background-size: 10vw 10vw;
+              top: 6vh;
+              left: 5%;
+              width: 10vw;
+              height: 10vw;
+              z-index: 2;
+              align-items: center;
+          }
+
         #credit-info {
 
             /* left:10%; */
@@ -153,7 +225,7 @@
             color: white;
             font-size: 2vh;
             position: absolute;
-            top: 0%;
+            top: -1%;
             right: 6%;
             /* left: 4vw; */
             display: inline-flex;
@@ -666,14 +738,14 @@
         left: 0;*/
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 1);
+            background-color: rgba(0, 0, 0, 0.95);
             /*align-items: center;*/
             z-index: 3;
         }
 
         .options-overlay {
             position: absolute;
-            /* overflow-x: scroll; */
+            overflow-x: scroll;
             font-family: 'GG';
             width: 100%;
             height: 100%;
@@ -854,7 +926,7 @@
             justify-content: center;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-gap: 5vw;
+            grid-gap: 7vw;
             /*background-color: rgba(50, 100, 250, 0.3);*/
         }
 
@@ -877,6 +949,7 @@
         .container {
             /*position: absolute;*/
             overflow-y: scroll;
+            overflow-x: scroll;
             font-family: 'GG';
             /*top:1000px;*/
             width: 100%;
@@ -995,6 +1068,33 @@
             z-index: 2;
         }
 
+        #leftup {
+            position: absolute;
+            border: none;
+            background-color: transparent;
+            /* background-image: url("png/green_button09.png"); */
+            background-size: 6vh 4vh;
+            top: 1vh;
+            left: 3%;
+            width: 6vh;
+            height: 4vh;
+            z-index: 2;
+        }
+
+        #leftup img {
+            width: 4vh;
+            height: 4vh;
+            z-index: 2;
+        }
+
+        #leftup:active {
+            /* background-image: url("png/green_button10.png"); */
+            transform: translate(0, 0.2vh);
+            background-size: 6vh 3.8vh;
+            width: 6vh;
+            height: 3.8vh;
+        }
+
         .center {
             position: absolute;
             border: none;
@@ -1071,6 +1171,7 @@
         }
 
         .setting img {
+            margin-top: 1vw;
             width: 4vh;
             height: 4vh;
             z-index: 2;
@@ -1124,7 +1225,7 @@
 
         .character {
             /*font-size: 10px;*/
-            background-color: rgba(100, 100, 100, 0.6);
+            background-color: rgba(100, 240, 100, 0.6);
             border: 8px solid #EEE;
             border-radius: 20px;
             display: flex;
@@ -1135,15 +1236,24 @@
             cursor: pointer;
         }
 
-        .character img {
+        .charimg {
             width: 90%;
             /*height: 50px;*/
             margin-bottom: 2vw;
         }
 
+        .character:active {
+          border: 8px solid #36A;
+        }
+
         .character.locked {
-            background-color: #ddd;
+            border: 8px solid #E44;
+            background-color: #eee;
             filter: grayscale(100%);
+        }
+
+        .character span{
+
         }
 
         .locked{
@@ -1151,28 +1261,7 @@
             filter: brightness(70%);
         }
 
-        body {
-            overflow-x: hidden;
-            overflow-y: hidden;
-            width:100%;
-            height: 100%;
 
-            margin: 0;
-            ,
-            overscroll-behavior-y: none;
-            ,
-            overscroll-behavior-x: none;
-        }
-
-        canvas {
-
-
-            position: absolute;
-            ,
-            display: white;
-            ,
-            z-index: 1000
-        }
     </style>
 </head>
 
@@ -1225,36 +1314,43 @@
         } from 'three/addons/geometries/TextGeometry.js';
         import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
         import Stats from 'three/addons/libs/stats.module.js';
+
+
+
         document.body.style.overscrollBehaviorY = 'none';
         document.body.style.overscrollBehaviorX = 'none';
         // document.getElementById('game-over-panel').style.display="none";
+
         const gameOverPanel = document.getElementById('game-over-panel');
-        const enableScrollLock = () => {
-            const {
-                body
-            } = document;
-            if (!body.getAttribute('scrollY')) {
-                const pageY = window.pageYOffset;
-                body.setAttribute('scrollY', pageY.toString());
-                body.style.overflow = 'hidden';
-                body.style.position = 'fixed';
-                body.style.left = '0px';
-                body.style.right = '0px';
-                body.style.bottom = '0px';
-                body.style.top = `-${pageY}px`;
-            }
-        };
+        // const enableScrollLock = () => {
+        //     const {
+        //         body
+        //     } = document;
+        //     if (!body.getAttribute('scrollY')) {
+        //         const pageY = window.pageYOffset;
+        //         body.setAttribute('scrollY', pageY.toString());
+        //         body.style.overflow = 'hidden';
+        //         body.style.position = 'fixed';
+        //         body.style.left = '0px';
+        //         body.style.right = '0px';
+        //         body.style.bottom = '0px';
+        //         body.style.top = `-${pageY}px`;
+        //     }
+        // };
 
         var onceflag0=true;
 
         var bf;
 
         var gamemod=0;
+        window.gamemod=gamemod;
+
+        var originflag=false;
 
         var stacktime;
         var stacknum=[0,0,0,0,8,8,16,16,32,32,64,64,128,128,256,256,512,512,1024,1024,2048,2048,2048,2048,2048,2048]
 
-        var greylst=[27,26,4,1,3,30,40,46,20,39,16,38,23, 39]
+        var greylst=[27,26,4,1,3,30,40,46,20,39,16,38,23]
 
 
         var skinmold={};
@@ -1296,11 +1392,11 @@
         var lastY;
         var touchx;
         var touchy;
-        let forceAmount = bw * bw * bh / 15;
+        let forceAmount = bw * bw * bh / 10;
         let unitimg = {};
         let 점수 = 0
         let bestscore;
-        let coin = 400;
+        let coin = 25;
         window.coin = coin;
         let pluscoin = 0;
         let 가장자리 = [];
@@ -1414,7 +1510,7 @@
         let topcam = true;
         let sidecam = false;
         let arrowon = false;
-        let averageflag = false;
+        let averageflag = true;
         let lighton = true;
         let dragflag = true;
         var sload = true;
@@ -3068,6 +3164,7 @@
                 } else {
                     this.q = 0;
                 }
+
             }
         }
 
@@ -3081,6 +3178,7 @@
                 this.boardChanged = false;
                 this.index = index;
                 this.boardpointer = [];
+                this.fullflag=false;
                 for (let row = 0; row < this.size; row++) {
                     var temp = [];
                     for (let col = 0; col < this.size; col++) {
@@ -3234,6 +3332,55 @@
                     //   });
                     // });
                     atchanged = elapsedTime;
+                    if(emptyPositions.length==1){
+                      var full=true;
+                      for (let row = 0; row < this.size; row++) {
+                          for (let col = 0; col < this.size-1; col++) {
+                              if (this.board[row][col] == this.board[row][col+1]) {
+                                  full=false;
+                              }
+                          }
+                      }
+
+                      for (let col = 0; col < this.size; col++) {
+                          for (let row = 0; row < this.size-1; row++) {
+                              if (this.board[row][col] == this.board[row+1][col]) {
+                                  full=false;
+                              }
+                          }
+                      }
+                      if(full){
+                        this.fullflag=true;
+                        cubes[this.index].mesh.children.forEach((item) => {
+                          if(item.userData["skin"]=="tile"){
+                            var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][this.index]))
+                            item.material.color= new THREE.Color('hsl(' + String(newcl["h"]+Math.log2(parseInt(item.userData["text"]))*5) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
+                            item.children.forEach((text) => {
+                              text.material.color= new THREE.Color(0xAAAAAA);
+                            });
+                          }
+                        });
+                        // gameoverflag=true;
+                        if(gamemod!=2){
+                          var fullall=true;
+                          for (var i = 0; i < 5; i++) {
+                            if(!cubes[i].mesh.userData["game2048"].fullflag){
+                              fullall=false;
+                            }
+                          }
+                          if(fullall){
+                            gameoverflag=true;
+                            topcam = false;
+
+                            document.getElementById("gameover-overlay").classList.remove("fade");
+                            document.getElementById("gameover-overlay").classList.remove("hidden");
+                            document.getElementById("gameover-overlay").classList.add("show");
+
+                            activeFloor = cubes.length;
+                          }
+                        }
+                      }
+                    }
                 }
                 this.boardChanged = false;
             }
@@ -3413,24 +3560,7 @@
                         }
                     }
                 }
-                // if(direction === "up"){
-                //   temp0.sort(function(a, b) {
-                //   return a[0] - b[0];
-                // });
-                // }else if(direction === "down"){
-                //   temp0.sort(function(a, b) {
-                //   return b[0] - a[0];
-                // });
-                // }else if(direction === "left"){
-                //   temp0.sort(function(a, b) {
-                //   return a[1] - b[1];
-                // });
-                // }else if(direction === "right"){
-                //   temp0.sort(function(a, b) {
-                //   return b[1]- a[1];
-                // });
-                // }
-                // console.log(temp0);
+
                 var removelst = [];
                 // console.log("전")
                 // console.log(lst)
@@ -3448,25 +3578,14 @@
                     }
                     if (dup) lst.push(temp0[j]);
                 }
-                // lst.forEach((item0,index)=>{
-                //   temp0.forEach((item1)=>{
-                //     if(item0[2]==item1[0]&&item0[3]==item1[1]){
-                //       item0[2]=item1[2];
-                //       item0[3]=item1[3];
-                //     }
-                //   })
-                // })
+
                 removelst.sort(function(a, b) {
                     return b - a;
                 });
                 removelst.forEach((item) => {
                     lst.splice(item, 1);
                 })
-                // console.log("후")
-                // console.log(lst)
-                // temp0.forEach((item, index)=>{
-                //   if(removelst.indexOf(index)==-1) lst.push(item);
-                // })
+
                 return lst;
             }
         }
@@ -3558,12 +3677,7 @@
         const text = "W:위층, S:아래층, 방향키:타일 이동";
         const fontSize = 24;
         //스크롤
-        // var scrollimg=createimg();
-        // let material0=new THREE.SpriteMaterial({ map: scrollimg, transparent: true, opacity:0 });
-        // const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
-        // const sprite = new THREE.Sprite(material);
-        // sprite.scale.set(texture.image.width / 100, texture.image.height / 100, 1);
-        // sprite.position.set(-window.innerWidth / 200 + texture.image.width / 200, window.innerHeight / 200 - texture.image.height / 200, -1);
+
         const uiScene = new THREE.Scene();
         let uiScene2 = new THREE.Scene();
         // uiScene.add(sprite);
@@ -3581,6 +3695,38 @@
         var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
         function handleTouchStart(event) {
+
+            if(!originflag){
+              listener= new THREE.AudioListener();
+              msetting0(function(object) {
+
+                document.getElementById("intro").classList.add("fade");
+                setTimeout(function() {
+                    document.getElementById("intro").classList.add("hidden");
+                }, 150);
+                originflag=true;
+
+                return;
+              })
+              return;
+
+            }else if(!startflag){
+              var go=true;
+              for (let i = 0; i < 6; i++) {
+                  let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
+                  for (let j = 0; j < temp.length; j++) {
+                    if(soundic[sdic[i][temp[j]]]==null){
+                      go=false;
+                    }
+
+                  }
+              }
+
+              if(!go) return;
+            }
+
+
+
             if (gameoverflag) return;
             if (document.getElementById("setting-overlay").classList.contains("show") || !document.getElementById("gameover-overlay").classList.contains("hidden") || document.getElementById("options-overlay").classList.contains("show") || document.getElementById("optionlst").classList.contains("show")) {
                 return;
@@ -3741,22 +3887,22 @@
                 // }
             } else if (lastY >= 0.8) {
                 if (lastX < -0.8) {
-                    if (!startflag) {
-                        // startflag=true
-                    }
-                    if (lookcenter) {
-                        if (!rotationflag) {
-                            cointxt.innerText = "⭐: " + String(coin);
-                            lookcenter = false
-                            rotationflag = true
-                            rotationend = Math.PI / 2
-                        }
-                    } else if (lookright) {
-                        if (!rotationflag) {
-                            rotationflag = true
-                            rotationend = Math.PI / 4
-                        }
-                    }
+                    // if (!startflag) {
+                    //     // startflag=true
+                    // }
+                    // if (lookcenter) {
+                    //     if (!rotationflag) {
+                    //         // cointxt.innerText = "⭐: " + String(coin);
+                    //         lookcenter = false
+                    //         rotationflag = true
+                    //         rotationend = Math.PI / 2
+                    //     }
+                    // } else if (lookright) {
+                    //     if (!rotationflag) {
+                    //         rotationflag = true
+                    //         rotationend = Math.PI / 4
+                    //     }
+                    // }
                 } else if (lastX > 0.8) {
                     if (!startflag) {
                         startflag = true
@@ -3796,10 +3942,10 @@
                             startflag = true
                         }
                         activeFloor = j;
-                        if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
-                            soundic[sdic[activeFloor]["upper"]].stop();
-                        }
-                        soundic[sdic[activeFloor]["upper"]].play();
+                        // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
+                        //     soundic[sdic[activeFloor]["upper"]].stop();
+                        // }
+                        // soundic[sdic[activeFloor]["upper"]].play();
                         var thisnum = activeFloor
                         var playable = true
                         for (let i = 0; i < 6; i++) {
@@ -4242,10 +4388,6 @@
         // scene.fog = new THREE.FogExp2( 0x000000, 0.001 );
         // scene.background = new THREE.Color(0x2e508d);
         if (lighton) {
-
-
-
-
             var ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
             scene.add(ambientLight);
             // const dL=new THREE.DirectionalLight(0xffffff,0.7);
@@ -4348,7 +4490,7 @@
         scene.add(groundmesh);
         let groundshape = new CANNON.Box(new CANNON.Vec3(100 / 2, 2 / 2, 100 / 2));
         let customMaterial = new CANNON.Material('customMaterial');
-        customMaterial.friction = 0.7; // Friction coefficient, range: 0-1
+        customMaterial.friction = 0.3; // Friction coefficient, range: 0-1
         customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
         let groundBody = new CANNON.Body({
             mass: 0,
@@ -4361,7 +4503,7 @@
         // groundBody.position.y=boxh/2
         world.gravity.set(0, -8, 0);
         world.broadphase = new CANNON.NaiveBroadphase();
-        world.solver.iterations = 5;
+        world.solver.iterations = 3;
         // Add a ground plane to the physics world
         // const groundBody = new CANNON.Body({ mass: 0, shape: new CANNON.Plane() });
         // // groundBody.quaternion.setFromAxiwsAngle(new CANNON.Vec3(1, 0, 0), 0);
@@ -4384,6 +4526,34 @@
         document.addEventListener('keydown', (event) => {
             // if(inflag) return;
             if (event.code === 'KeyW') {
+                if(!originflag){
+                  listener= new THREE.AudioListener();
+                  msetting0(function(object) {
+
+                    document.getElementById("intro").classList.add("fade");
+                    setTimeout(function() {
+                        document.getElementById("intro").classList.add("hidden");
+                    }, 150);
+                    originflag=true;
+
+                    return;
+                  })
+                  return;
+
+                }else if(!startflag){
+                  var go=true;
+                  for (let i = 0; i < 6; i++) {
+                      let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
+                      for (let j = 0; j < temp.length; j++) {
+                        if(soundic[sdic[i][temp[j]]]==null){
+                          go=false;
+                        }
+
+                      }
+                  }
+
+                  if(!go) return;
+                }
                 if (!startflag) {
                     startflag = true;
                 }
@@ -4391,10 +4561,10 @@
                 if (activeFloor > cubes.length) {
                     activeFloor = cubes.length;
                 } else {
-                    if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
-                        soundic[sdic[activeFloor]["upper"]].stop();
-                    }
-                    soundic[sdic[activeFloor]["upper"]].play();
+                    // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
+                    //     soundic[sdic[activeFloor]["upper"]].stop();
+                    // }
+                    // soundic[sdic[activeFloor]["upper"]].play();
                     if (true) {
                         var thisnum = activeFloor
                         var playable = true
@@ -4441,6 +4611,34 @@
                     }
                 }
             } else if (event.code === 'KeyS') {
+                if(!originflag){
+                  listener= new THREE.AudioListener();
+                  msetting0(function(object) {
+
+                    document.getElementById("intro").classList.add("fade");
+                    setTimeout(function() {
+                        document.getElementById("intro").classList.add("hidden");
+                    }, 150);
+                    originflag=true;
+
+                    return;
+                  })
+                  return;
+
+                }else if(!startflag){
+                  var go=true;
+                  for (let i = 0; i < 6; i++) {
+                      let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
+                      for (let j = 0; j < temp.length; j++) {
+                        if(soundic[sdic[i][temp[j]]]==null){
+                          go=false;
+                        }
+
+                      }
+                  }
+
+                  if(!go) return;
+                }
                 if (!startflag) {
                     startflag = true;
                 }
@@ -4648,6 +4846,7 @@
                 }
             }
         });
+
         // for(item of cubes){
         //     item.body.applyForce(force, item.body.position);
         //   }
@@ -4655,6 +4854,7 @@
         function restart() {
             // init();
             // return location.reload();
+            window.gamemod=gamemod;
             for (let i = 0; i < sdic.length; i++) {
                 if (soundic[sdic[i][0]]?.isPlaying) {
                     soundic[sdic[i][0]].stop();
@@ -4675,18 +4875,18 @@
               cubes[3].body.material.friction = 0.2;
               cubes[3].body.material.restitution = 0.4;
               stack=5;
-              forceAmount = bw * bw * bh / 15;
+              forceAmount = bw * bw * bh / 10;
               groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
               world.gravity.set(0, -7, 0);
-              world.solver.iterations = 5;
+              world.solver.iterations = 3;
 
               // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
 
             }else if (gamemod==1){
-              cubes[3].body.material.friction = 0.2;
+              cubes[3].body.material.friction = 0.3;
               cubes[3].body.material.restitution = 0.4;
               stack=5;
-              forceAmount = bw * bw * bh / 25;
+              forceAmount = bw * bw * bh / 20;
               groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
 
               world.gravity.set(0, -7, 0);
@@ -4774,12 +4974,31 @@
             particles.material = material2
             scene.add(particles);
             // sdic=[];
+            // templst=[];
             // sdic.push(nslst["wooden"])
             // sdic.push(nslst["wooden"])
             // sdic.push(nslst["wooden"])
             // sdic.push(nslst["new3"])
             // sdic.push(nslst["ibiza_deep"])
             // sdic.push(nslst["rnb_demo"])
+
+            // templst.push("wooden")
+            // templst.push("High End Party")
+            // templst.push("Catwalk")
+            // templst.push("Lost in the Dessert")
+            // templst.push("You_re in the Future")
+            // templst.push("Beach House")
+            // templst.push("Puzzles")
+            // templst.push("frozen winter")
+            //
+            // templst.sort(() => Math.random() - 0.5);
+            // sdic.push(nslst[templst[0]])
+            // sdic.push(nslst[templst[1]])
+            // sdic.push(nslst[templst[2]])
+            // sdic.push(nslst[templst[3]])
+            // sdic.push(nslst[templst[4]])
+            // sdic.push(nslst[templst[5]])
+
             for (let i = 0; i < 6; i++) {
                 let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
                 var sdickeys = Object.keys(soundic);
@@ -4787,7 +5006,7 @@
                     if (sdickeys.indexOf(sdic[i][temp[j]]) == -1) {
                         //
                         // var audioLoader = new THREE.AudioLoader();
-                        audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/' + sdic[i][temp[j]], function(buffer) {
+                        audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/sound/' + sdic[i][temp[j]], function(buffer) {
                             var sound = new THREE.Audio(listener);
                             sound.setBuffer(buffer);
                             sound.setVolume(0.3);
@@ -4880,9 +5099,9 @@
             //   document.getElementById("right").classList.add("show")
             // }
             if(gamemod==2) {
-              var temp0=[4, 7,8]
+              var temp0=[7]
               skinnum = temp0[parseInt(Math.random()*temp0.length)];
-              camera.position.y= bh * (cubes.length)
+              camera.position.y= bh * (cubes.length+0.5)
             }else{
               camera.position.y= bh * (cubes.length+3.5)
             }
@@ -4897,6 +5116,7 @@
               document.getElementById("opt1").classList.add("locked")
               document.getElementById("opt2").classList.add("locked")
               document.getElementById("opt3").classList.add("locked")
+              document.getElementById("opt4").classList.add("locked")
             }else{
               document.getElementById("left").classList.remove("locked")
               document.getElementById("center").classList.remove("locked")
@@ -4906,6 +5126,7 @@
               document.getElementById("opt1").classList.remove("locked")
               document.getElementById("opt2").classList.remove("locked")
               document.getElementById("opt3").classList.remove("locked")
+              document.getElementById("opt4").classList.remove("locked")
 
             }
 
@@ -4932,6 +5153,8 @@
                         document.getElementById("coin-info").classList.remove("fade");
                         document.getElementById("coin-info").classList.add("show");
                         document.getElementById("coin2").innerText=String(coin);
+
+
 
 
 
@@ -8197,11 +8420,36 @@
                     if (sdickeys.indexOf(sdic[i][temp[j]]) == -1) {
                         // var listener = new THREE.AudioListener();
                         // var audioLoader = new THREE.AudioLoader();
-                        audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/' + sdic[i][temp[j]], function(buffer) {
+                        audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/sound/' + sdic[i][temp[j]], function(buffer) {
                             var sound = new THREE.Audio(listener);
                             sound.setBuffer(buffer);
                             sound.setVolume(0.3);
                             soundic[sdic[i][temp[j]]] = sound;
+                        });
+                    }
+                }
+            }
+            if (callback) {
+                callback();
+            }
+        }
+
+        function msetting0(callback) {
+
+            for (let i = 0; i < 6; i++) {
+                let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
+                var sdickeys = Object.keys(soundic);
+                for (let j = 0; j < temp.length; j++) {
+                    if (sdickeys.indexOf(sdic[i][temp[j]]) == -1) {
+                        // var listener = new THREE.AudioListener();
+                        // var audioLoader = new THREE.AudioLoader();
+                        audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/sound/' + sdic[i][temp[j]], function(buffer) {
+                            var sound = new THREE.Audio(listener);
+                            sound.setBuffer(buffer);
+                            sound.setVolume(0.3);
+                            soundic[sdic[i][temp[j]]] = sound;
+                            if (j == 0) sound.setLoop(true);
+
                         });
                     }
                 }
@@ -9114,15 +9362,27 @@
         let particles = new THREE.Points(geometry, material2);
         scene.add(particles);
         // guideflag=false;
-        var listener = new THREE.AudioListener();
+        let listener;
         const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.csv';
         var nslst = {};
-        var templst;
+        var templst=[];
+        sdic=[];
         fetchCSV(csvUrl)
             .then(dictionaries => {
                 nslst = dictionaries
                 console.log(nslst);
+
                 templst = Object.keys(nslst);
+
+                // templst.push("wooden")
+                // templst.push("High End Party")
+                // templst.push("Catwalk")
+                // templst.push("Lost in the Dessert")
+                // templst.push("You_re in the Future")
+                // templst.push("Beach House")
+                // templst.push("Puzzles")
+                // templst.push("frozen winter")
+                //
                 templst.sort(() => Math.random() - 0.5);
                 sdic.push(nslst[templst[0]])
                 sdic.push(nslst[templst[1]])
@@ -9131,26 +9391,26 @@
                 sdic.push(nslst[templst[4]])
                 sdic.push(nslst[templst[5]])
                 window.nslst = nslst;
-                for (let i = 0; i < 6; i++) {
-                    let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
-                    var sdickeys = Object.keys(soundic);
-                    for (let j = 0; j < temp.length; j++) {
-                        if (sdickeys.indexOf(sdic[i][temp[j]]) == -1) {
-                            // var listener = new THREE.AudioListener();
-                            // var audioLoader = new THREE.AudioLoader();
-                            audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/' + sdic[i][temp[j]], function(buffer) {
-                                var sound = new THREE.Audio(listener);
-                                sound.setBuffer(buffer);
-                                sound.setVolume(0.3);
-                                if (j == 0) sound.setLoop(true);
-                                soundic[sdic[i][temp[j]]] = sound;
-                            });
-                        }
-                    }
-                }
+                // for (let i = 0; i < 6; i++) {
+                //     let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
+                //     var sdickeys = Object.keys(soundic);
+                //     for (let j = 0; j < temp.length; j++) {
+                //         if (sdickeys.indexOf(sdic[i][temp[j]]) == -1) {
+                //             // var listener = new THREE.AudioListener();
+                //             // var audioLoader = new THREE.AudioLoader();
+                //             audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/sound/' + sdic[i][temp[j]], function(buffer) {
+                //                 var sound = new THREE.Audio(listener);
+                //                 sound.setBuffer(buffer);
+                //                 sound.setVolume(0.3);
+                //                 if (j == 0) sound.setLoop(true);
+                //                 soundic[sdic[i][temp[j]]] = sound;
+                //             });
+                //         }
+                //     }
+                // }
                 console.log(sdic)
 
-                if(greylst.indexOf(ncolornum)!=-1){
+                if(greylst.indexOf(colornum)!=-1){
                   document.getElementById("left").classList.add("locked")
                   document.getElementById("center").classList.add("locked")
                   document.getElementById("right").classList.add("locked")
@@ -9159,6 +9419,7 @@
                   document.getElementById("opt1").classList.add("locked")
                   document.getElementById("opt2").classList.add("locked")
                   document.getElementById("opt3").classList.add("locked")
+                  document.getElementById("opt4").classList.add("locked")
                 }else{
                   document.getElementById("left").classList.remove("locked")
                   document.getElementById("center").classList.remove("locked")
@@ -9168,8 +9429,100 @@
                   document.getElementById("opt1").classList.remove("locked")
                   document.getElementById("opt2").classList.remove("locked")
                   document.getElementById("opt3").classList.remove("locked")
+                  document.getElementById("opt4").classList.remove("locked")
 
                 }
+                document.getElementById("mod-overlay").classList.remove("show");
+                document.getElementById("mod-overlay").classList.add("fade");
+
+                document.getElementById("credit-info").classList.remove("show");
+                document.getElementById("credit-info").classList.add("fade");
+                setTimeout(function() {
+                    document.getElementById("mod-overlay").classList.add("hidden");
+                    document.getElementById("credit-info").classList.add("hidden");
+                }, 100);
+
+
+                window.scrollTo(0, 0);
+                if (document.getElementById("setting-overlay").classList.contains("show")) {
+                    document.getElementById("setting-overlay").classList.remove("show");
+                    document.getElementById("setting-overlay").classList.add("fade");
+                    setTimeout(function() {
+                        document.getElementById("setting-overlay").classList.add("hidden");
+                    }, 100);
+                }
+                if (!document.getElementById("gameover-overlay").classList.contains("hidden")) {
+                    document.getElementById("gameover-overlay").classList.remove("show");
+                    document.getElementById("gameover-overlay").classList.add("fade");
+                    setTimeout(function() {
+                        document.getElementById("gameover-overlay").classList.add("hidden");
+                    }, 100);
+                    if (!rotationflag) {
+                        rotationflag = true
+                        restartflag = true
+                        pluscoin = parseInt(점수 / 10)
+                        coin += pluscoin;
+                        for (var i = 0; i < cubes.length; i++) {
+                            restartloc.push(cubes[i].mesh.position);
+                            restartrot.push(cubes[i].mesh.rotation);
+                        }
+                        ncolornum = parseInt(Math.random() * colorlst.length);
+                        ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                        rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                        renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                        rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                        renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+                        rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                        renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+                        rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                        renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+                        bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+                        nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+                        bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+                        nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+                        bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+                        nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+                        bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+                        nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+                        bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+                        nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+                        rotationend = Math.PI / 4
+                    }
+                }
+                if (!document.getElementById("step1").classList.contains("hidden")) {
+                    document.getElementById("options-overlay").classList.add("fade");
+                    document.getElementById("options-overlay").classList.remove("show");
+                    document.getElementById("center").classList.remove("fade");
+                    document.getElementById("left").classList.remove("fade");
+                    document.getElementById("right").classList.remove("fade");
+                    setTimeout(function() {
+                        document.getElementById("options-overlay").classList.add("hidden");
+                        document.getElementById("left").classList.add("show");
+                        document.getElementById("right").classList.add("show");
+                        document.getElementById("left").classList.remove("hidden");
+                        document.getElementById("right").classList.remove("hidden");
+                        document.getElementById("center").classList.add("show");
+                        document.getElementById("center").classList.remove("hidden");
+
+                    }, 100);
+                } else if (!document.getElementById("categ1").classList.contains("hidden")) {
+                    document.getElementById("categ1").classList.remove("show");
+                    document.getElementById("categ1").classList.add("fade");
+                    setTimeout(function() {
+                        document.getElementById("categ1").classList.add("hidden");
+                        document.getElementById("step1").classList.remove("hidden");
+                        document.getElementById("step1").classList.add("show");
+                    }, 100);
+                } else {
+                    document.getElementById("step3").classList.remove("show");
+                    document.getElementById("step3").classList.add("fade");
+                    setTimeout(function() {
+                        document.getElementById("step3").classList.add("hidden");
+                        document.getElementById("categ1").classList.remove("hidden");
+                        document.getElementById("categ1").classList.add("show");
+                    }, 100);
+                }
+
                 setting(stack, function(object) { //시작
                     addring();
                     tsetting(function(object) {
@@ -9183,14 +9536,11 @@
                                 time0 = performance.now();
                                 fps = 0;
                                 // console.log(txtlst);
-                                camera.add(listener);
+                                // camera.add(listener);
                                 // scene.background = new THREE.Color(colorlst[colornum][0]);
                                 skinsetting(function(object) {
                                     setTimeout(function() {
-                                        document.getElementById("intro").classList.add("fade");
-                                        setTimeout(function() {
-                                            document.getElementById("intro").classList.add("hidden");
-                                        }, 150);
+
                                         console.log(skinmold)
                                         for(var i=0;i<cubes.length;i++){
                                           cubes[i].mesh.children.forEach((item)=>{
@@ -9202,7 +9552,7 @@
                                         document.getElementById("coin2").innerText=String(coin);
                                         bf=999;
                                         animate();
-                                    }, 500);
+                                    }, 500  );
                                 })
                                 // console.log(tilemold);
                                 // console.log(textmold)
@@ -9220,7 +9570,7 @@
         function animate() {
 
             if (startflag) { //스타트
-                console.log(colornum);
+                // console.log(colornum);
                 // console.log(colorlst[colornum][0]);
                 document.getElementById("coin-info").classList.remove("show");
                 document.getElementById("coin-info").classList.add("fade");
@@ -9228,11 +9578,15 @@
                 document.getElementById("left").classList.remove("show");
                 document.getElementById("left").classList.add("fade");
 
+                document.getElementById("leftup").classList.remove("show");
+                document.getElementById("leftup").classList.add("fade");
+
                 document.getElementById("center").classList.remove("show");
                 document.getElementById("center").classList.add("fade");
                 setTimeout(function() {
                     document.getElementById("coin-info").classList.add("hidden");
                     document.getElementById("left").classList.add("hidden");
+                    document.getElementById("leftup").classList.add("hidden");
                     document.getElementById("center").classList.add("hidden");
 
                 }, 100);
@@ -9286,6 +9640,8 @@
             }
 
             if (restartflag && lookcenter) { //리스타트
+
+
                 포인트.forEach((item) => {
                     item.material.visible = false;
                 })
@@ -9488,6 +9844,11 @@
                     for (var i = 0; i < cubes.length; i++) {
                         cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) + (restartloc[i].y) * 1.39 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                         cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].y * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
+                        cubes[i].mesh.children.forEach((item, idx) => {
+                          if (item.userData["skin"]=="tile") {
+                            item.material.visible=false;
+                          }
+                        });
                     }
                 }
             } else {}
@@ -9501,8 +9862,17 @@
             if (!restartflag && lookcenter && !startflag) {
                 if (Math.abs(-isoAngle - camera.rotation.x) < 0.01) {
                     restartloc = [];
-                    if(onceflag0){
+                    for (var i = 0; i < cubes.length; i++) {
+                      cubes[i].mesh.children.forEach((item, idx) => {
+                        if (skinset.indexOf(item.userData["skin"])!=-1){
+                          if(item.userData["skin"]!=skinset[skinnum]) {
+                            item.material.visible=false;
+                          }
+                        }
+                      });
+                    }
 
+                    if(onceflag0){
                       document.getElementById("left").classList.remove("hidden");
                       document.getElementById("left").classList.remove("fade");
                       document.getElementById("left").classList.add("show");
@@ -9510,6 +9880,10 @@
                       document.getElementById("center").classList.remove("hidden");
                       document.getElementById("center").classList.remove("fade");
                       document.getElementById("center").classList.add("show");
+
+                      document.getElementById("leftup").classList.remove("hidden");
+                      document.getElementById("leftup").classList.remove("fade");
+                      document.getElementById("leftup").classList.add("show");
 
                       if(document.getElementById("right").classList.contains("hidden")){
                         document.getElementById("right").classList.remove("hidden");
@@ -9522,6 +9896,17 @@
 
 
                 } else {
+                    for (var i = 0; i < cubes.length; i++) {
+                      cubes[i].mesh.children.forEach((item, idx) => {
+                        if(item.userData["skin"]=="tile") {
+                          item.material.visible=false;
+                          item.children.forEach((txt) => {
+                            txt.material.visible=false;
+                          });
+
+                        }
+                      });
+                    }
                     camera.rotation.x -= Math.PI / 128
                     // camera.position.y-=100000*(Math.PI/128)
                 }
@@ -9736,11 +10121,11 @@
                     // particles.geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( THREE.DynamicDrawUsage ) );
 
                     if(skinnum==1||skinnum==2){
-                      txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
+                      // txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
 
                       for (var i = 0; i < cubes.length; i++) {
 
-                          if(i==0) continue;
+                          // if(i==0) continue;
                           txts[i].material = txtlst[i][txtcount];
 
                       }
@@ -10046,6 +10431,7 @@
                                 tile.add(ntext);
                                 tile.userData["skin"] = "tile"
                                 tile.userData["skintype"] = "1"
+                                tile.userData["text"] = text;
                                 atchanged = elapsedTime;
                                 var tempflag = true
                                 tempeffects.forEach((object) => {
@@ -10073,7 +10459,7 @@
                                         if (sdickeys.indexOf(sdic[sdic.length-1][temp2[j]]) == -1) {
                                             // var listener = new THREE.AudioListener();
                                             // var audioLoader = new THREE.AudioLoader();
-                                            audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/' + sdic[sdic.length-1][temp2[j]], function(buffer) {
+                                            audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/sound/' + sdic[sdic.length-1][temp2[j]], function(buffer) {
                                                 var sound = new THREE.Audio(listener);
                                                 sound.setBuffer(buffer);
                                                 sound.setVolume(0.3);
@@ -10100,6 +10486,7 @@
                                         ctx.fillText(text1, 0 - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
                                         ctx.fillText(text1, textw - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
                                         ctx.font = `${7}px Arial`;
+
                                         ctx.fillText("  AKAI PRO ", 0, canvas.height * 0.35, canvas.width / 2.5, canvas.height);
                                         // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
                                         var img3 = new THREE.CanvasTexture(canvas);
@@ -10113,18 +10500,24 @@
                                     }
                                     txtlst.push(temp);
 
+                                    console.log(sdic);
+                                    console.log(txtlst);
+
+
                                     // dl2.position.y=50+((cubes.length-3) * bh)
                                     // dl2.shadow.camera.position.y= bh * (cubes.length)
 
                                     const game2048 = new Game2048(칸, cubes.length);
 
                                     cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-3) * bh+bh, cubes[cubes.length-1].mesh.position.z, bw, bh, bw, game2048, cubes.length));
+                                    cubes[cubes.length-1].mesh.quaternion.copy(cubes[cubes.length-2].mesh.quaternion);
+                                    cubes[cubes.length-1].body.quaternion.copy(cubes[cubes.length-2].body.quaternion);
+
                                     cubes[cubes.length-1].mesh.userData.body = cubes[cubes.length-1].body;
                                     cubes[cubes.length-1].mesh.userData.game2048 = game2048
                                     cubes[cubes.length-1].mesh.userData.game2048.spawnTile();
                                     activeFloor=cubes.length;
                                     stacktime=elapsedTime;
-
 
 
 
@@ -10142,16 +10535,16 @@
                                     // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                                     switch (item.direction) {
                                         case 'up':
-                                            force.set(0, 0, -forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5));
+                                            force.set(0, 0, -forceAmount * Math.sqrt((num) * 25 ));
                                             break;
                                         case 'down':
-                                            force.set(0, 0, forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5));
+                                            force.set(0, 0, forceAmount * Math.sqrt((num) * 25 ));
                                             break;
                                         case 'left':
-                                            force.set(-forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5), 0, 0);
+                                            force.set(-forceAmount * Math.sqrt((num) * 25 ), 0, 0);
                                             break;
                                         case 'right':
-                                            force.set(forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5), 0, 0);
+                                            force.set(forceAmount * Math.sqrt((num) * 25 ), 0, 0);
                                             break;
                                         default:
                                             return;
@@ -10166,16 +10559,16 @@
                                   // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                                   switch (item.direction) {
                                       case 'up':
-                                          force.set(0, 0, -forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5));
+                                          force.set(0, 0, -forceAmount * Math.log2((num) * 70 *(1+2.2* (5 - item.index))));
                                           break;
                                       case 'down':
-                                          force.set(0, 0, forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5));
+                                          force.set(0, 0, forceAmount * Math.log2((num) * 70 *(1+2.2* (5 - item.index))));
                                           break;
                                       case 'left':
-                                          force.set(-forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5), 0, 0);
+                                          force.set(-forceAmount * Math.log2((num) * 70 *(1+2.2* (5 - item.index))), 0, 0);
                                           break;
                                       case 'right':
-                                          force.set(forceAmount * Math.sqrt(num * 25 + (5 - item.index) * 5), 0, 0);
+                                          force.set(forceAmount * Math.log2((num) * 70 *(1+2.2* (5 - item.index))), 0, 0);
                                           break;
                                       default:
                                           return;
@@ -10425,13 +10818,17 @@
                   cubes.forEach((item, index) => {
                       if (index > 3 && item.mesh.position.y < bh * 4) {
                           // overlimit++;
-                          gameoverflag = true;
-                          topcam = false;
-                          document.getElementById("gameover-overlay").classList.remove("fade");
-                          document.getElementById("gameover-overlay").classList.remove("hidden");
-                          document.getElementById("gameover-overlay").classList.add("show");
+                          if(!gameoverflag){
+                            gameoverflag = true;
+                            topcam = false;
 
-                          activeFloor = cubes.length;
+                            document.getElementById("gameover-overlay").classList.remove("fade");
+                            document.getElementById("gameover-overlay").classList.remove("hidden");
+                            document.getElementById("gameover-overlay").classList.add("show");
+
+                            activeFloor = cubes.length;
+                          }
+
                       }
                   })
                 }
@@ -10449,7 +10846,7 @@
                             bw * 2 + avz,
                         );
                         if(gamemod==2) {
-                          camera.position.y= bh * (cubes.length)
+                          camera.position.y= bh * (cubes.length+0.5)
 
                         }
                         // camera.lookAt(cubes[0].body.position.x,cubes[cubes.length-1].mesh.position.y+bh*5,cubes[0].body.position.y)
@@ -10463,7 +10860,7 @@
                             }
                             item.mesh.material.visible = false
                             item.mesh.material.opacity = 1
-                            // item.mesh.material.alphaTest=1
+                            item.mesh.material.alphaTest=1
                             item.mesh.material.transparent = false;
                             item.mesh.children.forEach((tile) => {
                                 if (tile.userData["skin"] == "tile") {
@@ -10483,6 +10880,7 @@
                                     tile.material.visible = true;
                                     tile.material.opacity = 1;
                                     tile.material.transparent = false;
+
                                 } else if (tile.userData["skin"] == "text1") {
                                     if (skinnum == 1) {
                                         tile.position.z = -bw / 8
@@ -10529,12 +10927,12 @@
                                     bh * (cubes.length + 3.5),
                                     bw * 2 + avz,
                                 );
-                                if(gamemod==2) camera.position.y= bh * (cubes.length)
+                                if(gamemod==2) camera.position.y= bh * (cubes.length+0.5)
 
                                 if (arrowon) arrows[i].children[0].material.opacity = 0.5
                                 // cubes[i].mesh.tile.material.visible = true
-                                cubes[i].mesh.opacity = 0.04;
-                                cubes[i].mesh.alphaTest = 0.04;
+                                cubes[i].mesh.opacity = 0.05;
+                                cubes[i].mesh.alphaTest = 0.05;
                                 cubes[i].mesh.transparent = true;
 
                                 cubes[i].mesh.children.forEach((tile, index) => {
@@ -10565,8 +10963,8 @@
                                         }
                                     } else if (tile.userData["skin"] == skinset[skinnum]) {
                                         tile.material.visible = true;
-                                        tile.material.opacity = 0.04;
-                                        tile.material.alphaTest = 0.04;
+                                        tile.material.opacity = 0.05;
+                                        tile.material.alphaTest = 0.05;
                                         tile.material.transparent = true;
                                     } else if (tile.userData["skin"] == "text1") {
                                         if (skinnum == 1) {
@@ -10605,8 +11003,8 @@
                                 });
                             } else {
                                 if (i > activeFloor) {
-                                    cubes[i].mesh.material.opacity = 0.03;
-                                    cubes[i].mesh.material.alphaTest = 0.03;
+                                    cubes[i].mesh.material.opacity = 0.04;
+                                    cubes[i].mesh.material.alphaTest = 0.04;
                                     cubes[i].mesh.material.transparent = true;
                                     cubes[i].mesh.children.forEach((tile) => {
                                         if (tile.userData["skin"] == "tile") {
@@ -10624,8 +11022,8 @@
                                             tile.material.transparent = false;
                                         } else if (tile.userData["skin"] == skinset[skinnum]) {
                                             tile.material.visible = true;
-                                            tile.material.opacity = 0.01 + (i - activeFloor) * 0.02;
-                                            tile.material.alphaTest = 0.01 + (i - activeFloor) * 0.02;
+                                            tile.material.opacity = 0.04 + (i - activeFloor) * 0.015;
+                                            tile.material.alphaTest = 0.04 + (i - activeFloor) * 0.015;
                                             tile.material.transparent = true;
                                         } else if (tile.userData["skin"] == "text1") {
                                             if (skinnum == 1) {
@@ -10727,6 +11125,10 @@
                     }
                 }
             }else {
+              camera.position.x=bw * 2 + avx;
+              camera.position.z=bw * 2 + avz;
+
+
               if(gamemod==2&&activeFloor==cubes.length){
                 // dl2.shadow.camera.position.y= bh * (cubes.length)
                 cubes[cubes.length-2].mesh.children.forEach((tile, index) => {
@@ -11032,6 +11434,7 @@
                     topViewCamera.rotation.y = cubes[cubes.length - 1].mesh.rotation.y
                 } else {
                     for (var i = 0; i < cubes.length; i++) {
+
                         if (i == activeFloor) {
                             cubes[i].mesh.material.opacity = 0.1;
                             if (!gameoverflag) {
@@ -11080,7 +11483,7 @@
                     renderer.render(scene, topViewCamera);
                 }
             }
-            particles.material.visible=true;
+
             // if(Math.abs(restartend-camera.rotation.x)<0.5){
             // 	renderer.render(scene, camera);
             // 	console.log(restartend-camera.rotation.x);
@@ -11090,6 +11493,8 @@
             // groundmesh.material.visible=true;
             if (shadowon) groundmesh.receiveShadow = true
             if (sidecam && !gameoverflag) {
+              groundmesh.material.visible=false;
+                scene.background = new THREE.Color(colorlst[colornum][0]);
                 for (var i = 0; i < cubes.length; i++) {
                     if (!gameoverflag) {
                         if (i == activeFloor) {
@@ -11172,6 +11577,7 @@
                 renderer.render(scene, sideViewCamera);
                 // }
             }
+            particles.material.visible=true;
             if (elapsedTime > 2 && sload) {
                 sload = false;
                 // console.log(bw*0.9/bh*0.8)
@@ -14802,6 +15208,9 @@
             // Select all radio buttons with the class 'voxel-radio'
             var reBtn = document.getElementById('restartbtn');
             var reBtn2 = document.getElementById('restartbtn2');
+            var reBtn3 = document.querySelector(".restartbtn3");
+
+
             var playbtn = document.getElementById('pbt');
             var mod0 = document.getElementById('mod0');
             var mod1 = document.getElementById('mod1');
@@ -15014,6 +15423,59 @@
                 }
             })
 
+            reBtn3.addEventListener('click', function() {
+                if(!document.getElementById("tutorial").classList.contains("hidden")){
+                  document.getElementById("tutorial").classList.remove("show");
+                  document.getElementById("tutorial").classList.add("fade");
+                  setTimeout(function() {
+                    document.getElementById("tutorial").classList.add("hidden");
+                  }, 100);
+                }
+                document.getElementById("optionlst").classList.remove("show");
+                document.getElementById("optionlst").classList.add("fade");
+                document.getElementById("right").children[1].classList.add("hidden");
+                document.getElementById("right").children[0].classList.remove("hidden");
+                document.getElementById("right").children[0].style.display = ""
+                setTimeout(function() {
+                    document.getElementById("optionlst").classList.add("hidden");
+                }, 100);
+
+
+
+                if (!rotationflag) {
+                    rotationflag = true
+                    restartflag = true
+                    pluscoin = parseInt(점수 / 10)
+                    coin += pluscoin;
+                    for (var i = 0; i < cubes.length; i++) {
+                        restartloc.push(cubes[i].mesh.position);
+                        restartrot.push(cubes[i].mesh.rotation);
+                    }
+                    ncolornum = parseInt(Math.random() * colorlst.length);
+                    ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                    renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                    rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                    renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+                    rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                    renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+                    rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                    renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+                    bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+                    nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+                    bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+                    nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+                    bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+                    nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+                    bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+                    nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+                    bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+                    nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+                    rotationend = Math.PI / 4
+                }
+
+            })
+
 
 
             playbtn.addEventListener('click', function() {
@@ -15100,6 +15562,8 @@
                         nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
                         rotationend = Math.PI / 4
                     }
+                }else if(ptxt[0] == "3"){
+                  console.log("unlock")
                 }
             })
             // Loop through each radio button and add an event listener
@@ -15118,6 +15582,8 @@
         function skinon() {
             document.getElementById("left").classList.add("fade");
             document.getElementById("left").classList.remove("show");
+            document.getElementById("leftup").classList.add("fade");
+            document.getElementById("leftup").classList.remove("show");
             document.getElementById("right").classList.add("fade");
             document.getElementById("right").classList.remove("show");
             document.getElementById("center").classList.add("fade");
@@ -15131,6 +15597,7 @@
             document.getElementById("options-overlay").classList.add("show");
             setTimeout(function() {
                 document.getElementById("left").classList.add("hidden");
+                document.getElementById("leftup").classList.add("hidden");
                 document.getElementById("right").classList.add("hidden");
                 document.getElementById("center").classList.add("hidden");
                 document.getElementById("optionlst").classList.add("hidden");
@@ -15178,6 +15645,13 @@
                 document.getElementById("right").children[1].style.display = ""
                 setTimeout(function() {}, 100);
             } else {
+              if(!document.getElementById("tutorial").classList.contains("hidden")){
+                document.getElementById("tutorial").classList.remove("show");
+                document.getElementById("tutorial").classList.add("fade");
+                setTimeout(function() {
+                  document.getElementById("tutorial").classList.add("hidden");
+                }, 100);
+              }
                 document.getElementById("optionlst").classList.remove("show");
                 document.getElementById("optionlst").classList.add("fade");
                 document.getElementById("right").children[1].classList.add("hidden");
@@ -15190,8 +15664,17 @@
         }
 
         function showsetting(n) {
+          if(!document.getElementById("tutorial").classList.contains("hidden")){
+            document.getElementById("tutorial").classList.remove("show");
+            document.getElementById("tutorial").classList.add("fade");
+            setTimeout(function() {
+              document.getElementById("tutorial").classList.add("hidden");
+            }, 100);
+          }
             document.getElementById("left").classList.add("fade");
             document.getElementById("left").classList.remove("show");
+            document.getElementById("leftup").classList.add("fade");
+            document.getElementById("leftup").classList.remove("show");
             document.getElementById("center").classList.add("fade");
             document.getElementById("center").classList.remove("show");
             document.getElementById("right").classList.add("fade");
@@ -15202,6 +15685,7 @@
             document.getElementById("setting-overlay").classList.add("show");
             setTimeout(function() {
                 document.getElementById("left").classList.add("hidden");
+                document.getElementById("leftup").classList.add("hidden");
                 document.getElementById("right").classList.add("hidden");
                 document.getElementById("center").classList.add("hidden");
                 document.getElementById("optionlst").classList.add("hidden");
@@ -15218,8 +15702,20 @@
               return goBack(5);
             }
 
+            if(!document.getElementById("tutorial").classList.contains("hidden")){
+              document.getElementById("tutorial").classList.remove("show");
+              document.getElementById("tutorial").classList.add("fade");
+              setTimeout(function() {
+                document.getElementById("tutorial").classList.add("hidden");
+              }, 100);
+            }
+
+
+
             document.getElementById("left").classList.add("fade");
             document.getElementById("left").classList.remove("show");
+            document.getElementById("leftup").classList.add("fade");
+            document.getElementById("leftup").classList.remove("show");
             document.getElementById("right").classList.add("fade");
             document.getElementById("right").classList.remove("show");
             // document.getElementById("center").classList.add("fade");
@@ -15230,6 +15726,7 @@
             document.getElementById("mod-overlay").classList.add("show");
             setTimeout(function() {
                 document.getElementById("left").classList.add("hidden");
+                document.getElementById("leftup").classList.add("hidden");
                 document.getElementById("right").classList.add("hidden");
                 // document.getElementById("center").classList.add("hidden");
                 document.getElementById("optionlst").classList.add("hidden");
@@ -15269,25 +15766,52 @@
             if (ulcount >= 5) {
                 gridlst[1].classList.remove("locked");
                 gridlst[0].classList.remove("locked");
+                gridlst[1].children[1].style.display="none";
+                gridlst[0].children[1].style.display="none";
+
+                gridlst[0].children[3].style.color="white";
+                gridlst[1].children[3].style.color="white";
+
+
             } else if (ulcount >= 2) {
                 if (!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
                 gridlst[0].classList.remove("locked");
+                gridlst[0].children[1].style.display="none";
+                gridlst[0].children[3].style.color="white";
+                gridlst[1].children[3].style.color="black";
             } else {
                 if (!gridlst[0].classList.contains("locked")) gridlst[0].classList.add("locked");
                 if (!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
+                gridlst[0].children[3].style.color="black";
+                gridlst[1].children[3].style.color="black";
             }
             gridlst[0].children[0].src = "png/" + imglst1[n]
             gridlst[1].children[0].src = "png/" + imglst1[n]
+            gridlst[0].children[3].style.fontSize="3vw";
+            gridlst[1].children[3].style.fontSize="3vw";
             for (var i = 0; i < gridlst.length - 2; i++) {
                 if (i >= templst.length) {
                     if (!gridlst[2 + i].classList.contains("hidden")) gridlst[2 + i].classList.add("hidden");
                 } else {
                     gridlst[2 + i].classList.remove("hidden");
-                    gridlst[2 + i].children[1].innerText = templst[i].title
+                    gridlst[2 + i].children[2].innerText = templst[i].title
+                    gridlst[2 + i].children[3].innerText = "By: "+templst[i].producer
+                    gridlst[2 + i].children[4].innerText = "★ :"+ templst[i].price
                     gridlst[2 + i].children[0].src = "png/" + imglst1[n]
                     if (templst[i].unlock == "0") {
                         gridlst[2 + i].classList.remove("locked");
+                        gridlst[2 + i].children[1].style.display="none";
+                        gridlst[2 + i].children[3].style.fontSize="2vw";
+                        gridlst[2 + i].children[4].style.display="none";
+                        gridlst[2 + i].children[2].style.color="white";
+
+
                     } else {
+                        gridlst[2 + i].children[2].style.color="black";
+                        gridlst[2 + i].children[4].style.display="";
+                        gridlst[2 + i].children[3].style.fontSize="2vw";
+                        gridlst[2 + i].children[4].style.fontSize="3vw";
+                        gridlst[2 + i].children[1].style.display="";
                         if (!gridlst[2 + i].classList.contains("locked")) gridlst[2 + i].classList.add("locked");
                     }
                 }
@@ -15312,34 +15836,35 @@
             document.getElementById('pbt').classList.remove("hidden")
             document.getElementById('pbt').classList.add("show")
 
-            console.log(gridlst[n].children[1].innerText);
+            console.log(gridlst[n].children[2].innerText);
             if (n > 1) {
                 if (templst[n - 2].unlock == 0) {
                     pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
-                    ptxt[0].innerText = gridlst[n].children[1].innerText + "\n Play ▶"
+                    ptxt[0].innerText = gridlst[n].children[2].innerText + "\n Play ▶"
                     pcode[0].innerText = "2" + " " + templst[n - 2].name;
                 } else {
                     pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/green_button00.png")'
-                    ptxt[0].innerText = gridlst[n].children[1].innerText + "\n ⭐: " + templst[n - 2].price
+                    ptxt[0].innerText = gridlst[n].children[2].innerText + "\n ⭐: " + templst[n - 2].price
+                    pcode[0].innerText = "3" + " " + templst[n - 2].name;
                 }
             } else if (n == 1) {
                 if (!gridlst[n].classList.contains("locked")) {
                     pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
-                    ptxt[0].innerText = gridlst[n].children[1].innerText + "\n Play ▶"
+                    ptxt[0].innerText = gridlst[n].children[3].innerText + "\n Play ▶"
                     pcode[0].innerText = "1" + " " + templst[0].type;
                 } else {
                     pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/red_button00.png")'
-                    ptxt[0].innerText = gridlst[n].children[1].innerText + "\n  unlock more"
+                    ptxt[0].innerText = gridlst[n].children[2].innerText + "\n  unlock more"
                     pcode[0].innerText = "";
                 }
             } else if (n == 0) {
                 if (!gridlst[n].classList.contains("locked")) {
                     pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
-                    ptxt[0].innerText = gridlst[n].children[1].innerText + "\n Play ▶"
+                    ptxt[0].innerText = gridlst[n].children[3].innerText + "\n Play ▶"
                     pcode[0].innerText = "0" + " " + templst[0].type;
                 } else {
                     pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/red_button00.png")'
-                    ptxt[0].innerText = gridlst[n].children[1].innerText + "\n  unlock more"
+                    ptxt[0].innerText = gridlst[n].children[2].innerText + "\n  unlock more"
                     pcode[0].innerText = "";
                 }
             }
@@ -15366,6 +15891,28 @@
         }
 
         function goBack(n) {
+            window.scrollTo(0, 0);
+            if(n==6){
+              document.getElementById("tutorial").classList.remove("show");
+              document.getElementById("tutorial").classList.add("fade");
+
+              document.getElementById("right").children[1].classList.add("hidden");
+              document.getElementById("right").children[0].classList.remove("hidden");
+              document.getElementById("right").children[0].style.display = ""
+
+              document.getElementById("optionlst").classList.remove("show");
+              document.getElementById("optionlst").classList.add("fade");
+              setTimeout(function() {
+
+              }, 100);
+              setTimeout(function() {
+                  document.getElementById("tutorial").classList.add("hidden");
+                  document.getElementById("optionlst").classList.add("hidden");
+
+              }, 100);
+
+              // return;
+            }
             if(n==5){
               document.getElementById("mod-overlay").classList.remove("show");
               document.getElementById("mod-overlay").classList.add("fade");
@@ -15378,7 +15925,7 @@
               }, 100);
 
             }
-            window.scrollTo(0, 0);
+
             if (document.getElementById("setting-overlay").classList.contains("show")) {
                 document.getElementById("setting-overlay").classList.remove("show");
                 document.getElementById("setting-overlay").classList.add("fade");
@@ -15447,6 +15994,7 @@
                     document.getElementById("categ1").classList.add("hidden");
                     document.getElementById("step1").classList.remove("hidden");
                     document.getElementById("step1").classList.add("show");
+                    // window.scrollTo(0, 0);
                 }, 100);
             } else {
                 document.getElementById("step3").classList.remove("show");
@@ -15457,23 +16005,75 @@
                     document.getElementById("categ1").classList.add("show");
                 }, 100);
             }
+            // window.scrollTo(0, 0);
         }
 
         function showcredit(n){
+
           document.getElementById("credit-info").classList.remove("fade");
           document.getElementById("credit-info").classList.remove("hidden");
           document.getElementById("credit-info").classList.add("show");
 
+
+
           document.getElementById("setting-overlay").classList.remove("show");
           document.getElementById("setting-overlay").classList.add("fade");
+
+
+
+
+
+
+
 
 
           // document.getElementById("credit-info").classList.add("show");
 
 
         }
+
+        function showtut(n){
+          if(gamemod==2){
+            document.getElementById("tutorial").children[1].style.display = "none"
+            document.getElementById("tutorial").children[2].style.display = ""
+
+
+            // document.getElementById("tutorial").children[0].style.display = ""
+          }else{
+            document.getElementById("tutorial").children[2].style.display = "none"
+            document.getElementById("tutorial").children[1].style.display = ""
+
+          }
+          if(!document.getElementById("tutorial").classList.contains("hidden")){
+            document.getElementById("tutorial").classList.remove("show");
+            document.getElementById("tutorial").classList.add("fade");
+            setTimeout(function() {
+              document.getElementById("tutorial").classList.add("hidden");
+            }, 100);
+          }else{
+            document.getElementById("tutorial").classList.remove("fade");
+            document.getElementById("tutorial").classList.remove("hidden");
+            document.getElementById("tutorial").classList.add("show");
+          }
+
+
+
+
+
+        }
+
+        function showshop(n) {
+            console.log("shop")
+        }
+
     </script>
 
+    <div id="tutorial" class="hidden">
+    <button class="backbutton6" onclick="goBack(6)">
+    </button>
+    <img class="tut1" src="png/tutorial1.png">
+    <img class="tut2" src="png/tutorial2.png">
+    </div>
 
 
     <div id="credit-info" class="hidden">
@@ -15488,10 +16088,6 @@
         </div>
 
     </div>
-
-
-
-
 
     <div id="coin-info" class="">
         <h2 id="coin1">★ : </h2>
@@ -15512,16 +16108,20 @@
         </div>
 
     </div>
-    <div id="intro">
+    <div id="intro" class="hidden">
         <h1>V 0.7</h1>
     </div>
+
+    <button id="leftup" onclick="showtut()">
+        <img src="png/question.png" id="">
+    </button>
+
     <button id="left" class="left" onclick="skinon()">
     <img class="" src="png/left0.png">
     </button>
 
     <button id="center" class="center" onclick="showmod()">
         <img class="" src="png/gamepad.png">
-
     </button>
 
     <button id="right" class="right" onclick="optionon()">
@@ -15530,20 +16130,24 @@
     </button>
 
     <div id="optionlst" class="optionlst hidden">
-        <button id="option" onclick="optionon()">
+        <button id="option" onclick="showtut()">
             <img src="png/question.png" id="opt0">
         </button>
 
-        <button id="option" onclick="optionon()">
+        <button id="option" onclick="">
             <img src="png/crown_b.png" id="opt1">
         </button>
 
-        <button id="option" onclick="optionon()">
-            <img src="png/medal2.png" id="opt2">
+        <button id="option" class="restartbtn3" onclick="">
+            <img src="png/return.png" id="opt3">
+        </button>
+
+        <button id="option" onclick="showmod()">
+            <img src="png/gamepad.png" id="opt2">
         </button>
 
         <button id="option" onclick="showsetting()">
-            <img src="png/gear.png" id="opt3">
+            <img src="png/gear.png" id="opt4">
         </button>
     </div>
 
@@ -15610,13 +16214,6 @@
                 </button>
             </div>
 
-            <div class="gameover">
-                <label class="glabel">SHARE</label>
-                <button id="" class="gameoverbt" onclick="">
-                    <img src="png/share2.png" id="rightimg">
-
-                </button>
-            </div>
 
             <div class="gameover">
                 <label class="glabel">VIEW ADS & COINS 2x </label>
@@ -15645,7 +16242,7 @@
                     </button>
 
                     <h1 class="title">SKIN</h1>
-                    <button class="ap-button" onclick="">
+                    <button class="ap-button" onclick="showshop()">
                         <h2>appearance shop 🎨</h2>
                         <!-- <h4>&</h4> -->
                         <!-- <h3>Custom Option 🔓</h3> -->
@@ -15702,7 +16299,7 @@
                 </div>
             </div>
             <div id="categ1" class="selection hidden">
-                <button class="backbutton" onclick="goBack(1)">◀</button>
+                <button class="backbutton" onclick="goBack()">◀</button>
                 <h1 class="title">Category</h1>
                 <button class="c-button" disabled>
                     <img src="png/0.png" alt="Mute" id="img">
@@ -15717,53 +16314,88 @@
                 </div>
                 <div class="grid">
                     <div class="character locked" onclick="showPopup(0)">
-                        <img src="" alt="Character 1">
+                        <img src="" alt="Character 1" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <img src="png/return.png" alt="mix" class="miximg">
                         <span>SHUFFLE</span>
+
                     </div>
                     <div class="character locked" onclick="showPopup(1)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <img src="png/return.png" alt="mix" class="miximg">
                         <span>MIX</span>
-                        <span>🎨🎵</span>
+
                     </div>
                     <div class="character locked" onclick="showPopup(2)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 3</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(3)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 4</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(4)">
-                        <img src="" alt="Character 1">
+                        <img src="" alt="Character 1" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 1</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(5)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 2</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(6)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 3</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(7)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 4</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(8)">
-                        <img src="" alt="Character 1">
+                        <img src="" alt="Character 1" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 1</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(9)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 2</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(10)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 3</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <div class="character locked" onclick="showPopup(11)">
-                        <img src="" alt="Character 2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
                         <span>Character 4</span>
+                        <span>artist</span>
+                        <span>price</span>
                     </div>
                     <!-- Add more characters -->
                 </div>
@@ -15802,7 +16434,7 @@
                 </button>
                 <label class="mlabel">BASIC</label>
                 <b>기본</b>
-                오리지날 모드 오리지날 모드 오리지날 모드 오리지날 모드 오리지날 모드
+                오리지날 모드
             </div>
 
             <div class="mod">
@@ -15812,7 +16444,7 @@
                 </button>
                 <label class="mlabel">HARD</label>
                 <b>어려움</b>
-                더 잘넘어집니다 더 잘넘어집니다 더 잘넘어집니다 더 잘넘어집니다 더 잘넘어집니다
+                더 잘넘어집니다
 
             </div>
 
@@ -15822,7 +16454,7 @@
                 </button>
                 <label class="mlabel">STACK</label>
                 <b>스택</b>
-                높게 쌓아보세요 높게 쌓아보세요 높게 쌓아보세요 높게 쌓아보세요 높게 쌓아보세요
+                높게 쌓아보세요
             </div>
 
         </div>
