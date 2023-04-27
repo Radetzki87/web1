@@ -3164,6 +3164,7 @@
                 } else {
                     this.q = 0;
                 }
+
             }
         }
 
@@ -3177,6 +3178,7 @@
                 this.boardChanged = false;
                 this.index = index;
                 this.boardpointer = [];
+                this.fullflag=false;
                 for (let row = 0; row < this.size; row++) {
                     var temp = [];
                     for (let col = 0; col < this.size; col++) {
@@ -3330,6 +3332,55 @@
                     //   });
                     // });
                     atchanged = elapsedTime;
+                    if(emptyPositions.length==1){
+                      var full=true;
+                      for (let row = 0; row < this.size; row++) {
+                          for (let col = 0; col < this.size-1; col++) {
+                              if (this.board[row][col] == this.board[row][col+1]) {
+                                  full=false;
+                              }
+                          }
+                      }
+
+                      for (let col = 0; col < this.size; col++) {
+                          for (let row = 0; row < this.size-1; row++) {
+                              if (this.board[row][col] == this.board[row+1][col]) {
+                                  full=false;
+                              }
+                          }
+                      }
+                      if(full){
+                        this.fullflag=true;
+                        cubes[this.index].mesh.children.forEach((item) => {
+                          if(item.userData["skin"]=="tile"){
+                            var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][this.index]))
+                            item.material.color= new THREE.Color('hsl(' + String(newcl["h"]+Math.log2(parseInt(item.userData["text"]))*5) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
+                            item.children.forEach((text) => {
+                              text.material.color= new THREE.Color(0xAAAAAA);
+                            });
+                          }
+                        });
+                        // gameoverflag=true;
+                        if(gamemod!=2){
+                          var fullall=true;
+                          for (var i = 0; i < 5; i++) {
+                            if(!cubes[i].mesh.userData["game2048"].fullflag){
+                              fullall=false;
+                            }
+                          }
+                          if(fullall){
+                            gameoverflag=true;
+                            topcam = false;
+
+                            document.getElementById("gameover-overlay").classList.remove("fade");
+                            document.getElementById("gameover-overlay").classList.remove("hidden");
+                            document.getElementById("gameover-overlay").classList.add("show");
+
+                            activeFloor = cubes.length;
+                          }
+                        }
+                      }
+                    }
                 }
                 this.boardChanged = false;
             }
@@ -3509,24 +3560,7 @@
                         }
                     }
                 }
-                // if(direction === "up"){
-                //   temp0.sort(function(a, b) {
-                //   return a[0] - b[0];
-                // });
-                // }else if(direction === "down"){
-                //   temp0.sort(function(a, b) {
-                //   return b[0] - a[0];
-                // });
-                // }else if(direction === "left"){
-                //   temp0.sort(function(a, b) {
-                //   return a[1] - b[1];
-                // });
-                // }else if(direction === "right"){
-                //   temp0.sort(function(a, b) {
-                //   return b[1]- a[1];
-                // });
-                // }
-                // console.log(temp0);
+
                 var removelst = [];
                 // console.log("전")
                 // console.log(lst)
@@ -3544,25 +3578,14 @@
                     }
                     if (dup) lst.push(temp0[j]);
                 }
-                // lst.forEach((item0,index)=>{
-                //   temp0.forEach((item1)=>{
-                //     if(item0[2]==item1[0]&&item0[3]==item1[1]){
-                //       item0[2]=item1[2];
-                //       item0[3]=item1[3];
-                //     }
-                //   })
-                // })
+
                 removelst.sort(function(a, b) {
                     return b - a;
                 });
                 removelst.forEach((item) => {
                     lst.splice(item, 1);
                 })
-                // console.log("후")
-                // console.log(lst)
-                // temp0.forEach((item, index)=>{
-                //   if(removelst.indexOf(index)==-1) lst.push(item);
-                // })
+
                 return lst;
             }
         }
@@ -3654,12 +3677,7 @@
         const text = "W:위층, S:아래층, 방향키:타일 이동";
         const fontSize = 24;
         //스크롤
-        // var scrollimg=createimg();
-        // let material0=new THREE.SpriteMaterial({ map: scrollimg, transparent: true, opacity:0 });
-        // const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
-        // const sprite = new THREE.Sprite(material);
-        // sprite.scale.set(texture.image.width / 100, texture.image.height / 100, 1);
-        // sprite.position.set(-window.innerWidth / 200 + texture.image.width / 200, window.innerHeight / 200 - texture.image.height / 200, -1);
+
         const uiScene = new THREE.Scene();
         let uiScene2 = new THREE.Scene();
         // uiScene.add(sprite);
@@ -4370,10 +4388,6 @@
         // scene.fog = new THREE.FogExp2( 0x000000, 0.001 );
         // scene.background = new THREE.Color(0x2e508d);
         if (lighton) {
-
-
-
-
             var ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
             scene.add(ambientLight);
             // const dL=new THREE.DirectionalLight(0xffffff,0.7);
@@ -4869,10 +4883,10 @@
               // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
 
             }else if (gamemod==1){
-              cubes[3].body.material.friction = 0.2;
+              cubes[3].body.material.friction = 0.3;
               cubes[3].body.material.restitution = 0.4;
               stack=5;
-              forceAmount = bw * bw * bh / 45;
+              forceAmount = bw * bw * bh / 20;
               groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
 
               world.gravity.set(0, -7, 0);
@@ -5085,9 +5099,9 @@
             //   document.getElementById("right").classList.add("show")
             // }
             if(gamemod==2) {
-              var temp0=[4, 7,8]
+              var temp0=[7]
               skinnum = temp0[parseInt(Math.random()*temp0.length)];
-              camera.position.y= bh * (cubes.length)
+              camera.position.y= bh * (cubes.length+0.5)
             }else{
               camera.position.y= bh * (cubes.length+3.5)
             }
@@ -9348,10 +9362,11 @@
         let particles = new THREE.Points(geometry, material2);
         scene.add(particles);
         // guideflag=false;
-        var listener;
+        let listener;
         const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.csv';
         var nslst = {};
         var templst=[];
+        sdic=[];
         fetchCSV(csvUrl)
             .then(dictionaries => {
                 nslst = dictionaries
@@ -10416,6 +10431,7 @@
                                 tile.add(ntext);
                                 tile.userData["skin"] = "tile"
                                 tile.userData["skintype"] = "1"
+                                tile.userData["text"] = text;
                                 atchanged = elapsedTime;
                                 var tempflag = true
                                 tempeffects.forEach((object) => {
@@ -10484,6 +10500,10 @@
                                     }
                                     txtlst.push(temp);
 
+                                    console.log(sdic);
+                                    console.log(txtlst);
+                                    
+
                                     // dl2.position.y=50+((cubes.length-3) * bh)
                                     // dl2.shadow.camera.position.y= bh * (cubes.length)
 
@@ -10498,7 +10518,6 @@
                                     cubes[cubes.length-1].mesh.userData.game2048.spawnTile();
                                     activeFloor=cubes.length;
                                     stacktime=elapsedTime;
-
 
 
 
@@ -10799,13 +10818,17 @@
                   cubes.forEach((item, index) => {
                       if (index > 3 && item.mesh.position.y < bh * 4) {
                           // overlimit++;
-                          gameoverflag = true;
-                          topcam = false;
-                          document.getElementById("gameover-overlay").classList.remove("fade");
-                          document.getElementById("gameover-overlay").classList.remove("hidden");
-                          document.getElementById("gameover-overlay").classList.add("show");
+                          if(!gameoverflag){
+                            gameoverflag = true;
+                            topcam = false;
 
-                          activeFloor = cubes.length;
+                            document.getElementById("gameover-overlay").classList.remove("fade");
+                            document.getElementById("gameover-overlay").classList.remove("hidden");
+                            document.getElementById("gameover-overlay").classList.add("show");
+
+                            activeFloor = cubes.length;
+                          }
+
                       }
                   })
                 }
@@ -10823,7 +10846,7 @@
                             bw * 2 + avz,
                         );
                         if(gamemod==2) {
-                          camera.position.y= bh * (cubes.length)
+                          camera.position.y= bh * (cubes.length+0.5)
 
                         }
                         // camera.lookAt(cubes[0].body.position.x,cubes[cubes.length-1].mesh.position.y+bh*5,cubes[0].body.position.y)
@@ -10904,12 +10927,12 @@
                                     bh * (cubes.length + 3.5),
                                     bw * 2 + avz,
                                 );
-                                if(gamemod==2) camera.position.y= bh * (cubes.length)
+                                if(gamemod==2) camera.position.y= bh * (cubes.length+0.5)
 
                                 if (arrowon) arrows[i].children[0].material.opacity = 0.5
                                 // cubes[i].mesh.tile.material.visible = true
-                                cubes[i].mesh.opacity = 0.06;
-                                cubes[i].mesh.alphaTest = 0.06;
+                                cubes[i].mesh.opacity = 0.05;
+                                cubes[i].mesh.alphaTest = 0.05;
                                 cubes[i].mesh.transparent = true;
 
                                 cubes[i].mesh.children.forEach((tile, index) => {
@@ -10940,8 +10963,8 @@
                                         }
                                     } else if (tile.userData["skin"] == skinset[skinnum]) {
                                         tile.material.visible = true;
-                                        tile.material.opacity = 0.06;
-                                        tile.material.alphaTest = 0.06;
+                                        tile.material.opacity = 0.05;
+                                        tile.material.alphaTest = 0.05;
                                         tile.material.transparent = true;
                                     } else if (tile.userData["skin"] == "text1") {
                                         if (skinnum == 1) {
@@ -10980,8 +11003,8 @@
                                 });
                             } else {
                                 if (i > activeFloor) {
-                                    cubes[i].mesh.material.opacity = 0.03;
-                                    cubes[i].mesh.material.alphaTest = 0.03;
+                                    cubes[i].mesh.material.opacity = 0.04;
+                                    cubes[i].mesh.material.alphaTest = 0.04;
                                     cubes[i].mesh.material.transparent = true;
                                     cubes[i].mesh.children.forEach((tile) => {
                                         if (tile.userData["skin"] == "tile") {
@@ -10999,8 +11022,8 @@
                                             tile.material.transparent = false;
                                         } else if (tile.userData["skin"] == skinset[skinnum]) {
                                             tile.material.visible = true;
-                                            tile.material.opacity = 0.06 + (i - activeFloor) * 0.02;
-                                            tile.material.alphaTest = 0.06 + (i - activeFloor) * 0.02;
+                                            tile.material.opacity = 0.04 + (i - activeFloor) * 0.015;
+                                            tile.material.alphaTest = 0.04 + (i - activeFloor) * 0.015;
                                             tile.material.transparent = true;
                                         } else if (tile.userData["skin"] == "text1") {
                                             if (skinnum == 1) {
