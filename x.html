@@ -4903,13 +4903,32 @@
             });
             particles.material = material2
             scene.add(particles);
-            // sdic=[];
+            sdic=[];
+            templst=[];
             // sdic.push(nslst["wooden"])
             // sdic.push(nslst["wooden"])
             // sdic.push(nslst["wooden"])
             // sdic.push(nslst["new3"])
             // sdic.push(nslst["ibiza_deep"])
             // sdic.push(nslst["rnb_demo"])
+
+            templst.push("wooden")
+            templst.push("High End Party")
+            templst.push("Catwalk")
+            templst.push("Lost in the Dessert")
+            templst.push("You_re in the Future")
+            templst.push("Beach House")
+            templst.push("Puzzles")
+            templst.push("frozen winter")
+
+            templst.sort(() => Math.random() - 0.5);
+            sdic.push(nslst[templst[0]])
+            sdic.push(nslst[templst[1]])
+            sdic.push(nslst[templst[2]])
+            sdic.push(nslst[templst[3]])
+            sdic.push(nslst[templst[4]])
+            sdic.push(nslst[templst[5]])
+
             for (let i = 0; i < 6; i++) {
                 let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
                 var sdickeys = Object.keys(soundic);
@@ -9276,12 +9295,23 @@
         var listener;
         const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.csv';
         var nslst = {};
-        var templst;
+        var templst=[];
         fetchCSV(csvUrl)
             .then(dictionaries => {
                 nslst = dictionaries
                 console.log(nslst);
-                templst = Object.keys(nslst);
+
+                // templst = Object.keys(nslst);
+
+                templst.push("wooden")
+                templst.push("High End Party")
+                templst.push("Catwalk")
+                templst.push("Lost in the Dessert")
+                templst.push("You_re in the Future")
+                templst.push("Beach House")
+                templst.push("Puzzles")
+                templst.push("frozen winter")
+
                 templst.sort(() => Math.random() - 0.5);
                 sdic.push(nslst[templst[0]])
                 sdic.push(nslst[templst[1]])
