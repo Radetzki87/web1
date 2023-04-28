@@ -818,7 +818,7 @@
         }
 
         .gameover-container {
-            background-color: rgba(150, 100, 250, 0);
+            background-color: rgba(150, 100, 150, 0);
             display: flex;
             font-family: 'GG';
             width: 100%;
@@ -835,29 +835,103 @@
             position: fixed;
             right: 10%;
             font-family: 'GG';
-            font-size: 1vh;
+
             margin: 4vw 0;
         }
 
-        .gameover {
+        .gameinfo0 {
+            font-size: 7vw;
+            color:white;
+            display: inline-flex;
+            z-index: 2;
+            flex-direction: column;
+            background-color: rgba(50, 50, 50, 0.6);
+            border-radius: 4vw;
+            border: 0px solid #000;
+            width: 75%;
+            height: 15%;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5vw;
+            padding-left: 2vw;
+        }
+
+        .gameinfo {
+            font-size: 2vw;
+            color:white;
             display: flex;
+            flex-direction: column;
+            z-index: 2;
+            background-color: rgba(50, 50, 50, 0.6);
+            border-radius: 4vw;
+            border: 0px solid #000;
+            width: 75%;
+            height: 30%;
+            /* justify-content: center; */
+            align-items: left;
+            margin-bottom: 0vw;
+            margin-top: 0vw;
+            padding-left: 2vw;
+        }
+
+        .gameinfo span{
+            font-size: 4vw;
+            padding-left: 2vw;
+            display: inline-flex;
+        }
+
+        .gameinfo .a{
+
+        }
+
+        .gameinfo .b{
+            position: absolute;
+            left:70%;
+        }
+
+        .gameinfo .c{
+          font-size: 5vw;
+          margin-top: 3vw;
+        }
+
+        .gameinfo .d{
+          font-size: 5vw;
+            margin-top: 3vw;
+            position: absolute;
+            left:69%;
+        }
+
+
+        #코인{
+          position: relative;
+          font-size: 5vw;
+          left:35%;
+          color:white;
+        }
+
+        .gameover {
+            font-size: 4vw;
+            color:white;
+            display: inline-flex;
             z-index: 2;
             flex-direction: row;
-            background-color: rgba(50, 100, 250, 0.3);
+            background-color: rgba(50, 100, 100, 0.3);
             width: 100%;
             height: 8vh;
             justify-content: center;
             align-items: center;
+            margin-top: 5vw;
         }
 
         .gameoverbt {
             border: none;
             background-color: transparent;
-            background-image: url("png/green_button09.png");
-            background-size: 6vh 4vh;
+            background-image: url("png/blue_button11.png");
+            background-size: 6vh 6vh;
             width: 6vh;
-            height: 4vh;
+            height: 6vh;
             z-index: 2;
+            margin-left: 1vw;
             margin-bottom: 1vw;
         }
 
@@ -868,11 +942,11 @@
         }
 
         .gameoverbt:active {
-            background-image: url("png/green_button10.png");
+            background-image: url("png/blue_button12.png");
             transform: translate(0, 0.2vh);
-            background-size: 6vh 3.8vh;
+            background-size: 6vh 5.8vh;
             width: 6vh;
-            height: 3.8vh;
+            height: 5.8vh;
         }
 
         .mod-overlay {
@@ -887,7 +961,7 @@
         }
 
         .mod-container {
-            background-color: rgba(150, 100, 250, 0);
+            background-color: rgba(150, 100, 150, 0);
             display: flex;
             font-family: 'GG';
             width: 100%;
@@ -923,7 +997,7 @@
         .modbt {
             border: none;
             background-color: transparent;
-            background-image: url("png/blue_button07.png");
+            background-image: url("png/grey_button10.png");
             background-size: 10vh 10vh;
             width: 10vh;
             height: 10vh;
@@ -1404,6 +1478,9 @@
         var greylst=[27,26,4,1,3,30,40,46,20,39,16,38,23]
 
 
+        var avx=0;
+        var avz=0;
+
         var skinmold={};
 
         var songTitle = 'Song Title';
@@ -1443,7 +1520,7 @@
         var lastY;
         var touchx;
         var touchy;
-        let forceAmount = bw * bw * bh / 10;
+        let forceAmount = bw * bw * bh / 1;
         let unitimg = {};
         let 점수 = 0
         let bestscore;
@@ -4097,7 +4174,7 @@
                                 rotationflag = true
                                 restartflag = true
                                 pluscoin = parseInt(점수 / 10)
-                                coin += pluscoin;
+                                // coin += pluscoin;
                                 for (var i = 0; i < cubes.length; i++) {
                                     restartloc.push(cubes[i].mesh.position);
                                     restartrot.push(cubes[i].mesh.rotation);
@@ -4137,7 +4214,7 @@
                                 rotationflag = true
                                 restartflag = true
                                 pluscoin = parseInt(점수 / 10)
-                                coin += pluscoin;
+                                // coin += pluscoin;
                                 for (var i = 0; i < cubes.length; i++) {
                                     restartloc.push(cubes[i].mesh.position);
                                     restartrot.push(cubes[i].mesh.rotation);
@@ -4177,7 +4254,7 @@
                                 rotationflag = true
                                 restartflag = true
                                 pluscoin = parseInt(점수 / 10)
-                                coin += pluscoin;
+                                // coin += pluscoin;
                                 for (var i = 0; i < cubes.length; i++) {
                                     restartloc.push(cubes[i].mesh.position);
                                     restartrot.push(cubes[i].mesh.rotation);
@@ -4217,7 +4294,7 @@
                                 rotationflag = true
                                 restartflag = true
                                 pluscoin = parseInt(점수 / 10)
-                                coin += pluscoin;
+                                // coin += pluscoin;
                                 for (var i = 0; i < cubes.length; i++) {
                                     restartloc.push(cubes[i].mesh.position);
                                     restartrot.push(cubes[i].mesh.rotation);
@@ -4765,7 +4842,7 @@
                     rotationflag = true
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
-                    coin += pluscoin;
+                    // coin += pluscoin;
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -4948,7 +5025,7 @@
               cubes[3].body.material.friction = 1;
               cubes[3].body.material.restitution = 0.8;
               stack=3;
-              forceAmount = bw * bw * bh / 20;
+              forceAmount = bw * bw * bh / 10;
               groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
               world.gravity.set(0, -6, 0);
               world.solver.iterations = 2;
@@ -9517,7 +9594,7 @@
                         rotationflag = true
                         restartflag = true
                         pluscoin = parseInt(점수 / 10)
-                        coin += pluscoin;
+                        // coin += pluscoin;
                         for (var i = 0; i < cubes.length; i++) {
                             restartloc.push(cubes[i].mesh.position);
                             restartrot.push(cubes[i].mesh.rotation);
@@ -9625,7 +9702,7 @@
         // Animate the scene
         function animate() {
 
-            if (startflag) { //스타트
+            if (startflag&&!gameoverflag) { //스타트
                 // console.log(colornum);
                 // console.log(colorlst[colornum][0]);
                 document.getElementById("coin-info").classList.remove("show");
@@ -9713,82 +9790,7 @@
                     restart();
                 } else {
 
-                    // if (coinchg.length == 0) {
-                    //     if (coinupdate.length != 0) {
-                    //         coinupdate.forEach((item) => {
-                    //             item.material.visible = false;
-                    //         })
-                    //     }
-                    //     var geometry12 = new TextGeometry("★ :", {
-                    //         font: font0,
-                    //         size: bw / 10,
-                    //         height: th / 3
-                    //     });
-                    //     geometry12.computeBoundingBox();
-                    //     geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-                    //     var material = new THREE.MeshBasicMaterial({
-                    //         color: colorlst[colornum][3]
-                    //     });
-                    //     var tmesh = new THREE.Mesh(geometry12, material);
-                    //     tmesh.position.y = bh * 11
-                    //     tmesh.position.x = bw * (1.8)
-                    //     tmesh.position.z = bw * (0.7)
-                    //     // textMesh.position.x=0;
-                    //     tmesh.depth = 10;
-                    //     tmesh.rotation.x = -Math.PI / 8;
-                    //     tmesh.rotation.order = 'YXZ';
-                    //     tmesh.rotation.y = Math.PI / 4;
-                    //     var geometry12 = new TextGeometry(String(coin), {
-                    //         font: font0,
-                    //         size: bw / 10,
-                    //         height: th / 3
-                    //     });
-                    //     geometry12.computeBoundingBox();
-                    //     geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-                    //     var material = new THREE.MeshBasicMaterial({
-                    //         color: colorlst[colornum][3]
-                    //     });
-                    //     var tmesh1 = new THREE.Mesh(geometry12, material);
-                    //     tmesh1.position.x = 4.5
-                    //     // textMesh.position.x=0;
-                    //     // tmesh1.depth=10;
-                    //     tmesh.add(tmesh1)
-                    //     // scene.add(tmesh);
-                    //     coinfinal.push(tmesh)
-                    //     var geometry12 = new TextGeometry("+" + String(pluscoin), {
-                    //         font: font0,
-                    //         size: bw / 10,
-                    //         height: th / 3
-                    //     });
-                    //     geometry12.computeBoundingBox();
-                    //     geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-                    //     var material = new THREE.MeshBasicMaterial({
-                    //         color: colorlst[colornum][3],
-                    //         transparent: true,
-                    //         opacity: 0.6
-                    //     });
-                    //     var tmesh = new THREE.Mesh(geometry12, material);
-                    //     tmesh.position.y = bh * 11.8
-                    //     tmesh.position.x = bw * (2.3)
-                    //     tmesh.position.z = bw * (0.7)
-                    //     // textMesh.position.x=0;
-                    //     tmesh.depth = 10;
-                    //     tmesh.rotation.x = -Math.PI / 8;
-                    //     tmesh.rotation.order = 'YXZ';
-                    //     tmesh.rotation.y = Math.PI / 4;
-                    //     // tmesh1.position.y
-                    //     // scene.add(tmesh)
-                    //     coinchg.push(tmesh);
-                    // } else {
-                    //     coinchg[0].rotation.x = -restartend + Math.PI / 12 + Math.abs(camera.rotation.x - restartend) * (+restartend - Math.PI / 8)
-                    //     coinfinal[0].rotation.x = -restartend + Math.PI / 12 + Math.abs(camera.rotation.x - restartend) * (+restartend - Math.PI / 8)
-                    //     coinchg[0].material.transparent = true;
-                    //     coinchg[0].material.opacity = 0.6 * Math.abs(camera.rotation.x - restartend)
-                    //     coinchg[0].children.forEach((item) => {
-                    //         item.material.transparent = true;
-                    //         item.material.opacity = 0.6 * Math.abs(camera.rotation.x - restartend)
-                    //     })
-                    // }
+
                     camera.rotation.x += Math.PI / 256
                     var canvas = document.createElement('canvas');
                     var ctx = canvas.getContext('2d');
@@ -9875,8 +9877,8 @@
                         // item.color=new THREE.Color(colorlst[colornum][3]);
                         item.color = new THREE.Color(parseInt(newcl30, 16));
                     })
-                    var avx = 0;
-                    var avz = 0;
+                    avx = 0;
+                    avz = 0;
                     for (var i = 0; i < cubes.length; i++) {
                         avx += cubes[i].mesh.position.x;
                         avz += cubes[i].mesh.position.z;
@@ -10019,9 +10021,10 @@
             // }else{
             // 	scene.background = new THREE.Color(colorlst[colornum][0]);
             // }
-            var avx = 0;
-            var avz = 0;
-            if (averageflag) {
+
+            if (!gameoverflag&&averageflag) {
+              avx = 0;
+              avz = 0;
                 for (var i = 0; i < cubes.length; i++) {
                     avx += cubes[i].mesh.position.x;
                     avz += cubes[i].mesh.position.z;
@@ -10044,104 +10047,113 @@
                 axis[0].position.x = avx;
                 axis[0].position.z = avz;
             } else {
-                avx = cubes[0].mesh.position.x;
-                avz = cubes[0].mesh.position.z;
+
             }
             if (uiflag) {
                 requestAnimationFrame(animate);
                 renderer.render(uiScene0, uicamera0);
                 return;
             } else if (gameoverflag) {
+              gradback.forEach((item, index) => {
+                  if (index == 0) return;
+                  item.material.visible = false;
+                  item.children.forEach((child) => {
+                      child.material.visible = false;
+                  })
+              })
                 if (!endtext) {
                     // world.removeBody(groundBody);
                     scene.remove(axis[0]);
                     while (guide.length > 0) {
                         scene.remove(guide.pop());
                     }
+
+
                     endtext = true
-                    var geometry12 = new TextGeometry("SCORE:" + String(점수), {
-                        font: font0,
-                        size: bw / 6,
-                        height: th / 3
-                    });
-                    geometry12.computeBoundingBox();
-                    geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-                    var material = new THREE.MeshBasicMaterial({
-                        color: 0xffffff
-                    });
-                    var tmesh = new THREE.Mesh(geometry12, material);
-                    tmesh.position.y = bh * 8
-                    tmesh.position.x = bw * (1) + avx
-                    tmesh.position.z = bw * (1) + avz
-                    // textMesh.position.x=0;
-                    tmesh.depth = 10;
-                    tmesh.rotation.x = -Math.PI / 8;
-                    tmesh.rotation.order = 'YXZ';
-                    tmesh.rotation.y = Math.PI / 4;
-                    // tmesh1.position.y
-                    scene.add(tmesh)
-                    coinupdate.push(tmesh)
-                    var geometry12 = new TextGeometry("BEST:" + String(점수), {
-                        font: font0,
-                        size: bw / 6,
-                        height: th / 3
-                    });
-                    geometry12.computeBoundingBox();
-                    geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-                    var material = new THREE.MeshBasicMaterial({
-                        color: 0xffffff
-                    });
-                    var tmesh = new THREE.Mesh(geometry12, material);
-                    tmesh.position.y = bh * 6.8
-                    tmesh.position.x = bw * (1) + avx
-                    tmesh.position.z = bw * (1) + avz
-                    // textMesh.position.x=0;
-                    tmesh.depth = 10;
-                    tmesh.rotation.x = -Math.PI / 8;
-                    tmesh.rotation.order = 'YXZ';
-                    tmesh.rotation.y = Math.PI / 4;
-                    // tmesh1.position.y
-                    scene.add(tmesh)
-                    coinupdate.push(tmesh)
-                    var geometry12 = new TextGeometry("★ :", {
-                        font: font0,
-                        size: bw / 10,
-                        height: th / 3
-                    });
-                    geometry12.computeBoundingBox();
-                    geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-                    var material = new THREE.MeshBasicMaterial({
-                        color: colorlst[colornum][3]
-                    });
-                    var tmesh = new THREE.Mesh(geometry12, material);
-                    tmesh.position.y = bh * 11
-                    tmesh.position.x = bw * (1.8)
-                    tmesh.position.z = bw * (0.7)
-                    // textMesh.position.x=0;
-                    tmesh.depth = 10;
-                    tmesh.rotation.x = -Math.PI / 8;
-                    tmesh.rotation.order = 'YXZ';
-                    tmesh.rotation.y = Math.PI / 4;
-                    var geometry12 = new TextGeometry(String(coin), {
-                        font: font0,
-                        size: bw / 10,
-                        height: th / 3
-                    });
-                    geometry12.computeBoundingBox();
-                    geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-                    var material = new THREE.MeshBasicMaterial({
-                        color: colorlst[colornum][3],
-                        transparent: true
-                    });
-                    var tmesh1 = new THREE.Mesh(geometry12, material);
-                    tmesh1.position.x = 4.5
-                    coinupdate.push(tmesh1)
-                    coinupdate.push(tmesh)
-                    // textMesh.position.x=0;
-                    // tmesh1.depth=10;
-                    tmesh.add(tmesh1)
-                    // tmesh1.position.y
-                    scene.add(tmesh)
+
+                    // var geometry12 = new TextGeometry("SCORE:" + String(점수), {
+                    //     font: font0,
+                    //     size: bw / 6,
+                    //     height: th / 3
+                    // });
+                    // geometry12.computeBoundingBox();
+                    // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+                    // var material = new THREE.MeshBasicMaterial({
+                    //     color: 0xffffff
+                    // });
+                    // var tmesh = new THREE.Mesh(geometry12, material);
+                    // tmesh.position.y = bh * 8
+                    // tmesh.position.x = bw * (1) + avx
+                    // tmesh.position.z = bw * (1) + avz
+                    // // textMesh.position.x=0;
+                    // tmesh.depth = 10;
+                    // tmesh.rotation.x = -Math.PI / 8;
+                    // tmesh.rotation.order = 'YXZ';
+                    // tmesh.rotation.y = Math.PI / 4;
+                    // // tmesh1.position.y
+                    // scene.add(tmesh)
+                    // coinupdate.push(tmesh)
+                    // var geometry12 = new TextGeometry("BEST:" + String(점수), {
+                    //     font: font0,
+                    //     size: bw / 6,
+                    //     height: th / 3
+                    // });
+                    // geometry12.computeBoundingBox();
+                    // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+                    // var material = new THREE.MeshBasicMaterial({
+                    //     color: 0xffffff
+                    // });
+                    // var tmesh = new THREE.Mesh(geometry12, material);
+                    // tmesh.position.y = bh * 6.8
+                    // tmesh.position.x = bw * (1) + avx
+                    // tmesh.position.z = bw * (1) + avz
+                    // // textMesh.position.x=0;
+                    // tmesh.depth = 10;
+                    // tmesh.rotation.x = -Math.PI / 8;
+                    // tmesh.rotation.order = 'YXZ';
+                    // tmesh.rotation.y = Math.PI / 4;
+                    // // tmesh1.position.y
+                    // scene.add(tmesh)
+                    // coinupdate.push(tmesh)
+                    // var geometry12 = new TextGeometry("★ :", {
+                    //     font: font0,
+                    //     size: bw / 10,
+                    //     height: th / 3
+                    // });
+                    // geometry12.computeBoundingBox();
+                    // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+                    // var material = new THREE.MeshBasicMaterial({
+                    //     color: colorlst[colornum][3]
+                    // });
+                    // var tmesh = new THREE.Mesh(geometry12, material);
+                    // tmesh.position.y = bh * 11
+                    // tmesh.position.x = bw * (1.8)
+                    // tmesh.position.z = bw * (0.7)
+                    // // textMesh.position.x=0;
+                    // tmesh.depth = 10;
+                    // tmesh.rotation.x = -Math.PI / 8;
+                    // tmesh.rotation.order = 'YXZ';
+                    // tmesh.rotation.y = Math.PI / 4;
+                    // var geometry12 = new TextGeometry(String(coin), {
+                    //     font: font0,
+                    //     size: bw / 10,
+                    //     height: th / 3
+                    // });
+                    // geometry12.computeBoundingBox();
+                    // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+                    // var material = new THREE.MeshBasicMaterial({
+                    //     color: colorlst[colornum][3],
+                    //     transparent: true
+                    // });
+                    // var tmesh1 = new THREE.Mesh(geometry12, material);
+                    // tmesh1.position.x = 4.5
+                    // coinupdate.push(tmesh1)
+                    // coinupdate.push(tmesh)
+                    // // textMesh.position.x=0;
+                    // // tmesh1.depth=10;
+                    // tmesh.add(tmesh1)
+                    // // tmesh1.position.y
+                    // scene.add(tmesh)
 
                 }
 
@@ -10154,6 +10166,20 @@
             fps = Math.floor(1 / (elapsed / 1000));
             elapsedTime += clock.getDelta();
             var txtcount = parseInt(elapsedTime * 20) % 100
+            if(gameoverflag){
+              var txtcount2 = parseInt(elapsedTime * 3) % 1000
+              var temp0=document.querySelectorAll(".gameover");
+              if(txtcount2%2==0){
+                temp0[0].children[1].style.backgroundImage = 'url("png/green_button09.png")'
+                // temp0[1].children[1].style.backgroundImage = 'url("png/blue_button09.png")'
+
+
+              }else{
+                temp0[0].children[1].style.backgroundImage = 'url("png/red_button08.png")'
+                // temp0[1].children[1].style.backgroundImage = 'url("png/red_button08.png")'
+              }
+            }
+
             // if(txtcount==0){
             // 	for(let i=0;i<6;i++){
             // 			if(i==activeFloor) continue
@@ -10167,6 +10193,8 @@
             // }
             if (skin0 && skinflag) {
                 if (txtcount != txttimebuf) {
+
+
                     const positions0 = particles.geometry.attributes.position.array;
                     // const size0 = particles.geometry.attributes.size.array;
                     const scales0 = particles.geometry.attributes.scale.array;
@@ -10600,6 +10628,7 @@
                                     camera.lookAt.z=0
 
                                   }else{
+                                    // forceAmount=1000;
                                     var force = new CANNON.Vec3();
                                     // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                                     switch (item.direction) {
@@ -10899,9 +10928,16 @@
 
 
             if (!gameoverflag) {
-                if(gamemod!=2){
+
                   cubes.forEach((item, index) => {
-                      if (index > 3 && item.mesh.position.y < bh * 4) {
+                      var tempheight;
+                      if(gamemod==2){
+                        tempheight=bh*(index-4)
+                      }else{
+                        tempheight=bh*4
+                      }
+
+                      if (index > 3 && item.mesh.position.y < tempheight) {
                           // overlimit++;
                           if(!gameoverflag){
                             gameoverflag = true;
@@ -10911,6 +10947,25 @@
                             document.getElementById("gameover-overlay").classList.remove("hidden");
                             document.getElementById("gameover-overlay").classList.add("show");
 
+                            var temp1=document.querySelectorAll(".gameover");
+
+                            temp1.forEach((item, i) => {
+                              item.style.opacity=0;
+
+                            });
+
+                            if(gamemod==2){
+                              document.querySelector(".gameinfo0").innerText="floor: "+String(cubes.length-3)+"\nbest: "+String(parseInt(20));
+                            }else{
+                              document.querySelector(".gameinfo0").innerText="point: "+String(점수)+"\nbest: "+String(parseInt(985));
+                            }
+
+                            document.getElementById('song-info').classList.remove("show1");
+                            document.getElementById('song-info').classList.add("hidden");
+
+                            showinfo();
+
+
                             activeFloor = cubes.length;
 
 
@@ -10918,7 +10973,7 @@
 
                       }
                   })
-                }
+
 
             }
 
@@ -15164,6 +15219,73 @@
             return byteArray;
         }
 
+        function showinfo(){
+          document.getElementById("coin-info").classList.remove("fade");
+          document.getElementById("coin-info").classList.add("show");
+
+
+          setTimeout(function() {
+            document.getElementById("coin-info").classList.remove("hidden");
+
+            document.getElementById("코인").classList.remove("fade");
+
+            document.getElementById("코인").classList.add("show");
+
+            document.getElementById("기본").classList.remove("fade");
+
+            document.getElementById("기본").classList.add("show");
+            document.getElementById("기본").children[0].innerText="포인트 :";
+            if(gamemod==2){
+              document.getElementById("기본").children[1].innerText=String(parseInt(cubes.length-3)*2)+"★";
+            }else{
+              document.getElementById("기본").children[1].innerText=String(parseInt(점수/10))+"★";
+            }
+
+            setTimeout(function() {
+                document.getElementById("시간").classList.remove("fade");
+                document.getElementById("시간").children[0].innerText="시간 : "
+                if(gamemod==2){
+                  document.getElementById("시간").children[1].innerText=String(parseInt(parseInt(elapsedTime)/10))+"★"
+                }else{
+                  document.getElementById("시간").children[1].innerText=String(parseInt(parseInt(elapsedTime)/10))+"★"
+                }
+
+                document.getElementById("시간").classList.add("show");
+                var temp1=document.querySelectorAll(".gameover");
+                temp1.forEach((item, i) => {
+                  item.classList.add("hidden");
+                  item.style.opacity=1;
+                  item.classList.remove("hidden");
+                  item.classList.add("show");
+
+                });
+
+                setTimeout(function() {
+                  document.getElementById("총획득").classList.remove("fade");
+                  document.getElementById("총획득").classList.remove("hidden");
+                  document.getElementById("총획득").children[0].innerText="★ TOTAL : "
+                  if(gamemod==2){
+                    document.getElementById("총획득").children[1].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(cubes.length-3)*2)+"★"
+                  }else{
+                    document.getElementById("총획득").children[1].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10))+"★"
+                  }
+
+                  document.getElementById("총획득").classList.add("show");
+
+
+
+
+                // document.getElementById("max").classList.remove("fade");
+                //
+                // document.getElementById("max").classList.add("show");
+
+
+              }, 250);
+              }, 250);
+            }, 250);
+
+
+        }
         function skinplay() {
             const button1 = document.getElementById('button1');
             const button2 = document.getElementById('button2');
@@ -15175,7 +15297,7 @@
             rotationflag = true
             restartflag = true
             pluscoin = parseInt(점수 / 10);
-            coin += pluscoin;
+            // coin += pluscoin;
             for (var i = 0; i < cubes.length; i++) {
                 restartloc.push(cubes[i].mesh.position);
                 restartrot.push(cubes[i].mesh.rotation);
@@ -15256,7 +15378,7 @@
             rotationflag = true;
             restartflag = true;
             pluscoin = parseInt(점수 / 10)
-            coin += pluscoin;
+            // coin += pluscoin;
             for (var i = 0; i < cubes.length; i++) {
                 restartloc.push(cubes[i].mesh.position);
                 restartrot.push(cubes[i].mesh.rotation);
@@ -15289,7 +15411,7 @@
             rotationflag = true
             restartflag = true
             pluscoin = 2 * parseInt(점수 / 10)
-            coin += pluscoin;
+            // coin += pluscoin;
             for (var i = 0; i < cubes.length; i++) {
                 restartloc.push(cubes[i].mesh.position);
                 restartrot.push(cubes[i].mesh.rotation);
@@ -15341,7 +15463,7 @@
                         rotationflag = true
                         restartflag = true
                         pluscoin = parseInt(점수 / 10)
-                        coin += pluscoin;
+                        // coin += pluscoin;
                         for (var i = 0; i < cubes.length; i++) {
                             restartloc.push(cubes[i].mesh.position);
                             restartrot.push(cubes[i].mesh.rotation);
@@ -15383,7 +15505,7 @@
                         rotationflag = true
                         restartflag = true
                         pluscoin = parseInt(점수 / 10)
-                        coin += pluscoin;
+                        // coin += pluscoin;
                         for (var i = 0; i < cubes.length; i++) {
                             restartloc.push(cubes[i].mesh.position);
                             restartrot.push(cubes[i].mesh.rotation);
@@ -15425,7 +15547,7 @@
                         rotationflag = true
                         restartflag = true
                         pluscoin = parseInt(점수 / 10)
-                        coin += pluscoin;
+                        // coin += pluscoin;
                         for (var i = 0; i < cubes.length; i++) {
                             restartloc.push(cubes[i].mesh.position);
                             restartrot.push(cubes[i].mesh.rotation);
@@ -15462,11 +15584,13 @@
                     setTimeout(function() {
                         document.getElementById("gameover-overlay").classList.add("hidden");
                     }, 100);
+                    coin+=parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10);
+                    document.getElementById("coin2").innerText=String(coin);
                     if (!rotationflag) {
                         rotationflag = true
                         restartflag = true
                         pluscoin = parseInt(점수 / 10)
-                        coin += pluscoin;
+                        // coin += pluscoin;
                         for (var i = 0; i < cubes.length; i++) {
                             restartloc.push(cubes[i].mesh.position);
                             restartrot.push(cubes[i].mesh.rotation);
@@ -15507,7 +15631,7 @@
                         rotationflag = true
                         restartflag = true
                         pluscoin = parseInt(점수 / 10)
-                        coin += pluscoin;
+                        // coin += pluscoin;
                         for (var i = 0; i < cubes.length; i++) {
                             restartloc.push(cubes[i].mesh.position);
                             restartrot.push(cubes[i].mesh.rotation);
@@ -15560,7 +15684,7 @@
                     rotationflag = true
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
-                    coin += pluscoin;
+                    // coin += pluscoin;
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -15653,7 +15777,7 @@
                         rotationflag = true
                         restartflag = true
                         pluscoin = parseInt(점수 / 10)
-                        coin += pluscoin;
+                        // coin += pluscoin;
                         for (var i = 0; i < cubes.length; i++) {
                             restartloc.push(cubes[i].mesh.position);
                             restartrot.push(cubes[i].mesh.rotation);
@@ -16069,7 +16193,7 @@
                     rotationflag = true
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
-                    coin += pluscoin;
+                    // coin += pluscoin;
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -16379,9 +16503,31 @@
     </div>
     <div id="gameover-overlay" class="gameover-overlay hidden">
         <div class="gameover-container">
+            <div class="gameinfo0">
 
+            </div>
+
+            <div class="gameinfo">
+            <h1 id="코인">★ 획득</h1>
+            <hr margin="0px" size="5px" width="95%"/>
+            <span id="기본" class="hidden">
+            <label class="a"> </label>
+            <label class="b"> </label>
+            </span>
+
+            <span id="시간" class="hidden">
+            <label class="a"> </label>
+            <label class="b"> </label>
+            </span>
+            <hr margin="0px" size="5px" width="95%"/>
+
+            <span id="총획득" class="hidden">
+            <label class="c">획득 코인:</label>
+            <label class="d"> </label>
+            </span>
+            </div>
             <div class="gameover">
-                <label class="glabel">RETRY</label>
+                <label class="glabel">Claim & retry</label>
                 <button id="restartbtn" class="gameoverbt">
                     <img src="png/return.png" id="rightimg">
                 </button>
@@ -16392,7 +16538,6 @@
                 <label class="glabel">VIEW ADS & COINS 2x </label>
                 <button id="" class="gameoverbt">
                     <img src="png/movie.png" id="rightimg">
-
                 </button>
             </div>
 
