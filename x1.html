@@ -10953,6 +10953,11 @@
                               item.style.opacity=0;
 
                             });
+                            document.getElementById("총획득").classList.add("hidden");
+                            document.getElementById("코인").classList.add("hidden");
+                            document.getElementById("기본").classList.add("hidden");
+                            document.getElementById("시간").classList.add("hidden");
+
 
                             if(gamemod==2){
                               document.querySelector(".gameinfo0").innerText="floor: "+String(cubes.length-3)+"\nbest: "+String(parseInt(20));
@@ -10962,6 +10967,9 @@
 
                             document.getElementById('song-info').classList.remove("show1");
                             document.getElementById('song-info').classList.add("hidden");
+
+
+
 
                             showinfo();
 
@@ -15219,6 +15227,10 @@
             return byteArray;
         }
 
+
+
+
+
         function showinfo(){
           document.getElementById("coin-info").classList.remove("fade");
           document.getElementById("coin-info").classList.add("show");
@@ -15228,11 +15240,11 @@
             document.getElementById("coin-info").classList.remove("hidden");
 
             document.getElementById("코인").classList.remove("fade");
-
+            document.getElementById("코인").classList.remove("hidden");
             document.getElementById("코인").classList.add("show");
 
             document.getElementById("기본").classList.remove("fade");
-
+            document.getElementById("기본").classList.remove("hidden");
             document.getElementById("기본").classList.add("show");
             document.getElementById("기본").children[0].innerText="포인트 :";
             if(gamemod==2){
@@ -15249,8 +15261,9 @@
                 }else{
                   document.getElementById("시간").children[1].innerText=String(parseInt(parseInt(elapsedTime)/10))+"★"
                 }
-
                 document.getElementById("시간").classList.add("show");
+                document.getElementById("시간").classList.remove("hidden");
+
                 var temp1=document.querySelectorAll(".gameover");
                 temp1.forEach((item, i) => {
                   item.classList.add("hidden");
