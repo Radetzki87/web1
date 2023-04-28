@@ -110,7 +110,11 @@
           height: 100%;
           background-color: rgba(0, 0, 0, 0.8);
         } */
-
+          #lowerbtn{
+            position: absolute;
+            bottom:1%;
+            display: inline-flex;
+          }
 
           .lockimg{
             position: absolute;
@@ -657,16 +661,16 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            position: absolute;
-            bottom: 1vh;
+            /* position: absolute; */
+            /* bottom: 1vh; */
             font-family: 'GG';
-            width: 75vw;
+            width: 65vw;
             height: 21vw;
             /*background-color: #ccc;*/
             /*width:500px;*/
             background-color: transparent;
             background-image: url("png/blue_button00.png");
-            background-size: 75vw 21vw;
+            background-size: 65vw 21vw;
             border: none;
             border-radius: 5px;
             color: #000;
@@ -690,9 +694,56 @@
         .pbutton:active {
             background-image: url("png/blue_button01.png");
             transform: translate(0, 2vw);
-            width: 75vw;
+            width: 65vw;
             height: 19vw;
-            background-size: 75vw 19vw;
+            background-size: 65vw 19vw;
+            /*margin-bottom: 5vw;*/
+            /*color: rgba(255, 0, 255, 0.0);*/
+            /*font-size: 0;*/
+        }
+
+        .sbutton {
+            margin-left: 3vw;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            /* position: absolute; */
+            /* bottom: 1vh; */
+            font-family: 'GG';
+            width: 21vw;
+            height: 21vw;
+            /*background-color: #ccc;*/
+            /*width:500px;*/
+            background-color: transparent;
+            background-image: url("png/yellow_button11.png");
+            background-size: 21vw 21vw;
+            border: none;
+            border-radius: 5px;
+            color: #000;
+            cursor: pointer;
+            font-size: 3vw;
+            margin-bottom: 3vw;
+            padding: 0 0;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .sbutton img {
+            /* margin-right: 4vw; */
+            width: 10vw;
+        }
+
+        .sbutton h1 {
+            display: none;
+        }
+
+        .sbutton:active {
+            background-image: url("png/yellow_button12.png");
+            transform: translate(0, 2vw);
+            width: 21vw;
+            height: 19vw;
+            background-size: 21vw 19vw;
             /*margin-bottom: 5vw;*/
             /*color: rgba(255, 0, 255, 0.0);*/
             /*font-size: 0;*/
@@ -1537,7 +1588,7 @@
         let txts = [];
         window.txts = txts
         let txtlst = [];
-        let guideflag = false;
+        let guideflag = true;
         var guide = [];
         var ring = []
         var soundon = true;
@@ -4883,7 +4934,7 @@
               // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
 
             }else if (gamemod==1){
-              cubes[3].body.material.friction = 0.3;
+              cubes[3].body.material.friction = 0.2;
               cubes[3].body.material.restitution = 0.4;
               stack=5;
               forceAmount = bw * bw * bh / 20;
@@ -5034,6 +5085,11 @@
                   ambientLight.intensity=0.4
                   dl2.color=new THREE.Color(0xffffff);
                   dl2.intensity=0.75
+                  if(gamemod==2){
+                    dl2.intensity=0.65
+
+                    // dl2.position.set(40, 200, 160);
+                  }
 
 
                   // dl2.position.set(-40, 50, -20);
@@ -5099,7 +5155,7 @@
             //   document.getElementById("right").classList.add("show")
             // }
             if(gamemod==2) {
-              var temp0=[7]
+              var temp0=[0]
               skinnum = temp0[parseInt(Math.random()*temp0.length)];
               camera.position.y= bh * (cubes.length+0.5)
             }else{
@@ -10834,12 +10890,28 @@
                             document.getElementById("gameover-overlay").classList.add("show");
 
                             activeFloor = cubes.length;
+
+
                           }
 
                       }
                   })
                 }
 
+            }
+
+            if(gameoverflag){
+              for (var i = 0; i < 5; i++) {
+                cubes[i].mesh.children.forEach((item, i) => {
+                  if(item.userData["skin"]=="tile"){
+                    item.material.visible=false;
+                  }else if(item.userData["skin"]==skinset[skinnum]){
+                    item.material.opacity=1;
+                    item.material.alphaTest=1;
+                  }
+                });
+
+              }
             }
 
 
@@ -11443,10 +11515,15 @@
                 } else {
                     for (var i = 0; i < cubes.length; i++) {
                         cubes[i].mesh.children.forEach((item) => {
-                          if (i>=activeFloor&&item.userData["skin"]==skinset[skinnum]) {
-                            item.receiveShadow = false;
-                            item.castShadow = false;
-                            item.material.visible=false;
+                          if (item.userData["skin"]==skinset[skinnum]) {
+                            if(i>=activeFloor){
+                              item.material.visible=false;
+                            }else{
+                              item.receiveShadow = false;
+                              item.castShadow = false;
+                            }
+
+
                           }
                         });
 
@@ -15494,6 +15571,10 @@
 
 
             playbtn.addEventListener('click', function() {
+              var ptxt = playbtn.children[2].innerText;
+              if (ptxt[0] == "3") {
+                return;
+              }
                 playbtn.classList.remove("show");
                 playbtn.classList.add("fade");
                 document.getElementById("categ1").classList.remove("show");
@@ -15517,13 +15598,13 @@
                     document.getElementById("left").classList.add("show");
                     document.getElementById("right").classList.add("show");
                 }, 100);
-                var ptxt = playbtn.children[2].innerText;
+
                 if (ptxt[0] == "2") {
                     if(!playbtn.classList.contains("hidden")) playbtn.classList.add("hidden")
 
                     var ptitle = ptxt.substring(2, ptxt.length)
                     for (let i = 0; i < 6; i++) {
-                        if (soundic[sdic[i][0]].isPlaying) {
+                        if (soundic[sdic[i][0]]?.isPlaying) {
                             soundic[sdic[i][0]].stop();
                         }
                     }
@@ -15847,9 +15928,15 @@
             var pimg = document.querySelectorAll(".pbutton>img");
             var pcode = document.querySelectorAll(".pbutton>h1");
 
+
+
             document.getElementById('pbt').classList.remove("fade")
             document.getElementById('pbt').classList.remove("hidden")
             document.getElementById('pbt').classList.add("show")
+
+            document.getElementById('pbt2').classList.remove("fade")
+            document.getElementById('pbt2').classList.remove("hidden")
+            document.getElementById('pbt2').classList.add("show")
 
             console.log(gridlst[n].children[2].innerText);
             if (n > 1) {
@@ -15883,6 +15970,8 @@
                     pcode[0].innerText = "";
                 }
             }
+
+
             if (templst[0].type == "wooden") {
                 pimg[0].src = "png/" + imglst1[0]
             } else if (templst[0].type == "lofi") {
@@ -16081,6 +16170,55 @@
             console.log("shop")
         }
 
+        function pbton(n) {
+            var code=document.getElementById("pbt").children[2].innerText;
+            if(code[0]=="3"){
+              var gridlst = document.querySelectorAll("#categ1>.grid >div");
+              var item=nslst[code.substring(2, code.length)];
+              item.unlock=0;
+              coin-=parseInt(item.price);
+              console.log(coin)
+              document.getElementById("pbt").style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
+              document.getElementById("pbt").children[1].innerText = item.title + "\n Play ▶"
+              setTimeout(function() {
+                document.getElementById("pbt").children[2].innerText="2 "+item.name;
+              }, 50);
+
+              var c=0;
+              gridlst.forEach((obj, i) => {
+
+                // console.log(obj.children[2].innerText.split("\n")[0]+":::"+item.title);
+
+                if (obj.children[2].innerText.split("\n")[0]==item.title) {
+                  obj.classList.remove("locked");
+                  obj.children[1].style.display="none";
+                  obj.children[3].style.color="white";
+                }
+
+                if(i>1&&!obj.classList.contains("locked")){
+                  c++;
+                }
+              });
+
+              if(c>=3){
+                gridlst[0].classList.remove("locked");
+                gridlst[0].children[1].style.display="none";
+                gridlst[0].children[3].style.color="white";
+
+
+              }
+              if(c>=5){
+                gridlst[1].classList.remove("locked");
+                gridlst[1].children[1].style.display="none";
+                gridlst[1].children[3].style.color="white";
+
+              }
+
+            }
+        }
+
+
+
     </script>
 
     <div id="tutorial" class="hidden">
@@ -16215,10 +16353,8 @@
                 <img src="png/return.png" id="rightimg">
                 <label class="glabel">retry</label>
             </button>
-
         </div>
     </div>
-
     <div id="gameover-overlay" class="gameover-overlay hidden">
         <div class="gameover-container">
 
@@ -16240,8 +16376,6 @@
 
         </div>
     </div>
-
-
     <div id="options-overlay" class="options-overlay hidden">
         <div class="container">
             <div id="step1">
@@ -16414,11 +16548,17 @@
                     </div>
                     <!-- Add more characters -->
                 </div>
-                <button class="pbutton hidden" onclick="" id="pbt">
-                    <img src="png/s000.png" alt="Character 2">
-                    <label>Play</label>
-                    <h1>a</h1>
-                </button>
+                <span id="lowerbtn">
+                  <button class="pbutton hidden" onclick="pbton()" id="pbt">
+                      <img src="" alt="Character 2">
+                      <label>Play</label>
+                      <h1>a</h1>
+                  </button>
+                  <button class="sbutton hidden" onclick="" id="pbt2">
+                      <img src="png/musicOn.png" alt="">
+                      <label></label>
+                  </button>
+                </span>
             </div>
 
             <div id="step3" class="hidden">
@@ -16431,9 +16571,7 @@
                     <button class="button arrow-right" onclick="alert('Switch to next character')">&gt;</button>
                 </div>
             </div>
-
         </div>
-
         <div class="lower hidden"> </div>
     </div>
 
@@ -16442,7 +16580,6 @@
         <img class="" src="png/return.png">
         </button>
         <div class="mod-container">
-
             <div class="mod">
                 <button id="mod0" class="modbt">
                     <img src="png/joystick.png" id="rightimg">
@@ -16455,7 +16592,6 @@
             <div class="mod">
                 <button id="mod1" class="modbt" onclick="">
                     <img src="png/joystickRight.png" id="rightimg">
-
                 </button>
                 <label class="mlabel">HARD</label>
                 <b>어려움</b>
