@@ -373,6 +373,8 @@
             transition: opacity 0.1s ease;
         }
 
+
+
         @font-face {
             font-family: 'GG';
             /*글꼴*/
@@ -801,6 +803,50 @@
 
         }
 
+        #pop-info{
+          font-size: 5vw;
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          z-index: 2;
+          background-color: rgba(50, 50, 50, 0.6);
+          /* opacity:0.6; */
+          border-radius: 4vw;
+          border: 0px solid #000;
+          top:2vw;
+          left: 30vw;
+          width: 41%;
+          height: 8vw;
+          justify-content: center;
+          /* align-items: center; */
+          margin-bottom: 5vw;
+          padding-left: 2vw;
+          transition: opacity 0.4s, top 0.4s;
+        }
+
+
+        #popline1 {
+          display: inline-flex;
+          align-items: left;
+          color:rgba(255, 255, 255, 0.8);
+
+
+        }
+
+        #popline1 .p1{
+          margin-left:0.5vw;
+        }
+
+        #popline1 .p2{
+            margin-left: 2vw;
+        }
+
+        #popline1 .p3{
+            margin-top: 0.5vw;
+            position: absolute;
+            left:57%;
+        }
+
         .gameover-overlay {
             /*overflow-y: scroll;*/
             position: absolute;
@@ -867,31 +913,49 @@
             margin-bottom: 0vw;
             margin-top: 0vw;
             padding-left: 2vw;
+
         }
 
         .gameinfo span{
             font-size: 4vw;
             padding-left: 2vw;
             display: inline-flex;
+            /* justify-content: center; */
         }
 
         .gameinfo .a{
-
+          font-size: 4vw;
         }
 
         .gameinfo .b{
-            position: absolute;
-            left:70%;
+          color: #ccc;
+          font-size: 4vw;
+          margin-left: 2vw;
+          margin-top: 0.5vw;
         }
 
         .gameinfo .c{
-          font-size: 5vw;
-          margin-top: 3vw;
+          font-size: 4vw;
+          position: absolute;
+          left:70%;
         }
 
         .gameinfo .d{
           font-size: 5vw;
-            margin-top: 3vw;
+          margin-top: 1vw;
+        }
+
+        .gameinfo .e{
+            font-size: 5vw;
+            margin-left: 2vw;
+            margin-top: 1vw;
+
+
+        }
+
+        .gameinfo .f{
+            font-size: 5vw;
+            margin-top: 1vw;
             position: absolute;
             left:69%;
         }
@@ -1465,12 +1529,16 @@
         var gamemod=0;
         window.gamemod=gamemod;
 
+        var maxnum;
+        var endsound;
         var originflag=false;
         var sideback=[];
         var stacktime;
         var stacknum=[0,0,0,0,8,8,16,16,32,32,64,64,128,128,256,256,512,512,1024,1024,2048,2048,2048,2048,2048,2048]
 
         var greylst=[27,26,4,1,3,30,40,46,20,39,16,38,23]
+
+        var esound=["ESM_Atmospheric_Upgrade_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.wav","ESM_Atmospheric_Upgrade_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.wav","ESM_Atmospheric_Upgrade_3_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.wav","ESM_Atmospheric_Upgrade_4_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.wav","ESM_Plucky_Level_Complete_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.wav"];
 
 
         var avx=0;
@@ -3470,7 +3538,10 @@
                           }
                       }
                       if(full){
+
                         this.fullflag=true;
+                        showpop("층 잠금:","","+500pt")
+                        점수+=500;
                         cubes[this.index].mesh.children.forEach((item) => {
                           if(item.userData["skin"]=="tile"){
                             var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][this.index]))
@@ -4729,6 +4800,7 @@
                     }
                 }
             } else if (event.code === 'KeyS') {
+              // showpop("층","","+500pt")
                 if(!originflag){
                   listener= new THREE.AudioListener();
                   msetting0(function(object) {
@@ -5271,6 +5343,8 @@
 
             }
             점수=0;
+            maxnum=0;
+            soundic[endsound].setVolume(0.4)
             resetting(stack, function(object) { //재시작
                 msetting(function(object) {
                     if(gamemod!=2){
@@ -8587,7 +8661,7 @@
                         audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/sound/' + sdic[i][temp[j]], function(buffer) {
                             var sound = new THREE.Audio(listener);
                             sound.setBuffer(buffer);
-                            sound.setVolume(0.3);
+                            sound.setVolume(0.4);
                             soundic[sdic[i][temp[j]]] = sound;
                             if (j == 0) sound.setLoop(true);
 
@@ -8595,6 +8669,22 @@
                     }
                 }
             }
+
+            for (let j = 0; j < esound.length; j++) {
+                if (sdickeys.indexOf(esound[j]) == -1) {
+                    // var listener = new THREE.AudioListener();
+                    // var audioLoader = new THREE.AudioLoader();
+                    audioLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/sound/' + esound[j], function(buffer) {
+                        var sound = new THREE.Audio(listener);
+                        sound.setBuffer(buffer);
+                        sound.setVolume(0.3);
+                        soundic[esound[j]] = sound;
+
+
+                    });
+                }
+            }
+
             if (callback) {
                 callback();
             }
@@ -8656,7 +8746,7 @@
             // backmesh.rotation.z = Math.PI/2;
             backmesh.position.z = -20;
             backmesh.position.x = 70;
-            backmesh.position.y = 10;
+            backmesh.position.y = 345;
 
             scene.add(backmesh);
             sideback.push(backmesh)
@@ -8672,7 +8762,7 @@
             // backmesh.rotation.z = Math.PI/2;
             backmesh.position.z = 70;
             backmesh.position.x = -40;
-            backmesh.position.y = 10;
+            backmesh.position.y = 345;
 
             scene.add(backmesh);
             sideback.push(backmesh)
@@ -9700,6 +9790,8 @@
                     }, 100);
                 }
                 점수=0;
+                maxnum=0;
+                // soundic[endsound].setVolume(0.4);
                 setting(stack, function(object) { //시작
                     addring();
                     tsetting(function(object) {
@@ -10549,6 +10641,7 @@
                             // type();
                             // console.log(ftiles)
                             var num = parseInt(item.body.board[item.c][item.d])
+                            if(num>maxnum) maxnum=num
                             점수+=num;
                             // item.body.boardpointer[item.c][item.d].userData["text"]=String(num*2);
                             cubes[item.index].mesh.remove(item.body0);
@@ -10867,6 +10960,23 @@
                     item.material.visible = false;
                 })
             }
+
+
+            if(parseInt(elapsedTime*300)==300*60){
+              showpop("1분 경과:","","+300pt",0)
+              점수+=100;
+            }
+
+            if(parseInt(elapsedTime*300)==300*360){
+              showpop("3분 경과:","","+300pt",0)
+              점수+=300;
+            }
+
+            if(parseInt(elapsedTime*300)==300*600){
+              showpop("10분 경과:","","+300pt",0)
+              점수+=1000;
+            }
+
             if(elapsedTime - stacktime > 1.3&&elapsedTime - stacktime < 1.31){
               console.log(sdic);
               console.log(cubes);
@@ -10980,6 +11090,9 @@
                           // overlimit++;
                           if(!gameoverflag){
                             gameoverflag = true;
+                            endsound=sdic[activeFloor][0];
+                            soundic[sdic[activeFloor][0]].setVolume(0.15);
+                            soundic[esound[4]].play();
                             topcam = false;
 
                             document.getElementById("gameover-overlay").classList.remove("fade");
@@ -10995,6 +11108,8 @@
                             document.getElementById("총획득").classList.add("hidden");
                             document.getElementById("코인").classList.add("hidden");
                             document.getElementById("기본").classList.add("hidden");
+                            document.getElementById("full").classList.add("hidden");
+                            document.getElementById("max").classList.add("hidden");
                             document.getElementById("시간").classList.add("hidden");
 
 
@@ -11803,20 +11918,20 @@
                     sideViewCamera.top = bw / 1.05+3*(cubes.length-9)
                     sideViewCamera.bottom = -bw / 1.05-3*(cubes.length-9)
 
-                    frontalViewCamera.position.set(avx, bw * (0.8)+bh*(cubes.length-9), bw * 1.5);
+                    frontalViewCamera.position.set(avx, bw * (0.8)+bh*(cubes.length-9), bw * 3);
                     frontalViewCamera.lookAt(avx, bw * (0.8)+bh*(cubes.length-9), 0);
-                    sideViewCamera.position.set(bw * 1.5, bw * (0.8)+bh*(cubes.length-9), avz);
+                    sideViewCamera.position.set(bw * 3, bw * (0.8)+bh*(cubes.length-9), avz);
                     sideViewCamera.lookAt(0, bw * (0.8)+bh*(cubes.length-9), avz);
                   }else{
-                    frontalViewCamera.position.set(avx, bw * 0.8, bw * 1.5);
+                    frontalViewCamera.position.set(avx, bw * 0.8, bw * 3);
                     frontalViewCamera.lookAt(avx, bw * 0.8, 0);
-                    sideViewCamera.position.set(bw * 1.5, bw * 0.8, avz);
+                    sideViewCamera.position.set(bw * 3, bw * 0.8, avz);
                     sideViewCamera.lookAt(0, bw * 0.8, avz);
                   }
                 }else{
-                  frontalViewCamera.position.set(avx, bw * 0.8, bw * 1.5);
+                  frontalViewCamera.position.set(avx, bw * 0.8, bw * 3);
                   frontalViewCamera.lookAt(avx, bw * 0.8, 0);
-                  sideViewCamera.position.set(bw * 1.5, bw * 0.8, avz);
+                  sideViewCamera.position.set(bw * 3, bw * 0.8, avz);
                   sideViewCamera.lookAt(0, bw * 0.8, avz);
                 }
 
@@ -15344,8 +15459,24 @@
             return byteArray;
         }
 
+        function showpop(t1="", t2="", t3="",idx=0){
+          soundic[esound[idx]].play();
 
 
+          document.getElementById("pop-info").style.top="2vw";
+          document.getElementById("pop-info").classList.remove("hidden");
+          document.getElementById("pop-info").classList.remove("fade");
+          document.getElementById("pop-info").classList.add("show");
+          document.getElementById("pop-info").style.backgroundColor=hexToHtmlColor(colorlst[colornum][3]);
+          document.getElementById("pop-info").style.opacity=0.6;
+          document.getElementById("popline1").style.color=hexToHtmlColor(colorlst[colornum][2]);
+          document.getElementById("popline1").children[0].innerText=t1;
+          document.getElementById("popline1").children[1].innerText=t2;
+          document.getElementById("popline1").children[2].innerText=t3;
+          setTimeout(function() {
+            document.getElementById("pop-info").style.top="-10vw";
+          }, 1500);
+        }
 
 
         function showinfo(){
@@ -15365,54 +15496,91 @@
             document.getElementById("기본").classList.add("show");
             document.getElementById("기본").children[0].innerText="포인트 :";
             if(gamemod==2){
-              document.getElementById("기본").children[1].innerText=String(parseInt(cubes.length-3)*2)+"★";
+              document.getElementById("기본").children[2].innerText=String(parseInt(cubes.length-3)*2)+"★";
             }else{
-              document.getElementById("기본").children[1].innerText=String(parseInt(점수/10))+"★";
+              document.getElementById("기본").children[2].innerText=String(parseInt(점수/10))+"★";
             }
 
             setTimeout(function() {
                 document.getElementById("시간").classList.remove("fade");
                 document.getElementById("시간").children[0].innerText="시간 : "
                 if(gamemod==2){
-                  document.getElementById("시간").children[1].innerText=String(parseInt(parseInt(elapsedTime)/10))+"★"
+                  document.getElementById("시간").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10))+"★"
                 }else{
-                  document.getElementById("시간").children[1].innerText=String(parseInt(parseInt(elapsedTime)/10))+"★"
+                  document.getElementById("시간").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10))+"★"
                 }
                 document.getElementById("시간").classList.add("show");
                 document.getElementById("시간").classList.remove("hidden");
-
-                var temp1=document.querySelectorAll(".gameover");
-                temp1.forEach((item, i) => {
-                  item.classList.add("hidden");
-                  item.style.opacity=1;
-                  item.classList.remove("hidden");
-                  item.classList.add("show");
-
-                });
-
                 setTimeout(function() {
-                  document.getElementById("총획득").classList.remove("fade");
-                  document.getElementById("총획득").classList.remove("hidden");
-                  document.getElementById("총획득").children[0].innerText="★ TOTAL : "
-                  if(gamemod==2){
-                    document.getElementById("총획득").children[1].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(cubes.length-3)*2)+"★"
-                  }else{
-                    document.getElementById("총획득").children[1].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10))+"★"
+                  if(maxnum!=0){
+                    document.getElementById("max").classList.remove("fade");
+                    document.getElementById("max").classList.remove("hidden");
+                    document.getElementById("max").classList.add("show");
+                    document.getElementById("max").children[0].innerText="최대숫자 :";
+                    document.getElementById("max").children[1].innerText=String(maxnum);
+                    document.getElementById("max").children[2].innerText=String(parseInt(maxnum))+"★";
                   }
+                    var fullcount=0;
+                    for(var i=0;i<cubes.length;i++){
+                      if(cubes[i].mesh.userData["game2048"].fullflag) fullcount++;
+                    }
+                    if(fullcount>0){
+                      setTimeout(function() {
+                          document.getElementById("full").classList.remove("fade");
+                          document.getElementById("full").classList.remove("hidden");
+                          document.getElementById("full").classList.add("show");
+                          if(fullcount==5){
+                            document.getElementById("full").children[0].innerText="꽉채움:  "+String(fullcount)+"!!";
+                            document.getElementById("full").children[2].innerText=String(parseInt(500))+"★"
+                          }else{
+                            document.getElementById("full").children[0].innerText="꽉채움:  "+String(fullcount)
+                            document.getElementById("full").children[2].innerText=String(parseInt(fullcount*30))+"★"
+                          }
+                          setTimeout(function() {
+                            document.getElementById("총획득").classList.remove("fade");
+                            document.getElementById("총획득").classList.remove("hidden");
+                            document.getElementById("총획득").children[0].innerText="★ TOTAL : "
+                            if(gamemod==2){
+                              document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(cubes.length-3)*2)+"★"
+                            }else{
+                              document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10))+"★"
+                            }
+                            document.getElementById("총획득").classList.add("show");
+                          }, 250);
+                      }, 250);
+                    }else{
+                      var temp1=document.querySelectorAll(".gameover");
+                      temp1.forEach((item, i) => {
+                        item.classList.add("hidden");
+                        item.style.opacity=1;
+                        item.classList.remove("hidden");
+                        item.classList.add("show");
+                      });
+                      setTimeout(function() {
+                        document.getElementById("총획득").classList.remove("fade");
+                        document.getElementById("총획득").classList.remove("hidden");
+                        document.getElementById("총획득").children[0].innerText="★ TOTAL : "
+                        if(gamemod==2){
+                          document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(cubes.length-3)*2)+"★"
+                        }else{
+                          document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10))+"★"
+                        }
 
-                  document.getElementById("총획득").classList.add("show");
+                        document.getElementById("총획득").classList.add("show");
 
 
 
 
-                // document.getElementById("max").classList.remove("fade");
-                //
-                // document.getElementById("max").classList.add("show");
+                      // document.getElementById("max").classList.remove("fade");
+                      //
+                      // document.getElementById("max").classList.add("show");
 
 
-              }, 250);
+                    }, 250);
+                  }
               }, 250);
             }, 250);
+          }, 250);
 
 
         }
@@ -16526,7 +16694,19 @@
         <h2 id="제작">SOUND:</h2>
         <h2 id="제작">REFERENCE:</h2>
         </div>
+    </div>
 
+    <div id="pop-info" class="hidden">
+        <span id="popline1" class="">
+            <label class="p1">층 잠금: </label>
+            <label class="p2"></label>
+            <label class="p3">+500pt</label>
+        </span>
+        <span id="popline2" class="">
+            <label class="p1"></label>
+            <label class="p2"></label>
+            <label class="p3"></label>
+        </span>
     </div>
 
     <div id="coin-info" class="">
@@ -16654,17 +16834,32 @@
             <span id="기본" class="hidden">
             <label class="a"> </label>
             <label class="b"> </label>
+            <label class="c"> </label>
             </span>
 
             <span id="시간" class="hidden">
             <label class="a"> </label>
             <label class="b"> </label>
+            <label class="c"> </label>
+            </span>
+
+            <span id="full" class="hidden">
+            <label class="a"> </label>
+            <label class="b"> </label>
+            <label class="c"> </label>
+            </span>
+
+            <span id="max" class="hidden">
+            <label class="a"> </label>
+            <label class="b"> </label>
+            <label class="c"> </label>
             </span>
             <hr margin="0px" size="5px" width="95%"/>
 
             <span id="총획득" class="hidden">
-            <label class="c">획득 코인:</label>
-            <label class="d"> </label>
+            <label class="d">획득 코인:</label>
+            <label class="e"> </label>
+            <label class="f"> </label>
             </span>
             </div>
             <div class="gameover">
