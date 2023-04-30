@@ -16,8 +16,6 @@
         }
 
         canvas {
-
-
             position: absolute;
             ,
             display: white;
@@ -241,14 +239,12 @@
             /*transition: opacity 0.15s ease-in-out;*/
         }
 
-
-
         #song-info {
             font-family: 'GG';
             color: white;
             font-size: 1vh;
             position: absolute;
-            top: 50%;
+            top: 45%;
             /* left: 4vw; */
             width:100%;
             display: inline-flex;
@@ -292,7 +288,6 @@
 
 
         }
-
 
         #song-dash1{
             margin-left: 1vw;
@@ -1471,7 +1466,7 @@
         window.gamemod=gamemod;
 
         var originflag=false;
-
+        var sideback=[];
         var stacktime;
         var stacknum=[0,0,0,0,8,8,16,16,32,32,64,64,128,128,256,256,512,512,1024,1024,2048,2048,2048,2048,2048,2048]
 
@@ -1636,7 +1631,7 @@
         let mergeflag = false;
         let bounceflag = false;
         let topcam = true;
-        let sidecam = false;
+        let sidecam = true;
         let arrowon = false;
         let averageflag = true;
         let lighton = true;
@@ -1706,9 +1701,7 @@
         var stack = 5;
         var tipflag = true;
         var sdic = []
-
         var songfade;
-
         var mainmusic = ["dance_loop0.ogg", "Puzzles.ogg", "Radiohead.ogg", "Magical Forest.ogg", "Lost in the Dessert.ogg", "High End Party.ogg", "Forever Lost.ogg", "Catwalk.ogg", "You_re in the Future.ogg", "Warmth.ogg", "Beach House.ogg", "Sweet Treats.ogg"]
         var soundic = {};
         var soundlst = ["Retro", "Minimalist", "Modern"]
@@ -3469,7 +3462,6 @@
                               }
                           }
                       }
-
                       for (let col = 0; col < this.size; col++) {
                           for (let row = 0; row < this.size-1; row++) {
                               if (this.board[row][col] == this.board[row+1][col]) {
@@ -3482,9 +3474,9 @@
                         cubes[this.index].mesh.children.forEach((item) => {
                           if(item.userData["skin"]=="tile"){
                             var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][this.index]))
-                            item.material.color= new THREE.Color('hsl(' + String(newcl["h"]+Math.log2(parseInt(item.userData["text"]))*5) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
+                            item.material.color= new THREE.Color('hsl(' + String(newcl["h"]+Math.log2(parseInt(item.userData["text"]))*8) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
                             item.children.forEach((text) => {
-                              text.material.color= new THREE.Color(0xAAAAAA);
+                              // text.material.color= new THREE.Color(0xFFFFFF);
                             });
                           }
                         });
@@ -3499,11 +3491,9 @@
                           if(fullall){
                             gameoverflag=true;
                             topcam = false;
-
                             document.getElementById("gameover-overlay").classList.remove("fade");
                             document.getElementById("gameover-overlay").classList.remove("hidden");
                             document.getElementById("gameover-overlay").classList.add("show");
-
                             activeFloor = cubes.length;
                           }
                         }
@@ -4555,7 +4545,7 @@
         // camera.position.z = 5;
         // // camera.position.y = 5;
         const cameraTarget = new THREE.Object3D();
-        if (sidecam) {
+        if (true) {
             var frontalViewCamera = new THREE.OrthographicCamera(-bw / 1.05, bw / 1.05, bw / 1.05, -bw / 1.05, 0.1, 1000);
             frontalViewCamera.position.set(0, bw * 0.8, bw * 1.5);
             frontalViewCamera.lookAt(0, bw * 0.8, 0);
@@ -4998,6 +4988,17 @@
             camera.bottom = -bw * 1.3 * 4
             camera.near = 0.1;
             camera.far = 1000;
+
+             frontalViewCamera.left= -bw / 1.05
+            frontalViewCamera.right = bw / 1.05
+            frontalViewCamera.top = bw / 1.05
+            frontalViewCamera.bottom = -bw / 1.05
+
+            sideViewCamera.left = -bw / 1.05
+            sideViewCamera.right =  bw / 1.05
+            sideViewCamera.top = bw / 1.05
+            sideViewCamera.bottom = -bw / 1.05
+
             // dl2.shadow.camera.position.y=bh * (cubes.length + 3.5);
             if (gamemod==0){
               cubes[3].body.material.friction = 0.2;
@@ -5269,7 +5270,7 @@
               document.getElementById("opt4").classList.remove("locked")
 
             }
-
+            점수=0;
             resetting(stack, function(object) { //재시작
                 msetting(function(object) {
                     if(gamemod!=2){
@@ -8644,6 +8645,42 @@
             gradback.push(backmesh);
 
 
+            var geometry = new THREE.BoxGeometry(300, 800, 2);
+            var backmesh = new THREE.Mesh(geometry, material4);
+            // backmesh.material.depthTest = false;
+            backmesh.material.depthWrite = false;
+            backmesh.rotation.order = 'YXZ';
+            backmesh.rotation.x = 0
+            backmesh.rotation.y = Math.PI / 4+Math.PI /2;
+            // backmesh.rotation.x = Math.PI/2;
+            // backmesh.rotation.z = Math.PI/2;
+            backmesh.position.z = -20;
+            backmesh.position.x = 70;
+            backmesh.position.y = 10;
+
+            scene.add(backmesh);
+            sideback.push(backmesh)
+
+            var geometry = new THREE.BoxGeometry(300, 800, 2);
+            var backmesh = new THREE.Mesh(geometry, material4);
+            // backmesh.material.depthTest = false;
+            backmesh.material.depthWrite = false;
+            backmesh.rotation.order = 'YXZ';
+            backmesh.rotation.x = 0
+            backmesh.rotation.y = Math.PI / 4-Math.PI /2;
+            // backmesh.rotation.x = Math.PI/2;
+            // backmesh.rotation.z = Math.PI/2;
+            backmesh.position.z = 70;
+            backmesh.position.x = -40;
+            backmesh.position.y = 10;
+
+            scene.add(backmesh);
+            sideback.push(backmesh)
+
+
+
+
+
             var geometry12 = new TextGeometry("2", {
                 font: font0,
                 size: bw / 2,
@@ -9662,7 +9699,7 @@
                         document.getElementById("categ1").classList.add("show");
                     }, 100);
                 }
-
+                점수=0;
                 setting(stack, function(object) { //시작
                     addring();
                     tsetting(function(object) {
@@ -9774,8 +9811,12 @@
                 시간.forEach((item) => {
                     item.material.visible = false;
                 })
-                gradback.forEach((item) => {
+                gradback.forEach((item, index) => {
+                    if (index == 0) return;
                     item.material.visible = true;
+                    item.children.forEach((child) => {
+                        child.material.visible = true;
+                    })
                 })
             }
 
@@ -10508,6 +10549,7 @@
                             // type();
                             // console.log(ftiles)
                             var num = parseInt(item.body.board[item.c][item.d])
+                            점수+=num;
                             // item.body.boardpointer[item.c][item.d].userData["text"]=String(num*2);
                             cubes[item.index].mesh.remove(item.body0);
                             item.body.boardpointer[item.a][item.b] = [];
@@ -10797,9 +10839,6 @@
                 }
                 // ring[0].quaternion.copy(cubes[activeFloor].body.quaternion);
                 effects.forEach((item, index) => {
-                    // item.material.opacity=0
-                    // item[0].position.x=cubes[activeFloor].mesh.position.x
-                    // item[0].position.z=cubes[activeFloor].mesh.position.z
                     if (activeFloor < cubes.length) {
                         item[0].rotation.x = cubes[effects[0][3]].mesh.rotation.x - Math.PI / 2
                         item[0].rotation.z = cubes[effects[0][3]].mesh.rotation.z
@@ -10897,11 +10936,7 @@
                                 tscale = item.scale.y
                                 // console.log(item.scale.x)
                             }
-                            // else{
-                            //   item.scale.x = 1
-                            //   item.scale.z = 1
-                            //   item.scale.y = 0.9
-                            // }
+
                         } else {
                             if (elapsedTime - item.userData.time > 0 && elapsedTime - item.userData.time < 0.1) {
                                 item.scale.x = 0.7 + 4 * (elapsedTime - item.userData.time);
@@ -10910,11 +10945,7 @@
                                 tscale = 0.9;
                                 // console.log(item.scale.x)
                             }
-                            // else{
-                            //   item.scale.x = 1
-                            //   item.scale.z = 1
-                            //   item.scale.y = 0.9
-                            // }
+
                         }
                         // for(item of cubes[activeFloor].mesh.children){
                     })
@@ -10976,15 +11007,9 @@
                             document.getElementById('song-info').classList.remove("show1");
                             document.getElementById('song-info').classList.add("hidden");
 
-
-
-
                             showinfo();
 
-
                             activeFloor = cubes.length;
-
-
                           }
 
                       }
@@ -11006,7 +11031,6 @@
 
               }
             }
-
 
             if (orthoflag && lookcenter&&bf!=activeFloor) {
                 if (!gameoverflag) {
@@ -11459,19 +11483,19 @@
             // 	item.material.visible=false;
             // })
             if (!gameoverflag) {
-                점수 = 0;
-                for (var i = 0; i < cubes.length; i++) {
-                    cubes[i].mesh.userData.game2048.board.forEach((row) => {
-                        row.forEach((num) => {
-                            점수 += num;
-                            // console.log(text.userData["text"])
-                            // if(text.children.length!=0){
-                            //   console.log("1")
-                            //   console.log(text.children[0].userData["text"]);
-                            // }
-                        })
-                    });
-                }
+                // 점수 = 0;
+                // for (var i = 0; i < cubes.length; i++) {
+                //     cubes[i].mesh.userData.game2048.board.forEach((row) => {
+                //         row.forEach((num) => {
+                //             점수 += num;
+                //             // console.log(text.userData["text"])
+                //             // if(text.children.length!=0){
+                //             //   console.log("1")
+                //             //   console.log(text.children[0].userData["text"]);
+                //             // }
+                //         })
+                //     });
+                // }
                 if (averageflag) {
                     포인트.forEach((item) => {
                         item.position.x = avx - bw / 1.5;
@@ -11594,12 +11618,26 @@
                 groundmesh.material.visible = true;
                 if (shadowon) groundmesh.receiveShadow = false
                 if (activeFloor == cubes.length) {
+
+                  for (var i = 0; i < cubes.length; i++) {
+                      cubes[i].mesh.children.forEach((item) => {
+                        if (item.userData["skin"]==skinset[skinnum]) {
+
+                            // item.material.visible=false;
+                            item.receiveShadow = false;
+                            item.castShadow = false;
+
+
+
+                        }
+                      });
+                    }
                     // topViewCamera.position.set(0, bh*20, 0);
                     // topViewCamera.lookAt(0, 0, 0);
                     if(gamemod==2){
-                      topViewCamera.position.set(cubes[cubes.length - 1].body.position.x, bh *(cubes.length+1-2) , cubes[cubes.length - 1].body.position.z);
+                      topViewCamera.position.set(cubes[cubes.length - 1].body.position.x, bh *(cubes.length+2-2) , cubes[cubes.length - 1].body.position.z);
                     }else{
-                      topViewCamera.position.set(cubes[cubes.length - 1].body.position.x, bh *(cubes.length+1) , cubes[cubes.length - 1].body.position.z);
+                      topViewCamera.position.set(cubes[cubes.length - 1].body.position.x, bh *(cubes.length+2) , cubes[cubes.length - 1].body.position.z);
                     }
 
                     topViewCamera.rotation.order = 'YXZ';
@@ -11611,6 +11649,8 @@
                           if (item.userData["skin"]==skinset[skinnum]) {
                             if(i>=activeFloor){
                               item.material.visible=false;
+                              item.receiveShadow = false;
+                              item.castShadow = false;
                             }else{
                               item.receiveShadow = false;
                               item.castShadow = false;
@@ -11624,9 +11664,9 @@
                             cubes[i].mesh.material.opacity = 0.1;
                             if (!gameoverflag) {
                                 if(gamemod==2){
-                                  topViewCamera.position.set(cubes[i].body.position.x, bh *(activeFloor+1-2), cubes[i].body.position.z);
+                                  topViewCamera.position.set(cubes[i].body.position.x, bh *(activeFloor+2-2), cubes[i].body.position.z);
                                 }else{
-                                  topViewCamera.position.set(cubes[i].body.position.x, bh *(activeFloor+1), cubes[i].body.position.z);
+                                  topViewCamera.position.set(cubes[i].body.position.x, bh *(activeFloor+2), cubes[i].body.position.z);
                                 }
 
                                 topViewCamera.rotation.order = 'YXZ';
@@ -11675,61 +11715,111 @@
             // }else{
             // }
             // uilst[0].material.visible=true;
-            // groundmesh.material.visible=true;
-            if (shadowon) groundmesh.receiveShadow = true
+
             if (sidecam && !gameoverflag) {
-              groundmesh.material.visible=false;
-                scene.background = new THREE.Color(colorlst[colornum][0]);
+              if(!startflag){
+                gradback.forEach((item, index) => {
+                    if (index == 0) return;
+                    item.material.visible = false;
+                    item.children.forEach((child) => {
+                        child.material.visible = false;
+                    })
+                })
+              }
+              // groundmesh.material.visible=false;
+                // scene.background = new THREE.Color(colorlst[colornum][0]);
+                // scene.background = new THREE.Color(colorlst[colornum][0]);
                 for (var i = 0; i < cubes.length; i++) {
-                    if (!gameoverflag) {
-                        if (i == activeFloor) {
-                            // camera.position.set(
-                            // +boxSize*2,
-                            // cubes[i].mesh.position.y+boxSize*2,
-                            // +boxSize*2,
-                            // );
-                            cubes[i].mesh.material.opacity = 0.2;
-                            cubes[i].mesh.material.transparent = true;
-                            cubes[i].mesh.children.forEach((tile) => {
-                                if (tile.userData["1"] == true || !tile.userData["2"]) {} else if (tile.userData["2"]) {
-                                    tile.material.opacity = 1
-                                    tile.material.transparent = false;
-                                } else {
-                                    tile.material.opacity = 1
-                                    tile.material.transparent = false;
-                                    tile.children.forEach((text) => {
-                                        text.material.opacity = 1;
-                                        text.material.transparent = false;
-                                    })
-                                }
-                            });
-                        } else {
-                            cubes[i].mesh.material.opacity = 1;
-                            // cubes[i].mesh.material.opacity =  0
-                            cubes[i].mesh.material.transparent = true;
-                            cubes[i].mesh.children.forEach((tile) => {
-                                if (tile.userData["3"]) {
-                                    tile.material.opacity = 0.6
-                                    tile.material.transparent = true;
-                                } else if (tile.userData["1"] == true) {
-                                    tile.material.opacity = 1;
-                                    tile.material.transparent = true;
-                                } else {
-                                    tile.material.opacity = 1;
-                                    tile.material.transparent = false;
-                                    tile.children.forEach((text) => {
-                                        text.material.opacity = false;
-                                        text.material.transparent = false;
-                                    })
-                                }
-                            });
+                    cubes[i].mesh.children.forEach((item) => {
+                      if (item.userData["skin"]==skinset[skinnum]) {
+                        if(i>activeFloor){
+                          item.material.opacity=1;
+                          // item.material.alphaTest=0.1;
+
+                          item.material.visible=true;
+
+                        }else if(i==activeFloor){
+                          // item.material.opacity=0.1;
                         }
-                    }
+
+
+                      }
+                    });
+
+                    // if (!gameoverflag) {
+                    //     if (i == activeFloor) {
+                    //         // camera.position.set(
+                    //         // +boxSize*2,
+                    //         // cubes[i].mesh.position.y+boxSize*2,
+                    //         // +boxSize*2,
+                    //         // );
+                    //         cubes[i].mesh.material.opacity = 0.2;
+                    //         cubes[i].mesh.material.transparent = true;
+                    //         cubes[i].mesh.children.forEach((tile) => {
+                    //             if (tile.userData["1"] == true || !tile.userData["2"]) {} else if (tile.userData["2"]) {
+                    //                 tile.material.opacity = 1
+                    //                 tile.material.transparent = false;
+                    //             } else {
+                    //                 tile.material.opacity = 1
+                    //                 tile.material.transparent = false;
+                    //                 tile.children.forEach((text) => {
+                    //                     text.material.opacity = 1;
+                    //                     text.material.transparent = false;
+                    //                 })
+                    //             }
+                    //         });
+                    //     } else {
+                    //         cubes[i].mesh.material.opacity = 1;
+                    //         // cubes[i].mesh.material.opacity =  0
+                    //         cubes[i].mesh.material.transparent = true;
+                    //         cubes[i].mesh.children.forEach((tile) => {
+                    //             if (tile.userData["3"]) {
+                    //                 tile.material.opacity = 0.6
+                    //                 tile.material.transparent = true;
+                    //             } else if (tile.userData["1"] == true) {
+                    //                 tile.material.opacity = 1;
+                    //                 tile.material.transparent = true;
+                    //             } else {
+                    //                 tile.material.opacity = 1;
+                    //                 tile.material.transparent = false;
+                    //                 tile.children.forEach((text) => {
+                    //                     text.material.opacity = false;
+                    //                     text.material.transparent = false;
+                    //                 })
+                    //             }
+                    //         });
+                    //     }
+                    // }
                 }
-                frontalViewCamera.position.set(avx, bw * 0.8, bw * 1.5);
-                frontalViewCamera.lookAt(avx, bw * 0.8, 0);
-                sideViewCamera.position.set(bw * 1.5, bw * 0.8, avz);
-                sideViewCamera.lookAt(0, bw * 0.8, avz);
+                if(gamemod==2){
+                  if(cubes.length>=10){
+                    frontalViewCamera.left = -bw / 1.05
+                    frontalViewCamera.right = bw / 1.05
+                    frontalViewCamera.top = bw / 1.05+3*(cubes.length-9)
+                    frontalViewCamera.bottom = -bw / 1.05-3*(cubes.length-9)
+
+                    sideViewCamera.left = -bw / 1.05
+                    sideViewCamera.right =  bw / 1.05
+                    sideViewCamera.top = bw / 1.05+3*(cubes.length-9)
+                    sideViewCamera.bottom = -bw / 1.05-3*(cubes.length-9)
+
+                    frontalViewCamera.position.set(avx, bw * (0.8)+bh*(cubes.length-9), bw * 1.5);
+                    frontalViewCamera.lookAt(avx, bw * (0.8)+bh*(cubes.length-9), 0);
+                    sideViewCamera.position.set(bw * 1.5, bw * (0.8)+bh*(cubes.length-9), avz);
+                    sideViewCamera.lookAt(0, bw * (0.8)+bh*(cubes.length-9), avz);
+                  }else{
+                    frontalViewCamera.position.set(avx, bw * 0.8, bw * 1.5);
+                    frontalViewCamera.lookAt(avx, bw * 0.8, 0);
+                    sideViewCamera.position.set(bw * 1.5, bw * 0.8, avz);
+                    sideViewCamera.lookAt(0, bw * 0.8, avz);
+                  }
+                }else{
+                  frontalViewCamera.position.set(avx, bw * 0.8, bw * 1.5);
+                  frontalViewCamera.lookAt(avx, bw * 0.8, 0);
+                  sideViewCamera.position.set(bw * 1.5, bw * 0.8, avz);
+                  sideViewCamera.lookAt(0, bw * 0.8, avz);
+                }
+
                 // scene.background = new THREE.Color(0x4e508d);
                 // scene.background = new THREE.Color(colorlst[colornum][0]);
                 // scene.background = new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"]+50*Math.abs(-isoAngle-camera.rotation.x))+'%)');
@@ -11762,7 +11852,12 @@
                 renderer.render(scene, sideViewCamera);
                 // }
             }
+
             particles.material.visible=true;
+            groundmesh.material.visible=true;
+            if (shadowon) groundmesh.receiveShadow = true
+
+
             if (elapsedTime > 2 && sload) {
                 sload = false;
                 // console.log(bw*0.9/bh*0.8)
@@ -11784,6 +11879,20 @@
 
             } else {
 
+            }
+            if(sidecam&&!gameoverflag){
+              for (var i = 0; i < cubes.length; i++) {
+                  cubes[i].mesh.children.forEach((item) => {
+                    if (item.userData["skin"]==skinset[skinnum]) {
+                      if(i>activeFloor){
+                        item.material.visible = true;
+                        item.material.opacity = 0.04 + (i - activeFloor) * 0.015;
+                        item.material.alphaTest = 0.04 + (i - activeFloor) * 0.015;
+                        item.material.transparent = true;
+                      }
+                    }
+                  });
+              }
             }
             포인트.forEach((item) => {
                 item.material.visible = true
@@ -15469,9 +15578,20 @@
 
 
             var playbtn = document.getElementById('pbt');
+            var sidebtn = document.getElementById('sidec');
             var mod0 = document.getElementById('mod0');
             var mod1 = document.getElementById('mod1');
             var mod2 = document.getElementById('mod2');
+
+            sidebtn.addEventListener('click', function() {
+                if(sidecam){
+                  sidecam=false;
+                }else{
+                  sidecam=true;
+                }
+            })
+
+
             mod0.addEventListener('click', function() {
                 if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
                     document.getElementById("mod-overlay").classList.remove("show");
@@ -16491,9 +16611,9 @@
                 <label class="glabel">restore purchase</label>
             </button>
 
-            <button id="" class="setting" onclick="optionon()">
-                <img src="png/home.png" id="rightimg">
-                <label class="glabel">homepage</label>
+            <button id="sidec" class="setting" onclick="">
+                <img src="png/phone.png" id="rightimg">
+                <label class="glabel">sidecam</label>
             </button>
 
             <button id="" class="setting" onclick="showcredit()">
