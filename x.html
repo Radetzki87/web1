@@ -3540,7 +3540,7 @@
                       if(full){
 
                         this.fullflag=true;
-                        showpop("층 잠금:","","+500pt")
+                        showpop("FULL!!:","","+500pt")
                         점수+=500;
                         cubes[this.index].mesh.children.forEach((item) => {
                           if(item.userData["skin"]=="tile"){
@@ -5345,6 +5345,8 @@
             점수=0;
             maxnum=0;
             soundic[endsound].setVolume(0.4)
+
+
             resetting(stack, function(object) { //재시작
                 msetting(function(object) {
                     if(gamemod!=2){
@@ -9210,6 +9212,7 @@
         function resetting(n = 8, callback) {
             stackHeight = n;
             cubes.forEach((item) => {
+                item.mesh.userData["game2048"].fullflag=false;
                 item.mesh.material.visible = false
                 item.mesh.material.opacity = 1
                 item.mesh.material.transparent = false;
@@ -11105,6 +11108,14 @@
                               item.style.opacity=0;
 
                             });
+                            document.getElementById("총획득").classList.remove("show");
+                            document.getElementById("코인").classList.remove("show");
+                            document.getElementById("기본").classList.remove("show");
+                            document.getElementById("full").classList.remove("show");
+                            document.getElementById("max").classList.remove("show");
+                            document.getElementById("시간").classList.remove("show");
+
+
                             document.getElementById("총획득").classList.add("hidden");
                             document.getElementById("코인").classList.add("hidden");
                             document.getElementById("기본").classList.add("hidden");
@@ -15516,7 +15527,7 @@
                     document.getElementById("max").classList.remove("fade");
                     document.getElementById("max").classList.remove("hidden");
                     document.getElementById("max").classList.add("show");
-                    document.getElementById("max").children[0].innerText="최대숫자 :";
+                    document.getElementById("max").children[0].innerText="최대 :";
                     document.getElementById("max").children[1].innerText=String(maxnum);
                     document.getElementById("max").children[2].innerText=String(parseInt(maxnum))+"★";
                   }
@@ -15525,28 +15536,33 @@
                       if(cubes[i].mesh.userData["game2048"].fullflag) fullcount++;
                     }
                     if(fullcount>0){
+                      document.getElementById("full").classList.remove("fade");
+                      document.getElementById("full").classList.remove("hidden");
+                      document.getElementById("full").classList.add("show");
+                      if(fullcount==5){
+                        document.getElementById("full").children[0].innerText="꽉채움:  "+String(fullcount)+"!!";
+                        document.getElementById("full").children[2].innerText=String(parseInt(500))+"★"
+                      }else{
+                        document.getElementById("full").children[0].innerText="꽉채움:  "+String(fullcount)
+                        document.getElementById("full").children[2].innerText=String(parseInt(fullcount*30))+"★"
+                      }
+                      var temp1=document.querySelectorAll(".gameover");
+                      temp1.forEach((item, i) => {
+                        item.classList.add("hidden");
+                        item.style.opacity=1;
+                        item.classList.remove("hidden");
+                        item.classList.add("show");
+                      });
                       setTimeout(function() {
-                          document.getElementById("full").classList.remove("fade");
-                          document.getElementById("full").classList.remove("hidden");
-                          document.getElementById("full").classList.add("show");
-                          if(fullcount==5){
-                            document.getElementById("full").children[0].innerText="꽉채움:  "+String(fullcount)+"!!";
-                            document.getElementById("full").children[2].innerText=String(parseInt(500))+"★"
-                          }else{
-                            document.getElementById("full").children[0].innerText="꽉채움:  "+String(fullcount)
-                            document.getElementById("full").children[2].innerText=String(parseInt(fullcount*30))+"★"
-                          }
-                          setTimeout(function() {
-                            document.getElementById("총획득").classList.remove("fade");
-                            document.getElementById("총획득").classList.remove("hidden");
-                            document.getElementById("총획득").children[0].innerText="★ TOTAL : "
-                            if(gamemod==2){
-                              document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(cubes.length-3)*2)+"★"
-                            }else{
-                              document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10))+"★"
-                            }
-                            document.getElementById("총획득").classList.add("show");
-                          }, 250);
+                        document.getElementById("총획득").classList.remove("fade");
+                        document.getElementById("총획득").classList.remove("hidden");
+                        document.getElementById("총획득").children[0].innerText="★ TOTAL : "
+                        if(gamemod==2){
+                          document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(cubes.length-3)*2)+"★"
+                        }else{
+                          document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10))+"★"
+                        }
+                        document.getElementById("총획득").classList.add("show");
                       }, 250);
                     }else{
                       var temp1=document.querySelectorAll(".gameover");
@@ -15565,17 +15581,7 @@
                         }else{
                           document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10))+"★"
                         }
-
                         document.getElementById("총획득").classList.add("show");
-
-
-
-
-                      // document.getElementById("max").classList.remove("fade");
-                      //
-                      // document.getElementById("max").classList.add("show");
-
-
                     }, 250);
                   }
               }, 250);
