@@ -11875,7 +11875,8 @@
                           item.material.visible=true;
 
                         }else if(i==activeFloor){
-                          // item.material.opacity=0.1;
+                          item.material.opacity=0.45;
+                          item.material.visible=true;
                         }
 
 
@@ -12025,6 +12026,11 @@
                         item.material.opacity = 0.04 + (i - activeFloor) * 0.015;
                         item.material.alphaTest = 0.04 + (i - activeFloor) * 0.015;
                         item.material.transparent = true;
+                      }else if (i==activeFloor) {
+                          item.material.visible = true;
+                          item.material.opacity = 0.05;
+                          item.material.alphaTest = 0.05;
+                          item.material.transparent = true;
                       }
                     }
                   });
