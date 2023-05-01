@@ -907,7 +907,7 @@
             border-radius: 4vw;
             border: 0px solid #000;
             width: 75%;
-            height: 30%;
+            height: 35%;
             /* justify-content: center; */
             align-items: left;
             margin-bottom: 0vw;
@@ -1752,7 +1752,7 @@
         var effects = [];
         var tempeffects = [];
         let cubes = [];
-        window.cubes = cubes;
+        // window.cubes = cubes;
         let face = [];
         window.face = face;
         var pens = [];
@@ -5386,12 +5386,12 @@
         function createTextMesh(text, fontSize, callback) {
             // const fontLoader = new THREE.FontLoader();
             if (fontSize == 999) {
-                var fsize = bw / 5
+                var fsize = bw / 4
                 var fhight = th / 4
                 var fcolor = colorlst[colornum][2]
                 // var fcolor=cubes[activeFloor].mesh.material.color
             } else if (fontSize == 998) {
-                var fsize = bw / 14
+                var fsize = bw / 10
                 var fhight = th / 8
                 // var fcolor=0xFfAfAf
                 var fcolor = colorlst[colornum][1]
@@ -10909,36 +10909,47 @@
 
 
             if (effects.length != 0) {
-                if (activeFloor == effects[0][3]) {
-                    ring[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3, cubes[effects[0][3]].mesh.position.z)
-                    ring[0].children.forEach((item) => {
-                        item.material.visible = false;
-                    })
-                    ring[0].rotation.x = cubes[effects[0][3]].mesh.rotation.x - Math.PI / 2
-                    ring[0].rotation.z = cubes[effects[0][3]].mesh.rotation.z
-                    switch (effects[0][2]) {
-                        case 'up':
-                            ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y
-                            break;
-                        case 'down':
-                            ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y + Math.PI;
-                            break;
-                        case 'left':
-                            ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y + Math.PI / 2;
-                            break;
-                        case 'right':
-                            ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y - Math.PI / 2;
-                            break;
-                        default:
-                            return;
-                    }
-                }
+                // if (activeFloor == effects[0][3]) {
+                //     ring[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3, cubes[effects[0][3]].mesh.position.z)
+                //     ring[0].children.forEach((item) => {
+                //         // item.material.visible = true;
+                //     })
+                //     ring[0].rotation.x = cubes[effects[0][3]].mesh.rotation.x - Math.PI / 2
+                //     ring[0].rotation.z = cubes[effects[0][3]].mesh.rotation.z
+                //     switch (effects[0][2]) {
+                //         case 'up':
+                //             ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y
+                //             break;
+                //         case 'down':
+                //             ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y + Math.PI;
+                //             break;
+                //         case 'left':
+                //             ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y + Math.PI / 2;
+                //             break;
+                //         case 'right':
+                //             ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y - Math.PI / 2;
+                //             break;
+                //         default:
+                //             return;
+                //     }
+                // }
                 // ring[0].quaternion.copy(cubes[activeFloor].body.quaternion);
                 effects.forEach((item, index) => {
                     if (activeFloor < cubes.length) {
-                        item[0].rotation.x = cubes[effects[0][3]].mesh.rotation.x - Math.PI / 2
-                        item[0].rotation.z = cubes[effects[0][3]].mesh.rotation.z
-                        item[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3 + (th / 16) * index, cubes[effects[0][3]].mesh.position.z)
+                      var tempy=item[0].rotation.y;
+
+                        // item[0].quaternion.copy(cubes[effects[0][3]].body.quaternion);
+                        // item[0].rotation.order = 'YXZ';
+                        // item[0].rotation.y=tempy;
+                        // item[0].rotation.x-= Math.PI / 2
+                        // item[0].rotation.z=-cubes[effects[0][3]].mesh.rotation.z;
+
+                        // item[0].rotation.y+=cubes[effects[0][3]].mesh.rotation.y
+                        // item[0].rotation.z-=cubes[effects[0][3]].mesh.rotation.z;
+
+                        // item[0].rotation.z = -cubes[effects[0][3]].mesh.rotation.z
+
+                        // item[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3 + (th / 16) * index, cubes[effects[0][3]].mesh.position.z)
                     }
                     item[0].scale.y *= 1.01;
                     // item[0].position.y+=0.03;
@@ -10946,15 +10957,16 @@
                     item[0].children.forEach((box) => {
                         box.material.visible = true;
                         box.material.opacity = 0.1 + 0.4 * Math.cos(Math.PI * (item[0].scale.y - 1) / 0.8);
-                        ring[0].children.forEach((seg) => {
-                            seg.material.alphaTest = 0.1;
-                            seg.material.transparent = true;
-                            seg.material.opacity = 0.1 + 0.5 * Math.cos(Math.PI / 2 + (Math.PI / 2 * (item[0].scale.y - 1) / 0.8));
-                        })
+                        // ring[0].children.forEach((seg) => {
+                        //     seg.material.alphaTest = 0.1;
+                        //     seg.material.transparent = true;
+                        //     seg.material.opacity = 0.1 + 0.5 * Math.cos(Math.PI / 2 + (Math.PI / 2 * (item[0].scale.y - 1) / 0.8));
+                        // })
                     })
-                    // item.material.opacity=0.1+0.4*Math.cos(Math.PI*(item.scale.y-1)/0.7);
                     if (item[0].scale.y > 1.8) {
-                        scene.remove(item[0])
+                        console.log(1);
+                        cubes[item[3]].mesh.remove(item[0]);
+                        scene.remove(item[0]);
                         effects.splice(effects.indexOf(item), 1);
                     }
                 })
@@ -10963,7 +10975,6 @@
                     item.material.visible = false;
                 })
             }
-
 
             if(parseInt(elapsedTime*300)==300*60){
               showpop("1분 경과:","","+300pt",0)
@@ -10996,8 +11007,6 @@
               cubes[cubes.length-2].mesh.children.forEach((item, i) => {
                 if(item.userData["skin"] == skinset[skinnum]) item.material.transparent=false;
               });
-
-
               activeFloor=cubes.length-1;
               if (!soundic[sdic[activeFloor][0]].isPlaying) {
                   if(soundic[sdic[activeFloor-1][0]].isPlaying) soundic[sdic[activeFloor-1][0]].stop();
@@ -11067,6 +11076,7 @@
                 tscale = 0.9;
                 if (activeFloor != cubes.length) {
                     cubes[activeFloor].mesh.children.forEach((item) => {
+                          if (item.userData["skin"]=="effect") return;
                         if (item.userData["1"] || item.userData["2"] || item.userData["3"] || item.userData["4"] || item.userData["5"] || skinset.indexOf(item.userData["skin"]) != -1) return
                         item.scale.x = 1
                         item.scale.z = 1
@@ -11626,11 +11636,11 @@
                     포인트.forEach((item) => {
                         item.position.x = avx - bw / 1.5;
                         if (parseInt(pointbuf).toString().length >= 4) {
-                            item.position.z = avz - bw / 3;
+                            item.position.z = 4+avz - bw / 3;
                         } else if (parseInt(pointbuf).toString().length == 3) {
-                            item.position.z = avz - bw / 2.6;
+                            item.position.z = 3+avz - bw / 2.6;
                         } else {
-                            item.position.z = avz - bw / 2.3;
+                            item.position.z = 1+avz - bw / 2.3;
                         }
                     })
 
@@ -11660,12 +11670,12 @@
                         }
 
                         // textMesh.position.z=0
-                        if (temptxt.length >= 4) {
-                            textMesh.position.z = avz - bw / 3;
-                        } else if (parseInt(점수).toString().length == 3) {
-                            textMesh.position.z = avz - bw / 2.6;
+                        if (temptxt.toString().length >= 4) {
+                            textMesh.position.z = 4+avz - bw / 3;
+                        } else if (temptxt.toString().length == 3) {
+                            textMesh.position.z = 3+avz - bw / 2.6;
                         } else {
-                            textMesh.position.z = avz - bw / 2.3;
+                            textMesh.position.z = 1+avz - bw / 2.3;
                         }
                         textMesh.position.x = avx - bw / 1.5;
                         textMesh.depth = 10;
@@ -15104,32 +15114,32 @@
             mesh0.children[2].position.y = -(bw / 4) + bw / 2 + w / 2
             // console.log(mesh)
             mesh0.rotation.order = 'YXZ';
-            mesh0.rotation.z = cubes[floor].mesh.rotation.z;
-            mesh0.rotation.x = cubes[floor].mesh.rotation.x - Math.PI / 2;
-            mesh0.position.set(cubes[floor].mesh.position.x, cubes[floor].body.position.y - th / 3 - (th / 16) * effects.length, cubes[floor].body.position.z)
+            // mesh0.rotation.z = cubes[floor].mesh.rotation.z;
+            mesh0.rotation.x = - Math.PI / 2;
+            mesh0.position.set(0, 0 - th / 3 - (th / 16) * effects.length, 0)
 
             switch (direction) {
                 case 'up':
                     // mesh1.position.set(cubes[floor].mesh.rotation.x,cubes[floor].body.position.y-tw/3,cubes[floor].body.position.z-bw/2)
-                    mesh0.rotation.y = cubes[floor].mesh.rotation.y
+                    mesh0.rotation.y =0
                     // mesh2.rotation.y =cubes[floor].mesh.rotation.y
                     // mesh3.rotation.y =cubes[floor].mesh.rotation.y
                     break;
                 case 'down':
                     // mesh1.position.set(cubes[floor].mesh.rotation.x,cubes[floor].body.position.y-tw/3,cubes[floor].body.position.z+bw/2)
-                    mesh0.rotation.y = cubes[floor].mesh.rotation.y + Math.PI;
+                    mesh0.rotation.y =  Math.PI;
                     // mesh2.rotation.y = cubes[floor].mesh.rotation.y+Math.PI;
                     // mesh3.rotation.y = cubes[floor].mesh.rotation.y+Math.PI;
                     break;
                 case 'left':
                     // mesh1.position.set(cubes[floor].mesh.rotation.x-bw/2,cubes[floor].body.position.y-tw/3,cubes[floor].body.position.z)
-                    mesh0.rotation.y = cubes[floor].mesh.rotation.y + Math.PI / 2;
+                    mesh0.rotation.y =  Math.PI / 2;
                     // mesh2.rotation.y = cubes[floor].mesh.rotation.y+Math.PI / 2;
                     // mesh3.rotation.y = cubes[floor].mesh.rotation.y+Math.PI / 2;
                     break;
                 case 'right':
                     // mesh1.position.set(cubes[floor].mesh.rotation.x+bw/2,cubes[floor].body.position.y-tw/3,cubes[floor].body.position.z)
-                    mesh0.rotation.y = cubes[floor].mesh.rotation.y - Math.PI / 2;
+                    mesh0.rotation.y =  - Math.PI / 2;
                     // mesh2.rotation.y =cubes[floor].mesh.rotation.y-Math.PI / 2;
                     // mesh3.rotation.y =cubes[floor].mesh.rotation.y-Math.PI / 2;
                     break;
@@ -15139,7 +15149,9 @@
             // mesh0.scale.x=1.5;
             // mesh0.scale.y=1.5;
             mesh0.material.visible = false;
-            scene.add(mesh0);
+            mesh0.userData["skin"]="effect"
+            // cubes[floor].mesh.add(mesh0);
+            cubes[floor].mesh.add(mesh0);
             // scene.add( mesh2 );
             // scene.add( mesh3 );
             effects.push([mesh0, num, direction, floor]);
@@ -15160,26 +15172,26 @@
             mesh.rotation.x = cubes[floor].mesh.rotation.x - Math.PI / 2;
             switch (direction) {
                 case 'up':
-                    mesh.position.set(cubes[floor].body.position.x, cubes[floor].body.position.y - tw / 3, cubes[floor].body.position.z - bw / 3)
+                    mesh.position.set(cubes[floor].body.position.x, 0, cubes[floor].body.position.z - bw / 3)
                     // mesh.rotation.y = -Math.PI / 2;
                     // mesh.rotation.x=cubes[floor].mesh.rotation.x
                     mesh.rotation.y = cubes[floor].mesh.rotation.y
                     mesh.rotation.z = cubes[floor].mesh.rotation.z
                     break;
                 case 'down':
-                    mesh.position.set(cubes[floor].body.position.x, cubes[floor].body.position.y - tw / 3, cubes[floor].body.position.z + bw / 3)
+                    mesh.position.set(cubes[floor].body.position.x, 0, cubes[floor].body.position.z + bw / 3)
                     // mesh.rotation.x=cubes[floor].mesh.rotation.x
                     mesh.rotation.y = cubes[floor].mesh.rotation.y + Math.PI;
                     mesh.rotation.z = cubes[floor].mesh.rotation.z
                     break;
                 case 'left':
-                    mesh.position.set(cubes[floor].body.position.x - bw / 3, cubes[floor].body.position.y - tw / 3, cubes[floor].body.position.z)
+                    mesh.position.set(cubes[floor].body.position.x - bw / 3, 0, cubes[floor].body.position.z)
                     // mesh.rotation.x=cubes[floor].mesh.rotation.x
                     mesh.rotation.y = cubes[floor].mesh.rotation.y + Math.PI / 2;
                     mesh.rotation.z = cubes[floor].mesh.rotation.z
                     break;
                 case 'right':
-                    mesh.position.set(cubes[floor].body.position.x + bw / 3, cubes[floor].body.position.y - tw / 3, cubes[floor].body.position.z)
+                    mesh.position.set(cubes[floor].body.position.x + bw / 3, 0, cubes[floor].body.position.z)
                     // mesh.rotation.x=cubes[floor].mesh.rotation.x
                     mesh.rotation.y = cubes[floor].mesh.rotation.y - Math.PI / 2;
                     mesh.rotation.z = cubes[floor].mesh.rotation.z
@@ -15187,7 +15199,8 @@
                 default:
                     return;
             }
-            scene.add(mesh);
+            // scene.add(mesh);
+            cubes[floor].mesh.add(mesh);
             effects.push(mesh);
         }
 
