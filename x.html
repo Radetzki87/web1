@@ -880,6 +880,33 @@
             margin: 4vw 0;
         }
 
+        .gameinfo1 {
+            font-size: 10vw;
+            color:white;
+            display: inline-flex;
+            z-index: 2;
+            /* flex-direction: column; */
+            background-color: rgba(50, 50, 50, 0.1);
+            border-radius: 4vw;
+            border: 0px solid #000;
+            width: 85%;
+            height: 10%;
+            justify-content: center;
+            align-items:baseline;
+            margin-bottom: 5vw;
+            padding-left: 2vw;
+        }
+
+        .gameinfo1 .a{
+
+        }
+
+        .gameinfo1 .b{
+          font-size: 4vw;
+        }
+
+
+
         .gameinfo0 {
             font-size: 7vw;
             color:white;
@@ -11112,12 +11139,35 @@
                             document.getElementById("gameover-overlay").classList.remove("hidden");
                             document.getElementById("gameover-overlay").classList.add("show");
 
+
                             var temp1=document.querySelectorAll(".gameover");
 
                             temp1.forEach((item, i) => {
                               item.style.opacity=0;
-
                             });
+
+                            var temp1=document.querySelectorAll(".gameinfo1");
+                            temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
+                            if(점수>5000){
+                              temp1[0].children[0].innerText="S"
+                              temp1[0].children[1].innerText="uperb!!!!!"
+                            }else if(점수>4000){
+                              temp1[0].children[0].innerText="A"
+                              temp1[0].children[1].innerText="wesome!!!!"
+                            }else if(점수>3000){
+                              temp1[0].children[0].innerText="B"
+                              temp1[0].children[1].innerText="rilliant!!!"
+                            }else if(점수>2000){
+                              temp1[0].children[0].innerText="C"
+                              temp1[0].children[1].innerText="ool!!"
+                            }else if(점수>1000){
+                              temp1[0].children[0].innerText="D"
+                              temp1[0].children[1].innerText="elightful!"
+                            }else{
+                              temp1[0].children[0].innerText="E"
+                              temp1[0].children[1].innerText="xcellent"
+                            }
+
                             document.getElementById("총획득").classList.remove("show");
                             document.getElementById("코인").classList.remove("show");
                             document.getElementById("기본").classList.remove("show");
@@ -16849,6 +16899,11 @@
     </div>
     <div id="gameover-overlay" class="gameover-overlay hidden">
         <div class="gameover-container">
+            <div class="gameinfo1">
+                <label class="a"></label>
+                <label class="b"></label>
+            </div>
+
             <div class="gameinfo0">
 
             </div>
