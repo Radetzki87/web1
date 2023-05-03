@@ -22,92 +22,30 @@
             ,
             z-index: 1000
         }
-        /* #colorline {
-            font-family: 'GG';
-            color: white;
-            font-size: 1vh;
-            position: absolute;
-            top: 0%;
 
-            width:50%;
-            height: 15%;
-            display: none;
-            flex-direction: column;
-            z-index: 1;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        #grid0{
+          transform: translate(3vw, -16vw);
+          width:42%;
+          position: absolute;
 
         }
 
-        #cl1{
-          display: inline-flex;
-
-          width: 100%;
-
-          height: 50%;
-          background-color: rgba(0, 0, 0, 0.1);
-          background-size: cover;
-
-
-        }
-        #cl2{
-          display: inline-flex;
-
-          width: 100%;
-
-          height: 50%;
-          background-color: rgba(0, 0, 0, 0.1);
-          background-size: cover;
+        #grid0.set{
+          background-image: none;
 
         }
 
-        #cl10{
-          width: 25%;
-          height: 100%;
-          background-color: rgba(255, 0, 0, 0.8);
-        }
-        #cl11{
-          width: 25%;
-          height: 100%;
-          background-color: rgba(0, 255, 0, 0.8);
-        }
-        #cl12{
-          width: 25%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.8);
-        }
-        #cl13{
-          width: 25%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.8);
+
+        #grid1{
+          transform: translate(49vw, -16vw);
+          width:42%;
+          position: absolute;
         }
 
-        #cl20{
-          width: 20%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.8);
+        #grid1.set{
+          background-image: none;
         }
-        #cl21{
-          width: 20%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.8);
-        }
-        #cl22{
-          width: 20%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.8);
-        }
-        #cl23{
-          width: 20%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.8);
-        }
-        #cl24{
-          width: 20%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.8);
-        } */
+
           #lowerbtn{
             position: absolute;
             bottom:1%;
@@ -1208,6 +1146,7 @@
         padding-right: 2%;*/
             width: 60%;
             text-align: right;
+            margin-bottom: 18vw;
         }
 
         .progress {
@@ -16395,6 +16334,8 @@
         }
 
         function showmod() {
+
+
             if(!document.getElementById("mod-overlay").classList.contains("hidden")){
               return goBack(5);
             }
@@ -16482,8 +16423,8 @@
                 gridlst[0].children[3].style.color="black";
                 gridlst[1].children[3].style.color="black";
             }
-            gridlst[0].children[0].src = "png/" + imglst1[n]
-            gridlst[1].children[0].src = "png/" + imglst1[n]
+            // gridlst[0].children[0].src = "png/" + imglst1[n]
+            // gridlst[1].children[0].src = "png/" + imglst1[n]
             gridlst[0].children[3].style.fontSize="3vw";
             gridlst[1].children[3].style.fontSize="3vw";
             for (var i = 0; i < gridlst.length - 2; i++) {
@@ -16544,15 +16485,19 @@
             console.log(gridlst[n].children[2].innerText);
 
             // var gridlst = document.querySelectorAll("#categ1 >.grid >div");
-            if(!gridlst[n].classList.contains("locked")){
-              if(gridlst[n].classList.contains("set")){
-                gridlst[n].classList.remove("set")
-              }else{
-                gridlst[n].classList.add("set")
-              }
-            }
+
+
+
+
 
             if (n > 1) {
+              if(!gridlst[n].classList.contains("locked")){
+                if(gridlst[n].classList.contains("set")){
+                  gridlst[n].classList.remove("set")
+                }else{
+                  gridlst[n].classList.add("set")
+                }
+              }
                 if (templst[n - 2].unlock == 0) {
                     // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
                     ptxt[0].innerText = gridlst[n].children[2].innerText + "\n Play ▶"
@@ -16565,6 +16510,16 @@
                     scode[0].innerText=templst[n - 2]["0"];
                 }
             } else if (n == 1) {
+                if(!gridlst[n].classList.contains("locked")){
+                  if(gridlst[n].classList.contains("set")){
+
+                    gridlst[n].classList.remove("set")
+                  }else{
+
+                    gridlst[n].classList.add("set")
+                  }
+                }
+
                 if (!gridlst[n].classList.contains("locked")) {
                     // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
                     ptxt[0].innerText = gridlst[n].children[3].innerText + "\n Play ▶"
@@ -16575,6 +16530,15 @@
                     pcode[0].innerText = "";
                 }
             } else if (n == 0) {
+              if(!gridlst[n].classList.contains("locked")){
+                if(gridlst[n].classList.contains("set")){
+                  gridlst[n].children[3].innerText="single"
+                  gridlst[n].classList.remove("set")
+                }else{
+                  gridlst[n].children[3].innerText="mix"
+                  gridlst[n].classList.add("set")
+                }
+              }
                 if (!gridlst[n].classList.contains("locked")) {
                     // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
                     ptxt[0].innerText = gridlst[n].children[3].innerText + "\n Play ▶"
@@ -16586,6 +16550,38 @@
                 }
             }
 
+
+            var stcount=0;
+            gridlst.forEach((item, i) => {
+              if(i<=1){
+                return;
+              }else if(!item.classList.contains("hidden")){
+                  if(item.classList.contains("set")){
+                    stcount++;
+                  }
+
+              }
+            });
+            gridlst[1].children[3].innerText=String(stcount)+" selected"
+
+            if(!gridlst[n].classList.contains("locked")){
+              if(stcount>0){
+                if(gridlst[0].classList.contains("set")){
+                  gridlst[0].children[3].innerText="mix-selected"
+                }else{
+                  // gridlst[0].classList.add("set")
+                  gridlst[0].children[3].innerText="single-selected"
+                }
+              }else{
+                if(gridlst[0].classList.contains("set")){
+                  gridlst[0].children[3].innerText="mix-random"
+                }else{
+                  // gridlst[0].classList.add("set")
+                  gridlst[0].children[3].innerText="single-random"
+                }
+              }
+
+            }
 
             if (templst[0].type == "wooden") {
                 pimg[0].src = "png/" + imglst1[0]
@@ -16692,6 +16688,7 @@
                     rotationend = Math.PI / 4
                 }
             }
+            window.scrollTo(0, 0);
             if (!document.getElementById("step1").classList.contains("hidden")) {
                 document.getElementById("options-overlay").classList.add("fade");
                 document.getElementById("options-overlay").classList.remove("show");
@@ -17138,18 +17135,18 @@
                     <span class="unlocked-count">3/10</span>
                 </div>
                 <div class="grid">
-                    <div class="character locked" onclick="showPopup(0)">
-                        <img src="" alt="Character 1" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <img src="png/return.png" alt="mix" class="miximg">
-                        <span>SHUFFLE</span>
+                    <div class="character locked" onclick="showPopup(0)" id="grid0">
+                        <img src=""  class="charimg">
+                        <img  class="">
+                        <img  class="">
+                        <span id="grid0t">mix-random</span>
 
                     </div>
-                    <div class="character locked" onclick="showPopup(1)">
-                        <img src="" alt="Character 2" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <img src="png/return.png" alt="mix" class="miximg">
-                        <span>MIX</span>
+                    <div class="character locked" onclick="showPopup(1)" id="grid1">
+                        <img src=""  class="charimg">
+                        <img  class="">
+                        <img  class="">
+                        <span id="grid1t">0 selected</span>
 
                     </div>
                     <div class="character locked" onclick="showPopup(2)">
