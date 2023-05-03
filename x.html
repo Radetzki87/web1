@@ -561,6 +561,17 @@
             z-index: 1;
         }
 
+        #img2 {
+            /*transform: translate(0%, -20%);*/
+            top: 0%;
+            left: 0%;
+            /*position:absolute;*/
+            width: 55vw;
+            /* height: 15vw; */
+            /*size:cover;*/
+            /*display:none;*/
+            z-index: 1;
+        }
         .cat-button {
             font-family: 'GG';
             width: 85vw;
@@ -5097,11 +5108,16 @@
             // init();
             // return location.reload();
             window.gamemod=gamemod;
-            for (let i = 0; i < sdic.length; i++) {
-                if (soundic[sdic[i][0]]?.isPlaying) {
-                    soundic[sdic[i][0]].stop();
-                }
-            }
+            // for (let i = 0; i < sdic.length; i++) {
+            //     if (soundic[sdic[i][0]]?.isPlaying) {
+            //         soundic[sdic[i][0]].stop();
+            //     }
+            // }
+            var sdickeys = Object.keys(soundic);
+
+            sdickeys.forEach((item) => {
+              soundic[item]?.stop();
+            });
             cubes.length=5;
             // listener = new THREE.AudioListener();
             // audioLoader = new THREE.AudioLoader();
@@ -15861,7 +15877,7 @@
               var sdickeys = Object.keys(soundic);
 
               sdickeys.forEach((item) => {
-                soundic[sdickeys]?.stop();
+                soundic[item]?.stop();
               });
             })
 
@@ -16133,7 +16149,7 @@
               var sdickeys = Object.keys(soundic);
               var ptxt = songbtn.children[2].innerText;
               sdickeys.forEach((item) => {
-                soundic[sdickeys]?.stop();
+                soundic[item]?.stop();
               });
               console.log(ptxt);
               if(sdickeys.indexOf(ptxt)==-1){
@@ -16439,10 +16455,10 @@
             });
             console.log(templst);
             var gridlst = document.querySelectorAll("#categ1 >.grid >div");
-            var gbutton = document.querySelectorAll("#categ1 >.c-button>label")
+            var gbutton = document.querySelectorAll("#categ1 >h1")
             gbutton[0].innerText = themelst[n]
-            var gbuttonimg = document.querySelectorAll("#categ1 >.c-button>img");
-            gbuttonimg[0].src = "png/" + imglst[n]
+            var gbuttonimg = document.querySelectorAll("#categ1 >img");
+            gbuttonimg[0].src = "png/" + imglst1[n]
             console.log(gridlst[0].children);
             if (ulcount >= 5) {
                 gridlst[1].classList.remove("locked");
@@ -17112,11 +17128,9 @@
             <div id="categ1" class="selection hidden">
                 <button class="backbutton" onclick="goBack(9)" id="backbtn">◀</button>
                 <h1 class="title">Category</h1>
-                <button class="c-button" disabled>
-                    <img src="png/0.png" alt="Mute" id="img">
-                    <label>CUBE</label>
-                    <div class="color1"></div>
-                </button>
+
+                 <img src="png/0.png" alt="Mute" id="img2">
+
                 <div class="progress-container">
                     <div class="progress">
                         <div class="progress-bar" style="width: 30%;"></div>
