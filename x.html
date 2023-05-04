@@ -10383,7 +10383,6 @@
             if (skin0 && skinflag) {
                 if (txtcount != txttimebuf) {
 
-
                     const positions0 = particles.geometry.attributes.position.array;
                     // const size0 = particles.geometry.attributes.size.array;
                     const scales0 = particles.geometry.attributes.scale.array;
@@ -10393,7 +10392,7 @@
                     for (let ix = 0; ix < 5; ix++) {
                         for (let iy = 0; iy < 5; iy++) {
                             positions0[i + 1] = bh * ((Math.sin((ix + txtcount) * 0.15) * 0.1) - (Math.sin((iy + txtcount) * 0.15) * 0.1));
-                            scales0[j] = (Math.sin((ix * txtcount / 2) * 0.25 / 3)) * (1 + tscale) + (Math.sin((iy * txtcount / 3) * 0.25)) * (1 + tscale);
+                            scales0[j] = (Math.sin((ix * txtcount / 2) * 0.25 / 3)) * (1 + 0) + (Math.sin((iy * txtcount / 3) * 0.25)) * (1 + 0);
                             // scales0[ j ] = 32
                             i += 3;
                             j++;
@@ -11923,7 +11922,7 @@
             // }
             // uilst[0].material.visible=true;
 
-            if (sidecam && !gameoverflag) {
+            if (sidecam && !gameoverflag&&!restartflag) {
               if(!startflag){
                 gradback.forEach((item, index) => {
                     if (index == 0) return;
