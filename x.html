@@ -190,6 +190,7 @@
             align-items: center;
             justify-content: left;
             text-align: left;
+            transition: opacity 0.4s, left 1.4s;
             /*opacity: 1;*/
             /*transition: opacity 0.15s ease-in-out;*/
         }
@@ -250,6 +251,7 @@
             display: inline-flex;
             /* flex-direction: ; */
 
+
         }
 
         #songback1{
@@ -309,6 +311,12 @@
             opacity: 1;
             pointer-events: all;
             transition: opacity 0.1s ease;
+        }
+
+        #song-info.moveleft{
+          left:0%;
+          transition: opacity 0.4s, left 0s;
+
         }
 
 
@@ -521,7 +529,7 @@
             background-size: 85vw 22vw;
             background-color: rgba(250, 250, 250, 0.8);
             border-radius: 4vw;
-            border: 0.5vw #999 outset;
+            border: 1vw rgba(250, 250, 250, 0.5) outset;
             color: #000;
             cursor: pointer;
             font-size: 3vw;
@@ -537,7 +545,7 @@
             width: 85vw;
             height: 21vw;
             background-size: 85vw 21vw;
-            border: 0.5vw #999 inset;
+            border: 1vw rgba(250, 250, 250, 0.5) inset;
             margin-bottom: 4vw;
             color: rgba(255, 0, 255, 0.0);
             /*font-size: 0;*/
@@ -554,7 +562,7 @@
             background-size: 75vw 21vw;
             background-color: rgba(250, 240, 50, 0.6);
             border-radius: 4vw;
-            border: 0.5vw #999 outset;
+            border: 1vw rgba(250, 240, 50, 0.5) outset;
             color: #000;
             cursor: pointer;
             font-size: 3vw;
@@ -567,7 +575,7 @@
         .ad-button:active {
             /* background-image: url("png/yellow_button01.png"); */
             transform: translate(0, 1vw);
-            border: 0.5vw #999 inset;
+            border: 1vw rgba(250, 240, 50, 0.5) inset;
             width: 75vw;
             height: 20vw;
             background-size: 75vw 20vw;
@@ -587,7 +595,7 @@
             background-size: 75vw 21vw;
             background-color: rgba(10, 101, 250, 0.6);
             border-radius: 4vw;
-            border: 0.5vw #999 outset;
+            border: 1vw rgba(10, 101, 250, 0.5) outset;
             color: #000;
             cursor: pointer;
             font-size: 3vw;
@@ -600,7 +608,7 @@
         .ap-button:active {
             /* background-image: url("png/blue_button01.png"); */
             transform: translate(0, 1vw);
-            border: 0.5vw #999 inset;
+            border: 1vw rgba(10, 101, 250, 0.5) inset;
             width: 75vw;
             height: 20vw;
             background-size: 75vw 20vw;
@@ -622,7 +630,7 @@
             background-size: 65vw 21vw;
             background-color: rgba(10, 101, 200, 0.8);
             border-radius: 4vw;
-            border: 0.5vw #999 outset;
+            border: 1vw rgba(10, 101, 200, 0.5) outset;
             color: #000;
             cursor: pointer;
             font-size: 2.5vw;
@@ -644,7 +652,7 @@
         .pbutton:active {
             /* background-image: url("png/blue_button01.png"); */
             transform: translate(0, 1vw);
-            border: 0.5vw #999 inset;
+            border: 1vw rgba(10, 101, 200, 0.5) inset;
             width: 65vw;
             height: 20vw;
             background-size: 65vw 20vw;
@@ -662,7 +670,8 @@
             font-family: 'GG';
             width: 21vw;
             height: 21vw;
-            background-color: rgba(10, 250, 250, 0.6);
+            background-color: rgba(10, 250, 250, 0.4);
+            border: 1vw rgba(10, 250, 250, 0.5) outset;
             border-radius: 4vw;
             background-size: 21vw 21vw;
             color: #000;
@@ -688,6 +697,7 @@
             width: 21vw;
             height: 19vw;
             background-size: 21vw 19vw;
+            border: 1vw rgba(10, 250, 250, 0.5) inset;
             /*margin-bottom: 5vw;*/
             /*color: rgba(255, 0, 255, 0.0);*/
             /*font-size: 0;*/
@@ -1395,9 +1405,9 @@
 
         .character{
             /*font-size: 10px;*/
-            background-color: rgba(100, 190, 100, 0.2);
+            background-color: rgba(200, 213, 200, 0.7);
             border-radius: 4vw;
-            border: 1vw outset #777;
+            border: 1vw outset rgba(200, 213, 200, 0.5);
             /* border-radius: 20px; */
             display: flex;
             flex-direction: column;
@@ -1408,11 +1418,10 @@
         }
 
         .character.set{
-            background-color: rgba(70, 150, 170, 0.8);
-            border: 1vw inset #777;
+            background-color: rgba(70, 150, 170, 0.7);
+            border: 1vw inset rgba(70, 150, 170, 0.5);
             background-image: url("png/set.png");
-            background-size: cover;
-
+            background-size:cover;
         }
 
         .charimg{
@@ -4126,8 +4135,10 @@
 
                     }
                     if (lastY > -0.35 + touch0 + 0.1 * j && lastY < -0.25 + touch0 + 0.1 * j) {
+
                         if (!startflag) {
                             startflag = true
+                            elapsedTime=0;
                         }
                         activeFloor = j;
                         // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
@@ -4143,12 +4154,14 @@
                             }
                         }
                         if (!soundic[sdic[thisnum][0]].isPlaying) {
+
                             songfade=elapsedTime;
                             console.log(songfade);
                             soundic[sdic[thisnum][0]].play();
                             songTitleElement.innerText = sdic[thisnum]["title"];
                             artistNameElement.innerText = sdic[thisnum]["producer"];
                             var songInfo = document.getElementById('song-info');
+                            songInfo.classList.add("moveleft");
                             songInfo.style.left="0px"
                             document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
                             document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
@@ -11034,9 +11047,11 @@
             }
 
 
-            if(elapsedTime - songfade > 1.5){
+            if(elapsedTime - songfade > 2.2){
+              document.getElementById('song-info').classList.remove("moveleft");
+              document.getElementById('song-info').style.left="150%"
 
-              document.getElementById('song-info').style.left=String(parseInt((elapsedTime - songfade-1.5)*1000))+"px";
+
 
               if(elapsedTime - songfade > 3){
                 document.getElementById('song-info').classList.remove("show1");
@@ -16567,17 +16582,19 @@
             if(!gridlst[n].classList.contains("locked")){
               if(stcount>0){
                 if(gridlst[0].classList.contains("set")){
-                  gridlst[0].children[3].innerText="mix-selected"
+                  gridlst[0].children[3].innerText="mix"
                 }else{
                   // gridlst[0].classList.add("set")
-                  gridlst[0].children[3].innerText="single-selected"
+                  gridlst[0].children[3].innerText="single"
                 }
               }else{
                 if(gridlst[0].classList.contains("set")){
-                  gridlst[0].children[3].innerText="mix-random"
+                  gridlst[0].children[3].innerText="mix"
+                  gridlst[1].children[3].innerText="random"
                 }else{
                   // gridlst[0].classList.add("set")
-                  gridlst[0].children[3].innerText="single-random"
+                  gridlst[0].children[3].innerText="single"
+                  gridlst[1].children[3].innerText="random"
                 }
               }
 
