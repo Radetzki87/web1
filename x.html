@@ -11702,21 +11702,36 @@
                 //         })
                 //     });
                 // }
+                var temptxt;
                 if (averageflag) {
                     포인트.forEach((item) => {
                         item.position.x = avx - bw / 1.5;
-                        if (parseInt(pointbuf).toString().length >= 4) {
-                            item.position.z = 4+avz - bw / 3;
-                        } else if (parseInt(pointbuf).toString().length == 3) {
-                            item.position.z = 3+avz - bw / 2.6;
-                        } else {
-                            item.position.z = 1+avz - bw / 2.3;
+                        if(gamemod==2){
+                            temptxt="+:"+String(stacknum[cubes.length-1])
+                            if (temptxt.toString().length >= 4) {
+                                item.position.z = 4+avz - bw / 3;
+                            } else if (temptxt.toString().length == 3) {
+                                item.position.z = 3+avz - bw / 2.6;
+                            } else {
+                                item.position.z = 1+avz - bw / 2.3;
+                            }
+                        }else{
+                          if (parseInt(pointbuf).toString().length >= 4) {
+                              item.position.z = 4+avz - bw / 3;
+                          } else if (parseInt(pointbuf).toString().length == 3) {
+                              item.position.z = 3+avz - bw / 2.6;
+                          } else {
+                              item.position.z = 1+avz - bw / 2.3;
+                          }
                         }
+
                     })
 
                     시간.forEach((item) => {
                         item.position.x = avx - bw / 2;
                         item.position.z = avz - bw / 1.5;
+
+
                     })
                 }
                 if (pointbuf != 점수) {
@@ -11725,9 +11740,9 @@
                         scene.remove(포인트.pop());
                     }
 
-                    var temptxt;
+
                     if(gamemod==2){
-                      temptxt="Δ"+String(stacknum[cubes.length-1])
+                      temptxt="+:"+String(stacknum[cubes.length-1])
                     }else{
                       temptxt=parseInt(점수)
                     }
