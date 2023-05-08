@@ -24,25 +24,26 @@
         }
 
         #grid0{
+          background-color: rgba(100, 195, 0, 0.8);
           transform: translate(3vw, -16vw);
           width:42%;
           position: absolute;
-
         }
 
         #grid0.set{
+          background-color: rgba(20, 60, 195, 0.8);
           background-image: none;
-
         }
 
-
         #grid1{
+          background-color: rgba(100, 195, 0, 0.8);
           transform: translate(49vw, -16vw);
           width:42%;
           position: absolute;
         }
 
         #grid1.set{
+          background-color: rgba(20, 60, 195, 0.8);
           background-image: none;
         }
 
@@ -664,7 +665,7 @@
         .sbutton {
             margin-left: 3vw;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             font-family: 'GG';
@@ -676,7 +677,7 @@
             background-size: 21vw 21vw;
             color: #000;
             cursor: pointer;
-            font-size: 3vw;
+            font-size: 2vw;
             margin-bottom: 3vw;
             padding: 0 0;
             text-align: center;
@@ -1534,7 +1535,7 @@
         var onceflag0=true;
 
         var bf;
-        var 두께=0.2;
+        var 두께=0.35;
 
 
         var gamemod=0;
@@ -4106,7 +4107,7 @@
             	                } else {
                                   if(prevRow >= 0 && prevRow < this.size && prevCol >= 0 && prevCol < this.size){
                                     if(tempbd[prevRow][prevCol]==tempbd[nextRow][nextCol]){
-                                      tempbd[prevRow][prevCol]+=tempbd[nextRow][nextCol]+1
+                                      tempbd[prevRow][prevCol]+=tempbd[nextRow][nextCol]+1.5
                 	                    tempbd[nextRow][nextCol]=0;
                                       newRow = nextRow;
                 	                    newCol = nextCol;
@@ -4147,9 +4148,9 @@
                                 break;
                               }
             	                if (tempbd[nextRow][nextCol] == tempbd[row][col]) {
-                                 // console.log(좋아);
+
             	                    // if (tempbd[nextRow][nextCol] === 0) {
-            	                    tempbd[row][col]+=tempbd[nextRow][nextCol]+1
+            	                    tempbd[row][col]+=tempbd[nextRow][nextCol]+1.5
             	                    tempbd[nextRow][nextCol]=0;
                                   newRow = nextRow;
             	                    newCol = nextCol;
@@ -4217,9 +4218,7 @@
                     // this.spawnTile(direction);
                 }
             }
-
         }
-
 
         let aniflag = false;
         let atchanged = 0;
@@ -4309,7 +4308,6 @@
         const text = "W:위층, S:아래층, 방향키:타일 이동";
         const fontSize = 24;
         //스크롤
-
         const uiScene = new THREE.Scene();
         let uiScene2 = new THREE.Scene();
         // uiScene.add(sprite);
@@ -4327,7 +4325,6 @@
         var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
         function handleTouchStart(event) {
-
             if(!originflag){
               listener= new THREE.AudioListener();
               msetting0(function(object) {
@@ -5843,7 +5840,7 @@
                 var fsize = bw / 10
                 var fhight = 두께*th / 8
                 // var fcolor=0xFfAfAf
-                var fcolor = colorlst[colornum][1]
+                var fcolor = colorlst[colornum][3]
             } else if (fontSize == 997) {
                 var fsize = bw / 3.5
                 var fhight = th / 2
@@ -10384,7 +10381,7 @@
                     document.getElementById('song-info').classList.remove("show1");
                     document.getElementById('song-info').classList.add("hidden");
 
-                    camera.rotation.x += Math.PI / 256
+                    camera.rotation.x += Math.PI / 512
                     var canvas = document.createElement('canvas');
                     var ctx = canvas.getContext('2d');
                     canvas.width = 100;
@@ -10558,7 +10555,7 @@
                         }
                       });
                     }
-                    camera.rotation.x -= Math.PI / 128
+                    camera.rotation.x -= Math.PI / 256
                     // camera.position.y-=100000*(Math.PI/128)
                 }
             }
@@ -11600,34 +11597,24 @@
                             document.getElementById("full").classList.remove("show");
                             document.getElementById("max").classList.remove("show");
                             document.getElementById("시간").classList.remove("show");
-
-
                             document.getElementById("총획득").classList.add("hidden");
                             document.getElementById("코인").classList.add("hidden");
                             document.getElementById("기본").classList.add("hidden");
                             document.getElementById("full").classList.add("hidden");
                             document.getElementById("max").classList.add("hidden");
                             document.getElementById("시간").classList.add("hidden");
-
-
                             if(gamemod==2){
                               document.querySelector(".gameinfo0").innerText="floor: "+String(cubes.length-3)+"\nbest: "+String(parseInt(20));
                             }else{
                               document.querySelector(".gameinfo0").innerText="point: "+String(점수)+"\nbest: "+String(parseInt(985));
                             }
-
                             document.getElementById('song-info').classList.remove("show1");
                             document.getElementById('song-info').classList.add("hidden");
-
                             showinfo();
-
                             activeFloor = cubes.length;
                           }
-
                       }
                   })
-
-
             }
 
             if(gameoverflag){
@@ -11640,10 +11627,8 @@
                     item.material.alphaTest=1;
                   }
                 });
-
               }
             }
-
             if (orthoflag && lookcenter&&bf!=activeFloor) {
                 if (!gameoverflag) {
                     if (activeFloor == cubes.length) {
@@ -13093,12 +13078,10 @@
                       }else{
                         obj1.material=mat1
                       }
-
                       if (shadowon) {
                           obj1.receiveShadow = true;
                           obj1.castShadow = true;
                       }
-
                       mesh.add(obj1);
 
                     });
@@ -16922,6 +16905,7 @@
             var pimg = document.querySelectorAll(".pbutton>img");
             var pcode = document.querySelectorAll(".pbutton>h1");
             var scode = document.querySelectorAll(".sbutton>h1");
+            var stxt = document.querySelectorAll(".sbutton>label");
 
 
 
@@ -16954,11 +16938,13 @@
                     ptxt[0].innerText = gridlst[0].children[2].innerText + "\n Play ▶"
                     pcode[0].innerText = "2" + " " + templst[n - 2].name;
                     scode[0].innerText=templst[n - 2]["0"];
+                    stxt[0].innerText=gridlst[n].children[2].innerText
                 } else {
                     // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/green_button00.png")'
                     ptxt[0].innerText = gridlst[n].children[2].innerText + "\n ⭐: " + templst[n - 2].price
                     pcode[0].innerText = "3" + " " + templst[n - 2].name;
                     scode[0].innerText=templst[n - 2]["0"];
+                    stxt[0].innerText=gridlst[n].children[2].innerText
                 }
             } else if (n == 1) {
                 if(!gridlst[n].classList.contains("locked")){
@@ -16971,11 +16957,21 @@
                   }
                 }
 
+                gridlst.forEach((item, i) => {
+                  if(i<=1)return;
+                  if(!item.classList.contains("locked")){
+                    item.classList.remove("set")
+                  }
+                });
+
+
                 if (!gridlst[n].classList.contains("locked")) {
+                    // gridlst[n].style.backgroundColor="0xaaaaaa"
                     // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
                     ptxt[0].innerText = gridlst[n].children[3].innerText + "\n Play ▶"
                     pcode[0].innerText = "1" + " " + templst[0].type;
                 } else {
+                    // gridlst[n].style.backgroundColor="0x44aaaa"
                     // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/red_button00.png")'
                     ptxt[0].innerText = gridlst[n].children[2].innerText + "\n  unlock more"
                     pcode[0].innerText = "";
@@ -16991,16 +16987,17 @@
                 }
               }
                 if (!gridlst[n].classList.contains("locked")) {
+                    // gridlst[n].style.backgroundColor="0xaaaaaa"
                     // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
                     ptxt[0].innerText = gridlst[n].children[3].innerText + "\n Play ▶"
                     pcode[0].innerText = "0" + " " + templst[0].type;
                 } else {
-                    pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/red_button00.png")'
+                  // gridlst[n].style.backgroundColor="0x44aaaa"
+                    // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/red_button00.png")'
                     ptxt[0].innerText = gridlst[n].children[2].innerText + "\n  unlock more"
                     pcode[0].innerText = "";
                 }
             }
-
 
             var stcount=0;
             gridlst.forEach((item, i) => {
@@ -17010,11 +17007,19 @@
                   if(item.classList.contains("set")){
                     stcount++;
                   }
-
               }
             });
-            gridlst[1].children[3].innerText=String(stcount)+" selected"
+
+            if(stcount==0){
+              gridlst[1].children[3].innerText=String(stcount)+" selected"
+              gridlst[1].classList.remove("set")
+            }else{
+              gridlst[1].classList.add("set")
+              gridlst[1].children[3].innerText=String(stcount)+" selected"
+            }
+
             if(!gridlst[n].classList.contains("locked")){
+
               if(stcount>0){
                 if(gridlst[0].classList.contains("set")){
                   gridlst[0].children[3].innerText="mix"
@@ -17032,8 +17037,12 @@
                   gridlst[1].children[3].innerText="random"
                 }
               }
-
+              ptxt[0].innerText = gridlst[0].children[3].innerText +" - ("+gridlst[1].children[3].innerText + ")\n Play ▶"
             }
+
+
+
+
 
             if (templst[0].type == "wooden") {
                 pimg[0].src = "png/" + imglst1[0]
