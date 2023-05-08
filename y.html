@@ -246,7 +246,7 @@
             width: 500vw;
             left:-24%;
             height: 60%;
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.4);
             background-size: cover;
             /* z-index: 2; */
             display: inline-flex;
@@ -4595,9 +4595,11 @@
                             var songInfo = document.getElementById('song-info');
                             songInfo.classList.add("moveleft");
                             songInfo.style.left="0px"
+
                             document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
                             document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
                             document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+
 
 
 
@@ -4605,14 +4607,23 @@
                                 document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
                                 document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
                                 document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
+                                var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+                                document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*1.8, newcl.l*0.65)
+                                document.getElementById('songback').style.opacity="0.2"
 
                             }else{
                                 document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][thisnum])
                                 document.getElementById('song-title').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
 
                                 var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
-                                document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.60, newcl.l*1.15)
+                                document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.60, newcl.l*1)
+                                document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*1.8, newcl.l*0.65)
+                                document.getElementById('songback').style.opacity="0.2"
+
                             }
+
+
+
 
 
                             document.getElementById('playing').style.color=hexToHtmlColor(colorlst[colornum][3])
