@@ -4083,6 +4083,7 @@
                 const rowCondition = direction === "down" || direction === "up";
                 var temp = [];
                 for (let row = startRow; row >= 0 && row < this.size; row += rowStep) {
+
                     for (let col = startCol; col >= 0 && col < this.size; col += colStep) {
                         if (tempbd[row][col] === 0){
                           var prevRow = row - (rowCondition ? rowStep : 0);
@@ -4105,12 +4106,13 @@
             	                } else {
                                   if(prevRow >= 0 && prevRow < this.size && prevCol >= 0 && prevCol < this.size){
                                     if(tempbd[prevRow][prevCol]==tempbd[nextRow][nextCol]){
-                                      tempbd[prevRow][prevCol]+=tempbd[nextRow][nextCol]
+                                      tempbd[prevRow][prevCol]+=tempbd[nextRow][nextCol]+1
                 	                    tempbd[nextRow][nextCol]=0;
                                       newRow = nextRow;
                 	                    newCol = nextCol;
                                       row=prevRow;
                                       col=prevCol;
+
                 	                    break
                                     }
                                   }
@@ -4147,7 +4149,7 @@
             	                if (tempbd[nextRow][nextCol] == tempbd[row][col]) {
                                  // console.log(좋아);
             	                    // if (tempbd[nextRow][nextCol] === 0) {
-            	                    tempbd[row][col]+=tempbd[nextRow][nextCol]
+            	                    tempbd[row][col]+=tempbd[nextRow][nextCol]+1
             	                    tempbd[nextRow][nextCol]=0;
                                   newRow = nextRow;
             	                    newCol = nextCol;
