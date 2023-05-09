@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <meta name="viewport" content=user-scalable=no>
+    <meta name="viewport" content="user-scalable=no">
     <title>Tower Stacking Game</title>
     <style>
         body {
@@ -14,36 +14,35 @@
             /* overscroll-behavior-y: none;
             overscroll-behavior-x: none; */
         }
-
         canvas {
+            /* overflow-x: hidden;
+            overflow-y: hidden; */
             position: absolute;
-            ,
-            display: white;
-            ,
-            z-index: 1000
+            display: block;
+            /* z-index: 1000; */
         }
 
         #grid0{
-          background-color: rgba(100, 195, 0, 0.8);
+          background-color: rgba(100, 195, 0, 0.7);
           transform: translate(3vw, -16vw);
           width:42%;
           position: absolute;
         }
 
         #grid0.set{
-          background-color: rgba(20, 60, 195, 0.8);
+          background-color: rgba(20, 150, 225, 0.7);
           background-image: none;
         }
 
         #grid1{
-          background-color: rgba(100, 195, 0, 0.8);
+          background-color: rgba(100, 195, 0, 0.7);
           transform: translate(49vw, -16vw);
           width:42%;
           position: absolute;
         }
 
         #grid1.set{
-          background-color: rgba(20, 60, 195, 0.8);
+          background-color: rgba(20, 150, 225, 0.7);
           background-image: none;
         }
 
@@ -199,6 +198,7 @@
             margin-left: 6vw;
             margin-right: 1vw;
             font-size: 3vh;
+            z-index: 2;
 
         }
         #artist-name{
@@ -207,6 +207,7 @@
             /* margin-left: 1vw; */
             font-size: 1.2vh;
             color:black;
+            z-index: 2;
 
         }
 
@@ -216,6 +217,7 @@
             font-size: 1.8vh;
             color:black;
             margin-top: 0;
+            z-index: 2;
 
         }
 
@@ -225,6 +227,7 @@
             display: flex;
             flex-direction: column;
             margin-top: 0;
+            z-index: 2;
 
 
         }
@@ -233,12 +236,14 @@
             margin-left: 1vw;
             font-size: 1.5vh;
             color:black;
+            z-index: 2;
 
         }
 
         #song-dash2{
             font-size: 1.5vh;
             color:black;
+            z-index: 2;
         }
 
         #songback{
@@ -634,7 +639,7 @@
             border: 1vw rgba(10, 101, 200, 0.5) outset;
             color: #000;
             cursor: pointer;
-            font-size: 2.5vw;
+            font-size: 3vw;
             margin-bottom: 3vw;
             padding: 0 0;
             text-align: center;
@@ -4607,9 +4612,9 @@
                                 document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
                                 document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
                                 document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
-                                var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
-                                document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*1.8, newcl.l*0.65)
-                                document.getElementById('songback').style.opacity="0.2"
+                                var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                                document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*0.8, newcl.l*0.35)
+                                document.getElementById('songback').style.opacity="0.35"
 
                             }else{
                                 document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][thisnum])
@@ -4617,8 +4622,9 @@
 
                                 var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
                                 document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.60, newcl.l*1)
-                                document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*1.8, newcl.l*0.65)
-                                document.getElementById('songback').style.opacity="0.2"
+                                var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
+                                document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h+Math.PI/2, newcl.s, newcl.l*0.35)
+                                document.getElementById('songback').style.opacity="0.35"
 
                             }
 
@@ -16779,8 +16785,6 @@
         }
 
         function showmod() {
-
-
             if(!document.getElementById("mod-overlay").classList.contains("hidden")){
               return goBack(5);
             }
@@ -16792,9 +16796,6 @@
                 document.getElementById("tutorial").classList.add("hidden");
               }, 100);
             }
-
-
-
             document.getElementById("left").classList.add("fade");
             document.getElementById("left").classList.remove("show");
             document.getElementById("leftup").classList.add("fade");
@@ -16826,6 +16827,10 @@
         var imglst1 = ["s00.png", "s01.png", "s02.png", "s03.png", "s04.png"];
         var templst = [];
 
+        var paidlst=[true, false, false, false, false, false]
+
+
+
         function showGrid(n) {
             var ulcount = 0;
             var tkey = Object.keys(nslst);
@@ -16840,38 +16845,75 @@
                 return parseInt(a.idx) - parseInt(b.idx);
             });
             console.log(templst);
+
+            var ptxt = document.querySelectorAll(".pbutton>label");
+            var pbtn = document.querySelectorAll(".pbutton");
+            var sbtn = document.querySelectorAll(".sbutton");
+
+            var pimg = document.querySelectorAll(".pbutton>img");
+            var pcode = document.querySelectorAll(".pbutton>h1");
+            var scode = document.querySelectorAll(".sbutton>h1");
+            var stxt = document.querySelectorAll(".sbutton>label");
+
             var gridlst = document.querySelectorAll("#categ1 >.grid >div");
             var gbutton = document.querySelectorAll("#categ1 >h1")
             gbutton[0].innerText = themelst[n]
             var gbuttonimg = document.querySelectorAll("#categ1 >img");
             gbuttonimg[0].src = "png/" + imglst1[n]
             console.log(gridlst[0].children);
-            if (ulcount >= 5) {
-                gridlst[1].classList.remove("locked");
-                gridlst[0].classList.remove("locked");
-                gridlst[1].children[1].style.display="none";
-                gridlst[0].children[1].style.display="none";
 
-                gridlst[0].children[3].style.color="white";
-                gridlst[1].children[3].style.color="white";
+            if(!paidlst[n]){
+              gridlst[1].classList.add("hidden");
+              gridlst[0].classList.add("hidden");
+              pbtn[0].classList.remove("hidden");
+              pbtn[0].style.backgroundColor="rgba(190, 195, 0, 0.7)"
+              ptxt[0].innerText = "1,000$"
+              pcode[0].innerText = "4"+String(n)
+              pimg[0].src = "png/" + imglst1[n]
 
 
-            } else if (ulcount >= 2) {
-                if (!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
-                gridlst[0].classList.remove("locked");
-                gridlst[0].children[1].style.display="none";
-                gridlst[0].children[3].style.color="white";
-                gridlst[1].children[3].style.color="black";
-            } else {
-                if (!gridlst[0].classList.contains("locked")) gridlst[0].classList.add("locked");
-                if (!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
-                gridlst[0].children[3].style.color="black";
-                gridlst[1].children[3].style.color="black";
+            }else{
+
+              pbtn[0].classList.remove("hidden");
+              // pbtn[0].style.backgroundColor="rgba(190, 195, 0, 0.7)"
+              // ptxt[0].innerText = "1,000$"
+              // pcode[0].innerText = "3"
+              pimg[0].src = "png/" + imglst1[n]
+              pcode[0].innerText = "3" + " "
+              ptxt[0].innerText = gridlst[0].children[3].innerText +" - ("+gridlst[1].children[3].innerText + ")\n Play ▶"
+              pbtn[0].style.backgroundColor="rgba(100, 195, 0, 0.7)"
+              gridlst[1].classList.remove("hidden");
+              gridlst[0].classList.remove("hidden");
+              gridlst[1].children[3].innerText="random"
+              if (ulcount >= 5) {
+                  gridlst[1].classList.remove("locked");
+                  gridlst[0].classList.remove("locked");
+                  gridlst[1].children[1].style.display="none";
+                  gridlst[0].children[1].style.display="none";
+
+                  gridlst[0].children[3].style.color="white";
+                  gridlst[1].children[3].style.color="white";
+
+
+              } else if (ulcount >= 2) {
+                  if (!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
+                  gridlst[0].classList.remove("locked");
+                  gridlst[0].children[1].style.display="none";
+                  gridlst[0].children[3].style.color="white";
+                  gridlst[1].children[3].style.color="black";
+              } else {
+                  if (!gridlst[0].classList.contains("locked")) gridlst[0].classList.add("locked");
+                  if (!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
+                  gridlst[0].children[3].style.color="black";
+                  gridlst[1].children[3].style.color="black";
+              }
+              gridlst[0].children[3].style.fontSize="3vw";
+              gridlst[1].children[3].style.fontSize="3vw";
             }
+
             // gridlst[0].children[0].src = "png/" + imglst1[n]
             // gridlst[1].children[0].src = "png/" + imglst1[n]
-            gridlst[0].children[3].style.fontSize="3vw";
-            gridlst[1].children[3].style.fontSize="3vw";
+
             for (var i = 0; i < gridlst.length - 2; i++) {
                 if (i >= templst.length) {
                     if (!gridlst[2 + i].classList.contains("hidden")) gridlst[2 + i].classList.add("hidden");
@@ -16912,6 +16954,7 @@
             var gridlst = document.querySelectorAll("#categ1 >.grid >div");
             var ptxt = document.querySelectorAll(".pbutton>label");
             var pbtn = document.querySelectorAll(".pbutton");
+            var sbtn = document.querySelectorAll(".sbutton");
 
             var pimg = document.querySelectorAll(".pbutton>img");
             var pcode = document.querySelectorAll(".pbutton>h1");
@@ -16945,19 +16988,25 @@
                 }
               }
                 if (templst[n - 2].unlock == 0) {
-                    // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
+
                     ptxt[0].innerText = gridlst[0].children[2].innerText + "\n Play ▶"
                     pcode[0].innerText = "2" + " " + templst[n - 2].name;
                     scode[0].innerText=templst[n - 2]["0"];
                     stxt[0].innerText=gridlst[n].children[2].innerText
                 } else {
-                    // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/green_button00.png")'
+
                     ptxt[0].innerText = gridlst[n].children[2].innerText + "\n ⭐: " + templst[n - 2].price
                     pcode[0].innerText = "3" + " " + templst[n - 2].name;
                     scode[0].innerText=templst[n - 2]["0"];
                     stxt[0].innerText=gridlst[n].children[2].innerText
                 }
             } else if (n == 1) {
+
+                // sbtn[0].classList.remove("show")
+                // sbtn[0].classList.add("hidden")
+                scode[0].innerText=""
+                stxt[0].innerText=""
+
                 if(!gridlst[n].classList.contains("locked")){
                   if(gridlst[n].classList.contains("set")){
 
@@ -16978,33 +17027,31 @@
 
                 if (!gridlst[n].classList.contains("locked")) {
                     // gridlst[n].style.backgroundColor="0xaaaaaa"
-                    // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
+
                     ptxt[0].innerText = gridlst[n].children[3].innerText + "\n Play ▶"
                     pcode[0].innerText = "1" + " " + templst[0].type;
                 } else {
                     // gridlst[n].style.backgroundColor="0x44aaaa"
-                    // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/red_button00.png")'
+
                     ptxt[0].innerText = gridlst[n].children[2].innerText + "\n  unlock more"
                     pcode[0].innerText = "";
                 }
             } else if (n == 0) {
               if(!gridlst[n].classList.contains("locked")){
                 if(gridlst[n].classList.contains("set")){
-                  gridlst[n].children[3].innerText="single"
+                  gridlst[n].children[3].innerText="mix"
                   gridlst[n].classList.remove("set")
                 }else{
-                  gridlst[n].children[3].innerText="mix"
+                  gridlst[n].children[3].innerText="single"
                   gridlst[n].classList.add("set")
                 }
               }
                 if (!gridlst[n].classList.contains("locked")) {
-                    // gridlst[n].style.backgroundColor="0xaaaaaa"
-                    // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
+
                     ptxt[0].innerText = gridlst[n].children[3].innerText + "\n Play ▶"
                     pcode[0].innerText = "0" + " " + templst[0].type;
                 } else {
-                  // gridlst[n].style.backgroundColor="0x44aaaa"
-                    // pbtn[0].style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/red_button00.png")'
+
                     ptxt[0].innerText = gridlst[n].children[2].innerText + "\n  unlock more"
                     pcode[0].innerText = "";
                 }
@@ -17022,33 +17069,51 @@
             });
 
             if(stcount==0){
-              gridlst[1].children[3].innerText=String(stcount)+" selected"
+              gridlst[1].children[3].innerText="random"
               gridlst[1].classList.remove("set")
             }else{
               gridlst[1].classList.add("set")
               gridlst[1].children[3].innerText=String(stcount)+" selected"
             }
 
-            if(!gridlst[n].classList.contains("locked")){
+
+            if(gridlst[0].classList.contains("hidden")){
+              pbtn[0].style.backgroundColor="rgba(190, 195, 0, 0.7)"
+
+              ptxt[0].innerText = "1,000$"
+              pcode[0].innerText = "3" + " " + templst[n - 2].name;
+              scode[0].innerText=templst[n - 2]["0"];
+              stxt[0].innerText=gridlst[n].children[2].innerText
+
+            }else if(!gridlst[n].classList.contains("locked")){
 
               if(stcount>0){
                 if(gridlst[0].classList.contains("set")){
-                  gridlst[0].children[3].innerText="mix"
+                  gridlst[0].children[3].innerText="single"
+                  pbtn[0].style.backgroundColor="rgba(20, 150, 225, 0.7)"
                 }else{
                   // gridlst[0].classList.add("set")
-                  gridlst[0].children[3].innerText="single"
+                  gridlst[0].children[3].innerText="mix"
+
+                  pbtn[0].style.backgroundColor="rgba(100, 195, 0, 0.7)"
+
                 }
               }else{
                 if(gridlst[0].classList.contains("set")){
-                  gridlst[0].children[3].innerText="mix"
-                  gridlst[1].children[3].innerText="random"
-                }else{
-                  // gridlst[0].classList.add("set")
                   gridlst[0].children[3].innerText="single"
                   gridlst[1].children[3].innerText="random"
+                  pbtn[0].style.backgroundColor="rgba(20, 150, 225, 0.7)"
+                }else{
+                  // gridlst[0].classList.add("set")
+                  gridlst[0].children[3].innerText="mix"
+                  gridlst[1].children[3].innerText="random"
+                  pbtn[0].style.backgroundColor="rgba(100, 195, 0, 0.7)"
+
                 }
               }
               ptxt[0].innerText = gridlst[0].children[3].innerText +" - ("+gridlst[1].children[3].innerText + ")\n Play ▶"
+            }else{
+              pbtn[0].style.backgroundColor="rgba(55, 195, 0, 0.7)"
             }
 
 
@@ -17078,7 +17143,20 @@
         }
 
         function goBack(n) {
+            // var pbtn = document.querySelector(".pbutton");
+            // pbtn.classList.remove("show");
+            // pbtn.classList.add("hidden");
+            var gridlst = document.querySelectorAll("#categ1 >.grid >div");
+            gridlst.forEach((item) => {
+              item.classList.remove("set");
+            });
+            gridlst[1].children[3].innerText="random"
+            gridlst[0].children[3].innerText="mix"
 
+
+            var sbtn = document.querySelector(".sbutton");
+            sbtn.classList.remove("show");
+            sbtn.classList.add("hidden");
 
             window.scrollTo(0, 0);
             if(n==6){
@@ -17264,8 +17342,8 @@
               item.unlock=0;
               coin-=parseInt(item.price);
               console.log(coin)
-              document.getElementById("pbt").style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
-              document.getElementById("pbt").children[1].innerText = item.title + "\n Play ▶"
+              // document.getElementById("pbt").style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
+              document.getElementById("pbt").children[1].innerText = gridlst[0].children[3].innerText +" - ("+gridlst[1].children[3].innerText + ")\n Play ▶"
               setTimeout(function() {
                 document.getElementById("pbt").children[2].innerText="2 "+item.name;
               }, 50);
@@ -17567,21 +17645,21 @@
 
                     </button>
 
-                    <button class="cat-button" onclick="showGrid(2)">
+                    <button class="cat-button unpaid" onclick="showGrid(2)">
                         <img src="png/2.png" alt="Mute" id="img">
                         RETRO
                         <div class="color4"></div>
 
                     </button>
 
-                    <button class="cat-button" onclick="showGrid(3)">
+                    <button class="cat-button unpaid" onclick="showGrid(3)">
                         <img src="png/3a.png" alt="Mute" id="img">
                         808
                         <div class="color4"></div>
 
                     </button>
 
-                    <button class="cat-button" onclick="showGrid(4)">
+                    <button class="cat-button unpaid" onclick="showGrid(4)">
                         <img src="png/7.png" alt="Mute" id="img">
                         hiphop
                         <div class="color4"></div>
@@ -17613,14 +17691,14 @@
                         <img src=""  class="charimg">
                         <img  class="">
                         <img  class="">
-                        <span id="grid0t">mix-random</span>
+                        <span id="grid0t">mix</span>
 
                     </div>
                     <div class="character locked" onclick="showPopup(1)" id="grid1">
                         <img src=""  class="charimg">
                         <img  class="">
                         <img  class="">
-                        <span id="grid1t">0 selected</span>
+                        <span id="grid1t">random</span>
 
                     </div>
                     <div class="character locked" onclick="showPopup(2)">
