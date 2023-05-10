@@ -1600,7 +1600,7 @@
         var lastY;
         var touchx;
         var touchy;
-        let forceAmount = bw * bw * bh / 10;
+        let forceAmount = bw * bw * bh / 15;
         let unitimg = {};
         let 점수 = 0
         let bestscore;
@@ -9014,7 +9014,7 @@
             // const cylinderShape = new CANNON.Cylinder(width, width, bh, 16);
             // const shape2 = new CANNON.Cylinder(width,width,height,1)
             const customMaterial = new CANNON.Material('customMaterial');
-            customMaterial.friction = 0.3; // Friction coefficient, range: 0-1
+            customMaterial.friction = 0.2; // Friction coefficient, range: 0-1
             customMaterial.restitution = 0.4; // Restitution (elasticity), range: 0-1
             if (stage3) {
                 customMaterial.friction = 0.3
@@ -11273,16 +11273,16 @@
                                   // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                                   switch (item.direction) {
                                       case 'up':
-                                          force.set(0, 0, -forceAmount * Math.log2((num) * 70 *(1+2.2* (5 - item.index))));
+                                          force.set(0, 0, -forceAmount * Math.sqrt((num) *20 +10*(1+2.2* (5 - item.index))));
                                           break;
                                       case 'down':
-                                          force.set(0, 0, forceAmount * Math.log2((num) * 70 *(1+2.2* (5 - item.index))));
+                                          force.set(0, 0, forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))));
                                           break;
                                       case 'left':
-                                          force.set(-forceAmount * Math.log2((num) * 70 *(1+2.2* (5 - item.index))), 0, 0);
+                                          force.set(-forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))), 0, 0);
                                           break;
                                       case 'right':
-                                          force.set(forceAmount * Math.log2((num) * 70 *(1+2.2* (5 - item.index))), 0, 0);
+                                          force.set(forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))), 0, 0);
                                           break;
                                       default:
                                           return;
@@ -11294,6 +11294,8 @@
                                   let rotatedVec = force.clone();
                                   // rotatedVec.applyQuaternion(quaternion);
                                   rotatedVec=quaternion.vmult(force);
+
+                                  console.log(rotatedVec);
 
 
 
@@ -17342,9 +17344,13 @@
               item.unlock=0;
               coin-=parseInt(item.price);
               console.log(coin)
+              var pbtn = document.querySelectorAll(".pbutton")
               // document.getElementById("pbt").style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
               document.getElementById("pbt").children[1].innerText = gridlst[0].children[3].innerText +" - ("+gridlst[1].children[3].innerText + ")\n Play ▶"
+              pbtn[0].style.backgroundColor="rgba(100, 195, 0, 0.7)";
+
               setTimeout(function() {
+
                 document.getElementById("pbt").children[2].innerText="2 "+item.name;
               }, 50);
 
