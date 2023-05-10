@@ -292,7 +292,7 @@
 
 
         .hidden {
-            display: none;
+            display:none;
             opacity: 0;
         }
 
@@ -1128,13 +1128,13 @@
         .container {
             /*position: absolute;*/
             overflow-y: scroll;
-            overflow-x: scroll;
+            overflow-x: hidden;
             font-family: 'GG';
             /*top:1000px;*/
             width: 100%;
             height: 100%;
             background-color: rgba(100, 100, 100, 0.4);
-            display: flex;
+            display: block;
             flex-direction: column;
             align-items: center;
             /*margin-top: 5vh;*/
@@ -1600,7 +1600,7 @@
         var lastY;
         var touchx;
         var touchy;
-        let forceAmount = bw * bw * bh / 18;
+        let forceAmount = bw * bw * bh / 16.5;
         let unitimg = {};
         let 점수 = 0
         let bestscore;
@@ -1716,7 +1716,7 @@
         let mergeflag = false;
         let bounceflag = false;
         let topcam = true;
-        let sidecam = true;
+        let sidecam = false;
         let arrowon = false;
         let averageflag = true;
         let lighton = true;
@@ -5546,7 +5546,7 @@
               cubes[3].body.material.friction = 0.2;
               cubes[3].body.material.restitution = 0.4;
               stack=5;
-              forceAmount = bw * bw * bh / 18;
+              forceAmount = bw * bw * bh / 16.5;
               groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
               world.gravity.set(0, -7, 0);
               world.solver.iterations = 3;
@@ -16669,6 +16669,7 @@
         var categ1 = document.getElementById("categ1");
 
         function skinon() {
+
             document.getElementById("left").classList.add("fade");
             document.getElementById("left").classList.remove("show");
             document.getElementById("leftup").classList.add("fade");
@@ -16684,6 +16685,7 @@
             document.getElementById("right").children[0].style.display = ""
             document.getElementById("options-overlay").classList.remove("hidden");
             document.getElementById("options-overlay").classList.add("show");
+
             setTimeout(function() {
                 document.getElementById("left").classList.add("hidden");
                 document.getElementById("leftup").classList.add("hidden");
@@ -16727,28 +16729,27 @@
         function optionon() {
             // console.log(nslst)
             if (document.getElementById("optionlst").classList.contains("hidden")) {
+                document.getElementById("optionlst").classList.remove("fade");
                 document.getElementById("optionlst").classList.remove("hidden");
-                document.getElementById("optionlst").classList.add("show");
+                // document.getElementById("optionlst").classList.add("show");
                 document.getElementById("right").children[0].classList.add("hidden");
                 document.getElementById("right").children[1].classList.remove("hidden");
                 document.getElementById("right").children[1].style.display = ""
-                setTimeout(function() {}, 100);
+
             } else {
               if(!document.getElementById("tutorial").classList.contains("hidden")){
                 document.getElementById("tutorial").classList.remove("show");
                 document.getElementById("tutorial").classList.add("fade");
-                setTimeout(function() {
-                  document.getElementById("tutorial").classList.add("hidden");
-                }, 100);
+                document.getElementById("tutorial").classList.add("hidden");
+
               }
-                document.getElementById("optionlst").classList.remove("show");
-                document.getElementById("optionlst").classList.add("fade");
+                // document.getElementById("optionlst").classList.remove("show");
+                // document.getElementById("optionlst").classList.add("fade");
+                document.getElementById("optionlst").classList.add("hidden");
                 document.getElementById("right").children[1].classList.add("hidden");
                 document.getElementById("right").children[0].classList.remove("hidden");
                 document.getElementById("right").children[0].style.display = ""
-                setTimeout(function() {
-                    document.getElementById("optionlst").classList.add("hidden");
-                }, 100);
+
             }
         }
 
@@ -16783,7 +16784,7 @@
                 document.getElementById("right").children[1].classList.add("hidden");
                 document.getElementById("right").children[0].classList.remove("hidden");
                 document.getElementById("right").children[0].style.display = ""
-            }, 100);
+            }, 10);
         }
 
         function showmod() {
@@ -17160,7 +17161,7 @@
             sbtn.classList.remove("show");
             sbtn.classList.add("hidden");
 
-            window.scrollTo(0, 0);
+
             if(n==6){
               document.getElementById("tutorial").classList.remove("show");
               document.getElementById("tutorial").classList.add("fade");
@@ -17276,6 +17277,7 @@
                 }, 100);
             }
             // window.scrollTo(0, 0);
+            return window.scrollTo(0, 0);
         }
 
         function showcredit(n){
@@ -17675,7 +17677,7 @@
                     <button class="cat-button" onclick="">comming soon!
 
                     </button>
-                    <!-- Add more categories -->
+
                 </div>
             </div>
             <div id="categ1" class="selection hidden">
@@ -17813,7 +17815,7 @@
                 </div>
             </div>
         </div>
-        <div class="lower hidden"> </div>
+
     </div>
 
     <div id="mod-overlay" class="mod-overlay hidden">
