@@ -1545,6 +1545,9 @@
         let lastTime = 0;
         const frameDuration = 1000 / 120;
 
+        var particleflag=false;
+
+
         var gamemod=0;
         window.gamemod=gamemod;
         var fullmax=false;
@@ -5624,21 +5627,24 @@
             gradback = [];
             uilst0 = [];
             uilst1 = [];
-            var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-            var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 20) + '%)');
-            var material2 = new THREE.ShaderMaterial({
-                uniforms: {
-                    color: {
-                        value: tc
-                    },
-                    opacity: 0.1,
-                    transparent: true
-                },
-                vertexShader: document.getElementById('vertexshader').textContent,
-                fragmentShader: document.getElementById('fragmentshader').textContent
-            });
-            particles.material = material2
-            scene.add(particles);
+            if(particleflag){
+              var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+              var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 20) + '%)');
+              var material2 = new THREE.ShaderMaterial({
+                  uniforms: {
+                      color: {
+                          value: tc
+                      },
+                      opacity: 0.1,
+                      transparent: true
+                  },
+                  vertexShader: document.getElementById('vertexshader').textContent,
+                  fragmentShader: document.getElementById('fragmentshader').textContent
+              });
+              particles.material = material2
+              scene.add(particles);
+            }
+
             sdic=[];
             templst.sort(() => Math.random() - 0.5);
             sdic.push(nslst[templst[0]])
@@ -10043,59 +10049,61 @@
         // sdic[4]=wooden;
         var bsounds = [];
         var sounds = [];
-
-        var particlenum = 25;
-        var vertices = [];
-        var geometry = new THREE.BufferGeometry();
-        var positions = [];
-        var colors = [];
-        var sizes = [];
-        var scales = [];
-        var cl = new THREE.Color();
-        for (let i = 0; i < 25; i++) {
-            // const x = 20 * Math.random() - 10;
-            // const y = 20 * Math.random() - 10;
-            // const z = 20 * Math.random() - 10;
-            positions.push((Math.random() * bw * 2.5 - bw * 3));
-            positions.push((Math.random() * bh * 7));
-            positions.push((Math.random() * bw * 2.5 - bw * 3));
-            // vertices.push( x, y, z );
-            cl.setHSL(i / particlenum, 1.0, 0.5);
-            colors.push(cl.r, cl.g, cl.b);
-            scales.push(1);
-            sizes.push(1);
+        if(particleflag){
+          var particlenum = 25;
+          var vertices = [];
+          var geometry = new THREE.BufferGeometry();
+          var positions = [];
+          var colors = [];
+          var sizes = [];
+          var scales = [];
+          var cl = new THREE.Color();
+          for (let i = 0; i < 25; i++) {
+              // const x = 20 * Math.random() - 10;
+              // const y = 20 * Math.random() - 10;
+              // const z = 20 * Math.random() - 10;
+              positions.push((Math.random() * bw * 2.5 - bw * 3));
+              positions.push((Math.random() * bh * 7));
+              positions.push((Math.random() * bw * 2.5 - bw * 3));
+              // vertices.push( x, y, z );
+              cl.setHSL(i / particlenum, 1.0, 0.5);
+              colors.push(cl.r, cl.g, cl.b);
+              scales.push(1);
+              sizes.push(1);
+          }
+          var sprite = new THREE.TextureLoader().load('https://raw.githubusercontent.com/Radetzki87/web1/master/disc.png')
+          geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+          geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+          // geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( THREE.DynamicDrawUsage ) );
+          geometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
+          geometry.setAttribute('scale', new THREE.Float32BufferAttribute(scales, 1));
+          var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 20) + '%)');
+          const material2 = new THREE.ShaderMaterial({
+              uniforms: {
+                  color: {
+                      value: tc
+                  },
+                  opacity: 0.1,
+                  transparent: true
+              },
+              vertexShader: document.getElementById('vertexshader').textContent,
+              fragmentShader: document.getElementById('fragmentshader').textContent
+          });
+          var material = new THREE.PointsMaterial({
+              size: 5,
+              sizeAttenuation: true,
+              map: sprite,
+              alphaTest: 0.1,
+              transparent: true,
+              opacity: 0.4
+          });
+          // var material = new THREE.ShaderMaterial( { map: sprite} );
+          material.color = new THREE.Color(0xffffff)
+          let particles = new THREE.Points(geometry, material2);
+          scene.add(particles);
         }
-        var sprite = new THREE.TextureLoader().load('https://raw.githubusercontent.com/Radetzki87/web1/master/disc.png')
-        geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-        // geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( THREE.DynamicDrawUsage ) );
-        geometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
-        geometry.setAttribute('scale', new THREE.Float32BufferAttribute(scales, 1));
-        var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 20) + '%)');
-        const material2 = new THREE.ShaderMaterial({
-            uniforms: {
-                color: {
-                    value: tc
-                },
-                opacity: 0.1,
-                transparent: true
-            },
-            vertexShader: document.getElementById('vertexshader').textContent,
-            fragmentShader: document.getElementById('fragmentshader').textContent
-        });
-        var material = new THREE.PointsMaterial({
-            size: 5,
-            sizeAttenuation: true,
-            map: sprite,
-            alphaTest: 0.1,
-            transparent: true,
-            opacity: 0.4
-        });
-        // var material = new THREE.ShaderMaterial( { map: sprite} );
-        material.color = new THREE.Color(0xffffff)
-        let particles = new THREE.Points(geometry, material2);
-        scene.add(particles);
+
         // guideflag=false;
         let listener;
         const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.csv';
@@ -10397,14 +10405,17 @@
                 // console.log(Math.abs(camera.rotation.x-restartend))
                 가장자리[0].material.visible = false;
                 가장자리[0].children[0].material.visible = false;
-                scene.remove(particles);
+                if(particleflag){
+                  scene.remove(particles);
+                }
+
                 if (Math.abs(camera.rotation.x - restartend) < 0.02) {
                     restart();
                 } else {
                     document.getElementById('song-info').classList.remove("show1");
                     document.getElementById('song-info').classList.add("hidden");
 
-                    camera.rotation.x += Math.PI / 512
+                    camera.rotation.x += Math.PI / 256
                     var canvas = document.createElement('canvas');
                     var ctx = canvas.getContext('2d');
                     canvas.width = 100;
@@ -10578,7 +10589,7 @@
                         }
                       });
                     }
-                    camera.rotation.x -= Math.PI / 256
+                    camera.rotation.x -= Math.PI / 128
                     // camera.position.y-=100000*(Math.PI/128)
                 }
             }
@@ -10809,25 +10820,27 @@
             // }
             if (skin0 && skinflag) {
                 if (txtcount != txttimebuf) {
-
-                    const positions0 = particles.geometry.attributes.position.array;
-                    // const size0 = particles.geometry.attributes.size.array;
-                    const scales0 = particles.geometry.attributes.scale.array;
-                    // console.log(positions)
-                    var i = 0,
-                        j = 0;
-                    for (let ix = 0; ix < 5; ix++) {
-                        for (let iy = 0; iy < 5; iy++) {
-                            positions0[i + 1] = bh * ((Math.sin((ix + txtcount) * 0.15) * 0.1) - (Math.sin((iy + txtcount) * 0.15) * 0.1));
-                            scales0[j] = (Math.sin((ix * txtcount / 2) * 0.25 / 3)) * (1 + 0) + (Math.sin((iy * txtcount / 3) * 0.25)) * (1 + 0);
-                            // scales0[ j ] = 32
-                            i += 3;
-                            j++;
-                        }
+                    if(particleflag){
+                      const positions0 = particles.geometry.attributes.position.array;
+                      // const size0 = particles.geometry.attributes.size.array;
+                      const scales0 = particles.geometry.attributes.scale.array;
+                      // console.log(positions)
+                      var i = 0,
+                          j = 0;
+                      for (let ix = 0; ix < 5; ix++) {
+                          for (let iy = 0; iy < 5; iy++) {
+                              positions0[i + 1] = bh * ((Math.sin((ix + txtcount) * 0.15) * 0.1) - (Math.sin((iy + txtcount) * 0.15) * 0.1));
+                              scales0[j] = (Math.sin((ix * txtcount / 2) * 0.25 / 3)) * (1 + 0) + (Math.sin((iy * txtcount / 3) * 0.25)) * (1 + 0);
+                              // scales0[ j ] = 32
+                              i += 3;
+                              j++;
+                          }
+                      }
+                      particles.geometry.attributes.position.needsUpdate = true;
+                      // particles.geometry.attributes.size.needsUpdate = true;
+                      particles.geometry.attributes.scale.needsUpdate = true;
                     }
-                    particles.geometry.attributes.position.needsUpdate = true;
-                    // particles.geometry.attributes.size.needsUpdate = true;
-                    particles.geometry.attributes.scale.needsUpdate = true;
+
                     // particles.geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
                     // particles.geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
                     // particles.geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( THREE.DynamicDrawUsage ) );
@@ -11034,7 +11047,7 @@
                 // });
                 // }
                 // let speed= 0.15*(Math.abs((item.c-item.a)+(item.d-item.b))/8);
-                let speed = deltaTime*bw / 175;
+                let speed = deltaTime*bw / 155;
                 // const vspeed=speed*2;
                 var rmvftile = [];
                 ftiles.forEach((item, index) => {
@@ -12237,7 +12250,7 @@
             })
             gradback[0].material.visible = true;
             if (topcam&&!restartflag) {
-                particles.material.visible=false;
+              if(particleflag) particles.material.visible=false;
                 groundmesh.material.visible = true;
                 if (shadowon) groundmesh.receiveShadow = false
                 if (activeFloor == cubes.length) {
@@ -12477,7 +12490,7 @@
                 // }
             }
 
-            particles.material.visible=true;
+            if(particleflag) particles.material.visible=true;
             groundmesh.material.visible=true;
             if (shadowon) groundmesh.receiveShadow = true
 
@@ -17422,10 +17435,10 @@
     <img class="" src="png/left.png">
     </button>
         <div>
-        <h2 id="제작">제작:</h2>
-        <h2 id="제작">Developed by S.R. KIM </h2>
-        <h2 id="제작">SOUND:</h2>
-        <h2 id="제작">REFERENCE:</h2>
+        <h2 id="">제작:</h2>
+        <h2 id="">Developed by S.R. KIM </h2>
+        <h2 id="">SOUND:</h2>
+        <h2 id="">REFERENCE:</h2>
         </div>
     </div>
 
