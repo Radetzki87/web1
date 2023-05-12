@@ -30,21 +30,7 @@
 
 <body>
 
-  <script type="x-shader/x-vertex" id="vertexshader">
-    attribute float scale;
-		void main() {
-			vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-			gl_PointSize = scale * ( 300.0 / - mvPosition.z );
-			gl_Position = projectionMatrix * mvPosition;
-		}
-	</script>
-  <script type="x-shader/x-fragment" id="fragmentshader">
-    uniform vec3 color;
-		void main() {
-			if ( length( gl_PointCoord - vec2( 0.5, 0.5 ) ) > 0.475 ) discard;
-			gl_FragColor = vec4( color, 0.5 );
-		}
-	</script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
 
     <script type="importmap">
@@ -4017,19 +4003,7 @@
             uilst1 = [];
             var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
             var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 20) + '%)');
-            var material2 = new THREE.ShaderMaterial({
-                uniforms: {
-                    color: {
-                        value: tc
-                    },
-                    opacity: 0.1,
-                    transparent: true
-                },
-                vertexShader: document.getElementById('vertexshader').textContent,
-                fragmentShader: document.getElementById('fragmentshader').textContent
-            });
-            particles.material = material2
-            scene.add(particles);
+
             sdic=[];
             templst.sort(() => Math.random() - 0.5);
             sdic.push(nslst[templst[0]])
@@ -8363,58 +8337,7 @@
         var bsounds = [];
         var sounds = [];
 
-        var particlenum = 25;
-        var vertices = [];
-        var geometry = new THREE.BufferGeometry();
-        var positions = [];
-        var colors = [];
-        var sizes = [];
-        var scales = [];
-        var cl = new THREE.Color();
-        for (let i = 0; i < 25; i++) {
-            // const x = 20 * Math.random() - 10;
-            // const y = 20 * Math.random() - 10;
-            // const z = 20 * Math.random() - 10;
-            positions.push((Math.random() * bw * 2.5 - bw * 3));
-            positions.push((Math.random() * bh * 7));
-            positions.push((Math.random() * bw * 2.5 - bw * 3));
-            // vertices.push( x, y, z );
-            cl.setHSL(i / particlenum, 1.0, 0.5);
-            colors.push(cl.r, cl.g, cl.b);
-            scales.push(1);
-            sizes.push(1);
-        }
-        var sprite = new THREE.TextureLoader().load('https://raw.githubusercontent.com/Radetzki87/web1/master/disc.png')
-        geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-        // geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( THREE.DynamicDrawUsage ) );
-        geometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
-        geometry.setAttribute('scale', new THREE.Float32BufferAttribute(scales, 1));
-        var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 20) + '%)');
-        const material2 = new THREE.ShaderMaterial({
-            uniforms: {
-                color: {
-                    value: tc
-                },
-                opacity: 0.1,
-                transparent: true
-            },
-            vertexShader: document.getElementById('vertexshader').textContent,
-            fragmentShader: document.getElementById('fragmentshader').textContent
-        });
-        var material = new THREE.PointsMaterial({
-            size: 5,
-            sizeAttenuation: true,
-            map: sprite,
-            alphaTest: 0.1,
-            transparent: true,
-            opacity: 0.4
-        });
-        // var material = new THREE.ShaderMaterial( { map: sprite} );
-        material.color = new THREE.Color(0xffffff)
-        let particles = new THREE.Points(geometry, material2);
-        scene.add(particles);
+
         // guideflag=false;
         let listener;
         const csvUrl = 'https://raw.githubusercontent.com/Radetzki87/web1/master/sdic.csv';
@@ -8575,7 +8498,7 @@
                 // console.log(Math.abs(camera.rotation.x-restartend))
                 가장자리[0].material.visible = false;
                 가장자리[0].children[0].material.visible = false;
-                scene.remove(particles);
+
                 if (Math.abs(camera.rotation.x - restartend) < 0.02) {
                     restart();
                 } else {
@@ -8968,27 +8891,6 @@
             if (skin0 && skinflag) {
                 if (txtcount != txttimebuf) {
 
-                    const positions0 = particles.geometry.attributes.position.array;
-                    // const size0 = particles.geometry.attributes.size.array;
-                    const scales0 = particles.geometry.attributes.scale.array;
-                    // console.log(positions)
-                    var i = 0,
-                        j = 0;
-                    for (let ix = 0; ix < 5; ix++) {
-                        for (let iy = 0; iy < 5; iy++) {
-                            positions0[i + 1] = bh * ((Math.sin((ix + txtcount) * 0.15) * 0.1) - (Math.sin((iy + txtcount) * 0.15) * 0.1));
-                            scales0[j] = (Math.sin((ix * txtcount / 2) * 0.25 / 3)) * (1 + 0) + (Math.sin((iy * txtcount / 3) * 0.25)) * (1 + 0);
-                            // scales0[ j ] = 32
-                            i += 3;
-                            j++;
-                        }
-                    }
-                    particles.geometry.attributes.position.needsUpdate = true;
-                    // particles.geometry.attributes.size.needsUpdate = true;
-                    particles.geometry.attributes.scale.needsUpdate = true;
-                    // particles.geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
-                    // particles.geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
-                    // particles.geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( THREE.DynamicDrawUsage ) );
 
                     if(skinnum==1||skinnum==2){
                       txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
@@ -10379,7 +10281,7 @@
             })
             gradback[0].material.visible = true;
             if (topcam&&!restartflag) {
-                particles.material.visible=false;
+
                 groundmesh.material.visible = true;
                 if (shadowon) groundmesh.receiveShadow = false
                 if (activeFloor == cubes.length) {
@@ -10619,7 +10521,7 @@
                 // }
             }
 
-            particles.material.visible=true;
+
             groundmesh.material.visible=true;
             if (shadowon) groundmesh.receiveShadow = true
 
