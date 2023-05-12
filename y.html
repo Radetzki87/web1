@@ -19,7 +19,7 @@
             overflow-y: hidden; */
             position: absolute;
             display: block;
-            /* z-index: 1000; */
+            z-index: 1000;
         }
 
         #grid0{
@@ -1542,6 +1542,8 @@
         var bf;
         var 두께=0.35;
 
+        let lastTime = 0;
+        const frameDuration = 1000 / 120;
 
         var gamemod=0;
         window.gamemod=gamemod;
@@ -9525,7 +9527,7 @@
             });
             var tmesh1 = new THREE.Mesh(geometry12, material);
             // tmesh1.position.y
-            tmesh1.position.x = 4.7;
+            tmesh1.position.x = 4.75;
             tmesh1.depth = 10;
             tmesh1.rotation.order = 'YXZ';
             // tmesh1.rotation.y =Math.PI / 4;
@@ -9543,7 +9545,7 @@
             });
             var tmesh1 = new THREE.Mesh(geometry12, material);
             // tmesh1.position.y
-            tmesh1.position.x = 4.8 * 1.94;
+            tmesh1.position.x = 4.7 * 1.94;
             tmesh1.depth = 10;
             tmesh1.rotation.order = 'YXZ';
             // tmesh1.rotation.y =Math.PI / 4;
@@ -9560,7 +9562,7 @@
             });
             var tmesh1 = new THREE.Mesh(geometry12, material);
             // tmesh1.position.y
-            tmesh1.position.x = 4.8 * 3;
+            tmesh1.position.x = 4.7 * 3;
             tmesh1.depth = 10;
             tmesh1.rotation.order = 'YXZ';
             tmesh.rotation.order = 'YXZ';
@@ -10302,7 +10304,11 @@
             });
 
         // Animate the scene
-        function animate() {
+        function animate(currentTime) {
+            const deltaTime = currentTime - lastTime;
+            // if (deltaTime < frameDuration) {
+            //   return;
+            // }
 
             if (startflag&&!gameoverflag) { //스타트
                 // console.log(colornum);
@@ -10827,11 +10833,11 @@
                     // particles.geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( THREE.DynamicDrawUsage ) );
 
                     if(skinnum==1||skinnum==2){
-                      // txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
+                      txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
 
                       for (var i = 0; i < cubes.length; i++) {
 
-                          // if(i==0) continue;
+                          if(i==0) continue;
                           txts[i].material = txtlst[i][txtcount];
 
                       }
@@ -11028,7 +11034,7 @@
                 // });
                 // }
                 // let speed= 0.15*(Math.abs((item.c-item.a)+(item.d-item.b))/8);
-                let speed = bw / 20;
+                let speed = deltaTime*bw / 190;
                 // const vspeed=speed*2;
                 var rmvftile = [];
                 ftiles.forEach((item, index) => {
@@ -12527,6 +12533,8 @@
                 item.material.opacity = 1
                 item.material.transparent = false;
             })
+            lastTime = currentTime;
+
 
 
         }
