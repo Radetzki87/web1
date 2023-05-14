@@ -1543,9 +1543,9 @@
         var 두께=0.35;
 
         let lastTime = 0;
-        const frameDuration = 1000 / 120;
 
-        var particleflag=false;
+
+        var particleflag=true;
 
 
         var gamemod=0;
@@ -10100,7 +10100,7 @@
           });
           // var material = new THREE.ShaderMaterial( { map: sprite} );
           material.color = new THREE.Color(0xffffff)
-          let particles = new THREE.Points(geometry, material2);
+          var particles = new THREE.Points(geometry, material2);
           scene.add(particles);
         }
 
@@ -10296,6 +10296,7 @@
                                         }
                                         document.getElementById("coin2").innerText=String(coin);
                                         bf=999;
+                                        // window.setInterval(animate, 100);
                                         animate();
                                     }, 500  );
                                 })
@@ -10631,6 +10632,7 @@
                 }
             }
             requestAnimationFrame(animate);
+
             //배경컨트롤
             // scene.background = new THREE.Color(0x3e708d);
             // gradback[0].material.visible=true;
@@ -11394,7 +11396,7 @@
             }
 
 
-            if (effects.length != 0) {
+            if (effects.length != 0) { //효
                 // if (activeFloor == effects[0][3]) {
                 //     ring[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3, cubes[effects[0][3]].mesh.position.z)
                 //     ring[0].children.forEach((item) => {
@@ -11437,9 +11439,9 @@
 
                         // item[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3 + (th / 16) * index, cubes[effects[0][3]].mesh.position.z)
                     }
-                    item[0].scale.y *= 1.01;
+                    item[0].scale.y +=(deltaTime/800)
                     // item[0].position.y+=0.03;
-                    item[0].scale.x *= 1.0015;
+                    item[0].scale.x +=(deltaTime/1500);
                     item[0].children.forEach((box) => {
                         box.material.visible = true;
                         box.material.opacity = 0.1 + 0.4 * Math.cos(Math.PI * (item[0].scale.y - 1) / 0.8);
@@ -16681,6 +16683,11 @@
     </script>
 
     <script>
+
+        function adfree(){
+          Android.showToast("안녕하세요!");
+        }
+
         function skinsetting(callback) {
             if (callback) {
                 callback();
@@ -17638,7 +17645,7 @@
                 </button>
                 <div class="button-column">
                     <h1 class="title">NO ADS</h1>
-                    <button class="ad-button" onclick="">
+                    <button class="ad-button" onclick="adfree()">
                         <h2>GET AD-FREE</h2>
                         <!-- <h4>&</h4> -->
                         <!-- <h3>Custom Option 🔓</h3> -->
