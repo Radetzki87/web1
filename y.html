@@ -741,6 +741,7 @@
         }
 
         #intro {
+            font-family: 'GG';
             position: absolute;
             /*position: fixed;*/
             /*position: absolute;*/
@@ -749,10 +750,20 @@
         left: 0;*/
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            /*align-items: center;*/
+            background-color: rgba(0, 0, 0, 1);
+            align-items: center;
             z-index: 3;
+            text-align: center;
+
         }
+        #intro label{
+          position: relative;
+          top:30%;
+          color:white;
+
+          font-size: 20vw;
+        }
+
 
         .options-overlay {
             position: absolute;
@@ -1605,7 +1616,7 @@
         var lastY;
         var touchx;
         var touchy;
-        let forceAmount = bw * bw * bh / 16.5;
+        let forceAmount = bw * bw * bh / 14.5;
         let unitimg = {};
         let 점수 = 0
         let bestscore;
@@ -1721,7 +1732,7 @@
         let mergeflag = false;
         let bounceflag = false;
         let topcam = true;
-        let sidecam = false;
+        let sidecam = true;
         let arrowon = false;
         let averageflag = true;
         let lighton = true;
@@ -10416,7 +10427,7 @@
                     document.getElementById('song-info').classList.remove("show1");
                     document.getElementById('song-info').classList.add("hidden");
 
-                    camera.rotation.x += Math.PI / 256
+                    camera.rotation.x += Math.PI / 512
                     var canvas = document.createElement('canvas');
                     var ctx = canvas.getContext('2d');
                     canvas.width = 100;
@@ -10590,7 +10601,7 @@
                         }
                       });
                     }
-                    camera.rotation.x -= Math.PI / 128
+                    camera.rotation.x -= Math.PI / 256
                     // camera.position.y-=100000*(Math.PI/128)
                 }
             }
@@ -11441,7 +11452,7 @@
                     }
                     item[0].scale.y +=(deltaTime/800)
                     // item[0].position.y+=0.03;
-                    item[0].scale.x +=(deltaTime/1500);
+                    item[0].scale.x +=(deltaTime/2500);
                     item[0].children.forEach((box) => {
                         box.material.visible = true;
                         box.material.opacity = 0.1 + 0.4 * Math.cos(Math.PI * (item[0].scale.y - 1) / 0.8);
@@ -12467,8 +12478,8 @@
                 var width = window.innerWidth / 6;
                 // var height = window.innerHeight / 4;
                 var height = window.innerWidth / 5
-                renderer.setViewport(-500 * Math.abs(-isoAngle - camera.rotation.x) - 500 * Math.abs(Math.PI / 4 - camera.rotation.y), height * 3.5, width, height);
-                renderer.setScissor(-500 * Math.abs(-isoAngle - camera.rotation.x) - 500 * Math.abs(Math.PI / 4 - camera.rotation.y), height * 3.5, width, height);
+                renderer.setViewport(-500 * Math.abs(-isoAngle - camera.rotation.x) - 500 * Math.abs(Math.PI / 4 - camera.rotation.y), height * 4, width, height);
+                renderer.setScissor(-500 * Math.abs(-isoAngle - camera.rotation.x) - 500 * Math.abs(Math.PI / 4 - camera.rotation.y), height * 4, width, height);
                 renderer.setScissorTest(true);
                 // if(Math.abs(restartend-camera.rotation.x)<1){
                 // 	renderer.render(scene, camera);
@@ -12480,8 +12491,8 @@
                 // uilst[0].scale.set(6,20*uidelta,6);
                 // scene.background = new THREE.Color(0x8eA01d);
                 // scene.background = new THREE.Color(colorlst[colornum][0]);
-                renderer.setViewport(window.innerWidth - width + 500 * Math.abs(-isoAngle - camera.rotation.x) + 500 * Math.abs(Math.PI / 4 - camera.rotation.y), height * 3.5, width, height);
-                renderer.setScissor(window.innerWidth - width + 500 * Math.abs(-isoAngle - camera.rotation.x) + 500 * Math.abs(Math.PI / 4 - camera.rotation.y), height * 3.5, width, height);
+                renderer.setViewport(window.innerWidth - width + 500 * Math.abs(-isoAngle - camera.rotation.x) + 500 * Math.abs(Math.PI / 4 - camera.rotation.y), height * 4, width, height);
+                renderer.setScissor(window.innerWidth - width + 500 * Math.abs(-isoAngle - camera.rotation.x) + 500 * Math.abs(Math.PI / 4 - camera.rotation.y), height * 4, width, height);
                 // window.innerHeight / 2-innerWidth / 10
                 renderer.setScissorTest(true);
                 // if(Math.abs(restartend-camera.rotation.x)<1){
@@ -17481,8 +17492,8 @@
         </div>
 
     </div>
-    <div id="intro" class="hidden">
-        <h1>V 0.7</h1>
+    <div id="intro" class="">
+        <label>RAEK STUDIO</label>
     </div>
 
     <button id="leftup" onclick="showtut()">
