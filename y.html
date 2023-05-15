@@ -855,16 +855,16 @@
         }
 
         .gameinfo1 {
-            font-size: 11vw;
+            font-size: 15vw;
             color:white;
             display: inline-flex;
             z-index: 2;
             /* flex-direction: column; */
-            background-color: rgba(50, 50, 50, 0.1);
+            background-color: rgba(50, 50, 50, 0.2);
             border-radius: 4vw;
             border: 0px solid #000;
             width: 85%;
-            height: 8%;
+            height: 10%;
             justify-content: center;
             align-items:baseline;
             margin-bottom: 5vw;
@@ -877,7 +877,7 @@
         }
 
         .gameinfo1 .b{
-          font-size: 6vw;
+          font-size: 9vw;
         }
 
 
@@ -12145,9 +12145,10 @@
                             }
                         }else{
                           if (parseInt(pointbuf).toString().length >= 4) {
-                              item.position.z = 4+avz - bw / 3;
+                              item.position.z = 1+avz -bw /(3.1+(parseInt(pointbuf).toString().length-4)*0.3);
                           } else if (parseInt(pointbuf).toString().length == 3) {
-                              item.position.z = 3+avz - bw / 2.6;
+                              // item.position.z = 3+avz - bw / 2.6;
+                              item.position.z = 1+avz - bw / 2.6;
                           } else {
                               item.position.z = 1+avz - bw / 2.3;
                           }
@@ -12156,7 +12157,7 @@
                     })
 
                     시간.forEach((item) => {
-                        item.position.x = avx - bw / 2;
+                        item.position.x = avx - bw / 2.5;
                         item.position.z = avz - bw / 1.5;
 
 
@@ -12184,9 +12185,10 @@
 
                         // textMesh.position.z=0
                         if (temptxt.toString().length >= 4) {
-                            textMesh.position.z = 4+avz - bw / 3;
+                            textMesh.position.z = 1+avz - bw /(3.1+(temptxt.toString().length-4)*0.3);
                         } else if (temptxt.toString().length == 3) {
-                            textMesh.position.z = 3+avz - bw / 2.6;
+                            // textMesh.position.z = 3+avz - bw / 2.6;
+                            textMesh.position.z = 1+avz - bw / 2.6;
                         } else {
                             textMesh.position.z = 1+avz - bw / 2.3;
                         }
@@ -12222,7 +12224,7 @@
                     }
                     createTextMesh(timestring, 998, (textMesh) => {
                         textMesh.position.y = cubes.length * bh - th * 0.2
-                        textMesh.position.x = avx - bw / 2;
+                        textMesh.position.x = avx - bw / 2.5;
                         textMesh.position.z = avz - bw / 1.5;
                         // textMesh.position.x=0;
                         textMesh.depth = 10;
