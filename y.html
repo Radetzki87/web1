@@ -10102,7 +10102,7 @@
               fragmentShader: document.getElementById('fragmentshader').textContent
           });
           var material = new THREE.PointsMaterial({
-              size: 5,
+              size: 10,
               sizeAttenuation: true,
               map: sprite,
               alphaTest: 0.1,
@@ -10843,7 +10843,7 @@
                       for (let ix = 0; ix < 5; ix++) {
                           for (let iy = 0; iy < 5; iy++) {
                               positions0[i + 1] = bh * ((Math.sin((ix + txtcount) * 0.15) * 0.1) - (Math.sin((iy + txtcount) * 0.15) * 0.1));
-                              scales0[j] = (Math.sin((ix * txtcount / 2) * 0.25 / 3)) * (1 + 0) + (Math.sin((iy * txtcount / 3) * 0.25)) * (1 + 0);
+                              scales0[j] = 0.5+(Math.sin((ix * txtcount / 2) * 0.25 / 3)) * (1 + 0) + (Math.sin((iy * txtcount / 3) * 0.25)) * (1 + 0);
                               // scales0[ j ] = 32
                               i += 3;
                               j++;
