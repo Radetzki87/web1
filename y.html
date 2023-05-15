@@ -4376,7 +4376,7 @@
                   document.getElementById("intro").style.opacity="0";
                 }, 1);
                 originflag=true;
-                camera.rotation.x=isoAngle;
+                camera.rotation.x=restartend;
                 restartflag = false;
 
                 return;
@@ -10467,7 +10467,8 @@
                   scene.remove(particles);
                 }
 
-                if (Math.abs(camera.rotation.x - restartend) < 0.02) {
+                if (camera.rotation.x - restartend >0) {
+                    // camera.rotation.x=restartend;
                     restart();
                 } else {
                     document.getElementById('song-info').classList.remove("show1");
