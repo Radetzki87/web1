@@ -356,7 +356,7 @@
             font-family: 'GG';
             /*글꼴*/
             /*src: local('GG'),*/
-            src: url('https://raw.githubusercontent.com/Radetzki87/web1/master/kenvector_future_thin.ttf') format('woff');
+            src: url('kenvector_future_thin.ttf') format('woff');
             font-weight: normal;
             font-style: normal;
         }
@@ -776,7 +776,7 @@
             /* align-items: center; */
             z-index: 3;
             text-align: center;
-            transition: opacity 1.2s, top 1.6s ease;
+            transition: opacity 1s, top 1.6s ease;
 
         }
         #intro label{
@@ -816,7 +816,8 @@
         }
 
         #pop-info{
-          font-size: 5vw;
+          font-family: 'GG';
+          font-size: 4vw;
           position: absolute;
           display: flex;
           flex-direction: column;
@@ -1801,7 +1802,7 @@
         let txts = [];
         window.txts = txts
         let txtlst = [];
-        let guideflag = false;
+        let guideflag = true;
         var guide = [];
         var ring = []
         var soundon = true;
@@ -5117,7 +5118,7 @@
             // const dL=new THREE.DirectionalLight(0xffffff,0.7);
             // dL.position.set(13,30,18);
             // scene.add(dL);
-            var dl2 = new THREE.DirectionalLight(0xFFFFFF, 0.75);
+            var dl2 = new THREE.DirectionalLight(0xFFFFFF, 0.7);
             dl2.position.set(10, 50, 40);
             // dl2.position.set(-40+Math.random()*80,50,-10+Math.random()*50);
             // dl2.position.set(13,30,-18);
@@ -5782,9 +5783,9 @@
                 // let ambientLight= new THREE.AmbientLight(0xffffff,0.4);
                 if (gamemod==0||gamemod==2) {
                   ambientLight.color=new THREE.Color(0xffffff);
-                  ambientLight.intensity=0.4
+                  ambientLight.intensity=0.3
                   dl2.color=new THREE.Color(0xffffff);
-                  dl2.intensity=0.75
+                  dl2.intensity=0.7
                   if(gamemod==2){
                     dl2.intensity=0.65
 
@@ -5794,9 +5795,9 @@
                 }else if(gamemod==1){
 
                   ambientLight.color=new THREE.Color(0xffffff);
-                  ambientLight.intensity=0.4
+                  ambientLight.intensity=0.3
                   dl2.color=new THREE.Color(0xffffff);
-                  dl2.intensity=0.75
+                  dl2.intensity=0.7
                   if(gamemod==2){
                     dl2.intensity=0.65
 
@@ -10162,7 +10163,7 @@
               scales.push(1);
               sizes.push(1);
           }
-          var sprite = new THREE.TextureLoader().load('https://raw.githubusercontent.com/Radetzki87/web1/master/disc.png')
+          var sprite = new THREE.TextureLoader().load('png/disc.png')
           geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
           geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
           // geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( THREE.DynamicDrawUsage ) );
@@ -10701,7 +10702,7 @@
                     }
                     // camera.rotation.x -= Math.PI / 256
                     camera.rotation.x -= deltaTime / 1200
-                    if (-isoAngle - camera.rotation.x > 0) camera.rotation.x=-isoAngle+0.001;
+                    // if (-isoAngle - camera.rotation.x > 0) camera.rotation.x=-isoAngle+0.001;
                     // camera.position.y-=100000*(Math.PI/128)
                 }
             }
@@ -16806,7 +16807,9 @@
     <script>
 
         function adfree(){
-          Android.showToast("안녕하세요!");
+          // Android.showToast("안녕하세요!");
+          Android.showToast(Android.readAsset("123.txt"));
+
         }
 
         function skinsetting(callback) {
