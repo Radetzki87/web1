@@ -741,19 +741,16 @@
         }
 
         #intro {
+            top:0vw;
             font-family: 'GG';
             position: absolute;
-            /*position: fixed;*/
-            /*position: absolute;*/
-            /*right: 4000px;*/
-            /*top: 0;
-        left: 0;*/
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 1);
-            align-items: center;
+            /* align-items: center; */
             z-index: 3;
             text-align: center;
+            transition: top 2s ease;
 
         }
         #intro label{
@@ -763,6 +760,8 @@
 
           font-size: 20vw;
         }
+
+
 
 
         .options-overlay {
@@ -4350,11 +4349,14 @@
               listener= new THREE.AudioListener();
               msetting0(function(object) {
 
-                document.getElementById("intro").classList.add("fade");
+                // document.getElementById("intro").classList.add("fade");
+
                 setTimeout(function() {
-                    document.getElementById("intro").classList.add("hidden");
-                }, 150);
+                  document.getElementById("intro").style.top="-100%";
+                }, 20);
                 originflag=true;
+                camera.rotation.x=isoAngle;
+                restartflag = false;
 
                 return;
               })
@@ -5199,11 +5201,14 @@
                   listener= new THREE.AudioListener();
                   msetting0(function(object) {
 
-                    document.getElementById("intro").classList.add("fade");
+
                     setTimeout(function() {
-                        document.getElementById("intro").classList.add("hidden");
-                    }, 150);
+                      document.getElementById("intro").style.top="-100%";
+                        // document.getElementById("intro").classList.add("hidden");
+                    }, 20);
                     originflag=true;
+                    camera.rotation.x=isoAngle;
+                    restartflag = false;
 
                     return;
                   })
@@ -5285,11 +5290,14 @@
                   listener= new THREE.AudioListener();
                   msetting0(function(object) {
 
-                    document.getElementById("intro").classList.add("fade");
+
                     setTimeout(function() {
-                        document.getElementById("intro").classList.add("hidden");
-                    }, 150);
+                      document.getElementById("intro").style.top="-100%";
+                        // document.getElementById("intro").classList.add("hidden");
+                    }, 20);
                     originflag=true;
+                    camera.rotation.x=isoAngle;
+                    restartflag = false;
 
                     return;
                   })
