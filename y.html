@@ -750,7 +750,7 @@
             /* align-items: center; */
             z-index: 3;
             text-align: center;
-            transition: top 2s ease;
+            transition: top 1.7s ease;
 
         }
         #intro label{
@@ -1760,7 +1760,7 @@
         let txts = [];
         window.txts = txts
         let txtlst = [];
-        let guideflag = true;
+        let guideflag = false;
         var guide = [];
         var ring = []
         var soundon = true;
@@ -1858,6 +1858,7 @@
             [0xfec8c9, 0xfd999a, 0x444f59, 0x3e4149]
         ]
         var colornum = parseInt(Math.random() * colorlst.length);
+
 
         var colorlst0 = [
             [0x8ECAE6, 0x219EBC, 0x023047, 0xFFB703, 0xFB8500],
@@ -2072,6 +2073,7 @@
         var colornum0 = parseInt(Math.random() * colorlst0.length);
         // 컬러
         // colornum0=colorlst0.length-1;
+
 
 
         // document.getElementById("cl10").style.backgroundColor=hexToHtmlColor(colorlst[colornum][0])
@@ -4352,8 +4354,8 @@
                 // document.getElementById("intro").classList.add("fade");
 
                 setTimeout(function() {
-                  document.getElementById("intro").style.top="-100%";
-                }, 20);
+                  document.getElementById("intro").style.top="-120%";
+                }, 1);
                 originflag=true;
                 camera.rotation.x=isoAngle;
                 restartflag = false;
@@ -5077,7 +5079,7 @@
                 dl2.shadow.camera.near = 0.1;
                 dl2.shadow.camera.far = 1000;
                 dl2.castShadow = true;
-                dl2.shadow.mapSize = new THREE.Vector2(2048, 2048);
+                dl2.shadow.mapSize = new THREE.Vector2(4096, 4096);
             }
             scene.add(dl2)
         }
@@ -5203,9 +5205,9 @@
 
 
                     setTimeout(function() {
-                      document.getElementById("intro").style.top="-100%";
+                      document.getElementById("intro").style.top="-120%";
                         // document.getElementById("intro").classList.add("hidden");
-                    }, 20);
+                    }, 2);
                     originflag=true;
                     camera.rotation.x=isoAngle;
                     restartflag = false;
@@ -5292,9 +5294,9 @@
 
 
                     setTimeout(function() {
-                      document.getElementById("intro").style.top="-100%";
+                      document.getElementById("intro").style.top="-120%";
                         // document.getElementById("intro").classList.add("hidden");
-                    }, 20);
+                    }, 2);
                     originflag=true;
                     camera.rotation.x=isoAngle;
                     restartflag = false;
@@ -10435,7 +10437,9 @@
                     document.getElementById('song-info').classList.remove("show1");
                     document.getElementById('song-info').classList.add("hidden");
 
-                    camera.rotation.x += Math.PI / 512
+                    // camera.rotation.x += Math.PI / 512
+                    camera.rotation.x += deltaTime / 1800
+
                     var canvas = document.createElement('canvas');
                     var ctx = canvas.getContext('2d');
                     canvas.width = 100;
@@ -10562,7 +10566,8 @@
 
 
             if (!restartflag && lookcenter && !startflag) {
-                if (Math.abs(-isoAngle - camera.rotation.x) < 0.01) {
+                if (Math.abs(-isoAngle - camera.rotation.x) < 0.03) {
+                    camera.rotation.x=-isoAngle;
                     restartloc = [];
                     for (var i = 0; i < cubes.length; i++) {
                       cubes[i].mesh.children.forEach((item, idx) => {
@@ -10609,7 +10614,8 @@
                         }
                       });
                     }
-                    camera.rotation.x -= Math.PI / 256
+                    // camera.rotation.x -= Math.PI / 256
+                    camera.rotation.x -= deltaTime / 1200
                     // camera.position.y-=100000*(Math.PI/128)
                 }
             }
@@ -12135,7 +12141,7 @@
                     renderer.render(scene, camera);
                 }
             }
-
+            
             if (!gameoverflag) {
 
                 var temptxt;
@@ -12171,6 +12177,8 @@
 
                     })
                 }
+
+
                 if (pointbuf != 점수) {
                     pointbuf = 점수
                     while (포인트.length > 0) {
