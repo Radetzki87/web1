@@ -1656,7 +1656,7 @@
         var lastY;
         var touchx;
         var touchy;
-        let forceAmount = bw * bw * bh / 14.5;
+        let forceAmount = bw * bw * bh / 16.5;
         let unitimg = {};
         let 점수 = 0
         let bestscore;
@@ -5962,11 +5962,11 @@
                 var fcolor = colorlst0[colornum0][4]
             } else {
                 if (text.length == 4) {
-                    var fsize = bw / 15
+                    var fsize = bw / 11
                     var fhight = th / 3
                     var fcolor = 0xffffff
                 } else if (text.length == 3) {
-                    var fsize = bw / 11
+                    var fsize = bw / 10
                     var fhight = th / 3
                     var fcolor = 0xffffff
                 } else {
@@ -5992,6 +5992,13 @@
                 });
             }
             const mesh = new THREE.Mesh(geometry, material);
+
+
+            if(text.length>=3){
+              mesh.scale.x=0.9-((text.length-3)/10);
+            }else{
+              mesh.scale.x=1;
+            }
             if (callback) {
                 callback(mesh);
             }
@@ -11259,6 +11266,12 @@
                                 ntext.material = new THREE.MeshBasicMaterial({
                                     color: 0xffffff
                                 });
+
+                                if(text.length>=3){
+                                  ntext.scale.x=0.8-((text.length-3)/5);
+                                }else{
+                                  ntext.scale.x=1;
+                                }
                                 ntext.userData["time"] = elapsedTime;
                                 ntext.userData["merge"] = 1;
                                 tile.add(ntext);
