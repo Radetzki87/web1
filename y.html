@@ -762,6 +762,18 @@
           font-size: 20vw;
         }
 
+        #intro div{
+          opacity:0;
+          position: relative;
+          left:2vw;
+          top:50%;
+          color:white;
+          font-size: 6vw;
+          transition: opacity 1s;
+        }
+
+
+
 
 
 
@@ -1547,6 +1559,8 @@
         //         body.style.top = `-${pageY}px`;
         //     }
         // };
+
+        var goahead=false;
 
         var onceflag0=true;
 
@@ -4348,7 +4362,9 @@
         var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
         function handleTouchStart(event) {
+            if(!goahead) return;
             if(!originflag){
+
               listener= new THREE.AudioListener();
               msetting0(function(object) {
 
@@ -5200,6 +5216,7 @@
         document.addEventListener('keydown', (event) => {
             // if(inflag) return;
             if (event.code === 'KeyW') {
+              if(!goahead) return;
                 if(!originflag){
                   listener= new THREE.AudioListener();
                   msetting0(function(object) {
@@ -5288,6 +5305,7 @@
                     }
                 }
             } else if (event.code === 'KeyS') {
+              if(!goahead) return;
               // showpop("층","","+500pt")
                 if(!originflag){
                   listener= new THREE.AudioListener();
@@ -10306,7 +10324,12 @@
                                 // camera.add(listener);
                                 // scene.background = new THREE.Color(colorlst[colornum][0]);
                                 skinsetting(function(object) {
+
                                     setTimeout(function() {
+                                        document.getElementById("intro").children[1].style.opacity="1";
+                                        goahead=true;
+
+
 
                                         console.log(skinmold)
                                         for(var i=0;i<cubes.length;i++){
@@ -10318,9 +10341,12 @@
                                         }
                                         document.getElementById("coin2").innerText=String(coin);
                                         bf=999;
+
+
                                         // window.setInterval(animate, 100);
                                         animate();
-                                    }, 500  );
+
+                                    }, 1000  );
                                 })
                                 // console.log(tilemold);
                                 // console.log(textmold)
@@ -10340,6 +10366,11 @@
             // if (deltaTime < frameDuration) {
             //   return;
             // }
+
+            var moldkey=Object.keys(skinmold);
+            console.log(moldkey);
+
+
 
             if (startflag&&!gameoverflag) { //스타트
                 // console.log(colornum);
@@ -10567,7 +10598,7 @@
 
 
             if (!restartflag && lookcenter && !startflag) {
-                if (Math.abs(-isoAngle - camera.rotation.x) < 0.03) {
+                if (-isoAngle - camera.rotation.x > 0) {
                     camera.rotation.x=-isoAngle;
                     restartloc = [];
                     for (var i = 0; i < cubes.length; i++) {
@@ -10603,7 +10634,9 @@
                     }
 
 
-                } else {
+                } else if(-isoAngle===camera.rotation.x){
+
+                }else{
                     for (var i = 0; i < cubes.length; i++) {
                       cubes[i].mesh.children.forEach((item, idx) => {
                         if(item.userData["skin"]=="tile") {
@@ -17513,6 +17546,7 @@
     </div>
     <div id="intro" class="">
         <label>RAEK STUDIO</label>
+        <div>Touch to Start</div>
     </div>
 
     <button id="leftup" onclick="showtut()">
