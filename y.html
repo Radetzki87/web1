@@ -166,15 +166,16 @@
           /* align-items: center; */
           z-index: 3;
           text-align: center;
-          transition: opacity 2s;
+          transition: opacity 1.8s;
         }
 
         #tut-info label{
-
+          opacity:1;
           position:relative;
           top: 50%;
           color:white;
           font-size: 7vw;
+          transition: opacity 1.8s;
         }
 
 
@@ -200,7 +201,7 @@
             color: white;
             font-size: 1vh;
             position: absolute;
-            top: 45%;
+            top: 43%;
             /* left: 4vw; */
             width:100%;
             display: inline-flex;
@@ -269,7 +270,7 @@
             width: 500vw;
             left:-24%;
             height: 60%;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0.3);
             background-size: cover;
             /* z-index: 2; */
             display: inline-flex;
@@ -759,7 +760,7 @@
         }
 
         #intro {
-            opacity:1;
+            /* opacity:1; */
             top:0vw;
             font-family: 'GG';
             position: absolute;
@@ -769,14 +770,15 @@
             /* align-items: center; */
             z-index: 3;
             text-align: center;
-            transition: opacity 1.8s, top 1.6s ease;
+            transition: opacity 1.8s, top 1.5s ease;
 
         }
         #intro label{
+          opacity:0.8;
           position: relative;
           left:2vw;
           top:30%;
-          color:white;
+          color:black;
 
           font-size: 10vw;
         }
@@ -797,6 +799,7 @@
 
 
         .options-overlay {
+
             position: absolute;
             overflow-x: scroll;
             font-family: 'GG';
@@ -2110,6 +2113,8 @@
         // colornum0=colorlst0.length-1;
         document.getElementById("intro").style.backgroundColor=hexToHtmlColor(colorlst[colornum][1]);
         document.getElementById("intro").children[0].style.color=hexToHtmlColor(colorlst[colornum][3]);
+
+
         document.getElementById("intro").children[1].style.color=hexToHtmlColor(colorlst[colornum][3]);
 
         // document.getElementById("cl10").style.backgroundColor=hexToHtmlColor(colorlst[colornum][0])
@@ -4394,8 +4399,10 @@
                 document.getElementById("intro").style.opacity="0";
 
                 setTimeout(function() {
+                    document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][3]);
                     document.getElementById("tut-info").style.opacity="0.8";
                 }, 1500);
+
 
 
                 setTimeout(function() {
@@ -5256,6 +5263,7 @@
                     document.getElementById("intro").style.top="-120%";
                     document.getElementById("intro").style.opacity="0";
                     setTimeout(function() {
+                        document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][3]);
                         document.getElementById("tut-info").style.opacity="0.8";
                     }, 1500);
 
@@ -5351,6 +5359,7 @@
                     document.getElementById("intro").style.top="-120%";
                     document.getElementById("intro").style.opacity="0";
                     setTimeout(function() {
+                        document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][3]);
                         document.getElementById("tut-info").style.opacity="0.8";
                     }, 1500);
 
@@ -10490,6 +10499,15 @@
                         child.material.visible = true;
                     })
                 })
+                var txtcount3 = parseInt(elapsedTime*2 ) % 100
+
+                if(txtcount3%2==0){
+                  document.getElementById("intro").children[1].style.opacity="0.1";
+                  document.getElementById("tut-info").children[0].style.opacity="0";
+                }else{
+                  document.getElementById("intro").children[1].style.opacity="1";
+                  document.getElementById("tut-info").children[0].style.opacity="1";
+                }
             }
 
             if (restartflag && lookcenter) { //리스타트
