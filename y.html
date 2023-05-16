@@ -11591,15 +11591,17 @@
                     item[0].scale.y +=(deltaTime/800)
                     // item[0].position.y+=0.03;
                     item[0].scale.x +=(deltaTime/2500);
-                    item[0].children.forEach((box) => {
-                        box.material.visible = true;
-                        box.material.opacity = 0.1 + 0.4 * Math.cos(Math.PI * (item[0].scale.y - 1) / 0.8);
-                        // ring[0].children.forEach((seg) => {
-                        //     seg.material.alphaTest = 0.1;
-                        //     seg.material.transparent = true;
-                        //     seg.material.opacity = 0.1 + 0.5 * Math.cos(Math.PI / 2 + (Math.PI / 2 * (item[0].scale.y - 1) / 0.8));
-                        // })
-                    })
+
+                    item[0].children[0].material.visible = true;
+                    item[0].children[0].material.alphaTest=0.1;
+                    item[0].children[0].material.opacity = 0.1 + 0.4 * Math.cos(Math.PI * (item[0].scale.y - 1) / 0.8);
+                    item[0].children[1].material.visible = true;
+                    item[0].children[1].material.alphaTest=0.1;
+                    item[0].children[1].material.opacity = 0.1 + 0.4 * Math.cos(Math.PI * (item[0].scale.y - 1) / 0.8);
+                    item[0].children[2].material.visible = true;
+                    item[0].children[2].material.alphaTest=0.1;
+                    item[0].children[2].material.opacity = 0.1 + 0.4 * Math.cos(Math.PI * (item[0].scale.y - 1) / 0.8);
+
                     if (item[0].scale.y > 1.8) {
                         console.log(1);
                         cubes[item[3]].mesh.remove(item[0]);
