@@ -164,7 +164,7 @@
           height: 100%;
           background-color: rgba(0, 0, 0, 0);
           /* align-items: center; */
-          z-index: 3;
+          z-index: 1;
           text-align: center;
           transition: opacity 1.8s;
         }
@@ -1179,7 +1179,7 @@
             /*top:1000px;*/
             width: 100%;
             height: 100%;
-            background-color: rgba(100, 100, 100, 0.4);
+            background-color: rgba(150, 180, 200, 0.8);
             display: block;
             flex-direction: column;
             align-items: center;
@@ -1594,6 +1594,8 @@
 
 
         var particleflag=true;
+
+        var ringloc=[];
 
 
         var gamemod=0;
@@ -4267,6 +4269,19 @@
                         return b[1] - a[1];
                     });
                 }
+
+                if(temp2.length==0){
+                  if (direction === "up") {
+                      ring[0].children[0].userData["time"]=elapsedTime;
+                  } else if (direction === "down") {
+                      ring[0].children[3].userData["time"]=elapsedTime;
+                  } else if (direction === "left") {
+                      ring[0].children[2].userData["time"]=elapsedTime;
+                  } else if (direction === "right") {
+                      ring[0].children[1].userData["time"]=elapsedTime;
+                  }
+                  console.log("no move")
+                }
                 temp2.forEach((item) => {
                     this.move(item[0], item[1], item[2], item[3], item[4]);
                 })
@@ -5716,6 +5731,8 @@
             gradback = [];
             uilst0 = [];
             uilst1 = [];
+            ring=[];
+
             if(particleflag){
               var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
               var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 20) + '%)');
@@ -5930,6 +5947,7 @@
                         document.getElementById("coin-info").classList.remove("fade");
                         document.getElementById("coin-info").classList.add("show");
                         document.getElementById("coin2").innerText=String(coin);
+                        addring();
 
 
 
@@ -12417,6 +12435,8 @@
                     topViewCamera.lookAt(cubes[cubes.length - 1].body.position.x, 0, cubes[cubes.length - 1].body.position.z);
                     topViewCamera.rotation.y = cubes[cubes.length - 1].mesh.rotation.y
                 } else {
+
+
                     for (var i = 0; i < cubes.length; i++) {
                         cubes[i].mesh.children.forEach((item) => {
                           if (item.userData["skin"]==skinset[skinnum]) {
@@ -12445,6 +12465,45 @@
                                 topViewCamera.rotation.order = 'YXZ';
                                 topViewCamera.lookAt(cubes[i].body.position.x, 0, cubes[i].body.position.z);
                                 topViewCamera.rotation.y = cubes[i].mesh.rotation.y
+
+                                ring[0].position.set(cubes[activeFloor].mesh.position.x, cubes[activeFloor].mesh.position.y, cubes[activeFloor].mesh.position.z)
+                                ring[0].children.forEach((item, index) => {
+                                    item.material.visible = true;
+                                    item.material.color= new THREE.Color(colorlst0[colornum0][activeFloor]);
+                                    if(elapsedTime-item.userData["time"]<0.5&&elapsedTime-item.userData["time"]>=0){
+                                      if(index==2||index==1){
+                                        item.scale.x=21-40*(elapsedTime-item.userData["time"])
+                                        item.scale.y=1.1-0.2*(elapsedTime-item.userData["time"]);
+                                        item.position.x=ringloc[index][0]+ringloc[index][0]*(0.5)*0.4-ringloc[index][0]*(elapsedTime-item.userData["time"])*0.4;
+
+                                        // item.scale.x=1+40*(elapsedTime-item.userData["time"]);
+                                        // item.scale.y=1+0.2*(elapsedTime-item.userData["time"]);
+                                        // item.position.x=ringloc[index][0]+ringloc[index][0]*(elapsedTime-item.userData["time"])*0.4;
+                                      }else{
+                                        item.scale.y=21-40*(elapsedTime-item.userData["time"])
+                                        item.scale.x=1.1-0.2*(elapsedTime-item.userData["time"]);
+                                        item.position.y=ringloc[index][1]+ringloc[index][1]*(0.5)*0.4-ringloc[index][1]*(elapsedTime-item.userData["time"])*0.4;
+                                      }
+                                      // item.material.color= new THREE.Color(colorlst[colornum][3]);
+                                      item.material.opacity=1.6*(elapsedTime-item.userData["time"]);
+                                      // item.scale.y=3;
+                                    }else{
+                                      item.scale.x=1;
+                                      item.scale.y=1;
+                                      item.scale.z=1;
+                                      item.position.set(ringloc[index][0],ringloc[index][1],ringloc[index][2]);
+                                      item.material.opacity=0.8;
+                                      // item.material.color= new THREE.Color(colorlst0[colornum0][activeFloor]);
+                                      // item.scale.y=1;
+                                    }
+                                })
+                                ring[0].rotation.order = 'XZY';
+                                ring[0].rotation.x = cubes[activeFloor].mesh.rotation.x-Math.PI/2;
+                                ring[0].rotation.z = cubes[activeFloor].mesh.rotation.y;
+                                ring[0].rotation.y = cubes[activeFloor].mesh.rotation.z-Math.PI;
+
+
+
                             }
                         } else if (i > activeFloor) {
                             // cubes[i].mesh.material.opacity = 0.0;
@@ -12481,6 +12540,9 @@
                     renderer.render(scene, topViewCamera);
                 }
             }
+            ring[0].children.forEach((item) => {
+                item.material.visible = false;
+            })
 
             // if(Math.abs(restartend-camera.rotation.x)<0.5){
             // 	renderer.render(scene, camera);
@@ -15654,7 +15716,7 @@
         });
 
         function addring() {
-            var w = bw / 8
+            var w = bw /80
             var geometry0 = new THREE.PlaneGeometry(bw, bw / 2);
             var material0 = new THREE.MeshBasicMaterial({
                 color: 0xffffff,
@@ -15666,7 +15728,7 @@
             var material1 = new THREE.MeshBasicMaterial({
                 color: 0xffffff,
                 side: THREE.DoubleSide,
-                opacity: 1,
+                opacity: 0.8,
                 transparent: true
             });
             var mesh1 = new THREE.Mesh(geometry1, material1);
@@ -15674,7 +15736,7 @@
             var material2 = new THREE.MeshBasicMaterial({
                 color: 0xffffff,
                 side: THREE.DoubleSide,
-                opacity: 1,
+                opacity: 0.8,
                 transparent: true
             });
             var mesh2 = new THREE.Mesh(geometry2, material2);
@@ -15682,7 +15744,7 @@
             var material3 = new THREE.MeshBasicMaterial({
                 color: 0xffffff,
                 side: THREE.DoubleSide,
-                opacity: 1,
+                opacity: 0.8,
                 transparent: true
             });
             var mesh3 = new THREE.Mesh(geometry3, material3);
@@ -15690,7 +15752,7 @@
             var material4 = new THREE.MeshBasicMaterial({
                 color: 0xffffff,
                 side: THREE.DoubleSide,
-                opacity: 1,
+                opacity: 0.8,
                 transparent: true
             });
             var mesh4 = new THREE.Mesh(geometry4, material4);
@@ -15708,8 +15770,21 @@
             mesh0.rotation.x = cubes[0].mesh.rotation.x - Math.PI / 2;
             mesh0.rotation.z = cubes[0].mesh.rotation.z;
             mesh0.position.set(cubes[0].mesh.position.x, cubes[0].body.position.y - bh / 2, cubes[0].body.position.z)
+            mesh0.scale.set(0.98, 0.98, 0.98);
+
+            if(ring.length==0&&ringloc.length==0){
+              mesh0.children.forEach((item, i) => {
+                ringloc.push([item.position.x, item.position.y, item.position.z]);
+              });
+            }
+
             ring.push(mesh0);
             scene.add(mesh0);
+
+
+
+
+
         }
 
         function 이펙트2(floor, num, direction) {
