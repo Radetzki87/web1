@@ -46,68 +46,67 @@
           background-image: none;
         }
 
-          #lowerbtn{
-            position: absolute;
-            bottom:1%;
-            display: inline-flex;
-          }
+        #lowerbtn{
+          position: absolute;
+          bottom:1%;
+          display: inline-flex;
+        }
 
-          .lockimg{
-            position: absolute;
-            width: 20vw;
-            height: 20vw;
-            top:-7%;
-            /* background-size: cover; */
-          }
+        .lockimg{
+          position: absolute;
+          width: 20vw;
+          height: 20vw;
+          top:-7%;
+          /* background-size: cover; */
+        }
 
-          .miximg{
-            position: absolute;
-            width: 15vw;
-            height: 15vw;
-            top:-0.1%;
-            /* background-size: cover; */
-          }
+        .miximg{
+          position: absolute;
+          width: 15vw;
+          height: 15vw;
+          top:-0.1%;
+          /* background-size: cover; */
+        }
 
-          #tutorial {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+        #tutorial {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          /* justify-content: center; */
+
+
+        }
+
+        #tutorial img{
+          position: relative;
+          /* top:60vw%; */
+          width: 86vw;
+          top:7%;
+          z-index: 1;
+          /* height: 40vw; */
+          /* bottom:20%; */
+          /* height: 90%; */
+
+        }
+
+        .backbutton6 {
+            position: fixed;
+            border: none;
+            background-color: transparent;
+            background-image: url("png/red_boxCross.png");
+            background-size: 10vw 10vw;
+            top: 6vh;
+            left: 5%;
+            width: 10vw;
+            height: 10vw;
+            z-index: 2;
             align-items: center;
-            /* justify-content: center; */
-
-
-          }
-
-          #tutorial img{
-            position: relative;
-            /* top:60vw%; */
-            width: 86vw;
-            top:7%;
-            z-index: 1;
-            /* height: 40vw; */
-            /* bottom:20%; */
-            /* height: 90%; */
-
-          }
-
-          .backbutton6 {
-              position: fixed;
-              border: none;
-              background-color: transparent;
-              background-image: url("png/red_boxCross.png");
-              background-size: 10vw 10vw;
-              top: 6vh;
-              left: 5%;
-              width: 10vw;
-              height: 10vw;
-              z-index: 2;
-              align-items: center;
-          }
+        }
 
         #credit-info {
-
             /* left:10%; */
             width: 100%;
             height: 90%;
@@ -120,15 +119,9 @@
             display: flex;
             flex-direction: column;
             /* align-items: center; */
-
             align-items: center;
             justify-content: center;
             text-align: center;
-            /* z-index: 1; */
-            /* padding-top: 10%: */
-            /* margin-left: 10%; */
-            /*opacity: 1;*/
-            /*transition: opacity 0.15s ease-in-out;*/
         }
 
         #credit-info div{
@@ -776,7 +769,7 @@
             /* align-items: center; */
             z-index: 3;
             text-align: center;
-            transition: opacity 1s, top 1.6s ease;
+            transition: opacity 1.8s, top 1.6s ease;
 
         }
         #intro label{
@@ -792,7 +785,7 @@
           opacity:0;
           position: relative;
           left:2vw;
-          top:50%;
+          top:60%;
           color:white;
           font-size: 6vw;
           transition: opacity 1s;
@@ -2115,8 +2108,9 @@
         var colornum0 = parseInt(Math.random() * colorlst0.length);
         // 컬러
         // colornum0=colorlst0.length-1;
-
-
+        document.getElementById("intro").style.backgroundColor=hexToHtmlColor(colorlst[colornum][1]);
+        document.getElementById("intro").children[0].style.color=hexToHtmlColor(colorlst[colornum][3]);
+        document.getElementById("intro").children[1].style.color=hexToHtmlColor(colorlst[colornum][3]);
 
         // document.getElementById("cl10").style.backgroundColor=hexToHtmlColor(colorlst[colornum][0])
         // document.getElementById("cl11").style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
@@ -4398,6 +4392,7 @@
                 // document.getElementById("intro").classList.add("fade");
                 document.getElementById("intro").style.top="-120%";
                 document.getElementById("intro").style.opacity="0";
+
                 setTimeout(function() {
                     document.getElementById("tut-info").style.opacity="0.8";
                 }, 1500);
@@ -17612,7 +17607,7 @@
 
     </div>
     <div id="intro" class="">
-        <label>RAEK ROOM studio</label>
+        <label>RAEK GAMES</label>
         <div>Touch to Start</div>
     </div>
 
