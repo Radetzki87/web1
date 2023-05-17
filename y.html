@@ -11744,6 +11744,7 @@
                           // overlimit++;
                           if(!gameoverflag||fullmax){
                             gameoverflag = true;
+                            Android.showAd();
                             endsound=sdic[activeFloor][0];
                             soundic[sdic[activeFloor][0]].setVolume(0.15);
                             soundic[esound[4]].play();
@@ -11762,16 +11763,16 @@
 
                             var temp1=document.querySelectorAll(".gameinfo1");
                             temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
-                            if(점수>8000){
+                            if(점수>10000){
                               temp1[0].children[0].innerText="S"
                               temp1[0].children[1].innerText="uperb!!!!!"
-                            }else if(점수>6000){
+                            }else if(점수>8000){
                               temp1[0].children[0].innerText="A"
                               temp1[0].children[1].innerText="wesome!!!!"
-                            }else if(점수>4000){
+                            }else if(점수>6000){
                               temp1[0].children[0].innerText="B"
                               temp1[0].children[1].innerText="rilliant!!!"
-                            }else if(점수>2000){
+                            }else if(점수>3000){
                               temp1[0].children[0].innerText="C"
                               temp1[0].children[1].innerText="ool!!"
                             }else if(점수>1000){
@@ -16636,50 +16637,12 @@
 
             reBtn.addEventListener('click', function() {
               Android.showAd();
-                if (!document.getElementById("gameover-overlay").classList.contains("hidden")) {
-                    document.getElementById("gameover-overlay").classList.remove("show");
-                    document.getElementById("gameover-overlay").classList.add("fade");
-                    setTimeout(function() {
-                        document.getElementById("gameover-overlay").classList.add("hidden");
-                    }, 100);
-                    coin+=parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10);
-                    document.getElementById("coin2").innerText=String(coin);
-                    if (!rotationflag) {
-                        rotationflag = true
-                        restartflag = true
-                        pluscoin = parseInt(점수 / 10)
-                        // coin += pluscoin;
-                        for (var i = 0; i < cubes.length; i++) {
-                            restartloc.push(cubes[i].mesh.position);
-                            restartrot.push(cubes[i].mesh.rotation);
-                        }
-                        ncolornum = parseInt(Math.random() * colorlst.length);
-                        ncolornum0 = parseInt(Math.random() * colorlst0.length);
-                        rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-                        renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
-                        rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
-                        renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
-                        rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
-                        renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
-                        rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
-                        renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
-                        bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
-                        nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
-                        bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
-                        nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
-                        bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
-                        nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
-                        bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
-                        nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
-                        bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
-                        nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
-                        rotationend = Math.PI / 4
-                    }
-                }
+
+
             })
 
             reBtn2.addEventListener('click', function() {
-              Android.showAd();
+              // Android.showAd();
                 if (!document.getElementById("setting-overlay").classList.contains("hidden")) {
                     document.getElementById("setting-overlay").classList.remove("show");
                     document.getElementById("setting-overlay").classList.add("fade");
@@ -16721,7 +16684,7 @@
             })
 
             reBtn3.addEventListener('click', function() {
-              Android.showAd();
+              // Android.showAd();
                 if(!document.getElementById("tutorial").classList.contains("hidden")){
                   document.getElementById("tutorial").classList.remove("show");
                   document.getElementById("tutorial").classList.add("fade");
@@ -16895,6 +16858,49 @@
             })
             // Loop through each radio button and add an event listener
         });
+
+        function adon(){
+          if (!document.getElementById("gameover-overlay").classList.contains("hidden")) {
+              document.getElementById("gameover-overlay").classList.remove("show");
+              document.getElementById("gameover-overlay").classList.add("fade");
+              setTimeout(function() {
+                  document.getElementById("gameover-overlay").classList.add("hidden");
+              }, 100);
+              coin+=parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10);
+              document.getElementById("coin2").innerText=String(coin);
+              if (!rotationflag) {
+                  rotationflag = true
+                  restartflag = true
+                  pluscoin = parseInt(점수 / 10)
+                  // coin += pluscoin;
+                  for (var i = 0; i < cubes.length; i++) {
+                      restartloc.push(cubes[i].mesh.position);
+                      restartrot.push(cubes[i].mesh.rotation);
+                  }
+                  ncolornum = parseInt(Math.random() * colorlst.length);
+                  ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                  rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                  renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                  rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                  renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+                  rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                  renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+                  rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                  renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+                  bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+                  nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+                  bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+                  nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+                  bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+                  nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+                  bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+                  nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+                  bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+                  nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+                  rotationend = Math.PI / 4
+              }
+          }
+        }
     </script>
 
     <script>
