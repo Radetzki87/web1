@@ -1646,6 +1646,7 @@
         let lastTime = 0;
 
 
+
         var particleflag=true;
 
         var ringloc=[];
@@ -5858,7 +5859,7 @@
               skinnum = temp0[parseInt(Math.random()*temp0.length)];
               camera.position.y= bh * (cubes.length+0.5)
             }else{
-              camera.position.y= bh * (cubes.length+4)
+              camera.position.y= bh * (cubes.length+3.5)
             }
             onceflag0=true;
 
@@ -10533,8 +10534,6 @@
             }
 
             if (restartflag && lookcenter) { //리스타트
-
-
                 포인트.forEach((item) => {
                     item.material.visible = false;
                 })
@@ -10551,14 +10550,15 @@
 
                 if (camera.rotation.x - restartend >0) {
                     // camera.rotation.x=restartend;
+                    // restartflag=false;
                     restart();
                 } else {
+
                     document.getElementById('song-info').classList.remove("show1");
                     document.getElementById('song-info').classList.add("hidden");
 
                     // camera.rotation.x += Math.PI / 512
                     camera.rotation.x += deltaTime / 1800
-
                     var canvas = document.createElement('canvas');
                     var ctx = canvas.getContext('2d');
                     canvas.width = 100;
@@ -10737,7 +10737,7 @@
                     }
                     // camera.rotation.x -= Math.PI / 256
                     camera.rotation.x -= deltaTime / 1200
-                    // if (-isoAngle - camera.rotation.x > 0) camera.rotation.x=-isoAngle+0.001;
+                    if (-isoAngle - camera.rotation.x > 0) camera.rotation.x=-isoAngle+0.01;
                     // camera.position.y-=100000*(Math.PI/128)
                 }
             }
@@ -11196,7 +11196,7 @@
                 // });
                 // }
                 // let speed= 0.15*(Math.abs((item.c-item.a)+(item.d-item.b))/8);
-                let speed = deltaTime*bw / 200;
+                let speed = deltaTime*bw / 280;
                 // const vspeed=speed*2;
                 var rmvftile = [];
                 ftiles.forEach((item, index) => {
@@ -15343,6 +15343,7 @@
 
 
         function showinfo(){
+          pluscoin=0;
           document.getElementById("coin-info").classList.remove("fade");
           document.getElementById("coin-info").classList.add("show");
 
@@ -15361,9 +15362,11 @@
             if(gamemod==2){
               document.getElementById("기본").children[1].innerText=String(점수)+" (× 0.1)";
               document.getElementById("기본").children[2].innerText=String(parseInt(cubes.length-3)*2)+"★";
+              pluscoin+=parseInt(cubes.length-3)*2;
             }else{
               document.getElementById("기본").children[1].innerText=String(점수)+" (× 0.1)";
               document.getElementById("기본").children[2].innerText=String(parseInt(점수/10))+"★";
+              pluscoin+=parseInt(점수/10);
             }
 
             setTimeout(function() {
@@ -15373,9 +15376,10 @@
                   document.getElementById("시간").children[1].innerText=String(parseInt(parseInt(elapsedTime)))+" (× 0.1)";
                   document.getElementById("시간").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10))+"★"
                 }else{
-                  document.getElementById("시간").children[1].innerText=String(parseInt(parseInt(elapsedTime)))+" (× 0.1)";
-                  document.getElementById("시간").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10))+"★"
+                  document.getElementById("시간").children[1].innerText=String(parseInt(elapsedTime))+" (× 0.1)";
+                  document.getElementById("시간").children[2].innerText=String(parseInt(elapsedTime/10))+"★"
                 }
+                pluscoin+=parseInt(elapsedTime/10);
                 document.getElementById("시간").classList.add("show");
                 document.getElementById("시간").classList.remove("hidden");
                 setTimeout(function() {
@@ -15386,6 +15390,7 @@
                     document.getElementById("max").children[0].innerText="최대 :";
                     document.getElementById("max").children[1].innerText=String(maxnum)+" (× 1)";
                     document.getElementById("max").children[2].innerText=String(parseInt(maxnum))+"★";
+                    pluscoin+=parseInt(maxnum);
                   }
                     var fullcount=0;
                     for(var i=0;i<cubes.length;i++){
@@ -15396,11 +15401,15 @@
                       document.getElementById("full").classList.remove("hidden");
                       document.getElementById("full").classList.add("show");
                       if(fullcount==5){
-                        document.getElementById("full").children[0].innerText="꽉채움:  "+String(fullcount)+"!!";
-                        document.getElementById("full").children[2].innerText=String(parseInt(1000))+"★"
+                        document.getElementById("full").children[0].innerText="꽉채움: "
+                        document.getElementById("full").children[1].innerText="5!!(2000PT)"
+                        document.getElementById("full").children[2].innerText=String(parseInt(2000))+"★"
+                        pluscoin+=parseInt(1000);
                       }else{
-                        document.getElementById("full").children[0].innerText="꽉채움:  "+String(fullcount)
-                        document.getElementById("full").children[2].innerText=String(parseInt(fullcount*30))+"★"
+                        document.getElementById("full").children[0].innerText="꽉채움: "
+                        document.getElementById("full").children[1].innerText=String(fullcount)+" (× 200)";
+                        document.getElementById("full").children[2].innerText=String(parseInt(fullcount*200))+"★"
+                        pluscoin+=parseInt(parseInt(fullcount*200));
                       }
                       var temp1=document.querySelectorAll(".gameover");
                       temp1.forEach((item, i) => {
@@ -15414,9 +15423,9 @@
                         document.getElementById("총획득").classList.remove("hidden");
                         document.getElementById("총획득").children[0].innerText="★ TOTAL : "
                         if(gamemod==2){
-                          document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(cubes.length-3)*2)+"★"
+                          document.getElementById("총획득").children[2].innerText=String(parseInt(pluscoin))+"★"
                         }else{
-                          document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10))+"★"
+                          document.getElementById("총획득").children[2].innerText=String(parseInt(pluscoin))+"★"
                         }
                         document.getElementById("총획득").classList.add("show");
                       }, 250);
@@ -15433,9 +15442,9 @@
                         document.getElementById("총획득").classList.remove("hidden");
                         document.getElementById("총획득").children[0].innerText="★ TOTAL : "
                         if(gamemod==2){
-                          document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(cubes.length-3)*2)+"★"
+                          document.getElementById("총획득").children[2].innerText=String(parseInt(pluscoin))+"★"
                         }else{
-                          document.getElementById("총획득").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10))+"★"
+                          document.getElementById("총획득").children[2].innerText=String(parseInt(pluscoin))+"★"
                         }
                         document.getElementById("총획득").classList.add("show");
                     }, 250);
@@ -16913,17 +16922,8 @@
           document.getElementById("credit-info").classList.remove("hidden");
           document.getElementById("credit-info").classList.add("show");
 
-
-
           document.getElementById("setting-overlay").classList.remove("show");
           document.getElementById("setting-overlay").classList.add("fade");
-
-
-
-
-
-
-
 
 
           // document.getElementById("credit-info").classList.add("show");
@@ -16954,10 +16954,6 @@
             document.getElementById("tutorial").classList.remove("hidden");
             document.getElementById("tutorial").classList.add("show");
           }
-
-
-
-
 
         }
 
