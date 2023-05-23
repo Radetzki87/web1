@@ -14,6 +14,7 @@
             /* overscroll-behavior-y: none;
             overscroll-behavior-x: none; */
         }
+
         canvas {
 
             /* overflow-x: hidden;
@@ -351,7 +352,7 @@
             font-family: 'GG';
             /*글꼴*/
             /*src: local('GG'),*/
-            src: url('src/kenvector_future_thin.ttf') format('woff');
+            src: url('kenvector_future_thin.ttf') format('woff');
             font-weight: normal;
             font-style: normal;
         }
@@ -2167,6 +2168,14 @@
         var colornum0 = parseInt(Math.random() * colorlst0.length);
         // 컬러
         // colornum0=colorlst0.length-1;
+        // var clst=adjustContrast(hexToHtmlColor(colorlst[colornum][1]), hexToHtmlColor(colorlst[colornum][3]))
+        //
+        // document.getElementById("intro").style.backgroundColor=clst[0]
+        // document.getElementById("intro").children[0].style.color=clst[1]
+        //
+        //
+        // document.getElementById("intro").children[1].style.color=clst[1]
+
         document.getElementById("intro").style.backgroundColor=hexToHtmlColor(colorlst[colornum][1]);
         document.getElementById("intro").children[0].style.color=hexToHtmlColor(colorlst[colornum][3]);
 
@@ -5048,7 +5057,7 @@
         // scene.fog = new THREE.FogExp2( 0x000000, 0.001 );
         // scene.background = new THREE.Color(0x2e508d);
         if (lighton) {
-            var ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
+            var ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
             scene.add(ambientLight);
             // const dL=new THREE.DirectionalLight(0xffffff,0.7);
             // dL.position.set(13,30,18);
@@ -5066,7 +5075,7 @@
                 dl2.shadow.camera.near = 0.1;
                 dl2.shadow.camera.far = 1000;
                 dl2.castShadow = true;
-                dl2.shadow.mapSize = new THREE.Vector2(1980, 1980);
+                dl2.shadow.mapSize = new THREE.Vector2(8000, 8000);
             }
             scene.add(dl2)
         }
@@ -11212,7 +11221,7 @@
                 // });
                 // }
                 // let speed= 0.15*(Math.abs((item.c-item.a)+(item.d-item.b))/8);
-                let speed = deltaTime*bw / 205;
+                let speed = deltaTime*bw / 195;
                 // const vspeed=speed*2;
                 var rmvftile = [];
                 ftiles.forEach((item, index) => {
@@ -15341,6 +15350,50 @@
             }
             return byteArray;
         }
+        function adjustContrast(color1, color2) {
+          // 색상 1의 밝기 계산
+          var brightness1 = (parseInt(color1.substr(1, 2), 16) * 299 +
+                             parseInt(color1.substr(3, 2), 16) * 587 +
+                             parseInt(color1.substr(5, 2), 16) * 114) / 1000;
+
+          // 색상 2의 밝기 계산
+          var brightness2 = (parseInt(color2.substr(1, 2), 16) * 299 +
+                             parseInt(color2.substr(3, 2), 16) * 587 +
+                             parseInt(color2.substr(5, 2), 16) * 114) / 1000;
+
+          // 대비를 높이기 위해 밝기 차이 계산
+          var contrastRatio = Math.abs(brightness1 - brightness2);
+
+          // 보정할 색상 선택
+          var adjustedColor;
+          if (brightness1 > brightness2) {
+            // 색상 1이 더 밝은 경우, 색상 2를 어둡게 보정
+            var adjustment = Math.floor(contrastRatio / 2);
+            adjustedColor = shadeColor(color2, -adjustment);
+            return [color1, adjustedColor]
+          } else {
+            // 색상 2가 더 밝은 경우, 색상 1을 어둡게 보정
+            var adjustment = Math.floor(contrastRatio / 2);
+            adjustedColor = shadeColor(color1, -adjustment);
+            return [adjustedColor, color2]
+          }
+
+
+        }
+
+        // 색상 보정 함수
+        function shadeColor(color, percent) {
+          var f = parseInt(color.slice(1), 16),
+              t = percent < 0 ? 0 : 255,
+              p = percent < 0 ? percent * -1 : percent,
+              R = f >> 16,
+              G = f >> 8 & 0x00FF,
+              B = f & 0x0000FF;
+          return "#" + (0x1000000 +
+            (Math.round((t - R) * p) + R) * 0x10000 +
+            (Math.round((t - G) * p) + G) * 0x100 +
+            (Math.round((t - B) * p) + B)).toString(16).slice(1);
+        }
 
         function showpop(t1="", t2="", t3="",idx=0){
           soundic[esound[idx]].play();
@@ -15901,8 +15954,6 @@
             })
 
             mod0.addEventListener('click', function() {
-
-
                 if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
                     document.getElementById("mod-overlay").classList.remove("show");
                     document.getElementById("mod-overlay").classList.add("fade");
@@ -17338,127 +17389,7 @@
 
                 </div>
             </div>
-            <div id="categ2" class="hidden">
-                <button class="backbutton" onclick="goBack(9)" id="backbtn">
-                <img class="" src="png/left.png">
-                </button>
-                <h1 class="title">Category</h1>
 
-                 <img src="png/0.png" alt="Mute" id="img2">
-
-                <div class="progress-container">
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 30%;"></div>
-                    </div>
-                    <span class="unlocked-count">3/10</span>
-                </div>
-                <div class="grid">
-                    <div class="character locked" onclick="showPopup(0)" id="grid0">
-                        <img src=""  class="charimg">
-                        <img  src="" class="">
-                        <img  src="" class="">
-                        <span id="grid0t">mix</span>
-
-                    </div>
-                    <div class="character locked" onclick="showPopup(1)" id="grid1">
-                        <img src=""  class="charimg">
-                        <img  src="" class="">
-                        <img  src="" class="">
-                        <span id="grid1t">random</span>
-
-                    </div>
-                    <div class="character locked" onclick="showPopup(2)">
-                        <img src="" alt="Character 2" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <span>Character 3</span>
-                        <span>artist</span>
-                        <span>price</span>
-                    </div>
-                    <div class="character locked" onclick="showPopup(3)">
-                        <img src="" alt="Character 2" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <span>Character 4</span>
-                        <span>artist</span>
-                        <span>price</span>
-                    </div>
-                    <div class="character locked" onclick="showPopup(4)">
-                        <img src="" alt="Character 1" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <span>Character 1</span>
-                        <span>artist</span>
-                        <span>price</span>
-                    </div>
-                    <div class="character locked" onclick="showPopup(5)">
-                        <img src="" alt="Character 2" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <span>Character 2</span>
-                        <span>artist</span>
-                        <span>price</span>
-                    </div>
-                    <div class="character locked" onclick="showPopup(6)">
-                        <img src="" alt="Character 2" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <span>Character 3</span>
-                        <span>artist</span>
-                        <span>price</span>
-                    </div>
-                    <div class="character locked" onclick="showPopup(7)">
-                        <img src="" alt="Character 2" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <span>Character 4</span>
-                        <span>artist</span>
-                        <span>price</span>
-                    </div>
-                    <div class="character locked" onclick="showPopup(8)">
-                        <img src="" alt="Character 1" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <span>Character 1</span>
-                        <span>artist</span>
-                        <span>price</span>
-                    </div>
-                    <div class="character locked" onclick="showPopup(9)">
-                        <img src="" alt="Character 2" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <span>Character 2</span>
-                        <span>artist</span>
-                        <span>price</span>
-                    </div>
-                    <div class="character locked" onclick="showPopup(10)">
-                        <img src="" alt="Character 2" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <span>Character 3</span>
-                        <span>artist</span>
-                        <span>price</span>
-                    </div>
-                    <div class="character locked" onclick="showPopup(11)">
-                        <img src="" alt="Character 2" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <span>Character 4</span>
-                        <span>artist</span>
-                        <span>price</span>
-                    </div>
-                    <div class="character locked" onclick="showPopup(12)">
-                        <img src="" alt="Character 2" class="charimg">
-                        <img src="png/locked.png" alt="locked" class="lockimg">
-                        <span>Character 4</span>
-                        <span>artist</span>
-                        <span>price</span>
-                    </div>
-                    <!-- Add more characters -->
-                </div>
-                <span id="lowerbtn">
-                  <button class="pbutton hidden" onclick="pbton()" id="pbt">
-                      <img src="" alt="Character 2">
-                      <label>Play</label>
-                      <h1>a</h1>
-                  </button>
-                  <button class="sbutton hidden" onclick="" id="pbt2">
-                      <img src="png/musicOn.png" alt="">
-                      <label></label>
-                      <h1></h1>
-                  </button>
-                </span>
-            </div>
 
             <div id="categ1" class="hidden">
                 <button class="backbutton" onclick="goBack(9)" id="backbtn">
