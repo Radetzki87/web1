@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=0.55, maximum-scale=0.55, minimum-scale=0.55, user-scalable=0">
     <title>2048 BRIX</title>
     <style>
         body {
@@ -14,7 +14,6 @@
             /* overscroll-behavior-y: none;
             overscroll-behavior-x: none; */
         }
-
         canvas {
 
             /* overflow-x: hidden;
@@ -22,6 +21,18 @@
             position: absolute;
             display: block;
             /* z-index: 1000; */
+        }
+
+        #fps{
+          left:45%;
+          font-family: 'GG';
+          color: white;
+          font-size: 2vh;
+          z-index: 2;
+          background-color: rgba(0,0,0,0);
+          position: absolute;
+          top:0%;
+
         }
 
         #grid0{
@@ -269,7 +280,7 @@
 
         #songback{
             position: absolute;
-            width: 500vw;
+            width: 250vw;
             left:-24%;
             height: 60%;
             background-color: rgba(0, 0, 0, 0.3);
@@ -282,21 +293,21 @@
         }
 
         #songback1{
-          width: 1.5%;
+          width: 3%;
           height: 100%;
           background-color: rgba(0, 0, 0, 0.8);
             /* position: absolute; */
             /* z-index: 2; */
         }
         #songback2{
-          width: 1.5%;
+          width: 3%;
           height: 100%;
           background-color: rgba(200, 0, 0, 0.8);
             /* position: absolute; */
             /* z-index: 2; */
         }
         #songback3{
-          width: 1.5%;
+          width: 3%;
           height: 100%;
           background-color: rgba(0, 200, 0, 0.8);
             /* position: absolute; */
@@ -304,7 +315,7 @@
         }
 
         #songback4{
-          width: 1%;
+          width: 2%;
           height: 100%;
           background-color: rgba(0, 200, 0, 0.8);
             /* position: absolute; */
@@ -352,7 +363,7 @@
             font-family: 'GG';
             /*글꼴*/
             /*src: local('GG'),*/
-            src: url('kenvector_future_thin.ttf') format('woff');
+            src: url('src/kenvector_future_thin.ttf') format('woff');
             font-weight: normal;
             font-style: normal;
         }
@@ -412,6 +423,21 @@
             display: flex;
             /*flex-direction: column;*/
             align-items: center;
+        }
+
+        #shop {
+
+            margin-top: 15vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /*justify-content: center;*/
+        }
+
+        #shop.hidden{
+
+            display: none;
+
         }
 
         #categ1 {
@@ -777,7 +803,7 @@
             /* align-items: center; */
             z-index: 3;
             text-align: center;
-            transition: opacity 4.8s, top 1.2s ease;
+            transition: opacity 2.8s, top 1.2s ease;
 
         }
         #intro label{
@@ -796,13 +822,9 @@
           left:2vw;
           top:60%;
           color:white;
-          font-size: 6vw;
+          font-size: 8vw;
           transition: opacity 1s;
         }
-
-
-
-
 
 
         .options-overlay {
@@ -1084,9 +1106,9 @@
             display: inline-flex;
             z-index: 2;
             /* flex-direction: column; */
-            background-color: rgba(50, 50, 50, 0.2);
+            background-color: rgba(50, 50, 50, 0.6);
             border-radius: 4vw;
-            border: 0px solid #000;
+            border: 5px solid rgba(20, 20, 20, 0.7);
             width: 85%;
             height: 10%;
             justify-content: center;
@@ -1103,7 +1125,7 @@
 
 
         .mod-container {
-            background-color: rgba(100, 100, 100, 0.4);
+            background-color: rgba(100, 100, 100, 0.5);
             display: flex;
             font-family: 'GG';
             width: 98%;
@@ -1124,7 +1146,7 @@
             /* position: fixed; */
             right: 10%;
             font-family: 'GG';
-            font-size: 2vh;
+            font-size: 10vw;
             margin: 4vw 0;
         }
 
@@ -1184,9 +1206,28 @@
             width: 100%;
             height: 100%;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             /*z-index: 1;*/
+        }
+        #myRange{
+          position: absolute;
+          width: 50vw;
+          height: 10vw;
+          top:25%;
+          z-index: 2;
+
+        }
+
+        #demo{
+          color:white;
+          font-size: 10vw;
+          position: absolute;
+          /* width: 50vw; */
+          top:14%;
+          z-index: 2;
+
         }
 
         #setting-back {
@@ -1205,7 +1246,10 @@
             /*background-color: rgba(50, 100, 250, 0.3);*/
         }
 
+
+
         .setting-grid button {
+            border-radius: 3vw;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1594,7 +1638,7 @@
 			gl_FragColor = vec4( color, 0.5 );
 		}
 	</script>
-    <script src="https://radetzki87.github.io/web1/cannon.min.js"></script>
+    <script src="build/cannon.min.js"></script>
 
     <script type="importmap">
         {
@@ -1627,10 +1671,8 @@
         import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
         import Stats from 'three/addons/libs/stats.module.js';
 
-
-
-        document.body.style.overscrollBehaviorY = 'none';
-        document.body.style.overscrollBehaviorX = 'none';
+        // document.body.style.overscrollBehaviorY = 'none';
+        // document.body.style.overscrollBehaviorX = 'none';
         // document.getElementById('game-over-panel').style.display="none";
 
         const gameOverPanel = document.getElementById('game-over-panel');
@@ -1671,6 +1713,10 @@
         var sideback=[];
         var stacktime;
         var stacknum=[0,0,0,0,8,8,16,16,32,32,64,64,128,128,256,256,512,512,512,1024,1024,2048,2048,2048,2048,2048,2048]
+
+
+        var fpslst=[];
+        var rescounter=0;
 
         var greylst=[27,26,4,1,3,30,40,46,20,39,16,38,23]
 
@@ -1836,7 +1882,7 @@
         let mergeflag = false;
         let bounceflag = false;
         let topcam = true;
-        let sidecam = false;
+        let sidecam = true;
         let arrowon = false;
         let averageflag = true;
         let lighton = true;
@@ -4511,7 +4557,7 @@
               if(gamemod==0){
                 world.gravity.set(0, -7, 0);
               }else if(gamemod==1){
-                world.gravity.set(0, -7, 0);
+                world.gravity.set(0, -8, 0);
               }else if(gamemod==2){
                 world.gravity.set(0, -6, 0);
               }
@@ -4542,12 +4588,12 @@
                     //     // startflag=true
                     // }
                     // if (lookcenter) {
-                    //     if (!rotationflag) {
-                    //         // cointxt.innerText = "⭐: " + String(coin);
-                    //         lookcenter = false
-                    //         rotationflag = true
-                    //         rotationend = Math.PI / 2
-                    //     }
+                    //   resol(rescounter);
+                    //   rescounter++;
+                    //   if (rescounter > 5) {
+                    //       rescounter = 0;
+                    //   }
+                    // }
                     // } else if (lookright) {
                     //     if (!rotationflag) {
                     //         rotationflag = true
@@ -4630,8 +4676,11 @@
                                 document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
                                 document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
                                 var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-                                document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*0.8, newcl.l*0.35)
-                                document.getElementById('songback').style.opacity="0.35"
+                                // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*0.8, newcl.l*0.35)
+
+                                document.getElementById('songback').style.backgroundColor="rgba(50,50,50,0.45)"
+
+                                // document.getElementById('songback').style.opacity="0.35"
 
                             }else{
                                 document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][thisnum])
@@ -4640,8 +4689,9 @@
                                 var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
                                 document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.60, newcl.l*1)
                                 var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
-                                document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h+Math.PI/2, newcl.s, newcl.l*0.35)
-                                document.getElementById('songback').style.opacity="0.35"
+                                // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h+Math.PI/2, newcl.s, newcl.l*0.35)
+                                document.getElementById('songback').style.backgroundColor="rgba(50,50,50,0.45)"
+                                // document.getElementById('songback').style.opacity="0.35"
 
                             }
 
@@ -4707,7 +4757,7 @@
                         activeFloor = 0;
                     }
                 } else if (!aniflag) {
-                    if (touchx - lastX > 0.14) {
+                    if (touchx - lastX > 0.28) {
                         if (gameoverflag) {
                             ontouch = false
                             if (!rotationflag) {
@@ -4747,7 +4797,7 @@
                             game2048.moveBoard("right");
                         }
                         ontouch = false;
-                    } else if (-touchx + lastX > 0.14) {
+                    } else if (-touchx + lastX > 0.28) {
                         if (gameoverflag) {
                             ontouch = false
                             if (!rotationflag) {
@@ -5057,7 +5107,7 @@
         // scene.fog = new THREE.FogExp2( 0x000000, 0.001 );
         // scene.background = new THREE.Color(0x2e508d);
         if (lighton) {
-            var ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+            var ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
             scene.add(ambientLight);
             // const dL=new THREE.DirectionalLight(0xffffff,0.7);
             // dL.position.set(13,30,18);
@@ -5273,7 +5323,7 @@
                   if(gamemod==0){
                     world.gravity.set(0, -7, 0);
                   }else if(gamemod==1){
-                    world.gravity.set(0, -7, 0);
+                    world.gravity.set(0, -8, 0);
                   }else if(gamemod==2){
                     world.gravity.set(0, -6, 0);
                   }
@@ -5377,7 +5427,7 @@
                   if(gamemod==0){
                     world.gravity.set(0, -7, 0);
                   }else if(gamemod==1){
-                    world.gravity.set(0, -7, 0);
+                    world.gravity.set(0, -8, 0);
                   }else if(gamemod==2){
                     world.gravity.set(0, -6, 0);
                   }
@@ -5497,14 +5547,11 @@
                 // }else if(lookright){
                 // }
             } else if (event.code === 'KeyE') {
-                if (!startflag) {
-                    startflag = true
-                }
-                if (!rotationflag) {
-                    lookcenter = false
-                    rotationflag = true
-                    rotationend = 0
-                }
+              resol(rescounter);
+              rescounter++;
+              if (rescounter > 5) {
+                  rescounter = 0;
+              }
             } else if (event.code === 'KeyC') {
                 var songInfo = document.getElementById('song-info');
                 songInfo.classList.remove("hidden");
@@ -5642,14 +5689,14 @@
               // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
             }else if (gamemod==1){
               cubes[3].body.material.friction = 0.3;
-              cubes[3].body.material.restitution = 0.4;
+              cubes[3].body.material.restitution = 0.3;
               stack=5;
-              forceAmount = bw * bw * bh / 22;
+              forceAmount = bw * bw * bh / 30;
               groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
 
               world.gravity.set(0, 0, 0);
               world.solver.iterations = 1;
-              // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
+
             }else if (gamemod==2){
               cubes[3].body.material.friction = 1;
               cubes[3].body.material.restitution = 0.8;
@@ -5685,17 +5732,10 @@
             groundmesh = new THREE.Mesh(groundgeometry, groundmaterial);
             groundmesh.position.set(0, -1, 0);
             if (shadowon) groundmesh.receiveShadow = true
-            if (gamemod==0||gamemod==2){
-              groundmesh.rotation.x=0;
-              groundmesh.rotation.z=0;
+            groundmesh.rotation.x=0;
+            groundmesh.rotation.z=0;
 
-            }if (gamemod==1){
-              groundmesh.rotation.x=0;
-              groundmesh.rotation.z=0;
-              // groundmesh.rotation.x=Math.PI/32
-              // groundmesh.rotation.z=-Math.PI/32
 
-            }
             scene.add(groundmesh);
             coinupdate = [];
             coinfinal = [];
@@ -5782,27 +5822,20 @@
             }
             if (lighton) {
                 // let ambientLight= new THREE.AmbientLight(0xffffff,0.4);
-                if (gamemod==0||gamemod==2) {
+                if (true) {
                   ambientLight.color=new THREE.Color(0xffffff);
-                  ambientLight.intensity=0.25
+                  ambientLight.intensity=0.2
                   dl2.color=new THREE.Color(0xffffff);
                   dl2.intensity=0.6
+                  dl2.castShadow = true;
+                  dl2.shadow.mapSize = new THREE.Vector2(8000, 8000);
                   if(gamemod==2){
                     dl2.intensity=0.65
+
 
                     // dl2.position.set(40, 200, 160);
                   }
 
-                }else if(gamemod==1){
-
-                  ambientLight.color=new THREE.Color(0xffffff);
-                  ambientLight.intensity=0.25
-                  dl2.color=new THREE.Color(0xffffff);
-                  dl2.intensity=0.6
-                  if(gamemod==2){
-                    dl2.intensity=0.65
-
-                  }
                 }
                 scene.add(ambientLight);
 
@@ -5898,7 +5931,7 @@
             점수=0;
             maxnum=0;
             soundic[endsound]?.setVolume(0.4)
-
+            sideback=[];
 
             resetting(stack, function(object) { //재시작
                 msetting0(function(object) {
@@ -6400,122 +6433,7 @@
                     var tg = new THREE.BoxGeometry(width / 6, height * 0.15, depth * 0.05);
                     tg.applyMatrix4(originHelper.matrixWorld);
                     geoms.push(tg)
-                    if (false) {
-                        // 기존
-                        //  ((우측면)) 카세트
-                        //지붕
-                        originHelper.position.set(depth / 2 - depth * 0.025, bh / 2 - height / 16, 0)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, height / 8, width * 1.0);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        //하측
-                        originHelper.position.set(depth / 2 - depth * 0.025, -bh / 2 + height / 16, 0)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, height / 8, width * 1.0);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        // originHelper.position.set(depth/2,difx+height/2-(width*0.03)*8.4,0.17+depth/2-(width*0.03)*4)
-                        // originHelper.updateWorldMatrix(true, false);
-                        // var tg=new THREE.BoxGeometry(depth*0.05, width*0.08, height*0.7);
-                        // tg.applyMatrix4(originHelper.matrixWorld);
-                        // geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, difx + height / 2 - (width * 0.03) * 8, 0.17 + depth / 2 - (width * 0.03) * 4)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, width * 0.018, height * 0.7);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, difx + height / 2 - (width * 0.03) * 8 - width * 0.018, 0.17 + depth / 2 - (width * 0.03) * 4)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, width * 0.018, height * 0.7);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        var mgeo = new BufferGeometryUtils.mergeGeometries(
-                            geoms, false);
-                        var mesh1 = new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({
-                            color: colorlst0[colornum0][idx]
-                        }));
-                        mesh1.userData["1"] = true;
-                        mesh1.userData["skin"] = "카세트";
-                        mesh1.userData["skintype"] =0;
-                        if (shadowon) {
-                            mesh1.receiveShadow = true;
-                            mesh1.castShadow = true;
-                        }
-                        clmeshlst[idx].push(mesh1.material);
-                        mesh.add(mesh1);
-                        geoms = [];
-                        //구멍시작
-                        //세로
-                        var difx = 0.17;
-                        originHelper.position.set(depth / 2 - depth * 0.025, 0, difx + depth / 2 - (width * 0.03) * 2)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, height, width * 0.018);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, 0, difx + depth / 2 - (width * 0.03) * 3)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, height, width * 0.018);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, 0, difx + depth / 2 - (width * 0.03) * 4)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, height, width * 0.018);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, 0, difx + depth / 2 - (width * 0.03) * 5)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, height, width * 0.018);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, 0, difx + depth / 2 - (width * 0.03) * 6)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, height, width * 0.018);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, 0, difx + depth / 2 - (width * 0.03) * 7)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, height, width * 0.018);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, 0, difx + depth / 2 - (width * 0.03) * 8)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, height, width * 0.08);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        //가로
-                        var difx = 0.06;
-                        originHelper.position.set(depth / 2 - depth * 0.025, difx + height / 2 - (width * 0.03) * 2, 0.17 + depth / 2 - (width * 0.03) * 4)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, width * 0.018, height * 0.7);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, difx + height / 2 - (width * 0.03) * 3, 0.17 + depth / 2 - (width * 0.03) * 4)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, width * 0.018, height * 0.7);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, difx + height / 2 - (width * 0.03) * 4, 0.17 + depth / 2 - (width * 0.03) * 4)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, width * 0.018, height * 0.7);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, difx + height / 2 - (width * 0.03) * 5, 0.17 + depth / 2 - (width * 0.03) * 4)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, width * 0.018, height * 0.7);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, difx + height / 2 - (width * 0.03) * 6, 0.17 + depth / 2 - (width * 0.03) * 4)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, width * 0.018, height * 0.7);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                        originHelper.position.set(depth / 2 - depth * 0.025, difx + height / 2 - (width * 0.03) * 7, 0.17 + depth / 2 - (width * 0.03) * 4)
-                        originHelper.updateWorldMatrix(true, false);
-                        var tg = new THREE.BoxGeometry(depth * 0.05, width * 0.018, height * 0.7);
-                        tg.applyMatrix4(originHelper.matrixWorld);
-                        geoms.push(tg)
-                    }
+
                     var mgeo = new BufferGeometryUtils.mergeGeometries(
                         geoms, false);
                     var mesh1 = new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({
@@ -8813,68 +8731,68 @@
                     tg.applyMatrix4(originHelper.matrixWorld);
                     tg.setAttribute('color', colorAttrib);
                     geoms.push(tg)
-                    //우측 키(검정)
-                    originHelper.position.set(width / 2.57, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
-                    originHelper.updateWorldMatrix(true, false);
-                    var tc = new THREE.Color(0x20282F)
-                    var tg = new THREE.BoxGeometry(height * 0.35 * ratio, height * 0.1 * ratio, depth * 0.02);
-                    var rgb = tc.toArray().map(v => v * 255);
-                    var numVerts = geometry.getAttribute('position').count;
-                    var itemSize = 3; // r, g, b
-                    var colors = new Uint8Array(itemSize * numVerts);
-                    colors.forEach((v, ndx) => {
-                        colors[ndx] = rgb[ndx % 3];
-                    });
-                    var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
-                    tg.applyMatrix4(originHelper.matrixWorld);
-                    tg.setAttribute('color', colorAttrib);
-                    geoms.push(tg)
-                    originHelper.position.set(width / 2.13, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
-                    originHelper.updateWorldMatrix(true, false);
-                    var tc = new THREE.Color(0x20282F)
-                    var tg = new THREE.BoxGeometry(height * 0.2 * ratio, height * 0.1 * ratio, depth * 0.02);
-                    var rgb = tc.toArray().map(v => v * 255);
-                    var numVerts = geometry.getAttribute('position').count;
-                    var itemSize = 3; // r, g, b
-                    var colors = new Uint8Array(itemSize * numVerts);
-                    colors.forEach((v, ndx) => {
-                        colors[ndx] = rgb[ndx % 3];
-                    });
-                    var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
-                    tg.applyMatrix4(originHelper.matrixWorld);
-                    tg.setAttribute('color', colorAttrib);
-                    geoms.push(tg)
-                    //좌측 키(검정)
-                    originHelper.position.set(-width / 2.57, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
-                    originHelper.updateWorldMatrix(true, false);
-                    var tc = new THREE.Color(0x20282F)
-                    var tg = new THREE.BoxGeometry(height * 0.3 * ratio, height * 0.1 * ratio, depth * 0.02);
-                    var rgb = tc.toArray().map(v => v * 255);
-                    var numVerts = geometry.getAttribute('position').count;
-                    var itemSize = 3; // r, g, b
-                    var colors = new Uint8Array(itemSize * numVerts);
-                    colors.forEach((v, ndx) => {
-                        colors[ndx] = rgb[ndx % 3];
-                    });
-                    var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
-                    tg.applyMatrix4(originHelper.matrixWorld);
-                    tg.setAttribute('color', colorAttrib);
-                    geoms.push(tg)
-                    originHelper.position.set(-width / 2.13, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
-                    originHelper.updateWorldMatrix(true, false);
-                    var tc = new THREE.Color(0x20282F)
-                    var tg = new THREE.BoxGeometry(height * 0.2 * ratio, height * 0.1 * ratio, depth * 0.02);
-                    var rgb = tc.toArray().map(v => v * 255);
-                    var numVerts = geometry.getAttribute('position').count;
-                    var itemSize = 3; // r, g, b
-                    var colors = new Uint8Array(itemSize * numVerts);
-                    colors.forEach((v, ndx) => {
-                        colors[ndx] = rgb[ndx % 3];
-                    });
-                    var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
-                    tg.applyMatrix4(originHelper.matrixWorld);
-                    tg.setAttribute('color', colorAttrib);
-                    geoms.push(tg)
+                    // //우측 키(검정)
+                    // originHelper.position.set(width / 2.57, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
+                    // originHelper.updateWorldMatrix(true, false);
+                    // var tc = new THREE.Color(0x20282F)
+                    // var tg = new THREE.BoxGeometry(height * 0.35 * ratio, height * 0.1 * ratio, depth * 0.02);
+                    // var rgb = tc.toArray().map(v => v * 255);
+                    // var numVerts = geometry.getAttribute('position').count;
+                    // var itemSize = 3; // r, g, b
+                    // var colors = new Uint8Array(itemSize * numVerts);
+                    // colors.forEach((v, ndx) => {
+                    //     colors[ndx] = rgb[ndx % 3];
+                    // });
+                    // var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+                    // tg.applyMatrix4(originHelper.matrixWorld);
+                    // tg.setAttribute('color', colorAttrib);
+                    // geoms.push(tg)
+                    // originHelper.position.set(width / 2.13, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
+                    // originHelper.updateWorldMatrix(true, false);
+                    // var tc = new THREE.Color(0x20282F)
+                    // var tg = new THREE.BoxGeometry(height * 0.2 * ratio, height * 0.1 * ratio, depth * 0.02);
+                    // var rgb = tc.toArray().map(v => v * 255);
+                    // var numVerts = geometry.getAttribute('position').count;
+                    // var itemSize = 3; // r, g, b
+                    // var colors = new Uint8Array(itemSize * numVerts);
+                    // colors.forEach((v, ndx) => {
+                    //     colors[ndx] = rgb[ndx % 3];
+                    // });
+                    // var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+                    // tg.applyMatrix4(originHelper.matrixWorld);
+                    // tg.setAttribute('color', colorAttrib);
+                    // geoms.push(tg)
+                    // //좌측 키(검정)
+                    // originHelper.position.set(-width / 2.57, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
+                    // originHelper.updateWorldMatrix(true, false);
+                    // var tc = new THREE.Color(0x20282F)
+                    // var tg = new THREE.BoxGeometry(height * 0.3 * ratio, height * 0.1 * ratio, depth * 0.02);
+                    // var rgb = tc.toArray().map(v => v * 255);
+                    // var numVerts = geometry.getAttribute('position').count;
+                    // var itemSize = 3; // r, g, b
+                    // var colors = new Uint8Array(itemSize * numVerts);
+                    // colors.forEach((v, ndx) => {
+                    //     colors[ndx] = rgb[ndx % 3];
+                    // });
+                    // var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+                    // tg.applyMatrix4(originHelper.matrixWorld);
+                    // tg.setAttribute('color', colorAttrib);
+                    // geoms.push(tg)
+                    // originHelper.position.set(-width / 2.13, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
+                    // originHelper.updateWorldMatrix(true, false);
+                    // var tc = new THREE.Color(0x20282F)
+                    // var tg = new THREE.BoxGeometry(height * 0.2 * ratio, height * 0.1 * ratio, depth * 0.02);
+                    // var rgb = tc.toArray().map(v => v * 255);
+                    // var numVerts = geometry.getAttribute('position').count;
+                    // var itemSize = 3; // r, g, b
+                    // var colors = new Uint8Array(itemSize * numVerts);
+                    // colors.forEach((v, ndx) => {
+                    //     colors[ndx] = rgb[ndx % 3];
+                    // });
+                    // var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+                    // tg.applyMatrix4(originHelper.matrixWorld);
+                    // tg.setAttribute('color', colorAttrib);
+                    // geoms.push(tg)
                     //뚜껑
                     // originHelper.position.set(0,height/2-height*0.02,0)
                     // originHelper.updateWorldMatrix(true, false);
@@ -9266,6 +9184,12 @@
                 opacity: 1
             });
 
+            var material5 = new THREE.MeshBasicMaterial({
+                map: img3,
+                transparent: true,
+                opacity: 1
+            });
+
 
             var geometry = new THREE.BoxGeometry(1000, 300, 2);
             var backmesh = new THREE.Mesh(geometry, material4);
@@ -9283,34 +9207,76 @@
             gradback.push(backmesh);
 
 
-            var geometry = new THREE.BoxGeometry(300, 1200, 2);
-            var backmesh = new THREE.Mesh(geometry, material4);
+            var submat = new THREE.MeshLambertMaterial({
+                color: colorlst[colornum][0],
+                visible: true,
+                opacity: 0.04,
+                transparent: true
+            });
+
+            var geometry = new THREE.BoxGeometry(60, 500, 2);
+            var backmesh = new THREE.Mesh(geometry, material5);
             // backmesh.material.depthTest = false;
             backmesh.material.depthWrite = false;
             backmesh.rotation.order = 'YXZ';
             backmesh.rotation.x = 0;
-            backmesh.rotation.y = Math.PI / 4+Math.PI /2;
+            // backmesh.rotation.y = Math.PI /2;
             // backmesh.rotation.x = Math.PI/2;
             // backmesh.rotation.z = Math.PI/2;
             backmesh.position.z = -20;
-            backmesh.position.x = 70;
-            backmesh.position.y = 520;
+            backmesh.position.x = 0;
+            backmesh.position.y = 100;
 
             scene.add(backmesh);
             sideback.push(backmesh)
 
-            var geometry = new THREE.BoxGeometry(300, 1200, 2);
-            var backmesh = new THREE.Mesh(geometry, material4);
+            var geometry = new THREE.BoxGeometry(60, 500, 2);
+            var backmesh = new THREE.Mesh(geometry, submat);
             // backmesh.material.depthTest = false;
             backmesh.material.depthWrite = false;
             backmesh.rotation.order = 'YXZ';
             backmesh.rotation.x = 0;
-            backmesh.rotation.y = Math.PI / 4-Math.PI /2;
+            // backmesh.rotation.y = Math.PI /2;
             // backmesh.rotation.x = Math.PI/2;
             // backmesh.rotation.z = Math.PI/2;
-            backmesh.position.z = 70;
-            backmesh.position.x = -40;
-            backmesh.position.y = 520;
+            backmesh.position.z = -18;
+            backmesh.position.x = 0;
+            backmesh.position.y = 120;
+
+            scene.add(backmesh);
+            sideback.push(backmesh)
+
+
+
+
+            var geometry = new THREE.BoxGeometry(60, 500, 2);
+            var backmesh = new THREE.Mesh(geometry, material5);
+            // backmesh.material.depthTest = false;
+            backmesh.material.depthWrite = false;
+            backmesh.rotation.order = 'YXZ';
+            backmesh.rotation.x = 0;
+            backmesh.rotation.y = -Math.PI /2;
+            // backmesh.rotation.x = Math.PI/2;
+            // backmesh.rotation.z = Math.PI/2;
+            backmesh.position.z = 0;
+            backmesh.position.x = -30;
+            backmesh.position.y = 100;
+
+            scene.add(backmesh);
+            sideback.push(backmesh)
+
+            var geometry = new THREE.BoxGeometry(60, 500, 2);
+            var backmesh = new THREE.Mesh(geometry, submat);
+            // backmesh.material.depthTest = false;
+            backmesh.material.depthWrite = false;
+            backmesh.rotation.order = 'YXZ';
+            backmesh.rotation.x = 0;
+            backmesh.rotation.y = -Math.PI /2;
+            // backmesh.rotation.x = Math.PI/2;
+            // backmesh.rotation.z = Math.PI/2;
+            backmesh.position.z = 0;
+            backmesh.position.x = -28;
+            backmesh.position.y = 120;
 
             scene.add(backmesh);
             sideback.push(backmesh)
@@ -9399,7 +9365,7 @@
             scene.add(tmesh)
 
             if(gamemod==1){
-              var geometry12 = new TextGeometry("H", {
+              var geometry12 = new TextGeometry("HARD", {
                   font: font0,
                   size: bw / 4,
                   height: 두께*th / 2
@@ -9407,69 +9373,70 @@
               geometry12.computeBoundingBox();
               geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
               var material = new THREE.MeshBasicMaterial({
-                  color: colorlst0[colornum0][0]
+                  color: colorlst[colornum][1]
               });
               var tmesh = new THREE.Mesh(geometry12, material);
-              tmesh.position.y = cubes[2].body.position.y + 12
-              tmesh.position.x = bw * (1.2)
-              tmesh.position.z = bw * (1.1)
+              tmesh.position.y = cubes[2].body.position.y + 10
+              tmesh.position.x = bw * (1.1)
+              tmesh.position.z = bw * (0.58)
               // textMesh.position.x=0;
               tmesh.depth = 10;
               tmesh.rotation.order = 'YXZ';
               tmesh.rotation.y = Math.PI / 4;
 
-              var geometry12 = new TextGeometry("A", {
-                  font: font0,
-                  size: bw / 4,
-                  height: 두께*th / 2
-              });
-              geometry12.computeBoundingBox();
-              geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-              var material = new THREE.MeshBasicMaterial({
-                  color: colorlst0[colornum0][1]
-              });
-              var tmesh1 = new THREE.Mesh(geometry12, material);
-              // tmesh1.position.y
-              tmesh1.position.x = 3;
-              tmesh1.depth = 10;
-              tmesh1.rotation.order = 'YXZ';
-              // tmesh1.rotation.y =Math.PI / 4;
-              tmesh.add(tmesh1)
-              var geometry12 = new TextGeometry("R", {
-                  font: font0,
-                  size: bw / 4,
-                  height: 두께*th / 2
-              });
-              geometry12.computeBoundingBox();
-              geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-              var material = new THREE.MeshBasicMaterial({
-                  color: colorlst0[colornum0][2]
-              });
-              var tmesh1 = new THREE.Mesh(geometry12, material);
-              // tmesh1.position.y
-              tmesh1.position.x = 3 * 2;
-              tmesh1.depth = 10;
-              tmesh1.rotation.order = 'YXZ';
-              // tmesh1.rotation.y =Math.PI / 4;
-              tmesh.add(tmesh1)
-              var geometry12 = new TextGeometry("D", {
-                  font: font0,
-                  size: bw / 4,
-                  height: 두께*th / 2
-              });
-              geometry12.computeBoundingBox();
-              geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-              var material = new THREE.MeshBasicMaterial({
-                  color: colorlst0[colornum0][3]
-              });
-              var tmesh1 = new THREE.Mesh(geometry12, material);
-              // tmesh1.position.y
-              tmesh1.position.x = 3 * 3;
-              tmesh1.depth = 10;
-              tmesh1.rotation.order = 'YXZ';
+              // var geometry12 = new TextGeometry("A", {
+              //     font: font0,
+              //     size: bw / 4,
+              //     height: 두께*th / 2
+              // });
+              // geometry12.computeBoundingBox();
+              // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+              // var material = new THREE.MeshBasicMaterial({
+              //     color: colorlst0[colornum0][1]
+              // });
+              // var tmesh1 = new THREE.Mesh(geometry12, material);
+              // // tmesh1.position.y
+              // tmesh1.position.x = 3;
+              // tmesh1.depth = 10;
+              // tmesh1.rotation.order = 'YXZ';
+              // // tmesh1.rotation.y =Math.PI / 4;
+              // tmesh.add(tmesh1)
+              // var geometry12 = new TextGeometry("R", {
+              //     font: font0,
+              //     size: bw / 4,
+              //     height: 두께*th / 2
+              // });
+              // geometry12.computeBoundingBox();
+              // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+              // var material = new THREE.MeshBasicMaterial({
+              //     color: colorlst0[colornum0][2]
+              // });
+              // var tmesh1 = new THREE.Mesh(geometry12, material);
+              // // tmesh1.position.y
+              // tmesh1.position.x = 3 * 2;
+              // tmesh1.depth = 10;
+              // tmesh1.rotation.order = 'YXZ';
+              // // tmesh1.rotation.y =Math.PI / 4;
+              // tmesh.add(tmesh1)
+              // var geometry12 = new TextGeometry("D", {
+              //     font: font0,
+              //     size: bw / 4,
+              //     height: 두께*th / 2
+              // });
+              // geometry12.computeBoundingBox();
+              // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+              // var material = new THREE.MeshBasicMaterial({
+              //     color: colorlst0[colornum0][3]
+              // });
+              // var tmesh1 = new THREE.Mesh(geometry12, material);
+              // // tmesh1.position.y
+              // tmesh1.position.x = 3 * 3;
+              // tmesh1.depth = 10;
+              // tmesh1.rotation.order = 'YXZ';
+
               tmesh.rotation.order = 'YXZ';
               tmesh.rotation.y = Math.PI / 2;
-              tmesh.add(tmesh1)
+              // tmesh.add(tmesh1)
 
               textscene.push(tmesh)
               gradback.push(tmesh);
@@ -9477,7 +9444,7 @@
             }
 
             if(gamemod==2){
-              var geometry12 = new TextGeometry("S", {
+              var geometry12 = new TextGeometry("STACK", {
                   font: font0,
                   size: bw / 4,
                   height: 두께*th / 2
@@ -9488,84 +9455,86 @@
                   color: colorlst0[colornum0][0]
               });
               var tmesh = new THREE.Mesh(geometry12, material);
-              tmesh.position.y = cubes[2].body.position.y + 12-4
-              tmesh.position.x = bw * (1.2)
-              tmesh.position.z = bw * (1.1)
+              tmesh.position.y = cubes[2].body.position.y + 11-4
+              tmesh.position.x = bw * (1.1)
+              tmesh.position.z = bw * (0.47)
               // textMesh.position.x=0;
               tmesh.depth = 10;
               tmesh.rotation.order = 'YXZ';
               tmesh.rotation.y = Math.PI / 4;
-
-              var geometry12 = new TextGeometry("T", {
-                  font: font0,
-                  size: bw / 4,
-                  height: 두께*th / 2
-              });
-              geometry12.computeBoundingBox();
-              geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-              var material = new THREE.MeshBasicMaterial({
-                  color: colorlst0[colornum0][1]
-              });
-              var tmesh1 = new THREE.Mesh(geometry12, material);
-              // tmesh1.position.y
-              tmesh1.position.x = 3;
-              tmesh1.depth = 10;
-              tmesh1.rotation.order = 'YXZ';
-              // tmesh1.rotation.y =Math.PI / 4;
-              tmesh.add(tmesh1)
-              var geometry12 = new TextGeometry("A", {
-                  font: font0,
-                  size: bw / 4,
-                  height: 두께*th / 2
-              });
-              geometry12.computeBoundingBox();
-              geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-              var material = new THREE.MeshBasicMaterial({
-                  color: colorlst0[colornum0][2]
-              });
-              var tmesh1 = new THREE.Mesh(geometry12, material);
-              // tmesh1.position.y
-              tmesh1.position.x = 3 * 2;
-              tmesh1.depth = 10;
-              tmesh1.rotation.order = 'YXZ';
-              // tmesh1.rotation.y =Math.PI / 4;
-              tmesh.add(tmesh1)
-              var geometry12 = new TextGeometry("C", {
-                  font: font0,
-                  size: bw / 4,
-                  height: 두께*th / 2
-              });
-              geometry12.computeBoundingBox();
-              geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-              var material = new THREE.MeshBasicMaterial({
-                  color: colorlst0[colornum0][3]
-              });
-              var tmesh1 = new THREE.Mesh(geometry12, material);
-              // tmesh1.position.y
-              tmesh1.position.x = 3 * 2.9;
-              tmesh1.depth = 10;
-              tmesh1.rotation.order = 'YXZ';
               tmesh.rotation.order = 'YXZ';
               tmesh.rotation.y = Math.PI / 2;
-              tmesh.add(tmesh1)
 
-              var geometry12 = new TextGeometry("K", {
-                  font: font0,
-                  size: bw / 4,
-                  height: 두께*th / 2
-              });
-              geometry12.computeBoundingBox();
-              geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-              var material = new THREE.MeshBasicMaterial({
-                  color: colorlst0[colornum0][4]
-              });
-              var tmesh1 = new THREE.Mesh(geometry12, material);
-              // tmesh1.position.y
-              tmesh1.position.x = 3 * 4;
-              tmesh1.depth = 10;
-              tmesh1.rotation.order = 'YXZ';
-              // tmesh1.rotation.y =Math.PI / 4;
-              tmesh.add(tmesh1)
+              // var geometry12 = new TextGeometry("T", {
+              //     font: font0,
+              //     size: bw / 4,
+              //     height: 두께*th / 2
+              // });
+              // geometry12.computeBoundingBox();
+              // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+              // var material = new THREE.MeshBasicMaterial({
+              //     color: colorlst0[colornum0][1]
+              // });
+              // var tmesh1 = new THREE.Mesh(geometry12, material);
+              // // tmesh1.position.y
+              // tmesh1.position.x = 3;
+              // tmesh1.depth = 10;
+              // tmesh1.rotation.order = 'YXZ';
+              // // tmesh1.rotation.y =Math.PI / 4;
+              // tmesh.add(tmesh1)
+              // var geometry12 = new TextGeometry("A", {
+              //     font: font0,
+              //     size: bw / 4,
+              //     height: 두께*th / 2
+              // });
+              // geometry12.computeBoundingBox();
+              // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+              // var material = new THREE.MeshBasicMaterial({
+              //     color: colorlst0[colornum0][2]
+              // });
+              // var tmesh1 = new THREE.Mesh(geometry12, material);
+              // // tmesh1.position.y
+              // tmesh1.position.x = 3 * 2;
+              // tmesh1.depth = 10;
+              // tmesh1.rotation.order = 'YXZ';
+              // // tmesh1.rotation.y =Math.PI / 4;
+              // tmesh.add(tmesh1)
+              // var geometry12 = new TextGeometry("C", {
+              //     font: font0,
+              //     size: bw / 4,
+              //     height: 두께*th / 2
+              // });
+              // geometry12.computeBoundingBox();
+              // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+              // var material = new THREE.MeshBasicMaterial({
+              //     color: colorlst0[colornum0][3]
+              // });
+              // var tmesh1 = new THREE.Mesh(geometry12, material);
+              // // tmesh1.position.y
+              // tmesh1.position.x = 3 * 2.9;
+              // tmesh1.depth = 10;
+              // tmesh1.rotation.order = 'YXZ';
+              // tmesh.rotation.order = 'YXZ';
+              // tmesh.rotation.y = Math.PI / 2;
+              // tmesh.add(tmesh1)
+              //
+              // var geometry12 = new TextGeometry("K", {
+              //     font: font0,
+              //     size: bw / 4,
+              //     height: 두께*th / 2
+              // });
+              // geometry12.computeBoundingBox();
+              // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+              // var material = new THREE.MeshBasicMaterial({
+              //     color: colorlst0[colornum0][4]
+              // });
+              // var tmesh1 = new THREE.Mesh(geometry12, material);
+              // // tmesh1.position.y
+              // tmesh1.position.x = 3 * 4;
+              // tmesh1.depth = 10;
+              // tmesh1.rotation.order = 'YXZ';
+              // // tmesh1.rotation.y =Math.PI / 4;
+              // tmesh.add(tmesh1)
 
 
               textscene.push(tmesh)
@@ -9822,8 +9791,8 @@
                         cubes[i].mesh.remove(cubes[i].mesh.children[j]);
                     }
                 }
-                // cubes[i].body.force.set(0,0,0)
-                // cubes[i].body.torque.set(0,0,0)
+                cubes[i].body.force.set(0,0,0)
+                cubes[i].body.torque.set(0,0,0)
 
                 if(gamemod!=2){
                   cubes[i].body.velocity.set(0, 0, 0);
@@ -9833,6 +9802,8 @@
                   world.addBody(cubes[i].body);
                   scene.add(cubes[i].mesh)
                 }else if(i>=  3){
+
+
                   cubes[i].body.velocity.set(0, 0, 0);
                   cubes[i].body.angularVelocity.set(0, 0, 0);
                   cubes[i].body.position.set(0, (i-3  ) * bh + bh / 2, 0);
@@ -10039,7 +10010,7 @@
               if(n==0){
                 setTimeout(function() {
                     callback();
-                }, 900);
+                }, 1000);
               }else{
                 callback();
               }
@@ -10117,6 +10088,52 @@
                 }
             }
         }
+
+        function adjustContrast(color1, color2) {
+          // 색상 1의 밝기 계산
+          var brightness1 = (parseInt(color1.substr(1, 2), 16) * 299 +
+                             parseInt(color1.substr(3, 2), 16) * 587 +
+                             parseInt(color1.substr(5, 2), 16) * 114) / 1000;
+
+          // 색상 2의 밝기 계산
+          var brightness2 = (parseInt(color2.substr(1, 2), 16) * 299 +
+                             parseInt(color2.substr(3, 2), 16) * 587 +
+                             parseInt(color2.substr(5, 2), 16) * 114) / 1000;
+
+          // 대비를 높이기 위해 밝기 차이 계산
+          var contrastRatio = Math.abs(brightness1 - brightness2);
+
+          // 보정할 색상 선택
+          var adjustedColor;
+          if (brightness1 > brightness2) {
+            // 색상 1이 더 밝은 경우, 색상 2를 어둡게 보정
+            var adjustment = Math.floor(contrastRatio / 2);
+            adjustedColor = shadeColor(color2, -adjustment);
+            return [color1, adjustedColor]
+          } else {
+            // 색상 2가 더 밝은 경우, 색상 1을 어둡게 보정
+            var adjustment = Math.floor(contrastRatio / 2);
+            adjustedColor = shadeColor(color1, -adjustment);
+            return [color1, color2]
+          }
+
+
+        }
+
+        // 색상 보정 함수
+        function shadeColor(color, percent) {
+          var f = parseInt(color.slice(1), 16),
+              t = percent < 0 ? 0 : 255,
+              p = percent < 0 ? percent * -1 : percent,
+              R = f >> 16,
+              G = f >> 8 & 0x00FF,
+              B = f & 0x0000FF;
+          return "#" + (0x1000000 +
+            (Math.round((t - R) * p) + R) * 0x10000 +
+            (Math.round((t - G) * p) + G) * 0x100 +
+            (Math.round((t - B) * p) + B)).toString(16).slice(1);
+        }
+
 
         function getColorForNumber(number) {
             // Define colors for specific numbers. You can customize these colors as needed.
@@ -10245,8 +10262,8 @@
         window.rotationend=rotationend
         fetchCSV(csvUrl)
             .then(dictionaries => {
+                var tlst=dictionaries;
 
-                nslst = dictionaries
                 // console.log(nslst);
 
                 // templst = Object.keys(nslst);
@@ -10261,13 +10278,13 @@
                 templst.push("frozen winter")
                 //
                 templst.sort(() => Math.random() - 0.5);
-                sdic.push(nslst[templst[0]])
-                sdic.push(nslst[templst[1]])
-                sdic.push(nslst[templst[2]])
-                sdic.push(nslst[templst[3]])
-                sdic.push(nslst[templst[4]])
-                sdic.push(nslst[templst[5]])
-                window.nslst = nslst;
+                sdic.push(tlst[templst[0]])
+                sdic.push(tlst[templst[1]])
+                sdic.push(tlst[templst[2]])
+                sdic.push(tlst[templst[3]])
+                sdic.push(tlst[templst[4]])
+                sdic.push(tlst[templst[5]])
+                // window.nslst = nslst;
                 // for (let i = 0; i < 6; i++) {
                 //     let temp = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, "up", "down", "left", "right", "upper", "lower"]
                 //     var sdickeys = Object.keys(soundic);
@@ -10425,7 +10442,7 @@
                                   skinsetting(function(object) {
 
                                       setTimeout(function() {
-                                          document.getElementById("intro").children[1].style.opacity="0.9";
+                                          document.getElementById("intro").children[1].style.opacity="0.8";
                                           goahead=true;
 
                                           // console.log(skinmold)
@@ -10443,7 +10460,7 @@
                                           // window.setInterval(animate, 100);
                                           animate();
 
-                                      }, 1000  );
+                                      }, 1500  );
                                   })
                                   // console.log(tilemold);
                                   // console.log(textmold)
@@ -10992,6 +11009,22 @@
             // 		soundic[sdic[activeFloor][0]]?.play();
             // 	}
             // }
+
+            if(fpslst.length>30) {
+              var fsum=0;
+              fpslst.forEach((item) => {
+                fsum+=item;
+              });
+
+              document.getElementById('fps').innerText=String(parseInt(fsum/fpslst.length));
+              fpslst=[];
+            }else{
+              fpslst.push(fps);
+            }
+
+
+
+
             if (skin0 && skinflag) {
                 if (txtcount != txttimebuf) {
                     if(particleflag){
@@ -11020,11 +11053,11 @@
                     // particles.geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( THREE.DynamicDrawUsage ) );
 
                     if(skinnum==1||skinnum==2){
-                      txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
+                      // txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
 
                       for (var i = 0; i < cubes.length; i++) {
 
-                          if(i==0) continue;
+                          // if(i==0) continue;
                           txts[i].material = txtlst[i][txtcount];
 
                       }
@@ -11221,7 +11254,12 @@
                 // });
                 // }
                 // let speed= 0.15*(Math.abs((item.c-item.a)+(item.d-item.b))/8);
-                let speed = deltaTime*bw / 235;
+                if(gamemod==1){
+                  var speed = deltaTime*bw / 185;
+                }else{
+                  var speed = deltaTime*bw / 235;
+                }
+
                 // const vspeed=speed*2;
                 var rmvftile = [];
                 ftiles.forEach((item, index) => {
@@ -11597,43 +11635,68 @@
                 //     }
                 // }
                 // ring[0].quaternion.copy(cubes[activeFloor].body.quaternion);
-                effects.forEach((item, index) => {
-                    if (activeFloor < cubes.length) {
-                      var tempy=item[0].rotation.y;
+                for (let i = effects.length-1; i >= 0; i--) {
 
-                        // item[0].quaternion.copy(cubes[effects[0][3]].body.quaternion);
-                        // item[0].rotation.order = 'YXZ';
-                        // item[0].rotation.y=tempy;
-                        // item[0].rotation.x-= Math.PI / 2
-                        // item[0].rotation.z=-cubes[effects[0][3]].mesh.rotation.z;
+                  if (activeFloor < cubes.length) {
+                    var tempy=effects[i][0].rotation.y;
 
-                        // item[0].rotation.y+=cubes[effects[0][3]].mesh.rotation.y
-                        // item[0].rotation.z-=cubes[effects[0][3]].mesh.rotation.z;
+                      // item[0].quaternion.copy(cubes[effects[0][3]].body.quaternion);
+                      // item[0].rotation.order = 'YXZ';
+                      // item[0].rotation.y=tempy;
+                      // item[0].rotation.x-= Math.PI / 2
+                      // item[0].rotation.z=-cubes[effects[0][3]].mesh.rotation.z;
 
-                        // item[0].rotation.z = -cubes[effects[0][3]].mesh.rotation.z
+                      // item[0].rotation.y+=cubes[effects[0][3]].mesh.rotation.y
+                      // item[0].rotation.z-=cubes[effects[0][3]].mesh.rotation.z;
 
-                        // item[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3 + (th / 16) * index, cubes[effects[0][3]].mesh.position.z)
-                    }
-                    item[0].scale.y +=(deltaTime/800)
-                    // item[0].position.y+=0.03;
-                    item[0].scale.x +=(deltaTime/2500);
-                    item[0].children[0].material.visible = true;
-                    item[0].children[0].material.alphaTest=0.1
-                    item[0].children[0].material.opacity = 0.1 + 0.4 * Math.cos(Math.PI * (item[0].scale.y - 1) / 0.8);
-                    item[0].children[1].material.visible = true;
-                    item[0].children[1].material.alphaTest=0.1
-                    item[0].children[1].material.opacity = 0.1 + 0.4 * Math.cos(Math.PI * (item[0].scale.y - 1) / 0.8);
-                    item[0].children[2].material.visible = true;
-                    item[0].children[2].material.alphaTest=0.1
-                    item[0].children[2].material.opacity = 0.1 + 0.4 * Math.cos(Math.PI * (item[0].scale.y - 1) / 0.8);
+                      // item[0].rotation.z = -cubes[effects[0][3]].mesh.rotation.z
 
-                    if (item[0].scale.y > 1.8) {
-                        // console.log(1);
-                        cubes[item[3]].mesh.remove(item[0]);
-                        scene.remove(item[0]);
-                        effects.splice(effects.indexOf(item), 1);
-                    }
-                })
+                      // item[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3 + (th / 16) * index, cubes[effects[0][3]].mesh.position.z)
+                  }
+                  effects[i][0].scale.y +=(deltaTime/800)
+                  // item[0].position.y+=0.03;
+                  effects[i][0].scale.x +=(deltaTime/3000);
+
+                  effects[i][0].material.transparent=true;
+
+                  effects[i][0].children[0].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
+                  effects[i][0].children[0].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
+
+                  effects[i][0].children[1].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
+                  effects[i][0].children[1].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
+
+                  effects[i][0].children[2].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
+                  effects[i][0].children[2].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
+
+
+
+
+
+                  effects[i][0].children[0].material.visible = true;
+
+                  // item[0].children[0].material.transparent=true;
+                  // effects[i][0].children[0].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                  // effects[i][0].children[0].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                  effects[i][0].children[1].material.visible = true;
+                  // item[0].children[1].material.transparent=true;
+                  // effects[i][0].children[1].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                  // effects[i][0].children[1].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                  effects[i][0].children[2].material.visible = true;
+                  // item[0].children[2].material.transparent=true;
+                  // effects[i][0].children[2].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                  // effects[i][0].children[2].material.opacity =  0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+
+                  if (effects[i][0].scale.y > 1.8) {
+                      // console.log(1);
+
+                      cubes[effects[i][3]].mesh.remove(effects[i][0]);
+                      scene.remove(effects[i][0]);
+                      effects.splice(i, 1);
+                  }
+                }
+                // effects.forEach((item, index) => {
+                //
+                // })
             } else {
                 ring[0].children.forEach((item) => {
                     item.material.visible = false;
@@ -11788,7 +11851,16 @@
 
                             var temp1=document.querySelectorAll(".gameinfo1");
                             temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
-                            if(점수>10000){
+                            if(점수>25000){
+                              temp1[0].children[0].innerText="G"
+                              temp1[0].children[1].innerText="oat!!!!!!!!"
+                            }if(점수>20000){
+                              temp1[0].children[0].innerText="L"
+                              temp1[0].children[1].innerText="egend!!!!!!!"
+                            }if(점수>15000){
+                              temp1[0].children[0].innerText="SS"
+                              temp1[0].children[1].innerText="pecial!!!!!"
+                            }if(점수>10000){
                               temp1[0].children[0].innerText="S"
                               temp1[0].children[1].innerText="uperb!!!!!"
                             }else if(점수>8000){
@@ -11835,6 +11907,7 @@
             }
 
             if(gameoverflag){
+
               for (var i = 0; i < 5; i++) {
                 cubes[i].mesh.children.forEach((item, i) => {
                   if(item.userData["skin"]=="tile"){
@@ -11846,6 +11919,10 @@
                 });
               }
             }
+            sideback.forEach((item) => {
+              item.material.visible=false;
+            });
+
             if (orthoflag && lookcenter&&bf!=activeFloor) {
                 if (!gameoverflag) {
                     if (activeFloor == cubes.length) {
@@ -12255,7 +12332,7 @@
             }
             // Update the physics world
 
-            world.step(1 / 60);
+            if(startflag)world.step(1 / 60);
             if (!restartflag) {
                 cubes.forEach((item) => {
                     // item.mesh.position.copy(item.mesh.userData.body.position);
@@ -12370,38 +12447,43 @@
                 }
 
 
-                if (timebuf != parseInt(elapsedTime)) {
+                // if (timebuf != parseInt(elapsedTime)) {
+                //
+                //     timebuf = parseInt(elapsedTime)
+                //     while (시간.length > 0) {
+                //         scene.remove(시간.pop());
+                //     }
+                //     if (parseInt(elapsedTime) % 60 >= 10) {
+                //         if (parseInt(elapsedTime / 60) >= 10) {
+                //             var timestring = String(parseInt(elapsedTime / 60)) + ":" + String(parseInt(elapsedTime) % 60);
+                //         } else {
+                //             var timestring = "0" + String(parseInt(elapsedTime / 60)) + ":" + String(parseInt(elapsedTime) % 60);
+                //         }
+                //     } else {
+                //         if (parseInt(elapsedTime / 60) >= 10) {
+                //             var timestring = String(parseInt(elapsedTime / 60)) + ":0" + String(parseInt(elapsedTime) % 60);
+                //         } else {
+                //             var timestring = "0" + String(parseInt(elapsedTime / 60)) + ":0" + String(parseInt(elapsedTime) % 60);
+                //         }
+                //     }
+                //     createTextMesh(timestring, 998, (textMesh) => {
+                //         textMesh.position.y = cubes.length * bh - th * 0.2
+                //         textMesh.position.x = avx - bw / 2.5;
+                //         textMesh.position.z = avz - bw / 1.5;
+                //         // textMesh.position.x=0;
+                //         textMesh.depth = 10;
+                //         textMesh.rotation.order = 'YXZ';
+                //         textMesh.rotation.y = 2 * Math.PI;
+                //         scene.add(textMesh)
+                //         시간.push(textMesh);
+                //         // console.log(textMesh);
+                //     });
+                // }
 
-                    timebuf = parseInt(elapsedTime)
-                    while (시간.length > 0) {
-                        scene.remove(시간.pop());
-                    }
-                    if (parseInt(elapsedTime) % 60 >= 10) {
-                        if (parseInt(elapsedTime / 60) >= 10) {
-                            var timestring = String(parseInt(elapsedTime / 60)) + ":" + String(parseInt(elapsedTime) % 60);
-                        } else {
-                            var timestring = "0" + String(parseInt(elapsedTime / 60)) + ":" + String(parseInt(elapsedTime) % 60);
-                        }
-                    } else {
-                        if (parseInt(elapsedTime / 60) >= 10) {
-                            var timestring = String(parseInt(elapsedTime / 60)) + ":0" + String(parseInt(elapsedTime) % 60);
-                        } else {
-                            var timestring = "0" + String(parseInt(elapsedTime / 60)) + ":0" + String(parseInt(elapsedTime) % 60);
-                        }
-                    }
-                    createTextMesh(timestring, 998, (textMesh) => {
-                        textMesh.position.y = cubes.length * bh - th * 0.2
-                        textMesh.position.x = avx - bw / 2.5;
-                        textMesh.position.z = avz - bw / 1.5;
-                        // textMesh.position.x=0;
-                        textMesh.depth = 10;
-                        textMesh.rotation.order = 'YXZ';
-                        textMesh.rotation.y = 2 * Math.PI;
-                        scene.add(textMesh)
-                        시간.push(textMesh);
-                        // console.log(textMesh);
-                    });
-                }
+
+
+
+
                 //색상표
                 // const text = String(colornum)+"  "+ String(colornum0);
                 // const fontSize = 24;
@@ -12567,7 +12649,9 @@
             // }else{
             // }
             // uilst[0].material.visible=true;
-
+            sideback.forEach((item) => {
+              item.material.visible=true;
+            });
             if (sidecam && !gameoverflag&&!restartflag) {
               if(!startflag){
                 gradback.forEach((item, index) => {
@@ -14540,68 +14624,68 @@
                   tg.applyMatrix4(originHelper.matrixWorld);
                   tg.setAttribute('color', colorAttrib);
                   geoms.push(tg)
-                  //우측 키(검정)
-                  originHelper.position.set(width / 2.57, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
-                  originHelper.updateWorldMatrix(true, false);
-                  var tc = new THREE.Color(0x20282F)
-                  var tg = new THREE.BoxGeometry(height * 0.35 * ratio, height * 0.1 * ratio, depth * 0.02);
-                  var rgb = tc.toArray().map(v => v * 255);
-                  var numVerts = geometry.getAttribute('position').count;
-                  var itemSize = 3; // r, g, b
-                  var colors = new Uint8Array(itemSize * numVerts);
-                  colors.forEach((v, ndx) => {
-                      colors[ndx] = rgb[ndx % 3];
-                  });
-                  var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
-                  tg.applyMatrix4(originHelper.matrixWorld);
-                  tg.setAttribute('color', colorAttrib);
-                  geoms.push(tg)
-                  originHelper.position.set(width / 2.13, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
-                  originHelper.updateWorldMatrix(true, false);
-                  var tc = new THREE.Color(0x20282F)
-                  var tg = new THREE.BoxGeometry(height * 0.2 * ratio, height * 0.1 * ratio, depth * 0.02);
-                  var rgb = tc.toArray().map(v => v * 255);
-                  var numVerts = geometry.getAttribute('position').count;
-                  var itemSize = 3; // r, g, b
-                  var colors = new Uint8Array(itemSize * numVerts);
-                  colors.forEach((v, ndx) => {
-                      colors[ndx] = rgb[ndx % 3];
-                  });
-                  var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
-                  tg.applyMatrix4(originHelper.matrixWorld);
-                  tg.setAttribute('color', colorAttrib);
-                  geoms.push(tg)
-                  //좌측 키(검정)
-                  originHelper.position.set(-width / 2.57, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
-                  originHelper.updateWorldMatrix(true, false);
-                  var tc = new THREE.Color(0x20282F)
-                  var tg = new THREE.BoxGeometry(height * 0.3 * ratio, height * 0.1 * ratio, depth * 0.02);
-                  var rgb = tc.toArray().map(v => v * 255);
-                  var numVerts = geometry.getAttribute('position').count;
-                  var itemSize = 3; // r, g, b
-                  var colors = new Uint8Array(itemSize * numVerts);
-                  colors.forEach((v, ndx) => {
-                      colors[ndx] = rgb[ndx % 3];
-                  });
-                  var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
-                  tg.applyMatrix4(originHelper.matrixWorld);
-                  tg.setAttribute('color', colorAttrib);
-                  geoms.push(tg)
-                  originHelper.position.set(-width / 2.13, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
-                  originHelper.updateWorldMatrix(true, false);
-                  var tc = new THREE.Color(0x20282F)
-                  var tg = new THREE.BoxGeometry(height * 0.2 * ratio, height * 0.1 * ratio, depth * 0.02);
-                  var rgb = tc.toArray().map(v => v * 255);
-                  var numVerts = geometry.getAttribute('position').count;
-                  var itemSize = 3; // r, g, b
-                  var colors = new Uint8Array(itemSize * numVerts);
-                  colors.forEach((v, ndx) => {
-                      colors[ndx] = rgb[ndx % 3];
-                  });
-                  var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
-                  tg.applyMatrix4(originHelper.matrixWorld);
-                  tg.setAttribute('color', colorAttrib);
-                  geoms.push(tg)
+                  // //우측 키(검정)
+                  // originHelper.position.set(width / 2.57, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
+                  // originHelper.updateWorldMatrix(true, false);
+                  // var tc = new THREE.Color(0x20282F)
+                  // var tg = new THREE.BoxGeometry(height * 0.35 * ratio, height * 0.1 * ratio, depth * 0.02);
+                  // var rgb = tc.toArray().map(v => v * 255);
+                  // var numVerts = geometry.getAttribute('position').count;
+                  // var itemSize = 3; // r, g, b
+                  // var colors = new Uint8Array(itemSize * numVerts);
+                  // colors.forEach((v, ndx) => {
+                  //     colors[ndx] = rgb[ndx % 3];
+                  // });
+                  // var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+                  // tg.applyMatrix4(originHelper.matrixWorld);
+                  // tg.setAttribute('color', colorAttrib);
+                  // geoms.push(tg)
+                  // originHelper.position.set(width / 2.13, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
+                  // originHelper.updateWorldMatrix(true, false);
+                  // var tc = new THREE.Color(0x20282F)
+                  // var tg = new THREE.BoxGeometry(height * 0.2 * ratio, height * 0.1 * ratio, depth * 0.02);
+                  // var rgb = tc.toArray().map(v => v * 255);
+                  // var numVerts = geometry.getAttribute('position').count;
+                  // var itemSize = 3; // r, g, b
+                  // var colors = new Uint8Array(itemSize * numVerts);
+                  // colors.forEach((v, ndx) => {
+                  //     colors[ndx] = rgb[ndx % 3];
+                  // });
+                  // var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+                  // tg.applyMatrix4(originHelper.matrixWorld);
+                  // tg.setAttribute('color', colorAttrib);
+                  // geoms.push(tg)
+                  // //좌측 키(검정)
+                  // originHelper.position.set(-width / 2.57, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
+                  // originHelper.updateWorldMatrix(true, false);
+                  // var tc = new THREE.Color(0x20282F)
+                  // var tg = new THREE.BoxGeometry(height * 0.3 * ratio, height * 0.1 * ratio, depth * 0.02);
+                  // var rgb = tc.toArray().map(v => v * 255);
+                  // var numVerts = geometry.getAttribute('position').count;
+                  // var itemSize = 3; // r, g, b
+                  // var colors = new Uint8Array(itemSize * numVerts);
+                  // colors.forEach((v, ndx) => {
+                  //     colors[ndx] = rgb[ndx % 3];
+                  // });
+                  // var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+                  // tg.applyMatrix4(originHelper.matrixWorld);
+                  // tg.setAttribute('color', colorAttrib);
+                  // geoms.push(tg)
+                  // originHelper.position.set(-width / 2.13, 0 + height * 0.38, depth / 1.9 - depth * 0.025)
+                  // originHelper.updateWorldMatrix(true, false);
+                  // var tc = new THREE.Color(0x20282F)
+                  // var tg = new THREE.BoxGeometry(height * 0.2 * ratio, height * 0.1 * ratio, depth * 0.02);
+                  // var rgb = tc.toArray().map(v => v * 255);
+                  // var numVerts = geometry.getAttribute('position').count;
+                  // var itemSize = 3; // r, g, b
+                  // var colors = new Uint8Array(itemSize * numVerts);
+                  // colors.forEach((v, ndx) => {
+                  //     colors[ndx] = rgb[ndx % 3];
+                  // });
+                  // var colorAttrib = new THREE.BufferAttribute(colors, itemSize, true);
+                  // tg.applyMatrix4(originHelper.matrixWorld);
+                  // tg.setAttribute('color', colorAttrib);
+                  // geoms.push(tg)
                   //뚜껑
                   // originHelper.position.set(0,height/2-height*0.02,0)
                   // originHelper.updateWorldMatrix(true, false);
@@ -15108,6 +15192,35 @@
             newBox.mesh.userData.body = newBox.body;
         }
 
+        function resol(n) {
+          var meta = document.querySelector('meta[name="viewport"]');
+          switch (n) {
+            case 0:
+              meta.setAttribute('content', 'width=device-width, initial-scale=1.05 maximum-scale=1.05, minimum-scale=1.05, user-scalable=0');
+              break;
+            case 1:
+              meta.setAttribute('content', 'width=device-width, initial-scale=0.95, maximum-scale=0.95, minimum-scale=0.95, user-scalable=0');
+              break;
+            case 2:
+              meta.setAttribute('content', 'width=device-width, initial-scale=0.85, maximum-scale=0.85, minimum-scale=0.85, user-scalable=0');
+              break;
+            case 3:
+              meta.setAttribute('content', 'width=device-width, initial-scale=0.75, maximum-scale=0.75, minimum-scale=0.75, user-scalable=0');
+              break;
+            case 4:
+              meta.setAttribute('content', 'width=device-width, initial-scale=0.65, maximum-scale=0.65, minimum-scale=0.65, user-scalable=0');
+              break;
+            case 5:
+              meta.setAttribute('content', 'width=device-width, initial-scale=0.55, maximum-scale=0.55, minimum-scale=0.55, user-scalable=0');
+              break;
+
+            default:
+              return;
+          }
+
+        }
+
+        window.resol=resol;
         function hexToHSL(hex0) {
             // hex 값의 RGB 값을 추출
             var hex = hex0.toString();
@@ -15349,50 +15462,6 @@
                 byteArray[i / 2] = byteValue;
             }
             return byteArray;
-        }
-        function adjustContrast(color1, color2) {
-          // 색상 1의 밝기 계산
-          var brightness1 = (parseInt(color1.substr(1, 2), 16) * 299 +
-                             parseInt(color1.substr(3, 2), 16) * 587 +
-                             parseInt(color1.substr(5, 2), 16) * 114) / 1000;
-
-          // 색상 2의 밝기 계산
-          var brightness2 = (parseInt(color2.substr(1, 2), 16) * 299 +
-                             parseInt(color2.substr(3, 2), 16) * 587 +
-                             parseInt(color2.substr(5, 2), 16) * 114) / 1000;
-
-          // 대비를 높이기 위해 밝기 차이 계산
-          var contrastRatio = Math.abs(brightness1 - brightness2);
-
-          // 보정할 색상 선택
-          var adjustedColor;
-          if (brightness1 > brightness2) {
-            // 색상 1이 더 밝은 경우, 색상 2를 어둡게 보정
-            var adjustment = Math.floor(contrastRatio / 2);
-            adjustedColor = shadeColor(color2, -adjustment);
-            return [color1, adjustedColor]
-          } else {
-            // 색상 2가 더 밝은 경우, 색상 1을 어둡게 보정
-            var adjustment = Math.floor(contrastRatio / 2);
-            adjustedColor = shadeColor(color1, -adjustment);
-            return [adjustedColor, color2]
-          }
-
-
-        }
-
-        // 색상 보정 함수
-        function shadeColor(color, percent) {
-          var f = parseInt(color.slice(1), 16),
-              t = percent < 0 ? 0 : 255,
-              p = percent < 0 ? percent * -1 : percent,
-              R = f >> 16,
-              G = f >> 8 & 0x00FF,
-              B = f & 0x0000FF;
-          return "#" + (0x1000000 +
-            (Math.round((t - R) * p) + R) * 0x10000 +
-            (Math.round((t - G) * p) + G) * 0x100 +
-            (Math.round((t - B) * p) + B)).toString(16).slice(1);
         }
 
         function showpop(t1="", t2="", t3="",idx=0){
@@ -15693,14 +15762,10 @@
 
         function retry() {
           coin+=pluscoin;
-          if(!webflag){
-            setdb("data", "0", String(coin));
-          }
+          setdb("data", "0", String(coin));
           document.getElementById("coin2").innerText=String(coin);
           if(점수>bestscore){
-            if(!webflag){
-              setdb("data", "2", String(점수));
-            }
+            setdb("data", "2", String(점수));
             bestscore=점수
           }
 
@@ -15785,7 +15850,7 @@
         window.retry=retry;
 
         function initdb(){
-          //Android.saveDb("idx탭type탭name탭0탭2탭4탭8탭16탭32탭64탭128탭256탭512탭1024탭2048탭up탭down탭left탭right탭upper탭lower탭title탭producer탭unlock탭price탭cash탭final냅0탭wooden탭wooden탭dance_loop0.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Dance Hall탭AKI PRO탭0탭44탭0탭1냅1탭lofi탭lofi_slowdown탭slowdown.ogg탭4.ogg탭LoFi-Kick-ADSR Kick Slam.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Snare-ADSR Snr 1.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Kick-ADSR Kick Punch.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Slow Down탭AKI PRO탭1탭45탭1탭1냅2탭lofi탭lofi_touch탭touch.ogg탭4.ogg탭LoFi-Kick-ADSR Touch Kick 1.WAV탭LoFi-Snare-ADSR OV Snr 1.WAV탭LoFi-Snare-ADSR OV Snr 2.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Loop-ADSR Touch Syn.WAV탭LoFi-Loop-ADSR Touch Bass.WAV탭LoFi-HiHat-ADSR Crash.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Touch Perc 3.WAV탭LoFi-Perc-ADSR Touch Perc 3.WAV탭LoFi-HiHat-ADSR Touch Hat 1.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Touch탭AKI PRO탭1탭46탭1탭1냅3탭lofi탭lofi_bedroom탭bedroom.ogg탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Clap-ADSR Clap Delay.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭LoFi-SFX-ADSR SFX.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Bedroom탭AKI PRO탭1탭47탭1탭1냅4탭lofi탭lofi_somepluk탭somepluk.ogg탭4.ogg탭LoFi-Kick-ADSR Kick Lite.WAV탭LoFi-Snare-ADSR Rim.WAV탭LoFi-Perc-ADSR Perc 6.WAV탭LoFi-Snare-ADSR SnarePit.WAV탭LoFi-Kick-ADSR Kick Pop.WAV탭LoFi-Hit-ADSR Pluck Cmaj7.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Some Pluk탭AKI PRO탭1탭48탭1탭1냅5탭lofi탭lofi_midnight탭midnight.ogg탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Snare-ADSR Snr 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭IbizaHouse-Vocal-IH Vox 05.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Midnight탭AKI PRO탭1탭49탭1탭1냅6탭lofi탭lofi_smokeit탭LoFi-Loop-Music-LS Smoke It G.WAV탭4.ogg탭LoFi-Kick-LS Smoke It Kik 1.WAV탭LoFi-Snare-LS Smoke It Snare 1.WAV탭LoFi-Snare-LS Smoke It Snare 2.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Kick-LS Smoke It 808.WAV탭LoFi-Snare-LS Smoke It Snare 3.WAV탭LoFi-Perc-LS Smoke It Woody.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Smoke It탭AKI PRO탭1탭50탭1탭1냅7탭lofi탭new1탭LoFi-Loop-Music-LS ML 13 120 C.WAV탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Clap-ADSR Clap Delay.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭LoFi-SFX-ADSR SFX.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭LoFI_120 C탭AKI PRO탭1탭51탭1탭1냅8탭lofi탭new2탭LoFi-Loop-Music-LS ML 13 120 C.WAV탭4.ogg탭LoFi-Kick-ADSR Kick Lite.WAV탭LoFi-Snare-ADSR Rim.WAV탭LoFi-Perc-ADSR Perc 6.WAV탭LoFi-Snare-ADSR SnarePit.WAV탭LoFi-Kick-ADSR Kick Pop.WAV탭LoFi-Hit-ADSR Pluck Cmaj7.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭LoFI_94 A#탭AKI PRO탭1탭52탭1탭1냅9탭lofi탭new3탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Snare-ADSR Snr 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭IbizaHouse-Vocal-IH Vox 05.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭LoFI_115 Cm탭AKI PRO탭1탭53탭1탭1냅10탭retro탭ibiza_deep탭IbizaHouse-Synth-Loop.ogg탭4.ogg탭IbizaHouse-Kick-IH Kick 09.WAV탭IbizaHouse-Clap-IH Clap 05.WAV탭IbizaHouse-Snare-IH Snare 05.WAV탭IbizaHouse-Bass-IH Bass Db 05.WAV탭IbizaHouse-Kick-IH Kick 10.WAV탭IbizaHouse-Vocal-IH Vox 09.WAV탭IbizaHouse-Vocal-IH Vox 10.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭IbizaHouse-Hat-IH Hat 13.WAV탭IbizaHouse-Hat-IH Hat 15.WAV탭IbizaHouse-Hat-IH Hat 14.WAV탭IbizaHouse-Hat-IH Hat 13.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭IbizaHouse탭AKI PRO탭1탭54탭0탭1냅11탭retro탭ibiza_give탭IbizaHouse-Synth-Loop.ogg탭4.ogg탭IbizaHouse-Kick-IH Kick 05.WAV탭IbizaHouse-Clap-IH Clap 03.WAV탭IbizaHouse-Snare-IH Snare 03.WAV탭IbizaHouse-Bass-IH Bass D 03.WAV탭IbizaHouse-Kick-IH Kick 06.WAV탭IbizaHouse-Vocal-IH Vox 06.WAV탭IbizaHouse-Vocal-IH Vox 05.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭IbizaHouse-Hat-IH Hat 09.WAV탭IbizaHouse-Hat-IH Hat 09.WAV탭IbizaHouse-Hat-IH Hat 08.WAV탭IbizaHouse-Hat-IH Hat 08.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭IbizaHouse탭AKI PRO탭1탭55탭0탭1냅12탭retro탭lofi_withu탭LoFi-Loop-Music-LS With U Lp.WAV탭4.ogg탭LoFi-Kick-LS With U Kick 1.WAV탭LoFi-Snare-LS With U Snare 1.WAV탭LoFi-Perc-LS With U Cave.WAV탭LoFi-Snare-LS With U Snare 3.WAV탭LoFi-Vocal-LS With U Vox 1.WAV탭LoFi-Kick-LS With U 808.WAV탭LoFi-Vocal-LS With U Vox 2.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-LS With U Rim.WAV탭LoFi-Perc-LS With U Rim.WAV탭LoFi-HiHat-LS With U Hats 1.WAV탭LoFi-HiHat-LS With U Hats 1.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭With You탭AKI PRO탭1탭56탭0탭1냅13탭retro탭trap_cellar탭Trap-Synth-TR CK SynLp G.WAV탭4.ogg탭Trap-Hat-TR CK 07 Hats.WAV탭Trap-Kick-TR CK 01 Kick.WAV탭Trap-Snare-TR CK 01 Snare.WAV탭Trap-Perc-TR CK 01 Perc.WAV탭Trap-Snap-TR CK Snap 2.WAV탭Trap-Bass-TR CK BassHit C.WAV탭Trap-Vocal-TR CK 06 Vox.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Cellar탭AKI PRO탭1탭57탭0탭1냅14탭retro탭rnb_demo탭FutureHouse-Loop-Synth-17 Lp D 126.WAV탭4.ogg탭Trap-Kick-Trap Classic Kick.WAV탭Trap-Snare-Trap Classic Snr 3.WAV탭Trap-Perc-TR OV Perc.WAV탭RnB-Snap-RSK3 Snp1.WAV탭Trap-Bass-TR OV 808 Kick.WAV탭Trap-Snare-TR OV Snr 1.WAV탭Trap-Tom-TR OV Luv Hi Tom.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭rnb_demo탭AKI PRO탭1탭58탭0탭1냅15탭retro탭hiphop_demo탭HipHop-Bass-MSXII Shinez.WAV탭4.ogg탭HipHop-Kick-MSXII Shinez 01.WAV탭HipHop-Snare-MSXII Shinez 01.WAV탭HipHop-Kick-MSXII Shinez 02.WAV탭HipHop-Snare-MSXII Shinez 02.WAV탭HipHop-Chord-MSXII Shinez Abmin.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭HipHop-Synth-Arps-MSXII Shinez.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭HipHop-Hat-MSXII Shinez 01.WAV탭HipHop-Hat-MSXII Shinez 01.WAV탭HipHop-Hat-MSXII Shinez 01.WAV탭HipHop-Hat-MSXII Shinez 01.WAV탭11.ogg탭11.ogg탭hiphop_demo탭AKI PRO탭1탭59탭0탭1냅16탭retro탭boombap_91탭BoomBap-Melodic-RetroSciFictAm.WAV탭4.ogg탭BoomBap-Kick-MSXII Slum 02.WAV탭BoomBap-Snare-MSXII Felah 02.WAV탭BoomBap-Kick-MSXII Swag City 02.WAV탭BoomBap-FX-HH FE Zap.WAV탭BoomBap-Clap-MSXII Mashed.WAV탭LoFi-Kick-ADSR Kick Punch.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭RnB-Snap-RSK3 Snp1.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭11.ogg탭11.ogg탭boombap_91탭AKI PRO탭1탭60탭0탭1냅17탭retro탭boombap_grid탭BoomBap-Melodic-HoustonSky70Fm.WAV탭4.ogg탭BoomBap-Kick-HH Kick 07.WAV탭BoomBap-Snare-HH DWK Snare 1.WAV탭BoomBap-Cymbal-HH TBC Cym 1.WAV탭BoomBap-Snare-MSXII Felah 02.WAV탭BoomBap-Clap-MSXII Mashed.WAV탭LoFi-Kick-ADSR Kick Punch.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭RnB-Snap-RSK3 Snp1.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭11.ogg탭11.ogg탭boombap_grid탭AKI PRO탭1탭61탭0탭1냅18탭retro탭rnb_kit09탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭RnB-Kick-RSK9 Kik.WAV탭RnB-Snare-RSK9 Snr.WAV탭RnB-Cymbal-RSK9 Crs.WAV탭RnB-Melodic-RSK9 Pno1.WAV탭RnB-Melodic-RSK9 Pno2.WAV탭RnB-Melodic-RSK9 Bas1.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭RnB-Melodic-RSK9 Bas2.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭RnB-Perc-RSK9 Prc.WAV탭RnB-Perc-RSK9 Prc.WAV탭RnB-Perc-RSK9 Shkr.WAV탭RnB-Perc-RSK9 Shkr.WAV탭11.ogg탭11.ogg탭rnb_kit09탭AKI PRO탭1탭62탭0탭1냅19탭808탭dancehall_floor탭DanceHall-Melodic-Vibes Lp 4.WAV탭4.ogg탭DanceHall-Kick-Anthem Kik .WAV탭DanceHall-Kick-Anth Bang.WAV탭DanceHall-Clap-Luv Clap 1.WAV탭DanceHall-Snap-MC2 Snap .WAV탭DanceHall-Clap-MC01 Clp 1.WAV탭DanceHall-Perc-FilthK Perc.WAV탭DanceHall-Vocal-MC05 Voc .WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭DanceHall-Hat-CP MelHH2.WAV탭DanceHall-Hat-CP MelHH2.WAV탭DanceHall-Hat-Dirt1 Hat 2.WAV탭DanceHall-Hat-Dirt1 Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭dancehall_floor탭AKI PRO탭1탭63탭0탭1냅20탭808탭future04탭FutureBass-Loop-Synth-FD synEb1.WAV탭4.ogg탭FutureBass-Bass-FD guessG.WAV탭FutureBass-Kick-FD coment.WAV탭FutureBass-Cymbal-FD silcone.WAV탭FutureBass-Clap-FD oldskool.WAV탭FutureBass-Clap-FD snip.WAV탭FutureBass-FX-FD eight.WAV탭FutureBass-Vocal-FD faithvox1Eb.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭FutureBass-Hat-FD gest.WAV탭FutureBass-Hat-FD gest.WAV탭FutureBass-Hat-FD kitchen.WAV탭FutureBass-Hat-FD kitchen.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭future04탭AKI PRO탭1탭64탭0탭1냅21탭808탭funk_minneapolis탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭Funk-Bass-F9 MH Cadi Bs 1 E.WAV탭Funk-Bass-F9 MH Cadi Bs 2 E.WAV탭Funk-Clap-F9 MH Minn FX Clap.WAV탭Funk-Bass-F9 MH CMI Bass E.WAV탭Funk-Bass-F9 MH JP Growl Bs E.WAV탭Funk-Synth-F9 MH Wiseguy E.WAV탭Funk-Bass-F9 MH P Slide E.WAV탭Funk-Synth-F9 MH MegaPoly E.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭Funk-Kick-F9 MH Minn AMS Kick.WAV탭Funk-Snare-F9 MH Minn Snare.WAV탭Funk-Tom-F9 MH MInn Hi 88 Cnga.WAV탭Funk-Tom-F9 MH MInn Low 88 Cnga.WAV탭11.ogg탭11.ogg탭funk_minneapolis탭AKI PRO탭1탭65탭0탭1냅22탭808탭trap_demo탭Trap-Melodic-TR MX T Vision.WAV탭4.ogg탭Urban-Kick-Heat3 SKick.WAV탭Urban-Snare-Heat3 SRoll1.WAV탭Urban-Snare-Heat3 Snr.WAV탭Trap-Snap-TR MX Push Snap 2.WAV탭Trap-Clap-TR MX  Clp 1.WAV탭Urban-Cymbal-Heat3 Cym.WAV탭Trap-FX-TR MX  Sfx 2.WAV탭Urban-Clap-Heat3 CLG.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭Trap-Hat-TR MX Drill HH.WAV탭Urban-HiHat-Heat3 HH1.WAV탭Trap-Perc-TR MX Tri 01.WAV탭Trap-Kick-TR MX Kick 09.WAV탭11.ogg탭11.ogg탭trap_demo탭AKI PRO탭1탭66탭0탭1냅23탭808탭lofi_underwater탭LoFi-Loop-Music-LS Underwater FM.WAV탭4.ogg탭LoFi-Perc-LS Underwater Click.WAV탭LoFi-Perc-LS Underwater Tamb.WAV탭LoFi-HiHat-LS Underwater Hat 3.WAV탭LoFi-Kick-LS Underwater Kick.WAV탭LoFi-Snap-LS Underwater Snp.WAV탭LoFi-Hit-LS Underwater Syn.WAV탭LoFi-Vocal-LS Underwater FM.WAV탭LoFi-Kick-LS Underwater 808 1.WAV탭LoFi-Kick-LS Underwater 808 2.WAV탭11.ogg탭LoFi-Perc-LS Underwater Tom.WAV탭LoFi-Perc-LS Underwater Tom.WAV탭LoFi-Perc-LS Underwater Tom.WAV탭LoFi-Perc-LS Underwater Tom.WAV탭11.ogg탭11.ogg탭lofi_underwater탭AKI PRO탭1탭67탭0탭1냅24탭808탭trap_weekend탭FutureHouse-Loop-Synth-17 Lp D 126.WAV탭4.ogg탭Trap-Kick-TR MW BouceKik1.WAV탭Trap-Snare-TR MW BigTrap Snr.WAV탭Trap-Keys-TR MW Rhode 1.WAV탭Trap-Keys-TR MW Rhode 2.WAV탭Trap-Clap-TR MW EQ Clap.WAV탭Trap-Cymbal-TR MW Ring Cym.WAV탭Trap-Bass-TR MW BB Bass.WAV탭Trap-Keys-TR MW RevRhode.WAV탭Trap-Pad-TR MW SmoothPad.WAV탭11.ogg탭Trap-Guitar-TR MW NRev Guit 1.WAV탭Trap-Guitar-TR MW NRev Guit 2.WAV탭Trap-Guitar-TR MW NRev Guit 1.WAV탭Trap-Guitar-TR MW NRev Guit 2.WAV탭11.ogg탭11.ogg탭trap_weekend탭AKI PRO탭1탭68탭0탭1냅25탭808탭trap_808탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭Trap-Kick-Luv 808 2.WAV탭Trap-Snare-Luv Snare.WAV탭Trap-Snap-Luv Snap 2.WAV탭Trap-Clap-Luv Clap 1.WAV탭Trap-Kick-Luv Drop 2.WAV탭Trap-FX-Buss ZRoll.WAV탭Trap-Kick-Luv 808 01.WAV탭Trap-FX-Buss ZRoll.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭Trap-Tom-Luv Hi Tom.WAV탭Trap-Tom-Luv Mid Tom.WAV탭Trap-Tom-Luv Hi Tom.WAV탭Trap-Tom-Luv Mid Tom.WAV탭11.ogg탭11.ogg탭trap_808탭AKI PRO탭1탭69탭0탭1냅26탭hiphop탭hiphop_west탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_west탭AKI PRO탭1탭70탭0탭1냅27탭hiphop탭hiphop_fallen탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_fallen탭AKI PRO탭1탭71탭0탭1냅28탭hiphop탭hiphop_hoodie탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_hoodie탭AKI PRO탭1탭72탭0탭1냅29탭hiphop탭hiphop_unclejoes탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_unclejoes탭AKI PRO탭1탭73탭0탭1냅30탭hiphop탭hiphop_swag탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_swag탭AKI PRO탭1탭74탭0탭1냅31탭hiphop탭hiphop_rawcratez2탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_rawcratez2탭AKI PRO탭1탭75탭0탭1냅32탭hiphop탭hiphop_rawcutz2탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_rawcutz2탭AKI PRO탭1탭76탭0탭1냅33탭hiphop탭hiphop_rivals탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_rivals탭AKI PRO탭1탭77탭0탭1냅34탭wooden탭High End Party탭High End Party.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭High End Party탭jhaeka탭0탭78탭0탭1냅35탭wooden탭Catwalk탭Catwalk.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Catwalk탭jhaeka탭0탭79탭0탭1냅36탭wooden탭Lost in the Dessert탭Lost in the Dessert.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Lost in the Dessert탭jhaeka탭0탭80탭0탭1냅37탭wooden탭You_re in the Future탭You_re in the Future.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭You_re in the Future탭jhaeka탭0탭81탭0탭1냅38탭wooden탭Beach House탭Beach House.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Beach House탭jhaeka탭0탭82탭0탭1냅39탭wooden탭Puzzles탭Puzzles.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Puzzles탭jhaeka탭0탭83탭0탭1냅40탭wooden탭frozen winter탭frozen_winter.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭frozen winter탭jhaeka탭1탭84탭0탭1냅41탭new탭80s탭80s.ogg탭4.ogg탭80s-Kick-F9 GH Grid Kick Amb.WAV탭80s-Snare-F9 GH Grid Amb Snr.WAV탭80s-Tom-F9 GH Simm Mid.WAV탭80s-Cymbal-F9 GH Grid Cym.WAV탭80s-Bass-F9 GH DX Bass 2 D.WAV탭80s-Synth-F9 GH Spaced D.WAV탭80s-Tom-F9 GH Simm Low.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭80s-Tom-F9 GH Grid LTom.WAV탭80s-Perc-F9 GH Grid Low Cng.WAV탭80s-Tom-F9 GH Grid LTom.WAV탭80s-Perc-F9 GH Grid Low Cng.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭80s탭AKI PRO탭1탭85탭0탭1냅42탭data탭data탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0냅43탭data1탭data1탭1탭1탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0")
+          Android.saveDb("idx탭type탭name탭0탭2탭4탭8탭16탭32탭64탭128탭256탭512탭1024탭2048탭up탭down탭left탭right탭upper탭lower탭title탭producer탭unlock탭price탭cash탭final냅0탭wooden탭wooden탭dance_loop0.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Dance Hall탭AKI PRO탭0탭44탭0탭1냅1탭lofi탭lofi_slowdown탭slowdown.ogg탭4.ogg탭LoFi-Kick-ADSR Kick Slam.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Snare-ADSR Snr 1.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Kick-ADSR Kick Punch.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Slow Down탭AKI PRO탭1탭45탭1탭1냅2탭lofi탭lofi_touch탭touch.ogg탭4.ogg탭LoFi-Kick-ADSR Touch Kick 1.WAV탭LoFi-Snare-ADSR OV Snr 1.WAV탭LoFi-Snare-ADSR OV Snr 2.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Loop-ADSR Touch Syn.WAV탭LoFi-Loop-ADSR Touch Bass.WAV탭LoFi-HiHat-ADSR Crash.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Touch Perc 3.WAV탭LoFi-Perc-ADSR Touch Perc 3.WAV탭LoFi-HiHat-ADSR Touch Hat 1.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Touch탭AKI PRO탭1탭46탭1탭1냅3탭lofi탭lofi_bedroom탭bedroom.ogg탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Clap-ADSR Clap Delay.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭LoFi-SFX-ADSR SFX.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Bedroom탭AKI PRO탭1탭47탭1탭1냅4탭lofi탭lofi_somepluk탭somepluk.ogg탭4.ogg탭LoFi-Kick-ADSR Kick Lite.WAV탭LoFi-Snare-ADSR Rim.WAV탭LoFi-Perc-ADSR Perc 6.WAV탭LoFi-Snare-ADSR SnarePit.WAV탭LoFi-Kick-ADSR Kick Pop.WAV탭LoFi-Hit-ADSR Pluck Cmaj7.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Some Pluk탭AKI PRO탭1탭48탭1탭1냅5탭lofi탭lofi_midnight탭midnight.ogg탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Snare-ADSR Snr 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭IbizaHouse-Vocal-IH Vox 05.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Midnight탭AKI PRO탭1탭49탭1탭1냅6탭lofi탭lofi_smokeit탭LoFi-Loop-Music-LS Smoke It G.WAV탭4.ogg탭LoFi-Kick-LS Smoke It Kik 1.WAV탭LoFi-Snare-LS Smoke It Snare 1.WAV탭LoFi-Snare-LS Smoke It Snare 2.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Kick-LS Smoke It 808.WAV탭LoFi-Snare-LS Smoke It Snare 3.WAV탭LoFi-Perc-LS Smoke It Woody.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Smoke It탭AKI PRO탭1탭50탭1탭1냅7탭lofi탭new1탭LoFi-Loop-Music-LS ML 13 120 C.WAV탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Clap-ADSR Clap Delay.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭LoFi-SFX-ADSR SFX.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭LoFI_120 C탭AKI PRO탭1탭51탭1탭1냅8탭lofi탭new2탭LoFi-Loop-Music-LS ML 13 120 C.WAV탭4.ogg탭LoFi-Kick-ADSR Kick Lite.WAV탭LoFi-Snare-ADSR Rim.WAV탭LoFi-Perc-ADSR Perc 6.WAV탭LoFi-Snare-ADSR SnarePit.WAV탭LoFi-Kick-ADSR Kick Pop.WAV탭LoFi-Hit-ADSR Pluck Cmaj7.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭LoFI_94 A#탭AKI PRO탭1탭52탭1탭1냅9탭lofi탭new3탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Snare-ADSR Snr 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭IbizaHouse-Vocal-IH Vox 05.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭LoFI_115 Cm탭AKI PRO탭1탭53탭1탭1냅10탭retro탭ibiza_deep탭IbizaHouse-Synth-Loop.ogg탭4.ogg탭IbizaHouse-Kick-IH Kick 09.WAV탭IbizaHouse-Clap-IH Clap 05.WAV탭IbizaHouse-Snare-IH Snare 05.WAV탭IbizaHouse-Bass-IH Bass Db 05.WAV탭IbizaHouse-Kick-IH Kick 10.WAV탭IbizaHouse-Vocal-IH Vox 09.WAV탭IbizaHouse-Vocal-IH Vox 10.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭IbizaHouse-Hat-IH Hat 13.WAV탭IbizaHouse-Hat-IH Hat 15.WAV탭IbizaHouse-Hat-IH Hat 14.WAV탭IbizaHouse-Hat-IH Hat 13.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭IbizaHouse탭AKI PRO탭1탭54탭0탭1냅11탭retro탭ibiza_give탭IbizaHouse-Synth-Loop.ogg탭4.ogg탭IbizaHouse-Kick-IH Kick 05.WAV탭IbizaHouse-Clap-IH Clap 03.WAV탭IbizaHouse-Snare-IH Snare 03.WAV탭IbizaHouse-Bass-IH Bass D 03.WAV탭IbizaHouse-Kick-IH Kick 06.WAV탭IbizaHouse-Vocal-IH Vox 06.WAV탭IbizaHouse-Vocal-IH Vox 05.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭IbizaHouse-Hat-IH Hat 09.WAV탭IbizaHouse-Hat-IH Hat 09.WAV탭IbizaHouse-Hat-IH Hat 08.WAV탭IbizaHouse-Hat-IH Hat 08.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭IbizaHouse탭AKI PRO탭1탭55탭0탭1냅12탭retro탭lofi_withu탭LoFi-Loop-Music-LS With U Lp.WAV탭4.ogg탭LoFi-Kick-LS With U Kick 1.WAV탭LoFi-Snare-LS With U Snare 1.WAV탭LoFi-Perc-LS With U Cave.WAV탭LoFi-Snare-LS With U Snare 3.WAV탭LoFi-Vocal-LS With U Vox 1.WAV탭LoFi-Kick-LS With U 808.WAV탭LoFi-Vocal-LS With U Vox 2.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-LS With U Rim.WAV탭LoFi-Perc-LS With U Rim.WAV탭LoFi-HiHat-LS With U Hats 1.WAV탭LoFi-HiHat-LS With U Hats 1.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭With You탭AKI PRO탭1탭56탭0탭1냅13탭retro탭trap_cellar탭Trap-Synth-TR CK SynLp G.WAV탭4.ogg탭Trap-Hat-TR CK 07 Hats.WAV탭Trap-Kick-TR CK 01 Kick.WAV탭Trap-Snare-TR CK 01 Snare.WAV탭Trap-Perc-TR CK 01 Perc.WAV탭Trap-Snap-TR CK Snap 2.WAV탭Trap-Bass-TR CK BassHit C.WAV탭Trap-Vocal-TR CK 06 Vox.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Cellar탭AKI PRO탭1탭57탭0탭1냅14탭retro탭rnb_demo탭FutureHouse-Loop-Synth-17 Lp D 126.WAV탭4.ogg탭Trap-Kick-Trap Classic Kick.WAV탭Trap-Snare-Trap Classic Snr 3.WAV탭Trap-Perc-TR OV Perc.WAV탭RnB-Snap-RSK3 Snp1.WAV탭Trap-Bass-TR OV 808 Kick.WAV탭Trap-Snare-TR OV Snr 1.WAV탭Trap-Tom-TR OV Luv Hi Tom.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭rnb_demo탭AKI PRO탭1탭58탭0탭1냅15탭retro탭hiphop_demo탭HipHop-Bass-MSXII Shinez.WAV탭4.ogg탭HipHop-Kick-MSXII Shinez 01.WAV탭HipHop-Snare-MSXII Shinez 01.WAV탭HipHop-Kick-MSXII Shinez 02.WAV탭HipHop-Snare-MSXII Shinez 02.WAV탭HipHop-Chord-MSXII Shinez Abmin.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭HipHop-Synth-Arps-MSXII Shinez.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭HipHop-Hat-MSXII Shinez 01.WAV탭HipHop-Hat-MSXII Shinez 01.WAV탭HipHop-Hat-MSXII Shinez 01.WAV탭HipHop-Hat-MSXII Shinez 01.WAV탭11.ogg탭11.ogg탭hiphop_demo탭AKI PRO탭1탭59탭0탭1냅16탭retro탭boombap_91탭BoomBap-Melodic-RetroSciFictAm.WAV탭4.ogg탭BoomBap-Kick-MSXII Slum 02.WAV탭BoomBap-Snare-MSXII Felah 02.WAV탭BoomBap-Kick-MSXII Swag City 02.WAV탭BoomBap-FX-HH FE Zap.WAV탭BoomBap-Clap-MSXII Mashed.WAV탭LoFi-Kick-ADSR Kick Punch.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭RnB-Snap-RSK3 Snp1.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭11.ogg탭11.ogg탭boombap_91탭AKI PRO탭1탭60탭0탭1냅17탭retro탭boombap_grid탭BoomBap-Melodic-HoustonSky70Fm.WAV탭4.ogg탭BoomBap-Kick-HH Kick 07.WAV탭BoomBap-Snare-HH DWK Snare 1.WAV탭BoomBap-Cymbal-HH TBC Cym 1.WAV탭BoomBap-Snare-MSXII Felah 02.WAV탭BoomBap-Clap-MSXII Mashed.WAV탭LoFi-Kick-ADSR Kick Punch.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭RnB-Snap-RSK3 Snp1.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭11.ogg탭11.ogg탭boombap_grid탭AKI PRO탭1탭61탭0탭1냅18탭retro탭rnb_kit09탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭RnB-Kick-RSK9 Kik.WAV탭RnB-Snare-RSK9 Snr.WAV탭RnB-Cymbal-RSK9 Crs.WAV탭RnB-Melodic-RSK9 Pno1.WAV탭RnB-Melodic-RSK9 Pno2.WAV탭RnB-Melodic-RSK9 Bas1.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭RnB-Melodic-RSK9 Bas2.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭RnB-Perc-RSK9 Prc.WAV탭RnB-Perc-RSK9 Prc.WAV탭RnB-Perc-RSK9 Shkr.WAV탭RnB-Perc-RSK9 Shkr.WAV탭11.ogg탭11.ogg탭rnb_kit09탭AKI PRO탭1탭62탭0탭1냅19탭808탭dancehall_floor탭DanceHall-Melodic-Vibes Lp 4.WAV탭4.ogg탭DanceHall-Kick-Anthem Kik .WAV탭DanceHall-Kick-Anth Bang.WAV탭DanceHall-Clap-Luv Clap 1.WAV탭DanceHall-Snap-MC2 Snap .WAV탭DanceHall-Clap-MC01 Clp 1.WAV탭DanceHall-Perc-FilthK Perc.WAV탭DanceHall-Vocal-MC05 Voc .WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭DanceHall-Hat-CP MelHH2.WAV탭DanceHall-Hat-CP MelHH2.WAV탭DanceHall-Hat-Dirt1 Hat 2.WAV탭DanceHall-Hat-Dirt1 Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭dancehall_floor탭AKI PRO탭1탭63탭0탭1냅20탭808탭future04탭FutureBass-Loop-Synth-FD synEb1.WAV탭4.ogg탭FutureBass-Bass-FD guessG.WAV탭FutureBass-Kick-FD coment.WAV탭FutureBass-Cymbal-FD silcone.WAV탭FutureBass-Clap-FD oldskool.WAV탭FutureBass-Clap-FD snip.WAV탭FutureBass-FX-FD eight.WAV탭FutureBass-Vocal-FD faithvox1Eb.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭FutureBass-Hat-FD gest.WAV탭FutureBass-Hat-FD gest.WAV탭FutureBass-Hat-FD kitchen.WAV탭FutureBass-Hat-FD kitchen.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭future04탭AKI PRO탭1탭64탭0탭1냅21탭808탭funk_minneapolis탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭Funk-Bass-F9 MH Cadi Bs 1 E.WAV탭Funk-Bass-F9 MH Cadi Bs 2 E.WAV탭Funk-Clap-F9 MH Minn FX Clap.WAV탭Funk-Bass-F9 MH CMI Bass E.WAV탭Funk-Bass-F9 MH JP Growl Bs E.WAV탭Funk-Synth-F9 MH Wiseguy E.WAV탭Funk-Bass-F9 MH P Slide E.WAV탭Funk-Synth-F9 MH MegaPoly E.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭Funk-Kick-F9 MH Minn AMS Kick.WAV탭Funk-Snare-F9 MH Minn Snare.WAV탭Funk-Tom-F9 MH MInn Hi 88 Cnga.WAV탭Funk-Tom-F9 MH MInn Low 88 Cnga.WAV탭11.ogg탭11.ogg탭funk_minneapolis탭AKI PRO탭1탭65탭0탭1냅22탭808탭trap_demo탭Trap-Melodic-TR MX T Vision.WAV탭4.ogg탭Urban-Kick-Heat3 SKick.WAV탭Urban-Snare-Heat3 SRoll1.WAV탭Urban-Snare-Heat3 Snr.WAV탭Trap-Snap-TR MX Push Snap 2.WAV탭Trap-Clap-TR MX  Clp 1.WAV탭Urban-Cymbal-Heat3 Cym.WAV탭Trap-FX-TR MX  Sfx 2.WAV탭Urban-Clap-Heat3 CLG.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭Trap-Hat-TR MX Drill HH.WAV탭Urban-HiHat-Heat3 HH1.WAV탭Trap-Perc-TR MX Tri 01.WAV탭Trap-Kick-TR MX Kick 09.WAV탭11.ogg탭11.ogg탭trap_demo탭AKI PRO탭1탭66탭0탭1냅23탭808탭lofi_underwater탭LoFi-Loop-Music-LS Underwater FM.WAV탭4.ogg탭LoFi-Perc-LS Underwater Click.WAV탭LoFi-Perc-LS Underwater Tamb.WAV탭LoFi-HiHat-LS Underwater Hat 3.WAV탭LoFi-Kick-LS Underwater Kick.WAV탭LoFi-Snap-LS Underwater Snp.WAV탭LoFi-Hit-LS Underwater Syn.WAV탭LoFi-Vocal-LS Underwater FM.WAV탭LoFi-Kick-LS Underwater 808 1.WAV탭LoFi-Kick-LS Underwater 808 2.WAV탭11.ogg탭LoFi-Perc-LS Underwater Tom.WAV탭LoFi-Perc-LS Underwater Tom.WAV탭LoFi-Perc-LS Underwater Tom.WAV탭LoFi-Perc-LS Underwater Tom.WAV탭11.ogg탭11.ogg탭lofi_underwater탭AKI PRO탭1탭67탭0탭1냅24탭808탭trap_weekend탭FutureHouse-Loop-Synth-17 Lp D 126.WAV탭4.ogg탭Trap-Kick-TR MW BouceKik1.WAV탭Trap-Snare-TR MW BigTrap Snr.WAV탭Trap-Keys-TR MW Rhode 1.WAV탭Trap-Keys-TR MW Rhode 2.WAV탭Trap-Clap-TR MW EQ Clap.WAV탭Trap-Cymbal-TR MW Ring Cym.WAV탭Trap-Bass-TR MW BB Bass.WAV탭Trap-Keys-TR MW RevRhode.WAV탭Trap-Pad-TR MW SmoothPad.WAV탭11.ogg탭Trap-Guitar-TR MW NRev Guit 1.WAV탭Trap-Guitar-TR MW NRev Guit 2.WAV탭Trap-Guitar-TR MW NRev Guit 1.WAV탭Trap-Guitar-TR MW NRev Guit 2.WAV탭11.ogg탭11.ogg탭trap_weekend탭AKI PRO탭1탭68탭0탭1냅25탭808탭trap_808탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭Trap-Kick-Luv 808 2.WAV탭Trap-Snare-Luv Snare.WAV탭Trap-Snap-Luv Snap 2.WAV탭Trap-Clap-Luv Clap 1.WAV탭Trap-Kick-Luv Drop 2.WAV탭Trap-FX-Buss ZRoll.WAV탭Trap-Kick-Luv 808 01.WAV탭Trap-FX-Buss ZRoll.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭Trap-Tom-Luv Hi Tom.WAV탭Trap-Tom-Luv Mid Tom.WAV탭Trap-Tom-Luv Hi Tom.WAV탭Trap-Tom-Luv Mid Tom.WAV탭11.ogg탭11.ogg탭trap_808탭AKI PRO탭1탭69탭0탭1냅26탭hiphop탭hiphop_west탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_west탭AKI PRO탭1탭70탭0탭1냅27탭hiphop탭hiphop_fallen탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_fallen탭AKI PRO탭1탭71탭0탭1냅28탭hiphop탭hiphop_hoodie탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_hoodie탭AKI PRO탭1탭72탭0탭1냅29탭hiphop탭hiphop_unclejoes탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_unclejoes탭AKI PRO탭1탭73탭0탭1냅30탭hiphop탭hiphop_swag탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_swag탭AKI PRO탭1탭74탭0탭1냅31탭hiphop탭hiphop_rawcratez2탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_rawcratez2탭AKI PRO탭1탭75탭0탭1냅32탭hiphop탭hiphop_rawcutz2탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_rawcutz2탭AKI PRO탭1탭76탭0탭1냅33탭hiphop탭hiphop_rivals탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_rivals탭AKI PRO탭1탭77탭0탭1냅34탭wooden탭High End Party탭High End Party.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭High End Party탭jhaeka탭0탭78탭0탭1냅35탭wooden탭Catwalk탭Catwalk.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Catwalk탭jhaeka탭0탭79탭0탭1냅36탭wooden탭Lost in the Dessert탭Lost in the Dessert.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Lost in the Dessert탭jhaeka탭0탭80탭0탭1냅37탭wooden탭You_re in the Future탭You_re in the Future.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭You_re in the Future탭jhaeka탭0탭81탭0탭1냅38탭wooden탭Beach House탭Beach House.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Beach House탭jhaeka탭0탭82탭0탭1냅39탭wooden탭Puzzles탭Puzzles.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Puzzles탭jhaeka탭0탭83탭0탭1냅40탭wooden탭frozen winter탭frozen_winter.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭frozen winter탭jhaeka탭1탭84탭0탭1냅41탭new탭80s탭80s.ogg탭4.ogg탭80s-Kick-F9 GH Grid Kick Amb.WAV탭80s-Snare-F9 GH Grid Amb Snr.WAV탭80s-Tom-F9 GH Simm Mid.WAV탭80s-Cymbal-F9 GH Grid Cym.WAV탭80s-Bass-F9 GH DX Bass 2 D.WAV탭80s-Synth-F9 GH Spaced D.WAV탭80s-Tom-F9 GH Simm Low.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭80s-Tom-F9 GH Grid LTom.WAV탭80s-Perc-F9 GH Grid Low Cng.WAV탭80s-Tom-F9 GH Grid LTom.WAV탭80s-Perc-F9 GH Grid Low Cng.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭80s탭AKI PRO탭1탭85탭0탭1냅42탭data탭data탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0냅43탭data1탭data1탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭0")
 
         }
 
@@ -15918,7 +15983,15 @@
          window.soundmute=soundmute;
 
 
+         var slider = document.getElementById("myRange");
+         var output = document.getElementById("demo");
+         output.innerHTML = slider.value;
 
+         slider.oninput = function() {
+           output.innerHTML = this.value;
+           resol(parseInt(this.value));
+           output.innerText="해상도 LV: " +String(this.value)
+         }
 
 
         // Your code to show ads and grant 2x coins goes here
@@ -15954,6 +16027,8 @@
             })
 
             mod0.addEventListener('click', function() {
+
+
                 if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
                     document.getElementById("mod-overlay").classList.remove("show");
                     document.getElementById("mod-overlay").classList.add("fade");
@@ -16080,7 +16155,7 @@
             })
 
             reBtn.addEventListener('click', function() {
-              if(parseInt(Math.random()*2)==1){
+              if(parseInt(Math.random()*3)==1){
                 if(false){
 
                 }else{
@@ -16557,7 +16632,71 @@
 
         var paidlst=[true, false, false, false, false, false]
 
+        function showshop() {
+            // console.log("what");
+            var ulcount = 0;
+            var tkey = nslst["data1"]
+            // console.log(tkey);
+            var templst = ["0","2","4","8","16","32","64","128","256","512","1024","2048"]
+            var tlst=[];
+            templst.forEach((item) => {
+                tlst.push(tkey[item])
+                if (tkey[item] == "0") {
+                    ulcount++
+                }
+            })
 
+            // console.log(templst);
+
+            // var ptxt = document.querySelectorAll(".pbutton>label");
+            // var pbtn = document.querySelectorAll(".pbutton");
+            // var sbtn = document.querySelectorAll(".sbutton");
+            //
+            // var pimg = document.querySelectorAll(".pbutton>img");
+            // var pcode = document.querySelectorAll(".pbutton>h1");
+            // var scode = document.querySelectorAll(".sbutton>h1");
+            // var stxt = document.querySelectorAll(".sbutton>label");
+
+            var gridlst = document.querySelectorAll("#shop >.grid >div");
+            var gbutton = document.querySelectorAll("#shop >h1")
+            gbutton[0].innerText = "SKIN SHOP"
+            var gbuttonimg = document.querySelectorAll("#shop >img");
+            gbuttonimg[0].src = ""
+            // console.log(gridlst[0].children);
+
+
+
+            // pbtn[0].classList.remove("hidden");
+            // pbtn[0].style.backgroundColor="rgba(190, 195, 0, 0.7)"
+            // ptxt[0].innerText = "1,000$"
+            // pcode[0].innerText = "3"
+            // pimg[0].src = "png/" + imglst1[n]
+            // pcode[0].innerText = "3" + " "
+            // ptxt[0].innerText = gridlst[0].children[3].innerText +" - ("+gridlst[1].children[3].innerText + ")\n Play ▶"
+            // pbtn[0].style.backgroundColor="rgba(100, 195, 0, 0.7)"
+            for (var i = 0; i < templst.length; i++) {
+              gridlst[i].classList.remove("hidden");
+              if(tlst[i]=="0"){
+                gridlst[i].classList.remove("locked");
+                gridlst[i].children[2].innerText = String(i);
+                gridlst[i].children[4].innerText = ""
+              }else{
+                gridlst[i].classList.add("locked");
+                gridlst[i].children[2].innerText = String(i);
+                gridlst[i].children[4].innerText = "★ :"+ String(tlst[i])
+              }
+
+
+            }
+
+            document.getElementById("step1").classList.remove("show");
+            document.getElementById("step1").classList.add("fade");
+            setTimeout(function() {
+                document.getElementById("step1").classList.add("hidden");
+                document.getElementById("shop").classList.remove("hidden");
+                document.getElementById("shop").classList.add("show");
+            }, 100);
+        }
 
         function showGrid(n) {
             var ulcount = 0;
@@ -17046,9 +17185,7 @@
 
         }
 
-        function showshop(n) {
-            // console.log("shop")
-        }
+
 
         function pbton(n) {
             var code=document.getElementById("pbt").children[2].innerText;
@@ -17113,7 +17250,7 @@
         }
     //바디
     </script>
-
+    <div id="fps">123</div>
     <div id="tutorial" class="hidden">
 
     <img class="tut1" src="png/tutorial1.png">
@@ -17210,6 +17347,8 @@
 
     <div id="setting-overlay" class="setting-overlay hidden">
         <div id="setting-back"></div>
+        <input type="range" min="1" max="5" value="1" id="myRange">
+        <p id="demo"></p>
         <div class="setting-grid">
             <button id="bgm" class="setting" onclick="soundmute()">
                 <img src="png/musicOn.png" >
@@ -17255,7 +17394,7 @@
 
             <button id="restartbtn2" class="setting">
                 <img src="png/return.png" >
-                <label class="glabel">retry</label>
+                <label class="glabel">language</label>
             </button>
         </div>
     </div>
@@ -17267,7 +17406,6 @@
             </div>
 
             <div class="gameinfo0">
-
             </div>
 
             <div class="gameinfo">
@@ -17331,12 +17469,11 @@
                     <h1 class="title">NO ADS</h1>
                     <button class="ad-button" onclick="loaddb()">
                         <h2>GET AD-FREE</h2>
-
                     </button>
 
                     <h1 class="title">SKIN</h1>
-                    <button class="ap-button" onclick="">
-                        <h2>appearance shop 🎨</h2>
+                    <button class="ap-button" onclick="showshop()">
+                        <h2>appearance shop</h2>
 
                     </button>
                     <div class="option-RL">
@@ -17389,6 +17526,7 @@
 
                 </div>
             </div>
+
 
 
             <div id="categ1" class="hidden">
@@ -17525,6 +17663,130 @@
                     <button class="button arrow-right" onclick="alert('Switch to next character')">&gt;</button>
                 </div>
             </div>
+
+            <div id="shop" class="hidden">
+                <button class="backbutton" onclick="goBack(9)">
+                <img class="" src="png/left.png">
+                </button>
+                <h1 class="title">SKIN SHOP</h1>
+
+                 <img src="png/0.png">
+
+                <div class="progress-container">
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 30%;"></div>
+                    </div>
+                    <span class="unlocked-count">3/10</span>
+                </div>
+
+                <div class="grid">
+                    <div class="character locked" onclick="showPopup(0)" id="g1">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 3</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <div class="character locked" onclick="showPopup(1)" id="g2">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 3</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <div class="character locked" onclick="showPopup(2)" id="g3">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 3</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <div class="character locked" onclick="showPopup(3)" id="g4">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 4</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <div class="character locked" onclick="showPopup(4)" id="g5">
+                        <img src="" alt="Character 1" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 1</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <div class="character locked" onclick="showPopup(5)" id="g6">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 2</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <div class="character locked" onclick="showPopup(6)" id="g7">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 3</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <div class="character locked" onclick="showPopup(7)" id="g8">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 4</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <div class="character locked" onclick="showPopup(8)" id="g9">
+                        <img src="" alt="Character 1" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 1</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <div class="character locked" onclick="showPopup(9)" id="g10">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 2</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <div class="character locked" onclick="showPopup(10)" id="g11">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 3</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <div class="character locked" onclick="showPopup(11)" id="g12">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 4</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <div class="character locked hidden" onclick="showPopup(12)" id="g12">
+                        <img src="" alt="Character 2" class="charimg">
+                        <img src="png/locked.png" alt="locked" class="lockimg">
+                        <span>Character 4</span>
+                        <span>artist</span>
+                        <span>price</span>
+                    </div>
+                    <!-- Add more characters -->
+                </div>
+                <span id="lowerbtn">
+                  <button class="pbutton hidden" onclick="pbton()" id="gbt1">
+                      <img src="" alt="Character 2">
+                      <label>Play</label>
+                      <h1>a</h1>
+                  </button>
+                  <button class="sbutton hidden" onclick="" id="gbt2">
+                      <img src="png/musicOn.png" alt="">
+                      <label></label>
+                      <h1></h1>
+                  </button>
+                </span>
+            </div>
+
         </div>
     </div>
 
