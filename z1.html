@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
     <title>2048 BRIX</title>
     <style>
         body {
@@ -1944,7 +1944,7 @@
     var shadowon = true;
     var initflag = true;
 
-    let skinset = ["base", "1", "카세트", "r808", "archer", "radio", "donut", "building", "tower", "test5", "adam"]
+    let skinset = ["base", "1", "classic","카세트", "r808", "space","archer", "radio", "donut", "building", "tower",  "adam"]
     window.skinset=skinset;
     skinset.forEach((item)=>{
       skinmold[item]=[];
@@ -3901,6 +3901,7 @@
                 //     this.boardpointer[position.row][position.col]=tile;
                 //   });
                 // });
+                bf=999;
                 atchanged = elapsedTime;
                 if(emptyPositions.length==1){
                   var full=true;
@@ -6791,12 +6792,12 @@
                   var loader = new OBJLoader();
                   // Load OBJ file
                   // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/test5.obj', (object) => {
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/ceramic.obj', (object) => {
                       object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, 0, 0)
-                      object.children[0].scale.x = 2.57;
-                      object.children[0].scale.z = 2.57;
-                      object.children[0].scale.y = 2.57;
+                      object.children[0].position.set(0, -bh/2, 0)
+                      object.children[0].scale.x = 2.8;
+                      object.children[0].scale.z = 2.8
+                      object.children[0].scale.y = 2.8
                       // object.children[0].scale.x=2.25;
                       // object.children[0].scale.z=2.25;
                       // object.children[0].scale.y=1.92;
@@ -6960,6 +6961,183 @@
                           mesh.add(object.children[0]);
                       });
                   });
+
+                  //classic
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/classic-0.obj', (object) => {
+                      object.children[0].rotation.y = 0
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 3.25;
+                      object.children[0].scale.z = 3.25;
+                      object.children[0].scale.y = 2.57;
+                      object.children[0].position.z = -bh/4
+
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "classic"
+                      object.children[0].userData["skintype"] =0;
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: colorlst0[colornum0][idx]
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/classic-1.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/classic-1.obj', (object) => {
+                          object.children[0].rotation.y = 0
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 3.25;
+                          object.children[0].scale.z = 3.25;
+                          object.children[0].scale.y = 2.57;
+                          object.children[0].position.z = -bh/4
+
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "classic"
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
+
+
+
+                  //space
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/space-0.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57;
+                      object.children[0].scale.z = 2.57;
+                      object.children[0].scale.y = 2.57;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "space"
+                      object.children[0].userData["skintype"] =0;
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: colorlst0[colornum0][idx]
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/space-1.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57;
+                      object.children[0].scale.z = 2.57;
+                      object.children[0].scale.y = 2.57;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "space"
+                      object.children[0].userData["skintype"] =2;
+                      var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] + 5) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst2[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/space-2.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/space-2.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "space"
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/space-3.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/space-3.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].userData["skin"] = "space"
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
                   //R808
                   var loader = new OBJLoader();
                   // Load OBJ file
@@ -7075,12 +7253,12 @@
                   var loader = new OBJLoader();
                   // Load OBJ file
                   // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tower-1.obj', (object) => {
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/newtower-0.obj', (object) => {
                       object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57 / 2;
-                      object.children[0].scale.z = 2.57 / 2;
-                      object.children[0].scale.y = 2.57 / 2;
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57 / 1;
+                      object.children[0].scale.z = 2.57 / 1;
+                      object.children[0].scale.y = 2.57 / 1;
                       // object.children[0].scale.x=2.25;
                       // object.children[0].scale.z=2.25;
                       // object.children[0].scale.y=1.92;
@@ -7101,12 +7279,12 @@
                   });
                   // Load OBJ file
                   // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/tower-0.obj', (object) => {
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/newtower-1.obj', (object) => {
                       object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh / 2, 0)
-                      object.children[0].scale.x = 2.57 / 2;
-                      object.children[0].scale.z = 2.57 / 2;
-                      object.children[0].scale.y = 2.57 / 2.2;
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57 / 1;
+                      object.children[0].scale.z = 2.57 / 1;
+                      object.children[0].scale.y = 2.57 / 1.1;
                       // object.children[0].scale.x=2.25;
                       // object.children[0].scale.z=2.25;
                       // object.children[0].scale.y=1.92;
@@ -10810,6 +10988,9 @@
               document.getElementById("intro").children[1].style.opacity="1";
               document.getElementById("tut-info").children[0].style.opacity="1";
             }
+
+
+
         }
         if (restartflag && lookcenter) { //리스타트
             if(!restartonce1){
@@ -10939,8 +11120,8 @@
                 avx = 0;
                 avz = 0;
                 for (var i = 0; i < cubes.length; i++) {
-                    avx += cubes[i].mesh.position.x;
-                    avz += cubes[i].mesh.position.z;
+                    avx += cubes[i].body.position.x;
+                    avz += cubes[i].body.position.z;
                 }
                 avx /= cubes.length;
                 avz /= cubes.length;
@@ -10972,9 +11153,36 @@
 
 
         if (!restartflag && lookcenter && !startflag) {
+
             if(!restartonce2){
               restartloc = [];
               for (var i = 0; i < cubes.length; i++) {
+                if(skinset[skinnum]=="classic"){
+
+                    cubes[i].mesh.children.forEach((tile) => {
+                      if(tile.userData["skin"]=="tile"){
+                        tile.material.visible = true;
+                        tile.material.opacity = 1
+                        tile.material.transparent = false;
+                        tile.children.forEach((text) => {
+                            text.material.opacity = 1;
+                            text.material.visible = true;
+                            text.material.transparent = true;
+                        })
+                      }else if(tile.userData["skin"]=="bottom"){
+                        tile.material.visible = true;
+                        tile.material.opacity = 1
+                        tile.material.transparent = false;
+                        tile.children.forEach((text) => {
+                            text.material.opacity = 1;
+                            text.material.visible = true;
+                            text.material.transparent = true;
+                        })
+                      }
+                  })
+
+
+              }else{
                 cubes[i].mesh.children.forEach((item, idx) => {
                   if(item.userData["skin"]=="tile") {
                     item.material.visible=false;
@@ -10984,6 +11192,8 @@
 
                   }
                 });
+              }
+
               }
               restartonce2=true;
             }
@@ -11088,11 +11298,39 @@
         // }
 
         if (!gameoverflag&&averageflag) {
+          for (var i = 0; i < cubes.length; i++) {
+            if(skinset[skinnum]=="classic"){
+
+                cubes[i].mesh.children.forEach((tile) => {
+                  if(tile.userData["skin"]=="tile"){
+                    tile.material.visible = true;
+                    tile.material.opacity = 1
+                    tile.material.transparent = false;
+                    tile.children.forEach((text) => {
+                        text.material.opacity = 1;
+                        text.material.visible = true;
+                        text.material.transparent = true;
+                    })
+                  }else if(tile.userData["skin"]=="bottom"){
+                    tile.material.visible = true;
+                    tile.material.opacity = 1
+                    tile.material.transparent = false;
+                    tile.children.forEach((text) => {
+                        text.material.opacity = 1;
+                        text.material.visible = true;
+                        text.material.transparent = true;
+                    })
+                  }
+              })
+
+
+          }
+        }
           avx = 0;
           avz = 0;
             for (var i = 0; i < cubes.length; i++) {
-                avx += cubes[i].mesh.position.x;
-                avz += cubes[i].mesh.position.z;
+                avx += cubes[i].body.position.x;
+                avz += cubes[i].body.position.z;
                 cubes[i].mesh.children.forEach((item) => {
                   if (item.userData["skin"]==skinset[skinnum]) {
                     if(gamemod==2){
@@ -11629,6 +11867,7 @@
                             tile.userData["text"] = text;
                             atchanged = elapsedTime;
                             var tempflag = true
+                            bf=999;
                             tempeffects.forEach((object) => {
                                 if (object[1] >= num && object[2] == item.direction) {
                                     tempflag = false
@@ -12046,7 +12285,7 @@
             if (activeFloor != cubes.length) {
                 cubes[activeFloor].mesh.children.forEach((item) => {
                       if (item.userData["skin"]=="effect") return;
-                    if (item.userData["1"] || item.userData["2"] || item.userData["3"] || item.userData["4"] || item.userData["5"] || skinset.indexOf(item.userData["skin"]) != -1) return
+                    if(item.userData["1"] || item.userData["2"] || item.userData["3"] || item.userData["4"] || item.userData["5"] || skinset.indexOf(item.userData["skin"]) != -1) return
                     item.scale.x = 1
                     item.scale.z = 1
                     item.scale.y = 0.9
@@ -12145,18 +12384,29 @@
                   }
               })
         }
+        // for (var i = 0; i < cubes.length; i++) {
+        //
+        // }
+
+
+
 
         if(gameoverflag){
 
           for (var i = 0; i < 5; i++) {
-            cubes[i].mesh.children.forEach((item, i) => {
-              if(item.userData["skin"]=="tile"){
-                item.material.visible=false;
-              }else if(item.userData["skin"]==skinset[skinnum]){
-                item.material.opacity=1;
-                item.material.alphaTest=1;
-              }
-            });
+            if(skinset[skinnum]=="classic"){
+
+            }else{
+              cubes[i].mesh.children.forEach((item, i) => {
+                if(item.userData["skin"]=="tile"){
+                  item.material.visible=false;
+                }else if(item.userData["skin"]==skinset[skinnum]){
+                  item.material.opacity=1;
+                  item.material.alphaTest=1;
+                }
+              });
+            }
+
           }
         }
         sideback.forEach((item) => {
@@ -12164,6 +12414,7 @@
         });
 
         if (orthoflag && lookcenter&&bf!=activeFloor) {
+
             if (!gameoverflag) {
                 if (activeFloor == cubes.length) {
                     camera.position.set(
@@ -12181,6 +12432,7 @@
                     // camera.rotation.order = 'YXZ';
                     // camera.rotation.x = -isoAngle;
                     cubes.forEach((item, index) => {
+
                         if (arrowon) {
                             arrows[index].children[0].material.opacity = 0;
                             arrows[index].children[0].material.transparent = true;
@@ -12191,6 +12443,16 @@
                         item.mesh.material.transparent = false;
                         item.mesh.children.forEach((tile) => {
                             if (tile.userData["skin"] == "tile") {
+                              if(skinset[skinnum]=="classic"){
+                                tile.material.visible = true;
+                                tile.material.opacity = 1
+                                tile.material.transparent = false;
+                                tile.children.forEach((text) => {
+                                    text.material.opacity = 1;
+                                    text.material.visible = true;
+                                    text.material.transparent = true;
+                                })
+                              }else{
                                 tile.material.visible = false;
                                 tile.material.opacity = 0
                                 tile.material.transparent = true;
@@ -12199,10 +12461,18 @@
                                     text.material.visible = false;
                                     text.material.transparent = true;
                                 })
+                              }
+
                             } else if (tile.userData["skin"] == "bottom") {
+                              if(skinset[skinnum]=="classic"){
+                                tile.material.visible = true;
+                                tile.material.opacity = 1
+                                tile.material.transparent = false;
+                              }else{
                                 tile.material.visible = false;
                                 tile.material.opacity = 0
                                 tile.material.transparent = true;
+                              }
                             } else if (tile.userData["skin"] == skinset[skinnum]) {
                                 tile.material.visible = true;
                                 tile.material.opacity = 1;
@@ -12265,6 +12535,13 @@
 
                             cubes[i].mesh.children.forEach((tile, index) => {
                                 if (tile.userData["skin"] == "tile") {
+                                  if(skinset[skinnum]=="classic"){
+                                    tile.position.y=bh/3
+                                    // tile.scale.set(0.9,0.9,0.9)
+
+                                  }else{
+                                    tile.position.y=0
+                                  }
                                     tile.material.visible = true;
                                     tile.material.opacity = 1
                                     tile.material.transparent = false;
@@ -12274,16 +12551,30 @@
                                         text.material.transparent = false;
                                     })
                                 } else if (tile.userData["skin"] == "bottom") {
+                                  if(skinset[skinnum]=="classic"){
+                                    tile.position.y=bh/3
+                                    // tile.scale.set(0.9,0.9,0.9)
 
+                                  }else{
+                                    tile.position.y=0
+                                  }
                                         tile.material.visible = true;
                                         tile.material.opacity = 1
                                         tile.material.transparent = false;
 
                                 } else if (tile.userData["skin"] == skinset[skinnum]) {
+                                  if(tile.userData["skin"]=="classic"){
+
+                                    tile.material.visible = true;
+                                    tile.material.opacity = 0.8;
+                                    tile.material.transparent = true;
+                                  }else{
                                     tile.material.visible = true;
                                     tile.material.opacity = 0.05;
                                     tile.material.alphaTest = 0.05;
                                     tile.material.transparent = true;
+                                  }
+
                                 } else if (tile.userData["skin"] == "text1") {
                                     if (skinnum == 1) {
                                         tile.position.z = -bw / 8
@@ -12393,6 +12684,14 @@
                                 cubes[i].mesh.material.transparent = false;
                                 cubes[i].mesh.children.forEach((tile, index) => {
                                     if (tile.userData["skin"] == "tile") {
+                                      if(skinset[skinnum]=="classic"){
+                                        tile.position.y=bh/3;
+                                        // tile.scale.set(0.9,0.9,0.9)
+                                        tile.material.visible = true;
+                                        tile.material.opacity = 1
+                                        tile.material.transparent = false;
+                                      }else{
+                                        tile.position.y=0;
                                         tile.material.visible = false;
                                         tile.material.opacity = 1
                                         tile.material.transparent = false;
@@ -12401,11 +12700,22 @@
                                             text.material.visible = false;
                                             text.material.transparent = false;
                                         })
+                                      }
                                     } else if (tile.userData["skin"] == "bottom") {
+                                      if(skinset[skinnum]=="classic"){
+                                        tile.position.y=bh/3
+                                        // tile.scale.set(0.9,0.9,0.9)
+                                        tile.material.visible = true;
+                                        tile.material.opacity = 1
+                                        tile.material.transparent = false;
+                                      }else{
+                                        tile.position.y=0;
                                         tile.material.visible = false;
                                         tile.material.opacity = 1
                                         tile.material.transparent = false;
+                                      }
                                     } else if (tile.userData["skin"] == skinset[skinnum]) {
+
                                         tile.material.visible = true;
                                         tile.material.opacity = 1;
                                         // tile.material.alphaTest =  1;
@@ -12577,8 +12887,17 @@
             cubes.forEach((item) => {
                 // item.mesh.position.copy(item.mesh.userData.body.position);
                 // item.mesh.quaternion.copy(item.mesh.userData.body.quaternion);
-                item.mesh.position.copy(item.body.position);
-                item.mesh.quaternion.copy(item.body.quaternion);
+                if(skinset[skinnum]=="classic"){
+                  item.mesh.scale.set(0.8,1,0.8)
+                  item.mesh.position.copy(item.body.position);
+                  item.mesh.quaternion.copy(item.body.quaternion);
+                  item.mesh.position.z+=bh/4.4;
+                }else{
+                  item.mesh.scale.set(1,1,1)
+                  item.mesh.position.copy(item.body.position);
+                  item.mesh.quaternion.copy(item.body.quaternion);
+                }
+
             })
         }
 
@@ -16321,26 +16640,25 @@
               coin-=skincost;
               if(!webflag) setdb("data", "0", String(coin));
               if(!webflag) setdb("data1", templst0[skinn], "1");
+              if(webflag){
+                nslst["data1"][templst0[skinn]]=1;
+                getdb();
+              }else{
+                Android.loadDB();
+              }
               setTimeout(function() {
-                if(webflag){
-                  nslst["data1"][templst0[skinn]]=1;
-                  getdb();
-                }else{
-                  Android.loadDB();
-                }
+                var gridlst = document.querySelectorAll("#shop >.grid >div");
+                gridlst[skinn].children[1].classList.add("hidden");
+                gridlst[skinn].classList.remove("hidden");
+                gridlst[skinn].classList.remove("lock");
+                gridlst[skinn].children[2].innerText = nslst["skin"][templst0[skinn]];
+                gridlst[skinn].children[4].innerText = ""
+                var ptxt = document.querySelectorAll("#lowerbtn2>.pbutton2>label");
+                var pcode = document.querySelectorAll("#lowerbtn2>.pbutton2>h1");
+                ptxt[0].innerText = gridlst[skinn].children[2].innerText + "\n OWNED"
+                pcode[0].innerText = "0"
+
               }, 500);
-              var gridlst = document.querySelectorAll("#shop >.grid >div");
-              gridlst[skinn].children[1].classList.add("hidden");
-              gridlst[skinn].classList.remove("hidden");
-              gridlst[skinn].classList.remove("lock");
-              gridlst[skinn].children[2].innerText = nslst["skin"][templst0[skinn]];
-              gridlst[skinn].children[4].innerText = ""
-              var ptxt = document.querySelectorAll("#lowerbtn2>.pbutton2>label");
-              var pcode = document.querySelectorAll("#lowerbtn2>.pbutton2>h1");
-              ptxt[0].innerText = gridlst[skinn].children[2].innerText + "\n OWNED"
-              pcode[0].innerText = "0"
-
-
 
             }else{
               console.log("돈이 업서ㅜ")
