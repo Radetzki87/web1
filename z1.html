@@ -7197,6 +7197,9 @@
                           // object.children[0].scale.x=2.25;
                           // object.children[0].scale.z=2.25;
                           // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
                           object.children[0].userData["skin"] = "space"
                           if (shadowon) {
                               object.children[0].receiveShadow = true;
@@ -7208,6 +7211,11 @@
                           mesh.add(object.children[0]);
                       });
                   });
+
+
+
+
+
 
                   //R808
                   var loader = new OBJLoader();
@@ -11223,8 +11231,8 @@
                 avx = 0;
                 avz = 0;
                 for (var i = 0; i < cubes.length; i++) {
-                    avx += cubes[i].body.position.x;
-                    avz += cubes[i].body.position.z;
+                    avx += cubes[i].mesh.position.x;
+                    avz += cubes[i].mesh.position.z;
                 }
                 avx /= cubes.length;
                 avz /= cubes.length;
@@ -11246,11 +11254,13 @@
                     cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) + (restartloc[i].y) * 1.39 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].y * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     if(skinset[skinnum]=="classic"){
-                      cubes[i].mesh.position.z+=bh/4.4;
+                      cubes[i].mesh.position.z=cubes[i].body.position.z+bh/4.4;
                     }
                 }
             }
-        } else {}
+        } else {
+
+        }
 
 
         if (Math.abs(camera.rotation.x - restartend) < 0.2) {
