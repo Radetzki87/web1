@@ -3880,7 +3880,12 @@
                     text.userData["merge"] = 0;
                     text.userData["skin"] = "tile";
                 })
+
+
+
                 cubes[this.index].mesh.add(ntile);
+
+
                 this.boardpointer[position.row][position.col] = ntile;
                 // createTile(this.index,th*0.6, tw, this.board[position.row][position.col], (tile) => {
                 //   tile.position.set(
@@ -3901,7 +3906,8 @@
                 //     this.boardpointer[position.row][position.col]=tile;
                 //   });
                 // });
-                bf=999;
+
+                // bf=999;
                 atchanged = elapsedTime;
                 if(emptyPositions.length==1){
                   var full=true;
@@ -5694,12 +5700,19 @@
         } else if (event.code === 'KeyZ') {
           // camera.position.y= bh * (cubes.length+0.5)
 
+          camera.left -= bw*0.5
+          camera.right += bw  *4*0.5
+          camera.top +=  bw*0.5
+          camera.bottom -= bw*4*0.5
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
 
-            skinnum++;
-            if (skinnum >= skinset.length) {
-                skinnum = 0;
-            }
-            bf=999
+            // skinnum++;
+            // if (skinnum >= skinset.length) {
+            //     skinnum = 0;
+            // }
+            // bf=999
             // if(lookcenter){
             // }else if(lookright){
             // }
@@ -11248,6 +11261,7 @@
               for (var i = 0; i < cubes.length; i++) {
                 if(skinset[skinnum]=="classic"){
 
+
                   //   cubes[i].mesh.children.forEach((tile) => {
                   //     if(tile.userData["skin"]=="tile"){
                   //       tile.material.visible = true;
@@ -11630,16 +11644,20 @@
                 if (skinflag) {
                     if (skin1 || skin0) {
                         if (gameoverflag) {
-                            mouth1[i].material.visible = false;
-                            mouth2[i].material.visible = true;
-                            mouth2[i].material.color = new THREE.Color(0xF86F08);
-                            eye1[i][0].material.visible = false;
-                            eye1[i][1].material.visible = false;
-                            eye2[i][0].material.visible = true;
-                            eye2[i][1].material.visible = true;
-                            eye2[i][2].material.visible = true;
-                            eye2[i][3].material.visible = true;
+                            if(skinset[skinnum]=="1"){
+                              mouth1[i].material.visible = false;
+                              mouth2[i].material.visible = true;
+                              mouth2[i].material.color = new THREE.Color(0xF86F08);
+                              eye1[i][0].material.visible = false;
+                              eye1[i][1].material.visible = false;
+                              eye2[i][0].material.visible = true;
+                              eye2[i][1].material.visible = true;
+                              eye2[i][2].material.visible = true;
+                              eye2[i][3].material.visible = true;
+                            }
+
                         } else {
+                          if(skinset[skinnum]=="1"){
                             if (Math.abs(cubes[i].mesh.rotation.x) > 0.07 || Math.abs(cubes[i].mesh.rotation.z) > 0.07 || Math.abs(forcex > bw / 6) || Math.abs(forcez > bw / 6)) {
                                 mouth1[i].material.visible = false;
                                 mouth2[i].material.visible = true;
@@ -11651,6 +11669,9 @@
                                 eye1[i][0].material.color = new THREE.Color(0x00C85F);
                                 eye1[i][1].material.color = new THREE.Color(0x00C85F);
                             }
+
+                          }
+
                         }
                     }
                 }
@@ -11929,7 +11950,7 @@
                             tile.userData["text"] = text;
                             atchanged = elapsedTime;
                             var tempflag = true
-                            bf=999;
+
                             tempeffects.forEach((object) => {
                                 if (object[1] >= num && object[2] == item.direction) {
                                     tempflag = false
@@ -12171,46 +12192,95 @@
 
                   // item[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3 + (th / 16) * index, cubes[effects[0][3]].mesh.position.z)
               }
-              effects[i][0].scale.y +=(deltaTime/600)
-              // item[0].position.y+=0.03;
-              effects[i][0].scale.x +=(deltaTime/3000);
 
-              effects[i][0].material.transparent=true;
+              if(skinset[skinnum]=="classic"){
+                effects[i][0].position.z=cubes[effects[i][3]].body.position.z-bh/4.4;
+                effects[i][0].scale.y +=(deltaTime/600)
+                // item[0].position.y+=0.03;
+                effects[i][0].scale.x +=(deltaTime/3000);
 
-              effects[i][0].children[0].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
-              effects[i][0].children[0].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
+                effects[i][0].material.transparent=true;
 
-              effects[i][0].children[1].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
-              effects[i][0].children[1].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
+                effects[i][0].children[0].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
+                effects[i][0].children[0].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
 
-              effects[i][0].children[2].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
-              effects[i][0].children[2].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
+                effects[i][0].children[1].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
+                effects[i][0].children[1].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
+
+                effects[i][0].children[2].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
+                effects[i][0].children[2].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
 
 
 
 
 
-              effects[i][0].children[0].material.visible = true;
+                effects[i][0].children[0].material.visible = true;
 
-              // item[0].children[0].material.transparent=true;
-              // effects[i][0].children[0].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-              // effects[i][0].children[0].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-              effects[i][0].children[1].material.visible = true;
-              // item[0].children[1].material.transparent=true;
-              // effects[i][0].children[1].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-              // effects[i][0].children[1].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-              effects[i][0].children[2].material.visible = true;
-              // item[0].children[2].material.transparent=true;
-              // effects[i][0].children[2].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-              // effects[i][0].children[2].material.opacity =  0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                // item[0].children[0].material.transparent=true;
+                // effects[i][0].children[0].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                // effects[i][0].children[0].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                effects[i][0].children[1].material.visible = true;
+                // item[0].children[1].material.transparent=true;
+                // effects[i][0].children[1].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                // effects[i][0].children[1].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                effects[i][0].children[2].material.visible = true;
+                // item[0].children[2].material.transparent=true;
+                // effects[i][0].children[2].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                // effects[i][0].children[2].material.opacity =  0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
 
-              if (effects[i][0].scale.y > 1.8) {
-                  // console.log(1);
+                if (effects[i][0].scale.y > 1.8) {
+                    // console.log(1);
 
-                  cubes[effects[i][3]].mesh.remove(effects[i][0]);
-                  scene.remove(effects[i][0]);
-                  effects.splice(i, 1);
+                    cubes[effects[i][3]].mesh.remove(effects[i][0]);
+                    scene.remove(effects[i][0]);
+                    effects.splice(i, 1);
+                }
+              }else{
+                effects[i][0].scale.y +=(deltaTime/600)
+                // item[0].position.y+=0.03;
+                effects[i][0].scale.x +=(deltaTime/3000);
+
+                effects[i][0].material.transparent=true;
+
+                effects[i][0].children[0].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
+                effects[i][0].children[0].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
+
+                effects[i][0].children[1].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
+                effects[i][0].children[1].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
+
+                effects[i][0].children[2].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
+                effects[i][0].children[2].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
+
+
+
+
+
+                effects[i][0].children[0].material.visible = true;
+
+                // item[0].children[0].material.transparent=true;
+                // effects[i][0].children[0].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                // effects[i][0].children[0].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                effects[i][0].children[1].material.visible = true;
+                // item[0].children[1].material.transparent=true;
+                // effects[i][0].children[1].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                // effects[i][0].children[1].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                effects[i][0].children[2].material.visible = true;
+                // item[0].children[2].material.transparent=true;
+                // effects[i][0].children[2].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                // effects[i][0].children[2].material.opacity =  0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+
+                if (effects[i][0].scale.y > 1.8) {
+                    // console.log(1);
+
+                    cubes[effects[i][3]].mesh.remove(effects[i][0]);
+                    scene.remove(effects[i][0]);
+                    effects.splice(i, 1);
+                }
               }
+
+
+
+
             }
             // effects.forEach((item, index) => {
             //
@@ -12450,7 +12520,39 @@
         //
         // }
 
+        if(skinset[skinnum]=="classic"){
+          if(activeFloor==cubes.length){
+            cubes[activeFloor-1].mesh.children.forEach((item, i) => {
+              if(item.userData["skin"]=="tile"){
+                item.material.visible=true;
+                item.material.opacity=1;
+                item.material.alphaTest=item.material.opacity;
+                item.material.transparent=false
+                item.children.forEach((text) => {
+                    text.material.opacity = 1;
+                    text.material.visible = true;
+                    text.material.transparent = true;
+                })
+              }
+            })
+          }else{
+            cubes[activeFloor].mesh.children.forEach((item, i) => {
+              if(item.userData["skin"]=="tile"){
+                item.material.visible=true;
+                item.material.transparent=false
+                item.material.opacity=1;
+                item.material.alphaTest=item.material.opacity;
+                item.children.forEach((text) => {
+                    text.material.opacity = 1;
+                    text.material.visible = true;
+                    text.material.transparent = true;
+                })
+              }
+            })
+          }
 
+
+        }
 
 
         if(gameoverflag){
@@ -12628,7 +12730,7 @@
                                   if(tile.userData["skin"]=="classic"){
 
                                     tile.material.visible = true;
-                                    tile.material.opacity = 0.8;
+                                    tile.material.opacity = 1;
                                     tile.material.transparent = true;
                                   }else{
                                     tile.material.visible = true;
@@ -12700,7 +12802,7 @@
                                         }else{
                                           tile.material.visible = true;
                                           tile.material.opacity = 0.04 + (i - activeFloor) * 0.015;
-                                          tile.material.alphaTest = 0.04 + (i - activeFloor) * 0.015;
+                                          tile.material.alphaTest = tile.material.opacity
                                           tile.material.transparent = true;
                                         }
 
@@ -13150,18 +13252,12 @@
             // groundmesh.material.visible = true;
             if (shadowon) groundmesh.receiveShadow = false
             if (activeFloor == cubes.length) {
-
               for (var i = 0; i < cubes.length; i++) {
                   cubes[i].mesh.children.forEach((item) => {
                     if (item.userData["skin"]==skinset[skinnum]) {
-
                         // item.material.visible=false;
-
                         item.receiveShadow = false;
                         item.castShadow = false;
-
-
-
                     }
                   });
                 }
@@ -13188,6 +13284,7 @@
                           item.castShadow = false;
                         }else if(i==activeFloor){
                           if(skinset[skinnum]=="classic"){
+
                             item.material.visible=true;
                             item.receiveShadow = true;
                             item.castShadow = true;
@@ -13204,7 +13301,7 @@
                       }
                     });
                     if (i == activeFloor) {
-                        cubes[i].mesh.material.opacity = 0.1;
+                      if(skinset[skinnum]!="classic") cubes[i].mesh.material.opacity = 0.1;
                         if (!gameoverflag) {
                             if(gamemod==2){
                               topViewCamera.position.set(cubes[i].body.position.x, bh *(activeFloor+2-2), cubes[i].body.position.z);
@@ -13265,15 +13362,26 @@
         // scene.background = new THREE.Color(colorlst[colornum][0]);
         if (topcam&&!restartflag) {
             if ((window.innerWidth / window.innerHeight) < 3 / 5) {
-                var width = window.innerWidth / 1.1;
-                var height = window.innerWidth / 1.1
+                if(skinset[skinnum]=="classic"){
+                  var width = window.innerWidth / 1;
+                  var height = window.innerWidth / 1;
+                }else{
+                  var width = window.innerWidth / 1;
+                  var height = window.innerWidth / 1;
+                }
+
                 renderer.setViewport(window.innerWidth / 2 - width / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
                 renderer.setScissor(window.innerWidth / 2 - width / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
                 renderer.setScissorTest(true);
                 renderer.render(scene, topViewCamera);
             } else if ((window.innerWidth / window.innerHeight) > 13 / 8) {
-                var width = window.innerHeight / 1.1;
-                var height = window.innerHeight / 1.1;
+              if(skinset[skinnum]=="classic"){
+                var width = window.innerWidth / 1;
+                var height = window.innerWidth / 1;
+              }else{
+                var width = window.innerWidth / 1.1;
+                var height = window.innerWidth / 1.1;
+              }
                 renderer.setViewport(window.innerWidth - height - (window.innerWidth - window.innerHeight) / 8, -3500 * Math.abs(-isoAngle - camera.rotation.x) - 1000 * Math.abs(Math.PI / 4 - camera.rotation.y), width, width);
                 renderer.setScissor(window.innerWidth - height - (window.innerWidth - window.innerHeight) / 8, -3500 * Math.abs(-isoAngle - camera.rotation.x) - 1000 * Math.abs(Math.PI / 4 - camera.rotation.y), width, width);
                 renderer.setScissorTest(true);
@@ -13311,7 +13419,7 @@
                   if (item.userData["skin"]==skinset[skinnum]) {
                     if(i>activeFloor){
                       item.material.opacity=1;
-                      // item.material.alphaTest=0.1;
+                      item.material.alphaTest=item.material.opacity
 
                       item.material.visible=true;
 
@@ -13319,7 +13427,8 @@
                       if(skinset[skinnum]=="classic"){
 
                       }else{
-                        item.material.opacity=0.45;
+                        item.material.opacity=0.45
+                        item.material.alphaTest=item.material.opacity
                         item.material.visible=true;
                       }
 
@@ -13479,13 +13588,16 @@
                   if(i>activeFloor){
                     item.material.visible = true;
                     item.material.opacity = 0.04 + (i - activeFloor) * 0.015;
-                    item.material.alphaTest = 0.04 + (i - activeFloor) * 0.015;
+                    item.material.alphaTest = item.material.opacity
                     item.material.transparent = true;
                   }else if (i==activeFloor) {
-                      item.material.visible = true;
-                      item.material.opacity = 0.05;
-                      item.material.alphaTest = 0.05;
-                      item.material.transparent = true;
+                      if(skinset[skinnum]!="classic"){
+                        item.material.visible = true;
+                        item.material.opacity = 0.05;
+                        item.material.alphaTest = 0.05;
+                        item.material.transparent = true;
+                      }
+
                   }
                 }
               });
@@ -15678,16 +15790,23 @@
 
     function 이펙트2(floor, num, direction) {
         var w = bw / 20
-        w += Math.sqrt(num) / 4
+        w += Math.sqrt(num) / 5
+        if(skinset[skinnum]=="classic"){
+          var vw=w*1.26
+          var vbw=bw*1.26
+        }else{
+          var vw=w
+          var vbw=bw
+        }
         // var w=bw/11;
-        var geometry0 = new THREE.PlaneGeometry(bw, bw / 2);
+        var geometry0 = new THREE.PlaneGeometry(vbw, vbw / 2);
         var material0 = new THREE.MeshBasicMaterial({
             color: 0xffffff,
             opacity: 0,
             transparent: true
         });
         var mesh0 = new THREE.Mesh(geometry0, material0);
-        var geometry1 = new THREE.PlaneGeometry(bw, w);
+        var geometry1 = new THREE.PlaneGeometry(vbw, vw);
         var material1 = new THREE.MeshBasicMaterial({
             color: 0xffffff,
             side: THREE.DoubleSide,
@@ -15695,7 +15814,7 @@
             transparent: true
         });
         var mesh1 = new THREE.Mesh(geometry1, material1);
-        var geometry2 = new THREE.PlaneGeometry(w * 0.6, bw / 2);
+        var geometry2 = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
         var material2 = new THREE.MeshBasicMaterial({
             color: 0xffffff,
             side: THREE.DoubleSide,
@@ -15703,7 +15822,7 @@
             transparent: true
         });
         var mesh2 = new THREE.Mesh(geometry2, material2);
-        var geometry3 = new THREE.PlaneGeometry(w * 0.6, bw / 2);
+        var geometry3 = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
         var material3 = new THREE.MeshBasicMaterial({
             color: 0xffffff,
             side: THREE.DoubleSide,
@@ -15711,14 +15830,16 @@
             transparent: true
         });
         var mesh3 = new THREE.Mesh(geometry3, material3);
+
+
         mesh0.add(mesh1)
-        mesh0.children[0].position.y = bw / 2
+        mesh0.children[0].position.y = vbw / 2
         mesh0.add(mesh2)
-        mesh0.children[1].position.x = -bw / 2 - w * 0.6 / 2
-        mesh0.children[1].position.y = -(bw / 4) + bw / 2 + w / 2
+        mesh0.children[1].position.x = -vbw / 2 - vw * 0.6 / 2
+        mesh0.children[1].position.y = -(vbw / 4) + vbw / 2 + vw / 2
         mesh0.add(mesh3)
-        mesh0.children[2].position.x = +bw / 2 + w * 0.6 / 2
-        mesh0.children[2].position.y = -(bw / 4) + bw / 2 + w / 2
+        mesh0.children[2].position.x = +vbw / 2 + vw * 0.6 / 2
+        mesh0.children[2].position.y = -(vbw / 4) + vbw / 2 + vw / 2
         // console.log(mesh)
         mesh0.rotation.order = 'YXZ';
         // mesh0.rotation.z = cubes[floor].mesh.rotation.z;
@@ -15757,6 +15878,9 @@
         // mesh0.scale.y=1.5;
         mesh0.material.visible = false;
         mesh0.userData["skin"]="effect"
+        // if(skinset[skinnum]=="classic"){
+        //   mesh0.scale.set(1.26,0,1.26)
+        // }
         // cubes[floor].mesh.add(mesh0);
         cubes[floor].mesh.add(mesh0);
         // scene.add( mesh2 );
