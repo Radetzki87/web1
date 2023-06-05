@@ -7089,7 +7089,7 @@
                   // Load OBJ file
                   // loader.setMaterials(materials);
                   loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/space-0.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].rotation.y = 0
                       object.children[0].position.set(0, 0, 0)
                       object.children[0].scale.x = 2.57;
                       object.children[0].scale.z = 2.57;
@@ -7116,7 +7116,7 @@
                   // Load OBJ file
                   // loader.setMaterials(materials);
                   loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/space-1.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].rotation.y = 0
                       object.children[0].position.set(0, 0, 0)
                       object.children[0].scale.x = 2.57;
                       object.children[0].scale.z = 2.57;
@@ -7127,7 +7127,7 @@
                       object.children[0].userData["skin"] = "space"
                       object.children[0].userData["skintype"] =2;
                       var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] + 5) + '%)');
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] *1.25) + '%)');
                       object.children[0].material = new THREE.MeshLambertMaterial({
                           color: tc
                       });
@@ -7142,6 +7142,8 @@
                       mesh.add(object.children[0]);
                   });
 
+
+
                   var mtlLoader = new MTLLoader();
                   mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/space-2.mtl', function(materials) {
                       materials.preload();
@@ -7149,7 +7151,7 @@
                       // Load OBJ file
                       loader.setMaterials(materials);
                       loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/space-2.obj', (object) => {
-                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].rotation.y = 0
                           object.children[0].position.set(0, 0, 0)
                           object.children[0].scale.x = 2.57;
                           object.children[0].scale.z = 2.57;
@@ -7158,6 +7160,7 @@
                           // object.children[0].scale.z=2.25;
                           // object.children[0].scale.y=1.92;
                           object.children[0].userData["skin"] = "space"
+                          object.children[0].material.opacity=0.8;
                           if (shadowon) {
                               object.children[0].receiveShadow = true;
                               object.children[0].castShadow = true;
@@ -7165,6 +7168,7 @@
                           if(idx==0){
                             skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
                           }
+
                           mesh.add(object.children[0]);
                       });
                   });
@@ -7176,7 +7180,7 @@
                       // Load OBJ file
                       loader.setMaterials(materials);
                       loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/space-3.obj', (object) => {
-                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].rotation.y = 0
                           object.children[0].position.set(0, 0, 0)
                           object.children[0].scale.x = 2.57;
                           object.children[0].scale.z = 2.57;
@@ -13924,8 +13928,8 @@
         var newcolor1=colorlst0[colornum0][idx]
         var nc = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
         var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
-        var newcolor4 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]*0.9) + '%, ' + String(nc["l"]*1.2) + '%)');
-        var newcolor5 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]*1.1) + '%, ' + String(nc["l"]*0.95) + '%)');
+        var newcolor4 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]*0.8) + '%, ' + String(nc["l"]*1.2) + '%)');
+        var newcolor5 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]*1.1) + '%, ' + String(nc["l"]*0.85) + '%)');
       }
 
 
