@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.55, maximum-scale=0.55, minimum-scale=0.55, user-scalable=0">
     <title>2048 BRIX</title>
     <style>
         body {
@@ -21,8 +21,6 @@
             display: block;
             /* z-index: 1000; */
         }
-
-
 
         input[type=range]{
             /* height: 20vh; */
@@ -1226,9 +1224,9 @@
             /* flex-direction: column; */
             background-color: rgba(50, 50, 50, 0.6);
             border-radius: 4vw;
-            border: 5px solid rgba(20, 20, 20, 0.7);
+            border: 5px solid rgba(20, 20, 20, 0.3);
             width: 85%;
-            height: 10%;
+            height: 15%;
             justify-content: center;
             align-items:center;
             margin-bottom: 5vw;
@@ -1833,6 +1831,7 @@
 
     var gamemod=0;
 
+    var tilelst=[];
     window.gamemod=gamemod;
     var fullmax=false;
     var maxnum;
@@ -1944,7 +1943,7 @@
     var shadowon = true;
     var initflag = true;
 
-    let skinset = ["base", "1", "classic","카세트", "r808", "space","archer", "radio", "donut", "building", "tower",  "adam"]
+    let skinset = ["base", "brick1", "brick2","1", "classic","카세트", "r808", "space","archer", "radio", "donut", "building", "tower",  "adam"]
     window.skinset=skinset;
     skinset.forEach((item)=>{
       skinmold[item]=[];
@@ -3875,18 +3874,24 @@
                 ntile.userData["merge"] = 0;
                 ntile.userData["skin"] = "tile";
                 ntile.userData["skintype"] =1;
+                // ntile.material.opacity=1;
+                // ntile.material.visible=true;
                 ntile.children.forEach((text) => {
+                    // text.material.opacity=1;
+                    // text.material.visible=true;
                     text.userData["time"] = elapsedTime;
                     text.userData["merge"] = 0;
                     text.userData["skin"] = "tile";
                 })
 
 
-                ntile.material.opacity=1;
-                ntile.material.visible=true;
+
                 // ntile.style.tran
                 cubes[this.index].mesh.add(ntile);
-
+                if(skinset[skinnum]=="classic"){
+                  bf=99;
+                }
+                // tilelst.push(ntile);
 
 
                 this.boardpointer[position.row][position.col] = ntile;
@@ -5815,6 +5820,7 @@
     //   }
     // Create a function to add a new box to the stack
     function restart() {
+        tilelst=[];
         fullmax=false;
         // init();
         // return location.reload();
@@ -6805,33 +6811,8 @@
                       clmeshlst[idx].push(object.children[0].material)
                       mesh.add(object.children[0]);
                   });
-                  var loader = new OBJLoader();
-                  // Load OBJ file
-                  // loader.setMaterials(materials);
-                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/ceramic.obj', (object) => {
-                      object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, -bh/2, 0)
-                      object.children[0].scale.x = 2.8;
-                      object.children[0].scale.z = 2.8
-                      object.children[0].scale.y = 2.8
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      object.children[0].userData["skin"] = "test5"
-                      object.children[0].userData["skintype"] =0;
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: colorlst0[colornum0][idx]
-                      });
-                      if (shadowon) {
-                          object.children[0].receiveShadow = true;
-                          object.children[0].castShadow = true;
-                      }
-                      clmeshlst[idx].push(object.children[0].material)
-                      if(idx==0){
-                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
-                      }
-                      mesh.add(object.children[0]);
-                  });
+
+                
 
                   //archer
                   var loader = new OBJLoader();
@@ -6977,6 +6958,9 @@
                           mesh.add(object.children[0]);
                       });
                   });
+
+
+
 
                   //classic
                   var loader = new OBJLoader();
@@ -7215,7 +7199,245 @@
                       });
                   });
 
+                  //brick1
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick1-0.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57;
+                      object.children[0].scale.z = 2.57;
+                      object.children[0].scale.y = 2.57;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "brick1"
+                      object.children[0].userData["skintype"] =0;
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: colorlst0[colornum0][idx]
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick1-1.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57;
+                      object.children[0].scale.z = 2.57;
+                      object.children[0].scale.y = 2.57;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "brick1"
+                      object.children[0].userData["skintype"] =2;
+                      var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"]*0.6) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst2[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
 
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick1-2.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57;
+                      object.children[0].scale.z = 2.57;
+                      object.children[0].scale.y = 2.57;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "brick1"
+                      object.children[0].userData["skintype"] =2;
+                      var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] *1.25) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst2[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick1-3.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick1-3.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
+                          object.children[0].userData["skin"] = "brick1"
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
+                  //brick2
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick2-0.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57;
+                      object.children[0].scale.z = 2.57;
+                      object.children[0].scale.y = 2.57;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "brick2"
+                      object.children[0].userData["skintype"] =0;
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: colorlst0[colornum0][idx]
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick2-1.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57;
+                      object.children[0].scale.z = 2.57;
+                      object.children[0].scale.y = 2.57;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "brick2"
+                      object.children[0].userData["skintype"] =2;
+                      var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"]*0.6) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst2[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick2-2.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57;
+                      object.children[0].scale.z = 2.57;
+                      object.children[0].scale.y = 2.57;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "brick2"
+                      object.children[0].userData["skintype"] =2;
+                      var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] *1.25) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst2[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick2-3.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick2-3.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
+                          object.children[0].userData["skin"] = "brick2"
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
 
 
 
@@ -10251,12 +10473,12 @@
                     tile.material.transparent = false;
                     tile.material.alphaTest = 0;
                 } else if (tile.userData["skin"] == "text1") {
-                    if (skinnum == 1) {
+                    if (skinset[skinnum]=="1") {
                         tile.position.z = -bw / 8
                         tile.material.visible = true;
                         tile.material.opacity = 1
                         tile.material.transparent = true;
-                    } else if (skinnum == 2) {
+                    } else if (skinset[skinnum]=="카세트") {
                         tile.position.z = 0
                         tile.material.visible = true;
                         tile.material.opacity = 1
@@ -10265,12 +10487,12 @@
                         tile.material.visible = false;
                     }
                 } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
-                    if (skinnum == 1) {
+                    if (skinset[skinnum]=="1") {
                         tile.position.z = -bw / 8
                         tile.material.visible = true;
                         tile.material.opacity = 0.3
                         tile.material.transparent = true;
-                    } else if (skinnum == 2) {
+                    } else if (skinset[skinnum]=="카세트") {
                         tile.position.z = 0
                         tile.material.visible = true;
                         tile.material.opacity = 0.3
@@ -11633,7 +11855,7 @@
                 // particles.geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
                 // particles.geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( THREE.DynamicDrawUsage ) );
 
-                if(skinnum==1||skinnum==2){
+                if(skinset[skinnum]=="1"){
                   // txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
 
                   for (var i = 0; i < cubes.length; i++) {
@@ -11967,7 +12189,9 @@
                             tile.userData["text"] = text;
                             atchanged = elapsedTime;
                             var tempflag = true
-
+                            if(skinset[skinnum]=="classic"){
+                              bf=99;
+                            }
                             tempeffects.forEach((object) => {
                                 if (object[1] >= num && object[2] == item.direction) {
                                     tempflag = false
@@ -12537,39 +12761,39 @@
         //
         // }
 
-        if(skinset[skinnum]=="classic"){
-          if(activeFloor==cubes.length){
-            cubes[activeFloor-1].mesh.children.forEach((item, i) => {
-              if(item.userData["skin"]=="tile"){
-                item.material.visible=true;
-                item.material.opacity=1;
-                item.material.alphaTest=item.material.opacity;
-                item.material.transparent=false
-                item.children.forEach((text) => {
-                    text.material.opacity = 1;
-                    text.material.visible = true;
-                    text.material.transparent = true;
-                })
-              }
-            })
-          }else{
-            cubes[activeFloor].mesh.children.forEach((item, i) => {
-              if(item.userData["skin"]=="tile"){
-                item.material.visible=true;
-                item.material.transparent=false
-                item.material.opacity=1;
-                item.material.alphaTest=item.material.opacity;
-                item.children.forEach((text) => {
-                    text.material.opacity = 1;
-                    text.material.visible = true;
-                    text.material.transparent = true;
-                })
-              }
-            })
-          }
-
-
-        }
+        // if(skinset[skinnum]=="classic"){
+        //   if(activeFloor==cubes.length){
+        //     cubes[activeFloor-1].mesh.children.forEach((item, i) => {
+        //       if(item.userData["skin"]=="tile"){
+        //         item.material.visible=true;
+        //         item.material.opacity=1;
+        //         item.material.alphaTest=item.material.opacity;
+        //         item.material.transparent=false
+        //         item.children.forEach((text) => {
+        //             text.material.opacity = 1;
+        //             text.material.visible = true;
+        //             text.material.transparent = true;
+        //         })
+        //       }
+        //     })
+        //   }else{
+        //     cubes[activeFloor].mesh.children.forEach((item, i) => {
+        //       if(item.userData["skin"]=="tile"){
+        //         item.material.visible=true;
+        //         item.material.transparent=false
+        //         item.material.opacity=1;
+        //         item.material.alphaTest=item.material.opacity;
+        //         item.children.forEach((text) => {
+        //             text.material.opacity = 1;
+        //             text.material.visible = true;
+        //             text.material.transparent = true;
+        //         })
+        //       }
+        //     })
+        //   }
+        //
+        //
+        // }
 
 
         if(gameoverflag){
@@ -12631,7 +12855,7 @@
                                 tile.children.forEach((text) => {
                                     text.material.opacity = 1;
                                     text.material.visible = true;
-                                    text.material.transparent = true;
+                                    text.material.transparent = false;
                                 })
                               }else{
                                 tile.material.visible = false;
@@ -12660,12 +12884,12 @@
                                 tile.material.transparent = false;
 
                             } else if (tile.userData["skin"] == "text1") {
-                                if (skinnum == 1) {
+                                if (skinset[skinnum]=="1") {
                                     tile.position.z = -bw / 8
                                     tile.material.visible = true;
                                     tile.material.opacity = 1
                                     tile.material.transparent = true;
-                                } else if (skinnum == 2) {
+                                } else if (skinset[skinnum]=="카세트") {
                                     tile.position.z = 0
                                     tile.material.visible = true;
                                     tile.material.opacity = 1
@@ -12674,12 +12898,12 @@
                                     tile.material.visible = false;
                                 }
                             } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
-                                if (skinnum == 1) {
+                                if (skinset[skinnum]=="1") {
                                     tile.position.z = -bw / 8
                                     tile.material.visible = true;
                                     tile.material.opacity = 0.3
                                     tile.material.transparent = true;
-                                } else if (skinnum == 2) {
+                                } else if (skinset[skinnum]=="카세트") {
                                     tile.position.z = 0
                                     tile.material.visible = true;
                                     tile.material.opacity = 0.3
@@ -12757,12 +12981,12 @@
                                   }
 
                                 } else if (tile.userData["skin"] == "text1") {
-                                    if (skinnum == 1) {
+                                    if (skinset[skinnum]=="1") {
                                         tile.position.z = -bw / 8
                                         tile.material.visible = true;
                                         tile.material.opacity = 0.2
                                         tile.material.transparent = true;
-                                    } else if (skinnum == 2) {
+                                    } else if (skinset[skinnum]=="카세트") {
                                         tile.position.z = 0
                                         tile.material.visible = true;
                                         tile.material.opacity = 0.2
@@ -12771,12 +12995,12 @@
                                         tile.material.visible = false;
                                     }
                                 } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
-                                    if (skinnum == 1) {
+                                    if (skinset[skinnum]=="1") {
                                         tile.position.z = -bw / 8
                                         tile.material.visible = true;
                                         tile.material.opacity = 0.05
                                         tile.material.transparent = true;
-                                    } else if (skinnum == 2) {
+                                    } else if (skinset[skinnum]=="카세트") {
                                         tile.position.z = 0
                                         tile.material.visible = true;
                                         tile.material.opacity = 0.05
@@ -12824,12 +13048,12 @@
                                         }
 
                                     } else if (tile.userData["skin"] == "text1") {
-                                        if (skinnum == 1) {
+                                        if (skinset[skinnum]=="1") {
                                             tile.position.z = -bw / 8
                                             tile.material.visible = true;
                                             tile.material.opacity = 0.2
                                             tile.material.transparent = true;
-                                        } else if (skinnum == 2) {
+                                        } else if (skinset[skinnum]=="카세트") {
                                             tile.position.z = 0
                                             tile.material.visible = true;
                                             tile.material.opacity = 0.2
@@ -12838,12 +13062,12 @@
                                             tile.material.visible = false;
                                         }
                                     } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
-                                        if (skinnum == 1) {
+                                        if (skinset[skinnum]=="1") {
                                             tile.position.z = -bw / 8
                                             tile.material.visible = true;
                                             tile.material.opacity = 0.05
                                             tile.material.transparent = true;
-                                        } else if (skinnum == 2) {
+                                        } else if (skinset[skinnum]=="카세트") {
                                             tile.position.z = 0
                                             tile.material.visible = true;
                                             tile.material.opacity = 0.05
@@ -12902,12 +13126,12 @@
                                         // tile.material.alphaTest =  1;
                                         tile.material.transparent = false;
                                     } else if (tile.userData["skin"] == "text1") {
-                                        if (skinnum == 1) {
+                                        if (skinset[skinnum]=="1") {
                                             tile.position.z = -bw / 8
                                             tile.material.visible = true;
                                             tile.material.opacity = 1
                                             tile.material.transparent = true;
-                                        } else if (skinnum == 2) {
+                                        } else if (skinset[skinnum]=="카세트") {
                                             tile.position.z = 0
                                             tile.material.visible = true;
                                             tile.material.opacity = 1
@@ -12916,12 +13140,12 @@
                                             tile.material.visible = false;
                                         }
                                     } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
-                                        if (skinnum == 1) {
+                                        if (skinset[skinnum]=="1") {
                                             tile.position.z = -bw / 8
                                             tile.material.visible = true;
                                             tile.material.opacity = 0.3
                                             tile.material.transparent = true;
-                                        } else if (skinnum == 2) {
+                                        } else if (skinset[skinnum]=="카세트") {
                                             tile.position.z = 0
                                             tile.material.visible = true;
                                             tile.material.opacity = 0.3
@@ -12944,7 +13168,25 @@
         }else {
           camera.position.x=bw * 2 + avx;
           camera.position.z=bw * 2 + avz;
-
+          // if(skinset[skinnum]=="classic"){
+          //   tilelst.forEach((tile) => {
+          //     tile.material.visible = true;
+          //     tile.material.opacity = 1
+          //     tile.material.alphaTest = tile.material.opacity
+          //     tile.material.transparent = false;
+          //     tile.children.forEach((text) => {
+          //         text.material.opacity = 1;
+          //         text.material.alphaTest = text.material.opacity
+          //         text.material.visible = true;
+          //         text.material.transparent = true;
+          //     })
+          //   })
+          //
+          //
+          //
+          //
+          //
+          // }
 
           if(gamemod==2&&activeFloor==cubes.length){
             // dl2.shadow.camera.position.y= bh * (cubes.length)
@@ -12954,17 +13196,17 @@
               }
             })
           }
-          if(skinnum==1||skinnum==2){
+          if(skinset[skinnum]=="1"){
             for (var i = 0; i < cubes.length; i++) {
                 if (i == activeFloor) {
                     cubes[i].mesh.children.forEach((tile, index) => {
                         if (tile.userData["skin"] == "text1") {
-                            if (skinnum == 1) {
+                            if (skinset[skinnum]=="1") {
                                 tile.position.z = -bw / 8
                                 tile.material.visible = true;
                                 tile.material.opacity = 0.2
                                 tile.material.transparent = true;
-                            } else if (skinnum == 2) {
+                            } else if (skinset[skinnum]=="카세트") {
                                 tile.position.z = 0
                                 tile.material.visible = true;
                                 tile.material.opacity = 0.2
@@ -12973,12 +13215,12 @@
                                 tile.material.visible = false;
                             }
                         } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
-                            if (skinnum == 1) {
+                            if (skinset[skinnum]=="1") {
                                 tile.position.z = -bw / 8
                                 tile.material.visible = true;
                                 tile.material.opacity = 0.05
                                 tile.material.transparent = true;
-                            } else if (skinnum == 2) {
+                            } else if (skinset[skinnum]=="카세트") {
                                 tile.position.z = 0
                                 tile.material.visible = true;
                                 tile.material.opacity = 0.05
@@ -12992,12 +13234,12 @@
                     if (i > activeFloor) {
                         cubes[i].mesh.children.forEach((tile) => {
                             if (tile.userData["skin"] == "text1") {
-                                if (skinnum == 1) {
+                                if (skinset[skinnum]=="1") {
                                     tile.position.z = -bw / 8
                                     tile.material.visible = true;
                                     tile.material.opacity = 0.2
                                     tile.material.transparent = true;
-                                } else if (skinnum == 2) {
+                                } else if (skinset[skinnum]=="카세트") {
                                     tile.position.z = 0
                                     tile.material.visible = true;
                                     tile.material.opacity = 0.2
@@ -13006,12 +13248,12 @@
                                     tile.material.visible = false;
                                 }
                             } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
-                                if (skinnum == 1) {
+                                if (skinset[skinnum]=="1") {
                                     tile.position.z = -bw / 8
                                     tile.material.visible = true;
                                     tile.material.opacity = 0.05
                                     tile.material.transparent = true;
-                                } else if (skinnum == 2) {
+                                } else if (skinset[skinnum]=="카세트") {
                                     tile.position.z = 0
                                     tile.material.visible = true;
                                     tile.material.opacity = 0.05
@@ -13025,12 +13267,12 @@
                     } else {
                         cubes[i].mesh.children.forEach((tile, index) => {
                             if (tile.userData["skin"] == "text1") {
-                                if (skinnum == 1) {
+                                if (skinset[skinnum]=="1") {
                                     tile.position.z = -bw / 8
                                     tile.material.visible = true;
                                     tile.material.opacity = 1
                                     tile.material.transparent = true;
-                                } else if (skinnum == 2) {
+                                } else if (skinset[skinnum]=="카세트") {
                                     tile.position.z = 0
                                     tile.material.visible = true;
                                     tile.material.opacity = 1
@@ -13039,12 +13281,12 @@
                                     tile.material.visible = false;
                                 }
                             } else if (tile.userData["skin"].substring(0, tile.userData["skin"].length - 1) == "txtback") {
-                                if (skinnum == 1) {
+                                if (skinset[skinnum]=="1") {
                                     tile.position.z = -bw / 8
                                     tile.material.visible = true;
                                     tile.material.opacity = 0.3
                                     tile.material.transparent = true;
-                                } else if (skinnum == 2) {
+                                } else if (skinset[skinnum]=="카세트") {
                                     tile.position.z = 0
                                     tile.material.visible = true;
                                     tile.material.opacity = 0.3
@@ -13318,7 +13560,7 @@
                       }
                     });
                     if (i == activeFloor) {
-                      if(skinset[skinnum]!="classic") cubes[i].mesh.material.opacity = 0.1;
+                      // if(skinset[skinnum]!="classic") cubes[i].mesh.material.opacity = 0.1;
                         if (!gameoverflag) {
                             if(gamemod==2){
                               topViewCamera.position.set(cubes[i].body.position.x, bh *(activeFloor+2-2), cubes[i].body.position.z);
@@ -13441,7 +13683,7 @@
                     }else if(i==activeFloor){
                       if(skinset[skinnum]=="classic"){
 
-                      }else{
+                      }else{sh
                         item.material.opacity=0.45
                         item.material.alphaTest=item.material.opacity
                         item.material.visible=true;
@@ -13601,12 +13843,20 @@
               cubes[i].mesh.children.forEach((item) => {
                 if (item.userData["skin"]==skinset[skinnum]) {
                   if(i>activeFloor){
-                    item.material.visible = true;
-                    item.material.opacity = 0.04 + (i - activeFloor) * 0.015;
-                    item.material.alphaTest = item.material.opacity
-                    item.material.transparent = true;
+                    if(activeFloor==3||(activeFloor<3&&i==4)){
+                      item.material.visible = true;
+                      item.material.opacity = 0.12
+                      item.material.alphaTest = item.material.opacity
+                      item.material.transparent = true;
+                    }else{
+                      item.material.visible = true;
+                      item.material.opacity = 0.04 + (i - activeFloor) * 0.015;
+                      item.material.alphaTest = item.material.opacity
+                      item.material.transparent = true;
+                    }
                   }else if (i==activeFloor) {
                       if(skinset[skinnum]!="classic"){
+
                         item.material.visible = true;
                         item.material.opacity = 0.05;
                         item.material.alphaTest = 0.05;
@@ -13614,6 +13864,8 @@
                       }
 
                   }
+                }else if(item.userData["skin"]=="tile"){
+
                 }
               });
           }
@@ -18826,6 +19078,7 @@
             </button>
             <label class="mlabel">BASIC</label>
             <b>기본</b>
+            <div>Best : 2000</div>
         </div>
 
         <div class="mod">
@@ -18834,6 +19087,7 @@
             </button>
             <label class="mlabel">HARD</label>
             <b>어려움</b>
+            <div>Best : 2000</div>
         </div>
 
         <div class="mod">
@@ -18842,7 +19096,7 @@
             </button>
             <label class="mlabel">STACK</label>
             <b>스택</b>
-
+            <div>Best : 20</div>
         </div>
 
     </div>
