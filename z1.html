@@ -6812,7 +6812,7 @@
                       mesh.add(object.children[0]);
                   });
 
-                
+
 
                   //archer
                   var loader = new OBJLoader();
@@ -12819,7 +12819,6 @@
         });
 
         if (orthoflag && lookcenter&&bf!=activeFloor) {
-
             if (!gameoverflag) {
                 if (activeFloor == cubes.length) {
                     camera.position.set(
@@ -12830,14 +12829,12 @@
                     );
                     if(gamemod==2) {
                       camera.position.y= bh * (cubes.length+0.5)
-
                     }
                     // camera.lookAt(cubes[0].body.position.x,cubes[cubes.length-1].mesh.position.y+bh*5,cubes[0].body.position.y)
                     // var isoAngle = Math.atan(1 / Math.sqrt(2));
                     // camera.rotation.order = 'YXZ';
                     // camera.rotation.x = -isoAngle;
                     cubes.forEach((item, index) => {
-
                         if (arrowon) {
                             arrows[index].children[0].material.opacity = 0;
                             arrows[index].children[0].material.transparent = true;
@@ -12971,7 +12968,8 @@
                                   if(tile.userData["skin"]=="classic"){
 
                                     tile.material.visible = true;
-                                    tile.material.opacity = 1;
+                                    tile.material.opacity = 0.5;
+                                    tile.material.alphaTest = tile.material.opacity
                                     tile.material.transparent = true;
                                   }else{
                                     tile.material.visible = true;
@@ -13543,7 +13541,8 @@
                           item.castShadow = false;
                         }else if(i==activeFloor){
                           if(skinset[skinnum]=="classic"){
-
+                            item.material.opacity=1;
+                            item.material.alphaTest=item.material.opacity
                             item.material.visible=true;
                             item.receiveShadow = true;
                             item.castShadow = true;
@@ -13560,7 +13559,7 @@
                       }
                     });
                     if (i == activeFloor) {
-                      // if(skinset[skinnum]!="classic") cubes[i].mesh.material.opacity = 0.1;
+                      // if(skinset[skinnum]!="classic") cubes[i].mesh.material.opacity = 0.8;
                         if (!gameoverflag) {
                             if(gamemod==2){
                               topViewCamera.position.set(cubes[i].body.position.x, bh *(activeFloor+2-2), cubes[i].body.position.z);
@@ -13683,7 +13682,7 @@
                     }else if(i==activeFloor){
                       if(skinset[skinnum]=="classic"){
 
-                      }else{sh
+                      }else{
                         item.material.opacity=0.45
                         item.material.alphaTest=item.material.opacity
                         item.material.visible=true;
@@ -13861,6 +13860,11 @@
                         item.material.opacity = 0.05;
                         item.material.alphaTest = 0.05;
                         item.material.transparent = true;
+                      }else{
+                        item.material.visible = true;
+                        item.material.opacity = 0.5;
+                        item.material.alphaTest = 0.5;
+                        item.material.transparent = true;
                       }
 
                   }
@@ -13870,6 +13874,23 @@
               });
           }
         }
+
+        if(skinset[skinnum]=="classic"){
+          for (var i = 0; i < cubes.length; i++) {
+              cubes[i].mesh.children.forEach((item) => {
+                if (item.userData["skin"]==skinset[skinnum]) {
+                  if(i==activeFloor){
+                    item.material.visible = true;
+                    item.material.opacity = 0.5
+                    item.material.alphaTest = item.material.opacity
+                    item.material.transparent = true;
+                  }
+
+                }
+              })
+            }
+        }
+
         포인트.forEach((item) => {
             item.material.visible = true
             item.material.opacity = 1
