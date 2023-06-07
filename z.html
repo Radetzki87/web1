@@ -243,7 +243,7 @@
         #playing{
             margin-left: 6vw;
             margin-right: 1vw;
-            font-size: 3vh;
+            font-size: 3.5vh;
             z-index: 2;
 
         }
@@ -251,7 +251,7 @@
             margin-bottom: : 0;
             transform: translate(0, 1.8vw);
             /* margin-left: 1vw; */
-            font-size: 1.2vh;
+            font-size: 1.3vh;
             color:black;
             z-index: 2;
 
@@ -297,7 +297,7 @@
             width: 250vw;
             left:-24%;
             height: 60%;
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: rgba(200, 200, 200, 0.7);
             background-size: cover;
             /* z-index: 2; */
             display: inline-flex;
@@ -922,14 +922,25 @@
             transition: opacity 2.8s, top 1.2s ease;
 
         }
+
+        #intro b{
+          opacity:1;
+          position: absolute;
+          left:34vw;
+          top:18vh;
+          -webkit-transform: rotate(-90deg);
+          color:black;
+          font-size: 15vh;
+        }
+
         #intro label{
-          opacity:0.8;
+          opacity:1;
           position: relative;
           left:2vw;
-          top:20%;
+          top:35vh;
           color:black;
 
-          font-size: 15vw;
+          font-size: 4vh;
         }
 
         #intro div{
@@ -1091,12 +1102,13 @@
             border-radius: 4vw;
             border: 0px solid #000;
             width: 75%;
-            height: 50vw;
+            /* height: 50vw; */
             justify-content:flex-start;
             align-items: left;
             margin-bottom: 0vw;
             margin-top: 0vw;
             padding-left: 2vw;
+            padding-bottom: 3vw;
 
         }
 
@@ -1764,7 +1776,6 @@
 
 
   <script src="build/cannon.min.js"></script>
-
   <script type="importmap">
       {
     "imports": {
@@ -1797,12 +1808,21 @@
     import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
     import Stats from 'three/addons/libs/stats.module.js';
 
-    // document.body.style.overscrollBehaviorY = 'none';
-    // document.body.style.overscrollBehaviorX = 'none';
+    document.body.style.overscrollBehaviorY = 'none';
+    document.body.style.overscrollBehaviorX = 'none';
     // document.getElementById('game-over-panel').style.display="none";
 
     const gameOverPanel = document.getElementById('game-over-panel');
 
+    var 색보정=[14, 0, 31, 59, 16, 37, 18, 44, 41, 39, 10, 40, 22, 13,26]
+
+    var 색보정0=[7,81,114,104]
+
+
+    var tuttxt1="▲ Touch the Tower ▲"
+    var tuttxt2="▼ Swipe the Numbers ▼"
+    var tmb0=0.05;
+    var tmb1=0.1;
 
     var webflag=true;
     var goahead=false;
@@ -1834,6 +1854,9 @@
     var m2flag=false;
 
     var gamemod=0;
+    var analyser;
+    window.analyser=analyser;
+
 
     var tilelst=[];
     window.gamemod=gamemod;
@@ -1843,7 +1866,7 @@
     var originflag=false;
     var sideback=[];
     var stacktime;
-    var stacknum=[0,0,0,0,8,8,16,16,32,32,64,64,128,128,256,256,512,512,512,1024,1024,2048,2048,2048,2048,2048,2048]
+    var stacknum=[0,0,0,0,8,8,16,16,32,32,32,64,64,64,128,128,128,256,256,512,512,512,1024,1024,2048,2048,2048,2048,2048,2048]
     var paidskin=[];
     window.paidskin=paidskin;
 
@@ -2142,7 +2165,13 @@
         [0xe85a71, 0xd8e9ef, 0x4ea1d3, 0x454552, ],
         [0xfec8c9, 0xfd999a, 0x444f59, 0x3e4149]
     ]
-    var colornum = parseInt(Math.random() * colorlst.length);
+
+    var colornum;
+
+    do{
+      colornum = parseInt(Math.random() * colorlst.length);
+    }while(색보정.indexOf(colornum)!=-1)
+
 
 
     var colorlst0 = [
@@ -2355,9 +2384,15 @@
         [0xfaa275,0xff8c61,0xce6a85,0x985277,0x5c374c]
 
     ]
-    var colornum0 = parseInt(Math.random() * colorlst0.length);
+    var colornum0;
 
-    colornum0=colorlst0.length-3
+    do{
+      colornum0 = parseInt(Math.random() * colorlst0.length);
+    }while(색보정0.indexOf(colornum0)!=-1)
+
+    console.log(colornum)
+    console.log(colornum0)
+    // colornum0=colorlst0.length-3
     // 컬러
     // colornum0=colorlst0.length-1;
     // var clst=adjustContrast(hexToHtmlColor(colorlst[colornum][1]), hexToHtmlColor(colorlst[colornum][3]))
@@ -2373,6 +2408,7 @@
 
 
     document.getElementById("intro").children[1].style.color=hexToHtmlColor(colorlst[colornum][3]);
+    document.getElementById("intro").children[2].style.color=hexToHtmlColor(colorlst[colornum][3]);
 
     // document.getElementById("cl10").style.backgroundColor=hexToHtmlColor(colorlst[colornum][0])
     // document.getElementById("cl11").style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
@@ -4747,22 +4783,6 @@
 
         if (lastY >= 0.8) {
             if (lastX < -0.8) {
-                // if (!startflag) {
-                //     // startflag=true
-                // }
-                // if (lookcenter) {
-                //   resol(rescounter);
-                //   rescounter++;
-                //   if (rescounter > 5) {
-                //       rescounter = 0;
-                //   }
-                // }
-                // } else if (lookright) {
-                //     if (!rotationflag) {
-                //         rotationflag = true
-                //         rotationend = Math.PI / 4
-                //     }
-                // }
             } else if (lastX > 0.8) {
                 if (!startflag) {
                     startflag = true
@@ -4795,7 +4815,7 @@
                     }
                 }
             }
-        } else if (lastY > 0 && lastY < 0.8) {
+        } else if (lastY > 0 && lastY < 0.8&&lastX>-0.6&&lastX<0.6) {
             for (var j = 0; j < 5; j++) {
                 // var tempy;
                 if(gamemod==2){
@@ -4808,7 +4828,6 @@
 
                 }
                 if (lastY > -0.35 + touch0 + 0.1 * j && lastY < -0.25 + touch0 + 0.1 * j) {
-
                     if (!startflag) {
                         startflag = true
                         elapsedTime=0;
@@ -4831,6 +4850,8 @@
                         songfade=elapsedTime;
                         // console.log(songfade);
                         soundic[sdic[thisnum][0]].play();
+
+
                         songTitleElement.innerText = sdic[thisnum]["title"];
                         artistNameElement.innerText = sdic[thisnum]["producer"];
                         var songInfo = document.getElementById('song-info');
@@ -4851,7 +4872,7 @@
                             var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                             // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*0.8, newcl.l*0.35)
 
-                            document.getElementById('songback').style.backgroundColor="rgba(50,50,50,0.45)"
+                            document.getElementById('songback').style.backgroundColor="rgba(140,140,140,0.65)"
 
                             // document.getElementById('songback').style.opacity="0.35"
 
@@ -4860,10 +4881,10 @@
                             document.getElementById('song-title').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
 
                             var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
-                            document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.60, newcl.l*1)
+                            document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.90, newcl.l*1.1)
                             var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
                             // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h+Math.PI/2, newcl.s, newcl.l*0.35)
-                            document.getElementById('songback').style.backgroundColor="rgba(50,50,50,0.45)"
+                            document.getElementById('songback').style.backgroundColor="rgba(140,140,140,0.65)"
                             // document.getElementById('songback').style.opacity="0.35"
 
                         }
@@ -4872,7 +4893,7 @@
 
 
 
-                        document.getElementById('playing').style.color=hexToHtmlColor(colorlst[colornum][3])
+                        document.getElementById('playing').style.color="#eeeeee"
                         // document.getElementById('song-dash1').style.color=hexToHtmlColor(colorlst[colornum][3])
                         // document.getElementById('song-dash2').style.color=hexToHtmlColor(colorlst[colornum][3])
 
@@ -4944,8 +4965,13 @@
                                 restartloc.push(cubes[i].mesh.position);
                                 restartrot.push(cubes[i].mesh.rotation);
                             }
-                            ncolornum = parseInt(Math.random() * colorlst.length);
-                            ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                            do{
+                              ncolornum = parseInt(Math.random() * colorlst.length);
+                            }while(색보정.indexOf(ncolornum)!=-1)
+
+                            do{
+                              ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                            }while(색보정0.indexOf(ncolornum0)!=-1)
                             rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                             rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
                             renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
@@ -4967,7 +4993,8 @@
                             rotationend = Math.PI / 4
                         }
                         return
-                    } else {
+                    } else if(activeFloor!=cubes.length){
+
                         const game2048 = cubes[activeFloor].mesh.userData.game2048;
                         game2048.moveBoard("right");
                     }
@@ -4984,8 +5011,13 @@
                                 restartloc.push(cubes[i].mesh.position);
                                 restartrot.push(cubes[i].mesh.rotation);
                             }
-                            ncolornum = parseInt(Math.random() * colorlst.length);
-                            ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                            do{
+                              ncolornum = parseInt(Math.random() * colorlst.length);
+                            }while(색보정.indexOf(ncolornum)!=-1)
+
+                            do{
+                              ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                            }while(색보정0.indexOf(ncolornum0)!=-1)
                             rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                             rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
                             renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
@@ -5007,7 +5039,7 @@
                             rotationend = Math.PI / 4
                         }
                         return
-                    } else {
+                    } else if(activeFloor!=cubes.length){
                         const game2048 = cubes[activeFloor].mesh.userData.game2048;
                         game2048.moveBoard("left");
                     }
@@ -5024,8 +5056,13 @@
                                 restartloc.push(cubes[i].mesh.position);
                                 restartrot.push(cubes[i].mesh.rotation);
                             }
-                            ncolornum = parseInt(Math.random() * colorlst.length);
-                            ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                            do{
+                              ncolornum = parseInt(Math.random() * colorlst.length);
+                            }while(색보정.indexOf(ncolornum)!=-1)
+
+                            do{
+                              ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                            }while(색보정0.indexOf(ncolornum0)!=-1)
                             rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                             rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
                             renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
@@ -5047,7 +5084,7 @@
                             rotationend = Math.PI / 4
                         }
                         return
-                    } else {
+                    } else if(activeFloor!=cubes.length){
                         const game2048 = cubes[activeFloor].mesh.userData.game2048;
                         game2048.moveBoard("up");
                     }
@@ -5064,8 +5101,13 @@
                                 restartloc.push(cubes[i].mesh.position);
                                 restartrot.push(cubes[i].mesh.rotation);
                             }
-                            ncolornum = parseInt(Math.random() * colorlst.length);
-                            ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                            do{
+                              ncolornum = parseInt(Math.random() * colorlst.length);
+                            }while(색보정.indexOf(ncolornum)!=-1)
+
+                            do{
+                              ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                            }while(색보정0.indexOf(ncolornum0)!=-1)
                             rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                             rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
                             renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
@@ -5087,7 +5129,7 @@
                             rotationend = Math.PI / 4
                         }
                         return
-                    } else {
+                    } else if(activeFloor!=cubes.length){
                         const game2048 = cubes[activeFloor].mesh.userData.game2048;
                         game2048.moveBoard("down");
                     }
@@ -5137,7 +5179,7 @@
                         }
 
 
-                        document.getElementById('playing').style.color=hexToHtmlColor(colorlst[colornum][3])
+                        document.getElementById('playing').style.color="#eeeeee"
                         // document.getElementById('song-dash1').style.color=hexToHtmlColor(colorlst[colornum][3])
                         // document.getElementById('song-dash2').style.color=hexToHtmlColor(colorlst[colornum][3])
                         // songInfo.classList.add("hidden");
@@ -5288,7 +5330,7 @@
         // dL.position.set(13,30,18);
         // scene.add(dL);
         var dl2 = new THREE.DirectionalLight(0xFFFFFF, 0.6);
-        dl2.position.set(-10, 50, 40);
+        dl2.position.set(20, 100, 80);
         // dl2.position.set(-40+Math.random()*80,50,-10+Math.random()*50);
         // dl2.position.set(13,30,-18);
         dl2.target.position.set(0, 0, 0);
@@ -5539,7 +5581,7 @@
                         }
 
 
-                        document.getElementById('playing').style.color=hexToHtmlColor(colorlst[colornum][3])
+                        document.getElementById('playing').style.color="#eeeeee"
                         // document.getElementById('song-dash1').style.color=hexToHtmlColor(colorlst[colornum][3])
                         // document.getElementById('song-dash2').style.color=hexToHtmlColor(colorlst[colornum][3])
                         // songInfo.classList.add("hidden");
@@ -5566,8 +5608,6 @@
             if(!originflag){
 
               msetting(function(object) {
-
-
 
                 document.getElementById("intro").style.top="-120%";
                 document.getElementById("intro").style.opacity="0";
@@ -5642,7 +5682,7 @@
                         }
 
 
-                        document.getElementById('playing').style.color=hexToHtmlColor(colorlst[colornum][3])
+                        document.getElementById('playing').style.color="#eeeeee"
                         // document.getElementById('song-dash1').style.color=hexToHtmlColor(colorlst[colornum][3])
                         // document.getElementById('song-dash2').style.color=hexToHtmlColor(colorlst[colornum][3])
                         // songInfo.classList.add("hidden");
@@ -5664,7 +5704,11 @@
                 }
             }
         } else if (event.code === 'KeyR') {
-            restart();
+          // analyser= new THREE.AudioAnalyser(soundic[sdic[activeFloor][0]], 32 );
+          // var data=analyser.getAverageFrequency()
+          // // window.data=analyser.data;
+          // console.log(soundic[sdic[activeFloor][0]].isPlaying)
+          // console.log(analyser)
         } else if (event.code === 'KeyQ') {
             if (!startflag) {
                 startflag = true
@@ -5687,8 +5731,13 @@
                     restartloc.push(cubes[i].mesh.position);
                     restartrot.push(cubes[i].mesh.rotation);
                 }
-                ncolornum = parseInt(Math.random() * colorlst.length);
-                ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                do{
+                  ncolornum = parseInt(Math.random() * colorlst.length);
+                }while(색보정.indexOf(ncolornum)!=-1)
+
+                do{
+                  ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                }while(색보정0.indexOf(ncolornum0)!=-1)
                 rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                 renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
                 rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
@@ -5950,13 +5999,13 @@
 
         if(particleflag){
           var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 20) + '%)');
+          var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] ) + '%)');
           var material2 = new THREE.ShaderMaterial({
               uniforms: {
                   color: {
                       value: tc
                   },
-                  opacity: 0.1,
+                  opacity: 0.8,
                   transparent: true
               },
               vertexShader: document.getElementById('vertexshader').textContent,
@@ -5985,6 +6034,9 @@
           sdic.push(nslst[templst[13]])
           sdic.push(nslst[templst[14]])
           sdic.push(nslst[templst[15]])
+          sdic.push(nslst[templst[16]])
+          sdic.push(nslst[templst[17]])
+          sdic.push(nslst[templst[18]])
         }
         // templst=[];
         // sdic.push(nslst["wooden"])
@@ -11168,28 +11220,19 @@
       geometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
       geometry.setAttribute('scale', new THREE.Float32BufferAttribute(scales, 1));
       var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 20) + '%)');
+      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"]) + '%)');
       const material2 = new THREE.ShaderMaterial({
           uniforms: {
               color: {
                   value: tc
               },
-              opacity: 0.1,
+              opacity: 0.8,
               transparent: true
           },
           vertexShader: document.getElementById('vertexshader').textContent,
           fragmentShader: document.getElementById('fragmentshader').textContent
       });
-      var material = new THREE.PointsMaterial({
-          size: 10,
-          sizeAttenuation: true,
-          // map: sprite,
-          alphaTest: 0.1,
-          transparent: true,
-          opacity: 0.4
-      });
-      // var material = new THREE.ShaderMaterial( { map: sprite} );
-      material.color = new THREE.Color(0xffffff)
+
       var particles = new THREE.Points(geometry, material2);
       scene.add(particles);
     }
@@ -11388,8 +11431,13 @@
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
                     }
-                    ncolornum = parseInt(Math.random() * colorlst.length);
-                    ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    do{
+                      ncolornum = parseInt(Math.random() * colorlst.length);
+                    }while(색보정.indexOf(ncolornum)!=-1)
+
+                    do{
+                      ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    }while(색보정0.indexOf(ncolornum0)!=-1)
                     rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                     renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
                     rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
@@ -11773,28 +11821,6 @@
                 if(skinset[skinnum]=="classic"){
 
 
-                  //   cubes[i].mesh.children.forEach((tile) => {
-                  //     if(tile.userData["skin"]=="tile"){
-                  //       tile.material.visible = true;
-                  //       tile.material.opacity = 1
-                  //       tile.material.transparent = false;
-                  //       tile.children.forEach((text) => {
-                  //           text.material.opacity = 1;
-                  //           text.material.visible = true;
-                  //           text.material.transparent = true;
-                  //       })
-                  //     }else if(tile.userData["skin"]=="bottom"){
-                  //       tile.material.visible = true;
-                  //       tile.material.opacity = 1
-                  //       tile.material.transparent = false;
-                  //       tile.children.forEach((text) => {
-                  //           text.material.opacity = 1;
-                  //           text.material.visible = true;
-                  //           text.material.transparent = true;
-                  //       })
-                  //     }
-                  // })
-
 
               }else{
                 cubes[i].mesh.children.forEach((item, idx) => {
@@ -11902,23 +11928,8 @@
         }
         requestAnimationFrame(animate);
 
-        //배경컨트롤
-        // scene.background = new THREE.Color(0x3e708d);
-        // gradback[0].material.visible=true;
-        // gradback[0].scale.y=100-1*activeFloor;
-        // gradback[0].position.y=bh*2+1*activeFloor;
-        // // scene.background = new THREE.Color(colorlst[colornum][0]);
-        // var newcl=hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-        // console.log(-isoAngle-camera.rotation.x)
-        // scene.background = new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%'+String(newcl["l"])+'%)');
-        // if(Math.abs(-isoAngle-camera.rotation.x)>0.01){
-        // scene.background = new THREE.Color('hsl('+String(newcl["h"])+', '+String(newcl["s"])+'%, '+String(newcl["l"]+45*Math.abs(-isoAngle-camera.rotation.x))+'%)');
-        // }else{
-        // 	scene.background = new THREE.Color(colorlst[colornum][0]);
-        // }
 
         if (!gameoverflag&&averageflag) {
-
           avx = 0;
           avz = 0;
             for (var i = 0; i < cubes.length; i++) {
@@ -12872,7 +12883,7 @@
               document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
               document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
               document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
-              document.getElementById('playing').style.color=hexToHtmlColor(colorlst[colornum][3])
+              document.getElementById('playing').style.color="#eeeeee"
               if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
               songInfo.classList.add("show1");
               songfade=elapsedTime;
@@ -13031,6 +13042,21 @@
                         document.getElementById('song-info').classList.add("hidden");
                         showinfo();
                         activeFloor = cubes.length;
+                        if(gamemod==2){
+                          cubes[cubes.length-1].mesh.children.forEach((item) => {
+                             if(item.userData["skin"]=="tile"){
+                               item.material.visible=false;
+                             }else if(item.userData["skin"]=="bottom"){
+                               item.material.visible=false;
+                             }else if(item.userData["skin"]==skinset[skinnum]){
+                               item.material.visible=true;
+                               item.material.opacity=1;
+                               item.material.alphaTest=item.material.opacity;
+                               item.material.transparent=false;
+                             }
+                          });
+
+                        }
                       }
                   }
               })
@@ -13251,8 +13277,8 @@
                                     tile.material.transparent = true;
                                   }else{
                                     tile.material.visible = true;
-                                    tile.material.opacity = 0.05;
-                                    tile.material.alphaTest = 0.05;
+                                    tile.material.opacity = tmb0;
+                                    tile.material.alphaTest = tmb0;
                                     tile.material.transparent = true;
                                   }
 
@@ -13657,8 +13683,13 @@
                 })
 
                 시간.forEach((item) => {
+                  if(gamemod==2){
+                    item.position.z=999;
+                  }else{
                     item.position.x = avx - bw / 2.5;
                     item.position.z = avz - bw / 1.5;
+                  }
+
 
 
                 })
@@ -13734,7 +13765,7 @@
                     }
                 }
                 createTextMesh(timestring, 998, (textMesh) => {
-                    textMesh.position.y = cubes.length * bh - th * 0.2
+                    textMesh.position.y = cubes.length * bh
                     textMesh.position.x = avx - bw / 2.5;
                     textMesh.position.z = avz - bw / 1.5;
                     // textMesh.position.x=0;
@@ -14136,8 +14167,8 @@
                       if(skinset[skinnum]!="classic"){
 
                         item.material.visible = true;
-                        item.material.opacity = 0.05;
-                        item.material.alphaTest = 0.05;
+                        item.material.opacity = tmb0;
+                        item.material.alphaTest = tmb0;
                         item.material.transparent = true;
                       }else{
                         item.material.visible = true;
@@ -16826,7 +16857,7 @@
       document.getElementById("popline1").children[2].innerText=t3;
       setTimeout(function() {
         document.getElementById("pop-info").style.top="-10vw";
-      }, 1500);
+      }, 2000);
     }
 
 
@@ -16959,8 +16990,13 @@
             restartloc.push(cubes[i].mesh.position);
             restartrot.push(cubes[i].mesh.rotation);
         }
-        ncolornum = parseInt(Math.random() * colorlst.length);
-        ncolornum0 = parseInt(Math.random() * colorlst0.length);
+        do{
+          ncolornum = parseInt(Math.random() * colorlst.length);
+        }while(색보정.indexOf(ncolornum)!=-1)
+
+        do{
+          ncolornum0 = parseInt(Math.random() * colorlst0.length);
+        }while(색보정0.indexOf(ncolornum0)!=-1)
         rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
         rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
         renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
@@ -17050,8 +17086,13 @@
             restartloc.push(cubes[i].mesh.position);
             restartrot.push(cubes[i].mesh.rotation);
         }
-        ncolornum = parseInt(Math.random() * colorlst.length);
-        ncolornum0 = parseInt(Math.random() * colorlst0.length);
+        do{
+          ncolornum = parseInt(Math.random() * colorlst.length);
+        }while(색보정.indexOf(ncolornum)!=-1)
+
+        do{
+          ncolornum0 = parseInt(Math.random() * colorlst0.length);
+        }while(색보정0.indexOf(ncolornum0)!=-1)
         rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
         rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
         renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
@@ -17083,8 +17124,13 @@
             restartloc.push(cubes[i].mesh.position);
             restartrot.push(cubes[i].mesh.rotation);
         }
-        ncolornum = parseInt(Math.random() * colorlst.length);
-        ncolornum0 = parseInt(Math.random() * colorlst0.length);
+        do{
+          ncolornum = parseInt(Math.random() * colorlst.length);
+        }while(색보정.indexOf(ncolornum)!=-1)
+
+        do{
+          ncolornum0 = parseInt(Math.random() * colorlst0.length);
+        }while(색보정0.indexOf(ncolornum0)!=-1)
         rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
         rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
         renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
@@ -17170,8 +17216,13 @@
               restartloc.push(cubes[i].mesh.position);
               restartrot.push(cubes[i].mesh.rotation);
           }
-          ncolornum = parseInt(Math.random() * colorlst.length);
-          ncolornum0 = parseInt(Math.random() * colorlst0.length);
+          do{
+            ncolornum = parseInt(Math.random() * colorlst.length);
+          }while(색보정.indexOf(ncolornum)!=-1)
+
+          do{
+            ncolornum0 = parseInt(Math.random() * colorlst0.length);
+          }while(색보정0.indexOf(ncolornum0)!=-1)
           rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
           renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
           rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
@@ -17472,8 +17523,13 @@
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
                     }
-                    ncolornum = parseInt(Math.random() * colorlst.length);
-                    ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    do{
+                      ncolornum = parseInt(Math.random() * colorlst.length);
+                    }while(색보정.indexOf(ncolornum)!=-1)
+
+                    do{
+                      ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    }while(색보정0.indexOf(ncolornum0)!=-1)
                     rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                     renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
                     rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
@@ -17514,8 +17570,13 @@
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
                     }
-                    ncolornum = parseInt(Math.random() * colorlst.length);
-                    ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    do{
+                      ncolornum = parseInt(Math.random() * colorlst.length);
+                    }while(색보정.indexOf(ncolornum)!=-1)
+
+                    do{
+                      ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    }while(색보정0.indexOf(ncolornum0)!=-1)
                     rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                     renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
                     rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
@@ -17556,8 +17617,13 @@
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
                     }
-                    ncolornum = parseInt(Math.random() * colorlst.length);
-                    ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    do{
+                      ncolornum = parseInt(Math.random() * colorlst.length);
+                    }while(색보정.indexOf(ncolornum)!=-1)
+
+                    do{
+                      ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    }while(색보정0.indexOf(ncolornum0)!=-1)
                     rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                     renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
                     rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
@@ -17656,8 +17722,13 @@
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
                     }
-                    ncolornum = parseInt(Math.random() * colorlst.length);
-                    ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    do{
+                      ncolornum = parseInt(Math.random() * colorlst.length);
+                    }while(색보정.indexOf(ncolornum)!=-1)
+
+                    do{
+                      ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    }while(색보정0.indexOf(ncolornum0)!=-1)
                     rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                     renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
                     rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
@@ -17788,8 +17859,13 @@
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
                     }
-                    ncolornum = parseInt(Math.random() * colorlst.length);
-                    ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    do{
+                      ncolornum = parseInt(Math.random() * colorlst.length);
+                    }while(색보정.indexOf(ncolornum)!=-1)
+
+                    do{
+                      ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    }while(색보정0.indexOf(ncolornum0)!=-1)
                     rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                     renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
                     rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
@@ -17835,8 +17911,13 @@
                   restartloc.push(cubes[i].mesh.position);
                   restartrot.push(cubes[i].mesh.rotation);
               }
-              ncolornum = parseInt(Math.random() * colorlst.length);
-              ncolornum0 = parseInt(Math.random() * colorlst0.length);
+              do{
+                ncolornum = parseInt(Math.random() * colorlst.length);
+              }while(색보정.indexOf(ncolornum)!=-1)
+
+              do{
+                ncolornum0 = parseInt(Math.random() * colorlst0.length);
+              }while(색보정0.indexOf(ncolornum0)!=-1)
               rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
               renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
               rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
@@ -18592,8 +18673,13 @@
                     restartloc.push(cubes[i].mesh.position);
                     restartrot.push(cubes[i].mesh.rotation);
                 }
-                ncolornum = parseInt(Math.random() * colorlst.length);
-                ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                do{
+                  ncolornum = parseInt(Math.random() * colorlst.length);
+                }while(색보정.indexOf(ncolornum)!=-1)
+
+                do{
+                  ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                }while(색보정0.indexOf(ncolornum0)!=-1)
                 rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                 renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
                 rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
@@ -18858,7 +18944,7 @@
 </div>
 
 <div id="tut-info">
-    <label> Touch the Tower</label>
+    <label>▲ Touch the Tower ▲</label>
 
 
 </div>
@@ -18880,6 +18966,7 @@
 <div id="intro" class="">
     <label>RAEK GAMES</label>
     <div>Touch to Start</div>
+    <b>랙</b>
 </div>
 
 <button id="leftup" onclick="showtut()">
