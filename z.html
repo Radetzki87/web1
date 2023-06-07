@@ -6087,7 +6087,7 @@
               dl2.color=new THREE.Color(0xffffff);
               dl2.intensity=0.6
               dl2.castShadow = true;
-              dl2.shadow.mapSize = new THREE.Vector2(10000, 10000);
+              dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
               if(gamemod==2){
                 dl2.intensity=0.65
 
@@ -13931,13 +13931,17 @@
                 if((window.innerWidth / window.innerHeight) > 0.5){
                   var width = window.innerWidth / 1.15;
                   var height = window.innerWidth / 1.15;
+                  var width1 = window.innerWidth / 1;
+                  var height1 = window.innerWidth / 1;
                 }else{
                   var width = window.innerWidth / 1;
                   var height = window.innerWidth / 1;
+                  var width1 = window.innerWidth / 1;
+                  var height1 = window.innerWidth / 1;
                 }
 
                 renderer.setViewport(window.innerWidth / 2 - width / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
-                renderer.setScissor(window.innerWidth / 2 - width / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
+                renderer.setScissor(window.innerWidth / 2 - width1 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
                 renderer.setScissorTest(true);
                 renderer.render(scene, topViewCamera);
             } else if ((window.innerWidth / window.innerHeight) > 13 / 8) {
