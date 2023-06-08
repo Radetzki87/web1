@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=0.55, maximum-scale=0.55, minimum-scale=0.55, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, maximum-scale=0.6, minimum-scale=0.6, user-scalable=0">
     <title>2048 BRIX</title>
     <style>
         body {
@@ -926,7 +926,7 @@
         #intro b{
           opacity:1;
           position: absolute;
-          left:40vw;
+          left:34vw;
           top:18vh;
           -webkit-transform: rotate(-90deg);
           color:black;
@@ -940,16 +940,16 @@
           top:35vh;
           color:black;
 
-          font-size: 4vh;
+          font-size: 2.5vh;
         }
 
         #intro div{
           opacity:0;
           position: relative;
           left:2vw;
-          top:60%;
+          top:70%;
           color:white;
-          font-size: 8vw;
+          font-size: 6vw;
           transition: opacity 1s;
         }
 
@@ -1047,6 +1047,8 @@
         }
 
         .gameinfo1 {
+            top:12%;
+            position: absolute;
             font-size: 15vw;
             color:white;
             display: inline-flex;
@@ -1060,8 +1062,8 @@
             justify-content: center;
             align-items:baseline;
             margin-bottom: 3vw;
-            padding-left: 5vw;
-            /* padding-bottom: 4vw; */
+            padding-left: 4vw;
+            padding-top: 1vh;
 
         }
 
@@ -1076,6 +1078,8 @@
 
 
         .gameinfo0 {
+            top:25%;
+            position: absolute;
             font-size: 7vw;
             color:white;
             display: inline-flex;
@@ -1085,7 +1089,7 @@
             border-radius: 4vw;
             border: 0px solid #000;
             width: 75%;
-            height: 15%;
+            height: 10%;
             justify-content: center;
             align-items: center;
             margin-bottom: 5vw;
@@ -1093,6 +1097,7 @@
         }
 
         .gameinfo {
+            /* top:45%; */
             font-size: 2vw;
             color:white;
             display: flex;
@@ -1106,7 +1111,7 @@
             justify-content:flex-start;
             align-items: left;
             margin-bottom: 0vw;
-            margin-top: 0vw;
+            margin-top: 40%;
             padding-left: 2vw;
             padding-bottom: 3vw;
 
@@ -1818,6 +1823,11 @@
 
     var 색보정0=[7,81,114,104]
 
+    var 팝리스트=[false, false, false, false, false]
+
+    var swing=false;
+    var swingta=0;
+    var swingtb=0;
 
     var tuttxt1="▲ Touch the Tower ▲"
     var tuttxt2="▼ Swipe the Numbers ▼"
@@ -1970,12 +1980,11 @@
     var shadowon = true;
     var initflag = true;
 
-    let skinset = ["base","lofi","hotel", "brick1", "brick2","gb", "classic","카세트", "r808", "space","archer", "radio", "donut", "building", "tower",  "adam"]
+    let skinset = ["base","hiphop","lofi","hotel", "brick1", "brick2","gb", "classic","카세트", "r808", "space","archer", "radio", "donut", "building", "tower",  "adam"];
     window.skinset=skinset;
     skinset.forEach((item)=>{
       skinmold[item]=[];
     })
-
 
     let skinnum = 0;
     window.skinnum=skinnum;
@@ -4831,6 +4840,7 @@
                     if (!startflag) {
                         startflag = true
                         elapsedTime=0;
+                        팝리스트=[false,false,false,false,false]
                     }
                     activeFloor = j;
                     // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
@@ -5371,7 +5381,7 @@
         sideViewCamera.position.set(bw * 1.5, bw * 0.8, 0);
         sideViewCamera.lookAt(0, bw * 0.8, 0);
     }
-    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.3, bw / 1.3, bw / 1.3, -bw / 1.3, 0.1, 1000);
+    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.1, bw / 1.1, bw / 1.1, -bw / 1.1, 0.1, 1000);
     topViewCamera.position.set(0, bh * 20, 0);
     topViewCamera.lookAt(0, 0, 0);
     // var color = 0xFFFFFF;
@@ -6191,7 +6201,10 @@
         maxnum=0;
         soundic[endsound]?.setVolume(0.4)
         sideback=[];
-
+        팝리스트=[false, false, false, false, false];
+        swing=false;
+        swingta=0;
+        swingtb=0;
         resetting(stack, function(object) { //재시작
             msetting0(function(object) {
                 if(gamemod!=2){
@@ -7017,6 +7030,128 @@
                           mesh.add(object.children[0]);
                       });
                   });
+
+                  //hiphop
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/hiphop-0.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57;
+                      object.children[0].scale.z = 2.57;
+                      object.children[0].scale.y = 2.57;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "hiphop"
+                      object.children[0].userData["skintype"] =2;
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: colorlst0[colornum0][idx]
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst2[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/hiphop-1.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57;
+                      object.children[0].scale.z = 2.57;
+                      object.children[0].scale.y = 2.57;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "hiphop"
+                      object.children[0].userData["skintype"] =0;
+
+                      var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"]*0.6) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/hiphop-2.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57;
+                      object.children[0].scale.z = 2.57;
+                      object.children[0].scale.y = 2.57;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "hiphop"
+                      object.children[0].userData["skintype"] =1;
+                      var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] *1.25) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst1[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/hiphop-3.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/hiphop-3.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
+                          object.children[0].userData["skin"] = "hiphop"
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
                   //lofi
                   var loader = new OBJLoader();
                   // Load OBJ file
@@ -12767,21 +12902,73 @@
                 item.material.visible = false;
             })
         }
+        var tempflag=true;
 
-        if(parseInt(elapsedTime*300)==300*60){
-          showpop("1분 경과:","","+300pt",0)
-          점수+=100;
+        for (var i = 0; i < cubes.length; i++) {
+          if (Math.abs(cubes[i].mesh.rotation.x) > 0.08 || Math.abs(cubes[i].mesh.rotation.z) > 0.08){
+              tempflag=false;
+              if(!swing){
+                swing=true;
+                swingta=elapsedTime;
+              }
+          }
         }
 
-        if(parseInt(elapsedTime*300)==300*360){
-          showpop("3분 경과:","","+300pt",0)
-          점수+=300;
+        if(swing&&tempflag&&!gameoverflag){
+          if(elapsedTime-swingta>4){
+            showpop("곡예 Lv4:","","+500pt",0)
+            점수+=500;
+          }else if(elapsedTime-swingta>3){
+            showpop("곡예 Lv3:","","+300pt",0)
+            점수+=500;
+          }else if(elapsedTime-swingta>2){
+            showpop("곡예 Lv2:","","+200pt",0)
+            점수+=300;
+          }else if(elapsedTime-swingta>1){
+            showpop("곡예 Lv1:","","+100pt",0)
+            점수+=100;
+          }
+          swing=false;
+
         }
 
-        if(parseInt(elapsedTime*300)==300*600){
-          showpop("10분 경과:","","+300pt",0)
-          점수+=1000;
+
+
+        if(!팝리스트[0]&&startflag){
+          if(elapsedTime>180){
+            showpop("3분 경과:","","+300pt",0)
+            점수+=200;
+            팝리스트[0]=true;
+          }
         }
+
+        if(!팝리스트[1]&&startflag){
+          if(elapsedTime>300){
+            showpop("5분 경과:","","+500pt",0)
+            점수+=500;
+            팝리스트[1]=true;
+          }
+
+        }
+
+        if(!팝리스트[2]&&startflag){
+          if(elapsedTime>600){
+            showpop("10분 경과:","","+1000pt",0)
+            점수+=1000;
+            팝리스트[2]=true;
+          }
+        }
+
+        if(!팝리스트[3]&&startflag){
+          if(elapsedTime>900){
+            showpop("15분 경과:","","+2000pt",0)
+            점수+=2000;
+            팝리스트[3]=true;
+          }
+        }
+
+
+
         // if(elapsedTime - stacktime < 0.5){
         //   cubes[cubes.length-1].mesh.scale.set(0.8+1*(elapsedTime - stacktime), 0.8+1*(elapsedTime - stacktime),0.8+1*(elapsedTime - stacktime))
         // }else if(elapsedTime - stacktime < 0.8){
@@ -13676,7 +13863,6 @@
                     }
                 }
 
-
             }
         }else{
           for (var i = 0; i < cubes.length; i++) {
@@ -13696,7 +13882,7 @@
         }
         // Update the physics world
 
-        if(startflag)world.step(1 / 60);
+        if(startflag)world.step(1 / 60, deltaTime, 1);
         if (!restartflag) {
             cubes.forEach((item) => {
                 // item.mesh.position.copy(item.mesh.userData.body.position);
@@ -13706,6 +13892,15 @@
                   item.mesh.position.copy(item.body.position);
                   item.mesh.quaternion.copy(item.body.quaternion);
                   item.mesh.position.z+=bh/4.4;
+                }else if(skinset[skinnum]=="base"){
+                  item.mesh.scale.set(1,1,1)
+                  item.mesh.position.copy(item.body.position);
+                  item.mesh.quaternion.copy(item.body.quaternion);
+                  item.mesh.children.forEach((tile) => {
+                    if(tile.userData["skin"]=="base"){
+                      tile.scale.y=0.99
+                    }
+                  });
                 }else{
                   item.mesh.scale.set(1,1,1)
                   item.mesh.position.copy(item.body.position);
@@ -16956,8 +17151,8 @@
       document.getElementById("pop-info").classList.remove("fade");
       document.getElementById("pop-info").classList.add("show");
       document.getElementById("pop-info").style.backgroundColor=hexToHtmlColor(colorlst[colornum][3]);
-      document.getElementById("pop-info").style.opacity=0.6;
-      document.getElementById("popline1").style.color=hexToHtmlColor(colorlst[colornum][2]);
+      document.getElementById("pop-info").style.opacity=0.7;
+      document.getElementById("popline1").style.color=hexToHtmlColor(colorlst[colornum][0]);
       document.getElementById("popline1").children[0].innerText=t1;
       document.getElementById("popline1").children[1].innerText=t2;
       document.getElementById("popline1").children[2].innerText=t3;
@@ -16998,10 +17193,10 @@
             document.getElementById("시간").classList.remove("fade");
             document.getElementById("시간").children[0].innerText="시간 : "
             if(gamemod==2){
-              document.getElementById("시간").children[1].innerText=String(parseInt(parseInt(elapsedTime)))+" (× 0.1)";
+              document.getElementById("시간").children[1].innerText=String(parseInt(parseInt(elapsedTime)))+"s (× 0.1)";
               document.getElementById("시간").children[2].innerText=String(parseInt(parseInt(elapsedTime)/10))+"★"
             }else{
-              document.getElementById("시간").children[1].innerText=String(parseInt(elapsedTime))+" (× 0.1)";
+              document.getElementById("시간").children[1].innerText=String(parseInt(elapsedTime))+"s (× 0.1)";
               document.getElementById("시간").children[2].innerText=String(parseInt(elapsedTime/10))+"★"
             }
             pluscoin+=parseInt(elapsedTime/10);
