@@ -33,9 +33,7 @@
             width: 10vw;
             height: 10vw;
             z-index: 2;
-
         }
-
 
         #fps{
           left:45%;
@@ -1844,6 +1842,7 @@
     var 두께=0.35;
 
     let lastTime = 0;
+    let lastTime2 = 0;
 
     var restartonce1=false;
     var restartonce2=false;
@@ -11711,6 +11710,10 @@
     function animate(currentTime) {
         let deltaTime = currentTime - lastTime;
 
+        // console.log(elapsedTime);
+
+        let deltaTime2= elapsedTime - lastTime2;
+
         if (startflag&&!gameoverflag) { //스타트
             restartonce2=false;
             // console.log(colornum);
@@ -13882,7 +13885,7 @@
         }
         // Update the physics world
 
-        if(startflag)world.step(1 / 60, deltaTime, 1);
+        if(startflag) world.step(1 / 60, deltaTime2, 1);
         if (!restartflag) {
             cubes.forEach((item) => {
                 // item.mesh.position.copy(item.mesh.userData.body.position);
@@ -14500,6 +14503,7 @@
             item.material.transparent = false;
         })
         lastTime = currentTime;
+        lastTime2= elapsedTime;
 
 
 
