@@ -6955,7 +6955,7 @@
                       }
                       mesh.add(object.children[0]);
                   });
-                  if (idx == 4) {
+
                       var loader = new OBJLoader();
                       // Load OBJ file
                       // loader.setMaterials(materials);
@@ -6969,7 +6969,7 @@
                           // object.children[0].scale.z=2.25;
                           // object.children[0].scale.y=1.92;
                           object.children[0].userData["skin"] = "archer"
-                          object.children[0].userData["skintype"] =2;
+                          object.children[0].userData["skintype"] ="top";
                           var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
                           var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] - 5) + '%)');
                           object.children[0].material = new THREE.MeshLambertMaterial({
@@ -6983,9 +6983,9 @@
                           if(idx==0){
                             skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
                           }
-                          mesh.add(object.children[0]);
+                          // mesh.add(object.children[0]);
                       });
-                  }
+
                   var loader = new OBJLoader();
                   // Load OBJ file
                   // loader.setMaterials(materials);
@@ -7771,7 +7771,7 @@
                   // loader.setMaterials(materials);
                   loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick2-0.obj', (object) => {
                       object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].position.set(0, -bh/2, 0)
                       object.children[0].scale.x = 2.57;
                       object.children[0].scale.z = 2.57;
                       object.children[0].scale.y = 2.57;
@@ -7798,7 +7798,7 @@
                   // loader.setMaterials(materials);
                   loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick2-1.obj', (object) => {
                       object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].position.set(0, -bh/2, 0)
                       object.children[0].scale.x = 2.57;
                       object.children[0].scale.z = 2.57;
                       object.children[0].scale.y = 2.57;
@@ -7828,7 +7828,7 @@
                   // loader.setMaterials(materials);
                   loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick2-2.obj', (object) => {
                       object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].position.set(0, -bh/2, 0)
                       object.children[0].scale.x = 2.57;
                       object.children[0].scale.z = 2.57;
                       object.children[0].scale.y = 2.57;
@@ -7863,7 +7863,7 @@
                       loader.setMaterials(materials);
                       loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick2-3.obj', (object) => {
                           object.children[0].rotation.y = Math.PI / 2
-                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].position.set(0, -bh/2, 0)
                           object.children[0].scale.x = 2.57;
                           object.children[0].scale.z = 2.57;
                           object.children[0].scale.y = 2.57;
@@ -7882,6 +7882,37 @@
                             skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
                           }
                           mesh.add(object.children[0]);
+                      });
+                  });
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick2-4.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load('https://raw.githubusercontent.com/Radetzki87/web1/master/brick2-4.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, -bh/2, 0)
+                          object.children[0].scale.x = 2.57;
+                          object.children[0].scale.z = 2.57;
+                          object.children[0].scale.y = 2.57;
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
+                          object.children[0].userData["skin"] = "brick2"
+                          object.children[0].userData["skintype"] ="top";
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          // mesh.add(object.children[0]);
                       });
                   });
 
@@ -11962,7 +11993,7 @@
                     cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) + (restartloc[i].y) * 1.39 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].y * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     if(skinset[skinnum]=="classic"){
-                      cubes[i].mesh.position.z=cubes[i].body.position.z
+                      // cubes[i].mesh.position.z=cubes[i].body.position.z
                     }
                 }
             }
@@ -15073,12 +15104,23 @@
               // 		tg.applyMatrix4(originHelper.matrixWorld);
               // geoms.push(tg)
 
+
               var moldkey=Object.keys(skinmold);
               moldkey.forEach((item) => {
                 skinmold[item].forEach((obj) => {
                   let obj1=obj.clone();
                   let mat1=obj.material.clone();
-                  if(obj1.userData["skintype"]==0){
+                  if(obj1.userData["skintype"]=="top"){
+                    if(idx==4){
+                      obj1.material=mat1
+                    }else{
+                      return;
+                    }
+
+
+
+
+                  }else if(obj1.userData["skintype"]==0){
                     obj1.material=new THREE.MeshLambertMaterial({
                         color: newcolor3
                     });
@@ -15097,6 +15139,7 @@
                     obj1.material=mat1
                     // if(!flag) clmeshlst[idx].push(obj1.material);
                   }
+
                   if (shadowon) {
                       obj1.receiveShadow = true;
                       obj1.castShadow = true;
@@ -17335,7 +17378,6 @@
     }
 
 
-
     async function fetchCSV(url) {
         if(true){
           const response = await fetch(url);
@@ -17367,9 +17409,7 @@
 
         }
         // Fetch the CSV data from the URL
-
     }
-
     function skinpay() {
         const button1 = document.getElementById('button1');
         const button2 = document.getElementById('button2');
@@ -18454,7 +18494,7 @@
 
     var themelst = ["wooden", "lofi", "retro", "808", "hiphop"];
     var imglst = ["0.png", "1.png", "2.png", "3a.png", "7.png"];
-    var imglst1 = ["s00.png", "s01.png", "s02.png", "s03.png", "s04.png"];
+    var imglst1 = ["s00.png", "lofi.png", "s01.png", "808.png", "hiphop.png"];
     var templst = [];
     var templst0 = ["0","2","4","8","16","32","64","128","256","512","1024","2048"]
 
@@ -19470,7 +19510,7 @@
                 <h1 class="title">THEME</h1>
                 <button class="cat-button" onclick="showGrid(0)">
                     <img src="png/0.png" alt="Mute" >
-                    CUBE (DEFAULT)
+                    BRIX (DEFAULT)
                     <div class="color4"></div>
 
                 </button>
@@ -19494,7 +19534,7 @@
                     <div class="color4"></div>
 
                 </button>
-                <button class="cat-button unpaid hidden" onclick="showGrid(4)">
+                <button class="cat-button unpaid" onclick="showGrid(4)">
                     <img src="png/7.png" alt="Mute">
                     hiphop
                     <div class="color4"></div>
