@@ -1801,7 +1801,7 @@
 </head>
 <body>
 
-  <script type="x-shader/x-vertex" id="vertexshader">
+<script type="x-shader/x-vertex" id="vertexshader">
     attribute float scale;
 		void main() {
 			vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
@@ -1809,7 +1809,7 @@
 			gl_Position = projectionMatrix * mvPosition;
 		}
 	</script>
-  <script type="x-shader/x-fragment" id="fragmentshader">
+<script type="x-shader/x-fragment" id="fragmentshader">
     uniform vec3 color;
 		void main() {
 			if ( length( gl_PointCoord - vec2( 0.5, 0.5 ) ) > 0.475 ) discard;
@@ -1818,7 +1818,7 @@
 	</script>
 
 
-  <script src="build/cannon.min.js"></script>
+<script src="build/cannon.min.js"></script>
   <script type="importmap">
       {
     "imports": {
@@ -1876,6 +1876,7 @@
     var goahead=false;
 
     var onceflag0=true;
+    var onceflag1=true;
 
     var bf;
     window.bf=bf;
@@ -1981,7 +1982,7 @@
     let bestscore2=20;
     window.bestscore2 = bestscore2;
 
-    let coin = 25;
+    let coin = 20000;
     window.coin = coin;
     let pluscoin = 0;
     let 가장자리 = [];
@@ -4853,11 +4854,15 @@
                   // camera.updateProjectionMatrix();
 
 
-                    skinnum++;
-                    if (skinnum >= skinset.length) {
-                        skinnum = 0;
-                    }
-                    bf=999;
+                    // skinnum++;
+                    // if (skinnum >= skinset.length) {
+                    //     skinnum = 0;
+                    // }
+                    // bf=999;
+                    Android.showToast("??");
+                    initdb();
+                    loaddb()
+
                     // // if(!rotationflag){
                     // // 	lookcenter=false
                     // // 	rotationflag=true
@@ -6303,6 +6308,7 @@
           camera.position.y= bh * (cubes.length+3.5)
         }
         onceflag0=true;
+        onceflag1=true
 
         if(greylst.indexOf(ncolornum)!=-1){
           document.getElementById("left").classList.add("locked")
@@ -11808,7 +11814,7 @@
             listener= new THREE.AudioListener();
             // soundic[endsound].setVolume(0.4);
             if(!webflag){
-              Android.loadDb()
+              loaddb();
               // initdb()
             }else{
               getdb()
@@ -11884,6 +11890,7 @@
 
             // uilst[0].material.visible=false;
             if (initflag) {
+
 
               document.getElementById("coin-info").classList.remove("show");
               document.getElementById("coin-info").classList.add("fade");
@@ -11968,7 +11975,6 @@
         }
         if (restartflag && lookcenter) { //리스타트
             if(!restartonce1){
-
               // 포인트.forEach((item) => {
               //     item.material.visible = false;
               // })
@@ -11992,13 +11998,14 @@
               document.getElementById('song-info').classList.add("hidden");
 
               for (var i = 0; i < cubes.length; i++) {
-                  cubes[i].mesh.children.forEach((item, idx) => {
+                  cubes[i].mesh.children.forEach((item) => {
                     if (item.userData["skin"]=="tile") {
                       item.material.visible=false;
                     }
                   });
               }
               restartonce1=true;
+              console.log("뿅")
             }
             if (camera.rotation.x - restartend >0) {
                 restartonce1=false;
@@ -12209,12 +12216,29 @@
                     document.getElementById("right").children[0].style.display = ""
 
                   onceflag0=false;
+
+
+                  // console.log("콩")
                 }
 
 
             } else if(-isoAngle==camera.rotation.x){
               restartflag=false;
             }else{
+              if(onceflag1){
+
+
+                onceflag1=false;
+
+                for (var i = 0; i < cubes.length; i++) {
+                    cubes[i].mesh.children.forEach((item) => {
+                      if (item.userData["skin"]=="tile") {
+                        item.material.visible=false;
+                      }
+                    });
+                }
+                console.log("콩")
+              }
 
                 // camera.rotation.x -= Math.PI / 256
                 camera.rotation.x -= deltaTime / 1200
@@ -14019,10 +14043,7 @@
                                 }
                               });
 
-                              // mouth1[i].material.visible = false;
-                              // mouth2[i].material.visible = true;
-                              // eye1[i][0].material.color = new THREE.Color(0xFFA401);
-                              // eye1[i][1].material.color = new THREE.Color(0xFFA401);
+
                             } else {
 
                               cubes[i].mesh.children.forEach((item) => {
@@ -17590,7 +17611,7 @@
           })
           return dict;
         }else{
-          Android.loadDb()
+          loaddb();
           return sdic;
 
         }
@@ -17695,11 +17716,12 @@
     }
 
     function retry() {
-      coin+=pluscoin;
-      if(!webflag) setdb("data", "0", String(coin));
-      document.getElementById("coin2").innerText=String(coin);
+      // coin+=pluscoin;
+      contract(-pluscoin,[])
+      // if(!webflag) setdb("data", "0", String(coin));
+      // document.getElementById("coin2").innerText=String(coin);
       if(점수>bestscore){
-        if(!webflag) setdb("data", "2", String(점수));
+        if(!webflag) setdb([["data", "2", String(점수)]]);
         bestscore=점수
       }
 
@@ -17796,8 +17818,7 @@
 
 
     function initdb(){
-      Android.saveDb("idx탭type탭name탭0탭2탭4탭8탭16탭32탭64탭128탭256탭512탭1024탭2048탭up탭down탭left탭right탭upper탭lower탭title탭producer탭unlock탭price탭cash탭final냅0탭wooden탭wooden탭dance_loop0.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Dance Hall탭AKI PRO탭0탭44탭0탭1냅1탭lofi탭lofi_slowdown탭slowdown.ogg탭4.ogg탭LoFi-Kick-ADSR Kick Slam.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Snare-ADSR Snr 1.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Kick-ADSR Kick Punch.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Slow Down탭AKI PRO탭1탭45탭1탭1냅2탭lofi탭lofi_touch탭touch.ogg탭4.ogg탭LoFi-Kick-ADSR Touch Kick 1.WAV탭LoFi-Snare-ADSR OV Snr 1.WAV탭LoFi-Snare-ADSR OV Snr 2.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Loop-ADSR Touch Syn.WAV탭LoFi-Loop-ADSR Touch Bass.WAV탭LoFi-HiHat-ADSR Crash.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Touch Perc 3.WAV탭LoFi-Perc-ADSR Touch Perc 3.WAV탭LoFi-HiHat-ADSR Touch Hat 1.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Touch탭AKI PRO탭1탭46탭1탭1냅3탭lofi탭lofi_bedroom탭bedroom.ogg탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Clap-ADSR Clap Delay.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭LoFi-SFX-ADSR SFX.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Bedroom탭AKI PRO탭1탭47탭1탭1냅4탭lofi탭lofi_somepluk탭somepluk.ogg탭4.ogg탭LoFi-Kick-ADSR Kick Lite.WAV탭LoFi-Snare-ADSR Rim.WAV탭LoFi-Perc-ADSR Perc 6.WAV탭LoFi-Snare-ADSR SnarePit.WAV탭LoFi-Kick-ADSR Kick Pop.WAV탭LoFi-Hit-ADSR Pluck Cmaj7.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Some Pluk탭AKI PRO탭1탭48탭1탭1냅5탭lofi탭lofi_midnight탭midnight.ogg탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Snare-ADSR Snr 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭IbizaHouse-Vocal-IH Vox 05.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Midnight탭AKI PRO탭1탭49탭1탭1냅6탭lofi탭lofi_smokeit탭LoFi-Loop-Music-LS Smoke It G.WAV탭4.ogg탭LoFi-Kick-LS Smoke It Kik 1.WAV탭LoFi-Snare-LS Smoke It Snare 1.WAV탭LoFi-Snare-LS Smoke It Snare 2.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Kick-LS Smoke It 808.WAV탭LoFi-Snare-LS Smoke It Snare 3.WAV탭LoFi-Perc-LS Smoke It Woody.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Smoke It탭AKI PRO탭1탭50탭1탭1냅7탭lofi탭new1탭LoFi-Loop-Music-LS ML 13 120 C.WAV탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Clap-ADSR Clap Delay.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭LoFi-SFX-ADSR SFX.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭LoFI_120 C탭AKI PRO탭1탭51탭1탭1냅8탭lofi탭new2탭LoFi-Loop-Music-LS ML 13 120 C.WAV탭4.ogg탭LoFi-Kick-ADSR Kick Lite.WAV탭LoFi-Snare-ADSR Rim.WAV탭LoFi-Perc-ADSR Perc 6.WAV탭LoFi-Snare-ADSR SnarePit.WAV탭LoFi-Kick-ADSR Kick Pop.WAV탭LoFi-Hit-ADSR Pluck Cmaj7.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭LoFI_94 A#탭AKI PRO탭1탭52탭1탭1냅9탭lofi탭new3탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Snare-ADSR Snr 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭IbizaHouse-Vocal-IH Vox 05.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭LoFI_115 Cm탭AKI PRO탭1탭53탭1탭1냅10탭retro탭ibiza_deep탭IbizaHouse-Synth-Loop.ogg탭4.ogg탭IbizaHouse-Kick-IH Kick 09.WAV탭IbizaHouse-Clap-IH Clap 05.WAV탭IbizaHouse-Snare-IH Snare 05.WAV탭IbizaHouse-Bass-IH Bass Db 05.WAV탭IbizaHouse-Kick-IH Kick 10.WAV탭IbizaHouse-Vocal-IH Vox 09.WAV탭IbizaHouse-Vocal-IH Vox 10.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭IbizaHouse-Hat-IH Hat 13.WAV탭IbizaHouse-Hat-IH Hat 15.WAV탭IbizaHouse-Hat-IH Hat 14.WAV탭IbizaHouse-Hat-IH Hat 13.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭IbizaHouse탭AKI PRO탭1탭54탭0탭1냅11탭retro탭ibiza_give탭IbizaHouse-Synth-Loop.ogg탭4.ogg탭IbizaHouse-Kick-IH Kick 05.WAV탭IbizaHouse-Clap-IH Clap 03.WAV탭IbizaHouse-Snare-IH Snare 03.WAV탭IbizaHouse-Bass-IH Bass D 03.WAV탭IbizaHouse-Kick-IH Kick 06.WAV탭IbizaHouse-Vocal-IH Vox 06.WAV탭IbizaHouse-Vocal-IH Vox 05.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭IbizaHouse-Hat-IH Hat 09.WAV탭IbizaHouse-Hat-IH Hat 09.WAV탭IbizaHouse-Hat-IH Hat 08.WAV탭IbizaHouse-Hat-IH Hat 08.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭IbizaHouse탭AKI PRO탭1탭55탭0탭1냅12탭retro탭lofi_withu탭LoFi-Loop-Music-LS With U Lp.WAV탭4.ogg탭LoFi-Kick-LS With U Kick 1.WAV탭LoFi-Snare-LS With U Snare 1.WAV탭LoFi-Perc-LS With U Cave.WAV탭LoFi-Snare-LS With U Snare 3.WAV탭LoFi-Vocal-LS With U Vox 1.WAV탭LoFi-Kick-LS With U 808.WAV탭LoFi-Vocal-LS With U Vox 2.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-LS With U Rim.WAV탭LoFi-Perc-LS With U Rim.WAV탭LoFi-HiHat-LS With U Hats 1.WAV탭LoFi-HiHat-LS With U Hats 1.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭With You탭AKI PRO탭1탭56탭0탭1냅13탭retro탭trap_cellar탭Trap-Synth-TR CK SynLp G.WAV탭4.ogg탭Trap-Hat-TR CK 07 Hats.WAV탭Trap-Kick-TR CK 01 Kick.WAV탭Trap-Snare-TR CK 01 Snare.WAV탭Trap-Perc-TR CK 01 Perc.WAV탭Trap-Snap-TR CK Snap 2.WAV탭Trap-Bass-TR CK BassHit C.WAV탭Trap-Vocal-TR CK 06 Vox.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Cellar탭AKI PRO탭1탭57탭0탭1냅14탭retro탭rnb_demo탭FutureHouse-Loop-Synth-17 Lp D 126.WAV탭4.ogg탭Trap-Kick-Trap Classic Kick.WAV탭Trap-Snare-Trap Classic Snr 3.WAV탭Trap-Perc-TR OV Perc.WAV탭RnB-Snap-RSK3 Snp1.WAV탭Trap-Bass-TR OV 808 Kick.WAV탭Trap-Snare-TR OV Snr 1.WAV탭Trap-Tom-TR OV Luv Hi Tom.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭rnb_demo탭AKI PRO탭1탭58탭0탭1냅15탭retro탭hiphop_demo탭HipHop-Bass-MSXII Shinez.WAV탭4.ogg탭HipHop-Kick-MSXII Shinez 01.WAV탭HipHop-Snare-MSXII Shinez 01.WAV탭HipHop-Kick-MSXII Shinez 02.WAV탭HipHop-Snare-MSXII Shinez 02.WAV탭HipHop-Chord-MSXII Shinez Abmin.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭HipHop-Synth-Arps-MSXII Shinez.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭HipHop-Hat-MSXII Shinez 01.WAV탭HipHop-Hat-MSXII Shinez 01.WAV탭HipHop-Hat-MSXII Shinez 01.WAV탭HipHop-Hat-MSXII Shinez 01.WAV탭11.ogg탭11.ogg탭hiphop_demo탭AKI PRO탭1탭59탭0탭1냅16탭retro탭boombap_91탭BoomBap-Melodic-RetroSciFictAm.WAV탭4.ogg탭BoomBap-Kick-MSXII Slum 02.WAV탭BoomBap-Snare-MSXII Felah 02.WAV탭BoomBap-Kick-MSXII Swag City 02.WAV탭BoomBap-FX-HH FE Zap.WAV탭BoomBap-Clap-MSXII Mashed.WAV탭LoFi-Kick-ADSR Kick Punch.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭RnB-Snap-RSK3 Snp1.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭11.ogg탭11.ogg탭boombap_91탭AKI PRO탭1탭60탭0탭1냅17탭retro탭boombap_grid탭BoomBap-Melodic-HoustonSky70Fm.WAV탭4.ogg탭BoomBap-Kick-HH Kick 07.WAV탭BoomBap-Snare-HH DWK Snare 1.WAV탭BoomBap-Cymbal-HH TBC Cym 1.WAV탭BoomBap-Snare-MSXII Felah 02.WAV탭BoomBap-Clap-MSXII Mashed.WAV탭LoFi-Kick-ADSR Kick Punch.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭RnB-Snap-RSK3 Snp1.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭11.ogg탭11.ogg탭boombap_grid탭AKI PRO탭1탭61탭0탭1냅18탭retro탭rnb_kit09탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭RnB-Kick-RSK9 Kik.WAV탭RnB-Snare-RSK9 Snr.WAV탭RnB-Cymbal-RSK9 Crs.WAV탭RnB-Melodic-RSK9 Pno1.WAV탭RnB-Melodic-RSK9 Pno2.WAV탭RnB-Melodic-RSK9 Bas1.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭RnB-Melodic-RSK9 Bas2.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭RnB-Perc-RSK9 Prc.WAV탭RnB-Perc-RSK9 Prc.WAV탭RnB-Perc-RSK9 Shkr.WAV탭RnB-Perc-RSK9 Shkr.WAV탭11.ogg탭11.ogg탭rnb_kit09탭AKI PRO탭1탭62탭0탭1냅19탭808탭dancehall_floor탭DanceHall-Melodic-Vibes Lp 4.WAV탭4.ogg탭DanceHall-Kick-Anthem Kik .WAV탭DanceHall-Kick-Anth Bang.WAV탭DanceHall-Clap-Luv Clap 1.WAV탭DanceHall-Snap-MC2 Snap .WAV탭DanceHall-Clap-MC01 Clp 1.WAV탭DanceHall-Perc-FilthK Perc.WAV탭DanceHall-Vocal-MC05 Voc .WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭DanceHall-Hat-CP MelHH2.WAV탭DanceHall-Hat-CP MelHH2.WAV탭DanceHall-Hat-Dirt1 Hat 2.WAV탭DanceHall-Hat-Dirt1 Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭dancehall_floor탭AKI PRO탭1탭63탭0탭1냅20탭808탭future04탭FutureBass-Loop-Synth-FD synEb1.WAV탭4.ogg탭FutureBass-Bass-FD guessG.WAV탭FutureBass-Kick-FD coment.WAV탭FutureBass-Cymbal-FD silcone.WAV탭FutureBass-Clap-FD oldskool.WAV탭FutureBass-Clap-FD snip.WAV탭FutureBass-FX-FD eight.WAV탭FutureBass-Vocal-FD faithvox1Eb.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭FutureBass-Hat-FD gest.WAV탭FutureBass-Hat-FD gest.WAV탭FutureBass-Hat-FD kitchen.WAV탭FutureBass-Hat-FD kitchen.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭future04탭AKI PRO탭1탭64탭0탭1냅21탭808탭funk_minneapolis탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭Funk-Bass-F9 MH Cadi Bs 1 E.WAV탭Funk-Bass-F9 MH Cadi Bs 2 E.WAV탭Funk-Clap-F9 MH Minn FX Clap.WAV탭Funk-Bass-F9 MH CMI Bass E.WAV탭Funk-Bass-F9 MH JP Growl Bs E.WAV탭Funk-Synth-F9 MH Wiseguy E.WAV탭Funk-Bass-F9 MH P Slide E.WAV탭Funk-Synth-F9 MH MegaPoly E.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭Funk-Kick-F9 MH Minn AMS Kick.WAV탭Funk-Snare-F9 MH Minn Snare.WAV탭Funk-Tom-F9 MH MInn Hi 88 Cnga.WAV탭Funk-Tom-F9 MH MInn Low 88 Cnga.WAV탭11.ogg탭11.ogg탭funk_minneapolis탭AKI PRO탭1탭65탭0탭1냅22탭808탭trap_demo탭Trap-Melodic-TR MX T Vision.WAV탭4.ogg탭Urban-Kick-Heat3 SKick.WAV탭Urban-Snare-Heat3 SRoll1.WAV탭Urban-Snare-Heat3 Snr.WAV탭Trap-Snap-TR MX Push Snap 2.WAV탭Trap-Clap-TR MX  Clp 1.WAV탭Urban-Cymbal-Heat3 Cym.WAV탭Trap-FX-TR MX  Sfx 2.WAV탭Urban-Clap-Heat3 CLG.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭Trap-Hat-TR MX Drill HH.WAV탭Urban-HiHat-Heat3 HH1.WAV탭Trap-Perc-TR MX Tri 01.WAV탭Trap-Kick-TR MX Kick 09.WAV탭11.ogg탭11.ogg탭trap_demo탭AKI PRO탭1탭66탭0탭1냅23탭808탭lofi_underwater탭LoFi-Loop-Music-LS Underwater FM.WAV탭4.ogg탭LoFi-Perc-LS Underwater Click.WAV탭LoFi-Perc-LS Underwater Tamb.WAV탭LoFi-HiHat-LS Underwater Hat 3.WAV탭LoFi-Kick-LS Underwater Kick.WAV탭LoFi-Snap-LS Underwater Snp.WAV탭LoFi-Hit-LS Underwater Syn.WAV탭LoFi-Vocal-LS Underwater FM.WAV탭LoFi-Kick-LS Underwater 808 1.WAV탭LoFi-Kick-LS Underwater 808 2.WAV탭11.ogg탭LoFi-Perc-LS Underwater Tom.WAV탭LoFi-Perc-LS Underwater Tom.WAV탭LoFi-Perc-LS Underwater Tom.WAV탭LoFi-Perc-LS Underwater Tom.WAV탭11.ogg탭11.ogg탭lofi_underwater탭AKI PRO탭1탭67탭0탭1냅24탭808탭trap_weekend탭FutureHouse-Loop-Synth-17 Lp D 126.WAV탭4.ogg탭Trap-Kick-TR MW BouceKik1.WAV탭Trap-Snare-TR MW BigTrap Snr.WAV탭Trap-Keys-TR MW Rhode 1.WAV탭Trap-Keys-TR MW Rhode 2.WAV탭Trap-Clap-TR MW EQ Clap.WAV탭Trap-Cymbal-TR MW Ring Cym.WAV탭Trap-Bass-TR MW BB Bass.WAV탭Trap-Keys-TR MW RevRhode.WAV탭Trap-Pad-TR MW SmoothPad.WAV탭11.ogg탭Trap-Guitar-TR MW NRev Guit 1.WAV탭Trap-Guitar-TR MW NRev Guit 2.WAV탭Trap-Guitar-TR MW NRev Guit 1.WAV탭Trap-Guitar-TR MW NRev Guit 2.WAV탭11.ogg탭11.ogg탭trap_weekend탭AKI PRO탭1탭68탭0탭1냅25탭808탭trap_808탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭Trap-Kick-Luv 808 2.WAV탭Trap-Snare-Luv Snare.WAV탭Trap-Snap-Luv Snap 2.WAV탭Trap-Clap-Luv Clap 1.WAV탭Trap-Kick-Luv Drop 2.WAV탭Trap-FX-Buss ZRoll.WAV탭Trap-Kick-Luv 808 01.WAV탭Trap-FX-Buss ZRoll.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭Trap-Tom-Luv Hi Tom.WAV탭Trap-Tom-Luv Mid Tom.WAV탭Trap-Tom-Luv Hi Tom.WAV탭Trap-Tom-Luv Mid Tom.WAV탭11.ogg탭11.ogg탭trap_808탭AKI PRO탭1탭69탭0탭1냅26탭hiphop탭hiphop_west탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_west탭AKI PRO탭1탭70탭0탭1냅27탭hiphop탭hiphop_fallen탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_fallen탭AKI PRO탭1탭71탭0탭1냅28탭hiphop탭hiphop_hoodie탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_hoodie탭AKI PRO탭1탭72탭0탭1냅29탭hiphop탭hiphop_unclejoes탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_unclejoes탭AKI PRO탭1탭73탭0탭1냅30탭hiphop탭hiphop_swag탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_swag탭AKI PRO탭1탭74탭0탭1냅31탭hiphop탭hiphop_rawcratez2탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_rawcratez2탭AKI PRO탭1탭75탭0탭1냅32탭hiphop탭hiphop_rawcutz2탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_rawcutz2탭AKI PRO탭1탭76탭0탭1냅33탭hiphop탭hiphop_rivals탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_rivals탭AKI PRO탭1탭77탭0탭1냅34탭wooden탭High End Party탭High End Party.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭High End Party탭jhaeka탭0탭78탭0탭1냅35탭wooden탭Catwalk탭Catwalk.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Catwalk탭jhaeka탭0탭79탭0탭1냅36탭wooden탭Lost in the Dessert탭Lost in the Dessert.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Lost in the Dessert탭jhaeka탭0탭80탭0탭1냅37탭wooden탭You_re in the Future탭You_re in the Future.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭You_re in the Future탭jhaeka탭0탭81탭0탭1냅38탭wooden탭Beach House탭Beach House.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Beach House탭jhaeka탭0탭82탭0탭1냅39탭wooden탭Puzzles탭Puzzles.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Puzzles탭jhaeka탭0탭83탭0탭1냅40탭wooden탭frozen winter탭frozen_winter.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭frozen winter탭jhaeka탭1탭84탭0탭1냅41탭new탭80s탭80s.ogg탭4.ogg탭80s-Kick-F9 GH Grid Kick Amb.WAV탭80s-Snare-F9 GH Grid Amb Snr.WAV탭80s-Tom-F9 GH Simm Mid.WAV탭80s-Cymbal-F9 GH Grid Cym.WAV탭80s-Bass-F9 GH DX Bass 2 D.WAV탭80s-Synth-F9 GH Spaced D.WAV탭80s-Tom-F9 GH Simm Low.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭80s-Tom-F9 GH Grid LTom.WAV탭80s-Perc-F9 GH Grid Low Cng.WAV탭80s-Tom-F9 GH Grid LTom.WAV탭80s-Perc-F9 GH Grid Low Cng.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭80s탭AKI PRO탭1탭85탭0탭1냅42탭data탭data탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0냅43탭data1탭data1탭1탭1탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭5000탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0냅44탭skin탭skin탭base탭adam탭donut탭building탭tower탭archer탭space탭brick1탭brick2탭classic탭hotel탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0냅45탭wooden탭Creepy Forest탭Creepy Forest.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Creepy Forest탭jhaeka탭0탭83탭0탭1냅46탭wooden탭Dead Planet탭Dead Planet.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Dead Planet탭jhaeka탭0탭83탭0탭1냅47탭wooden탭Groovy booty탭Groovy booty.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Groovy booty탭jhaeka탭0탭83탭0탭1냅48탭wooden탭Spaceship탭Spaceship.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Spaceship탭jhaeka탭0탭83탭0탭1냅49탭wooden탭Spinning out탭Spinning out.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Spinning out탭jhaeka탭0탭83탭0탭1냅50탭wooden탭Temple탭Temple.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Temple탭jhaeka탭0탭83탭0탭1냅51탭wooden탭Whisperer탭Whisperer.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Whisperer탭jhaeka탭0탭83탭0탭1")
-
+      Android.saveDb("idx탭type탭name탭0탭2탭4탭8탭16탭32탭64탭128탭256탭512탭1024탭2048탭up탭down탭left탭right탭upper탭lower탭title탭producer탭unlock탭price탭cash탭final냅0탭wooden탭wooden탭dance_loop0.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Dance Hall탭AKI PRO탭0탭44탭0탭1냅1탭lofi탭lofi_slowdown탭slowdown.ogg탭4.ogg탭LoFi-Kick-ADSR Kick Slam.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Snare-ADSR Snr 1.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Kick-ADSR Kick Punch.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Slow Down탭AKI PRO탭0탭45탭0탭1냅2탭lofi탭lofi_touch탭touch.ogg탭4.ogg탭LoFi-Kick-ADSR Touch Kick 1.WAV탭LoFi-Snare-ADSR OV Snr 1.WAV탭LoFi-Snare-ADSR OV Snr 2.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Loop-ADSR Touch Syn.WAV탭LoFi-Loop-ADSR Touch Bass.WAV탭LoFi-HiHat-ADSR Crash.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Touch Perc 3.WAV탭LoFi-Perc-ADSR Touch Perc 3.WAV탭LoFi-HiHat-ADSR Touch Hat 1.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Touch탭AKI PRO탭1탭46탭0탭1냅3탭lofi탭lofi_bedroom탭bedroom.ogg탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Clap-ADSR Clap Delay.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭LoFi-SFX-ADSR SFX.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Bedroom탭AKI PRO탭1탭47탭0탭1냅4탭lofi탭lofi_somepluk탭somepluk.ogg탭4.ogg탭LoFi-Kick-ADSR Kick Lite.WAV탭LoFi-Snare-ADSR Rim.WAV탭LoFi-Perc-ADSR Perc 6.WAV탭LoFi-Snare-ADSR SnarePit.WAV탭LoFi-Kick-ADSR Kick Pop.WAV탭LoFi-Hit-ADSR Pluck Cmaj7.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Some Pluk탭AKI PRO탭1탭48탭0탭1냅5탭lofi탭lofi_midnight탭midnight.ogg탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Snare-ADSR Snr 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭IbizaHouse-Vocal-IH Vox 05.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Midnight탭AKI PRO탭1탭49탭0탭1냅6탭lofi탭lofi_smokeit탭LoFi-Loop-Music-LS Smoke It G.WAV탭4.ogg탭LoFi-Kick-LS Smoke It Kik 1.WAV탭LoFi-Snare-LS Smoke It Snare 1.WAV탭LoFi-Snare-LS Smoke It Snare 2.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Kick-LS Smoke It 808.WAV탭LoFi-Snare-LS Smoke It Snare 3.WAV탭LoFi-Perc-LS Smoke It Woody.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Smoke It탭AKI PRO탭1탭50탭0탭1냅7탭lofi탭new1탭LoFi-Loop-Music-LS ML 13 120 C.WAV탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Clap-ADSR Clap Delay.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭LoFi-SFX-ADSR SFX.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-Perc-ADSR Touch Perc 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭LoFi-HiHat-ADSR Touch Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭LoFI_120 C탭AKI PRO탭1탭51탭0탭1냅8탭lofi탭new2탭LoFi-Loop-Music-LS ML 13 120 C.WAV탭4.ogg탭LoFi-Kick-ADSR Kick Lite.WAV탭LoFi-Snare-ADSR Rim.WAV탭LoFi-Perc-ADSR Perc 6.WAV탭LoFi-Snare-ADSR SnarePit.WAV탭LoFi-Kick-ADSR Kick Pop.WAV탭LoFi-Hit-ADSR Pluck Cmaj7.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 6.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭LoFi-HiHat-ADSR Hat 5.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭LoFI_94 A#탭AKI PRO탭1탭52탭0탭1냅9탭lofi탭new3탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭LoFi-kICK-ADSR Kick 1.WAV탭LoFi-Snare-ADSR Snr 1.WAV탭LoFi-Clap-ADSR Clap.WAV탭LoFi-Clap-ADSR Snap.WAV탭LoFi-Perc-ADSR Perc 3.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭IbizaHouse-Vocal-IH Vox 05.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-Perc-ADSR Perc 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭LoFi-HiHat-ADSR Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭LoFI_115 Cm탭AKI PRO탭1탭53탭0탭1냅10탭retro탭ibiza_deep탭IbizaHouse-Synth-Loop.ogg탭4.ogg탭IbizaHouse-Kick-IH Kick 09.WAV탭IbizaHouse-Clap-IH Clap 05.WAV탭IbizaHouse-Snare-IH Snare 05.WAV탭IbizaHouse-Bass-IH Bass Db 05.WAV탭IbizaHouse-Kick-IH Kick 10.WAV탭IbizaHouse-Vocal-IH Vox 09.WAV탭IbizaHouse-Vocal-IH Vox 10.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭IbizaHouse-Hat-IH Hat 13.WAV탭IbizaHouse-Hat-IH Hat 15.WAV탭IbizaHouse-Hat-IH Hat 14.WAV탭IbizaHouse-Hat-IH Hat 13.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭IbizaHouse탭AKI PRO탭0탭54탭1탭1냅11탭retro탭ibiza_give탭IbizaHouse-Synth-Loop.ogg탭4.ogg탭IbizaHouse-Kick-IH Kick 05.WAV탭IbizaHouse-Clap-IH Clap 03.WAV탭IbizaHouse-Snare-IH Snare 03.WAV탭IbizaHouse-Bass-IH Bass D 03.WAV탭IbizaHouse-Kick-IH Kick 06.WAV탭IbizaHouse-Vocal-IH Vox 06.WAV탭IbizaHouse-Vocal-IH Vox 05.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭IbizaHouse-Hat-IH Hat 09.WAV탭IbizaHouse-Hat-IH Hat 09.WAV탭IbizaHouse-Hat-IH Hat 08.WAV탭IbizaHouse-Hat-IH Hat 08.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭IbizaHouse탭AKI PRO탭1탭55탭1탭1냅12탭retro탭lofi_withu탭LoFi-Loop-Music-LS With U Lp.WAV탭4.ogg탭LoFi-Kick-LS With U Kick 1.WAV탭LoFi-Snare-LS With U Snare 1.WAV탭LoFi-Perc-LS With U Cave.WAV탭LoFi-Snare-LS With U Snare 3.WAV탭LoFi-Vocal-LS With U Vox 1.WAV탭LoFi-Kick-LS With U 808.WAV탭LoFi-Vocal-LS With U Vox 2.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭LoFi-Perc-LS With U Rim.WAV탭LoFi-Perc-LS With U Rim.WAV탭LoFi-HiHat-LS With U Hats 1.WAV탭LoFi-HiHat-LS With U Hats 1.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭With You탭AKI PRO탭1탭56탭1탭1냅13탭retro탭trap_cellar탭Trap-Synth-TR CK SynLp G.WAV탭4.ogg탭Trap-Hat-TR CK 07 Hats.WAV탭Trap-Kick-TR CK 01 Kick.WAV탭Trap-Snare-TR CK 01 Snare.WAV탭Trap-Perc-TR CK 01 Perc.WAV탭Trap-Snap-TR CK Snap 2.WAV탭Trap-Bass-TR CK BassHit C.WAV탭Trap-Vocal-TR CK 06 Vox.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Cellar탭AKI PRO탭1탭57탭1탭1냅14탭retro탭rnb_demo탭FutureHouse-Loop-Synth-17 Lp D 126.WAV탭4.ogg탭Trap-Kick-Trap Classic Kick.WAV탭Trap-Snare-Trap Classic Snr 3.WAV탭Trap-Perc-TR OV Perc.WAV탭RnB-Snap-RSK3 Snp1.WAV탭Trap-Bass-TR OV 808 Kick.WAV탭Trap-Snare-TR OV Snr 1.WAV탭Trap-Tom-TR OV Luv Hi Tom.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭Trap-Synth-TR CK SynHit C.WAV탭Trap-Hat-TR CK 10 Hats.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭rnb_demo탭AKI PRO탭1탭58탭1탭1냅15탭retro탭hiphop_demo탭HipHop-Bass-MSXII Shinez.WAV탭4.ogg탭HipHop-Kick-MSXII Shinez 01.WAV탭HipHop-Snare-MSXII Shinez 01.WAV탭HipHop-Kick-MSXII Shinez 02.WAV탭HipHop-Snare-MSXII Shinez 02.WAV탭HipHop-Chord-MSXII Shinez Abmin.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭HipHop-Synth-Arps-MSXII Shinez.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭HipHop-Hat-MSXII Shinez 01.WAV탭HipHop-Hat-MSXII Shinez 01.WAV탭HipHop-Hat-MSXII Shinez 01.WAV탭HipHop-Hat-MSXII Shinez 01.WAV탭11.ogg탭11.ogg탭hiphop_demo탭AKI PRO탭1탭59탭1탭1냅16탭retro탭boombap_91탭BoomBap-Melodic-RetroSciFictAm.WAV탭4.ogg탭BoomBap-Kick-MSXII Slum 02.WAV탭BoomBap-Snare-MSXII Felah 02.WAV탭BoomBap-Kick-MSXII Swag City 02.WAV탭BoomBap-FX-HH FE Zap.WAV탭BoomBap-Clap-MSXII Mashed.WAV탭LoFi-Kick-ADSR Kick Punch.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭RnB-Snap-RSK3 Snp1.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭11.ogg탭11.ogg탭boombap_91탭AKI PRO탭1탭60탭1탭1냅17탭retro탭boombap_grid탭BoomBap-Melodic-HoustonSky70Fm.WAV탭4.ogg탭BoomBap-Kick-HH Kick 07.WAV탭BoomBap-Snare-HH DWK Snare 1.WAV탭BoomBap-Cymbal-HH TBC Cym 1.WAV탭BoomBap-Snare-MSXII Felah 02.WAV탭BoomBap-Clap-MSXII Mashed.WAV탭LoFi-Kick-ADSR Kick Punch.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭RnB-Snap-RSK3 Snp1.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Snare-MSXII Slum 02.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭BoomBap-Perc-MSXII Coolin.WAV탭11.ogg탭11.ogg탭boombap_grid탭AKI PRO탭1탭61탭1탭1냅18탭retro탭rnb_kit09탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭RnB-Kick-RSK9 Kik.WAV탭RnB-Snare-RSK9 Snr.WAV탭RnB-Cymbal-RSK9 Crs.WAV탭RnB-Melodic-RSK9 Pno1.WAV탭RnB-Melodic-RSK9 Pno2.WAV탭RnB-Melodic-RSK9 Bas1.WAV탭LoFi-Kick-ADSR 808 Drop.WAV탭RnB-Melodic-RSK9 Bas2.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭RnB-Perc-RSK9 Prc.WAV탭RnB-Perc-RSK9 Prc.WAV탭RnB-Perc-RSK9 Shkr.WAV탭RnB-Perc-RSK9 Shkr.WAV탭11.ogg탭11.ogg탭rnb_kit09탭AKI PRO탭1탭62탭1탭1냅19탭808탭dancehall_floor탭DanceHall-Melodic-Vibes Lp 4.WAV탭4.ogg탭DanceHall-Kick-Anthem Kik .WAV탭DanceHall-Kick-Anth Bang.WAV탭DanceHall-Clap-Luv Clap 1.WAV탭DanceHall-Snap-MC2 Snap .WAV탭DanceHall-Clap-MC01 Clp 1.WAV탭DanceHall-Perc-FilthK Perc.WAV탭DanceHall-Vocal-MC05 Voc .WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭DanceHall-Hat-CP MelHH2.WAV탭DanceHall-Hat-CP MelHH2.WAV탭DanceHall-Hat-Dirt1 Hat 2.WAV탭DanceHall-Hat-Dirt1 Hat 2.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭dancehall_floor탭AKI PRO탭0탭63탭0탭1냅20탭808탭future04탭FutureBass-Loop-Synth-FD synEb1.WAV탭4.ogg탭FutureBass-Bass-FD guessG.WAV탭FutureBass-Kick-FD coment.WAV탭FutureBass-Cymbal-FD silcone.WAV탭FutureBass-Clap-FD oldskool.WAV탭FutureBass-Clap-FD snip.WAV탭FutureBass-FX-FD eight.WAV탭FutureBass-Vocal-FD faithvox1Eb.WAV탭80s-Tom-F9 GH Grid HTom.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭5.ogg탭FutureBass-Hat-FD gest.WAV탭FutureBass-Hat-FD gest.WAV탭FutureBass-Hat-FD kitchen.WAV탭FutureBass-Hat-FD kitchen.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭future04탭AKI PRO탭1탭64탭0탭1냅21탭808탭funk_minneapolis탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭Funk-Bass-F9 MH Cadi Bs 1 E.WAV탭Funk-Bass-F9 MH Cadi Bs 2 E.WAV탭Funk-Clap-F9 MH Minn FX Clap.WAV탭Funk-Bass-F9 MH CMI Bass E.WAV탭Funk-Bass-F9 MH JP Growl Bs E.WAV탭Funk-Synth-F9 MH Wiseguy E.WAV탭Funk-Bass-F9 MH P Slide E.WAV탭Funk-Synth-F9 MH MegaPoly E.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭Funk-Kick-F9 MH Minn AMS Kick.WAV탭Funk-Snare-F9 MH Minn Snare.WAV탭Funk-Tom-F9 MH MInn Hi 88 Cnga.WAV탭Funk-Tom-F9 MH MInn Low 88 Cnga.WAV탭11.ogg탭11.ogg탭funk_minneapolis탭AKI PRO탭1탭65탭0탭1냅22탭808탭trap_demo탭Trap-Melodic-TR MX T Vision.WAV탭4.ogg탭Urban-Kick-Heat3 SKick.WAV탭Urban-Snare-Heat3 SRoll1.WAV탭Urban-Snare-Heat3 Snr.WAV탭Trap-Snap-TR MX Push Snap 2.WAV탭Trap-Clap-TR MX  Clp 1.WAV탭Urban-Cymbal-Heat3 Cym.WAV탭Trap-FX-TR MX  Sfx 2.WAV탭Urban-Clap-Heat3 CLG.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭Trap-Hat-TR MX Drill HH.WAV탭Urban-HiHat-Heat3 HH1.WAV탭Trap-Perc-TR MX Tri 01.WAV탭Trap-Kick-TR MX Kick 09.WAV탭11.ogg탭11.ogg탭trap_demo탭AKI PRO탭1탭66탭0탭1냅23탭808탭lofi_underwater탭LoFi-Loop-Music-LS Underwater FM.WAV탭4.ogg탭LoFi-Perc-LS Underwater Click.WAV탭LoFi-Perc-LS Underwater Tamb.WAV탭LoFi-HiHat-LS Underwater Hat 3.WAV탭LoFi-Kick-LS Underwater Kick.WAV탭LoFi-Snap-LS Underwater Snp.WAV탭LoFi-Hit-LS Underwater Syn.WAV탭LoFi-Vocal-LS Underwater FM.WAV탭LoFi-Kick-LS Underwater 808 1.WAV탭LoFi-Kick-LS Underwater 808 2.WAV탭11.ogg탭LoFi-Perc-LS Underwater Tom.WAV탭LoFi-Perc-LS Underwater Tom.WAV탭LoFi-Perc-LS Underwater Tom.WAV탭LoFi-Perc-LS Underwater Tom.WAV탭11.ogg탭11.ogg탭lofi_underwater탭AKI PRO탭1탭67탭0탭1냅24탭808탭trap_weekend탭FutureHouse-Loop-Synth-17 Lp D 126.WAV탭4.ogg탭Trap-Kick-TR MW BouceKik1.WAV탭Trap-Snare-TR MW BigTrap Snr.WAV탭Trap-Keys-TR MW Rhode 1.WAV탭Trap-Keys-TR MW Rhode 2.WAV탭Trap-Clap-TR MW EQ Clap.WAV탭Trap-Cymbal-TR MW Ring Cym.WAV탭Trap-Bass-TR MW BB Bass.WAV탭Trap-Keys-TR MW RevRhode.WAV탭Trap-Pad-TR MW SmoothPad.WAV탭11.ogg탭Trap-Guitar-TR MW NRev Guit 1.WAV탭Trap-Guitar-TR MW NRev Guit 2.WAV탭Trap-Guitar-TR MW NRev Guit 1.WAV탭Trap-Guitar-TR MW NRev Guit 2.WAV탭11.ogg탭11.ogg탭trap_weekend탭AKI PRO탭1탭68탭0탭1냅25탭808탭trap_808탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭Trap-Kick-Luv 808 2.WAV탭Trap-Snare-Luv Snare.WAV탭Trap-Snap-Luv Snap 2.WAV탭Trap-Clap-Luv Clap 1.WAV탭Trap-Kick-Luv Drop 2.WAV탭Trap-FX-Buss ZRoll.WAV탭Trap-Kick-Luv 808 01.WAV탭Trap-FX-Buss ZRoll.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭11.ogg탭Trap-Tom-Luv Hi Tom.WAV탭Trap-Tom-Luv Mid Tom.WAV탭Trap-Tom-Luv Hi Tom.WAV탭Trap-Tom-Luv Mid Tom.WAV탭11.ogg탭11.ogg탭trap_808탭AKI PRO탭1탭69탭0탭1냅26탭hiphop탭hiphop_west탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_west탭AKI PRO탭0탭70탭0탭1냅27탭hiphop탭hiphop_fallen탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_fallen탭AKI PRO탭1탭71탭0탭1냅28탭hiphop탭hiphop_hoodie탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_hoodie탭AKI PRO탭1탭72탭0탭1냅29탭hiphop탭hiphop_unclejoes탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_unclejoes탭AKI PRO탭1탭73탭0탭1냅30탭hiphop탭hiphop_swag탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_swag탭AKI PRO탭1탭74탭0탭1냅31탭hiphop탭hiphop_rawcratez2탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_rawcratez2탭AKI PRO탭1탭75탭0탭1냅32탭hiphop탭hiphop_rawcutz2탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_rawcutz2탭AKI PRO탭1탭76탭0탭1냅33탭hiphop탭hiphop_rivals탭LoFi-Loop-Music-LS ML 3 115 Cm.WAV탭4.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭11.ogg탭hiphop_rivals탭AKI PRO탭1탭77탭0탭1냅34탭wooden탭High End Party탭High End Party.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭High End Party탭jhaeka탭0탭78탭0탭1냅35탭wooden탭Catwalk탭Catwalk.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Catwalk탭jhaeka탭0탭79탭0탭1냅36탭wooden탭Lost in the Dessert탭Lost in the Dessert.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Lost in the Dessert탭jhaeka탭0탭80탭0탭1냅37탭wooden탭You_re in the Future탭You_re in the Future.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭You_re in the Future탭jhaeka탭0탭81탭0탭1냅38탭wooden탭Beach House탭Beach House.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Beach House탭jhaeka탭0탭82탭0탭1냅39탭wooden탭Puzzles탭Puzzles.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Puzzles탭jhaeka탭0탭83탭0탭1냅40탭wooden탭frozen winter탭frozen_winter.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭frozen winter탭jhaeka탭1탭84탭0탭1냅41탭new탭80s탭80s.ogg탭4.ogg탭80s-Kick-F9 GH Grid Kick Amb.WAV탭80s-Snare-F9 GH Grid Amb Snr.WAV탭80s-Tom-F9 GH Simm Mid.WAV탭80s-Cymbal-F9 GH Grid Cym.WAV탭80s-Bass-F9 GH DX Bass 2 D.WAV탭80s-Synth-F9 GH Spaced D.WAV탭80s-Tom-F9 GH Simm Low.WAV탭80s-Synth-F9 GH VS Twang D.WAV탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭80s-Tom-F9 GH Grid LTom.WAV탭80s-Perc-F9 GH Grid Low Cng.WAV탭80s-Tom-F9 GH Grid LTom.WAV탭80s-Perc-F9 GH Grid Low Cng.WAV탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭80s탭AKI PRO탭1탭85탭0탭1냅42탭data탭data탭80000탭0탭1탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0냅43탭data1탭data1탭1탭1탭50탭50탭50탭50탭50탭50탭50탭50탭50탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0냅44탭skin탭skin탭base탭adam탭donut탭building탭tower탭archer탭space탭brick1탭brick2탭classic탭hotel탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0탭0냅45탭wooden탭Creepy Forest탭Creepy Forest.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Creepy Forest탭jhaeka탭1탭83탭0탭1냅46탭wooden탭Dead Planet탭Dead Planet.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Dead Planet탭jhaeka탭1탭83탭0탭1냅47탭wooden탭Groovy booty탭Groovy booty.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Groovy booty탭jhaeka탭1탭83탭0탭1냅48탭wooden탭Spaceship탭Spaceship.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Spaceship탭jhaeka탭1탭83탭0탭1냅49탭wooden탭Spinning out탭Spinning out.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Spinning out탭jhaeka탭1탭83탭0탭1냅50탭wooden탭Temple탭Temple.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Temple탭jhaeka탭1탭83탭0탭1냅51탭wooden탭Whisperer탭Whisperer.ogg탭4.ogg탭ESM_Wooden_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Pickup_Multi_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Sequence_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.wav탭ESM_Wooden_Select_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Lighthearted_Bonus_Objective_5_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭ESM_Lighthearted_Bonus_Objective_6_Mobile_App_Game_FX_Sound_Magic_Fantasy_Musical_Element_Transition_Chord_.wav탭5.ogg탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭ESM_Wood_Block_UI_2_Dry_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.wav탭11.ogg탭LoFi-Perc-LS Final Perc 3.WAV탭Whisperer탭jhaeka탭1탭83탭0탭1");
     }
 
     function loaddb(){
@@ -17806,7 +17827,8 @@
 
      function getdb(text){
         if(webflag){
-          coin=parseInt(nslst["data"]["0"]);
+          // coin=parseInt(nslst["data"]["0"]);
+          // coin=999999;
           bestscore=parseInt(nslst["data"]["2"]);
           var templst0 = ["0","2","4","8","16","32","64","128","256","512","1024","2048"]
           var tkey = nslst["data1"]
@@ -17860,8 +17882,10 @@
         Android.saveDb(text)
      }
 
-     function setdb(name, key, value){
-        nslst[name][key]=value;
+     function setdb(setlst){
+        setlst.forEach((item) => {
+          nslst[item[0]][item[1]]=item[2];
+        });
         var keys = Object.keys(nslst);
         var templst0=""
         labels.forEach((label, idx4) => {
@@ -17949,6 +17973,54 @@
         document.getElementById("coin2").innerText=String(text);
      }
 
+     function contract(n, context,callback){
+       if(coin<n){
+         return;
+       }else{
+
+         setTimeout(function() {
+           coin-=n;
+           if(context.length!=0){
+             // if(!webflag) setdb("data", "0", String(coin));
+             if(!webflag) {
+               context.push(["data", "0", String(coin)])
+               // context.forEach((item) => {
+               //   setdb(item[0],item[1],item[2]);
+               // });
+               setdb(context);
+             }
+             if(webflag){
+               context.forEach((item) => {
+                 nslst[item[0]][item[1]]=item[2]
+               });
+               // nslst["data1"][templst0[skinn]]=1;
+               nslst["data"][0]=String(coin);
+               getdb();
+             }else{
+               loaddb();
+             }
+           }else{
+             if(!webflag) setdb([["data", "0", String(coin)]]);
+             if(webflag){
+               nslst["data"][0]=String(coin);
+               getdb();
+             }else{
+               loaddb();
+             }
+           }
+
+           setTimeout(function() {
+             document.getElementById("coin2").innerText=String(coin);
+             if (callback) {
+                 callback();
+             }
+           }, 100);
+         }, 100);
+       }
+     }
+
+     window.contract=contract;
+
      window.getco=getco;
      window.writeco=writeco;
      window.setcoin=setcoin;
@@ -18000,17 +18072,9 @@
             var skinn=parseInt(skincode[0])
             var skincost=parseInt(skincode[1])
 
-            if(coin>skincost){
-              coin-=skincost;
-              if(!webflag) setdb("data", "0", String(coin));
-              if(!webflag) setdb("data1", templst0[skinn], "1");
-              if(webflag){
-                nslst["data1"][templst0[skinn]]=1;
-                getdb();
-              }else{
-                Android.loadDB();
-              }
-              setTimeout(function() {
+            if(coin>=skincost){
+              contract(skincost, [["data1", templst0[skinn], "1"]],function() {
+
                 var gridlst = document.querySelectorAll("#shop >.grid >div");
                 gridlst[skinn].children[1].classList.add("hidden");
                 gridlst[skinn].classList.remove("hidden");
@@ -18020,9 +18084,48 @@
                 var ptxt = document.querySelectorAll("#lowerbtn2>.pbutton2>label");
                 var pcode = document.querySelectorAll("#lowerbtn2>.pbutton2>h1");
                 ptxt[0].innerText = gridlst[skinn].children[2].innerText + "\n OWNED"
+                document.getElementById('gbt1').style.backgroundColor="rgba(0, 195, 0, 0.7)"
                 pcode[0].innerText = "0"
+                var ulcount = 0;
+                var acount=0;
+                var tlst=[];
+                var tkey = nslst["data1"]
+                var skey = nslst["skin"]
+                templst0.forEach((item) => {
+                    tlst.push(tkey[item])
+                    if (tkey[item] == "1") {
+                        ulcount++
+                    }
+                    if(tkey[item] != "0") acount++
 
-              }, 500);
+                })
+                document.getElementById('sbar1').style.width=String(parseInt(100*(ulcount/acount)))+"%";
+                document.getElementById('sbar2').innerText=String(ulcount)+"/"+String(acount)
+
+
+              })
+              // coin-=skincost;
+              // if(!webflag) setdb("data", "0", String(coin));
+              // if(!webflag) setdb("data1", templst0[skinn], "1");
+              // if(webflag){
+              //   nslst["data1"][templst0[skinn]]=1;
+              //   getdb();
+              // }else{
+              //   Android.loadDB();
+              // }
+              // setTimeout(function() {
+              //   var gridlst = document.querySelectorAll("#shop >.grid >div");
+              //   gridlst[skinn].children[1].classList.add("hidden");
+              //   gridlst[skinn].classList.remove("hidden");
+              //   gridlst[skinn].classList.remove("lock");
+              //   gridlst[skinn].children[2].innerText = nslst["skin"][templst0[skinn]];
+              //   gridlst[skinn].children[4].innerText = ""
+              //   var ptxt = document.querySelectorAll("#lowerbtn2>.pbutton2>label");
+              //   var pcode = document.querySelectorAll("#lowerbtn2>.pbutton2>h1");
+              //   ptxt[0].innerText = gridlst[skinn].children[2].innerText + "\n OWNED"
+              //   pcode[0].innerText = "0"
+              //
+              // }, 100);
 
             }else{
               console.log("돈이 업서ㅜ")
@@ -18402,18 +18505,54 @@
               soundic[ptxt]?.play();
           }
 
-
-
-
-
-
         });
-
         playbtn.addEventListener('click', function() {
           var ptxt = playbtn.children[2].innerText;
           if (ptxt[0] == "3") {
+            var gridlst = document.querySelectorAll("#categ1>.grid >div");
+            var tname=ptxt.substring(2, ptxt.length)
+
+            var item=nslst[tname];
+            if(parseInt(item.price)<=coin){
+              contract(parseInt(item.price), [[tname, "unlock", "0"]], function(){
+                var pbtn = document.querySelectorAll(".pbutton")
+                // document.getElementById("pbt").style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
+                document.getElementById("pbt").children[1].innerText = gridlst[0].children[3].innerText +" - ("+gridlst[1].children[3].innerText + ")\n Play ▶"
+                pbtn[0].style.backgroundColor="rgba(100, 195, 0, 0.7)";
+                document.getElementById("pbt").children[2].innerText="2 "+item.name;
+                var ulcount = 0;
+                var acount=0;
+                console.log("pp")
+                console.log(tname)
+                gridlst.forEach((div, idx) => {
+                  if(idx==0||idx==1) return;
+                  if(!div.classList.contains("hidden")){
+                    if(div.classList.contains("locked")){
+                      acount++
+                    }else{
+                      acount++
+                      ulcount++
+                    }
+                  }
+
+
+                  if(div.children[2].innerText==item.title){
+
+                    div.classList.remove("locked");
+                    div.children[2].style.color="white"
+                    div.children[1].style.display="none"
+                    div.children[4].style.display="none"
+                    ulcount++
+
+                  }
+                });
+
+                document.getElementById('tbar1').style.width=String(parseInt(100*((ulcount)/(acount))))+"%";
+                document.getElementById('tbar2').innerText=String(ulcount)+"/"+String(acount)
+              })
+            }
             return;
-          }
+          }else if(ptxt[0] == "2"){
             playbtn.classList.remove("show");
             playbtn.classList.add("fade");
             document.getElementById("categ1").classList.remove("show");
@@ -18437,75 +18576,89 @@
                 document.getElementById("left").classList.add("show");
                 document.getElementById("right").classList.add("show");
             }, 100);
+            if(!playbtn.classList.contains("hidden")) playbtn.classList.add("hidden")
 
-            if (ptxt[0] == "2") {
-                if(!playbtn.classList.contains("hidden")) playbtn.classList.add("hidden")
-
-                var ptitle = ptxt.substring(2, ptxt.length)
-                for (let i = 0; i < 6; i++) {
-                    if (soundic[sdic[i][0]]?.isPlaying) {
-                        soundic[sdic[i][0]].stop();
-                    }
+            var ptitle = ptxt.substring(2, ptxt.length)
+            for (let i = 0; i < 6; i++) {
+                if (soundic[sdic[i][0]]?.isPlaying) {
+                    soundic[sdic[i][0]].stop();
                 }
-                if(gamemod==2) gamemod=0;
-                if (nslst[ptitle].type == "wooden") {
-                    skinnum = skinset.indexOf("base")
-                } else if (nslst[ptitle].type == "lofi") {
-                    skinnum = skinset.indexOf("lofi")
-                } else if (nslst[ptitle].type == "retro") {
-                    skinnum = skinset.indexOf("gb")
-                } else if (nslst[ptitle].type == "808") {
-                    skinnum = skinset.indexOf("r808")
-                } else if (nslst[ptitle].type == "hiphop") {
-                    skinnum = skinset.indexOf("hiphop")
-                }
-                sdic = [];
-                // console.log(ptitle)
-                sdic.push(nslst[ptitle])
-                sdic.push(nslst[ptitle])
-                sdic.push(nslst[ptitle])
-                sdic.push(nslst[ptitle])
-                sdic.push(nslst[ptitle])
-                sdic.push(nslst[ptitle])
-                if (!rotationflag) {
-                    rotationflag = true
-                    restartflag = true
-                    pluscoin = parseInt(점수 / 10)
-                    // coin += pluscoin;
-                    for (var i = 0; i < cubes.length; i++) {
-                        restartloc.push(cubes[i].mesh.position);
-                        restartrot.push(cubes[i].mesh.rotation);
-                    }
-                    do{
-                      ncolornum = parseInt(Math.random() * colorlst.length);
-                    }while(색보정.indexOf(ncolornum)!=-1)
-
-                    do{
-                      ncolornum0 = parseInt(Math.random() * colorlst0.length);
-                    }while(색보정0.indexOf(ncolornum0)!=-1)
-                    rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-                    renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
-                    rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
-                    renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
-                    rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
-                    renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
-                    rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
-                    renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
-                    bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
-                    nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
-                    bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
-                    nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
-                    bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
-                    nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
-                    bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
-                    nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
-                    bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
-                    nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
-                    rotationend = Math.PI / 4
-                }
-            }else if(ptxt[0] == "3"){
-              // console.log("unlock")
             }
+            if(gamemod==2) gamemod=0;
+            if (nslst[ptitle].type == "wooden") {
+                skinnum = skinset.indexOf("base")
+            } else if (nslst[ptitle].type == "lofi") {
+                skinnum = skinset.indexOf("lofi")
+            } else if (nslst[ptitle].type == "retro") {
+                skinnum = skinset.indexOf("gb")
+            } else if (nslst[ptitle].type == "808") {
+                skinnum = skinset.indexOf("r808")
+            } else if (nslst[ptitle].type == "hiphop") {
+                skinnum = skinset.indexOf("hiphop")
+            }
+            sdic = [];
+            // console.log(ptitle)
+            sdic.push(nslst[ptitle])
+            sdic.push(nslst[ptitle])
+            sdic.push(nslst[ptitle])
+            sdic.push(nslst[ptitle])
+            sdic.push(nslst[ptitle])
+            sdic.push(nslst[ptitle])
+            if (!rotationflag) {
+                rotationflag = true
+                restartflag = true
+                pluscoin = parseInt(점수 / 10)
+                // coin += pluscoin;
+                for (var i = 0; i < cubes.length; i++) {
+                    restartloc.push(cubes[i].mesh.position);
+                    restartrot.push(cubes[i].mesh.rotation);
+                }
+                do{
+                  ncolornum = parseInt(Math.random() * colorlst.length);
+                }while(색보정.indexOf(ncolornum)!=-1)
+
+                do{
+                  ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                }while(색보정0.indexOf(ncolornum0)!=-1)
+                rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+                rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+                rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+                bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+                nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+                bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+                nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+                bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+                nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+                bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+                nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+                bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+                nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+                rotationend = Math.PI / 4
+            }
+            return;
+          }else if(ptxt[0] == "4"){
+            var gridlst = document.querySelectorAll("#categ1>.grid >div");
+            var tprice=parseInt(ptxt.substring(3, ptxt.length));
+
+
+            var tnum=parseInt(ptxt[1]);
+            var item=nslst[tname];
+            if(tprice<=coin){
+              contract(tprice, [["data", templst0[tnum+2], "1"]], function(){
+              showGrid(tnum)
+
+              })
+            }
+            return;
+          }
+
+
+
         })
         // Loop through each radio button and add an event listener
     });
@@ -18768,7 +18921,7 @@
         }, 100);
     }
 
-    var themelst = ["wooden", "lofi", "retro", "808", "hiphop"];
+    var themelst = ["wooden", "lofi", "retro","808", "hiphop",];
     var imglst = ["0.png", "1.png", "2.png", "3a.png", "7.png"];
     var imglst1 = ["s00.png", "lofi.png", "s01.png", "808.png", "hiphop.png"];
     var templst = [];
@@ -18779,7 +18932,7 @@
 
 
     function showPopup2(n) {
-        if(n>5) return;
+        if(n>10) return;
         var tkey = nslst["data1"]
         var skey = nslst["skin"]
         var gridlst = document.querySelectorAll("#shop >.grid >div");
@@ -18823,24 +18976,24 @@
       var tkey = nslst["data1"]
       var skey = nslst["skin"]
         // console.log("what");
-        var ulcount = 0;
-        var acount=0;
+      var ulcount = 0;
+      var acount=0;
 
-        console.log(nslst["data"]);
-        console.log(nslst["data1"]);
+      console.log(nslst["data"]);
+      console.log(nslst["data1"]);
 
-        var tlst=[];
-        templst0.forEach((item) => {
-            tlst.push(tkey[item])
+      var tlst=[];
+      templst0.forEach((item) => {
+          tlst.push(tkey[item])
 
-            if (tkey[item] == "1") {
-                ulcount++
-            }
-            if(tkey[item] != "0") acount++
+          if (tkey[item] == "1") {
+              ulcount++
+          }
+          if(tkey[item] != "0") acount++
 
-        })
-        document.getElementById('sbar1').style.width=String(parseInt(100*(ulcount/acount)))+"%";
-        document.getElementById('sbar2').innerText=String(ulcount)+"/"+String(acount)
+      })
+      document.getElementById('sbar1').style.width=String(parseInt(100*(ulcount/acount)))+"%";
+      document.getElementById('sbar2').innerText=String(ulcount)+"/"+String(acount)
 
 
 
@@ -18920,10 +19073,13 @@
                 if (nslst[item].unlock == "0") ulcount++;
             }
         })
+
         var acount=templst.length;
         templst.sort(function(a, b) {
             return parseInt(a.idx) - parseInt(b.idx);
         });
+        document.getElementById('tbar1').style.width=String(parseInt(100*(ulcount/(acount))))+"%";
+        document.getElementById('tbar2').innerText=String(ulcount)+"/"+String(acount)
         // console.log(templst);
 
         var ptxt = document.querySelectorAll(".pbutton>label");
@@ -18942,27 +19098,26 @@
         gbuttonimg[0].src = "png/" + imglst1[n]
         // console.log(gridlst[0].children);
 
-        document.getElementById('tbar1').style.width=String(parseInt(100*(ulcount/acount)))+"%";
-        document.getElementById('tbar2').innerText=String(ulcount)+"/"+String(acount)
 
-        if(!paidlst[n]){
+
+        var paid=nslst["data"][templst0[n+2]]
+        console.log(nslst["data"]);
+        if(paid=="0"){
           gridlst[1].classList.add("hidden");
           gridlst[0].classList.add("hidden");
           pbtn[0].classList.remove("hidden");
           if(templst[0]["cash"]== "1"){
             ptxt[0].innerText = "2,000 $"
 
-            pcode[0].innerText = "4"+String(n)
+            pcode[0].innerText = "5"+String(n)
             pimg[0].src = "png/" + imglst1[n]
-            pbtn[0].style.backgroundColor="rgba(140, 195, 0, 0.7)"
+            pbtn[0].style.backgroundColor="rgba(140, 145, 0, 0.7)"
           }else{
-            ptxt[0].innerText = "3,000 ★"
-            pcode[0].innerText = "4"+String(n)
+            ptxt[0].innerText = "10,000 ★"
+            pcode[0].innerText = "4"+String(n)+" "+String(10000)
             pimg[0].src = "png/" + imglst1[n]
             pbtn[0].style.backgroundColor="rgba(100, 195, 190, 0.7)"
           }
-
-
 
         }else{
 
@@ -18977,7 +19132,7 @@
           gridlst[1].classList.remove("hidden");
           gridlst[0].classList.remove("hidden");
           gridlst[1].children[3].innerText="random"
-          if (ulcount >= 5) {
+          // if (ulcount >= 5) {
               gridlst[1].classList.remove("locked");
               gridlst[0].classList.remove("locked");
               gridlst[1].children[1].style.display="none";
@@ -18987,18 +19142,18 @@
               gridlst[1].children[3].style.color="white";
 
 
-          } else if (ulcount >= 2) {
-              if (!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
-              gridlst[0].classList.remove("locked");
-              gridlst[0].children[1].style.display="none";
-              gridlst[0].children[3].style.color="white";
-              gridlst[1].children[3].style.color="black";
-          } else {
-              if (!gridlst[0].classList.contains("locked")) gridlst[0].classList.add("locked");
-              if (!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
-              gridlst[0].children[3].style.color="black";
-              gridlst[1].children[3].style.color="black";
-          }
+          // } else if (ulcount >= 2) {
+          //     if (!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
+          //     gridlst[0].classList.remove("locked");
+          //     gridlst[0].children[1].style.display="none";
+          //     gridlst[0].children[3].style.color="white";
+          //     gridlst[1].children[3].style.color="black";
+          // } else {
+          //     if (!gridlst[0].classList.contains("locked")) gridlst[0].classList.add("locked");
+          //     if (!gridlst[1].classList.contains("locked")) gridlst[1].classList.add("locked");
+          //     gridlst[0].children[3].style.color="black";
+          //     gridlst[1].children[3].style.color="black";
+          // }
           gridlst[0].children[3].style.fontSize="3vw";
           gridlst[1].children[3].style.fontSize="3vw";
         }
@@ -19015,13 +19170,12 @@
                 gridlst[2 + i].children[3].innerText = "By: "+templst[i].producer
                 gridlst[2 + i].children[4].innerText = "★ :"+ templst[i].price
                 gridlst[2 + i].children[0].src = "png/" + imglst1[n]
-                if (templst[i].unlock == "0") {
+                if (templst[i].unlock == "0"&&paid!="0") {
                     gridlst[2 + i].classList.remove("locked");
                     gridlst[2 + i].children[1].style.display="none";
                     gridlst[2 + i].children[3].style.fontSize="2vw";
                     gridlst[2 + i].children[4].style.display="none";
                     gridlst[2 + i].children[2].style.color="white";
-
 
                 } else {
                     gridlst[2 + i].children[2].style.color="black";
@@ -19041,9 +19195,14 @@
             document.getElementById("categ1").classList.add("show");
         }, 100);
     }
-
+    window.showGrid=showGrid;
     function showPopup(n) {
+
         var gridlst = document.querySelectorAll("#categ1>.grid >div");
+        if(gridlst[0].classList.contains("hidden")){
+          return;
+        }
+
         var ptxt = document.querySelectorAll("#lowerbtn>.pbutton>label");
         var pbtn = document.querySelectorAll("#lowerbtn>.pbutton");
         var sbtn = document.querySelectorAll("#lowerbtn>.sbutton");
@@ -19066,9 +19225,6 @@
         // console.log(gridlst[n].children[2].innerText);
 
         // var gridlst = document.querySelectorAll("#categ1 >.grid >div");
-
-
-
 
 
         if (n > 1) {
@@ -19170,6 +19326,7 @@
 
 
         if(gridlst[0].classList.contains("hidden")){
+
           pbtn[0].style.backgroundColor="rgba(190, 195, 0, 0.7)"
 
           ptxt[0].innerText = "1,000$"
@@ -19435,54 +19592,7 @@
 
 
     function pbton(n) {
-        var code=document.getElementById("pbt").children[2].innerText;
-        if(code[0]=="3"){
-          var gridlst = document.querySelectorAll("#categ1>.grid >div");
-          var item=nslst[code.substring(2, code.length)];
-          item.unlock=0;
-          coin-=parseInt(item.price);
-          // console.log(coin)
-          var pbtn = document.querySelectorAll(".pbutton")
-          // document.getElementById("pbt").style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
-          document.getElementById("pbt").children[1].innerText = gridlst[0].children[3].innerText +" - ("+gridlst[1].children[3].innerText + ")\n Play ▶"
-          pbtn[0].style.backgroundColor="rgba(100, 195, 0, 0.7)";
 
-          setTimeout(function() {
-
-            document.getElementById("pbt").children[2].innerText="2 "+item.name;
-          }, 50);
-
-          var c=0;
-          gridlst.forEach((obj, i) => {
-
-            // console.log(obj.children[2].innerText.split("\n")[0]+":::"+item.title);
-
-            if (obj.children[2].innerText.split("\n")[0]==item.title) {
-              obj.classList.remove("locked");
-              obj.children[1].style.display="none";
-              obj.children[3].style.color="white";
-            }
-
-            if(i>1&&!obj.classList.contains("locked")){
-              c++;
-            }
-          });
-
-          if(c>=3){
-            gridlst[0].classList.remove("locked");
-            gridlst[0].children[1].style.display="none";
-            gridlst[0].children[3].style.color="white";
-
-
-          }
-          if(c>=5){
-            gridlst[1].classList.remove("locked");
-            gridlst[1].children[1].style.display="none";
-            gridlst[1].children[3].style.color="white";
-
-          }
-
-        }
     }
 
     function gridon(n) {
@@ -19559,20 +19669,20 @@
 <div id="fps">123</div>
 <div id="tutorial" class="hidden">
 
-<img class="tut1" src="png/tutorial1.png">
-<img class="tut2" src="png/tutorial2.png">
+    <img class="tut1" src="png/tutorial1.png">
+    <img class="tut2" src="png/tutorial2.png">
 </div>
 
 
 <div id="credit-info" class="hidden">
-<button class="backbutton" onclick="goBack(5)">
-<img class="" src="png/left.png">
-</button>
+    <button class="backbutton" onclick="goBack(5)">
+        <img class="" src="png/left.png">
+    </button>
     <div>
-    <h2 >제작:</h2>
-    <h2 >Developed by S.R. KIM </h2>
-    <h2 >SOUND:</h2>
-    <h2 >REFERENCE:</h2>
+        <h2 >제작:</h2>
+        <h2 >Developed by S.R. KIM </h2>
+        <h2 >SOUND:</h2>
+        <h2 >REFERENCE:</h2>
     </div>
 </div>
 
@@ -19603,14 +19713,14 @@
 <div id="song-info" class="hidden">
     <h2 id="playing">Playing: </h2>
     <div id="songtxt">
-    <h2 id="artist-name">Artist Name</h2>
-    <h2 id="song-title">Song Title</h2>
+        <h2 id="artist-name">Artist Name</h2>
+        <h2 id="song-title">Song Title</h2>
     </div>
     <div id="songback">
-    <div id="songback1"></div>
-    <div id="songback2"></div>
-    <div id="songback3"></div>
-    <div id="songback4"></div>
+        <div id="songback1"></div>
+        <div id="songback2"></div>
+        <div id="songback3"></div>
+        <div id="songback4"></div>
     </div>
 
 </div>
@@ -19625,7 +19735,7 @@
 </button>
 
 <button id="left" class="left" onclick="skinon()">
-<img class="" src="png/left0.png">
+    <img class="" src="png/left0.png">
 </button>
 
 <button id="center" class="center" onclick="showmod()">
@@ -19725,34 +19835,34 @@
         </div>
 
         <div class="gameinfo">
-        <h1 id="코인">★ 획득</h1>
-        <hr size="5px" width="95%"/>
-        <span id="기본" class="hidden">
+            <h1 id="코인">★ 획득</h1>
+            <hr size="5px" width="95%"/>
+            <span id="기본" class="hidden">
         <label class="a"> </label>
         <label class="b"> (× 0.1)</label>
         <label class="c"> </label>
         </span>
 
-        <span id="시간" class="hidden">
+            <span id="시간" class="hidden">
         <label class="a"> </label>
         <label class="b"> (× 0.1)</label>
         <label class="c"> </label>
         </span>
 
-        <span id="full" class="hidden">
+            <span id="full" class="hidden">
         <label class="a"> </label>
         <label class="b"> (× 100)</label>
         <label class="c"> </label>
         </span>
 
-        <span id="max" class="hidden">
+            <span id="max" class="hidden">
         <label class="a"> </label>
         <label class="b"> (× 1)</label>
         <label class="c"> </label>
         </span>
-        <hr size="5px" width="95%"/>
+            <hr size="5px" width="95%"/>
 
-        <span id="총획득" class="hidden">
+            <span id="총획득" class="hidden">
         <label class="d">획득 코인:</label>
         <label class="e"> </label>
         <label class="f"> </label>
@@ -19786,7 +19896,7 @@
     <div class="container">
         <div id="step1">
             <button class="backbutton" onclick="goBack(1)">
-            <img class="" src="png/left.png">
+                <img class="" src="png/left.png">
             </button>
             <div class="button-column">
                 <h1 class="title">NO ADS</h1>
@@ -19823,12 +19933,7 @@
 
                 </button>
 
-                <button class="cat-button unpaid" onclick="showGrid(2)">
-                    <img src="png/2.png" alt="Mute" >
-                    RETRO
-                    <div class="color4"></div>
 
-                </button>
                 <button class="cat-button unpaid" onclick="showGrid(3)">
                     <img src="png/3.png" alt="Mute" >
                     808
@@ -19841,6 +19946,13 @@
                     <div class="color4"></div>
                 </button>
 
+                <button class="cat-button unpaid" onclick="showGrid(2)">
+                    <img src="png/2.png" alt="Mute" >
+                    RETRO
+                    <div class="color4"></div>
+
+                </button>
+
                 <button class="cat-button" onclick="">comming soon!
                 </button>
 
@@ -19851,11 +19963,11 @@
 
         <div id="categ1" class="hidden">
             <button class="backbutton" onclick="goBack(9)" id="backbtn">
-            <img class="" src="png/left.png">
+                <img class="" src="png/left.png">
             </button>
             <h1 class="title">Category</h1>
 
-             <img src="png/0.png" alt="Mute" id="img2">
+            <img src="png/0.png" alt="Mute" id="img2">
 
             <div class="progress-container">
                 <div class="progress">
@@ -19956,6 +20068,41 @@
                     <span>artist</span>
                     <span>price</span>
                 </div>
+                <div class="character locked" onclick="showPopup(13)">
+                    <img src="" alt="Character 2" class="charimg">
+                    <img src="png/locked.png" alt="locked" class="lockimg">
+                    <span>Character 4</span>
+                    <span>artist</span>
+                    <span>price</span>
+                </div>
+                <div class="character locked" onclick="showPopup(14)">
+                    <img src="" alt="Character 2" class="charimg">
+                    <img src="png/locked.png" alt="locked" class="lockimg">
+                    <span>Character 4</span>
+                    <span>artist</span>
+                    <span>price</span>
+                </div>
+                <div class="character locked" onclick="showPopup(15)">
+                    <img src="" alt="Character 2" class="charimg">
+                    <img src="png/locked.png" alt="locked" class="lockimg">
+                    <span>Character 4</span>
+                    <span>artist</span>
+                    <span>price</span>
+                </div>
+                <div class="character locked" onclick="showPopup(16)">
+                    <img src="" alt="Character 2" class="charimg">
+                    <img src="png/locked.png" alt="locked" class="lockimg">
+                    <span>Character 4</span>
+                    <span>artist</span>
+                    <span>price</span>
+                </div>
+                <div class="character locked" onclick="showPopup(17)">
+                    <img src="" alt="Character 2" class="charimg">
+                    <img src="png/locked.png" alt="locked" class="lockimg">
+                    <span>Character 4</span>
+                    <span>artist</span>
+                    <span>price</span>
+                </div>
                 <!-- Add more characters -->
             </div>
             <span id="lowerbtn">
@@ -19974,7 +20121,7 @@
 
         <div id="step3" class="hidden">
             <button class="backbutton" onclick="goBack()">
-            <img class="" src="png/left.png">
+                <img class="" src="png/left.png">
             </button>
             <h1 class="title">Character 1</h1>
             <div class="character-details">
@@ -19987,11 +20134,11 @@
 
         <div id="shop" class="hidden">
             <button class="backbutton" onclick="goBack(11)">
-            <img class="" src="png/left.png">
+                <img class="" src="png/left.png">
             </button>
             <h1 class="title">SKIN SHOP</h1>
 
-             <img src="png/0.png">
+            <img src="png/0.png">
 
             <div class="progress-container">
                 <div class="progress">
@@ -20141,7 +20288,7 @@
 
 <div id="mod-overlay" class="mod-overlay hidden">
     <button class="backbutton" onclick="goBack(5)">
-    <img class="" src="png/left.png">
+        <img class="" src="png/left.png">
     </button>
     <div class="modinfo1">
         <label class="a">GAME MOD</label>
