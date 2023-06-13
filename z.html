@@ -1023,7 +1023,7 @@
         }
 
         #popline1 .p3{
-            margin-top: 0.5vw;
+            /* margin-top: 0.5vw; */
             position: absolute;
             left:57%;
         }
@@ -1864,6 +1864,8 @@
     // document.getElementById('game-over-panel').style.display="none";
 
     const gameOverPanel = document.getElementById('game-over-panel');
+
+    var 땅투명=0.1;
 
     var 옵션=document.getElementById("options-overlay")
     var 카테그=document.getElementById("categ1")
@@ -5561,7 +5563,7 @@
         var groundmaterial = new THREE.MeshLambertMaterial({
             color: groundcolor,
             visible: true,
-            opacity: 0.06,
+            opacity: 땅투명,
             transparent: true
         });
     } else {
@@ -6056,7 +6058,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
-
+        camera.rotation.x=restartend;
          frontalViewCamera.left= -bw / 1.05
         frontalViewCamera.right = bw / 1.05
         frontalViewCamera.top = bw / 1.05
@@ -6116,7 +6118,7 @@
             var groundmaterial = new THREE.MeshLambertMaterial({
                 color: groundcolor,
                 visible: true,
-                opacity: 0.06,
+                opacity: 0,
                 transparent: true
             });
         } else {
@@ -10666,7 +10668,7 @@
         var submat = new THREE.MeshLambertMaterial({
             color: colorlst[colornum][0],
             visible: true,
-            opacity: 0.04,
+            opacity: 땅투명*0.72,
             transparent: true
         });
 
@@ -11993,6 +11995,7 @@
 
     // Animate the scene
     function animate(currentTime) {
+        // console.log(camera.rotation.x)
         let deltaTime = currentTime - lastTime;
 
         // console.log(elapsedTime);
@@ -12120,11 +12123,12 @@
                     }
                   });
               }
-
+              groundmesh.material.opacity=0.01
               restartonce1=true;
               console.log("뿅")
             }
-            if (camera.rotation.x - restartend >0) {
+            if (camera.rotation.x - restartend >=0) {
+                // camera.rotation.x=restartend
                 restartonce1=false;
                 restart();
 
@@ -12229,9 +12233,10 @@
                 camera.lookAt.x=0
                 camera.lookAt.z=0
                 // camera.lookAt(0, 0, 0);
+
                 grd.addColorStop(0, "white");
-                grd.addColorStop(0.23, newcl1);
-                grd.addColorStop(0.46, newcl0);
+                grd.addColorStop(0.35, newcl1);
+                grd.addColorStop(0.45, newcl0);
                 grd.addColorStop(1, newcl0);
                 ctx.fillStyle = grd;
                 ctx.fillRect(0, 0, 100, 100);
@@ -12290,7 +12295,7 @@
               restartonce2=true;
             }
             if (-isoAngle - camera.rotation.x > 0) {
-                camera.rotation.x=-isoAngle;
+                // camera.rotation.x=-isoAngle;
 
                 // for (var i = 0; i < cubes.length; i++) {
                 //   cubes[i].mesh.children.forEach((item, idx) => {
@@ -12346,7 +12351,7 @@
               restartflag=false;
             }else{
               if(onceflag1){
-
+                // camera.rotation.x=restartend;
 
                 onceflag1=false;
 
@@ -12361,9 +12366,11 @@
               }
 
                 // camera.rotation.x -= Math.PI / 256
-                camera.rotation.x -= deltaTime / 1200
+
+                camera.rotation.x -= Math.PI / 180
                 // if (-isoAngle - camera.rotation.x > 0) camera.rotation.x=-isoAngle+0.01;
                 // camera.position.y-=100000*(Math.PI/128)
+                groundmesh.material.opacity=땅투명+(-isoAngle - camera.rotation.x)
             }
         }
         if (rotationflag) {
@@ -13303,6 +13310,13 @@
         // }
         if(m2flag){
           if(elapsedTime - stacktime <= 0.35){
+            cubes[cubes.length-2].mesh.children.forEach((item, i) => {
+              if(item.userData["skintype"]=="top"){
+                cubes[cubes.length-2].mesh.remove(item)
+              }
+
+            });
+
             if(skinset[skinnum]=="classic"){
               cubes[cubes.length-1].mesh.scale.set(0.45+(elapsedTime - stacktime), 0.65+(elapsedTime - stacktime),0.45+(elapsedTime - stacktime))
             }else{
@@ -14241,8 +14255,8 @@
           }
         }
         // Update the physics world
-
-        if(startflag) world.step(1 / 60, deltaTime2);
+        // console.log(String(deltaTime)+" " +String(deltaTime))
+        if(startflag) world.step(1 / 60, deltaTime/900);
         if (!restartflag) {
             cubes.forEach((item) => {
                 // item.mesh.position.copy(item.mesh.userData.body.position);
@@ -15411,16 +15425,7 @@
               mesh1.userData["skintype"] =1;
               if(!flag) clmeshlst1[idx].push(mesh1.material);
               mesh.add(mesh1);
-              // originHelper.position.set(bw/2-width/4.7,0-depth*0.01,depth/2)
-              // originHelper.updateWorldMatrix(true, false);
-              // var tg=new THREE.BoxGeometry(width/3.5, height*0.55, depth*0.002);
-              // tg.applyMatrix4(originHelper.matrixWorld);
-              // geoms.push(tg)
-              // originHelper.position.set(bw/2-width/4.7,0-depth*0.01,depth/2)
-              // 		originHelper.updateWorldMatrix(true, false);
-              // 		var tg=new THREE.BoxGeometry(width/3.5, height*0.55, depth*0.002);
-              // 		tg.applyMatrix4(originHelper.matrixWorld);
-              // geoms.push(tg)
+
 
 
               var moldkey=Object.keys(skinmold);
@@ -15429,11 +15434,23 @@
                   let obj1=obj.clone();
                   let mat1=obj.material.clone();
                   if(obj1.userData["skintype"]=="top"){
-                    if(idx==4){
-                      obj1.material=mat1
+                    // if(gamemod==2){
+                    //   return;
+                    // }
+                    if(gamemod==2){
+                      if(idx>4){
+                        obj1.material=mat1
+                      }else{
+                        return;
+                      }
                     }else{
-                      return;
+                      if(idx==4){
+                        obj1.material=mat1
+                      }else{
+                        return;
+                      }
                     }
+
 
 
 
@@ -17942,7 +17959,6 @@
           restartloc=[];
           restartrot=[];
           for (var i = 0; i < cubes.length; i++) {
-
               restartloc.push(cubes[i].mesh.position);
               restartrot.push(cubes[i].mesh.rotation);
           }
