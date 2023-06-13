@@ -12099,12 +12099,7 @@
         }
         if (restartflag && lookcenter) { //리스타트
             if(!restartonce1){
-              // 포인트.forEach((item) => {
-              //     item.material.visible = false;
-              // })
-              // 시간.forEach((item) => {
-              //     item.material.visible = false;
-              // })
+
               while (포인트.length > 0) {
                   scene.remove(포인트.pop());
               }
@@ -12300,7 +12295,7 @@
               restartonce2=true;
             }
             if (-isoAngle - camera.rotation.x > 0) {
-                // camera.rotation.x=-isoAngle;
+                camera.rotation.x=-isoAngle;
 
                 // for (var i = 0; i < cubes.length; i++) {
                 //   cubes[i].mesh.children.forEach((item, idx) => {
@@ -12313,6 +12308,7 @@
                 // }
 
                 if(onceflag0){
+                  camera.rotation.x=-isoAngle;
                   document.getElementById("left").classList.remove("hidden");
                   document.getElementById("left").classList.remove("fade");
                   document.getElementById("left").classList.add("show");
@@ -12372,8 +12368,8 @@
 
                 // camera.rotation.x -= Math.PI / 256
 
-                camera.rotation.x -= Math.PI / 180
-                // if (-isoAngle - camera.rotation.x > 0) camera.rotation.x=-isoAngle+0.01;
+                camera.rotation.x -= Math.PI / 256
+                if (-isoAngle - camera.rotation.x > 0) camera.rotation.x=-isoAngle-0.01;
                 // camera.position.y-=100000*(Math.PI/128)
                 groundmesh.material.opacity=땅투명+(-isoAngle - camera.rotation.x)
             }
@@ -14615,8 +14611,8 @@
                   renderer.setViewport(window.innerWidth / 2 - width / 2, -(width / 10)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
                   renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width / 10)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
                 }else{
-                  renderer.setViewport(window.innerWidth / 2 - width / 2, -(width / 25)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
-                  renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width / 25)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
+                  renderer.setViewport(window.innerWidth / 2 - width / 2, -(width / 30)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
+                  renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width / 30)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
                 }
                 renderer.setScissorTest(true);
                 renderer.render(scene, topViewCamera);
