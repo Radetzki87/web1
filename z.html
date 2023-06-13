@@ -6083,7 +6083,7 @@
           forceAmount = bw * bw * bh / 16.5;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 2;
+          world.solver.iterations = 10;
           // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
         }else if (gamemod==1){
           cubes[3].body.material.friction = 0.3;
@@ -10915,7 +10915,7 @@
           var tmesh = new THREE.Mesh(geometry12, material);
           tmesh.position.y = cubes[2].body.position.y + 11-4
           tmesh.position.x = bw * (1.1)
-          tmesh.position.z = bw * (0.4)
+          tmesh.position.z = bw * (0.6)
           // textMesh.position.x=0;
           tmesh.depth = 10;
           tmesh.rotation.order = 'YXZ';
@@ -14256,7 +14256,7 @@
         }
         // Update the physics world
         // console.log(String(deltaTime)+" " +String(deltaTime))
-        if(startflag) world.step(1 / 60, deltaTime/900);
+        if(startflag) world.step(1 / 60, deltaTime/800);
         if (!restartflag) {
             cubes.forEach((item) => {
                 // item.mesh.position.copy(item.mesh.userData.body.position);
@@ -14594,30 +14594,34 @@
         })
 
         if (topcam&&!restartflag) {
-            if ((window.innerWidth / window.innerHeight) < 3 / 5) {
-                if((window.innerWidth / window.innerHeight) > 0.5){
-                  var width = window.innerWidth / 1.15;
-                  var height = window.innerWidth / 1.15;
-                  var width1 = window.innerWidth / 1.15;
-                  var height1 = window.innerWidth / 1.15;
-                }else{
+            if ((window.innerWidth / window.innerHeight) < 4 / 7) {
+                // if((window.innerWidth / window.innerHeight) > 0.5){
+                //   var width = window.innerWidth / 1.15;
+                //   var height = window.innerWidth / 1.15;
+                //   var width1 = window.innerWidth / 1.15;
+                //   var height1 = window.innerWidth / 1.15;
+                // }else{
                   var width = window.innerWidth / 1;
                   var height = window.innerWidth / 1;
                   var width1 = window.innerWidth / 1;
                   var height1 = window.innerWidth / 1;
+                // }
+                if((window.innerWidth / window.innerHeight) > 0.5){
+                  renderer.setViewport(window.innerWidth / 2 - width / 2, -(width / 10)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
+                  renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width / 10)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
+                }else{
+                  renderer.setViewport(window.innerWidth / 2 - width / 2, -(width / 25)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
+                  renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width / 25)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
                 }
-
-                renderer.setViewport(window.innerWidth / 2 - width / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
-                renderer.setScissor(window.innerWidth / 2 - width1 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
                 renderer.setScissorTest(true);
                 renderer.render(scene, topViewCamera);
             } else if ((window.innerWidth / window.innerHeight) > 13 / 8) {
               if(skinset[skinnum]=="classic"){
-                var width = window.innerWidth / 1;
-                var height = window.innerWidth / 1;
+                var width = window.innerHeight / 1;
+                var height = window.innerHeight / 1;
               }else{
-                var width = window.innerWidth / 1.1;
-                var height = window.innerWidth / 1.1;
+                var width = window.innerHeight / 1.1;
+                var height = window.innerHeight / 1.1;
               }
                 renderer.setViewport(window.innerWidth - height - (window.innerWidth - window.innerHeight) / 8, -3500 * Math.abs(-isoAngle - camera.rotation.x) - 1000 * Math.abs(Math.PI / 4 - camera.rotation.y), width, width);
                 renderer.setScissor(window.innerWidth - height - (window.innerWidth - window.innerHeight) / 8, -3500 * Math.abs(-isoAngle - camera.rotation.x) - 1000 * Math.abs(Math.PI / 4 - camera.rotation.y), width, width);
@@ -18935,7 +18939,6 @@
 
 <script>
 
-
     function cons(text){
       document.getElementById("coin2").innerText=String(text);
     }
@@ -19654,6 +19657,7 @@
 
           // return;
         }
+
         if(n==5){
           document.getElementById("mod-overlay").classList.remove("show");
           document.getElementById("mod-overlay").classList.add("fade");
