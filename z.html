@@ -1012,7 +1012,6 @@
           align-items: left;
           color:rgba(255, 255, 255, 0.8);
 
-
         }
 
         #popline1 .p1{
@@ -1020,7 +1019,7 @@
         }
 
         #popline1 .p2{
-            margin-left: 2vw;
+          margin-left: 2vw;
         }
 
         #popline1 .p3{
@@ -1258,7 +1257,7 @@
             /* flex-direction: column; */
             background-color: rgba(50, 50, 50, 0.6);
             border-radius: 4vw;
-            border: 5px solid rgba(20, 20, 20, 0.3);
+            border: 0px solid rgba(20, 20, 20, 0.3);
             width: 85%;
             height: 15%;
             justify-content: center;
@@ -1317,7 +1316,7 @@
             /* border: none; */
             background-color: transparent;
             /* background-image: url("png/grey_button10.png"); */
-
+            align-items: center;
             background-size: 12vh 10vh;
             background-color: rgba(50, 50, 50, 0.5);
             border-radius: 4vw;
@@ -1328,8 +1327,9 @@
         }
 
         .modbt img {
-            width: 6vh;
-            height: 6vh;
+            margin-top: 3vw;
+            width: 8vh;
+            height: 8vh;
             z-index: 2;
         }
 
@@ -1345,19 +1345,27 @@
         #m0best{
           margin-top: 2vh;
           color:white;
-          font-size: 3vw;
+          font-size: 4vw;
         }
 
         #m1best{
           margin-top: 2vh;
           color:white;
-          font-size: 3vw;
+          font-size: 4vw;
         }
 
         #m2best{
           margin-top: 2vh;
           color:white;
-          font-size: 3vw;
+          font-size: 4vw;
+        }
+
+        #m2price{
+          position: absolute;
+          /* margin-top: 2vh; */
+          top:45%;
+          color:yellow;
+          font-size: 5vw;
         }
 
 
@@ -1856,6 +1864,62 @@
     // document.getElementById('game-over-panel').style.display="none";
 
     const gameOverPanel = document.getElementById('game-over-panel');
+
+    var 옵션=document.getElementById("options-overlay")
+    var 카테그=document.getElementById("categ1")
+    var 스텝1=document.getElementById("step1")
+    var 스텝3=document.getElementById("step3")
+    var 샵=document.getElementById("shop")
+
+    var 레프트=document.getElementById("left")
+
+    var 물음표=document.getElementById("leftup")
+
+    var 센터=document.getElementById("center")
+
+    var 라이트=document.getElementById("right")
+
+    var 옵션리스트=document.getElementById("optionlst")
+
+    var 세팅=document.getElementById("setting-overlay")
+
+    var 튜토리얼=document.getElementById("tutorial")
+
+    var 게임오버=document.getElementById("gameover-overlay")
+
+    var 코인=document.getElementById("coin-info")
+
+    var 모드=document.getElementById("mod-overlay")
+
+    var 크레딧=document.getElementById("credit-info")
+
+    var 튜트=document.getElementById("tut-info")
+
+    var 송=document.getElementById("song-info")
+
+    var 인트로=document.getElementById("intro")
+
+    window.옵션=옵션
+    window.카테그=카테그
+    window.스텝1=스텝1
+    window.스텝3=스텝3
+    window.샵=샵
+    window.레프트=레프트
+    window.물음표=물음표
+    window.센터=센터
+    window.라이트=라이트
+    window.옵션리스트=옵션리스트
+    window.세팅=세팅
+    window.튜토리얼=튜토리얼
+    window.게임오버=게임오버
+    window.코인=코인
+    window.모드=모드
+    window.크레딧=크레딧
+    window.튜트=튜트
+    window.송=송
+    window.인트로=인트로
+
+    var mod2비용=300;
 
     var 색보정=[14, 0, 31, 59, 16, 37, 18, 44, 41, 39, 10, 40, 22, 13,26]
 
@@ -5039,6 +5103,8 @@
                             restartflag = true
                             pluscoin = parseInt(점수 / 10)
                             // coin += pluscoin;
+                            restartloc=[];
+                            restartrot=[];
                             for (var i = 0; i < cubes.length; i++) {
                                 restartloc.push(cubes[i].mesh.position);
                                 restartrot.push(cubes[i].mesh.rotation);
@@ -5085,6 +5151,8 @@
                             restartflag = true
                             pluscoin = parseInt(점수 / 10)
                             // coin += pluscoin;
+                            restartloc=[];
+                            restartrot=[];
                             for (var i = 0; i < cubes.length; i++) {
                                 restartloc.push(cubes[i].mesh.position);
                                 restartrot.push(cubes[i].mesh.rotation);
@@ -5130,6 +5198,8 @@
                             restartflag = true
                             pluscoin = parseInt(점수 / 10)
                             // coin += pluscoin;
+                            restartloc=[];
+                            restartrot=[];
                             for (var i = 0; i < cubes.length; i++) {
                                 restartloc.push(cubes[i].mesh.position);
                                 restartrot.push(cubes[i].mesh.rotation);
@@ -5175,6 +5245,8 @@
                             restartflag = true
                             pluscoin = parseInt(점수 / 10)
                             // coin += pluscoin;
+                            restartloc=[];
+                            restartrot=[];
                             for (var i = 0; i < cubes.length; i++) {
                                 restartloc.push(cubes[i].mesh.position);
                                 restartrot.push(cubes[i].mesh.rotation);
@@ -5449,7 +5521,7 @@
         sideViewCamera.position.set(bw * 1.5, bw * 0.8, 0);
         sideViewCamera.lookAt(0, bw * 0.8, 0);
     }
-    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.15, bw / 1.15, bw / 1.15, -bw / 1.15, 0.1, 1000);
+    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.2, bw / 1.2, bw / 1.2, -bw / 1.2, 0.1, 1000);
     topViewCamera.position.set(0, bh * 20, 0);
     topViewCamera.lookAt(0, 0, 0);
     // var color = 0xFFFFFF;
@@ -5805,6 +5877,8 @@
                 restartflag = true
                 pluscoin = parseInt(점수 / 10)
                 // coin += pluscoin;
+                restartloc=[];
+                restartrot=[];
                 for (var i = 0; i < cubes.length; i++) {
                     restartloc.push(cubes[i].mesh.position);
                     restartrot.push(cubes[i].mesh.rotation);
@@ -6303,7 +6377,10 @@
           var temp0=[0]
           // skinnum = temp0[parseInt(Math.random()*temp0.length)];
           skinnum=parseInt(Math.random()*(skinset.length-1))
-          camera.position.y= bh * (cubes.length+0.5)
+
+          // skinnum=skinset.indexOf("gb");
+
+          camera.position.y= bh * (cubes.length+1)
         }else{
           camera.position.y= bh * (cubes.length+3.5)
         }
@@ -7612,7 +7689,44 @@
                         skinmold[ntile.userData["skin"]].push(ntile.clone())
                       }
                       mesh.add(ntile);
+
+                      var ntile = tilemold[11].clone();
+                      ntile.material = new THREE.MeshBasicMaterial({
+                          color: 0xffffff
+                      });
+                      ntile.position.y=bh/2.5;
+                      ntile.position.x=bw/10;
+                      ntile.position.z=-bw/1.65;
+                      ntile.scale.set(0.3,0.3,1)
+                      // ntile.children[0].position.z=bh;
+                      ntile.userData["skin"] = "classic"
+                      ntile.userData["skintype"] = "score"
+                      // ntile.children[0].userData["skintype"] =0;
+                      if(idx==0){
+                        skinmold[ntile.userData["skin"]].push(ntile.clone())
+                      }
+                      mesh.add(ntile);
+
+                      var ntile = tilemold[12].clone();
+                      ntile.material = new THREE.MeshBasicMaterial({
+                          color: 0xffffff
+                      });
+                      ntile.position.y=bh/2.5;
+                      ntile.position.x=bw/2.8;
+                      ntile.position.z=-bw/1.65;
+                      ntile.scale.set(0.35,0.3,1)
+                      // ntile.children[0].position.z=bh;
+                      ntile.userData["skin"] = "classic"
+                      ntile.userData["skintype"] = "best"
+                      // ntile.children[0].userData["skintype"] =0;
+                      if(idx==0){
+                        skinmold[ntile.userData["skin"]].push(ntile.clone())
+                      }
+                      mesh.add(ntile);
                   });
+
+
+
 
 
 
@@ -10418,36 +10532,36 @@
               }
           }
 
-          // var temp5 = [];
-          // var text1 = "재생 중: " + sdic[n][0].substring(0, sdic[n][0].length - 4) + " "
-          // for (var i = 0; i < 100; i++) {
-          //     var canvas = document.createElement('canvas');
-          //     var ctx = canvas.getContext('2d');
-          //     // const padding = 10;
-          //     ctx.globalAlpha = 1;
-          //     canvas.width = 16.5 * 6;
-          //     canvas.height = 5.6 * 6;
-          //     var tl = text1.length;
-          //     var textw = tl * (canvas.width / 10);
-          //     ctx.font = `${14}px Arial`;
-          //     ctx.fillStyle = 0xFFFFFF;
-          //     // // ctx.fillText(text, padding, padding + textHeight * 0.8);
-          //     ctx.fillText(text1, 0 - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
-          //     ctx.fillText(text1, textw - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
-          //     ctx.font = `${7}px Arial`;
-          //
-          //     ctx.fillText("  AKAI PRO ", 0, canvas.height * 0.35, canvas.width / 2.5, canvas.height);
-          //     // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
-          //     var img3 = new THREE.CanvasTexture(canvas);
-          //     var material5 = new THREE.MeshLambertMaterial({
-          //         map: img3,
-          //         side: THREE.DoubleSide,
-          //         transparent: true,
-          //         opacity: 1
-          //     });
-          //     temp5.push(material5);
-          // }
-          // txtlst.push(temp5);
+          var temp5 = [];
+          var text1 = "재생 중: " + sdic[n][0].substring(0, sdic[n][0].length - 4) + " "
+          for (var i = 0; i < 100; i++) {
+              var canvas = document.createElement('canvas');
+              var ctx = canvas.getContext('2d');
+              // const padding = 10;
+              ctx.globalAlpha = 1;
+              canvas.width = 16.5 * 6;
+              canvas.height = 5.6 * 6;
+              var tl = text1.length;
+              var textw = tl * (canvas.width / 10);
+              ctx.font = `${14}px Arial`;
+              ctx.fillStyle = 0xFFFFFF;
+              // // ctx.fillText(text, padding, padding + textHeight * 0.8);
+              ctx.fillText(text1, 0 - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
+              ctx.fillText(text1, textw - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
+              ctx.font = `${7}px Arial`;
+
+              ctx.fillText("  AKAI PRO ", 0, canvas.height * 0.35, canvas.width / 2.5, canvas.height);
+              // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
+              var img3 = new THREE.CanvasTexture(canvas);
+              var material5 = new THREE.MeshLambertMaterial({
+                  map: img3,
+                  side: THREE.DoubleSide,
+                  transparent: true,
+                  opacity: 1
+              });
+              temp5.push(material5);
+          }
+          txtlst.push(temp5);
 
         if (callback) {
             callback();
@@ -10640,7 +10754,7 @@
         var tmesh = new THREE.Mesh(geometry12, material);
 
         if(gamemod==2){
-          tmesh.position.y = cubes[0].body.position.y+8
+          tmesh.position.y = cubes[0].body.position.y+9
         }else{
           tmesh.position.y = cubes[0].body.position.y + 12
         }
@@ -10895,7 +11009,7 @@
         });
         var tmesh = new THREE.Mesh(geometry12, material);
         if(gamemod==2){
-          tmesh.position.y = cubes[0].body.position.y+8
+          tmesh.position.y = cubes[0].body.position.y+9
         }else{
           tmesh.position.y = cubes[0].body.position.y + 12
         }
@@ -11744,6 +11858,8 @@
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
                     // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -12004,6 +12120,7 @@
                     }
                   });
               }
+
               restartonce1=true;
               console.log("뿅")
             }
@@ -12109,6 +12226,9 @@
                 avz /= cubes.length;
                 camera.position.x = bw * 2;
                 camera.position.z = bw * 2;
+                camera.lookAt.x=0
+                camera.lookAt.z=0
+                // camera.lookAt(0, 0, 0);
                 grd.addColorStop(0, "white");
                 grd.addColorStop(0.23, newcl1);
                 grd.addColorStop(0.46, newcl0);
@@ -12505,7 +12625,6 @@
                   // txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
 
                   for (var i = 0; i < cubes.length; i++) {
-
                       // if(i==0) continue;
                       txts[i].material = txtlst[i][txtcount];
 
@@ -13113,7 +13232,7 @@
         var tempflag=true;
 
         for (var i = 0; i < cubes.length; i++) {
-          if (Math.abs(cubes[i].mesh.rotation.x) > 0.08 || Math.abs(cubes[i].mesh.rotation.z) > 0.08){
+          if (Math.abs(cubes[i].mesh.rotation.x) > 0.07 || Math.abs(cubes[i].mesh.rotation.z) > 0.07){
               tempflag=false;
               if(!swing){
                 swing=true;
@@ -13184,9 +13303,26 @@
         // }
         if(m2flag){
           if(elapsedTime - stacktime <= 0.35){
-            cubes[cubes.length-1].mesh.scale.set(0.65+(elapsedTime - stacktime), 0.65+(elapsedTime - stacktime),0.65+(elapsedTime - stacktime))
+            if(skinset[skinnum]=="classic"){
+              cubes[cubes.length-1].mesh.scale.set(0.45+(elapsedTime - stacktime), 0.65+(elapsedTime - stacktime),0.45+(elapsedTime - stacktime))
+            }else{
+              cubes[cubes.length-1].mesh.scale.set(0.65+(elapsedTime - stacktime), 0.65+(elapsedTime - stacktime),0.65+(elapsedTime - stacktime))
+            }
+
+            // cubes[cubes.length-1].mesh.children.forEach((item) => {
+            //   item.scale.set(0.65+(elapsedTime - stacktime), 0.65+(elapsedTime - stacktime),0.65+(elapsedTime - stacktime))
+            // });
+
           }else{
-            cubes[cubes.length-1].mesh.scale.set(1,1,1)
+            if(skinset[skinnum]=="classic"){
+              cubes[cubes.length-1].mesh.scale.set(0.8,1,0.8)
+            }else{
+              cubes[cubes.length-1].mesh.scale.set(1,1,1)
+            }
+
+            // cubes[cubes.length-1].mesh.children.forEach((item) => {
+            //   item.scale.set(1, 1,1)
+            // });
           }
 
           if(elapsedTime - stacktime > 1&&m2flag){
@@ -13378,7 +13514,9 @@
                         document.getElementById("max").classList.add("hidden");
                         document.getElementById("시간").classList.add("hidden");
                         if(gamemod==2){
-                          document.querySelector(".gameinfo0").innerText="floor: "+String(cubes.length-3)+"\nbest: "+String(parseInt(20));
+                          document.querySelector(".gameinfo0").innerText="floor: "+String(cubes.length-3)+"\nbest: "+String(bestscore2);
+                        }else if(gamemod==1){
+                          document.querySelector(".gameinfo0").innerText="point: "+String(점수)+"\nbest: "+String(parseInt(bestscore1));
                         }else{
                           document.querySelector(".gameinfo0").innerText="point: "+String(점수)+"\nbest: "+String(parseInt(bestscore));
                         }
@@ -13491,7 +13629,7 @@
                         bw * 2 + avz,
                     );
                     if(gamemod==2) {
-                      camera.position.y= bh * (cubes.length+0.5)
+                      camera.position.y= bh * (cubes.length+1)
                     }
                     // camera.lookAt(cubes[0].body.position.x,cubes[cubes.length-1].mesh.position.y+bh*5,cubes[0].body.position.y)
                     // var isoAngle = Math.atan(1 / Math.sqrt(2));
@@ -13590,7 +13728,7 @@
                                 bh * (cubes.length + 3.5),
                                 bw * 2 + avz,
                             );
-                            if(gamemod==2) camera.position.y= bh * (cubes.length+0.5)
+                            if(gamemod==2) camera.position.y= bh * (cubes.length+1)
 
                             if (arrowon) arrows[i].children[0].material.opacity = 0.5
                             // cubes[i].mesh.tile.material.visible = true
@@ -14110,12 +14248,18 @@
                 // item.mesh.position.copy(item.mesh.userData.body.position);
                 // item.mesh.quaternion.copy(item.mesh.userData.body.quaternion);
                 if(skinset[skinnum]=="classic"){
-                  item.mesh.scale.set(0.8,1,0.8)
+                  if(gamemod!=2){
+                    item.mesh.scale.set(0.8,1,0.8)
+                  }
+
                   item.mesh.position.copy(item.body.position);
                   item.mesh.quaternion.copy(item.body.quaternion);
                   item.mesh.position.z+=bh/4.4;
                 }else if(skinset[skinnum]=="base"){
-                  item.mesh.scale.set(1,1,1)
+                  if(gamemod!=2){
+                    item.mesh.scale.set(1,1,1)
+                  }
+                  // item.mesh.scale.set(1,1,1)
                   item.mesh.position.copy(item.body.position);
                   item.mesh.quaternion.copy(item.body.quaternion);
                   item.mesh.children.forEach((tile) => {
@@ -14124,7 +14268,9 @@
                     }
                   });
                 }else{
-                  item.mesh.scale.set(1,1,1)
+                  if(gamemod!=2){
+                    item.mesh.scale.set(1,1,1)
+                  }
                   item.mesh.position.copy(item.body.position);
                   item.mesh.quaternion.copy(item.body.quaternion);
                 }
@@ -14295,11 +14441,6 @@
                     // console.log(textMesh);
                 });
             }
-
-
-
-
-
             //색상표
             // const text = String(colornum)+"  "+ String(colornum0);
             // const fontSize = 24;
@@ -14330,7 +14471,6 @@
               item.material.visible = false;
           })
         }
-
         gradback[0].material.visible = true;
         if (topcam&&!restartflag) {
           if(particleflag) particles.material.visible=false;
@@ -14358,8 +14498,6 @@
                 topViewCamera.lookAt(cubes[cubes.length - 1].body.position.x, 0, cubes[cubes.length - 1].body.position.z);
                 topViewCamera.rotation.y = cubes[cubes.length - 1].mesh.rotation.y
             } else {
-
-
                 for (var i = 0; i < cubes.length; i++) {
                     cubes[i].mesh.children.forEach((item) => {
                       if (item.userData["skin"]==skinset[skinnum]) {
@@ -14379,7 +14517,6 @@
                             item.receiveShadow = false;
                             item.castShadow = false;
                           }
-
                         }else{
                           item.receiveShadow = false;
                           item.castShadow = false;
@@ -14431,8 +14568,6 @@
                     } else if (i > activeFloor) {
                         // cubes[i].mesh.material.opacity = 0.0;
                         // cubes[i].mesh.material.transparent = true;
-
-
                     }
                 }
             }
@@ -14479,7 +14614,6 @@
         ring[0].children.forEach((item) => {
             item.material.visible = false;
         })
-
         // if(Math.abs(restartend-camera.rotation.x)<0.5){
         // 	renderer.render(scene, camera);
         // 	console.log(restartend-camera.rotation.x);
@@ -14508,9 +14642,7 @@
                     if(i>activeFloor){
                       item.material.opacity=1;
                       item.material.alphaTest=item.material.opacity
-
                       item.material.visible=true;
-
                     }else if(i==activeFloor){
                       if(skinset[skinnum]=="classic"){
 
@@ -14519,10 +14651,7 @@
                         item.material.alphaTest=item.material.opacity
                         item.material.visible=true;
                       }
-
                     }
-
-
                   }
                 });
 
@@ -17408,7 +17537,7 @@
       }, 2000);
     }
 
-
+    window.showpop=showpop;
     function showinfo(n){
       if(n==2){
         // pluscoin=0;
@@ -17552,6 +17681,8 @@
         restartflag = true
         pluscoin = parseInt(점수 / 10);
         // coin += pluscoin;
+        restartloc=[];
+        restartrot=[];
         for (var i = 0; i < cubes.length; i++) {
             restartloc.push(cubes[i].mesh.position);
             restartrot.push(cubes[i].mesh.rotation);
@@ -17645,6 +17776,8 @@
         restartflag = true;
         pluscoin = parseInt(점수 / 10)
         // coin += pluscoin;
+        restartloc=[];
+        restartrot=[];
         for (var i = 0; i < cubes.length; i++) {
             restartloc.push(cubes[i].mesh.position);
             restartrot.push(cubes[i].mesh.rotation);
@@ -17716,14 +17849,43 @@
     }
 
     function retry() {
+      // coin=parseInt(nslst["data"]["0"]);
       // coin+=pluscoin;
-      contract(-pluscoin,[])
+      if(pluscoin!=0){
+        contract(-pluscoin,[])
+        showpop("",String(pluscoin)+" ★","획득")
+      }
+
+      if(gamemod==2){
+        if(coin>=mod2비용){
+          contract(mod2비용,[])
+          showpop("",String(mod2비용)+" ★  지불","")
+        }else{
+          showpop("★가","부족합니다","")
+          return;
+          // Android.showToast("★가 부족합니다");
+        }
+      }
+
       // if(!webflag) setdb("data", "0", String(coin));
       // document.getElementById("coin2").innerText=String(coin);
-      if(점수>bestscore){
-        if(!webflag) setdb([["data", "2", String(점수)]]);
-        bestscore=점수
+      if(gamemod==2){
+        if(점수>bestscore2){
+          if(!webflag) setdb([["data", "8", String(점수)]]);
+          bestscore2=점수
+        }
+      }else if(gamemod==1){
+        if(점수>bestscore1){
+          if(!webflag) setdb([["data", "4", String(점수)]]);
+          bestscore1=점수
+        }
+      }else{
+        if(점수>bestscore){
+          if(!webflag) setdb([["data", "2", String(점수)]]);
+          bestscore=점수
+        }
       }
+
 
 
       if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
@@ -17776,10 +17938,16 @@
           restartflag = true
           pluscoin = parseInt(점수 / 10)
           // coin += pluscoin;
+          // cubes.length=5;
+          restartloc=[];
+          restartrot=[];
           for (var i = 0; i < cubes.length; i++) {
+
               restartloc.push(cubes[i].mesh.position);
               restartrot.push(cubes[i].mesh.rotation);
           }
+
+          console.log(restartloc);
           do{
             ncolornum = parseInt(Math.random() * colorlst.length);
           }while(색보정.indexOf(ncolornum)!=-1)
@@ -17830,6 +17998,8 @@
           // coin=parseInt(nslst["data"]["0"]);
           // coin=999999;
           bestscore=parseInt(nslst["data"]["2"]);
+          bestscore1=parseInt(nslst["data"]["4"]);
+          bestscore2=parseInt(nslst["data"]["8"]);
           var templst0 = ["0","2","4","8","16","32","64","128","256","512","1024","2048"]
           var tkey = nslst["data1"]
           var skey = nslst["skin"]
@@ -17863,6 +18033,8 @@
         window.nslst=nslst;
         coin=parseInt(nslst["data"]["0"]);
         bestscore=parseInt(nslst["data"]["2"]);
+        bestscore1=parseInt(nslst["data"]["4"]);
+        bestscore2=parseInt(nslst["data"]["8"]);
         var templst0 = ["0","2","4","8","16","32","64","128","256","512","1024","2048"]
         var tkey = nslst["data1"]
         var skey = nslst["skin"]
@@ -18104,6 +18276,7 @@
 
 
               })
+              showpop("",String(skincost)+" ★","지불")
               // coin-=skincost;
               // if(!webflag) setdb("data", "0", String(coin));
               // if(!webflag) setdb("data1", templst0[skinn], "1");
@@ -18151,7 +18324,9 @@
         })
 
         mod0.addEventListener('click', function() {
-
+            if(gamemod==2){
+              skinnum=0;
+            }
 
             if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
                 document.getElementById("mod-overlay").classList.remove("show");
@@ -18165,6 +18340,8 @@
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
                     // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -18200,6 +18377,9 @@
         })
 
         mod1.addEventListener('click', function() {
+            if(gamemod==2){
+              skinnum=0;
+            }
             if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
                 document.getElementById("mod-overlay").classList.remove("show");
                 document.getElementById("mod-overlay").classList.add("fade");
@@ -18212,6 +18392,8 @@
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
                     // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -18248,9 +18430,13 @@
 
         mod2.addEventListener('click', function() {
 
-            if(coin>=300){
-              coin-=300;
+          if(coin>=mod2비용){
+            contract(mod2비용,[])
+            showpop("",String(mod2비용)+" ★  지불","")
             }else{
+              showpop("★가","부족합니다","")
+              // Android.showToast("★가 부족합니다");
+
               return;
             }
 
@@ -18266,6 +18452,8 @@
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
                     // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -18302,9 +18490,12 @@
 
         reBtn.addEventListener('click', function() {
           if(gamemod==2){
-            if(coin>=300){
-              coin-=300;
+            if(coin>=mod2비용){
+              contract(mod2비용,[])
+              showpop("",String(mod2비용)+" ★  지불","")
             }else{
+              showpop("★가","부족합니다","")
+              // Android.showToast("★가 부족합니다");
               return;
             }
           }
@@ -18379,6 +18570,8 @@
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
                     // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -18550,6 +18743,10 @@
                 document.getElementById('tbar1').style.width=String(parseInt(100*((ulcount)/(acount))))+"%";
                 document.getElementById('tbar2').innerText=String(ulcount)+"/"+String(acount)
               })
+              showpop("",item.price+" ★","지불")
+            }else{
+              showpop("★가","부족합니다","")
+              // Android.showToast("★가 부족합니다");
             }
             return;
           }else if(ptxt[0] == "2"){
@@ -18609,6 +18806,8 @@
                 restartflag = true
                 pluscoin = parseInt(점수 / 10)
                 // coin += pluscoin;
+                restartloc=[];
+                restartrot=[];
                 for (var i = 0; i < cubes.length; i++) {
                     restartloc.push(cubes[i].mesh.position);
                     restartrot.push(cubes[i].mesh.rotation);
@@ -18653,6 +18852,10 @@
               showGrid(tnum)
 
               })
+              showpop("",String(tprice)+" ★","지불")
+            }else{
+              showpop("★가","부족합니다","")
+              // Android.showToast("★가 부족합니다");
             }
             return;
           }
@@ -18677,6 +18880,8 @@
               restartflag = true
               pluscoin = parseInt(점수 / 10)
               // coin += pluscoin;
+              restartloc=[];
+              restartrot=[];
               for (var i = 0; i < cubes.length; i++) {
                   restartloc.push(cubes[i].mesh.position);
                   restartrot.push(cubes[i].mesh.rotation);
@@ -18715,7 +18920,6 @@
 <script>
 
 
-
     function cons(text){
       document.getElementById("coin2").innerText=String(text);
     }
@@ -18723,18 +18927,10 @@
     function adfree(){
       coinup(30)
      //Android.removeAd()
-
-
-
-
     }
 
     function showad(){
-
      Android.showAd()
-
-
-
 
     }
 
@@ -18747,7 +18943,6 @@
     var categ1 = document.getElementById("categ1");
 
     function skinon() {
-
         document.getElementById("left").classList.add("fade");
         document.getElementById("left").classList.remove("show");
         document.getElementById("leftup").classList.add("fade");
@@ -19477,6 +19672,8 @@
                 restartflag = true
                 pluscoin = parseInt(점수 / 10)
                 // coin += pluscoin;
+                restartloc=[];
+                restartrot=[];
                 for (var i = 0; i < cubes.length; i++) {
                     restartloc.push(cubes[i].mesh.position);
                     restartrot.push(cubes[i].mesh.rotation);
@@ -19871,8 +20068,10 @@
         <div class="gameover">
             <label class="glabel">Claim & retry</label>
             <button id="restartbtn" class="gameoverbt">
+                <div id="reprice" class="hidden"></div>
                 <img src="png/return.png" >
             </button>
+
         </div>
 
 
@@ -20320,6 +20519,7 @@
             <label class="mlabel">STACK</label>
             <b>스택</b>
             <div id="m2best">Best : 20</div>
+            <div id="m2price">★ 300</div>
         </div>
 
     </div>
