@@ -1280,7 +1280,7 @@
             width: 98%;
             height: 30%;
             border-radius: 4vw;
-            border-radius: 4vw;
+
             border: 0px solid #000;
             display: flex;
             flex-direction: row;
@@ -1297,6 +1297,7 @@
             font-family: 'GG';
             font-size: 15vw;
             margin: 4vw 0;
+
         }
 
         .mod {
@@ -1306,19 +1307,21 @@
 
             width: 100%;
             height: 80%;
-            background-color: rgba(50, 50, 50, 0);
+            background-color: rgba(100, 100, 100, 0);
 
             justify-content: center;
             align-items: center;
+            font-size: 5vw;
         }
 
         .modbt {
+
             /* border: none; */
             background-color: transparent;
             /* background-image: url("png/grey_button10.png"); */
             align-items: center;
             background-size: 12vh 10vh;
-            background-color: rgba(50, 50, 50, 0.5);
+            /* background-color: rgba(50, 50, 50, 0.5); */
             border-radius: 4vw;
             width: 12vh;
             height: 10vh;
@@ -1327,7 +1330,8 @@
         }
 
         .modbt img {
-            margin-top: 3vw;
+            margin-top: 2vw;
+            margin-left: -5px;
             width: 8vh;
             height: 8vh;
             z-index: 2;
@@ -1336,9 +1340,9 @@
         .modbt:active {
             /* background-image: url("png/blue_button08.png"); */
             transform: translate(0, 0.5vh);
-            background-size: 12vh 10.5vh;
+            background-size: 12vh 9.5vh;
             width: 12vh;
-            height: 10.5vh;
+            height: 9.5vh;
             margin-bottom: 2.5vh;
         }
 
@@ -2145,6 +2149,7 @@
     var bhsl4;
     var nbhsl4;
     let startflag = false
+    window.startflag=startflag;
     let fps;
     let time0;
     let gradback = [];
@@ -19099,7 +19104,7 @@
         document.getElementById("m2best").innerText="BEST : "+String(bestscore2)
 
         if(!document.getElementById("mod-overlay").classList.contains("hidden")){
-          return goBack(5);
+          return goBack(8);
         }
 
         if(!document.getElementById("tutorial").classList.contains("hidden")){
@@ -19661,15 +19666,72 @@
         if(n==5){
           document.getElementById("mod-overlay").classList.remove("show");
           document.getElementById("mod-overlay").classList.add("fade");
+          document.getElementById("setting-overlay").classList.remove("show");
+          document.getElementById("setting-overlay").classList.add("fade");
 
           document.getElementById("credit-info").classList.remove("show");
           document.getElementById("credit-info").classList.add("fade");
-          document.getElementById("coin-info").classList.remove("show");
-          document.getElementById("coin-info").classList.add("fade");
+
+
+          // document.getElementById("coin-info").classList.remove("show");
+          // document.getElementById("coin-info").classList.add("fade");
+          //
+          // document.getElementById("center").classList.remove("show");
+          // document.getElementById("center").classList.add("fade");
+          //
+          // document.getElementById("left").classList.remove("show");
+          // document.getElementById("left").classList.add("fade");
+
+
           setTimeout(function() {
               document.getElementById("mod-overlay").classList.add("hidden");
               document.getElementById("credit-info").classList.add("hidden");
-              document.getElementById("coin-info").classList.add("hidden");
+              document.getElementById("setting-overlay").classList.add("hidden");
+
+              // document.getElementById("coin-info").classList.add("hidden");
+              // document.getElementById("center").classList.add("hidden");
+              // document.getElementById("left").classList.add("hidden");
+
+
+          }, 100);
+
+        }
+
+        if(n==8){
+          document.getElementById("mod-overlay").classList.remove("show");
+          document.getElementById("mod-overlay").classList.add("fade");
+          document.getElementById("setting-overlay").classList.remove("show");
+          document.getElementById("setting-overlay").classList.add("fade");
+
+          document.getElementById("credit-info").classList.remove("show");
+          document.getElementById("credit-info").classList.add("fade");
+
+          if(document.getElementById("center").classList.contains("hidden")){
+            document.getElementById("coin-info").classList.remove("show");
+            document.getElementById("coin-info").classList.add("fade");
+          }
+
+          //
+          // document.getElementById("center").classList.remove("show");
+          // document.getElementById("center").classList.add("fade");
+          //
+          // document.getElementById("left").classList.remove("show");
+          // document.getElementById("left").classList.add("fade");
+
+
+          setTimeout(function() {
+              document.getElementById("mod-overlay").classList.add("hidden");
+              document.getElementById("credit-info").classList.add("hidden");
+              document.getElementById("setting-overlay").classList.add("hidden");
+              if(document.getElementById("center").classList.contains("hidden")){
+                document.getElementById("coin-info").classList.add("hidden");
+              }
+
+
+              // document.getElementById("center").classList.add("hidden");
+              // document.getElementById("left").classList.add("hidden");
+
+
           }, 100);
 
         }
@@ -19681,6 +19743,7 @@
                 document.getElementById("setting-overlay").classList.add("hidden");
             }, 100);
         }
+
         if (!document.getElementById("gameover-overlay").classList.contains("hidden")) {
             document.getElementById("gameover-overlay").classList.remove("show");
             document.getElementById("gameover-overlay").classList.add("fade");
@@ -19727,20 +19790,56 @@
             }
         }
         window.scrollTo(0, 0);
+        console.log(n)
         if (!document.getElementById("step1").classList.contains("hidden")) {
             document.getElementById("options-overlay").classList.add("fade");
             document.getElementById("options-overlay").classList.remove("show");
-            document.getElementById("center").classList.remove("fade");
-            document.getElementById("left").classList.remove("fade");
             document.getElementById("right").classList.remove("fade");
+
+            if(n==1){
+              document.getElementById("center").classList.remove("fade");
+              document.getElementById("left").classList.remove("fade");
+            }else if(n==5){
+              if(!document.getElementById("coin-info").classList.contains("hidden")){
+                document.getElementById("center").classList.remove("fade");
+                document.getElementById("left").classList.remove("fade");
+
+              }
+            }else if(!document.getElementById("center").classList.contains("hidden")){
+              document.getElementById("center").classList.remove("fade");
+              document.getElementById("left").classList.remove("fade");
+
+            }
+
             setTimeout(function() {
                 document.getElementById("options-overlay").classList.add("hidden");
-                document.getElementById("left").classList.add("show");
                 document.getElementById("right").classList.add("show");
-                document.getElementById("left").classList.remove("hidden");
                 document.getElementById("right").classList.remove("hidden");
-                document.getElementById("center").classList.add("show");
-                document.getElementById("center").classList.remove("hidden");
+                if(n==1){
+                  document.getElementById("left").classList.add("show");
+
+                  document.getElementById("left").classList.remove("hidden");
+
+                  document.getElementById("center").classList.add("show");
+                  document.getElementById("center").classList.remove("hidden");
+                }else if(n==5){
+                  if(!document.getElementById("coin-info").classList.contains("hidden")){
+                    document.getElementById("left").classList.add("show");
+
+                    document.getElementById("left").classList.remove("hidden");
+
+                    document.getElementById("center").classList.add("show");
+                    document.getElementById("center").classList.remove("hidden");
+                  }
+                }else if(!document.getElementById("center").classList.contains("hidden")){
+                  document.getElementById("left").classList.add("show");
+
+                  document.getElementById("left").classList.remove("hidden");
+
+                  document.getElementById("center").classList.add("show");
+                  document.getElementById("center").classList.remove("hidden");
+                }
+
 
             }, 100);
         } else if (!document.getElementById("categ1").classList.contains("hidden")) {
@@ -20506,7 +20605,7 @@
 </div>
 
 <div id="mod-overlay" class="mod-overlay hidden">
-    <button class="backbutton" onclick="goBack(5)">
+    <button class="backbutton" onclick="goBack(8)">
         <img class="" src="png/left.png">
     </button>
     <div class="modinfo1">
