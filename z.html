@@ -6494,6 +6494,12 @@
                 var fcolor = 0xffffff
             }
         }
+
+        if(text=="U"){
+          var fsize = bw*6
+          var fhight = th / 30
+          var fcolor = 0xffffff
+        }
         const geometry = new TextGeometry(text, {
             font: font0,
             size: fsize,
@@ -10497,6 +10503,20 @@
             tilemold.push(textMesh);
         });
 
+        createTextMesh("U", bw, (textMesh) => {
+            textMesh.position.y = +(th / 32)
+            textMesh.position.z += th / 2;
+            textMesh.rotation.order = 'YXZ';
+            textMesh.rotation.x = -Math.PI / 2;
+
+            textmold.push(textMesh);
+
+            // tile.userData["time"]=elapsedTime;
+            // tile.userData["merge"]=0;
+            // tile.add(textMesh);
+            tilemold.push(textMesh);
+        });
+
 
         for (var i = 0; i < 11; i++) {
           var w = bw / 20
@@ -10505,62 +10525,96 @@
           var vbw=bw
 
           // var w=bw/11;
-          var geometry0 = new THREE.PlaneGeometry(vbw, vbw / 2);
-          var material0 = new THREE.MeshBasicMaterial({
-              color: 0xffffff,
-              side: THREE.DoubleSide,
-              opacity: 1,
-              transparent: true,
-              visible:false
-          });
-          var mesh0 = new THREE.Mesh(geometry0, material0);
+          // var geometry0 = new THREE.PlaneGeometry(vbw, vbw / 2);
+          // var material0 = new THREE.MeshBasicMaterial({
+          //     color: 0xffffff,
+          //     side: THREE.DoubleSide,
+          //     opacity: 1,
+          //     transparent: true,
+          //     visible:false
+          // });
+          // var mesh0 = new THREE.Mesh(geometry0, material0);
+          //
+          // var geometry1 = new THREE.PlaneGeometry(vbw, vw);
+          // var material1 = new THREE.MeshBasicMaterial({
+          //     color: 0xffffff,
+          //     side: THREE.DoubleSide,
+          //     opacity: 1,
+          //     alphaTest:0,
+          //     transparent: true
+          // });
+          // var mesh1 = new THREE.Mesh(geometry1, material1);
+          //
+          // var geometry2 = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
+          // var material2 = new THREE.MeshBasicMaterial({
+          //     color: 0xffffff,
+          //     side: THREE.DoubleSide,
+          //     opacity: 1,
+          //     alphaTest:0,
+          //     transparent: true
+          // });
+          // var mesh2 = new THREE.Mesh(geometry2, material2);
+          //
+          // var geometry3 = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
+          // var material3 = new THREE.MeshBasicMaterial({
+          //     color: 0xffffff,
+          //     side: THREE.DoubleSide,
+          //     opacity: 1,
+          //     alphaTest:0,
+          //     transparent: true
+          // });
+          // var mesh3 = new THREE.Mesh(geometry3, material3);
+          //
+          // mesh0.add(mesh1)
+          // mesh0.children[0].position.y = vbw / 2
+          //
+          //
+          //
+          // mesh0.add(mesh3)
+          // mesh0.children[1].position.x = +vbw / 2 + vw * 0.6 / 2
+          // mesh0.children[1].position.y = -(vbw / 4) + vbw / 2 + vw / 2
+          //
+          // mesh0.add(mesh2)
+          // mesh0.children[2].position.x = -vbw / 2 - vw * 0.6 / 2
+          // mesh0.children[2].position.y = -(vbw / 4) + vbw / 2 + vw / 2
+          // // console.log(mesh)
+          // mesh0.rotation.order = 'YXZ';
+          //
+          // // mesh0.rotation.z = cubes[floor].mesh.rotation.z;
+          // mesh0.rotation.x = - Math.PI / 2;
+          var geoms = [];
 
-          var geometry1 = new THREE.PlaneGeometry(vbw, vw);
-          var material1 = new THREE.MeshBasicMaterial({
-              color: 0xffffff,
-              side: THREE.DoubleSide,
-              opacity: 1,
-              alphaTest:0,
-              transparent: true
-          });
-          var mesh1 = new THREE.Mesh(geometry1, material1);
+          let originHelper = new THREE.Object3D();
+          originHelper.position.set(0, vbw / 2, 0)
+          originHelper.updateWorldMatrix(true, false);
+          var tg = new THREE.PlaneGeometry(vbw, vw);
+          tg.applyMatrix4(originHelper.matrixWorld);
+          geoms.push(tg)
 
-          var geometry2 = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
-          var material2 = new THREE.MeshBasicMaterial({
-              color: 0xffffff,
-              side: THREE.DoubleSide,
-              opacity: 1,
-              alphaTest:0,
-              transparent: true
-          });
-          var mesh2 = new THREE.Mesh(geometry2, material2);
+          originHelper.position.set(+vbw / 2 + vw * 0.6 / 2, -(vbw / 4) + vbw / 2 + vw / 2, 0)
+          originHelper.updateWorldMatrix(true, false);
+          var tg = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
+          tg.applyMatrix4(originHelper.matrixWorld);
+          geoms.push(tg)
 
-          var geometry3 = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
-          var material3 = new THREE.MeshBasicMaterial({
-              color: 0xffffff,
-              side: THREE.DoubleSide,
-              opacity: 1,
-              alphaTest:0,
-              transparent: true
-          });
-          var mesh3 = new THREE.Mesh(geometry3, material3);
+          originHelper.position.set(-vbw / 2 - vw * 0.6 / 2, -(vbw / 4) + vbw / 2 + vw / 2, 0)
+          originHelper.updateWorldMatrix(true, false);
+          var tg = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
+          tg.applyMatrix4(originHelper.matrixWorld);
+          geoms.push(tg)
 
-          mesh0.add(mesh1)
-          mesh0.children[0].position.y = vbw / 2
+          var mgeo = new BufferGeometryUtils.mergeGeometries(geoms, false);
 
-          mesh0.add(mesh2)
-          mesh0.children[1].position.x = -vbw / 2 - vw * 0.6 / 2
-          mesh0.children[1].position.y = -(vbw / 4) + vbw / 2 + vw / 2
-          mesh0.add(mesh3)
-          mesh0.children[2].position.x = +vbw / 2 + vw * 0.6 / 2
-          mesh0.children[2].position.y = -(vbw / 4) + vbw / 2 + vw / 2
-          // console.log(mesh)
-          mesh0.rotation.order = 'YXZ';
+          var mesh1 = new THREE.Mesh(mgeo, new THREE.MeshBasicMaterial({
+          	color: 0xffffff,
+            side: THREE.DoubleSide
+          }));
+          mesh1.rotation.order = 'YXZ';
+          mesh1.rotation.x = - Math.PI / 2;
 
-          // mesh0.rotation.z = cubes[floor].mesh.rotation.z;
-          mesh0.rotation.x = - Math.PI / 2;
 
-          ㄷ.push(mesh0);
+
+          ㄷ.push(mesh1);
         }
 
         console.log(ㄷ)
@@ -13211,28 +13265,10 @@
 
                 effects[i][0].material.transparent=true;
 
-                effects[i][0].children[0].material.opacity = setval
-                effects[i][0].children[0].material.alphaTest=setval
-
-                effects[i][0].children[1].material.alphaTest=setval
-                effects[i][0].children[1].material.opacity = setval
-
-                effects[i][0].children[2].material.alphaTest=setval
-                effects[i][0].children[2].material.opacity = setval
-
-                effects[i][0].children[0].material.visible = true;
-
-                // item[0].children[0].material.transparent=true;
-                // effects[i][0].children[0].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                // effects[i][0].children[0].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                effects[i][0].children[1].material.visible = true;
-                // item[0].children[1].material.transparent=true;
-                // effects[i][0].children[1].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                // effects[i][0].children[1].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                effects[i][0].children[2].material.visible = true;
-                // item[0].children[2].material.transparent=true;
-                // effects[i][0].children[2].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                // effects[i][0].children[2].material.opacity =  0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
+                effects[i][0].children.forEach((item) => {
+                  item.material.opacity = setval
+                  item.material.alphaTest=0.05
+                });
 
                 if (effects[i][0].scale.y > 1.8) {
                     // console.log(1);
@@ -13242,18 +13278,20 @@
                 }
               }else{
                 effects[i][0].scale.y +=(deltaTime/600)
-                effects[i][0].scale.x +=(deltaTime/3000);
+                effects[i][0].scale.x +=(deltaTime/2000);
 
                 // effects[i][0].scale.y +=0.03
                 // effects[i][0].scale.x +=0.0015
 
-
+                effects[i][0].material.visible=true;
                 effects[i][0].material.transparent=true;
+                effects[i][0].material.opacity = setval
+                effects[i][0].material.alphaTest=0.05
 
-                effects[i][0].children.forEach((item) => {
-                  item.material.opacity = setval
-                  item.material.alphaTest=0.05
-                });
+                // effects[i][0].children.forEach((item) => {
+                //   item.material.opacity = setval
+                //   item.material.alphaTest=0.05
+                // });
 
 
                 // effects[i][0].children[0].material.alphaTest=0
@@ -13265,27 +13303,28 @@
                 // effects[i][0].children[2].material.alphaTest=0
                 // effects[i][0].children[2].material.opacity = setval
 
-                effects[i][0].children[0].material.visible = true;
+                // effects[i][0].children[0].material.visible = true;
                 // item[0].children[0].material.transparent=true;
                 // effects[i][0].children[0].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
                 // effects[i][0].children[0].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                effects[i][0].children[1].material.visible = true;
+                // effects[i][0].children[1].material.visible = true;
                 // item[0].children[1].material.transparent=true;
                 // effects[i][0].children[1].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
                 // effects[i][0].children[1].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                effects[i][0].children[2].material.visible = true;
+                // effects[i][0].children[2].material.visible = true;
                 // item[0].children[2].material.transparent=true;
                 // effects[i][0].children[2].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
                 // effects[i][0].children[2].material.opacity =  0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
 
                 if (effects[i][0].scale.y > 1.8) {
                     // console.log(1);
-                    effects[i][0].children.forEach((item) => {
-
-                      item.material.visible=false;
-                      effects[i][0].remove(item);
-                    });
                     effects[i][0].material.visible=false;
+                    // effects[i][0].children.forEach((item) => {
+                    //
+                    //   item.material.visible=false;
+                    //   effects[i][0].remove(item);
+                    // });
+                    // effects[i][0].material.visible=false;
                     cubes[effects[i][3]].mesh.remove(effects[i][0]);
                     // scene.remove(effects[i][0]);
                     effects.splice(i, 1);
@@ -17153,7 +17192,7 @@
     }
 
     function 이펙트2(floor, num, direction) {
-       if(effects.length>4) return;
+       // if(effects.length>4) return;
         // var w = bw / 20
         // w += Math.sqrt(num) / 5
         // if(skinset[skinnum]=="classic"){
@@ -17220,30 +17259,35 @@
         mesh0.position.y=0 - th / 3 - (th / 20) * parseInt(Math.random()*10);
 
         mesh0.material=new THREE.MeshBasicMaterial({
-            color: 0xffffff,
-            side: THREE.DoubleSide,
-            opacity: 0,
-            transparent: true,
-            visible: false
+        	color: 0xffffff,
+        	side: THREE.DoubleSide
         });
-        mesh0.children[0].material=new THREE.MeshBasicMaterial({
-            color: 0xffffff,
-            side: THREE.DoubleSide,
-            opacity: 1,
-            transparent: true
-        });
-        mesh0.children[1].material=new THREE.MeshBasicMaterial({
-            color: 0xffffff,
-            side: THREE.DoubleSide,
-            opacity: 1,
-            transparent: true
-        });
-        mesh0.children[2].material=new THREE.MeshBasicMaterial({
-            color: 0xffffff,
-            side: THREE.DoubleSide,
-            opacity: 1,
-            transparent: true
-        });
+
+        // mesh0.material=new THREE.MeshBasicMaterial({
+        //     color: 0xffffff,
+        //     side: THREE.DoubleSide,
+        //     opacity: 0,
+        //     transparent: true,
+        //     visible: false
+        // });
+        // mesh0.children[0].material=new THREE.MeshBasicMaterial({
+        //     color: 0xffffff,
+        //     side: THREE.DoubleSide,
+        //     opacity: 1,
+        //     transparent: true
+        // });
+        // mesh0.children[1].material=new THREE.MeshBasicMaterial({
+        //     color: 0xffffff,
+        //     side: THREE.DoubleSide,
+        //     opacity: 1,
+        //     transparent: true
+        // });
+        // mesh0.children[2].material=new THREE.MeshBasicMaterial({
+        //     color: 0xffffff,
+        //     side: THREE.DoubleSide,
+        //     opacity: 1,
+        //     transparent: true
+        // });
 
         switch (direction) {
             case 'up':
