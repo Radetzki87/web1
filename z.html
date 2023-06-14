@@ -1925,6 +1925,10 @@
     window.송=송
     window.인트로=인트로
 
+    // var forceset=[[700,850,1000,1300,1600,2000,2400,2700,3000,3400],[650,800,950,1250,1550,1950,2350,2650,2950,3350],[600,750,900,1200,1500,1900,2300,2600,2900,3300],[550,700,850,1150,1450,1850,2250,2550,2850,3250],[500,650,800,1100,1400,1800,2200,2500,2800,3200]];
+    // var forceset=[[600,750,1000,1300,1600,1900,2200,2500,2800,3200],[550,700,950,1250,1550,1850,2150,2450,2750,3150],[500,650,900,1200,1500,1800,2100,2400,2700,3100],[450,600,850,1150,1450,1750,2050,2350,2650,3050],[400,550,800,1100,1400,1700,2000,2300,2600,3000]]
+    var forceset=[[700,850,1000,1300,1600,1900,2200,2500,2800,3100],[650,800,950,1250,1550,1850,2150,2450,2750,3050],[600,750,900,1200,1500,1800,2100,2400,2700,3000],[550,700,850,1150,1450,1750,2050,2350,2650,2950],[500,650,800,1100,1400,1700,2000,2300,2600,2900]]
+
     var mod2비용=300;
 
     var 색보정=[14, 0, 31, 59, 16, 37, 18, 44, 41, 39, 10, 40, 22, 13,26]
@@ -5311,6 +5315,7 @@
                 activeFloor = 0;
             }
             if (buffloor != activeFloor) {
+              bf=99;
                 // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
                 //     soundic[sdic[activeFloor]["upper"]].stop();
                 // }
@@ -5709,6 +5714,7 @@
                 startflag = true;
                 return;
             }
+            bf=99;
             activeFloor++;
             if (activeFloor > cubes.length) {
                 activeFloor = cubes.length;
@@ -5810,7 +5816,9 @@
             if (!startflag) {
                 startflag = true;
             }
+
             activeFloor--;
+            bf=99;
             if (activeFloor < 0) {
                 activeFloor = 0;
             } else {
@@ -10554,11 +10562,10 @@
           }));
           mesh1.rotation.order = 'YXZ';
           mesh1.rotation.x = - Math.PI / 2;
-
+          mesh1.userData["skin"]="exc"
 
 
           ㄷ.push(mesh1);
-
           var vw=w*1.26
           var vbw=bw*1.26
 
@@ -10590,13 +10597,14 @@
           }));
           mesh1.rotation.order = 'YXZ';
           mesh1.rotation.x = - Math.PI / 2;
+          mesh1.userData["skin"]="exc"
 
           ㄷ2.push(mesh1);
 
 
         }
 
-        console.log(ㄷ)
+
 
 
 
@@ -11583,7 +11591,7 @@
           if(n==0){
             setTimeout(function() {
                 callback();
-            }, 1000);
+            }, 1500);
           }else{
             callback();
           }
@@ -12322,18 +12330,19 @@
                     // item.color=new THREE.Color(colorlst[colornum][3]);
                     item.color = new THREE.Color(parseInt(newcl30, 16));
                 })
-                avx = 0;
-                avz = 0;
-                for (var i = 0; i < cubes.length; i++) {
-                    avx += cubes[i].mesh.position.x;
-                    avz += cubes[i].mesh.position.z;
-                }
-                avx /= cubes.length;
-                avz /= cubes.length;
+                // avx = 0;
+                // avz = 0;
+                // for (var i = 0; i < cubes.length; i++) {
+                //     avx += cubes[i].mesh.position.x;
+                //     avz += cubes[i].mesh.position.z;
+                // }
+                // avx /= cubes.length;
+                // avz /= cubes.length;
+
                 camera.position.x = bw * 2;
                 camera.position.z = bw * 2;
-                camera.lookAt.x=0
-                camera.lookAt.z=0
+                // camera.lookAt.x=0
+                // camera.lookAt.z=0
                 // camera.lookAt(0, 0, 0);
 
                 grd.addColorStop(0, "white");
@@ -12989,7 +12998,7 @@
                             tile.userData["text"] = text;
                             atchanged = elapsedTime;
                             var tempflag = true
-                            if(skinset[skinnum]=="classic"){
+                            if(skinset[skinnum]=="classic"&&sidecam){
                               bf=99;
                             }
                             tempeffects.forEach((object) => {
@@ -13084,19 +13093,42 @@
 
                             }else{
                               var force = new CANNON.Vec3();
+                              var tnum=parseInt(Math.log2(num))-2;
+                              console.log(tnum)
+                              var tforce=forceset[item.index][tnum]
+                              console.log(tforce)
+
                               // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
+                              // switch (item.direction) {
+                              //     case 'up':
+                              //         force.set(0, 0, -forceAmount * Math.sqrt((num) *20 +10*(1+2.2* (5 - item.index))));
+                              //         break;
+                              //     case 'down':
+                              //         force.set(0, 0, forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))));
+                              //         break;
+                              //     case 'left':
+                              //         force.set(-forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))), 0, 0);
+                              //         break;
+                              //     case 'right':
+                              //         force.set(forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))), 0, 0);
+                              //         break;
+                              //     default:
+                              //         return;
+                              // }
+
+
                               switch (item.direction) {
                                   case 'up':
-                                      force.set(0, 0, -forceAmount * Math.sqrt((num) *20 +10*(1+2.2* (5 - item.index))));
+                                      force.set(0, 0, -tforce);
                                       break;
                                   case 'down':
-                                      force.set(0, 0, forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))));
+                                      force.set(0, 0, tforce);
                                       break;
                                   case 'left':
-                                      force.set(-forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))), 0, 0);
+                                      force.set(-tforce,0, 0);
                                       break;
                                   case 'right':
-                                      force.set(forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))), 0, 0);
+                                      force.set(tforce,0, 0);
                                       break;
                                   default:
                                       return;
@@ -13107,9 +13139,10 @@
                               quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[item.index].mesh.rotation.y);
                               let rotatedVec = force.clone();
                               // rotatedVec.applyQuaternion(quaternion);
+
                               rotatedVec=quaternion.vmult(force);
 
-                              // console.log(rotatedVec);
+                              console.log(force);
 
 
 
@@ -13190,76 +13223,38 @@
 
 
         if (effects.length != 0) { //효과
-            // if (activeFloor == effects[0][3]) {
-            //     ring[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3, cubes[effects[0][3]].mesh.position.z)
-            //     ring[0].children.forEach((item) => {
-            //         // item.material.visible = true;
-            //     })
-            //     ring[0].rotation.x = cubes[effects[0][3]].mesh.rotation.x - Math.PI / 2
-            //     ring[0].rotation.z = cubes[effects[0][3]].mesh.rotation.z
-            //     switch (effects[0][2]) {
-            //         case 'up':
-            //             ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y
-            //             break;
-            //         case 'down':
-            //             ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y + Math.PI;
-            //             break;
-            //         case 'left':
-            //             ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y + Math.PI / 2;
-            //             break;
-            //         case 'right':
-            //             ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y - Math.PI / 2;
-            //             break;
-            //         default:
-            //             return;
-            //     }
-            // }
-            // ring[0].quaternion.copy(cubes[activeFloor].body.quaternion);
             for (let i = effects.length-1; i >= 0; i--) {
-              if (activeFloor < cubes.length) {
-                var tempy=effects[i][0].rotation.y;
-
-                  // item[0].quaternion.copy(cubes[effects[0][3]].body.quaternion);
-                  // item[0].rotation.order = 'YXZ';
-                  // item[0].rotation.y=tempy;
-                  // item[0].rotation.x-= Math.PI / 2
-                  // item[0].rotation.z=-cubes[effects[0][3]].mesh.rotation.z;
-
-                  // item[0].rotation.y+=cubes[effects[0][3]].mesh.rotation.y
-                  // item[0].rotation.z-=cubes[effects[0][3]].mesh.rotation.z;
-
-                  // item[0].rotation.z = -cubes[effects[0][3]].mesh.rotation.z
-
-                  // item[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3 + (th / 16) * index, cubes[effects[0][3]].mesh.position.z)
-              }
               var setval=0.6 -(effects[i][0].scale.y - 1)*0.75;
               if(setval<0||setval>0.6){
                 setval=0;
               }
-
               if(skinset[skinnum]=="classic"){
                 effects[i][0].position.z=cubes[effects[i][3]].body.position.z-bh/4.4;
-
               }
 
               effects[i][0].scale.y +=(deltaTime/600)
               effects[i][0].scale.x +=(deltaTime/2000);
 
-              // effects[i][0].scale.y +=0.03
-              // effects[i][0].scale.x +=0.0015
-
               effects[i][0].material.visible=true;
               effects[i][0].material.transparent=true;
-              effects[i][0].material.opacity = setval
-              effects[i][0].material.alphaTest=0.05
+              if(skinset[skinnum]=="classic"){
+                effects[i][0].material.transparent = true
+                effects[i][0].material.opacity = setval
+                effects[i][0].material.alphaTest=setval
+
+
+
+              }else{
+
+                effects[i][0].material.opacity = setval
+                effects[i][0].material.alphaTest=setval
+              }
+
 
 
               if (effects[i][0].scale.y > 1.8) {
-                  // console.log(1);
                   effects[i][0].material.visible=false;
-
                   cubes[effects[i][3]].mesh.remove(effects[i][0]);
-                  // scene.remove(effects[i][0]);
                   effects.splice(i, 1);
               }
             }
@@ -13473,7 +13468,7 @@
             tscale = 0.9;
             if (activeFloor != cubes.length) {
                 cubes[activeFloor].mesh.children.forEach((item) => {
-                      if (item.userData["skin"]=="effect") return;
+                      if (item.userData["skin"]=="effect"||item.userData["skin"]=="exc") return;
                     if(item.userData["1"] || item.userData["2"] || item.userData["3"] || item.userData["4"] || item.userData["5"] || skinset.indexOf(item.userData["skin"]) != -1) return
                     item.scale.x = 1
                     item.scale.z = 1
@@ -13758,7 +13753,9 @@
                                 } else {
                                     tile.material.visible = false;
                                 }
-                            } else if(tile.userData["skin"]!="face"){
+                            } else if(tile.userData["skin"]=="exc"){
+
+                            }else if(tile.userData["skin"]!="face"){
                                 tile.material.visible = false;
                                 tile.material.opacity = 0
                                 tile.material.transparent = true;
@@ -13781,9 +13778,12 @@
 
                             if (arrowon) arrows[i].children[0].material.opacity = 0.5
                             // cubes[i].mesh.tile.material.visible = true
-                            cubes[i].mesh.opacity = 0.05;
-                            cubes[i].mesh.alphaTest = 0.05;
-                            cubes[i].mesh.transparent = true;
+                            if(skinset[skinnum]!="classic"){
+                              cubes[i].mesh.opacity = 0.05;
+                              cubes[i].mesh.alphaTest = 0.05;
+                              cubes[i].mesh.transparent = true;
+                            }
+
 
                             cubes[i].mesh.children.forEach((tile, index) => {
                                 if (tile.userData["skin"] == "tile") {
@@ -13818,8 +13818,8 @@
                                   if(tile.userData["skin"]=="classic"){
 
                                     tile.material.visible = true;
-                                    tile.material.opacity = 0.85;
-                                    tile.material.alphaTest = tile.material.opacity
+                                    tile.material.opacity = 0.84;
+                                    tile.material.alphaTest = 0.84;
                                     tile.material.transparent = true;
                                   }else{
                                     tile.material.visible = true;
@@ -13856,7 +13856,9 @@
                                     } else {
                                         tile.material.visible = false;
                                     }
-                                } else {
+                                }else if(tile.userData["skin"]=="exc"){
+
+                                }else {
                                     tile.material.visible = false;
                                     tile.material.opacity = 0
                                     tile.material.transparent = true;
@@ -13923,7 +13925,9 @@
                                         } else {
                                             tile.material.visible = false;
                                         }
-                                    } else{
+                                    } else if(tile.userData["skin"]=="exc"){
+
+                                    }else{
                                         tile.material.visible = false;
                                         // tile.material.alphaTest =  0.1;
                                         tile.material.opacity = 0.1;
@@ -14001,7 +14005,9 @@
                                         } else {
                                             tile.material.visible = false;
                                         }
-                                    } else if(tile.userData["skin"]!="face"){
+                                    } else if(tile.userData["skin"]=="exc"){
+
+                                    }else if(tile.userData["skin"]!="face"){
                                         tile.material.visible = false;
                                         // tile.material.alphaTest =  0.1;
                                         tile.material.opacity = 0.1;
@@ -14014,8 +14020,13 @@
                 }
             }
         }else {
-          camera.position.x=bw * 2 + avx;
-          camera.position.z=bw * 2 + avz;
+          if (!restartflag) {
+            camera.position.x=bw * 2 + avx;
+            camera.position.z=bw * 2 + avz;
+          }else{
+            camera.position.x=bw * 2;
+            camera.position.z=bw * 2;
+          }
           // if(skinset[skinnum]=="classic"){
           //   tilelst.forEach((tile) => {
           //     tile.material.visible = true;
@@ -14075,6 +14086,8 @@
                             } else {
                                 tile.material.visible = false;
                             }
+                        }else if(tile.userData["skin"]=="exc"){
+
                         }else if(tile.userData["skin"]=="face"){
                           tile.material.visible = true;
                           tile.material.opacity = tmb0;
@@ -14113,6 +14126,8 @@
                                 } else {
                                     tile.material.visible = false;
                                 }
+                            }else if(tile.userData["skin"]=="exc"){
+
                             }else if(tile.userData["skin"]=="face"){
                               tile.material.visible = true;
                               tile.material.opacity = tmb0;
@@ -14162,6 +14177,8 @@
                                 } else {
                                     tile.material.visible = false;
                                 }
+                            }else if(tile.userData["skin"]=="exc"){
+
                             }else if(tile.userData["skin"]=="face"){
                               tile.material.visible = true;
                               tile.material.opacity = 1;
@@ -14291,7 +14308,7 @@
         }
         // Update the physics world
         // console.log(String(deltaTime)+" " +String(deltaTime))
-        if(startflag) world.step(1 / 60, deltaTime/800);
+        if(startflag) world.step(1 / 60, deltaTime/850);
         if (!restartflag) {
             cubes.forEach((item) => {
                 // item.mesh.position.copy(item.mesh.userData.body.position);
@@ -14325,7 +14342,27 @@
                 }
 
             })
-        }
+        }else if(skinset[skinnum]=="classic"){
+          cubes.forEach((item) => {
+              // item.mesh.position.copy(item.mesh.userData.body.position);
+              // item.mesh.quaternion.copy(item.mesh.userData.body.quaternion);
+                if(gamemod!=2){
+                  item.mesh.scale.set(0.8,1,0.8)
+                }
+
+                item.mesh.position.z=bh/4.4;
+        })
+      }
+
+
+
+        // effects.forEach((item, i) => {
+        //   if(skinset[skinnum]=="classic"){
+        //
+        //   }
+        //   item[0].material.opacity
+        // });
+
 
         if (window.innerWidth > window.innerHeight) {
             if (restartflag) {
@@ -14623,9 +14660,7 @@
         }
         // }
         effects.forEach((item) => {
-            item[0].children.forEach((box) => {
-                box.material.visible = false;
-            })
+            item[0].material.visible=false;
         })
 
         if (topcam&&!restartflag) {
@@ -14876,8 +14911,8 @@
                         item.material.transparent = true;
                       }else{
                         item.material.visible = true;
-                        item.material.opacity = 0.85;
-                        item.material.alphaTest = 0.8;
+                        item.material.opacity = 0.84;
+                        item.material.alphaTest = 0.84;
                         item.material.transparent = true;
                       }
 
@@ -14895,8 +14930,8 @@
                 if (item.userData["skin"]==skinset[skinnum]) {
                   if(i==activeFloor){
                     item.material.visible = true;
-                    item.material.opacity = 0.85
-                    item.material.alphaTest = item.material.opacity
+                    item.material.opacity = 0.84;
+                    item.material.alphaTest = 0.84;
                     item.material.transparent = true;
                   }
 
@@ -17120,67 +17155,6 @@
     }
 
     function 이펙트2(floor, num, direction) {
-       // if(effects.length>4) return;
-        // var w = bw / 20
-        // w += Math.sqrt(num) / 5
-        // if(skinset[skinnum]=="classic"){
-        //   var vw=w*1.26
-        //   var vbw=bw*1.26
-        // }else{
-        //   var vw=w
-        //   var vbw=bw
-        // }
-        // // var w=bw/11;
-        // var geometry0 = new THREE.PlaneGeometry(vbw, vbw / 2);
-        // var material0 = new THREE.MeshBasicMaterial({
-        //     color: 0xffffff,
-        //     side: THREE.DoubleSide,
-        //     opacity: 1,
-        //     transparent: true
-        // });
-        // var mesh0 = new THREE.Mesh(geometry0, material0);
-        //
-        // var geometry1 = new THREE.PlaneGeometry(vbw, vw);
-        // var material1 = new THREE.MeshBasicMaterial({
-        //     color: 0xffffff,
-        //     side: THREE.DoubleSide,
-        //     opacity: 1,
-        //     transparent: true
-        // });
-        // var mesh1 = new THREE.Mesh(geometry1, material1);
-        //
-        // var geometry2 = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
-        // var material2 = new THREE.MeshBasicMaterial({
-        //     color: 0xffffff,
-        //     side: THREE.DoubleSide,
-        //     opacity: 1,
-        //     transparent: true
-        // });
-        // var mesh2 = new THREE.Mesh(geometry2, material2);
-        //
-        // var geometry3 = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
-        // var material3 = new THREE.MeshBasicMaterial({
-        //     color: 0xffffff,
-        //     side: THREE.DoubleSide,
-        //     opacity: 1,
-        //     transparent: true
-        // });
-        // var mesh3 = new THREE.Mesh(geometry3, material3);
-        //
-        //
-        // mesh0.add(mesh1)
-        // mesh0.children[0].position.y = vbw / 2
-        // mesh0.add(mesh2)
-        // mesh0.children[1].position.x = -vbw / 2 - vw * 0.6 / 2
-        // mesh0.children[1].position.y = -(vbw / 4) + vbw / 2 + vw / 2
-        // mesh0.add(mesh3)
-        // mesh0.children[2].position.x = +vbw / 2 + vw * 0.6 / 2
-        // mesh0.children[2].position.y = -(vbw / 4) + vbw / 2 + vw / 2
-        // // console.log(mesh)
-        // mesh0.rotation.order = 'YXZ';
-        // // mesh0.rotation.z = cubes[floor].mesh.rotation.z;
-        // mesh0.rotation.x = - Math.PI / 2;
-        // mesh0.position.set(0, 0 - th / 3 - (th / 5) * effects.length, 0)
 
         var tnum=parseInt(Math.log2(num))
         if(skinset[skinnum]=="classic"){
@@ -17188,10 +17162,11 @@
         }else{
           var mesh0 = ㄷ[tnum].clone();
         }
-        mesh0.position.y=0 - th / 3 - (th / 10) * effects.length
+        mesh0.position.y=- th / 3 - (th / 10) * effects.length;
         mesh0.material=new THREE.MeshBasicMaterial({
         	color: 0xffffff,
-        	side: THREE.DoubleSide
+        	side: THREE.DoubleSide,
+          opacity: 0.6
         });
 
 
@@ -17223,20 +17198,16 @@
             default:
                 return;
         }
-        // mesh0.scale.x=1.5;
-        // mesh0.scale.y=1.5;
         mesh0.material.visible = false;
-        mesh0.userData["skin"]="effect"
-        // if(skinset[skinnum]=="classic"){
-        //   mesh0.scale.set(1.26,0,1.26)
-        // }
-        // cubes[floor].mesh.add(mesh0);
+        if(skinset[skinnum]=="classic"){
+          mesh0.userData["skin"]="exc"
+        }else{
+          mesh0.userData["skin"]="effect"
+        }
+
         cubes[floor].mesh.add(mesh0);
-        // scene.add( mesh2 );
-        // scene.add( mesh3 );
         effects.push([mesh0, num, direction, floor]);
-        // effects.push(mesh2);
-        // effects.push(mesh3);
+
     }
 
     function 이펙트(floor, num, direction) {
