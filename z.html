@@ -1314,6 +1314,10 @@
             font-size: 5vw;
         }
 
+        .mod b{
+          font-family: 'EliceDigitalBaeum-Bd';
+        }
+
         .modbt {
 
             /* border: none; */
@@ -1367,8 +1371,8 @@
         #m2price{
           position: absolute;
           /* margin-top: 2vh; */
-          top:43%;
-          color:yellow;
+          top:45%;
+          color:grey;
           font-size: 5vw;
         }
 
@@ -1422,13 +1426,14 @@
             justify-content: center;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-gap: 7vw;
+            grid-gap: 8vw;
             /*background-color: rgba(50, 100, 250, 0.3);*/
         }
 
 
 
         .setting-grid button {
+            /* width:70%; */
             border-radius: 3vw;
             display: flex;
             flex-direction: column;
@@ -1871,6 +1876,8 @@
 
     var 땅투명=0.1;
 
+    var 송백="rgba(100,100,100,0.65)"
+
     var 옵션=document.getElementById("options-overlay")
     var 카테그=document.getElementById("categ1")
     var 스텝1=document.getElementById("step1")
@@ -1927,7 +1934,7 @@
 
     // var forceset=[[700,850,1000,1300,1600,2000,2400,2700,3000,3400],[650,800,950,1250,1550,1950,2350,2650,2950,3350],[600,750,900,1200,1500,1900,2300,2600,2900,3300],[550,700,850,1150,1450,1850,2250,2550,2850,3250],[500,650,800,1100,1400,1800,2200,2500,2800,3200]];
     // var forceset=[[600,750,1000,1300,1600,1900,2200,2500,2800,3200],[550,700,950,1250,1550,1850,2150,2450,2750,3150],[500,650,900,1200,1500,1800,2100,2400,2700,3100],[450,600,850,1150,1450,1750,2050,2350,2650,3050],[400,550,800,1100,1400,1700,2000,2300,2600,3000]]
-    var forceset=[[700,850,1000,1300,1600,1900,2200,2500,2800,3100],[650,800,950,1250,1550,1850,2150,2450,2750,3050],[600,750,900,1200,1500,1800,2100,2400,2700,3000],[550,700,850,1150,1450,1750,2050,2350,2650,2950],[500,650,800,1100,1400,1700,2000,2300,2600,2900]]
+    var forceset=[[700,850,1000,1300,1600,1900,2200,2500,2800,3100],[650,800,950,1250,1550,1850,2150,2450,2750,3050],[600,750,900,1200,1500,1800,2100,2400,2700,3000],[550,700,850,1150,1450,1750,2050,2350,2650,2950],[500,650,800,1100,1400,1800,2200,2600,3000,3400]]
 
     var mod2비용=300;
 
@@ -5028,7 +5035,7 @@
                             var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                             // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*0.8, newcl.l*0.35)
 
-                            document.getElementById('songback').style.backgroundColor="rgba(140,140,140,0.65)"
+                            document.getElementById('songback').style.backgroundColor=송백
 
                             // document.getElementById('songback').style.opacity="0.35"
 
@@ -5040,7 +5047,7 @@
                             document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.90, newcl.l*1.1)
                             var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
                             // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h+Math.PI/2, newcl.s, newcl.l*0.35)
-                            document.getElementById('songback').style.backgroundColor="rgba(140,140,140,0.65)"
+                            document.getElementById('songback').style.backgroundColor=송백
                             // document.getElementById('songback').style.opacity="0.35"
 
                         }
@@ -6398,7 +6405,7 @@
 
           // skinnum=skinset.indexOf("gb");
 
-          camera.position.y= bh * (cubes.length+1)
+          camera.position.y= bh * (cubes.length)
         }else{
           camera.position.y= bh * (cubes.length+3.5)
         }
@@ -12874,9 +12881,9 @@
             // }
             // let speed= 0.15*(Math.abs((item.c-item.a)+(item.d-item.b))/8);
             if(gamemod==1){
-              var speed = deltaTime*bw / 195;
+              var speed = deltaTime*bw / 205;
             }else{
-              var speed = deltaTime*bw / 235;
+              var speed = deltaTime*bw / 225;
             }
 
             // const vspeed=speed*2;
@@ -13096,8 +13103,11 @@
                               var tnum=parseInt(Math.log2(num))-2;
                               console.log(tnum)
                               var tforce=forceset[item.index][tnum]
-                              console.log(tforce)
 
+                              if(gamemod==1){
+                                tforce*=0.7
+                              }
+                              console.log(tforce)
                               // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                               // switch (item.direction) {
                               //     case 'up':
@@ -13219,6 +13229,15 @@
                     item.body.applyForce(force0, item.body.position);
                 }
             })
+        }
+
+        if(gamemod==1){
+          for (var i = 1; i < cubes.length; i++) {
+            let force0 = new CANNON.Vec3();
+            force0.set(1.5*(-cubes[i - 1].body.position.x + cubes[i].body.position.x), 0, 1.5*(-cubes[i - 1].body.position.z + cubes[i].body.position.z));
+            if (!gameoverflag) cubes[i].body.applyForce(force0, cubes[i].body.position);
+          }
+
         }
 
 
@@ -13673,7 +13692,7 @@
                         bw * 2 + avz,
                     );
                     if(gamemod==2) {
-                      camera.position.y= bh * (cubes.length+1)
+                      camera.position.y= bh * (cubes.length)
                     }
                     // camera.lookAt(cubes[0].body.position.x,cubes[cubes.length-1].mesh.position.y+bh*5,cubes[0].body.position.y)
                     // var isoAngle = Math.atan(1 / Math.sqrt(2));
@@ -13774,7 +13793,7 @@
                                 bh * (cubes.length + 3.5),
                                 bw * 2 + avz,
                             );
-                            if(gamemod==2) camera.position.y= bh * (cubes.length+1)
+                            if(gamemod==2) camera.position.y= bh * (cubes.length)
 
                             if (arrowon) arrows[i].children[0].material.opacity = 0.5
                             // cubes[i].mesh.tile.material.visible = true
