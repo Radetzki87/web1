@@ -6100,8 +6100,11 @@
 
         // dl2.shadow.camera.position.y=bh * (cubes.length + 3.5);
         if (gamemod==0){
-          cubes[3].body.material.friction = 0.2;
-          cubes[3].body.material.restitution = 0.4;
+          for (var i = 0; i < cubes.length; i++) {
+            cubes[i].body.material.friction = 0.2;
+            cubes[i].body.material.restitution = 0.4;
+          }
+
           stack=5;
           forceAmount = bw * bw * bh / 16.5;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
@@ -6109,8 +6112,10 @@
           world.solver.iterations = 10;
           // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
         }else if (gamemod==1){
-          cubes[3].body.material.friction = 0.3;
-          cubes[3].body.material.restitution = 0.3;
+          for (var i = 0; i < cubes.length; i++) {
+            cubes[i].body.material.friction = 0.4;
+            cubes[i].body.material.restitution = 0.3;
+          }
           stack=5;
           forceAmount = bw * bw * bh / 25;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
