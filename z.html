@@ -1874,6 +1874,10 @@
 
     const gameOverPanel = document.getElementById('game-over-panel');
 
+
+    var re3time=0;
+    var re3flag2=false;
+    var re3flag=false;
     var 땅투명=0.1;
 
     var 송백="rgba(100,100,100,0.65)"
@@ -1934,7 +1938,7 @@
 
     // var forceset=[[700,850,1000,1300,1600,2000,2400,2700,3000,3400],[650,800,950,1250,1550,1950,2350,2650,2950,3350],[600,750,900,1200,1500,1900,2300,2600,2900,3300],[550,700,850,1150,1450,1850,2250,2550,2850,3250],[500,650,800,1100,1400,1800,2200,2500,2800,3200]];
     // var forceset=[[600,750,1000,1300,1600,1900,2200,2500,2800,3200],[550,700,950,1250,1550,1850,2150,2450,2750,3150],[500,650,900,1200,1500,1800,2100,2400,2700,3100],[450,600,850,1150,1450,1750,2050,2350,2650,3050],[400,550,800,1100,1400,1700,2000,2300,2600,3000]]
-    var forceset=[[700,850,1000,1300,1600,1900,2200,2500,2800,3100],[650,800,950,1250,1550,1850,2150,2450,2750,3050],[600,750,900,1200,1500,1800,2100,2400,2700,3000],[550,700,850,1150,1450,1750,2050,2350,2650,2950],[500,650,800,1100,1400,1800,2200,2600,3000,3400]]
+    var forceset=[[700,850,1000,1300,1600,1900,2200,2500,2800,3100],[650,800,950,1250,1550,1850,2150,2450,2750,3050],[600,750,900,1200,1500,1800,2100,2400,2700,3000],[550,700,850,1150,1450,1750,2050,2350,2650,2950],[5000,650,800,1100,1400,1800,2200,2600,3000,3400]]
 
     var mod2비용=300;
 
@@ -2000,6 +2004,8 @@
     var stacknum=[0,0,0,0,8,8,16,16,32,32,32,64,64,64,128,128,128,256,256,512,512,512,1024,1024,2048,2048,2048,2048,2048,2048]
     var paidskin=[];
     window.paidskin=paidskin;
+
+
 
     var ㄷ=[];
     var ㄷ2=[];
@@ -2122,11 +2128,12 @@
     var skinselect = 0;
     var skinidx = 0;
     var restartflag = false;
+    var re3loc=[];
     var restartloc = [];
     var restartrot = []
     var ncolornum;
     var ncolornum0;
-    var restartend = Math.PI / 20
+    var restartend = Math.PI / 80
     var isoAngle = Math.atan(1 / Math.sqrt(3));
     let center = 0.7853981;
     let left = 1.5707963267948966;
@@ -3918,6 +3925,8 @@
         }
     }
 
+    // var cameraset1=[[bw*4, bh * (5 + 2)*2],[bw*2, bh * (5 + 3.5)]]
+
     class Game2048 {
         constructor(size, index) {
             this.size = size;
@@ -4894,7 +4903,7 @@
           document.getElementById("intro").style.display="none"
           // document.getElementById("optionlst").style.display="none"
 
-          if(gamemod==0){
+          if(gamemod==0||gamemod==3){
             world.gravity.set(0, -7, 0);
           }else if(gamemod==1){
             world.gravity.set(0, -8, 0);
@@ -5709,7 +5718,7 @@
               if(!go) return;
               document.getElementById("tut-info").style.display="none"
               document.getElementById("intro").style.display="none"
-              if(gamemod==0){
+              if(gamemod==0||gamemod==3){
                 world.gravity.set(0, -7, 0);
               }else if(gamemod==1){
                 world.gravity.set(0, -8, 0);
@@ -5812,7 +5821,7 @@
               if(!go) return;
               document.getElementById("tut-info").style.display="none"
               document.getElementById("intro").style.display="none"
-              if(gamemod==0){
+              if(gamemod==0||gamemod==3){
                 world.gravity.set(0, -7, 0);
               }else if(gamemod==1){
                 world.gravity.set(0, -8, 0);
@@ -5941,19 +5950,19 @@
         } else if (event.code === 'KeyZ') {
           // camera.position.y= bh * (cubes.length+0.5)
 
-          // camera.left -= bw*0.5
-          // camera.right += bw  *4*0.5
-          // camera.top +=  bw*0.5
-          // camera.bottom -= bw*4*0.5
-          // renderer.setSize(window.innerWidth, window.innerHeight);
-          // camera.aspect = window.innerWidth / window.innerHeight;
-          // camera.updateProjectionMatrix();
+          camera.left -= bw*0.5
+          camera.right += bw  *4*0.5
+          camera.top +=  bw*0.5
+          camera.bottom -= bw*4*0.5
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
 
-            skinnum++;
-            if (skinnum >= skinset.length) {
-                skinnum = 0;
-            }
-            bf=999
+            // skinnum++;
+            // if (skinnum >= skinset.length) {
+            //     skinnum = 0;
+            // }
+            // bf=999
             // if(lookcenter){
             // }else if(lookright){
             // }
@@ -6098,8 +6107,8 @@
         sideViewCamera.aspect = window.innerWidth / window.innerHeight;
         sideViewCamera.updateProjectionMatrix();
 
-        // dl2.shadow.camera.position.y=bh * (cubes.length + 3.5);
-        if (gamemod==0){
+        // dl2.shadow.camera.position.y=bh * (cubes.length + 2);
+        if (gamemod==0||gamemod==3){
           for (var i = 0; i < cubes.length; i++) {
             cubes[i].body.material.friction = 0.2;
             cubes[i].body.material.restitution = 0.4;
@@ -6410,9 +6419,9 @@
 
           // skinnum=skinset.indexOf("gb");
 
-          camera.position.y= bh * (cubes.length)
+          camera.position.y= bh * (cubes.length+1)*2
         }else{
-          camera.position.y= bh * (cubes.length+3.5)
+          camera.position.y= bh * (cubes.length+2)*2
         }
         onceflag0=true;
         onceflag1=true
@@ -12370,7 +12379,7 @@
                     opacity: 1
                 });
                 for (var i = 0; i < cubes.length; i++) {
-                    cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) + (restartloc[i].y) * 1.39 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
+                    cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) +(restartloc[i].y) * 1.59 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].y * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     if(skinset[skinnum]=="classic"){
                       // cubes[i].mesh.position.z=cubes[i].body.position.z
@@ -12381,6 +12390,137 @@
 
         }
 
+        if (re3flag) {
+            if(!restartonce1){
+              activeFloor = cubes.length;
+              avx=0;
+              avz=0;
+
+
+              restartonce1=true;
+            }
+            var tend=1;
+            var tpass=elapsedTime-re3time
+            var diff=(tpass-tend)/4
+            console.log(tpass);
+            if (diff >=0) {
+                restartonce1=false;
+                re3flag=false;
+                topcam=true
+
+            } else {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                canvas.width = 100;
+                canvas.height = 100;
+                var grd = ctx.createLinearGradient(0, 0, 0, 100);
+                var newcl0 = hslToHex(renhsl1["h"] - (renhsl1["h"] - rehsl1["h"]) * Math.abs(diff), renhsl1["s"] - (renhsl1["s"] - rehsl1["s"]) * Math.abs(diff), renhsl1["l"] - (renhsl1["l"] - rehsl1["l"]) * Math.abs(diff))
+                var newcl1 = hslToHex(renhsl2["h"] - (renhsl2["h"] - rehsl2["h"]) * Math.abs(diff), renhsl2["s"] - (renhsl2["s"] - rehsl2["s"]) * Math.abs(diff), renhsl2["l"] - (renhsl2["l"] - rehsl2["l"]) * Math.abs(diff))
+                var newcl00 = hslToHex0(renhsl1["h"] - (renhsl1["h"] - rehsl1["h"]) * Math.abs(diff), renhsl1["s"] - (renhsl1["s"] - rehsl1["s"]) * Math.abs(diff), renhsl1["l"] - (renhsl1["l"] - rehsl1["l"]) * Math.abs(diff))
+                var newcl10 = hslToHex0(renhsl2["h"] - (renhsl2["h"] - rehsl2["h"]) * Math.abs(diff), renhsl2["s"] - (renhsl2["s"] - rehsl2["s"]) * Math.abs(diff), renhsl2["l"] - (renhsl2["l"] - rehsl2["l"]) * Math.abs(diff))
+                var newcl20 = hslToHex0(renhsl3["h"] - (renhsl3["h"] - rehsl3["h"]) * Math.abs(diff), renhsl3["s"] - (renhsl3["s"] - rehsl3["s"]) * Math.abs(diff), renhsl3["l"] - (renhsl3["l"] - rehsl3["l"]) * Math.abs(diff))
+                var newcl30 = hslToHex0(renhsl4["h"] - (renhsl4["h"] - rehsl4["h"]) * Math.abs(diff), renhsl4["s"] - (renhsl4["s"] - rehsl4["s"]) * Math.abs(diff), renhsl4["l"] - (renhsl4["l"] - rehsl4["l"]) * Math.abs(diff))
+                var boxcl0 = hslToHex0(nbhsl0["h"] - (nbhsl0["h"] - bhsl0["h"]) * Math.abs(diff), nbhsl0["s"] - (nbhsl0["s"] - bhsl0["s"]) * Math.abs(diff), nbhsl0["l"] - (nbhsl0["l"] - bhsl0["l"]) * Math.abs(diff))
+                var boxcl1 = hslToHex0(nbhsl1["h"] - (nbhsl1["h"] - bhsl1["h"]) * Math.abs(diff), nbhsl1["s"] - (nbhsl1["s"] - bhsl1["s"]) * Math.abs(diff), nbhsl1["l"] - (nbhsl1["l"] - bhsl1["l"]) * Math.abs(diff))
+                var boxcl2 = hslToHex0(nbhsl2["h"] - (nbhsl2["h"] - bhsl2["h"]) * Math.abs(diff), nbhsl2["s"] - (nbhsl2["s"] - bhsl2["s"]) * Math.abs(diff), nbhsl2["l"] - (nbhsl2["l"] - bhsl2["l"]) * Math.abs(diff))
+                var boxcl3 = hslToHex0(nbhsl3["h"] - (nbhsl3["h"] - bhsl3["h"]) * Math.abs(diff), nbhsl3["s"] - (nbhsl3["s"] - bhsl3["s"]) * Math.abs(diff), nbhsl3["l"] - (nbhsl3["l"] - bhsl3["l"]) * Math.abs(diff))
+                var boxcl4 = hslToHex0(nbhsl4["h"] - (nbhsl4["h"] - bhsl4["h"]) * Math.abs(diff), nbhsl4["s"] - (nbhsl4["s"] - bhsl4["s"]) * Math.abs(diff), nbhsl4["l"] - (nbhsl4["l"] - bhsl4["l"]) * Math.abs(diff))
+                // console.log(parseInt(boxcl0, 16));
+                clmeshlst[0].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(boxcl0, 16));
+                })
+                clmeshlst[1].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(boxcl1, 16));
+                })
+                clmeshlst[2].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(boxcl2, 16));
+                })
+                clmeshlst[3].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(boxcl3, 16));
+                })
+                clmeshlst[4].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(boxcl4, 16));
+                })
+                clmeshlst1[0].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl0))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
+                })
+                clmeshlst1[1].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl1))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
+                })
+                clmeshlst1[2].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl2))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
+                })
+                clmeshlst1[3].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl3))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
+                })
+                clmeshlst1[4].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl4))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
+                })
+                clmeshlst2[0].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl0))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] - 10) + '%)');
+                })
+                clmeshlst2[1].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl1))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] - 10) + '%)');
+                })
+                clmeshlst2[2].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl2))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] - 10) + '%)');
+                })
+                clmeshlst2[3].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl3))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] - 10) + '%)');
+                })
+                clmeshlst2[4].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl4))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] - 10) + '%)');
+                })
+                clmeshlst0[0].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(newcl00, 16));
+                })
+                clmeshlst0[1].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(newcl10, 16));
+                })
+                clmeshlst0[2].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(newcl20, 16));
+                })
+                clmeshlst0[3].forEach((item) => {
+                    // item.color=new THREE.Color(colorlst[colornum][3]);
+                    item.color = new THREE.Color(parseInt(newcl30, 16));
+                })
+
+
+                // grd.addColorStop(0, "white");
+                // grd.addColorStop(0.35, newcl1);
+                // grd.addColorStop(0.45, newcl0);
+                // grd.addColorStop(1, newcl0);
+                // ctx.fillStyle = grd;
+                // ctx.fillRect(0, 0, 100, 100);
+                // var img3 = new THREE.CanvasTexture(canvas);
+                // gradback[0].material = new THREE.MeshBasicMaterial({
+                //     map: img3,
+                //     transparent: true,
+                //     opacity: 1
+                // });
+                for (var i = 0; i < cubes.length; i++) {
+
+                      cubes[i].mesh.position.set(re3loc[i].x+restartloc[i].x * 1.39 * Math.abs(diff), ((i) * bh + bh / 2) + (20*(i+1)+100) * 2.39 * Math.abs(diff), re3loc[i].z+restartloc[i].z * 1.39 * Math.abs(diff))
+                      cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(diff), restartrot[i].y * 1.39 * Math.abs(diff), restartrot[i].z * 1.39 * Math.abs(diff))
+
+
+
+                }
+            }
+        }
+
+
+
 
         if (Math.abs(camera.rotation.x - restartend) < 0.2) {
             groundmesh.material.visible = false;
@@ -12390,6 +12530,7 @@
         if (!restartflag && lookcenter && !startflag) {
 
             if(!restartonce2){
+
               restartloc = [];
               for (var i = 0; i < cubes.length; i++) {
                 if(skinset[skinnum]=="classic"){
@@ -12414,7 +12555,7 @@
               restartonce2=true;
             }
             if (-isoAngle - camera.rotation.x > 0) {
-                camera.rotation.x=-isoAngle;
+                // camera.rotation.x=-isoAngle;
 
                 // for (var i = 0; i < cubes.length; i++) {
                 //   cubes[i].mesh.children.forEach((item, idx) => {
@@ -12427,7 +12568,8 @@
                 // }
 
                 if(onceflag0){
-                  camera.rotation.x=-isoAngle;
+
+                  // camera.rotation.x=-isoAngle;
                   document.getElementById("left").classList.remove("hidden");
                   document.getElementById("left").classList.remove("fade");
                   document.getElementById("left").classList.add("show");
@@ -12508,7 +12650,7 @@
                 }
             } else if (camera.rotation.y > rotationend) {
                 if (rotationend == 0) {
-                    camera.position.set(bw * 2 - 28 * Math.abs(Math.PI / 4 - camera.rotation.y), bh * (cubes.length + 3.5) - 27 * Math.abs(Math.PI / 4 - camera.rotation.y), bw * 2);
+                    camera.position.set(bw * 4 - 28 * Math.abs(Math.PI / 4 - camera.rotation.y), bh * (cubes.length + 2)*2 - 27 * Math.abs(Math.PI / 4 - camera.rotation.y), bw * 4);
                     // camera.rotation.x = -isoAngle*Math.abs(Math.PI/4-camera.rotation.y);
                     // camera.lookAt(0, 0, 0);
                     camera.rotation.x = -isoAngle + isoAngle * Math.abs(Math.PI / 4 - camera.rotation.y)
@@ -12516,7 +12658,7 @@
                 camera.rotation.y -= Math.PI / 64
             } else {
                 if (rotationend == Math.PI / 4) {
-                    camera.position.set(bw * 2 - 28 * Math.abs(Math.PI / 4 - camera.rotation.y), bh * (cubes.length + 3.5) - 27 * Math.abs(Math.PI / 4 - camera.rotation.y), bw * 2);
+                    (bw * 4 - 28 * Math.abs(Math.PI / 4 - camera.rotation.y), bh * (cubes.length + 2)*2 - 27 * Math.abs(Math.PI / 4 - camera.rotation.y), bw * 4);
                     // camera.rotation.x = -isoAngle*Math.abs(Math.PI/4-camera.rotation.y);
                     // camera.lookAt(0, 0, 0);
                     camera.rotation.x = -isoAngle + isoAngle * Math.abs(Math.PI / 4 - camera.rotation.y)
@@ -12529,7 +12671,7 @@
         requestAnimationFrame(animate);
 
 
-        if (!gameoverflag&&averageflag) {
+        if (!gameoverflag&&averageflag&&!re3flag&&!re3flag2) {
           avx = 0;
           avz = 0;
             for (var i = 0; i < cubes.length; i++) {
@@ -13302,7 +13444,7 @@
           }
         }
 
-        if(swing&&tempflag&&!gameoverflag&&gamemod!=2){
+        if(swing&&tempflag&&!gameoverflag&&gamemod!=2&&gamemod!=3){
           if(elapsedTime-swingta>4){
             showpop("곡예 Lv4:","","+500pt",0)
             점수+=500;
@@ -13515,113 +13657,226 @@
                     tempheight=bh*4
                   }
 
-                  if (index > 3 && item.mesh.position.y < tempheight) {
+                  if (fullmax||(index > 3 && item.mesh.position.y < tempheight)) {
                       // overlimit++;
-                      if(!gameoverflag||fullmax){
-                        gameoverflag = true;
+                      if(!gameoverflag){
+                        if(gamemod==3){
+                          if(!re3flag){
+                            if(re3flag2){
+                              if(elapsedTime-re3time>1) {
+                                do{
+                                  ncolornum = parseInt(Math.random() * colorlst.length);
+                                }while(색보정.indexOf(ncolornum)!=-1)
 
-                        endsound=sdic[activeFloor][0];
-                        soundic[sdic[activeFloor][0]].setVolume(0.15);
-                        soundic[esound[4]].play();
-                        topcam = false;
+                                do{
+                                  ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                                }while(색보정0.indexOf(ncolornum0)!=-1)
+                                rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                                renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                                rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                                renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+                                rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                                renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+                                rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                                renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+                                bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+                                nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+                                bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+                                nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+                                bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+                                nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+                                bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+                                nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+                                bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+                                nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
 
-                        document.getElementById("gameover-overlay").classList.remove("fade");
-                        document.getElementById("gameover-overlay").classList.remove("hidden");
-                        document.getElementById("gameover-overlay").classList.add("show");
+                                re3loc=[];
+
+                                for (let i = 0; i < 5; i++) {
+                                    for (var j = cubes[i].mesh.children.length - 1; j >= 0; j--) {
+                                        if (cubes[i].mesh.children[j].userData["skin"] == "tile") {
+                                            cubes[i].mesh.remove(cubes[i].mesh.children[j]);
+                                        }
+                                    }
+                                    cubes[i].mesh.userData["game2048"].board = new Array(4).fill(null).map(() => new Array(4).fill(0));
+                                    cubes[i].body.force.set(0,0,0)
+                                    cubes[i].body.torque.set(0,0,0)
+                                    cubes[i].body.velocity.set(0, 0, 0);
+                                    cubes[i].body.angularVelocity.set(0, 0, 0);
+                                    cubes[i].mesh.position.set(0, (i) * bh + bh / 2, 0);
+                                    cubes[i].mesh.rotation.set(0,0,0);
+                                    // cubes[i].body.position.set(0, (i) * bh + bh / 2, 0);
+
+                                    cubes[i].body.position.set(-bw/4+Math.random()*bw*0.5, (i) * bh + bh / 2, -bw/4+Math.random()*bw*0.5);
+                                    re3loc.push(cubes[i].body.position)
+
+                                    cubes[i].body.quaternion.copy(cubes[i].mesh.quaternion);
+                                    // cubes[i].body.position.copy(cubes[i].mesh.position);
+
+
+
+                                    cubes[i].mesh.userData.game2048.spawnTile();
+                                    cubes[i].mesh.userData.game2048.spawnTile();
+                                    cubes[i].mesh.position.y=200;
+                                    // cubes[i].mesh.position.x=avx;
+                                    // cubes[i].mesh.position.z=avz;
+                                    // camera.position.x=bw*2+avx;
+                                    // camera.position.z=bw*2+avz;
+
+
+                                    restartloc.push(cubes[i].mesh.position);
+                                    restartrot.push(cubes[i].mesh.rotation);
+
+
+
+                                    groundBody.position.set(0, -1, 0);
+                                    world.gravity.set(0, -7, 0);
+
+
+                                }
+                                re3time=elapsedTime;
+                                re3flag=true;
+                                re3flag2=false;
+
+                              }
+                            }else{
+                              console.log(2);
+                              // topcam=false;
+                              soundic[esound[4]].play();
+                              //
+                              activeFloor = cubes.length;
+                              cubes.forEach((item) => {
+                                  item.mesh.userData["game2048"].fullflag=false;
+
+                                  item.mesh.children.forEach((tile, index) => {
+                                      if (tile.userData["skin"] == "tile") {
+                                          item.mesh.remove(tile);
+                                      }
+                                  });
+                              })
+                              topcam=false;
+                              restartloc=[];
+                              restartrot=[];
+                              re3flag2=true;
+                              re3time=elapsedTime;
+                              groundBody.position.set(0, -150, 0);
+                              world.gravity.set(0, -100, 0);
+
+
+                            }
+
+
+                          }
 
 
 
 
-                        var temp1=document.querySelectorAll(".gameover");
-
-                        temp1.forEach((item, i) => {
-                          item.style.opacity=0;
-                        });
-
-                        var temp1=document.querySelectorAll(".gameinfo1");
-                        temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
-                        if(점수>25000){
-                          temp1[0].children[0].innerText="G"
-                          temp1[0].children[1].innerText="oat!!!!!!!!"
-                        }if(점수>20000){
-                          temp1[0].children[0].innerText="L"
-                          temp1[0].children[1].innerText="egend!!!!!!!"
-                        }if(점수>15000){
-                          temp1[0].children[0].innerText="SS"
-                          temp1[0].children[1].innerText="pecial!!!!!"
-                        }if(점수>10000){
-                          temp1[0].children[0].innerText="S"
-                          temp1[0].children[1].innerText="uperb!!!!!"
-                        }else if(점수>8000){
-                          temp1[0].children[0].innerText="A"
-                          temp1[0].children[1].innerText="wesome!!!!"
-                        }else if(점수>6000){
-                          temp1[0].children[0].innerText="B"
-                          temp1[0].children[1].innerText="rilliant!!!"
-                        }else if(점수>3000){
-                          temp1[0].children[0].innerText="C"
-                          temp1[0].children[1].innerText="ool!!"
-                        }else if(점수>1000){
-                          temp1[0].children[0].innerText="D"
-                          temp1[0].children[1].innerText="elightful!"
                         }else{
-                          temp1[0].children[0].innerText="E"
-                          temp1[0].children[1].innerText="fficeint"
-                        }
+                          gameoverflag = true;
+                          endsound=sdic[activeFloor][0];
+                          soundic[sdic[activeFloor][0]].setVolume(0.15);
+                          soundic[esound[4]].play();
+                          topcam = false;
 
-                        document.getElementById("총획득").classList.remove("show");
-                        document.getElementById("코인").classList.remove("show");
-                        document.getElementById("기본").classList.remove("show");
-                        document.getElementById("full").classList.remove("show");
-                        document.getElementById("max").classList.remove("show");
-                        document.getElementById("시간").classList.remove("show");
-                        document.getElementById("총획득").classList.add("hidden");
-                        document.getElementById("코인").classList.add("hidden");
-                        document.getElementById("기본").classList.add("hidden");
-                        document.getElementById("full").classList.add("hidden");
-                        document.getElementById("max").classList.add("hidden");
-                        document.getElementById("시간").classList.add("hidden");
-                        if(gamemod==2){
-                          document.querySelector(".gameinfo0").innerText="floor: "+String(cubes.length-3)+"\nbest: "+String(bestscore2);
-                        }else if(gamemod==1){
-                          document.querySelector(".gameinfo0").innerText="point: "+String(점수)+"\nbest: "+String(parseInt(bestscore1));
-                        }else{
-                          document.querySelector(".gameinfo0").innerText="point: "+String(점수)+"\nbest: "+String(parseInt(bestscore));
-                        }
-                        document.getElementById('song-info').classList.remove("show1");
-                        document.getElementById('song-info').classList.add("hidden");
-                        var temp0=document.querySelectorAll(".gameover");
-                        if(gamemod==2){
-                          document.querySelector(".gameinfo").classList.remove("show");
-                          document.querySelector(".gameinfo").classList.add("hidden");
-                          temp0[2].style.opacity=1;
-                          temp0[2].classList.remove("hidden");
-                          temp0[2].classList.add("show");
-                        }else{
-                          document.querySelector(".gameinfo").classList.remove("hidden");
-                          document.querySelector(".gameinfo").classList.add("show");
-                          temp0[2].classList.remove("show");
-                          temp0[2].classList.add("hidden");
-                        }
-                        showinfo(gamemod);
-                        activeFloor = cubes.length;
+                          document.getElementById("gameover-overlay").classList.remove("fade");
+                          document.getElementById("gameover-overlay").classList.remove("hidden");
+                          document.getElementById("gameover-overlay").classList.add("show");
 
 
-                        if(gamemod==2){
-                          cubes[cubes.length-1].mesh.children.forEach((item) => {
-                             if(item.userData["skin"]=="tile"){
-                               item.material.visible=false;
-                             }else if(item.userData["skin"]=="bottom"){
-                               item.material.visible=false;
-                             }else if(item.userData["skin"]==skinset[skinnum]){
-                               item.material.visible=true;
-                               item.material.opacity=1;
-                               item.material.alphaTest=item.material.opacity;
-                               item.material.transparent=false;
-                             }
+
+
+                          var temp1=document.querySelectorAll(".gameover");
+
+                          temp1.forEach((item, i) => {
+                            item.style.opacity=0;
                           });
 
+                          var temp1=document.querySelectorAll(".gameinfo1");
+                          temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
+                          if(점수>25000){
+                            temp1[0].children[0].innerText="G"
+                            temp1[0].children[1].innerText="oat!!!!!!!!"
+                          }if(점수>20000){
+                            temp1[0].children[0].innerText="L"
+                            temp1[0].children[1].innerText="egend!!!!!!!"
+                          }if(점수>15000){
+                            temp1[0].children[0].innerText="SS"
+                            temp1[0].children[1].innerText="pecial!!!!!"
+                          }if(점수>10000){
+                            temp1[0].children[0].innerText="S"
+                            temp1[0].children[1].innerText="uperb!!!!!"
+                          }else if(점수>8000){
+                            temp1[0].children[0].innerText="A"
+                            temp1[0].children[1].innerText="wesome!!!!"
+                          }else if(점수>6000){
+                            temp1[0].children[0].innerText="B"
+                            temp1[0].children[1].innerText="rilliant!!!"
+                          }else if(점수>3000){
+                            temp1[0].children[0].innerText="C"
+                            temp1[0].children[1].innerText="ool!!"
+                          }else if(점수>1000){
+                            temp1[0].children[0].innerText="D"
+                            temp1[0].children[1].innerText="elightful!"
+                          }else{
+                            temp1[0].children[0].innerText="E"
+                            temp1[0].children[1].innerText="fficeint"
+                          }
+
+                          document.getElementById("총획득").classList.remove("show");
+                          document.getElementById("코인").classList.remove("show");
+                          document.getElementById("기본").classList.remove("show");
+                          document.getElementById("full").classList.remove("show");
+                          document.getElementById("max").classList.remove("show");
+                          document.getElementById("시간").classList.remove("show");
+                          document.getElementById("총획득").classList.add("hidden");
+                          document.getElementById("코인").classList.add("hidden");
+                          document.getElementById("기본").classList.add("hidden");
+                          document.getElementById("full").classList.add("hidden");
+                          document.getElementById("max").classList.add("hidden");
+                          document.getElementById("시간").classList.add("hidden");
+                          if(gamemod==2){
+                            document.querySelector(".gameinfo0").innerText="floor: "+String(cubes.length-3)+"\nbest: "+String(bestscore2);
+                          }else if(gamemod==1){
+                            document.querySelector(".gameinfo0").innerText="point: "+String(점수)+"\nbest: "+String(parseInt(bestscore1));
+                          }else{
+                            document.querySelector(".gameinfo0").innerText="point: "+String(점수)+"\nbest: "+String(parseInt(bestscore));
+                          }
+                          document.getElementById('song-info').classList.remove("show1");
+                          document.getElementById('song-info').classList.add("hidden");
+                          var temp0=document.querySelectorAll(".gameover");
+                          if(gamemod==2){
+                            document.querySelector(".gameinfo").classList.remove("show");
+                            document.querySelector(".gameinfo").classList.add("hidden");
+                            temp0[2].style.opacity=1;
+                            temp0[2].classList.remove("hidden");
+                            temp0[2].classList.add("show");
+                          }else{
+                            document.querySelector(".gameinfo").classList.remove("hidden");
+                            document.querySelector(".gameinfo").classList.add("show");
+                            temp0[2].classList.remove("show");
+                            temp0[2].classList.add("hidden");
+                          }
+                          showinfo(gamemod);
+                          activeFloor = cubes.length;
+
+
+                          if(gamemod==2){
+                            cubes[cubes.length-1].mesh.children.forEach((item) => {
+                               if(item.userData["skin"]=="tile"){
+                                 item.material.visible=false;
+                               }else if(item.userData["skin"]=="bottom"){
+                                 item.material.visible=false;
+                               }else if(item.userData["skin"]==skinset[skinnum]){
+                                 item.material.visible=true;
+                                 item.material.opacity=1;
+                                 item.material.alphaTest=item.material.opacity;
+                                 item.material.transparent=false;
+                               }
+                            });
+
+                          }
                         }
+
                       }
                   }
               })
@@ -13691,13 +13946,13 @@
             if (!gameoverflag) {
                 if (activeFloor == cubes.length) {
                     camera.position.set(
-                        bw * 2 + avx,
+                        bw * 4 + avx,
                         // cubes[cubes.length-1].mesh.position.y+bh*5,
-                        bh * (cubes.length + 3.5),
-                        bw * 2 + avz,
+                        bh * (cubes.length + 2)*2,
+                        bw * 4 + avz,
                     );
                     if(gamemod==2) {
-                      camera.position.y= bh * (cubes.length)
+                      camera.position.y= bh * (cubes.length+1)*2
                     }
                     // camera.lookAt(cubes[0].body.position.x,cubes[cubes.length-1].mesh.position.y+bh*5,cubes[0].body.position.y)
                     // var isoAngle = Math.atan(1 / Math.sqrt(2));
@@ -13792,13 +14047,13 @@
 
                         if (i == activeFloor) {
                             camera.position.set(
-                                bw * 2 + avx,
+                                bw * 4 + avx,
                                 // cubes[cubes.length-1].mesh.position.y+(i-3)*bh,
                                 // cubes[cubes.length-1].mesh.position.y+bh*5,
-                                bh * (cubes.length + 3.5),
-                                bw * 2 + avz,
+                                bh * (cubes.length + 2)*2,
+                                bw * 4 + avz,
                             );
-                            if(gamemod==2) camera.position.y= bh * (cubes.length)
+                            if(gamemod==2) camera.position.y= bh * (cubes.length+1)*2
 
                             if (arrowon) arrows[i].children[0].material.opacity = 0.5
                             // cubes[i].mesh.tile.material.visible = true
@@ -14045,11 +14300,11 @@
             }
         }else {
           if (!restartflag) {
-            camera.position.x=bw * 2 + avx;
-            camera.position.z=bw * 2 + avz;
+            camera.position.x=bw * 4 + avx;
+            camera.position.z=bw * 4 + avz;
           }else{
-            camera.position.x=bw * 2;
-            camera.position.z=bw * 2;
+            camera.position.x=bw * 4;
+            camera.position.z=bw * 4;
           }
           // if(skinset[skinnum]=="classic"){
           //   tilelst.forEach((tile) => {
@@ -14341,17 +14596,21 @@
                   if(gamemod!=2){
                     item.mesh.scale.set(0.8,1,0.8)
                   }
+                  if(!re3flag){
+                    item.mesh.position.copy(item.body.position);
+                    item.mesh.quaternion.copy(item.body.quaternion);
+                    item.mesh.position.z+=bh/4.4;
+                  }
 
-                  item.mesh.position.copy(item.body.position);
-                  item.mesh.quaternion.copy(item.body.quaternion);
-                  item.mesh.position.z+=bh/4.4;
                 }else if(skinset[skinnum]=="base"){
                   if(gamemod!=2){
                     item.mesh.scale.set(1,1,1)
                   }
                   // item.mesh.scale.set(1,1,1)
-                  item.mesh.position.copy(item.body.position);
-                  item.mesh.quaternion.copy(item.body.quaternion);
+                  if(!re3flag){
+                    item.mesh.position.copy(item.body.position);
+                    item.mesh.quaternion.copy(item.body.quaternion);
+                  }
                   item.mesh.children.forEach((tile) => {
                     if(tile.userData["skin"]=="base"){
                       tile.scale.y=0.99
@@ -14361,8 +14620,10 @@
                   if(gamemod!=2){
                     item.mesh.scale.set(1,1,1)
                   }
-                  item.mesh.position.copy(item.body.position);
-                  item.mesh.quaternion.copy(item.body.quaternion);
+                  if(!re3flag){
+                    item.mesh.position.copy(item.body.position);
+                    item.mesh.quaternion.copy(item.body.quaternion);
+                  }
                 }
 
             })
@@ -14416,7 +14677,16 @@
         }
 
         if (!gameoverflag&&!restartflag) {
-
+            if(re3flag){
+              avx = 0;
+              avz = 0;
+              for (var i = 0; i < cubes.length; i++) {
+                  avx += cubes[i].mesh.position.x;
+                  avz += cubes[i].mesh.position.z;
+              }
+              avx /= cubes.length;
+              avz /= cubes.length;
+            }
             var temptxt;
             if (averageflag) {
                 포인트.forEach((item) => {
@@ -18300,6 +18570,7 @@
         var mod0 = document.getElementById('mod0');
         var mod1 = document.getElementById('mod1');
         var mod2 = document.getElementById('mod2');
+        var mod3 = document.getElementById('mod3');
 
         var pbtn2=document.getElementById('gbt1');
 
@@ -18515,6 +18786,66 @@
                     document.getElementById("mod-overlay").classList.add("hidden");
                 }, 100);
                 gamemod=2;
+                if (!rotationflag) {
+                    rotationflag = true
+                    restartflag = true
+                    pluscoin = parseInt(점수 / 10)
+                    // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
+                    for (var i = 0; i < cubes.length; i++) {
+                        restartloc.push(cubes[i].mesh.position);
+                        restartrot.push(cubes[i].mesh.rotation);
+                    }
+                    do{
+                      ncolornum = parseInt(Math.random() * colorlst.length);
+                    }while(색보정.indexOf(ncolornum)!=-1)
+
+                    do{
+                      ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    }while(색보정0.indexOf(ncolornum0)!=-1)
+                    rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                    renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                    rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                    renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+                    rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                    renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+                    rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                    renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+                    bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+                    nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+                    bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+                    nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+                    bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+                    nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+                    bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+                    nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+                    bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+                    nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+                    rotationend = Math.PI / 4
+                }
+            }
+        })
+
+        mod3.addEventListener('click', function() {
+
+          if(coin>=mod2비용){
+            contract(mod2비용,[])
+            showpop("",String(mod2비용)+" ★  지불","")
+            }else{
+              showpop("★가","부족합니다","")
+              // Android.showToast("★가 부족합니다");
+
+              return;
+            }
+
+            if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
+                document.getElementById("mod-overlay").classList.remove("show");
+                document.getElementById("mod-overlay").classList.add("fade");
+                setTimeout(function() {
+                    document.getElementById("mod-overlay").classList.add("hidden");
+                }, 100);
+                gamemod=3;
                 if (!rotationflag) {
                     rotationflag = true
                     restartflag = true
@@ -20682,6 +21013,16 @@
             <b>스택</b>
             <div id="m2best">Best : 20</div>
             <div id="m2price">★ 300</div>
+        </div>
+
+        <div class="mod">
+            <button id="mod3" class="modbt">
+                <img src="png/stack.png" >
+            </button>
+            <label class="mlabel">collapse</label>
+            <b>스택</b>
+            <div id="m3best">Best : 20</div>
+            <div id="m3price">★ 300</div>
         </div>
 
     </div>
