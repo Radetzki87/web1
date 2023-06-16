@@ -1382,6 +1382,14 @@
           font-size: 5vw;
         }
 
+        #m3price{
+          position: absolute;
+          /* margin-top: 2vh; */
+          top:45%;
+          color:grey;
+          font-size: 5vw;
+        }
+
 
         .setting-overlay {
             /*font-size: 1vw;*/
@@ -13260,6 +13268,10 @@
                               if(gamemod==1){
                                 // tforce*=0.7
                               }
+                              if(gamemod==3){
+                                tforce*=0.6
+                                tforce+=100*(4-item.index)
+                              }
                               console.log(tforce)
                               // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                               // switch (item.direction) {
@@ -13720,9 +13732,11 @@
                                     // cubes[i].body.position.copy(cubes[i].mesh.position);
 
 
+                                    for (var k = 0; k < 5-i; k++) {
+                                      cubes[i].mesh.userData.game2048.spawnTile();
+                                    }
 
-                                    cubes[i].mesh.userData.game2048.spawnTile();
-                                    cubes[i].mesh.userData.game2048.spawnTile();
+
                                     cubes[i].mesh.position.y=200;
                                     // cubes[i].mesh.position.x=avx;
                                     // cubes[i].mesh.position.z=avz;
