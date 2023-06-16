@@ -2139,7 +2139,7 @@
     var restartrot = []
     var ncolornum;
     var ncolornum0;
-    var restartend = Math.PI / 80
+    var restartend = Math.PI / 20
     var isoAngle = Math.atan(1 / Math.sqrt(3));
     let center = 0.7853981;
     let left = 1.5707963267948966;
@@ -3931,7 +3931,7 @@
         }
     }
 
-    // var cameraset1=[[bw*4, bh * (5 + 2)*2],[bw*2, bh * (5 + 3.5)]]
+    var cameraset1=[[bw*4, bh * (5 + 2)*2],[bw*2, bh * (5 + 3.5)]]
 
     class Game2048 {
         constructor(size, index) {
@@ -6425,9 +6425,9 @@
 
           // skinnum=skinset.indexOf("gb");
 
-          camera.position.y= bh * (cubes.length+1)*2
+          camera.position.y= bh * (cubes.length+1)
         }else{
-          camera.position.y= bh * (cubes.length+2)*2
+          camera.position.y= bh * (cubes.length+3.5)
         }
         onceflag0=true;
         onceflag1=true
@@ -12385,7 +12385,7 @@
                     opacity: 1
                 });
                 for (var i = 0; i < cubes.length; i++) {
-                    cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) +(restartloc[i].y) * 1.69 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
+                    cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) +(restartloc[i].y) * 1.49 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].y * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     if(skinset[skinnum]=="classic"){
                       // cubes[i].mesh.position.z=cubes[i].body.position.z
@@ -12656,7 +12656,7 @@
                 }
             } else if (camera.rotation.y > rotationend) {
                 if (rotationend == 0) {
-                    camera.position.set(bw * 4 - 28 * Math.abs(Math.PI / 4 - camera.rotation.y), bh * (cubes.length + 2)*2 - 27 * Math.abs(Math.PI / 4 - camera.rotation.y), bw * 4);
+                    camera.position.set(bw * 2 - 28 * Math.abs(Math.PI / 4 - camera.rotation.y), bh * (cubes.length + 3.5) - 27 * Math.abs(Math.PI / 4 - camera.rotation.y), bw * 2);
                     // camera.rotation.x = -isoAngle*Math.abs(Math.PI/4-camera.rotation.y);
                     // camera.lookAt(0, 0, 0);
                     camera.rotation.x = -isoAngle + isoAngle * Math.abs(Math.PI / 4 - camera.rotation.y)
@@ -12664,7 +12664,7 @@
                 camera.rotation.y -= Math.PI / 64
             } else {
                 if (rotationend == Math.PI / 4) {
-                    (bw * 4 - 28 * Math.abs(Math.PI / 4 - camera.rotation.y), bh * (cubes.length + 2)*2 - 27 * Math.abs(Math.PI / 4 - camera.rotation.y), bw * 4);
+                    (bw * 2 - 28 * Math.abs(Math.PI / 4 - camera.rotation.y), bh * (cubes.length + 3.5) - 27 * Math.abs(Math.PI / 4 - camera.rotation.y), bw * 2);
                     // camera.rotation.x = -isoAngle*Math.abs(Math.PI/4-camera.rotation.y);
                     // camera.lookAt(0, 0, 0);
                     camera.rotation.x = -isoAngle + isoAngle * Math.abs(Math.PI / 4 - camera.rotation.y)
@@ -13952,13 +13952,13 @@
             if (!gameoverflag) {
                 if (activeFloor == cubes.length) {
                     camera.position.set(
-                        bw * 4 + avx,
+                        bw * 2 + avx,
                         // cubes[cubes.length-1].mesh.position.y+bh*5,
-                        bh * (cubes.length + 2)*2,
-                        bw * 4 + avz,
+                        bh * (cubes.length + 3.5),
+                        bw * 2 + avz,
                     );
                     if(gamemod==2) {
-                      camera.position.y= bh * (cubes.length+1)*2
+                      camera.position.y= bh * (cubes.length)
                     }
                     // camera.lookAt(cubes[0].body.position.x,cubes[cubes.length-1].mesh.position.y+bh*5,cubes[0].body.position.y)
                     // var isoAngle = Math.atan(1 / Math.sqrt(2));
@@ -14053,13 +14053,13 @@
 
                         if (i == activeFloor) {
                             camera.position.set(
-                                bw * 4 + avx,
+                                bw * 2 + avx,
                                 // cubes[cubes.length-1].mesh.position.y+(i-3)*bh,
                                 // cubes[cubes.length-1].mesh.position.y+bh*5,
-                                bh * (cubes.length + 2)*2,
-                                bw * 4 + avz,
+                                bh * (cubes.length + 3.5),
+                                bw * 2 + avz,
                             );
-                            if(gamemod==2) camera.position.y= bh * (cubes.length+1)*2
+                            if(gamemod==2) camera.position.y= bh * (cubes.length)
 
                             if (arrowon) arrows[i].children[0].material.opacity = 0.5
                             // cubes[i].mesh.tile.material.visible = true
@@ -14306,11 +14306,11 @@
             }
         }else {
           if (!restartflag) {
-            camera.position.x=bw * 4 + avx;
-            camera.position.z=bw * 4 + avz;
+            camera.position.x=bw * 2 + avx;
+            camera.position.z=bw * 2 + avz;
           }else{
-            camera.position.x=bw * 4;
-            camera.position.z=bw * 4;
+            camera.position.x=bw * 2;
+            camera.position.z=bw * 2;
           }
           // if(skinset[skinnum]=="classic"){
           //   tilelst.forEach((tile) => {
