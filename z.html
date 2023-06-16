@@ -1295,7 +1295,7 @@
             /* position: fixed; */
             right: 10%;
             font-family: 'GG';
-            font-size: 15vw;
+            font-size: 10vw;
             margin: 4vw 0;
 
         }
@@ -1311,7 +1311,7 @@
 
             justify-content: center;
             align-items: center;
-            font-size: 5vw;
+            font-size: 3vw;
         }
 
         .mod b{
@@ -1324,11 +1324,11 @@
             background-color: transparent;
             /* background-image: url("png/grey_button10.png"); */
             align-items: center;
-            background-size: 12vh 10vh;
+            background-size: 10vh 9vh;
             /* background-color: rgba(50, 50, 50, 0.5); */
             border-radius: 4vw;
-            width: 12vh;
-            height: 10vh;
+            width: 10vh;
+            height: 9vh;
             z-index: 2;
             margin-bottom: 1vw;
         }
@@ -1336,17 +1336,17 @@
         .modbt img {
             margin-top: 2vw;
             margin-left: -5px;
-            width: 8vh;
-            height: 8vh;
+            width: 6vh;
+            height: 6vh;
             z-index: 2;
         }
 
         .modbt:active {
             /* background-image: url("png/blue_button08.png"); */
             transform: translate(0, 0.5vh);
-            background-size: 12vh 9.5vh;
-            width: 12vh;
-            height: 9.5vh;
+            background-size: 10vh 8.5vh;
+            width: 10vh;
+            height: 8.5vh;
             margin-bottom: 2.5vh;
         }
 
@@ -1363,6 +1363,12 @@
         }
 
         #m2best{
+          margin-top: 2vh;
+          color:white;
+          font-size: 4vw;
+        }
+
+        #m3best{
           margin-top: 2vh;
           color:white;
           font-size: 4vw;
@@ -1938,7 +1944,7 @@
 
     // var forceset=[[700,850,1000,1300,1600,2000,2400,2700,3000,3400],[650,800,950,1250,1550,1950,2350,2650,2950,3350],[600,750,900,1200,1500,1900,2300,2600,2900,3300],[550,700,850,1150,1450,1850,2250,2550,2850,3250],[500,650,800,1100,1400,1800,2200,2500,2800,3200]];
     // var forceset=[[600,750,1000,1300,1600,1900,2200,2500,2800,3200],[550,700,950,1250,1550,1850,2150,2450,2750,3150],[500,650,900,1200,1500,1800,2100,2400,2700,3100],[450,600,850,1150,1450,1750,2050,2350,2650,3050],[400,550,800,1100,1400,1700,2000,2300,2600,3000]]
-    var forceset=[[700,850,1000,1300,1600,1900,2200,2500,2800,3100],[650,800,950,1250,1550,1850,2150,2450,2750,3050],[600,750,900,1200,1500,1800,2100,2400,2700,3000],[550,700,850,1150,1450,1750,2050,2350,2650,2950],[5000,650,800,1100,1400,1800,2200,2600,3000,3400]]
+    var forceset=[[700,850,1000,1300,1600,1900,2200,2500,2800,3100],[650,800,950,1250,1550,1850,2150,2450,2750,3050],[600,750,900,1200,1500,1800,2100,2400,2700,3000],[550,700,850,1150,1450,1750,2050,2350,2650,2950],[500,650,800,1100,1400,1800,2200,2600,3000,3400]]
 
     var mod2비용=300;
 
@@ -12379,7 +12385,7 @@
                     opacity: 1
                 });
                 for (var i = 0; i < cubes.length; i++) {
-                    cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) +(restartloc[i].y) * 1.59 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
+                    cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) +(restartloc[i].y) * 1.69 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].y * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     if(skinset[skinnum]=="classic"){
                       // cubes[i].mesh.position.z=cubes[i].body.position.z
@@ -19473,9 +19479,9 @@
 
 
         // document.getElementById("coin-info").style.opacity=1;
-        document.getElementById("m0best").innerText="BEST : "+String(bestscore)
-        document.getElementById("m1best").innerText="BEST : "+String(bestscore1)
-        document.getElementById("m2best").innerText="BEST : "+String(bestscore2)
+        // document.getElementById("m0best").innerText="BEST : "+String(bestscore)
+        // document.getElementById("m1best").innerText="BEST : "+String(bestscore1)
+        // document.getElementById("m2best").innerText="BEST : "+String(bestscore2)
 
         if(!document.getElementById("mod-overlay").classList.contains("hidden")){
           return goBack(8);
@@ -20993,7 +20999,7 @@
             </button>
             <label class="mlabel">NORMAL</label>
             <b>기본</b>
-            <div id="m0best">Best : 2000</div>
+
         </div>
 
         <div class="mod">
@@ -21002,7 +21008,7 @@
             </button>
             <label class="mlabel">HARD</label>
             <b>어려움</b>
-            <div id="m1best">Best : 2000</div>
+
         </div>
 
         <div class="mod">
@@ -21011,7 +21017,7 @@
             </button>
             <label class="mlabel">STACK</label>
             <b>스택</b>
-            <div id="m2best">Best : 20</div>
+
             <div id="m2price">★ 300</div>
         </div>
 
@@ -21021,7 +21027,7 @@
             </button>
             <label class="mlabel">collapse</label>
             <b>스택</b>
-            <div id="m3best">Best : 20</div>
+
             <div id="m3price">★ 300</div>
         </div>
 
