@@ -1278,7 +1278,7 @@
             display: flex;
             font-family: 'GG';
             width: 98%;
-            height: 30%;
+            height: 20%;
             border-radius: 4vw;
 
             border: 0px solid #000;
@@ -1313,6 +1313,9 @@
             align-items: center;
             font-size: 3vw;
         }
+        .mod label{
+          font-size: 4vw;
+        }
 
         .mod b{
           font-family: 'EliceDigitalBaeum-Bd';
@@ -1330,14 +1333,14 @@
             width: 10vh;
             height: 9vh;
             z-index: 2;
-            margin-bottom: 1vw;
+            margin-bottom: 2vh;
         }
 
         .modbt img {
             margin-top: 2vw;
             margin-left: -5px;
-            width: 6vh;
-            height: 6vh;
+            width: 7vh;
+            height: 7vh;
             z-index: 2;
         }
 
@@ -1347,7 +1350,7 @@
             background-size: 10vh 8.5vh;
             width: 10vh;
             height: 8.5vh;
-            margin-bottom: 2.5vh;
+            margin-bottom: 2.3vh;
         }
 
         #m0best{
@@ -1377,18 +1380,28 @@
         #m2price{
           position: absolute;
           /* margin-top: 2vh; */
-          top:45%;
-          color:grey;
-          font-size: 5vw;
+          top:49%;
+          color:yellow;
+          font-size: 2vh;
         }
 
         #m3price{
           position: absolute;
           /* margin-top: 2vh; */
-          top:45%;
-          color:grey;
-          font-size: 5vw;
+          top:49%;
+          color:yellow;
+          font-size: 2vh;
         }
+
+        #m3lock{
+          position: absolute;
+          /* margin-top: 2vh; */
+          top:54%;
+          filter: brightness(50%);
+          z-index: 2;
+        }
+
+
 
 
         .setting-overlay {
@@ -4917,7 +4930,7 @@
           document.getElementById("intro").style.display="none"
           // document.getElementById("optionlst").style.display="none"
 
-          if(gamemod==0||gamemod==3){
+          if(gamemod==0){
             world.gravity.set(0, -7, 0);
           }else if(gamemod==1){
             world.gravity.set(0, -8, 0);
@@ -5732,7 +5745,7 @@
               if(!go) return;
               document.getElementById("tut-info").style.display="none"
               document.getElementById("intro").style.display="none"
-              if(gamemod==0||gamemod==3){
+              if(gamemod==0){
                 world.gravity.set(0, -7, 0);
               }else if(gamemod==1){
                 world.gravity.set(0, -8, 0);
@@ -5835,7 +5848,7 @@
               if(!go) return;
               document.getElementById("tut-info").style.display="none"
               document.getElementById("intro").style.display="none"
-              if(gamemod==0||gamemod==3){
+              if(gamemod==0){
                 world.gravity.set(0, -7, 0);
               }else if(gamemod==1){
                 world.gravity.set(0, -8, 0);
@@ -6122,7 +6135,7 @@
         sideViewCamera.updateProjectionMatrix();
 
         // dl2.shadow.camera.position.y=bh * (cubes.length + 2);
-        if (gamemod==0||gamemod==3){
+        if (gamemod==0){
           for (var i = 0; i < cubes.length; i++) {
             cubes[i].body.material.friction = 0.2;
             cubes[i].body.material.restitution = 0.4;
@@ -6154,6 +6167,17 @@
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
           world.solver.iterations = 2;
+        }else if (gamemod==3){
+          for (var i = 0; i < cubes.length; i++) {
+            cubes[i].body.material.friction = 0.1;
+            cubes[i].body.material.restitution = 0.8;
+          }
+
+          stack=5;
+          forceAmount = bw * bw * bh / 16.5;
+          groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
+          world.gravity.set(0, 0, 0);
+          world.solver.iterations = 10;
         }
         world.addBody(groundBody);
         world.broadphase = new CANNON.NaiveBroadphase();
@@ -6494,6 +6518,11 @@
                     document.getElementById("coin-info").classList.add("show");
                     document.getElementById("coin2").innerText=String(coin);
                     addring();
+                    if(gamemod==3){
+                      groundBody.position.set(0, -100, 0);
+                      world.gravity.set(0, -100, 0);
+                    }
+
 
                 })
             })
@@ -11157,6 +11186,87 @@
           gradback.push(tmesh);
           scene.add(tmesh)
       }
+
+      if(gamemod==3){
+        var geometry12 = new TextGeometry("collapse", {
+            font: font0,
+            size: bw / 8,
+            height: 두께*th / 3
+        });
+        geometry12.computeBoundingBox();
+        geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+        var material = new THREE.MeshBasicMaterial({
+            color: colorlst[colornum][1]
+        });
+        var tmesh = new THREE.Mesh(geometry12, material);
+        tmesh.position.y = cubes[2].body.position.y + 10
+        tmesh.position.x = bw * (1.1)
+        tmesh.position.z = bw * (0.58)
+        // textMesh.position.x=0;
+        tmesh.depth = 10;
+        tmesh.rotation.order = 'YXZ';
+        tmesh.rotation.y = Math.PI / 4;
+
+        // var geometry12 = new TextGeometry("A", {
+        //     font: font0,
+        //     size: bw / 4,
+        //     height: 두께*th / 2
+        // });
+        // geometry12.computeBoundingBox();
+        // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+        // var material = new THREE.MeshBasicMaterial({
+        //     color: colorlst0[colornum0][1]
+        // });
+        // var tmesh1 = new THREE.Mesh(geometry12, material);
+        // // tmesh1.position.y
+        // tmesh1.position.x = 3;
+        // tmesh1.depth = 10;
+        // tmesh1.rotation.order = 'YXZ';
+        // // tmesh1.rotation.y =Math.PI / 4;
+        // tmesh.add(tmesh1)
+        // var geometry12 = new TextGeometry("R", {
+        //     font: font0,
+        //     size: bw / 4,
+        //     height: 두께*th / 2
+        // });
+        // geometry12.computeBoundingBox();
+        // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+        // var material = new THREE.MeshBasicMaterial({
+        //     color: colorlst0[colornum0][2]
+        // });
+        // var tmesh1 = new THREE.Mesh(geometry12, material);
+        // // tmesh1.position.y
+        // tmesh1.position.x = 3 * 2;
+        // tmesh1.depth = 10;
+        // tmesh1.rotation.order = 'YXZ';
+        // // tmesh1.rotation.y =Math.PI / 4;
+        // tmesh.add(tmesh1)
+        // var geometry12 = new TextGeometry("D", {
+        //     font: font0,
+        //     size: bw / 4,
+        //     height: 두께*th / 2
+        // });
+        // geometry12.computeBoundingBox();
+        // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+        // var material = new THREE.MeshBasicMaterial({
+        //     color: colorlst0[colornum0][3]
+        // });
+        // var tmesh1 = new THREE.Mesh(geometry12, material);
+        // // tmesh1.position.y
+        // tmesh1.position.x = 3 * 3;
+        // tmesh1.depth = 10;
+        // tmesh1.rotation.order = 'YXZ';
+
+        tmesh.rotation.order = 'YXZ';
+        tmesh.rotation.y = Math.PI / 2;
+        // tmesh.add(tmesh1)
+
+        textscene.push(tmesh)
+        gradback.push(tmesh);
+        scene.add(tmesh)
+      }
+
+
         var geometry12 = new TextGeometry("B", {
             font: font0,
             size: bw / 2,
@@ -12406,6 +12516,8 @@
 
         if (re3flag) {
             if(!restartonce1){
+              skinnum=parseInt(Math.random()*skinset.length);
+              bf=99;
               activeFloor = cubes.length;
               avx=0;
               avz=0;
@@ -13269,8 +13381,8 @@
                                 // tforce*=0.7
                               }
                               if(gamemod==3){
-                                tforce*=0.6
-                                tforce+=100*(4-item.index)
+                                tforce*=0.3
+                                tforce+=60*(4-item.index)
                               }
                               console.log(tforce)
                               // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
@@ -13724,8 +13836,20 @@
                                     cubes[i].mesh.position.set(0, (i) * bh + bh / 2, 0);
                                     cubes[i].mesh.rotation.set(0,0,0);
                                     // cubes[i].body.position.set(0, (i) * bh + bh / 2, 0);
+                                    if(i==4){
+                                      var avx0=0
+                                      var avz0=0
 
-                                    cubes[i].body.position.set(-bw/4+Math.random()*bw*0.5, (i) * bh + bh / 2, -bw/4+Math.random()*bw*0.5);
+                                      for (var j = 0; j < 4; j++) {
+                                        avx0+=cubes[j].body.position.x;
+                                        avz0+=cubes[j].body.position.z;
+                                      }
+                                      cubes[i].body.position.set(avx0/4, (i) * bh + bh / 2,avz0/4 );
+
+                                    }else{
+                                      cubes[i].body.position.set(-bw/3+Math.random()*bw*0.666, (i) * bh + bh / 2, -bw/3+Math.random()*bw*0.666);
+                                    }
+
                                     re3loc.push(cubes[i].body.position)
 
                                     cubes[i].body.quaternion.copy(cubes[i].mesh.quaternion);
@@ -21037,12 +21161,13 @@
 
         <div class="mod">
             <button id="mod3" class="modbt">
-                <img src="png/stack.png" >
+                <img src="png/collapse.png" >
             </button>
             <label class="mlabel">collapse</label>
-            <b>스택</b>
+            <b>붕괴</b>
 
             <div id="m3price">★ 300</div>
+
         </div>
 
     </div>
