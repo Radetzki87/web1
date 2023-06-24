@@ -1012,7 +1012,6 @@
           align-items: left;
           color:rgba(255, 255, 255, 0.8);
 
-
         }
 
         #popline1 .p1{
@@ -1020,11 +1019,11 @@
         }
 
         #popline1 .p2{
-            margin-left: 2vw;
+          margin-left: 2vw;
         }
 
         #popline1 .p3{
-            margin-top: 0.5vw;
+            /* margin-top: 0.5vw; */
             position: absolute;
             left:57%;
         }
@@ -1258,7 +1257,7 @@
             /* flex-direction: column; */
             background-color: rgba(50, 50, 50, 0.6);
             border-radius: 4vw;
-            border: 5px solid rgba(20, 20, 20, 0.3);
+            border: 0px solid rgba(20, 20, 20, 0.3);
             width: 85%;
             height: 15%;
             justify-content: center;
@@ -1279,9 +1278,9 @@
             display: flex;
             font-family: 'GG';
             width: 98%;
-            height: 30%;
+            height: 20%;
             border-radius: 4vw;
-            border-radius: 4vw;
+
             border: 0px solid #000;
             display: flex;
             flex-direction: row;
@@ -1296,8 +1295,9 @@
             /* position: fixed; */
             right: 10%;
             font-family: 'GG';
-            font-size: 15vw;
+            font-size: 10vw;
             margin: 4vw 0;
+
         }
 
         .mod {
@@ -1307,58 +1307,101 @@
 
             width: 100%;
             height: 80%;
-            background-color: rgba(50, 50, 50, 0);
+            background-color: rgba(100, 100, 100, 0);
 
             justify-content: center;
             align-items: center;
+            font-size: 3vw;
+        }
+        .mod label{
+          font-size: 4vw;
+        }
+
+        .mod b{
+          font-family: 'EliceDigitalBaeum-Bd';
         }
 
         .modbt {
+
             /* border: none; */
             background-color: transparent;
             /* background-image: url("png/grey_button10.png"); */
-
-            background-size: 12vh 10vh;
-            background-color: rgba(50, 50, 50, 0.5);
+            align-items: center;
+            background-size: 10vh 9vh;
+            /* background-color: rgba(50, 50, 50, 0.5); */
             border-radius: 4vw;
-            width: 12vh;
-            height: 10vh;
+            width: 10vh;
+            height: 9vh;
             z-index: 2;
-            margin-bottom: 1vw;
+            margin-bottom: 2vh;
         }
 
         .modbt img {
-            width: 6vh;
-            height: 6vh;
+            margin-top: 2vw;
+            margin-left: -5px;
+            width: 7vh;
+            height: 7vh;
             z-index: 2;
         }
 
         .modbt:active {
             /* background-image: url("png/blue_button08.png"); */
             transform: translate(0, 0.5vh);
-            background-size: 12vh 10.5vh;
-            width: 12vh;
-            height: 10.5vh;
-            margin-bottom: 2.5vh;
+            background-size: 10vh 8.5vh;
+            width: 10vh;
+            height: 8.5vh;
+            margin-bottom: 2.3vh;
         }
 
         #m0best{
           margin-top: 2vh;
           color:white;
-          font-size: 3vw;
+          font-size: 4vw;
         }
 
         #m1best{
           margin-top: 2vh;
           color:white;
-          font-size: 3vw;
+          font-size: 4vw;
         }
 
         #m2best{
           margin-top: 2vh;
           color:white;
-          font-size: 3vw;
+          font-size: 4vw;
         }
+
+        #m3best{
+          margin-top: 2vh;
+          color:white;
+          font-size: 4vw;
+        }
+
+        #m2price{
+          position: absolute;
+          /* margin-top: 2vh; */
+          top:49%;
+          color:yellow;
+          font-size: 2vh;
+        }
+
+        #m3price{
+          position: absolute;
+          /* margin-top: 2vh; */
+          top:49%;
+          color:yellow;
+          font-size: 2vh;
+        }
+
+        #m3lock{
+          position: absolute;
+          /* margin-top: 2vh; */
+          top:54%;
+          filter: brightness(50%);
+          z-index: 2;
+        }
+
+
 
 
         .setting-overlay {
@@ -1410,13 +1453,14 @@
             justify-content: center;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-gap: 7vw;
+            grid-gap: 8vw;
             /*background-color: rgba(50, 100, 250, 0.3);*/
         }
 
 
 
         .setting-grid button {
+            /* width:70%; */
             border-radius: 3vw;
             display: flex;
             flex-direction: column;
@@ -1857,6 +1901,74 @@
 
     const gameOverPanel = document.getElementById('game-over-panel');
 
+
+    var re3time=0;
+    var re3flag2=false;
+    var re3flag=false;
+    var 땅투명=0.1;
+
+    var 송백="rgba(100,100,100,0.65)"
+
+    var 옵션=document.getElementById("options-overlay")
+    var 카테그=document.getElementById("categ1")
+    var 스텝1=document.getElementById("step1")
+    var 스텝3=document.getElementById("step3")
+    var 샵=document.getElementById("shop")
+
+    var 레프트=document.getElementById("left")
+
+    var 물음표=document.getElementById("leftup")
+
+    var 센터=document.getElementById("center")
+
+    var 라이트=document.getElementById("right")
+
+    var 옵션리스트=document.getElementById("optionlst")
+
+    var 세팅=document.getElementById("setting-overlay")
+
+    var 튜토리얼=document.getElementById("tutorial")
+
+    var 게임오버=document.getElementById("gameover-overlay")
+
+    var 코인=document.getElementById("coin-info")
+
+    var 모드=document.getElementById("mod-overlay")
+
+    var 크레딧=document.getElementById("credit-info")
+
+    var 튜트=document.getElementById("tut-info")
+
+    var 송=document.getElementById("song-info")
+
+    var 인트로=document.getElementById("intro")
+
+    window.옵션=옵션
+    window.카테그=카테그
+    window.스텝1=스텝1
+    window.스텝3=스텝3
+    window.샵=샵
+    window.레프트=레프트
+    window.물음표=물음표
+    window.센터=센터
+    window.라이트=라이트
+    window.옵션리스트=옵션리스트
+    window.세팅=세팅
+    window.튜토리얼=튜토리얼
+    window.게임오버=게임오버
+    window.코인=코인
+    window.모드=모드
+    window.크레딧=크레딧
+    window.튜트=튜트
+    window.송=송
+    window.인트로=인트로
+
+    // var forceset=[[700,850,1000,1300,1600,2000,2400,2700,3000,3400],[650,800,950,1250,1550,1950,2350,2650,2950,3350],[600,750,900,1200,1500,1900,2300,2600,2900,3300],[550,700,850,1150,1450,1850,2250,2550,2850,3250],[500,650,800,1100,1400,1800,2200,2500,2800,3200]];
+    // var forceset=[[600,750,1000,1300,1600,1900,2200,2500,2800,3200],[550,700,950,1250,1550,1850,2150,2450,2750,3150],[500,650,900,1200,1500,1800,2100,2400,2700,3100],[450,600,850,1150,1450,1750,2050,2350,2650,3050],[400,550,800,1100,1400,1700,2000,2300,2600,3000]]
+    var forceset=[[700,850,1000,1300,1600,1900,2200,2500,2800,3100],[650,800,950,1250,1550,1850,2150,2450,2750,3050],[600,750,900,1200,1500,1800,2100,2400,2700,3000],[550,700,850,1150,1450,1750,2050,2350,2650,2950],[500,650,800,1100,1400,1800,2200,2600,3000,3400]]
+
+    var mod2비용=300;
+
     var 색보정=[14, 0, 31, 59, 16, 37, 18, 44, 41, 39, 10, 40, 22, 13,26]
 
     var 색보정0=[7,81,114,104]
@@ -1919,6 +2031,11 @@
     var stacknum=[0,0,0,0,8,8,16,16,32,32,32,64,64,64,128,128,128,256,256,512,512,512,1024,1024,2048,2048,2048,2048,2048,2048]
     var paidskin=[];
     window.paidskin=paidskin;
+
+
+
+    var ㄷ=[];
+    var ㄷ2=[];
 
     var fpslst=[];
     var rescounter=4;
@@ -2038,6 +2155,7 @@
     var skinselect = 0;
     var skinidx = 0;
     var restartflag = false;
+    var re3loc=[];
     var restartloc = [];
     var restartrot = []
     var ncolornum;
@@ -2079,6 +2197,7 @@
     var bhsl4;
     var nbhsl4;
     let startflag = false
+    window.startflag=startflag;
     let fps;
     let time0;
     let gradback = [];
@@ -3833,6 +3952,8 @@
         }
     }
 
+    var cameraset1=[[bw*4, bh * (5 + 2)*2],[bw*2, bh * (5 + 3.5)]]
+
     class Game2048 {
         constructor(size, index) {
             this.size = size;
@@ -4950,7 +5071,7 @@
                             var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
                             // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*0.8, newcl.l*0.35)
 
-                            document.getElementById('songback').style.backgroundColor="rgba(140,140,140,0.65)"
+                            document.getElementById('songback').style.backgroundColor=송백
 
                             // document.getElementById('songback').style.opacity="0.35"
 
@@ -4962,7 +5083,7 @@
                             document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.90, newcl.l*1.1)
                             var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
                             // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h+Math.PI/2, newcl.s, newcl.l*0.35)
-                            document.getElementById('songback').style.backgroundColor="rgba(140,140,140,0.65)"
+                            document.getElementById('songback').style.backgroundColor=송백
                             // document.getElementById('songback').style.opacity="0.35"
 
                         }
@@ -5039,6 +5160,8 @@
                             restartflag = true
                             pluscoin = parseInt(점수 / 10)
                             // coin += pluscoin;
+                            restartloc=[];
+                            restartrot=[];
                             for (var i = 0; i < cubes.length; i++) {
                                 restartloc.push(cubes[i].mesh.position);
                                 restartrot.push(cubes[i].mesh.rotation);
@@ -5085,6 +5208,8 @@
                             restartflag = true
                             pluscoin = parseInt(점수 / 10)
                             // coin += pluscoin;
+                            restartloc=[];
+                            restartrot=[];
                             for (var i = 0; i < cubes.length; i++) {
                                 restartloc.push(cubes[i].mesh.position);
                                 restartrot.push(cubes[i].mesh.rotation);
@@ -5130,6 +5255,8 @@
                             restartflag = true
                             pluscoin = parseInt(점수 / 10)
                             // coin += pluscoin;
+                            restartloc=[];
+                            restartrot=[];
                             for (var i = 0; i < cubes.length; i++) {
                                 restartloc.push(cubes[i].mesh.position);
                                 restartrot.push(cubes[i].mesh.rotation);
@@ -5175,6 +5302,8 @@
                             restartflag = true
                             pluscoin = parseInt(점수 / 10)
                             // coin += pluscoin;
+                            restartloc=[];
+                            restartrot=[];
                             for (var i = 0; i < cubes.length; i++) {
                                 restartloc.push(cubes[i].mesh.position);
                                 restartrot.push(cubes[i].mesh.rotation);
@@ -5229,6 +5358,7 @@
                 activeFloor = 0;
             }
             if (buffloor != activeFloor) {
+              bf=99;
                 // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
                 //     soundic[sdic[activeFloor]["upper"]].stop();
                 // }
@@ -5449,7 +5579,7 @@
         sideViewCamera.position.set(bw * 1.5, bw * 0.8, 0);
         sideViewCamera.lookAt(0, bw * 0.8, 0);
     }
-    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.15, bw / 1.15, bw / 1.15, -bw / 1.15, 0.1, 1000);
+    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.2, bw / 1.2, bw / 1.2, -bw / 1.2, 0.1, 1000);
     topViewCamera.position.set(0, bh * 20, 0);
     topViewCamera.lookAt(0, 0, 0);
     // var color = 0xFFFFFF;
@@ -5489,7 +5619,7 @@
         var groundmaterial = new THREE.MeshLambertMaterial({
             color: groundcolor,
             visible: true,
-            opacity: 0.06,
+            opacity: 땅투명,
             transparent: true
         });
     } else {
@@ -5627,6 +5757,7 @@
                 startflag = true;
                 return;
             }
+            bf=99;
             activeFloor++;
             if (activeFloor > cubes.length) {
                 activeFloor = cubes.length;
@@ -5728,7 +5859,9 @@
             if (!startflag) {
                 startflag = true;
             }
+
             activeFloor--;
+            bf=99;
             if (activeFloor < 0) {
                 activeFloor = 0;
             } else {
@@ -5805,6 +5938,8 @@
                 restartflag = true
                 pluscoin = parseInt(점수 / 10)
                 // coin += pluscoin;
+                restartloc=[];
+                restartrot=[];
                 for (var i = 0; i < cubes.length; i++) {
                     restartloc.push(cubes[i].mesh.position);
                     restartrot.push(cubes[i].mesh.rotation);
@@ -5842,19 +5977,19 @@
         } else if (event.code === 'KeyZ') {
           // camera.position.y= bh * (cubes.length+0.5)
 
-          // camera.left -= bw*0.5
-          // camera.right += bw  *4*0.5
-          // camera.top +=  bw*0.5
-          // camera.bottom -= bw*4*0.5
-          // renderer.setSize(window.innerWidth, window.innerHeight);
-          // camera.aspect = window.innerWidth / window.innerHeight;
-          // camera.updateProjectionMatrix();
+          camera.left -= bw*0.5
+          camera.right += bw  *4*0.5
+          camera.top +=  bw*0.5
+          camera.bottom -= bw*4*0.5
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
 
-            skinnum++;
-            if (skinnum >= skinset.length) {
-                skinnum = 0;
-            }
-            bf=999
+            // skinnum++;
+            // if (skinnum >= skinset.length) {
+            //     skinnum = 0;
+            // }
+            // bf=999
             // if(lookcenter){
             // }else if(lookright){
             // }
@@ -5982,7 +6117,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
-
+        camera.rotation.x=restartend;
          frontalViewCamera.left= -bw / 1.05
         frontalViewCamera.right = bw / 1.05
         frontalViewCamera.top = bw / 1.05
@@ -5999,19 +6134,24 @@
         sideViewCamera.aspect = window.innerWidth / window.innerHeight;
         sideViewCamera.updateProjectionMatrix();
 
-        // dl2.shadow.camera.position.y=bh * (cubes.length + 3.5);
+        // dl2.shadow.camera.position.y=bh * (cubes.length + 2);
         if (gamemod==0){
-          cubes[3].body.material.friction = 0.2;
-          cubes[3].body.material.restitution = 0.4;
+          for (var i = 0; i < cubes.length; i++) {
+            cubes[i].body.material.friction = 0.2;
+            cubes[i].body.material.restitution = 0.4;
+          }
+
           stack=5;
           forceAmount = bw * bw * bh / 16.5;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 2;
+          world.solver.iterations = 10;
           // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
         }else if (gamemod==1){
-          cubes[3].body.material.friction = 0.3;
-          cubes[3].body.material.restitution = 0.3;
+          for (var i = 0; i < cubes.length; i++) {
+            cubes[i].body.material.friction = 0.4;
+            cubes[i].body.material.restitution = 0.4;
+          }
           stack=5;
           forceAmount = bw * bw * bh / 25;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
@@ -6027,6 +6167,17 @@
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
           world.solver.iterations = 2;
+        }else if (gamemod==3){
+          for (var i = 0; i < cubes.length; i++) {
+            cubes[i].body.material.friction = 0.1;
+            cubes[i].body.material.restitution = 0.8;
+          }
+
+          stack=5;
+          forceAmount = bw * bw * bh / 16.5;
+          groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
+          world.gravity.set(0, 0, 0);
+          world.solver.iterations = 10;
         }
         world.addBody(groundBody);
         world.broadphase = new CANNON.NaiveBroadphase();
@@ -6042,7 +6193,7 @@
             var groundmaterial = new THREE.MeshLambertMaterial({
                 color: groundcolor,
                 visible: true,
-                opacity: 0.06,
+                opacity: 0,
                 transparent: true
             });
         } else {
@@ -6303,7 +6454,10 @@
           var temp0=[0]
           // skinnum = temp0[parseInt(Math.random()*temp0.length)];
           skinnum=parseInt(Math.random()*(skinset.length-1))
-          camera.position.y= bh * (cubes.length+0.5)
+
+          // skinnum=skinset.indexOf("gb");
+
+          camera.position.y= bh * (cubes.length+1)
         }else{
           camera.position.y= bh * (cubes.length+3.5)
         }
@@ -6364,6 +6518,11 @@
                     document.getElementById("coin-info").classList.add("show");
                     document.getElementById("coin2").innerText=String(coin);
                     addring();
+                    if(gamemod==3){
+                      groundBody.position.set(0, -100, 0);
+                      world.gravity.set(0, -100, 0);
+                    }
+
 
                 })
             })
@@ -6407,6 +6566,12 @@
                 var fhight = th / 3
                 var fcolor = 0xffffff
             }
+        }
+
+        if(text=="U"){
+          var fsize = bw*6
+          var fhight = th / 30
+          var fcolor = 0xffffff
         }
         const geometry = new TextGeometry(text, {
             font: font0,
@@ -7612,7 +7777,44 @@
                         skinmold[ntile.userData["skin"]].push(ntile.clone())
                       }
                       mesh.add(ntile);
+
+                      var ntile = tilemold[11].clone();
+                      ntile.material = new THREE.MeshBasicMaterial({
+                          color: 0xffffff
+                      });
+                      ntile.position.y=bh/2.5;
+                      ntile.position.x=bw/10;
+                      ntile.position.z=-bw/1.65;
+                      ntile.scale.set(0.3,0.3,1)
+                      // ntile.children[0].position.z=bh;
+                      ntile.userData["skin"] = "classic"
+                      ntile.userData["skintype"] = "score"
+                      // ntile.children[0].userData["skintype"] =0;
+                      if(idx==0){
+                        skinmold[ntile.userData["skin"]].push(ntile.clone())
+                      }
+                      mesh.add(ntile);
+
+                      var ntile = tilemold[12].clone();
+                      ntile.material = new THREE.MeshBasicMaterial({
+                          color: 0xffffff
+                      });
+                      ntile.position.y=bh/2.5;
+                      ntile.position.x=bw/2.8;
+                      ntile.position.z=-bw/1.65;
+                      ntile.scale.set(0.35,0.3,1)
+                      // ntile.children[0].position.z=bh;
+                      ntile.userData["skin"] = "classic"
+                      ntile.userData["skintype"] = "best"
+                      // ntile.children[0].userData["skintype"] =0;
+                      if(idx==0){
+                        skinmold[ntile.userData["skin"]].push(ntile.clone())
+                      }
+                      mesh.add(ntile);
                   });
+
+
+
 
 
 
@@ -10374,6 +10576,107 @@
             tilemold.push(textMesh);
         });
 
+        createTextMesh("U", bw, (textMesh) => {
+            textMesh.position.y = +(th / 32)
+            textMesh.position.z += th / 2;
+            textMesh.rotation.order = 'YXZ';
+            textMesh.rotation.x = -Math.PI / 2;
+
+            textmold.push(textMesh);
+
+            // tile.userData["time"]=elapsedTime;
+            // tile.userData["merge"]=0;
+            // tile.add(textMesh);
+            tilemold.push(textMesh);
+        });
+
+
+        for (var i = 0; i < 11; i++) {
+          var w = bw / 20
+          w += Math.sqrt(Math.pow(2, i)) / 5
+          var vw=w
+          var vbw=bw
+
+          var geoms = [];
+
+          let originHelper = new THREE.Object3D();
+          originHelper.position.set(0, vbw / 2, 0)
+          originHelper.updateWorldMatrix(true, false);
+          var tg = new THREE.PlaneGeometry(vbw, vw);
+          tg.applyMatrix4(originHelper.matrixWorld);
+          geoms.push(tg)
+
+          originHelper.position.set(+vbw / 2 + vw * 0.6 / 2, -(vbw / 4) + vbw / 2 + vw / 2, 0)
+          originHelper.updateWorldMatrix(true, false);
+          var tg = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
+          tg.applyMatrix4(originHelper.matrixWorld);
+          geoms.push(tg)
+
+          originHelper.position.set(-vbw / 2 - vw * 0.6 / 2, -(vbw / 4) + vbw / 2 + vw / 2, 0)
+          originHelper.updateWorldMatrix(true, false);
+          var tg = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
+          tg.applyMatrix4(originHelper.matrixWorld);
+          geoms.push(tg)
+
+          var mgeo = new BufferGeometryUtils.mergeGeometries(geoms, false);
+
+          var mesh1 = new THREE.Mesh(mgeo, new THREE.MeshBasicMaterial({
+          	color: 0xffffff,
+            side: THREE.DoubleSide
+          }));
+          mesh1.rotation.order = 'YXZ';
+          mesh1.rotation.x = - Math.PI / 2;
+          mesh1.userData["skin"]="exc"
+
+
+          ㄷ.push(mesh1);
+          var vw=w*1.26
+          var vbw=bw*1.26
+
+          var geoms = [];
+          originHelper = new THREE.Object3D();
+          originHelper.position.set(0, vbw / 2, 0)
+          originHelper.updateWorldMatrix(true, false);
+          var tg = new THREE.PlaneGeometry(vbw, vw);
+          tg.applyMatrix4(originHelper.matrixWorld);
+          geoms.push(tg)
+
+          originHelper.position.set(+vbw / 2 + vw * 0.6 / 2, -(vbw / 4) + vbw / 2 + vw / 2, 0)
+          originHelper.updateWorldMatrix(true, false);
+          var tg = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
+          tg.applyMatrix4(originHelper.matrixWorld);
+          geoms.push(tg)
+
+          originHelper.position.set(-vbw / 2 - vw * 0.6 / 2, -(vbw / 4) + vbw / 2 + vw / 2, 0)
+          originHelper.updateWorldMatrix(true, false);
+          var tg = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
+          tg.applyMatrix4(originHelper.matrixWorld);
+          geoms.push(tg)
+
+          var mgeo = new BufferGeometryUtils.mergeGeometries(geoms, false);
+
+          var mesh1 = new THREE.Mesh(mgeo, new THREE.MeshBasicMaterial({
+          	color: 0xffffff,
+            side: THREE.DoubleSide
+          }));
+          mesh1.rotation.order = 'YXZ';
+          mesh1.rotation.x = - Math.PI / 2;
+          mesh1.userData["skin"]="exc"
+
+          ㄷ2.push(mesh1);
+
+
+        }
+
+
+
+
+
+
+
+
+
+
         if (callback) {
             callback();
         }
@@ -10418,36 +10721,36 @@
               }
           }
 
-          // var temp5 = [];
-          // var text1 = "재생 중: " + sdic[n][0].substring(0, sdic[n][0].length - 4) + " "
-          // for (var i = 0; i < 100; i++) {
-          //     var canvas = document.createElement('canvas');
-          //     var ctx = canvas.getContext('2d');
-          //     // const padding = 10;
-          //     ctx.globalAlpha = 1;
-          //     canvas.width = 16.5 * 6;
-          //     canvas.height = 5.6 * 6;
-          //     var tl = text1.length;
-          //     var textw = tl * (canvas.width / 10);
-          //     ctx.font = `${14}px Arial`;
-          //     ctx.fillStyle = 0xFFFFFF;
-          //     // // ctx.fillText(text, padding, padding + textHeight * 0.8);
-          //     ctx.fillText(text1, 0 - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
-          //     ctx.fillText(text1, textw - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
-          //     ctx.font = `${7}px Arial`;
-          //
-          //     ctx.fillText("  AKAI PRO ", 0, canvas.height * 0.35, canvas.width / 2.5, canvas.height);
-          //     // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
-          //     var img3 = new THREE.CanvasTexture(canvas);
-          //     var material5 = new THREE.MeshLambertMaterial({
-          //         map: img3,
-          //         side: THREE.DoubleSide,
-          //         transparent: true,
-          //         opacity: 1
-          //     });
-          //     temp5.push(material5);
-          // }
-          // txtlst.push(temp5);
+          var temp5 = [];
+          var text1 = "재생 중: " + sdic[n][0].substring(0, sdic[n][0].length - 4) + " "
+          for (var i = 0; i < 100; i++) {
+              var canvas = document.createElement('canvas');
+              var ctx = canvas.getContext('2d');
+              // const padding = 10;
+              ctx.globalAlpha = 1;
+              canvas.width = 16.5 * 6;
+              canvas.height = 5.6 * 6;
+              var tl = text1.length;
+              var textw = tl * (canvas.width / 10);
+              ctx.font = `${14}px Arial`;
+              ctx.fillStyle = 0xFFFFFF;
+              // // ctx.fillText(text, padding, padding + textHeight * 0.8);
+              ctx.fillText(text1, 0 - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
+              ctx.fillText(text1, textw - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
+              ctx.font = `${7}px Arial`;
+
+              ctx.fillText("  AKAI PRO ", 0, canvas.height * 0.35, canvas.width / 2.5, canvas.height);
+              // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
+              var img3 = new THREE.CanvasTexture(canvas);
+              var material5 = new THREE.MeshLambertMaterial({
+                  map: img3,
+                  side: THREE.DoubleSide,
+                  transparent: true,
+                  opacity: 1
+              });
+              temp5.push(material5);
+          }
+          txtlst.push(temp5);
 
         if (callback) {
             callback();
@@ -10552,7 +10855,7 @@
         var submat = new THREE.MeshLambertMaterial({
             color: colorlst[colornum][0],
             visible: true,
-            opacity: 0.04,
+            opacity: 땅투명*0.72,
             transparent: true
         });
 
@@ -10640,7 +10943,7 @@
         var tmesh = new THREE.Mesh(geometry12, material);
 
         if(gamemod==2){
-          tmesh.position.y = cubes[0].body.position.y+8
+          tmesh.position.y = cubes[0].body.position.y+9
         }else{
           tmesh.position.y = cubes[0].body.position.y + 12
         }
@@ -10799,7 +11102,7 @@
           var tmesh = new THREE.Mesh(geometry12, material);
           tmesh.position.y = cubes[2].body.position.y + 11-4
           tmesh.position.x = bw * (1.1)
-          tmesh.position.z = bw * (0.4)
+          tmesh.position.z = bw * (0.6)
           // textMesh.position.x=0;
           tmesh.depth = 10;
           tmesh.rotation.order = 'YXZ';
@@ -10883,6 +11186,87 @@
           gradback.push(tmesh);
           scene.add(tmesh)
       }
+
+      if(gamemod==3){
+        var geometry12 = new TextGeometry("collapse", {
+            font: font0,
+            size: bw / 8,
+            height: 두께*th / 3
+        });
+        geometry12.computeBoundingBox();
+        geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+        var material = new THREE.MeshBasicMaterial({
+            color: colorlst[colornum][1]
+        });
+        var tmesh = new THREE.Mesh(geometry12, material);
+        tmesh.position.y = cubes[2].body.position.y + 10
+        tmesh.position.x = bw * (1.1)
+        tmesh.position.z = bw * (0.58)
+        // textMesh.position.x=0;
+        tmesh.depth = 10;
+        tmesh.rotation.order = 'YXZ';
+        tmesh.rotation.y = Math.PI / 4;
+
+        // var geometry12 = new TextGeometry("A", {
+        //     font: font0,
+        //     size: bw / 4,
+        //     height: 두께*th / 2
+        // });
+        // geometry12.computeBoundingBox();
+        // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+        // var material = new THREE.MeshBasicMaterial({
+        //     color: colorlst0[colornum0][1]
+        // });
+        // var tmesh1 = new THREE.Mesh(geometry12, material);
+        // // tmesh1.position.y
+        // tmesh1.position.x = 3;
+        // tmesh1.depth = 10;
+        // tmesh1.rotation.order = 'YXZ';
+        // // tmesh1.rotation.y =Math.PI / 4;
+        // tmesh.add(tmesh1)
+        // var geometry12 = new TextGeometry("R", {
+        //     font: font0,
+        //     size: bw / 4,
+        //     height: 두께*th / 2
+        // });
+        // geometry12.computeBoundingBox();
+        // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+        // var material = new THREE.MeshBasicMaterial({
+        //     color: colorlst0[colornum0][2]
+        // });
+        // var tmesh1 = new THREE.Mesh(geometry12, material);
+        // // tmesh1.position.y
+        // tmesh1.position.x = 3 * 2;
+        // tmesh1.depth = 10;
+        // tmesh1.rotation.order = 'YXZ';
+        // // tmesh1.rotation.y =Math.PI / 4;
+        // tmesh.add(tmesh1)
+        // var geometry12 = new TextGeometry("D", {
+        //     font: font0,
+        //     size: bw / 4,
+        //     height: 두께*th / 2
+        // });
+        // geometry12.computeBoundingBox();
+        // geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+        // var material = new THREE.MeshBasicMaterial({
+        //     color: colorlst0[colornum0][3]
+        // });
+        // var tmesh1 = new THREE.Mesh(geometry12, material);
+        // // tmesh1.position.y
+        // tmesh1.position.x = 3 * 3;
+        // tmesh1.depth = 10;
+        // tmesh1.rotation.order = 'YXZ';
+
+        tmesh.rotation.order = 'YXZ';
+        tmesh.rotation.y = Math.PI / 2;
+        // tmesh.add(tmesh1)
+
+        textscene.push(tmesh)
+        gradback.push(tmesh);
+        scene.add(tmesh)
+      }
+
+
         var geometry12 = new TextGeometry("B", {
             font: font0,
             size: bw / 2,
@@ -10895,7 +11279,7 @@
         });
         var tmesh = new THREE.Mesh(geometry12, material);
         if(gamemod==2){
-          tmesh.position.y = cubes[0].body.position.y+8
+          tmesh.position.y = cubes[0].body.position.y+9
         }else{
           tmesh.position.y = cubes[0].body.position.y + 12
         }
@@ -11352,7 +11736,7 @@
           if(n==0){
             setTimeout(function() {
                 callback();
-            }, 1000);
+            }, 1500);
           }else{
             callback();
           }
@@ -11744,6 +12128,8 @@
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
                     // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -11819,13 +12205,11 @@
             }else{
               getdb()
             }
-
             // if(!webflag) initdb()
             tsetting(function(object) {
             setting(0, function(object) { //시작0
               setting(1, function(object) {
                   addring();
-
                       cubes.forEach((item) => {
                           item.mesh.userData.game2048.spawnTile();
                           item.mesh.userData.game2048.spawnTile();
@@ -11839,7 +12223,6 @@
                               // camera.add(listener);
                               // scene.background = new THREE.Color(colorlst[colornum][0]);
                               skinsetting(function(object) {
-
                                   setTimeout(function() {
                                       document.getElementById("intro").children[1].style.opacity="0.8";
                                       goahead=true;
@@ -11866,7 +12249,6 @@
                           })
                       })
                       // })
-
                 })
             });
           });
@@ -11877,6 +12259,7 @@
 
     // Animate the scene
     function animate(currentTime) {
+        // console.log(camera.rotation.x)
         let deltaTime = currentTime - lastTime;
 
         // console.log(elapsedTime);
@@ -11890,8 +12273,6 @@
 
             // uilst[0].material.visible=false;
             if (initflag) {
-
-
               document.getElementById("coin-info").classList.remove("show");
               document.getElementById("coin-info").classList.add("fade");
               // document.getElementById("coin-info").style.opacity=0;
@@ -11970,17 +12351,10 @@
               document.getElementById("tut-info").children[0].style.opacity="1";
             }
 
-
-
         }
         if (restartflag && lookcenter) { //리스타트
             if(!restartonce1){
-              // 포인트.forEach((item) => {
-              //     item.material.visible = false;
-              // })
-              // 시간.forEach((item) => {
-              //     item.material.visible = false;
-              // })
+
               while (포인트.length > 0) {
                   scene.remove(포인트.pop());
               }
@@ -12004,10 +12378,12 @@
                     }
                   });
               }
+              groundmesh.material.opacity=0.01
               restartonce1=true;
               console.log("뿅")
             }
-            if (camera.rotation.x - restartend >0) {
+            if (camera.rotation.x - restartend >=0) {
+                // camera.rotation.x=restartend
                 restartonce1=false;
                 restart();
 
@@ -12099,19 +12475,24 @@
                     // item.color=new THREE.Color(colorlst[colornum][3]);
                     item.color = new THREE.Color(parseInt(newcl30, 16));
                 })
-                avx = 0;
-                avz = 0;
-                for (var i = 0; i < cubes.length; i++) {
-                    avx += cubes[i].mesh.position.x;
-                    avz += cubes[i].mesh.position.z;
-                }
-                avx /= cubes.length;
-                avz /= cubes.length;
+                // avx = 0;
+                // avz = 0;
+                // for (var i = 0; i < cubes.length; i++) {
+                //     avx += cubes[i].mesh.position.x;
+                //     avz += cubes[i].mesh.position.z;
+                // }
+                // avx /= cubes.length;
+                // avz /= cubes.length;
+
                 camera.position.x = bw * 2;
                 camera.position.z = bw * 2;
+                // camera.lookAt.x=0
+                // camera.lookAt.z=0
+                // camera.lookAt(0, 0, 0);
+
                 grd.addColorStop(0, "white");
-                grd.addColorStop(0.23, newcl1);
-                grd.addColorStop(0.46, newcl0);
+                grd.addColorStop(0.35, newcl1);
+                grd.addColorStop(0.45, newcl0);
                 grd.addColorStop(1, newcl0);
                 ctx.fillStyle = grd;
                 ctx.fillRect(0, 0, 100, 100);
@@ -12122,7 +12503,7 @@
                     opacity: 1
                 });
                 for (var i = 0; i < cubes.length; i++) {
-                    cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) + (restartloc[i].y) * 1.39 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
+                    cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) +(restartloc[i].y) * 1.49 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].y * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     if(skinset[skinnum]=="classic"){
                       // cubes[i].mesh.position.z=cubes[i].body.position.z
@@ -12133,6 +12514,139 @@
 
         }
 
+        if (re3flag) {
+            if(!restartonce1){
+              skinnum=parseInt(Math.random()*skinset.length);
+              bf=99;
+              activeFloor = cubes.length;
+              avx=0;
+              avz=0;
+
+
+              restartonce1=true;
+            }
+            var tend=1;
+            var tpass=elapsedTime-re3time
+            var diff=(tpass-tend)/4
+            console.log(tpass);
+            if (diff >=0) {
+                restartonce1=false;
+                re3flag=false;
+                topcam=true
+
+            } else {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                canvas.width = 100;
+                canvas.height = 100;
+                var grd = ctx.createLinearGradient(0, 0, 0, 100);
+                var newcl0 = hslToHex(renhsl1["h"] - (renhsl1["h"] - rehsl1["h"]) * Math.abs(diff), renhsl1["s"] - (renhsl1["s"] - rehsl1["s"]) * Math.abs(diff), renhsl1["l"] - (renhsl1["l"] - rehsl1["l"]) * Math.abs(diff))
+                var newcl1 = hslToHex(renhsl2["h"] - (renhsl2["h"] - rehsl2["h"]) * Math.abs(diff), renhsl2["s"] - (renhsl2["s"] - rehsl2["s"]) * Math.abs(diff), renhsl2["l"] - (renhsl2["l"] - rehsl2["l"]) * Math.abs(diff))
+                var newcl00 = hslToHex0(renhsl1["h"] - (renhsl1["h"] - rehsl1["h"]) * Math.abs(diff), renhsl1["s"] - (renhsl1["s"] - rehsl1["s"]) * Math.abs(diff), renhsl1["l"] - (renhsl1["l"] - rehsl1["l"]) * Math.abs(diff))
+                var newcl10 = hslToHex0(renhsl2["h"] - (renhsl2["h"] - rehsl2["h"]) * Math.abs(diff), renhsl2["s"] - (renhsl2["s"] - rehsl2["s"]) * Math.abs(diff), renhsl2["l"] - (renhsl2["l"] - rehsl2["l"]) * Math.abs(diff))
+                var newcl20 = hslToHex0(renhsl3["h"] - (renhsl3["h"] - rehsl3["h"]) * Math.abs(diff), renhsl3["s"] - (renhsl3["s"] - rehsl3["s"]) * Math.abs(diff), renhsl3["l"] - (renhsl3["l"] - rehsl3["l"]) * Math.abs(diff))
+                var newcl30 = hslToHex0(renhsl4["h"] - (renhsl4["h"] - rehsl4["h"]) * Math.abs(diff), renhsl4["s"] - (renhsl4["s"] - rehsl4["s"]) * Math.abs(diff), renhsl4["l"] - (renhsl4["l"] - rehsl4["l"]) * Math.abs(diff))
+                var boxcl0 = hslToHex0(nbhsl0["h"] - (nbhsl0["h"] - bhsl0["h"]) * Math.abs(diff), nbhsl0["s"] - (nbhsl0["s"] - bhsl0["s"]) * Math.abs(diff), nbhsl0["l"] - (nbhsl0["l"] - bhsl0["l"]) * Math.abs(diff))
+                var boxcl1 = hslToHex0(nbhsl1["h"] - (nbhsl1["h"] - bhsl1["h"]) * Math.abs(diff), nbhsl1["s"] - (nbhsl1["s"] - bhsl1["s"]) * Math.abs(diff), nbhsl1["l"] - (nbhsl1["l"] - bhsl1["l"]) * Math.abs(diff))
+                var boxcl2 = hslToHex0(nbhsl2["h"] - (nbhsl2["h"] - bhsl2["h"]) * Math.abs(diff), nbhsl2["s"] - (nbhsl2["s"] - bhsl2["s"]) * Math.abs(diff), nbhsl2["l"] - (nbhsl2["l"] - bhsl2["l"]) * Math.abs(diff))
+                var boxcl3 = hslToHex0(nbhsl3["h"] - (nbhsl3["h"] - bhsl3["h"]) * Math.abs(diff), nbhsl3["s"] - (nbhsl3["s"] - bhsl3["s"]) * Math.abs(diff), nbhsl3["l"] - (nbhsl3["l"] - bhsl3["l"]) * Math.abs(diff))
+                var boxcl4 = hslToHex0(nbhsl4["h"] - (nbhsl4["h"] - bhsl4["h"]) * Math.abs(diff), nbhsl4["s"] - (nbhsl4["s"] - bhsl4["s"]) * Math.abs(diff), nbhsl4["l"] - (nbhsl4["l"] - bhsl4["l"]) * Math.abs(diff))
+                // console.log(parseInt(boxcl0, 16));
+                clmeshlst[0].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(boxcl0, 16));
+                })
+                clmeshlst[1].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(boxcl1, 16));
+                })
+                clmeshlst[2].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(boxcl2, 16));
+                })
+                clmeshlst[3].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(boxcl3, 16));
+                })
+                clmeshlst[4].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(boxcl4, 16));
+                })
+                clmeshlst1[0].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl0))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
+                })
+                clmeshlst1[1].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl1))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
+                })
+                clmeshlst1[2].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl2))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
+                })
+                clmeshlst1[3].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl3))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
+                })
+                clmeshlst1[4].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl4))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"] + 15) + '%)');
+                })
+                clmeshlst2[0].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl0))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] - 10) + '%)');
+                })
+                clmeshlst2[1].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl1))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] - 10) + '%)');
+                })
+                clmeshlst2[2].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl2))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] - 10) + '%)');
+                })
+                clmeshlst2[3].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl3))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] - 10) + '%)');
+                })
+                clmeshlst2[4].forEach((item) => {
+                    var newcl = hexToHSL(hexToHtmlColor(boxcl4))
+                    item.color = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] - 10) + '%)');
+                })
+                clmeshlst0[0].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(newcl00, 16));
+                })
+                clmeshlst0[1].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(newcl10, 16));
+                })
+                clmeshlst0[2].forEach((item) => {
+                    item.color = new THREE.Color(parseInt(newcl20, 16));
+                })
+                clmeshlst0[3].forEach((item) => {
+                    // item.color=new THREE.Color(colorlst[colornum][3]);
+                    item.color = new THREE.Color(parseInt(newcl30, 16));
+                })
+
+
+                // grd.addColorStop(0, "white");
+                // grd.addColorStop(0.35, newcl1);
+                // grd.addColorStop(0.45, newcl0);
+                // grd.addColorStop(1, newcl0);
+                // ctx.fillStyle = grd;
+                // ctx.fillRect(0, 0, 100, 100);
+                // var img3 = new THREE.CanvasTexture(canvas);
+                // gradback[0].material = new THREE.MeshBasicMaterial({
+                //     map: img3,
+                //     transparent: true,
+                //     opacity: 1
+                // });
+                for (var i = 0; i < cubes.length; i++) {
+
+                      cubes[i].mesh.position.set(re3loc[i].x+restartloc[i].x * 1.39 * Math.abs(diff), ((i) * bh + bh / 2) + (20*(i+1)+100) * 2.39 * Math.abs(diff), re3loc[i].z+restartloc[i].z * 1.39 * Math.abs(diff))
+                      cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(diff), restartrot[i].y * 1.39 * Math.abs(diff), restartrot[i].z * 1.39 * Math.abs(diff))
+
+
+
+                }
+            }
+        }
+
+
+
 
         if (Math.abs(camera.rotation.x - restartend) < 0.2) {
             groundmesh.material.visible = false;
@@ -12142,35 +12656,32 @@
         if (!restartflag && lookcenter && !startflag) {
 
             if(!restartonce2){
+
               restartloc = [];
               for (var i = 0; i < cubes.length; i++) {
                 if(skinset[skinnum]=="classic"){
 
-
-
-              }else{
-                cubes[i].mesh.children.forEach((item, idx) => {
-                  if(item.userData["skin"]=="tile") {
-                    item.material.visible=false;
-                    item.children.forEach((txt) => {
-                      txt.material.visible=false;
-                    });
-
-                  }else if(item.userData["skin"]=="bottom") {
-                    item.material.visible=false;
-                    item.children.forEach((txt) => {
-                      txt.material.visible=false;
-                    });
-
-                  }
-                });
-              }
+                }else{
+                  cubes[i].mesh.children.forEach((item, idx) => {
+                    if(item.userData["skin"]=="tile") {
+                      item.material.visible=false;
+                      item.children.forEach((txt) => {
+                        txt.material.visible=false;
+                      });
+                    }else if(item.userData["skin"]=="bottom") {
+                      item.material.visible=false;
+                      item.children.forEach((txt) => {
+                        txt.material.visible=false;
+                      });
+                    }
+                  });
+                }
 
               }
               restartonce2=true;
             }
             if (-isoAngle - camera.rotation.x > 0) {
-                camera.rotation.x=-isoAngle;
+                // camera.rotation.x=-isoAngle;
 
                 // for (var i = 0; i < cubes.length; i++) {
                 //   cubes[i].mesh.children.forEach((item, idx) => {
@@ -12183,6 +12694,8 @@
                 // }
 
                 if(onceflag0){
+
+                  // camera.rotation.x=-isoAngle;
                   document.getElementById("left").classList.remove("hidden");
                   document.getElementById("left").classList.remove("fade");
                   document.getElementById("left").classList.add("show");
@@ -12217,16 +12730,14 @@
 
                   onceflag0=false;
 
-
                   // console.log("콩")
                 }
-
 
             } else if(-isoAngle==camera.rotation.x){
               restartflag=false;
             }else{
               if(onceflag1){
-
+                // camera.rotation.x=restartend;
 
                 onceflag1=false;
 
@@ -12242,12 +12753,12 @@
 
                 // camera.rotation.x -= Math.PI / 256
                 camera.rotation.x -= deltaTime / 1200
-                // if (-isoAngle - camera.rotation.x > 0) camera.rotation.x=-isoAngle+0.01;
+                if (-isoAngle - camera.rotation.x > 0) camera.rotation.x=-isoAngle-0.01;
                 // camera.position.y-=100000*(Math.PI/128)
+                groundmesh.material.opacity=땅투명+(-isoAngle - camera.rotation.x)
             }
         }
         if (rotationflag) {
-
             if (Math.abs(camera.rotation.y - rotationend) < 0.0001) {
                 rotationflag = false;
                 if (rotationend == 0) {
@@ -12273,7 +12784,7 @@
                 camera.rotation.y -= Math.PI / 64
             } else {
                 if (rotationend == Math.PI / 4) {
-                    camera.position.set(bw * 2 - 28 * Math.abs(Math.PI / 4 - camera.rotation.y), bh * (cubes.length + 3.5) - 27 * Math.abs(Math.PI / 4 - camera.rotation.y), bw * 2);
+                    (bw * 2 - 28 * Math.abs(Math.PI / 4 - camera.rotation.y), bh * (cubes.length + 3.5) - 27 * Math.abs(Math.PI / 4 - camera.rotation.y), bw * 2);
                     // camera.rotation.x = -isoAngle*Math.abs(Math.PI/4-camera.rotation.y);
                     // camera.lookAt(0, 0, 0);
                     camera.rotation.x = -isoAngle + isoAngle * Math.abs(Math.PI / 4 - camera.rotation.y)
@@ -12286,7 +12797,7 @@
         requestAnimationFrame(animate);
 
 
-        if (!gameoverflag&&averageflag) {
+        if (!gameoverflag&&averageflag&&!re3flag&&!re3flag2) {
           avx = 0;
           avz = 0;
             for (var i = 0; i < cubes.length; i++) {
@@ -12505,7 +13016,6 @@
                   // txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
 
                   for (var i = 0; i < cubes.length; i++) {
-
                       // if(i==0) continue;
                       txts[i].material = txtlst[i][txtcount];
 
@@ -12644,9 +13154,9 @@
             // }
             // let speed= 0.15*(Math.abs((item.c-item.a)+(item.d-item.b))/8);
             if(gamemod==1){
-              var speed = deltaTime*bw / 195;
+              var speed = deltaTime*bw / 205;
             }else{
-              var speed = deltaTime*bw / 235;
+              var speed = deltaTime*bw / 225;
             }
 
             // const vspeed=speed*2;
@@ -12768,7 +13278,7 @@
                             tile.userData["text"] = text;
                             atchanged = elapsedTime;
                             var tempflag = true
-                            if(skinset[skinnum]=="classic"){
+                            if(skinset[skinnum]=="classic"&&sidecam){
                               bf=99;
                             }
                             tempeffects.forEach((object) => {
@@ -12863,19 +13373,49 @@
 
                             }else{
                               var force = new CANNON.Vec3();
+                              var tnum=parseInt(Math.log2(num))-2;
+                              console.log(tnum)
+                              var tforce=forceset[item.index][tnum]
+
+                              if(gamemod==1){
+                                // tforce*=0.7
+                              }
+                              if(gamemod==3){
+                                tforce*=0.3
+                                tforce+=60*(4-item.index)
+                              }
+                              console.log(tforce)
                               // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
+                              // switch (item.direction) {
+                              //     case 'up':
+                              //         force.set(0, 0, -forceAmount * Math.sqrt((num) *20 +10*(1+2.2* (5 - item.index))));
+                              //         break;
+                              //     case 'down':
+                              //         force.set(0, 0, forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))));
+                              //         break;
+                              //     case 'left':
+                              //         force.set(-forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))), 0, 0);
+                              //         break;
+                              //     case 'right':
+                              //         force.set(forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))), 0, 0);
+                              //         break;
+                              //     default:
+                              //         return;
+                              // }
+
+
                               switch (item.direction) {
                                   case 'up':
-                                      force.set(0, 0, -forceAmount * Math.sqrt((num) *20 +10*(1+2.2* (5 - item.index))));
+                                      force.set(0, 0, -tforce);
                                       break;
                                   case 'down':
-                                      force.set(0, 0, forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))));
+                                      force.set(0, 0, tforce);
                                       break;
                                   case 'left':
-                                      force.set(-forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))), 0, 0);
+                                      force.set(-tforce,0, 0);
                                       break;
                                   case 'right':
-                                      force.set(forceAmount * Math.sqrt((num) * 20 +10*(1+2.2* (5 - item.index))), 0, 0);
+                                      force.set(tforce,0, 0);
                                       break;
                                   default:
                                       return;
@@ -12886,9 +13426,10 @@
                               quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[item.index].mesh.rotation.y);
                               let rotatedVec = force.clone();
                               // rotatedVec.applyQuaternion(quaternion);
+
                               rotatedVec=quaternion.vmult(force);
 
-                              // console.log(rotatedVec);
+                              console.log(force);
 
 
 
@@ -12967,140 +13508,51 @@
             })
         }
 
+        if(gamemod==1){
+          for (var i = 1; i < cubes.length; i++) {
+            let force0 = new CANNON.Vec3();
+            force0.set(1.5*(-cubes[i - 1].body.position.x + cubes[i].body.position.x), 0, 1.5*(-cubes[i - 1].body.position.z + cubes[i].body.position.z));
+            if (!gameoverflag) cubes[i].body.applyForce(force0, cubes[i].body.position);
+          }
 
-        if (effects.length != 0) { //효
-            // if (activeFloor == effects[0][3]) {
-            //     ring[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3, cubes[effects[0][3]].mesh.position.z)
-            //     ring[0].children.forEach((item) => {
-            //         // item.material.visible = true;
-            //     })
-            //     ring[0].rotation.x = cubes[effects[0][3]].mesh.rotation.x - Math.PI / 2
-            //     ring[0].rotation.z = cubes[effects[0][3]].mesh.rotation.z
-            //     switch (effects[0][2]) {
-            //         case 'up':
-            //             ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y
-            //             break;
-            //         case 'down':
-            //             ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y + Math.PI;
-            //             break;
-            //         case 'left':
-            //             ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y + Math.PI / 2;
-            //             break;
-            //         case 'right':
-            //             ring[0].rotation.y = cubes[effects[0][3]].mesh.rotation.y - Math.PI / 2;
-            //             break;
-            //         default:
-            //             return;
-            //     }
-            // }
-            // ring[0].quaternion.copy(cubes[activeFloor].body.quaternion);
+        }
+
+
+        if (effects.length != 0) { //효과
             for (let i = effects.length-1; i >= 0; i--) {
-
-              if (activeFloor < cubes.length) {
-                var tempy=effects[i][0].rotation.y;
-
-                  // item[0].quaternion.copy(cubes[effects[0][3]].body.quaternion);
-                  // item[0].rotation.order = 'YXZ';
-                  // item[0].rotation.y=tempy;
-                  // item[0].rotation.x-= Math.PI / 2
-                  // item[0].rotation.z=-cubes[effects[0][3]].mesh.rotation.z;
-
-                  // item[0].rotation.y+=cubes[effects[0][3]].mesh.rotation.y
-                  // item[0].rotation.z-=cubes[effects[0][3]].mesh.rotation.z;
-
-                  // item[0].rotation.z = -cubes[effects[0][3]].mesh.rotation.z
-
-                  // item[0].position.set(cubes[effects[0][3]].mesh.position.x, cubes[effects[0][3]].mesh.position.y - th / 3 + (th / 16) * index, cubes[effects[0][3]].mesh.position.z)
+              var setval=0.6 -(effects[i][0].scale.y - 1)*0.75;
+              if(setval<0||setval>0.6){
+                setval=0;
               }
-
               if(skinset[skinnum]=="classic"){
                 effects[i][0].position.z=cubes[effects[i][3]].body.position.z-bh/4.4;
-                effects[i][0].scale.y +=(deltaTime/600)
-                // item[0].position.y+=0.03;
-                effects[i][0].scale.x +=(deltaTime/3000);
+              }
 
-                effects[i][0].material.transparent=true;
+              effects[i][0].scale.y +=(deltaTime/600)
+              effects[i][0].scale.x +=(deltaTime/2000);
 
-                effects[i][0].children[0].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
-                effects[i][0].children[0].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
-
-                effects[i][0].children[1].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
-                effects[i][0].children[1].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
-
-                effects[i][0].children[2].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
-                effects[i][0].children[2].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
+              effects[i][0].material.visible=true;
+              effects[i][0].material.transparent=true;
+              if(skinset[skinnum]=="classic"){
+                effects[i][0].material.transparent = true
+                effects[i][0].material.opacity = setval
+                effects[i][0].material.alphaTest=setval
 
 
 
-
-
-                effects[i][0].children[0].material.visible = true;
-
-                // item[0].children[0].material.transparent=true;
-                // effects[i][0].children[0].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                // effects[i][0].children[0].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                effects[i][0].children[1].material.visible = true;
-                // item[0].children[1].material.transparent=true;
-                // effects[i][0].children[1].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                // effects[i][0].children[1].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                effects[i][0].children[2].material.visible = true;
-                // item[0].children[2].material.transparent=true;
-                // effects[i][0].children[2].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                // effects[i][0].children[2].material.opacity =  0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-
-                if (effects[i][0].scale.y > 1.8) {
-                    // console.log(1);
-
-                    cubes[effects[i][3]].mesh.remove(effects[i][0]);
-                    scene.remove(effects[i][0]);
-                    effects.splice(i, 1);
-                }
               }else{
-                effects[i][0].scale.y +=(deltaTime/600)
-                // item[0].position.y+=0.03;
-                effects[i][0].scale.x +=(deltaTime/3000);
 
-                effects[i][0].material.transparent=true;
-
-                effects[i][0].children[0].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
-                effects[i][0].children[0].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
-
-                effects[i][0].children[1].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
-                effects[i][0].children[1].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
-
-                effects[i][0].children[2].material.alphaTest=0.6 -(effects[i][0].scale.y - 1)*0.75
-                effects[i][0].children[2].material.opacity = 0.6 -(effects[i][0].scale.y - 1)*0.75
-
-
-
-
-
-                effects[i][0].children[0].material.visible = true;
-
-                // item[0].children[0].material.transparent=true;
-                // effects[i][0].children[0].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                // effects[i][0].children[0].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                effects[i][0].children[1].material.visible = true;
-                // item[0].children[1].material.transparent=true;
-                // effects[i][0].children[1].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                // effects[i][0].children[1].material.opacity = 0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                effects[i][0].children[2].material.visible = true;
-                // item[0].children[2].material.transparent=true;
-                // effects[i][0].children[2].material.alphaTest=0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-                // effects[i][0].children[2].material.opacity =  0.05+0.4 * Math.cos(Math.PI * (effects[i][0].scale.y - 1) / 0.8);
-
-                if (effects[i][0].scale.y > 1.8) {
-                    // console.log(1);
-
-                    cubes[effects[i][3]].mesh.remove(effects[i][0]);
-                    scene.remove(effects[i][0]);
-                    effects.splice(i, 1);
-                }
+                effects[i][0].material.opacity = setval
+                effects[i][0].material.alphaTest=setval
               }
 
 
 
-
+              if (effects[i][0].scale.y > 1.8) {
+                  effects[i][0].material.visible=false;
+                  cubes[effects[i][3]].mesh.remove(effects[i][0]);
+                  effects.splice(i, 1);
+              }
             }
             // effects.forEach((item, index) => {
             //
@@ -13113,7 +13565,7 @@
         var tempflag=true;
 
         for (var i = 0; i < cubes.length; i++) {
-          if (Math.abs(cubes[i].mesh.rotation.x) > 0.08 || Math.abs(cubes[i].mesh.rotation.z) > 0.08){
+          if (Math.abs(cubes[i].mesh.rotation.x) > 0.07 || Math.abs(cubes[i].mesh.rotation.z) > 0.07){
               tempflag=false;
               if(!swing){
                 swing=true;
@@ -13122,7 +13574,7 @@
           }
         }
 
-        if(swing&&tempflag&&!gameoverflag&&gamemod!=2){
+        if(swing&&tempflag&&!gameoverflag&&gamemod!=2&&gamemod!=3){
           if(elapsedTime-swingta>4){
             showpop("곡예 Lv4:","","+500pt",0)
             점수+=500;
@@ -13184,9 +13636,33 @@
         // }
         if(m2flag){
           if(elapsedTime - stacktime <= 0.35){
-            cubes[cubes.length-1].mesh.scale.set(0.65+(elapsedTime - stacktime), 0.65+(elapsedTime - stacktime),0.65+(elapsedTime - stacktime))
+            cubes[cubes.length-2].mesh.children.forEach((item, i) => {
+              if(item.userData["skintype"]=="top"){
+                cubes[cubes.length-2].mesh.remove(item)
+              }
+
+            });
+
+            if(skinset[skinnum]=="classic"){
+              cubes[cubes.length-1].mesh.scale.set(0.45+(elapsedTime - stacktime), 0.65+(elapsedTime - stacktime),0.45+(elapsedTime - stacktime))
+            }else{
+              cubes[cubes.length-1].mesh.scale.set(0.65+(elapsedTime - stacktime), 0.65+(elapsedTime - stacktime),0.65+(elapsedTime - stacktime))
+            }
+
+            // cubes[cubes.length-1].mesh.children.forEach((item) => {
+            //   item.scale.set(0.65+(elapsedTime - stacktime), 0.65+(elapsedTime - stacktime),0.65+(elapsedTime - stacktime))
+            // });
+
           }else{
-            cubes[cubes.length-1].mesh.scale.set(1,1,1)
+            if(skinset[skinnum]=="classic"){
+              cubes[cubes.length-1].mesh.scale.set(0.8,1,0.8)
+            }else{
+              cubes[cubes.length-1].mesh.scale.set(1,1,1)
+            }
+
+            // cubes[cubes.length-1].mesh.children.forEach((item) => {
+            //   item.scale.set(1, 1,1)
+            // });
           }
 
           if(elapsedTime - stacktime > 1&&m2flag){
@@ -13288,7 +13764,7 @@
             tscale = 0.9;
             if (activeFloor != cubes.length) {
                 cubes[activeFloor].mesh.children.forEach((item) => {
-                      if (item.userData["skin"]=="effect") return;
+                      if (item.userData["skin"]=="effect"||item.userData["skin"]=="exc") return;
                     if(item.userData["1"] || item.userData["2"] || item.userData["3"] || item.userData["4"] || item.userData["5"] || skinset.indexOf(item.userData["skin"]) != -1) return
                     item.scale.x = 1
                     item.scale.z = 1
@@ -13311,111 +13787,240 @@
                     tempheight=bh*4
                   }
 
-                  if (index > 3 && item.mesh.position.y < tempheight) {
+                  if (fullmax||(index > 3 && item.mesh.position.y < tempheight)) {
                       // overlimit++;
-                      if(!gameoverflag||fullmax){
-                        gameoverflag = true;
+                      if(!gameoverflag){
+                        if(gamemod==3){
+                          if(!re3flag){
+                            if(re3flag2){
+                              if(elapsedTime-re3time>1) {
+                                do{
+                                  ncolornum = parseInt(Math.random() * colorlst.length);
+                                }while(색보정.indexOf(ncolornum)!=-1)
 
-                        endsound=sdic[activeFloor][0];
-                        soundic[sdic[activeFloor][0]].setVolume(0.15);
-                        soundic[esound[4]].play();
-                        topcam = false;
+                                do{
+                                  ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                                }while(색보정0.indexOf(ncolornum0)!=-1)
+                                rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                                renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                                rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                                renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+                                rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                                renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+                                rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                                renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+                                bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+                                nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+                                bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+                                nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+                                bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+                                nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+                                bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+                                nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+                                bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+                                nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
 
-                        document.getElementById("gameover-overlay").classList.remove("fade");
-                        document.getElementById("gameover-overlay").classList.remove("hidden");
-                        document.getElementById("gameover-overlay").classList.add("show");
+                                re3loc=[];
+
+                                for (let i = 0; i < 5; i++) {
+                                    for (var j = cubes[i].mesh.children.length - 1; j >= 0; j--) {
+                                        if (cubes[i].mesh.children[j].userData["skin"] == "tile") {
+                                            cubes[i].mesh.remove(cubes[i].mesh.children[j]);
+                                        }
+                                    }
+                                    cubes[i].mesh.userData["game2048"].board = new Array(4).fill(null).map(() => new Array(4).fill(0));
+                                    cubes[i].body.force.set(0,0,0)
+                                    cubes[i].body.torque.set(0,0,0)
+                                    cubes[i].body.velocity.set(0, 0, 0);
+                                    cubes[i].body.angularVelocity.set(0, 0, 0);
+                                    cubes[i].mesh.position.set(0, (i) * bh + bh / 2, 0);
+                                    cubes[i].mesh.rotation.set(0,0,0);
+                                    // cubes[i].body.position.set(0, (i) * bh + bh / 2, 0);
+                                    if(i==4){
+                                      var avx0=0
+                                      var avz0=0
+
+                                      for (var j = 0; j < 4; j++) {
+                                        avx0+=cubes[j].body.position.x;
+                                        avz0+=cubes[j].body.position.z;
+                                      }
+                                      cubes[i].body.position.set(avx0/4, (i) * bh + bh / 2,avz0/4 );
+
+                                    }else{
+                                      cubes[i].body.position.set(-bw/3+Math.random()*bw*0.666, (i) * bh + bh / 2, -bw/3+Math.random()*bw*0.666);
+                                    }
+
+                                    re3loc.push(cubes[i].body.position)
+
+                                    cubes[i].body.quaternion.copy(cubes[i].mesh.quaternion);
+                                    // cubes[i].body.position.copy(cubes[i].mesh.position);
+
+
+                                    for (var k = 0; k < 5-i; k++) {
+                                      cubes[i].mesh.userData.game2048.spawnTile();
+                                    }
+
+
+                                    cubes[i].mesh.position.y=200;
+                                    // cubes[i].mesh.position.x=avx;
+                                    // cubes[i].mesh.position.z=avz;
+                                    // camera.position.x=bw*2+avx;
+                                    // camera.position.z=bw*2+avz;
+
+
+                                    restartloc.push(cubes[i].mesh.position);
+                                    restartrot.push(cubes[i].mesh.rotation);
+
+
+
+                                    groundBody.position.set(0, -1, 0);
+                                    world.gravity.set(0, -7, 0);
+
+
+                                }
+                                re3time=elapsedTime;
+                                re3flag=true;
+                                re3flag2=false;
+
+                              }
+                            }else{
+                              console.log(2);
+                              // topcam=false;
+                              soundic[esound[4]].play();
+                              //
+                              activeFloor = cubes.length;
+                              cubes.forEach((item) => {
+                                  item.mesh.userData["game2048"].fullflag=false;
+
+                                  item.mesh.children.forEach((tile, index) => {
+                                      if (tile.userData["skin"] == "tile") {
+                                          item.mesh.remove(tile);
+                                      }
+                                  });
+                              })
+                              topcam=false;
+                              restartloc=[];
+                              restartrot=[];
+                              re3flag2=true;
+                              re3time=elapsedTime;
+                              groundBody.position.set(0, -150, 0);
+                              world.gravity.set(0, -100, 0);
+
+
+                            }
+
+
+                          }
 
 
 
 
-                        var temp1=document.querySelectorAll(".gameover");
-
-                        temp1.forEach((item, i) => {
-                          item.style.opacity=0;
-                        });
-
-                        var temp1=document.querySelectorAll(".gameinfo1");
-                        temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
-                        if(점수>25000){
-                          temp1[0].children[0].innerText="G"
-                          temp1[0].children[1].innerText="oat!!!!!!!!"
-                        }if(점수>20000){
-                          temp1[0].children[0].innerText="L"
-                          temp1[0].children[1].innerText="egend!!!!!!!"
-                        }if(점수>15000){
-                          temp1[0].children[0].innerText="SS"
-                          temp1[0].children[1].innerText="pecial!!!!!"
-                        }if(점수>10000){
-                          temp1[0].children[0].innerText="S"
-                          temp1[0].children[1].innerText="uperb!!!!!"
-                        }else if(점수>8000){
-                          temp1[0].children[0].innerText="A"
-                          temp1[0].children[1].innerText="wesome!!!!"
-                        }else if(점수>6000){
-                          temp1[0].children[0].innerText="B"
-                          temp1[0].children[1].innerText="rilliant!!!"
-                        }else if(점수>3000){
-                          temp1[0].children[0].innerText="C"
-                          temp1[0].children[1].innerText="ool!!"
-                        }else if(점수>1000){
-                          temp1[0].children[0].innerText="D"
-                          temp1[0].children[1].innerText="elightful!"
                         }else{
-                          temp1[0].children[0].innerText="E"
-                          temp1[0].children[1].innerText="fficeint"
-                        }
+                          gameoverflag = true;
+                          endsound=sdic[activeFloor][0];
+                          soundic[sdic[activeFloor][0]].setVolume(0.15);
+                          soundic[esound[4]].play();
+                          topcam = false;
 
-                        document.getElementById("총획득").classList.remove("show");
-                        document.getElementById("코인").classList.remove("show");
-                        document.getElementById("기본").classList.remove("show");
-                        document.getElementById("full").classList.remove("show");
-                        document.getElementById("max").classList.remove("show");
-                        document.getElementById("시간").classList.remove("show");
-                        document.getElementById("총획득").classList.add("hidden");
-                        document.getElementById("코인").classList.add("hidden");
-                        document.getElementById("기본").classList.add("hidden");
-                        document.getElementById("full").classList.add("hidden");
-                        document.getElementById("max").classList.add("hidden");
-                        document.getElementById("시간").classList.add("hidden");
-                        if(gamemod==2){
-                          document.querySelector(".gameinfo0").innerText="floor: "+String(cubes.length-3)+"\nbest: "+String(parseInt(20));
-                        }else{
-                          document.querySelector(".gameinfo0").innerText="point: "+String(점수)+"\nbest: "+String(parseInt(bestscore));
-                        }
-                        document.getElementById('song-info').classList.remove("show1");
-                        document.getElementById('song-info').classList.add("hidden");
-                        var temp0=document.querySelectorAll(".gameover");
-                        if(gamemod==2){
-                          document.querySelector(".gameinfo").classList.remove("show");
-                          document.querySelector(".gameinfo").classList.add("hidden");
-                          temp0[2].style.opacity=1;
-                          temp0[2].classList.remove("hidden");
-                          temp0[2].classList.add("show");
-                        }else{
-                          document.querySelector(".gameinfo").classList.remove("hidden");
-                          document.querySelector(".gameinfo").classList.add("show");
-                          temp0[2].classList.remove("show");
-                          temp0[2].classList.add("hidden");
-                        }
-                        showinfo(gamemod);
-                        activeFloor = cubes.length;
+                          document.getElementById("gameover-overlay").classList.remove("fade");
+                          document.getElementById("gameover-overlay").classList.remove("hidden");
+                          document.getElementById("gameover-overlay").classList.add("show");
 
 
-                        if(gamemod==2){
-                          cubes[cubes.length-1].mesh.children.forEach((item) => {
-                             if(item.userData["skin"]=="tile"){
-                               item.material.visible=false;
-                             }else if(item.userData["skin"]=="bottom"){
-                               item.material.visible=false;
-                             }else if(item.userData["skin"]==skinset[skinnum]){
-                               item.material.visible=true;
-                               item.material.opacity=1;
-                               item.material.alphaTest=item.material.opacity;
-                               item.material.transparent=false;
-                             }
+
+
+                          var temp1=document.querySelectorAll(".gameover");
+
+                          temp1.forEach((item, i) => {
+                            item.style.opacity=0;
                           });
 
+                          var temp1=document.querySelectorAll(".gameinfo1");
+                          temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
+                          if(점수>25000){
+                            temp1[0].children[0].innerText="G"
+                            temp1[0].children[1].innerText="oat!!!!!!!!"
+                          }if(점수>20000){
+                            temp1[0].children[0].innerText="L"
+                            temp1[0].children[1].innerText="egend!!!!!!!"
+                          }if(점수>15000){
+                            temp1[0].children[0].innerText="SS"
+                            temp1[0].children[1].innerText="pecial!!!!!"
+                          }if(점수>10000){
+                            temp1[0].children[0].innerText="S"
+                            temp1[0].children[1].innerText="uperb!!!!!"
+                          }else if(점수>8000){
+                            temp1[0].children[0].innerText="A"
+                            temp1[0].children[1].innerText="wesome!!!!"
+                          }else if(점수>6000){
+                            temp1[0].children[0].innerText="B"
+                            temp1[0].children[1].innerText="rilliant!!!"
+                          }else if(점수>3000){
+                            temp1[0].children[0].innerText="C"
+                            temp1[0].children[1].innerText="ool!!"
+                          }else if(점수>1000){
+                            temp1[0].children[0].innerText="D"
+                            temp1[0].children[1].innerText="elightful!"
+                          }else{
+                            temp1[0].children[0].innerText="E"
+                            temp1[0].children[1].innerText="fficeint"
+                          }
+
+                          document.getElementById("총획득").classList.remove("show");
+                          document.getElementById("코인").classList.remove("show");
+                          document.getElementById("기본").classList.remove("show");
+                          document.getElementById("full").classList.remove("show");
+                          document.getElementById("max").classList.remove("show");
+                          document.getElementById("시간").classList.remove("show");
+                          document.getElementById("총획득").classList.add("hidden");
+                          document.getElementById("코인").classList.add("hidden");
+                          document.getElementById("기본").classList.add("hidden");
+                          document.getElementById("full").classList.add("hidden");
+                          document.getElementById("max").classList.add("hidden");
+                          document.getElementById("시간").classList.add("hidden");
+                          if(gamemod==2){
+                            document.querySelector(".gameinfo0").innerText="floor: "+String(cubes.length-3)+"\nbest: "+String(bestscore2);
+                          }else if(gamemod==1){
+                            document.querySelector(".gameinfo0").innerText="point: "+String(점수)+"\nbest: "+String(parseInt(bestscore1));
+                          }else{
+                            document.querySelector(".gameinfo0").innerText="point: "+String(점수)+"\nbest: "+String(parseInt(bestscore));
+                          }
+                          document.getElementById('song-info').classList.remove("show1");
+                          document.getElementById('song-info').classList.add("hidden");
+                          var temp0=document.querySelectorAll(".gameover");
+                          if(gamemod==2){
+                            document.querySelector(".gameinfo").classList.remove("show");
+                            document.querySelector(".gameinfo").classList.add("hidden");
+                            temp0[2].style.opacity=1;
+                            temp0[2].classList.remove("hidden");
+                            temp0[2].classList.add("show");
+                          }else{
+                            document.querySelector(".gameinfo").classList.remove("hidden");
+                            document.querySelector(".gameinfo").classList.add("show");
+                            temp0[2].classList.remove("show");
+                            temp0[2].classList.add("hidden");
+                          }
+                          showinfo(gamemod);
+                          activeFloor = cubes.length;
+
+
+                          if(gamemod==2){
+                            cubes[cubes.length-1].mesh.children.forEach((item) => {
+                               if(item.userData["skin"]=="tile"){
+                                 item.material.visible=false;
+                               }else if(item.userData["skin"]=="bottom"){
+                                 item.material.visible=false;
+                               }else if(item.userData["skin"]==skinset[skinnum]){
+                                 item.material.visible=true;
+                                 item.material.opacity=1;
+                                 item.material.alphaTest=item.material.opacity;
+                                 item.material.transparent=false;
+                               }
+                            });
+
+                          }
                         }
+
                       }
                   }
               })
@@ -13491,7 +14096,7 @@
                         bw * 2 + avz,
                     );
                     if(gamemod==2) {
-                      camera.position.y= bh * (cubes.length+0.5)
+                      camera.position.y= bh * (cubes.length)
                     }
                     // camera.lookAt(cubes[0].body.position.x,cubes[cubes.length-1].mesh.position.y+bh*5,cubes[0].body.position.y)
                     // var isoAngle = Math.atan(1 / Math.sqrt(2));
@@ -13571,7 +14176,9 @@
                                 } else {
                                     tile.material.visible = false;
                                 }
-                            } else if(tile.userData["skin"]!="face"){
+                            } else if(tile.userData["skin"]=="exc"){
+
+                            }else if(tile.userData["skin"]!="face"){
                                 tile.material.visible = false;
                                 tile.material.opacity = 0
                                 tile.material.transparent = true;
@@ -13590,13 +14197,16 @@
                                 bh * (cubes.length + 3.5),
                                 bw * 2 + avz,
                             );
-                            if(gamemod==2) camera.position.y= bh * (cubes.length+0.5)
+                            if(gamemod==2) camera.position.y= bh * (cubes.length)
 
                             if (arrowon) arrows[i].children[0].material.opacity = 0.5
                             // cubes[i].mesh.tile.material.visible = true
-                            cubes[i].mesh.opacity = 0.05;
-                            cubes[i].mesh.alphaTest = 0.05;
-                            cubes[i].mesh.transparent = true;
+                            if(skinset[skinnum]!="classic"){
+                              cubes[i].mesh.opacity = 0.05;
+                              cubes[i].mesh.alphaTest = 0.05;
+                              cubes[i].mesh.transparent = true;
+                            }
+
 
                             cubes[i].mesh.children.forEach((tile, index) => {
                                 if (tile.userData["skin"] == "tile") {
@@ -13631,8 +14241,8 @@
                                   if(tile.userData["skin"]=="classic"){
 
                                     tile.material.visible = true;
-                                    tile.material.opacity = 0.85;
-                                    tile.material.alphaTest = tile.material.opacity
+                                    tile.material.opacity = 0.84;
+                                    tile.material.alphaTest = 0.84;
                                     tile.material.transparent = true;
                                   }else{
                                     tile.material.visible = true;
@@ -13669,7 +14279,9 @@
                                     } else {
                                         tile.material.visible = false;
                                     }
-                                } else {
+                                }else if(tile.userData["skin"]=="exc"){
+
+                                }else {
                                     tile.material.visible = false;
                                     tile.material.opacity = 0
                                     tile.material.transparent = true;
@@ -13736,7 +14348,9 @@
                                         } else {
                                             tile.material.visible = false;
                                         }
-                                    } else{
+                                    } else if(tile.userData["skin"]=="exc"){
+
+                                    }else{
                                         tile.material.visible = false;
                                         // tile.material.alphaTest =  0.1;
                                         tile.material.opacity = 0.1;
@@ -13814,7 +14428,9 @@
                                         } else {
                                             tile.material.visible = false;
                                         }
-                                    } else if(tile.userData["skin"]!="face"){
+                                    } else if(tile.userData["skin"]=="exc"){
+
+                                    }else if(tile.userData["skin"]!="face"){
                                         tile.material.visible = false;
                                         // tile.material.alphaTest =  0.1;
                                         tile.material.opacity = 0.1;
@@ -13827,8 +14443,13 @@
                 }
             }
         }else {
-          camera.position.x=bw * 2 + avx;
-          camera.position.z=bw * 2 + avz;
+          if (!restartflag) {
+            camera.position.x=bw * 2 + avx;
+            camera.position.z=bw * 2 + avz;
+          }else{
+            camera.position.x=bw * 2;
+            camera.position.z=bw * 2;
+          }
           // if(skinset[skinnum]=="classic"){
           //   tilelst.forEach((tile) => {
           //     tile.material.visible = true;
@@ -13888,6 +14509,8 @@
                             } else {
                                 tile.material.visible = false;
                             }
+                        }else if(tile.userData["skin"]=="exc"){
+
                         }else if(tile.userData["skin"]=="face"){
                           tile.material.visible = true;
                           tile.material.opacity = tmb0;
@@ -13926,6 +14549,8 @@
                                 } else {
                                     tile.material.visible = false;
                                 }
+                            }else if(tile.userData["skin"]=="exc"){
+
                             }else if(tile.userData["skin"]=="face"){
                               tile.material.visible = true;
                               tile.material.opacity = tmb0;
@@ -13975,6 +14600,8 @@
                                 } else {
                                     tile.material.visible = false;
                                 }
+                            }else if(tile.userData["skin"]=="exc"){
+
                             }else if(tile.userData["skin"]=="face"){
                               tile.material.visible = true;
                               tile.material.opacity = 1;
@@ -14103,34 +14730,68 @@
           }
         }
         // Update the physics world
-
-        if(startflag) world.step(1 / 60, deltaTime2);
+        // console.log(String(deltaTime)+" " +String(deltaTime))
+        if(startflag) world.step(1 / 60, deltaTime/850);
         if (!restartflag) {
             cubes.forEach((item) => {
                 // item.mesh.position.copy(item.mesh.userData.body.position);
                 // item.mesh.quaternion.copy(item.mesh.userData.body.quaternion);
                 if(skinset[skinnum]=="classic"){
-                  item.mesh.scale.set(0.8,1,0.8)
-                  item.mesh.position.copy(item.body.position);
-                  item.mesh.quaternion.copy(item.body.quaternion);
-                  item.mesh.position.z+=bh/4.4;
+                  if(gamemod!=2){
+                    item.mesh.scale.set(0.8,1,0.8)
+                  }
+                  if(!re3flag){
+                    item.mesh.position.copy(item.body.position);
+                    item.mesh.quaternion.copy(item.body.quaternion);
+                    item.mesh.position.z+=bh/4.4;
+                  }
+
                 }else if(skinset[skinnum]=="base"){
-                  item.mesh.scale.set(1,1,1)
-                  item.mesh.position.copy(item.body.position);
-                  item.mesh.quaternion.copy(item.body.quaternion);
+                  if(gamemod!=2){
+                    item.mesh.scale.set(1,1,1)
+                  }
+                  // item.mesh.scale.set(1,1,1)
+                  if(!re3flag){
+                    item.mesh.position.copy(item.body.position);
+                    item.mesh.quaternion.copy(item.body.quaternion);
+                  }
                   item.mesh.children.forEach((tile) => {
                     if(tile.userData["skin"]=="base"){
                       tile.scale.y=0.99
                     }
                   });
                 }else{
-                  item.mesh.scale.set(1,1,1)
-                  item.mesh.position.copy(item.body.position);
-                  item.mesh.quaternion.copy(item.body.quaternion);
+                  if(gamemod!=2){
+                    item.mesh.scale.set(1,1,1)
+                  }
+                  if(!re3flag){
+                    item.mesh.position.copy(item.body.position);
+                    item.mesh.quaternion.copy(item.body.quaternion);
+                  }
                 }
 
             })
-        }
+        }else if(skinset[skinnum]=="classic"){
+          cubes.forEach((item) => {
+              // item.mesh.position.copy(item.mesh.userData.body.position);
+              // item.mesh.quaternion.copy(item.mesh.userData.body.quaternion);
+                if(gamemod!=2){
+                  item.mesh.scale.set(0.8,1,0.8)
+                }
+
+                item.mesh.position.z=bh/4.4;
+        })
+      }
+
+
+
+        // effects.forEach((item, i) => {
+        //   if(skinset[skinnum]=="classic"){
+        //
+        //   }
+        //   item[0].material.opacity
+        // });
+
 
         if (window.innerWidth > window.innerHeight) {
             if (restartflag) {
@@ -14160,7 +14821,16 @@
         }
 
         if (!gameoverflag&&!restartflag) {
-
+            if(re3flag){
+              avx = 0;
+              avz = 0;
+              for (var i = 0; i < cubes.length; i++) {
+                  avx += cubes[i].mesh.position.x;
+                  avz += cubes[i].mesh.position.z;
+              }
+              avx /= cubes.length;
+              avz /= cubes.length;
+            }
             var temptxt;
             if (averageflag) {
                 포인트.forEach((item) => {
@@ -14295,11 +14965,6 @@
                     // console.log(textMesh);
                 });
             }
-
-
-
-
-
             //색상표
             // const text = String(colornum)+"  "+ String(colornum0);
             // const fontSize = 24;
@@ -14330,7 +14995,6 @@
               item.material.visible = false;
           })
         }
-
         gradback[0].material.visible = true;
         if (topcam&&!restartflag) {
           if(particleflag) particles.material.visible=false;
@@ -14358,8 +15022,6 @@
                 topViewCamera.lookAt(cubes[cubes.length - 1].body.position.x, 0, cubes[cubes.length - 1].body.position.z);
                 topViewCamera.rotation.y = cubes[cubes.length - 1].mesh.rotation.y
             } else {
-
-
                 for (var i = 0; i < cubes.length; i++) {
                     cubes[i].mesh.children.forEach((item) => {
                       if (item.userData["skin"]==skinset[skinnum]) {
@@ -14379,7 +15041,6 @@
                             item.receiveShadow = false;
                             item.castShadow = false;
                           }
-
                         }else{
                           item.receiveShadow = false;
                           item.castShadow = false;
@@ -14431,44 +15092,44 @@
                     } else if (i > activeFloor) {
                         // cubes[i].mesh.material.opacity = 0.0;
                         // cubes[i].mesh.material.transparent = true;
-
-
                     }
                 }
             }
         }
         // }
         effects.forEach((item) => {
-            item[0].children.forEach((box) => {
-                box.material.visible = false;
-            })
+            item[0].material.visible=false;
         })
 
         if (topcam&&!restartflag) {
-            if ((window.innerWidth / window.innerHeight) < 3 / 5) {
-                if((window.innerWidth / window.innerHeight) > 0.5){
-                  var width = window.innerWidth / 1.15;
-                  var height = window.innerWidth / 1.15;
-                  var width1 = window.innerWidth / 1.15;
-                  var height1 = window.innerWidth / 1.15;
-                }else{
+            if ((window.innerWidth / window.innerHeight) < 4 / 7) {
+                // if((window.innerWidth / window.innerHeight) > 0.5){
+                //   var width = window.innerWidth / 1.15;
+                //   var height = window.innerWidth / 1.15;
+                //   var width1 = window.innerWidth / 1.15;
+                //   var height1 = window.innerWidth / 1.15;
+                // }else{
                   var width = window.innerWidth / 1;
                   var height = window.innerWidth / 1;
                   var width1 = window.innerWidth / 1;
                   var height1 = window.innerWidth / 1;
+                // }
+                if((window.innerWidth / window.innerHeight) > 0.5){
+                  renderer.setViewport(window.innerWidth / 2 - width / 2, -(width / 10)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
+                  renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width / 10)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
+                }else{
+                  renderer.setViewport(window.innerWidth / 2 - width / 2, -(width / 30)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
+                  renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width / 30)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
                 }
-
-                renderer.setViewport(window.innerWidth / 2 - width / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
-                renderer.setScissor(window.innerWidth / 2 - width1 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
                 renderer.setScissorTest(true);
                 renderer.render(scene, topViewCamera);
             } else if ((window.innerWidth / window.innerHeight) > 13 / 8) {
               if(skinset[skinnum]=="classic"){
-                var width = window.innerWidth / 1;
-                var height = window.innerWidth / 1;
+                var width = window.innerHeight / 1;
+                var height = window.innerHeight / 1;
               }else{
-                var width = window.innerWidth / 1.1;
-                var height = window.innerWidth / 1.1;
+                var width = window.innerHeight / 1.1;
+                var height = window.innerHeight / 1.1;
               }
                 renderer.setViewport(window.innerWidth - height - (window.innerWidth - window.innerHeight) / 8, -3500 * Math.abs(-isoAngle - camera.rotation.x) - 1000 * Math.abs(Math.PI / 4 - camera.rotation.y), width, width);
                 renderer.setScissor(window.innerWidth - height - (window.innerWidth - window.innerHeight) / 8, -3500 * Math.abs(-isoAngle - camera.rotation.x) - 1000 * Math.abs(Math.PI / 4 - camera.rotation.y), width, width);
@@ -14479,7 +15140,6 @@
         ring[0].children.forEach((item) => {
             item.material.visible = false;
         })
-
         // if(Math.abs(restartend-camera.rotation.x)<0.5){
         // 	renderer.render(scene, camera);
         // 	console.log(restartend-camera.rotation.x);
@@ -14508,9 +15168,7 @@
                     if(i>activeFloor){
                       item.material.opacity=1;
                       item.material.alphaTest=item.material.opacity
-
                       item.material.visible=true;
-
                     }else if(i==activeFloor){
                       if(skinset[skinnum]=="classic"){
 
@@ -14519,10 +15177,7 @@
                         item.material.alphaTest=item.material.opacity
                         item.material.visible=true;
                       }
-
                     }
-
-
                   }
                 });
 
@@ -14694,8 +15349,8 @@
                         item.material.transparent = true;
                       }else{
                         item.material.visible = true;
-                        item.material.opacity = 0.85;
-                        item.material.alphaTest = 0.8;
+                        item.material.opacity = 0.84;
+                        item.material.alphaTest = 0.84;
                         item.material.transparent = true;
                       }
 
@@ -14713,8 +15368,8 @@
                 if (item.userData["skin"]==skinset[skinnum]) {
                   if(i==activeFloor){
                     item.material.visible = true;
-                    item.material.opacity = 0.85
-                    item.material.alphaTest = item.material.opacity
+                    item.material.opacity = 0.84;
+                    item.material.alphaTest = 0.84;
                     item.material.transparent = true;
                   }
 
@@ -15282,16 +15937,7 @@
               mesh1.userData["skintype"] =1;
               if(!flag) clmeshlst1[idx].push(mesh1.material);
               mesh.add(mesh1);
-              // originHelper.position.set(bw/2-width/4.7,0-depth*0.01,depth/2)
-              // originHelper.updateWorldMatrix(true, false);
-              // var tg=new THREE.BoxGeometry(width/3.5, height*0.55, depth*0.002);
-              // tg.applyMatrix4(originHelper.matrixWorld);
-              // geoms.push(tg)
-              // originHelper.position.set(bw/2-width/4.7,0-depth*0.01,depth/2)
-              // 		originHelper.updateWorldMatrix(true, false);
-              // 		var tg=new THREE.BoxGeometry(width/3.5, height*0.55, depth*0.002);
-              // 		tg.applyMatrix4(originHelper.matrixWorld);
-              // geoms.push(tg)
+
 
 
               var moldkey=Object.keys(skinmold);
@@ -15300,11 +15946,23 @@
                   let obj1=obj.clone();
                   let mat1=obj.material.clone();
                   if(obj1.userData["skintype"]=="top"){
-                    if(idx==4){
-                      obj1.material=mat1
+                    // if(gamemod==2){
+                    //   return;
+                    // }
+                    if(gamemod==2){
+                      if(idx>4){
+                        obj1.material=mat1
+                      }else{
+                        return;
+                      }
                     }else{
-                      return;
+                      if(idx==4){
+                        obj1.material=mat1
+                      }else{
+                        return;
+                      }
                     }
+
 
 
 
@@ -16935,62 +17593,20 @@
     }
 
     function 이펙트2(floor, num, direction) {
-        var w = bw / 20
-        w += Math.sqrt(num) / 5
+
+        var tnum=parseInt(Math.log2(num))
         if(skinset[skinnum]=="classic"){
-          var vw=w*1.26
-          var vbw=bw*1.26
+          var mesh0 = ㄷ2[tnum].clone();
         }else{
-          var vw=w
-          var vbw=bw
+          var mesh0 = ㄷ[tnum].clone();
         }
-        // var w=bw/11;
-        var geometry0 = new THREE.PlaneGeometry(vbw, vbw / 2);
-        var material0 = new THREE.MeshBasicMaterial({
-            color: 0xffffff,
-            opacity: 0,
-            transparent: true
+        mesh0.position.y=- th / 3 - (th / 10) * effects.length;
+        mesh0.material=new THREE.MeshBasicMaterial({
+        	color: 0xffffff,
+        	side: THREE.DoubleSide,
+          opacity: 0.6
         });
-        var mesh0 = new THREE.Mesh(geometry0, material0);
-        var geometry1 = new THREE.PlaneGeometry(vbw, vw);
-        var material1 = new THREE.MeshBasicMaterial({
-            color: 0xffffff,
-            side: THREE.DoubleSide,
-            opacity: 1,
-            transparent: true
-        });
-        var mesh1 = new THREE.Mesh(geometry1, material1);
-        var geometry2 = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
-        var material2 = new THREE.MeshBasicMaterial({
-            color: 0xffffff,
-            side: THREE.DoubleSide,
-            opacity: 1,
-            transparent: true
-        });
-        var mesh2 = new THREE.Mesh(geometry2, material2);
-        var geometry3 = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
-        var material3 = new THREE.MeshBasicMaterial({
-            color: 0xffffff,
-            side: THREE.DoubleSide,
-            opacity: 1,
-            transparent: true
-        });
-        var mesh3 = new THREE.Mesh(geometry3, material3);
 
-
-        mesh0.add(mesh1)
-        mesh0.children[0].position.y = vbw / 2
-        mesh0.add(mesh2)
-        mesh0.children[1].position.x = -vbw / 2 - vw * 0.6 / 2
-        mesh0.children[1].position.y = -(vbw / 4) + vbw / 2 + vw / 2
-        mesh0.add(mesh3)
-        mesh0.children[2].position.x = +vbw / 2 + vw * 0.6 / 2
-        mesh0.children[2].position.y = -(vbw / 4) + vbw / 2 + vw / 2
-        // console.log(mesh)
-        mesh0.rotation.order = 'YXZ';
-        // mesh0.rotation.z = cubes[floor].mesh.rotation.z;
-        mesh0.rotation.x = - Math.PI / 2;
-        mesh0.position.set(0, 0 - th / 3 - (th / 16) * effects.length, 0)
 
         switch (direction) {
             case 'up':
@@ -17020,20 +17636,16 @@
             default:
                 return;
         }
-        // mesh0.scale.x=1.5;
-        // mesh0.scale.y=1.5;
         mesh0.material.visible = false;
-        mesh0.userData["skin"]="effect"
-        // if(skinset[skinnum]=="classic"){
-        //   mesh0.scale.set(1.26,0,1.26)
-        // }
-        // cubes[floor].mesh.add(mesh0);
+        if(skinset[skinnum]=="classic"){
+          mesh0.userData["skin"]="exc"
+        }else{
+          mesh0.userData["skin"]="effect"
+        }
+
         cubes[floor].mesh.add(mesh0);
-        // scene.add( mesh2 );
-        // scene.add( mesh3 );
         effects.push([mesh0, num, direction, floor]);
-        // effects.push(mesh2);
-        // effects.push(mesh3);
+
     }
 
     function 이펙트(floor, num, direction) {
@@ -17408,7 +18020,7 @@
       }, 2000);
     }
 
-
+    window.showpop=showpop;
     function showinfo(n){
       if(n==2){
         // pluscoin=0;
@@ -17552,6 +18164,8 @@
         restartflag = true
         pluscoin = parseInt(점수 / 10);
         // coin += pluscoin;
+        restartloc=[];
+        restartrot=[];
         for (var i = 0; i < cubes.length; i++) {
             restartloc.push(cubes[i].mesh.position);
             restartrot.push(cubes[i].mesh.rotation);
@@ -17645,6 +18259,8 @@
         restartflag = true;
         pluscoin = parseInt(점수 / 10)
         // coin += pluscoin;
+        restartloc=[];
+        restartrot=[];
         for (var i = 0; i < cubes.length; i++) {
             restartloc.push(cubes[i].mesh.position);
             restartrot.push(cubes[i].mesh.rotation);
@@ -17716,14 +18332,43 @@
     }
 
     function retry() {
+      // coin=parseInt(nslst["data"]["0"]);
       // coin+=pluscoin;
-      contract(-pluscoin,[])
+      if(pluscoin!=0){
+        contract(-pluscoin,[])
+        showpop("",String(pluscoin)+" ★","획득")
+      }
+
+      if(gamemod==2){
+        if(coin>=mod2비용){
+          contract(mod2비용,[])
+          showpop("",String(mod2비용)+" ★  지불","")
+        }else{
+          showpop("★가","부족합니다","")
+          return;
+          // Android.showToast("★가 부족합니다");
+        }
+      }
+
       // if(!webflag) setdb("data", "0", String(coin));
       // document.getElementById("coin2").innerText=String(coin);
-      if(점수>bestscore){
-        if(!webflag) setdb([["data", "2", String(점수)]]);
-        bestscore=점수
+      if(gamemod==2){
+        if(점수>bestscore2){
+          if(!webflag) setdb([["data", "8", String(점수)]]);
+          bestscore2=점수
+        }
+      }else if(gamemod==1){
+        if(점수>bestscore1){
+          if(!webflag) setdb([["data", "4", String(점수)]]);
+          bestscore1=점수
+        }
+      }else{
+        if(점수>bestscore){
+          if(!webflag) setdb([["data", "2", String(점수)]]);
+          bestscore=점수
+        }
       }
+
 
 
       if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
@@ -17776,10 +18421,15 @@
           restartflag = true
           pluscoin = parseInt(점수 / 10)
           // coin += pluscoin;
+          // cubes.length=5;
+          restartloc=[];
+          restartrot=[];
           for (var i = 0; i < cubes.length; i++) {
               restartloc.push(cubes[i].mesh.position);
               restartrot.push(cubes[i].mesh.rotation);
           }
+
+          console.log(restartloc);
           do{
             ncolornum = parseInt(Math.random() * colorlst.length);
           }while(색보정.indexOf(ncolornum)!=-1)
@@ -17830,6 +18480,8 @@
           // coin=parseInt(nslst["data"]["0"]);
           // coin=999999;
           bestscore=parseInt(nslst["data"]["2"]);
+          bestscore1=parseInt(nslst["data"]["4"]);
+          bestscore2=parseInt(nslst["data"]["8"]);
           var templst0 = ["0","2","4","8","16","32","64","128","256","512","1024","2048"]
           var tkey = nslst["data1"]
           var skey = nslst["skin"]
@@ -17863,6 +18515,8 @@
         window.nslst=nslst;
         coin=parseInt(nslst["data"]["0"]);
         bestscore=parseInt(nslst["data"]["2"]);
+        bestscore1=parseInt(nslst["data"]["4"]);
+        bestscore2=parseInt(nslst["data"]["8"]);
         var templst0 = ["0","2","4","8","16","32","64","128","256","512","1024","2048"]
         var tkey = nslst["data1"]
         var skey = nslst["skin"]
@@ -18060,6 +18714,7 @@
         var mod0 = document.getElementById('mod0');
         var mod1 = document.getElementById('mod1');
         var mod2 = document.getElementById('mod2');
+        var mod3 = document.getElementById('mod3');
 
         var pbtn2=document.getElementById('gbt1');
 
@@ -18104,6 +18759,7 @@
 
 
               })
+              showpop("",String(skincost)+" ★","지불")
               // coin-=skincost;
               // if(!webflag) setdb("data", "0", String(coin));
               // if(!webflag) setdb("data1", templst0[skinn], "1");
@@ -18151,7 +18807,9 @@
         })
 
         mod0.addEventListener('click', function() {
-
+            if(gamemod==2){
+              skinnum=0;
+            }
 
             if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
                 document.getElementById("mod-overlay").classList.remove("show");
@@ -18165,6 +18823,8 @@
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
                     // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -18200,6 +18860,9 @@
         })
 
         mod1.addEventListener('click', function() {
+            if(gamemod==2){
+              skinnum=0;
+            }
             if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
                 document.getElementById("mod-overlay").classList.remove("show");
                 document.getElementById("mod-overlay").classList.add("fade");
@@ -18212,6 +18875,8 @@
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
                     // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -18248,9 +18913,13 @@
 
         mod2.addEventListener('click', function() {
 
-            if(coin>=300){
-              coin-=300;
+          if(coin>=mod2비용){
+            contract(mod2비용,[])
+            showpop("",String(mod2비용)+" ★  지불","")
             }else{
+              showpop("★가","부족합니다","")
+              // Android.showToast("★가 부족합니다");
+
               return;
             }
 
@@ -18266,6 +18935,68 @@
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
                     // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
+                    for (var i = 0; i < cubes.length; i++) {
+                        restartloc.push(cubes[i].mesh.position);
+                        restartrot.push(cubes[i].mesh.rotation);
+                    }
+                    do{
+                      ncolornum = parseInt(Math.random() * colorlst.length);
+                    }while(색보정.indexOf(ncolornum)!=-1)
+
+                    do{
+                      ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    }while(색보정0.indexOf(ncolornum0)!=-1)
+                    rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                    renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                    rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                    renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+                    rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                    renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+                    rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                    renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+                    bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+                    nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+                    bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+                    nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+                    bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+                    nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+                    bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+                    nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+                    bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+                    nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+                    rotationend = Math.PI / 4
+                }
+            }
+        })
+
+        mod3.addEventListener('click', function() {
+
+          if(coin>=mod2비용){
+            contract(mod2비용,[])
+            showpop("",String(mod2비용)+" ★  지불","")
+            }else{
+              showpop("★가","부족합니다","")
+              // Android.showToast("★가 부족합니다");
+
+              return;
+            }
+
+            if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
+                document.getElementById("mod-overlay").classList.remove("show");
+                document.getElementById("mod-overlay").classList.add("fade");
+                setTimeout(function() {
+                    document.getElementById("mod-overlay").classList.add("hidden");
+                }, 100);
+                gamemod=3;
+                if (!rotationflag) {
+                    rotationflag = true
+                    restartflag = true
+                    pluscoin = parseInt(점수 / 10)
+                    // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -18302,9 +19033,12 @@
 
         reBtn.addEventListener('click', function() {
           if(gamemod==2){
-            if(coin>=300){
-              coin-=300;
+            if(coin>=mod2비용){
+              contract(mod2비용,[])
+              showpop("",String(mod2비용)+" ★  지불","")
             }else{
+              showpop("★가","부족합니다","")
+              // Android.showToast("★가 부족합니다");
               return;
             }
           }
@@ -18379,6 +19113,8 @@
                     restartflag = true
                     pluscoin = parseInt(점수 / 10)
                     // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
                     for (var i = 0; i < cubes.length; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
@@ -18550,6 +19286,10 @@
                 document.getElementById('tbar1').style.width=String(parseInt(100*((ulcount)/(acount))))+"%";
                 document.getElementById('tbar2').innerText=String(ulcount)+"/"+String(acount)
               })
+              showpop("",item.price+" ★","지불")
+            }else{
+              showpop("★가","부족합니다","")
+              // Android.showToast("★가 부족합니다");
             }
             return;
           }else if(ptxt[0] == "2"){
@@ -18609,6 +19349,8 @@
                 restartflag = true
                 pluscoin = parseInt(점수 / 10)
                 // coin += pluscoin;
+                restartloc=[];
+                restartrot=[];
                 for (var i = 0; i < cubes.length; i++) {
                     restartloc.push(cubes[i].mesh.position);
                     restartrot.push(cubes[i].mesh.rotation);
@@ -18653,6 +19395,10 @@
               showGrid(tnum)
 
               })
+              showpop("",String(tprice)+" ★","지불")
+            }else{
+              showpop("★가","부족합니다","")
+              // Android.showToast("★가 부족합니다");
             }
             return;
           }
@@ -18677,6 +19423,8 @@
               restartflag = true
               pluscoin = parseInt(점수 / 10)
               // coin += pluscoin;
+              restartloc=[];
+              restartrot=[];
               for (var i = 0; i < cubes.length; i++) {
                   restartloc.push(cubes[i].mesh.position);
                   restartrot.push(cubes[i].mesh.rotation);
@@ -18714,8 +19462,6 @@
 
 <script>
 
-
-
     function cons(text){
       document.getElementById("coin2").innerText=String(text);
     }
@@ -18723,18 +19469,10 @@
     function adfree(){
       coinup(30)
      //Android.removeAd()
-
-
-
-
     }
 
     function showad(){
-
      Android.showAd()
-
-
-
 
     }
 
@@ -18747,7 +19485,6 @@
     var categ1 = document.getElementById("categ1");
 
     function skinon() {
-
         document.getElementById("left").classList.add("fade");
         document.getElementById("left").classList.remove("show");
         document.getElementById("leftup").classList.add("fade");
@@ -18880,12 +19617,12 @@
 
 
         // document.getElementById("coin-info").style.opacity=1;
-        document.getElementById("m0best").innerText="BEST : "+String(bestscore)
-        document.getElementById("m1best").innerText="BEST : "+String(bestscore1)
-        document.getElementById("m2best").innerText="BEST : "+String(bestscore2)
+        // document.getElementById("m0best").innerText="BEST : "+String(bestscore)
+        // document.getElementById("m1best").innerText="BEST : "+String(bestscore1)
+        // document.getElementById("m2best").innerText="BEST : "+String(bestscore2)
 
         if(!document.getElementById("mod-overlay").classList.contains("hidden")){
-          return goBack(5);
+          return goBack(8);
         }
 
         if(!document.getElementById("tutorial").classList.contains("hidden")){
@@ -19443,18 +20180,76 @@
 
           // return;
         }
+
         if(n==5){
           document.getElementById("mod-overlay").classList.remove("show");
           document.getElementById("mod-overlay").classList.add("fade");
+          document.getElementById("setting-overlay").classList.remove("show");
+          document.getElementById("setting-overlay").classList.add("fade");
 
           document.getElementById("credit-info").classList.remove("show");
           document.getElementById("credit-info").classList.add("fade");
-          document.getElementById("coin-info").classList.remove("show");
-          document.getElementById("coin-info").classList.add("fade");
+
+
+          // document.getElementById("coin-info").classList.remove("show");
+          // document.getElementById("coin-info").classList.add("fade");
+          //
+          // document.getElementById("center").classList.remove("show");
+          // document.getElementById("center").classList.add("fade");
+          //
+          // document.getElementById("left").classList.remove("show");
+          // document.getElementById("left").classList.add("fade");
+
+
           setTimeout(function() {
               document.getElementById("mod-overlay").classList.add("hidden");
               document.getElementById("credit-info").classList.add("hidden");
-              document.getElementById("coin-info").classList.add("hidden");
+              document.getElementById("setting-overlay").classList.add("hidden");
+
+              // document.getElementById("coin-info").classList.add("hidden");
+              // document.getElementById("center").classList.add("hidden");
+              // document.getElementById("left").classList.add("hidden");
+
+
+          }, 100);
+
+        }
+
+        if(n==8){
+          document.getElementById("mod-overlay").classList.remove("show");
+          document.getElementById("mod-overlay").classList.add("fade");
+          document.getElementById("setting-overlay").classList.remove("show");
+          document.getElementById("setting-overlay").classList.add("fade");
+
+          document.getElementById("credit-info").classList.remove("show");
+          document.getElementById("credit-info").classList.add("fade");
+
+          if(document.getElementById("center").classList.contains("hidden")){
+            document.getElementById("coin-info").classList.remove("show");
+            document.getElementById("coin-info").classList.add("fade");
+          }
+
+          //
+          // document.getElementById("center").classList.remove("show");
+          // document.getElementById("center").classList.add("fade");
+          //
+          // document.getElementById("left").classList.remove("show");
+          // document.getElementById("left").classList.add("fade");
+
+
+          setTimeout(function() {
+              document.getElementById("mod-overlay").classList.add("hidden");
+              document.getElementById("credit-info").classList.add("hidden");
+              document.getElementById("setting-overlay").classList.add("hidden");
+              if(document.getElementById("center").classList.contains("hidden")){
+                document.getElementById("coin-info").classList.add("hidden");
+              }
+
+
+              // document.getElementById("center").classList.add("hidden");
+              // document.getElementById("left").classList.add("hidden");
+
+
           }, 100);
 
         }
@@ -19466,6 +20261,7 @@
                 document.getElementById("setting-overlay").classList.add("hidden");
             }, 100);
         }
+
         if (!document.getElementById("gameover-overlay").classList.contains("hidden")) {
             document.getElementById("gameover-overlay").classList.remove("show");
             document.getElementById("gameover-overlay").classList.add("fade");
@@ -19477,6 +20273,8 @@
                 restartflag = true
                 pluscoin = parseInt(점수 / 10)
                 // coin += pluscoin;
+                restartloc=[];
+                restartrot=[];
                 for (var i = 0; i < cubes.length; i++) {
                     restartloc.push(cubes[i].mesh.position);
                     restartrot.push(cubes[i].mesh.rotation);
@@ -19510,20 +20308,56 @@
             }
         }
         window.scrollTo(0, 0);
+        console.log(n)
         if (!document.getElementById("step1").classList.contains("hidden")) {
             document.getElementById("options-overlay").classList.add("fade");
             document.getElementById("options-overlay").classList.remove("show");
-            document.getElementById("center").classList.remove("fade");
-            document.getElementById("left").classList.remove("fade");
             document.getElementById("right").classList.remove("fade");
+
+            if(n==1){
+              document.getElementById("center").classList.remove("fade");
+              document.getElementById("left").classList.remove("fade");
+            }else if(n==5){
+              if(!document.getElementById("coin-info").classList.contains("hidden")){
+                document.getElementById("center").classList.remove("fade");
+                document.getElementById("left").classList.remove("fade");
+
+              }
+            }else if(!document.getElementById("center").classList.contains("hidden")){
+              document.getElementById("center").classList.remove("fade");
+              document.getElementById("left").classList.remove("fade");
+
+            }
+
             setTimeout(function() {
                 document.getElementById("options-overlay").classList.add("hidden");
-                document.getElementById("left").classList.add("show");
                 document.getElementById("right").classList.add("show");
-                document.getElementById("left").classList.remove("hidden");
                 document.getElementById("right").classList.remove("hidden");
-                document.getElementById("center").classList.add("show");
-                document.getElementById("center").classList.remove("hidden");
+                if(n==1){
+                  document.getElementById("left").classList.add("show");
+
+                  document.getElementById("left").classList.remove("hidden");
+
+                  document.getElementById("center").classList.add("show");
+                  document.getElementById("center").classList.remove("hidden");
+                }else if(n==5){
+                  if(!document.getElementById("coin-info").classList.contains("hidden")){
+                    document.getElementById("left").classList.add("show");
+
+                    document.getElementById("left").classList.remove("hidden");
+
+                    document.getElementById("center").classList.add("show");
+                    document.getElementById("center").classList.remove("hidden");
+                  }
+                }else if(!document.getElementById("center").classList.contains("hidden")){
+                  document.getElementById("left").classList.add("show");
+
+                  document.getElementById("left").classList.remove("hidden");
+
+                  document.getElementById("center").classList.add("show");
+                  document.getElementById("center").classList.remove("hidden");
+                }
+
 
             }, 100);
         } else if (!document.getElementById("categ1").classList.contains("hidden")) {
@@ -19871,8 +20705,10 @@
         <div class="gameover">
             <label class="glabel">Claim & retry</label>
             <button id="restartbtn" class="gameoverbt">
+                <div id="reprice" class="hidden"></div>
                 <img src="png/return.png" >
             </button>
+
         </div>
 
 
@@ -20287,7 +21123,7 @@
 </div>
 
 <div id="mod-overlay" class="mod-overlay hidden">
-    <button class="backbutton" onclick="goBack(5)">
+    <button class="backbutton" onclick="goBack(8)">
         <img class="" src="png/left.png">
     </button>
     <div class="modinfo1">
@@ -20297,29 +21133,41 @@
     <div class="mod-container">
         <div class="mod">
             <button id="mod0" class="modbt">
-                <img src="png/joystick.png" >
+                <img src="png/normal.png" >
             </button>
             <label class="mlabel">NORMAL</label>
             <b>기본</b>
-            <div id="m0best">Best : 2000</div>
+
         </div>
 
         <div class="mod">
             <button id="mod1" class="modbt" onclick="">
-                <img src="png/joystickRight.png" >
+                <img src="png/hard.png" >
             </button>
             <label class="mlabel">HARD</label>
             <b>어려움</b>
-            <div id="m1best">Best : 2000</div>
+
         </div>
 
         <div class="mod">
             <button id="mod2" class="modbt">
-                <img src="png/barsHorizontal.png" >
+                <img src="png/stack.png" >
             </button>
             <label class="mlabel">STACK</label>
             <b>스택</b>
-            <div id="m2best">Best : 20</div>
+
+            <div id="m2price">★ 300</div>
+        </div>
+
+        <div class="mod">
+            <button id="mod3" class="modbt">
+                <img src="png/collapse.png" >
+            </button>
+            <label class="mlabel">collapse</label>
+            <b>붕괴</b>
+
+            <div id="m3price">★ 300</div>
+
         </div>
 
     </div>
