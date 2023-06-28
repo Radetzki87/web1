@@ -55,6 +55,7 @@
         }
 
         #yesno{
+
             position: absolute;
             left:15%;
             top:45%;
@@ -69,24 +70,26 @@
             border: 0px solid #000;
             justify-content: center;
             align-items: center;
-            z-index:1;
+            /* z-index:1; */
             font-family: 'mono';
             font-size: 5vw;
 
         }
 
-        .yesno-container{
-            /* position: fixed; */
-            display: inline-flex;
-            /* right: 10%; */
-
-            /* margin: 4vw 0; */
+        #yesno b{
+          margin-top: 3vw;
+          color: white;
 
         }
 
+        .yesno-container{
+            display: inline-flex;
+        }
+
         .yesno-container button{
+            color: white;
             font-family: 'mono';
-            font-size: 3vw;
+            font-size: 4vw;
             width:18vw;
             height:12vw;
             /* position: absolute; */
@@ -138,14 +141,14 @@
         }
 
         #td1{
-          top:20%;
+          top:16%;
           left: 22%;
           width:70%;
           position: absolute;
         }
 
         #td2{
-          top:24%;
+          top:20%;
           left: 18%;
           width:70%;
           position: absolute;
@@ -163,20 +166,19 @@
         }
 
         #tutbtn{
-          top:83%;
-          left:32%;
+          top:88%;
+          left:27vw;
           width:45vw;
-          height:20vw;
+          height:15vw;
           position: absolute;
           border-radius: 3vw;
           align-items: center;
-          background-color: rgba(150,150,150,1);
+          /* background-color: rgba(150,150,150,0.8); */
           /* color: white; */
           font-family: 'mono';
           text-align: center;
           font-size: 2.5vh;
-          z-index: 3;
-
+          z-index: 4;
 
         }
 
@@ -354,7 +356,7 @@
           font-family: 'elice';
           opacity:1;
           position:relative;
-          top: 51%;
+          top: 50%;
           color:white;
           font-size: 5vw;
           transition: opacity 1.8s;
@@ -1246,7 +1248,7 @@
             background-color: rgba(50, 50, 50, 0.6);
             border-radius: 4vw;
             border: 0px solid #000;
-            width: 75%;
+            width: 80%;
             height: 10%;
             justify-content: center;
             align-items: center;
@@ -1264,7 +1266,7 @@
             background-color: rgba(50, 50, 50, 0.6);
             border-radius: 4vw;
             border: 0px solid #000;
-            width: 75%;
+            width: 80%;
             /* height: 50vw; */
             justify-content:flex-start;
             align-items: left;
@@ -1563,7 +1565,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            /*z-index: 1;*/
+            /* z-index: 1; */
         }
         #myRange{
           position: absolute;
@@ -1785,33 +1787,6 @@
             width: 5vh;
             height: 5vh;
             z-index: 2;
-        }
-
-        #leftup {
-            position: absolute;
-            border: none;
-            background-color: transparent;
-            /* background-image: url("png/green_button09.png"); */
-            background-size: 6vh 4vh;
-            top: 1vh;
-            left: 3%;
-            width: 6vh;
-            height: 4vh;
-            z-index: 2;
-        }
-
-        #leftup img {
-            width: 5vh;
-            height: 5vh;
-            z-index: 2;
-        }
-
-        #leftup:active {
-            /* background-image: url("png/green_button10.png"); */
-            transform: translate(0, 0.2vh);
-            background-size: 6vh 3.8vh;
-            width: 6vh;
-            height: 3.8vh;
         }
 
         .center {
@@ -2106,7 +2081,7 @@
 
     var 레프트=document.getElementById("left")
 
-    var 물음표=document.getElementById("leftup")
+
 
     var 센터=document.getElementById("center")
 
@@ -2138,7 +2113,7 @@
     window.스텝3=스텝3
     window.샵=샵
     window.레프트=레프트
-    window.물음표=물음표
+
     window.센터=센터
     window.라이트=라이트
     window.옵션리스트=옵션리스트
@@ -2155,8 +2130,6 @@
     let themelst = ["wooden", "lofi", "retro","808", "hiphop"];
     window.themelst=themelst
 
-    // var forceset=[[700,850,1000,1300,1600,2000,2400,2700,3000,3400],[650,800,950,1250,1550,1950,2350,2650,2950,3350],[600,750,900,1200,1500,1900,2300,2600,2900,3300],[550,700,850,1150,1450,1850,2250,2550,2850,3250],[500,650,800,1100,1400,1800,2200,2500,2800,3200]];
-    // var forceset=[[600,750,1000,1300,1600,1900,2200,2500,2800,3200],[550,700,950,1250,1550,1850,2150,2450,2750,3150],[500,650,900,1200,1500,1800,2100,2400,2700,3100],[450,600,850,1150,1450,1750,2050,2350,2650,3050],[400,550,800,1100,1400,1700,2000,2300,2600,3000]]
     var forceset=[[700,850,1000,1300,1600,1900,2200,2500,2800,3100],[650,800,950,1250,1550,1850,2150,2450,2750,3050],[600,750,900,1200,1500,1800,2100,2400,2700,3000],[550,700,850,1150,1450,1750,2050,2350,2650,2950],[500,650,800,1100,1400,1800,2200,2600,3000,3400]]
 
     var mod2비용=300;
@@ -2233,6 +2206,10 @@
     var tempoint=0;
 
     var stacktime;
+
+    var 핑거={x:0,y:0}
+
+
 
 
     var freead=false;
@@ -5131,13 +5108,18 @@
             document.getElementById("intro").style.top="-120%";
             document.getElementById("intro").style.opacity="0";
             setTimeout(function() {
-                document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][3]);
+                document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][0]);
                 // document.getElementById("tut-info").children[0].style.color="#FFFFFF"
                 if(tutorialflag){
                   document.getElementById("t1").classList.remove("hidden")
                   document.getElementById("tut-info").style.zIndex=4;
-                }else{
 
+                  document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][0]);
+                  document.getElementById("tut-info").children[1].style.color=hexToHtmlColor(colorlst[colornum][0]);
+
+                }else{
+                  document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][3]);
+                  document.getElementById("tut-info").children[1].style.color=hexToHtmlColor(colorlst[colornum][3]);
                 }
                 document.getElementById("tut-info").style.opacity="0.8";
                 document.getElementById("tut-info").style.zIndex=1;
@@ -5202,176 +5184,321 @@
 
 
         }
-        if (window.innerWidth >= window.innerHeight) {
-            mouse.x = (event.touches[0].clientX / window.innerHeight);
-            mouse.y = (event.touches[0].clientY / window.innerHeight);
-            lastX = (event.touches[0].clientX / window.innerHeight) * 2 - 1;
-            lastY = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
-        } else {
-            lastX = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
-            lastY = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
-            mouse.x = (event.touches[0].clientX / window.innerWidth);
-            mouse.y = (event.touches[0].clientY / window.innerWidth);
+        var topflag;
+        var seflag;
+
+        if ((window.innerWidth / window.innerHeight) >= 4 / 7){
+          topflag= false;
+
+        }else{
+          topflag= true;
+
         }
 
 
-        if (lastY >= 0.8) {
-            if (lastX < -0.8) {
-            } else if (lastX > 0.8) {
-                if (!startflag) {
-                    startflag = true
-                }
-                if (lookcenter) {
-
-                  // camera.left -= bw*0.5
-                  // camera.right += bw  *4*0.5
-                  // camera.top +=  bw*0.5
-                  // camera.bottom -= bw*4*0.5
-                  // renderer.setSize(window.innerWidth, window.innerHeight);
-                  // camera.aspect = window.innerWidth / window.innerHeight;
-                  // camera.updateProjectionMatrix();
-
-
-                    // skinnum++;
-                    // if (skinnum >= skinset.length) {
-                    //     skinnum = 0;
-                    // }
-                    // bf=999;
-                    Android.showToast("??");
-                    initdb();
-                    loaddb()
-
-                    // // if(!rotationflag){
-                    // // 	lookcenter=false
-                    // // 	rotationflag=true
-                    // // 	rotationend=0
-                    // // }
-                } else if (lookleft) {
-                    if (!rotationflag) {
-                        rotationflag = true
-                        rotationend = Math.PI / 4
-                    }
-                }
-            }
-        } else if (lastY > 0 && lastY < 0.8&&lastX>-0.6&&lastX<0.6) {
-            if(shiftlock) return;
-            for (var j = 0; j < 5; j++) {
-                // var tempy;
-                if(gamemod==2){
-                  if(cubes.length==5){
-                    if(j<4) continue;
-                  }else{
-
-                    return;
-                  }
-
-                }
-                if (lastY > -0.35 + touch0 + 0.1 * j && lastY < -0.25 + touch0 + 0.1 * j) {
-                    if (!startflag) {
-                        startflag = true
-
-                        document.getElementById("optionlst").style.display="none"
-                        if(!document.getElementById("tutorial").classList.contains("hidden")){
-                          document.getElementById("tutorial").classList.remove("show");
-                          document.getElementById("tutorial").classList.add("fade");
-                          document.getElementById("tutorial").classList.add("hidden");
-
-                        }
-                          // document.getElementById("optionlst").classList.remove("show");
-                          // document.getElementById("optionlst").classList.add("fade");
-                          document.getElementById("optionlst").classList.add("hidden");
-                          document.getElementById("right").children[1].classList.add("hidden");
-                          document.getElementById("right").children[0].classList.remove("hidden");
-                          document.getElementById("right").children[0].style.display = ""
-
-
-
-                        elapsedTime=0;
-                        팝리스트=[false,false,false,false,false]
-                    }
-                    activeFloor = j;
-                    // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
-                    //     soundic[sdic[activeFloor]["upper"]].stop();
-                    // }
-                    // soundic[sdic[activeFloor]["upper"]].play();
-                    var thisnum = activeFloor
-                    var playable = true
-                    for (let i = 0; i < 6; i++) {
-                        // if (i == thisnum || sdic[i][0] == sdic[thisnum][0]) continue
-                        if (i == thisnum ) continue
-                        if (soundic[sdic[i][0]].isPlaying) {
-                            soundic[sdic[i][0]].stop();
-                        }
-                    }
-                    if (!soundic[sdic[thisnum][0]].isPlaying) {
-
-                        songfade=elapsedTime;
-                        // console.log(songfade);
-                        soundic[sdic[thisnum][0]].play();
-                        if(tutstep>1) return;
-
-                        songTitleElement.innerText = sdic[thisnum]["title"];
-                        artistNameElement.innerText = sdic[thisnum]["producer"];
-                        var songInfo = document.getElementById('song-info');
-                        songInfo.classList.add("moveleft");
-                        songInfo.style.left="0px"
-
-                        document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
-                        document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
-                        document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
-
-
-
-
-                        if(thisnum==5){
-                            document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
-                            document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
-                            document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
-                            var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-                            // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*0.8, newcl.l*0.35)
-
-                            document.getElementById('songback').style.backgroundColor=송백
-
-                            // document.getElementById('songback').style.opacity="0.35"
-
-                        }else{
-                            document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][thisnum])
-                            document.getElementById('song-title').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
-
-                            var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
-                            document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.90, newcl.l*1.1)
-                            var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
-                            // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h+Math.PI/2, newcl.s, newcl.l*0.35)
-                            document.getElementById('songback').style.backgroundColor=송백
-                            // document.getElementById('songback').style.opacity="0.35"
-
-                        }
-
-
-
-
-
-                        document.getElementById('playing').style.color="#eeeeee"
-                        // document.getElementById('song-dash1').style.color=hexToHtmlColor(colorlst[colornum][3])
-                        // document.getElementById('song-dash2').style.color=hexToHtmlColor(colorlst[colornum][3])
-
-                        // songInfo.classList.add("hidden");
-                        if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
-                        // // songInfo.classList.remove("show1");
-                        //
-                        //
-                        //
-                        // if (songInfo.classList.contains("fade")) songInfo.classList.remove("fade");
-                        songInfo.classList.add("show1");
-                        // songInfo.classList.add("show");
-
-                    }
-                }
-            }
-            dragflag = true;
-            return;
+        var tempidx=99;
+        if(window.innerWidth>window.innerHeight){
+          핑거.x = (event.touches[0].clientX / window.innerHeight)* 0.8 - 1;
+          핑거.y = -(event.touches[0].clientY / window.innerHeight)*0.8 + 1;
+          lastX = (event.touches[0].clientX / window.innerHeight) * 2 - 1;
+          lastY = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+        }else{
+          핑거.x = (event.touches[0].clientX / window.innerWidth)* 0.8 - 1;
+          핑거.y = -(event.touches[0].clientY / window.innerWidth)*0.8 + 1;
+          lastX = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+          lastY = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
         }
-        ontouch = true
+        console.log(String(핑거.x),String(핑거.y))
+        raycaster.setFromCamera(핑거, camera);
+        const intersects = raycaster.intersectObjects(scene.children);
+        var cat=[];
+
+        if (intersects.length > 0) {
+          intersects.forEach((item, i) => {
+            if(item.object.userData["body"]!=null){
+              cat.push(item.object.userData["body"]);
+              tempidx=cat[0].id-1;
+              console.log(tempidx)
+            }
+            if(cat.length==1) return;
+
+          });
+        }
+        
+        if(cat.length>=1){
+          if(shiftlock) return;
+          if(gamemod==2){
+            if(cubes.length==5){
+              if(tempidx<4) return;
+            }else{
+              return;
+            }
+          }
+
+          if (!startflag) {
+              startflag = true
+              document.getElementById("optionlst").style.display="none"
+              if(!document.getElementById("tutorial").classList.contains("hidden")){
+                document.getElementById("tutorial").classList.remove("show");
+                document.getElementById("tutorial").classList.add("fade");
+                document.getElementById("tutorial").classList.add("hidden");
+
+              }
+                // document.getElementById("optionlst").classList.remove("show");
+                // document.getElementById("optionlst").classList.add("fade");
+                document.getElementById("optionlst").classList.add("hidden");
+                document.getElementById("right").children[1].classList.add("hidden");
+                document.getElementById("right").children[0].classList.remove("hidden");
+                document.getElementById("right").children[0].style.display = ""
+
+
+
+              elapsedTime=0;
+              팝리스트=[false,false,false,false,false]
+          }
+          activeFloor = tempidx;
+          // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
+          //     soundic[sdic[activeFloor]["upper"]].stop();
+          // }
+          // soundic[sdic[activeFloor]["upper"]].play();
+          var thisnum = activeFloor
+          var playable = true
+          for (let i = 0; i < 6; i++) {
+              // if (i == thisnum || sdic[i][0] == sdic[thisnum][0]) continue
+              if (i == thisnum ) continue
+              if (soundic[sdic[i][0]].isPlaying) {
+                  soundic[sdic[i][0]].stop();
+              }
+          }
+          if (!soundic[sdic[thisnum][0]].isPlaying) {
+
+              songfade=elapsedTime;
+              // console.log(songfade);
+              soundic[sdic[thisnum][0]].play();
+              if(tutstep>1) return;
+
+              songTitleElement.innerText = sdic[thisnum]["title"];
+              artistNameElement.innerText = sdic[thisnum]["producer"];
+              var songInfo = document.getElementById('song-info');
+              songInfo.classList.add("moveleft");
+              songInfo.style.left="0px"
+
+              document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+              document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+              document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+
+
+
+
+              if(thisnum==5){
+                  document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
+                  document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
+                  document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
+                  var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                  // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*0.8, newcl.l*0.35)
+
+                  document.getElementById('songback').style.backgroundColor=송백
+
+                  // document.getElementById('songback').style.opacity="0.35"
+
+              }else{
+                  document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][thisnum])
+                  document.getElementById('song-title').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
+
+                  var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
+                  document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.90, newcl.l*1.1)
+                  var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
+                  // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h+Math.PI/2, newcl.s, newcl.l*0.35)
+                  document.getElementById('songback').style.backgroundColor=송백
+                  // document.getElementById('songback').style.opacity="0.35"
+
+              }
+
+
+              document.getElementById('playing').style.color="#eeeeee"
+              // document.getElementById('song-dash1').style.color=hexToHtmlColor(colorlst[colornum][3])
+              // document.getElementById('song-dash2').style.color=hexToHtmlColor(colorlst[colornum][3])
+
+              // songInfo.classList.add("hidden");
+              if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
+              // // songInfo.classList.remove("show1");
+              //
+              //
+              //
+              // if (songInfo.classList.contains("fade")) songInfo.classList.remove("fade");
+              songInfo.classList.add("show1");
+              // songInfo.classList.add("show");
+
+          }
+
+
+          dragflag = true;
+          return;
+
+        }else{
+
+          ontouch = true
+
+
+        }
+
+
+
+        // if (lastY >= 0.8) {
+        //     if (lastX < -0.8) {
+        //     } else if (lastX > 0.8) {
+        //         if (!startflag) {
+        //             startflag = true
+        //         }
+        //         if (lookcenter) {
+        //           // camera.left -= bw*0.5
+        //           // camera.right += bw  *4*0.5
+        //           // camera.top +=  bw*0.5
+        //           // camera.bottom -= bw*4*0.5
+        //           // renderer.setSize(window.innerWidth, window.innerHeight);
+        //           // camera.aspect = window.innerWidth / window.innerHeight;
+        //           // camera.updateProjectionMatrix();
+        //
+        //             // skinnum++;
+        //             // if (skinnum >= skinset.length) {
+        //             //     skinnum = 0;
+        //             // }
+        //             // bf=999;
+        //             Android.showToast("??");
+        //             initdb();
+        //             loaddb()
+        //
+        //             // // if(!rotationflag){
+        //             // // 	lookcenter=false
+        //             // // 	rotationflag=true
+        //             // // 	rotationend=0
+        //             // // }
+        //         } else if (lookleft) {
+        //             if (!rotationflag) {
+        //                 rotationflag = true
+        //                 rotationend = Math.PI / 4
+        //             }
+        //         }
+        //     }
+        // } else if (!topflag||(lastY > 0 && lastY < 0.8&&lastX>-0.6&&lastX<0.6)) {
+        //     if(shiftlock) return;
+        //     for (var j = 0; j < 5; j++) {
+        //         // var tempy;
+        //         if(gamemod==2){
+        //           if(cubes.length==5){
+        //             if(j<4) continue;
+        //           }else{
+        //
+        //             return;
+        //           }
+        //
+        //         }
+        //         if (lastY > -0.35 + touch0 + 0.1 * j && lastY < -0.25 + touch0 + 0.1 * j) {
+        //             if (!startflag) {
+        //                 startflag = true
+        //
+        //                 document.getElementById("optionlst").style.display="none"
+        //                 if(!document.getElementById("tutorial").classList.contains("hidden")){
+        //                   document.getElementById("tutorial").classList.remove("show");
+        //                   document.getElementById("tutorial").classList.add("fade");
+        //                   document.getElementById("tutorial").classList.add("hidden");
+        //
+        //                 }
+        //                   // document.getElementById("optionlst").classList.remove("show");
+        //                   // document.getElementById("optionlst").classList.add("fade");
+        //                   document.getElementById("optionlst").classList.add("hidden");
+        //                   document.getElementById("right").children[1].classList.add("hidden");
+        //                   document.getElementById("right").children[0].classList.remove("hidden");
+        //                   document.getElementById("right").children[0].style.display = ""
+        //
+        //
+        //
+        //                 elapsedTime=0;
+        //                 팝리스트=[false,false,false,false,false]
+        //             }
+        //             activeFloor = j;
+        //             // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
+        //             //     soundic[sdic[activeFloor]["upper"]].stop();
+        //             // }
+        //             // soundic[sdic[activeFloor]["upper"]].play();
+        //             var thisnum = activeFloor
+        //             var playable = true
+        //             for (let i = 0; i < 6; i++) {
+        //                 // if (i == thisnum || sdic[i][0] == sdic[thisnum][0]) continue
+        //                 if (i == thisnum ) continue
+        //                 if (soundic[sdic[i][0]].isPlaying) {
+        //                     soundic[sdic[i][0]].stop();
+        //                 }
+        //             }
+        //             if (!soundic[sdic[thisnum][0]].isPlaying) {
+        //
+        //                 songfade=elapsedTime;
+        //                 // console.log(songfade);
+        //                 soundic[sdic[thisnum][0]].play();
+        //                 if(tutstep>1) return;
+        //
+        //                 songTitleElement.innerText = sdic[thisnum]["title"];
+        //                 artistNameElement.innerText = sdic[thisnum]["producer"];
+        //                 var songInfo = document.getElementById('song-info');
+        //                 songInfo.classList.add("moveleft");
+        //                 songInfo.style.left="0px"
+        //
+        //                 document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+        //                 document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+        //                 document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+        //
+        //
+        //
+        //
+        //                 if(thisnum==5){
+        //                     document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
+        //                     document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
+        //                     document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
+        //                     var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+        //                     // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*0.8, newcl.l*0.35)
+        //
+        //                     document.getElementById('songback').style.backgroundColor=송백
+        //
+        //                     // document.getElementById('songback').style.opacity="0.35"
+        //
+        //                 }else{
+        //                     document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][thisnum])
+        //                     document.getElementById('song-title').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
+        //
+        //                     var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
+        //                     document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.90, newcl.l*1.1)
+        //                     var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
+        //                     // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h+Math.PI/2, newcl.s, newcl.l*0.35)
+        //                     document.getElementById('songback').style.backgroundColor=송백
+        //                     // document.getElementById('songback').style.opacity="0.35"
+        //
+        //                 }
+        //
+        //
+        //
+        //
+        //
+        //                 document.getElementById('playing').style.color="#eeeeee"
+        //                 // document.getElementById('song-dash1').style.color=hexToHtmlColor(colorlst[colornum][3])
+        //                 // document.getElementById('song-dash2').style.color=hexToHtmlColor(colorlst[colornum][3])
+        //
+        //                 // songInfo.classList.add("hidden");
+        //                 if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
+        //                 // // songInfo.classList.remove("show1");
+        //                 //
+        //                 //
+        //                 //
+        //                 // if (songInfo.classList.contains("fade")) songInfo.classList.remove("fade");
+        //                 songInfo.classList.add("show1");
+        //                 // songInfo.classList.add("show");
+        //
+        //             }
+        //         }
+        //     }
+        //     dragflag = true;
+        //     return;
+        // }
+        // ontouch = true
     }
 
     function handleTouchMove(event) {
@@ -5565,72 +5692,63 @@
         //   }
         // }
     }
-    // function onClick(event) {
-    //   event.preventDefault();
-    //   if(uiflag){
-    //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    //     console.log(String(parseInt(mouse.x))+" "+String(parseInt(mouse.y)))
-    //     raycaster.setFromCamera(mouse, uicamera0);
-    //     const intersects = raycaster.intersectObjects(uiScene0.children);
-    //     if (intersects.length > 0) {
-    //       const firstIntersect = intersects[0];
-    //       const clickedObjectName = firstIntersect.object.name;
-    //       if (clickedObjectName === 'Game1') {
-    //         console.log('Start Game button clicked');
-    //         setting(stack);
-    //         uiflag=false;
-    //         stage1=true;
-    //       } else if (clickedObjectName === 'Game2') {
-    //         console.log('Settings button clicked');
-    //         setting1(1);
-    //         uiflag=false;
-    //         stage1=true;
-    //         stage2=true;
-    //       }else if (clickedObjectName === 'Game3') {
-    //         console.log('Settings button clicked');
-    //         uiflag=false;
-    //         stage1=true;
-    //         stage3=true;
-    //         forceAmount=20;
-    //         bw=3
-    //         bh=0.5
-    //         tw=bw/칸
-    //         th=bh/3
-    //         setting(stack);
-    //       }else if (clickedObjectName === 'Game4') {
-    //         console.log('Settings button clicked');
-    //         setting(1);
-    //         uiflag=false;
-    //         stage1=true;
-    //         stage4=true;
-    //       }else if (clickedObjectName === 'Game5') {
-    //         console.log('game5');
-    //         setting(5);
-    //         uiflag=false;
-    //         stage5=true;
-    //         stage1=true;
-    //         stackHeight=1;
-    //       }
-    //     }
-    //   }else{
-    //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    //     // console.log(String(parseInt(mouse.x))+" "+String(parseInt(mouse.y)))
-    //     raycaster.setFromCamera(mouse, camera);
-    //     const intersects = raycaster.intersectObjects(scene.children);
-    //     if (intersects.length > 0) {
-    //       const firstIntersect = intersects[0];
-    //       const clickedObjectName = firstIntersect.object.name;
-    //       // console.log(clickedObjectName);
-    //       console.log(firstIntersect);
-    //       let force2 = new CANNON.Vec3();
-    //       force2.set(10000*(firstIntersect.point.x-camera.position.x), 10000*(firstIntersect.point.y-camera.position.y), 10000*(firstIntersect.point.z-camera.position.z));
-    //       firstIntersect.object.userData["body"].applyForce(force2, firstIntersect.object.userData["body"].position);
-    //     }
-    //   }
-    // }
-    // window.addEventListener('click', onClick, false);
+
+    function onClick(event) {
+      // event.preventDefa-ult();
+      if(window.innerWidth>window.innerHeight){
+        mouse.x = (event.clientX / window.innerHeight)* 0.8 - 1;
+        mouse.y = -(event.clientY / window.innerHeight)*0.8 + 1;
+      }else{
+        mouse.x = (event.clientX / window.innerWidth)* 0.8 - 1;
+        mouse.y = -(event.clientY / window.innerWidth)*0.8 + 1;
+      }
+
+
+
+
+
+      // renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      var rect = renderer.domElement.getBoundingClientRect();
+
+      // mouse.x = ((event.clientX - rect.left) / (rect.right*4 - rect.left)) * 2 - 1;
+      // mouse.y = -((event.clientY - rect.top) / (rect.bottom - rect.top)) * 2 + 1;
+
+      console.log(String((mouse.x))+" "+String((mouse.y)))
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(scene.children);
+      var cat=[];
+      if (intersects.length > 0) {
+        intersects.forEach((item, i) => {
+          if(item.object.userData["body"]!=null){
+            cat.push(item.object.userData["body"]);
+
+          }
+          if(cat.length==1) return;
+
+
+        });
+
+        console.log(cat[0])
+
+        const firstIntersect = intersects[0];
+        const clickedObjectName = firstIntersect.object.name;
+        // console.log(clickedObjectName);
+        // console.log(firstIntersect);
+        let force2 = new CANNON.Vec3();
+        force2.set(1000,0,0);
+        cat[0].applyForce(force2, cat[0].position);
+        // force2.set(10000*(firstIntersect.point.x-camera.position.x), 10000*(firstIntersect.point.y-camera.position.y), 10000*(firstIntersect.point.z-camera.position.z));
+        // firstIntersect.object.userData["body"].applyForce(force2, firstIntersect.object.userData["body"].position);
+
+
+      }
+
+    }
+    // window.addEventListener('click', onClick, true);
+
     window.addEventListener("touchstart", handleTouchStart, {
         passive: true
     });
@@ -5671,6 +5789,7 @@
     }
     if (orthoflag) { //메인카메라
         var camera = new THREE.OrthographicCamera(-bw * 1.3, bw * 1.3 * 4, bw * 1.3, -bw * 1.3 * 4, 0.1, 1000);
+        // var camera = new THREE.OrthographicCamera(-bw * 1.3*2, bw * 1.3*2, bw * 1.3*2, -bw * 1.3*2, 0.1, 1000);
         camera.position.set(bw * 2, 0, bw * 2);
         camera.lookAt(0, 0, 0);
         camera.rotation.order = 'YXZ';
@@ -5833,7 +5952,7 @@
                 document.getElementById("intro").style.top="-120%";
                 document.getElementById("intro").style.opacity="0";
                 setTimeout(function() {
-                    document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][3]);
+                    document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][0]);
                     document.getElementById("tut-info").style.opacity="0.8";
                 }, 1500);
 
@@ -5895,6 +6014,13 @@
                         songTitleElement.innerText = sdic[thisnum]["title"];
                         artistNameElement.innerText = sdic[thisnum]["producer"];
                         var songInfo = document.getElementById('song-info');
+                        songInfo.classList.add("moveleft");
+                        songInfo.style.left="0px"
+
+                        document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+                        document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+                        document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+
                         if(thisnum==5){
                             document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
                             document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
@@ -5936,7 +6062,7 @@
                 document.getElementById("intro").style.top="-120%";
                 document.getElementById("intro").style.opacity="0";
                 setTimeout(function() {
-                    document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][3]);
+                    document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][0]);
                     document.getElementById("tut-info").style.opacity="0.8";
                 }, 1500);
 
@@ -5998,6 +6124,12 @@
                         songTitleElement.innerText = sdic[thisnum]["title"];
                         artistNameElement.innerText = sdic[thisnum]["producer"];
                         var songInfo = document.getElementById('song-info');
+                        songInfo.classList.add("moveleft");
+                        songInfo.style.left="0px"
+
+                        document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+                        document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+                        document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
                         if(thisnum==5){
                             document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
                             document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
@@ -6716,6 +6848,9 @@
           var temp0=[0]
           // skinnum = temp0[parseInt(Math.random()*temp0.length)];
           skinnum=parseInt(Math.random()*(skinset.length-1))
+          if(skinnum==7){
+            skinnum=1;
+          }
 
           // skinnum=skinset.indexOf("gb");
 
@@ -12539,7 +12674,7 @@
         if (startflag&&!gameoverflag) { //스타트
             if(tutorialflag){
               var txtcount3 = parseInt(elapsedTime*2 ) % 100
-              document.getElementById("tut-info").children[0].style.color="#FFFFFF"
+              // document.getElementById("tut-info").children[0].style.color="#FFFFFF"
               switch (tutstep) {
                 case 0:
                   playlock=true;
@@ -12620,7 +12755,7 @@
                   document.getElementById("t4").style.opacity=1;
 
                   document.getElementById("tut-info").children[0].innerText="잘하고 있어요!"
-                  document.getElementById("tut-info").children[1].innerText="그런데 브릭들이 조금 움직인 것 같지 않았나요?"
+                  document.getElementById("tut-info").children[1].innerText="그런데 브릭들이 조금 움직인 것 같지 않나요?"
                   if(elapsedTime-tempseq>4){
                     tempseq=elapsedTime;
                     tutstep++;
@@ -12637,7 +12772,7 @@
                   document.getElementById("td4").classList.remove("hidden");
                   document.getElementById("td4").style.opacity=1;
 
-                  document.getElementById("tut-info").children[0].innerText="맞아요! 숫자가 합쳐지는 경우에, \n현재 활성화된 브릭에 합쳐지는 방향과,\n 그 숫자에 비례하는 힘이 발생하게 됩니다."
+                  document.getElementById("tut-info").children[0].innerText="맞아요! 숫자가 합쳐지는 경우, \n현재 활성화된 브릭에 합쳐지는 방향과,\n 그 숫자에 비례하는 힘이 발생하게 됩니다."
                   document.getElementById("tut-info").children[1].innerText=""
 
                   document.getElementById("tutbtn").classList.remove("hidden");
@@ -12724,14 +12859,17 @@
               }
 
               if(txtcount3%4==0){
+
                 document.getElementById("td0").style.top="16%"
-                document.getElementById("tut-info").children[0].style.opacity="0";
-                document.getElementById("tut-info").children[1].style.opacity="0";
+                document.getElementById("tutbtn").style.color="black"
+                document.getElementById("tut-info").children[0].style.opacity="0.4";
+                document.getElementById("tut-info").children[1].style.opacity="0.4";
               }else if(txtcount3%4==1){
                 document.getElementById("td0").style.top="15%"
 
               }else if(txtcount3%4==2){
                 document.getElementById("td0").style.top="16%"
+                document.getElementById("tutbtn").style.color="brown"
                 document.getElementById("tut-info").children[0].style.opacity="1";
                 document.getElementById("tut-info").children[1].style.opacity="1";
               }else if(txtcount3%4==3){
@@ -12751,15 +12889,14 @@
               document.getElementById("left").classList.remove("show");
               document.getElementById("left").classList.add("fade");
 
-              document.getElementById("leftup").classList.remove("show");
-              document.getElementById("leftup").classList.add("fade");
+
 
               document.getElementById("center").classList.remove("show");
               document.getElementById("center").classList.add("fade");
               setTimeout(function() {
                   document.getElementById("coin-info").classList.add("hidden");
                   document.getElementById("left").classList.add("hidden");
-                  document.getElementById("leftup").classList.add("hidden");
+
                   document.getElementById("center").classList.add("hidden");
 
               }, 100);
@@ -12801,6 +12938,8 @@
             }
         } else {
           if(tutorialflag&&tutstep==99){
+            document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][0]);
+            document.getElementById("tut-info").children[1].style.color=hexToHtmlColor(colorlst[colornum][0]);
             document.getElementById("tut-info").style.zIndex=5;
             if(elapsedTime>1){
               if(document.getElementById("t1").classList.contains("hidden")){
@@ -12833,10 +12972,10 @@
                 })
             })
             var txtcount3 = parseInt(elapsedTime*2 ) % 100
-            document.getElementById("tut-info").children[0].style.color="#FFFFFF"
+            // document.getElementById("tut-info").children[0].style.color="#FFFFFF"
             if(txtcount3%2==0){
               document.getElementById("intro").children[1].style.opacity="0.1";
-              document.getElementById("tut-info").children[0].style.opacity="0";
+              document.getElementById("tut-info").children[0].style.opacity="0.3";
             }else{
               document.getElementById("intro").children[1].style.opacity="1";
               document.getElementById("tut-info").children[0].style.opacity="1";
@@ -13202,9 +13341,7 @@
                   document.getElementById("center").classList.remove("fade");
                   document.getElementById("center").classList.add("show");
 
-                  document.getElementById("leftup").classList.remove("hidden");
-                  document.getElementById("leftup").classList.remove("fade");
-                  document.getElementById("leftup").classList.add("show");
+
 
                   if(document.getElementById("right").classList.contains("hidden")){
                     document.getElementById("right").classList.remove("hidden");
@@ -15385,7 +15522,7 @@
 
 
 
-            if (pointbuf != 점수) {
+            if (pointbuf != 점수||gamemod==2) {
                 pointbuf = 점수
                 while (포인트.length > 0) {
                     scene.remove(포인트.pop());
@@ -15625,8 +15762,8 @@
                   var height1 = window.innerWidth / 1;
                 // }
                 if((window.innerWidth / window.innerHeight) > 0.5){
-                  renderer.setViewport(window.innerWidth / 2 - width / 2, -(width / 20)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
-                  renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width / 20)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
+                  renderer.setViewport(window.innerWidth / 2 - width / 2, -(width / 15)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
+                  renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width / 15)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
                 }else{
                   renderer.setViewport(window.innerWidth / 2 - width / 2, 0*-(width / 30)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
                   renderer.setScissor(window.innerWidth / 2 - width1 / 2, 0*-(width / 30)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
@@ -19614,7 +19751,14 @@
           document.getElementById("tut-info").style.opacity=0;
 
           elapsedTime=0;
-          tutstep=99;
+          if(gamemod==0){
+            tutstep=99;
+          }else if(gamemod==1){
+            tutstep=99;
+          }else if(gamemod==2){
+            tutstep=20;
+          }
+
           tutorialflag=true;
 
 
@@ -19625,6 +19769,7 @@
 
         nobtn.addEventListener('click', function() {
             document.getElementById('yesno').style.display="none"
+            // document.getElementById("yesno").style.zIndex=3;
 
         })
 
@@ -20494,8 +20639,7 @@
     function skinon() {
         document.getElementById("left").classList.add("fade");
         document.getElementById("left").classList.remove("show");
-        document.getElementById("leftup").classList.add("fade");
-        document.getElementById("leftup").classList.remove("show");
+
         document.getElementById("right").classList.add("fade");
         document.getElementById("right").classList.remove("show");
         document.getElementById("center").classList.add("fade");
@@ -20510,7 +20654,7 @@
 
         setTimeout(function() {
             document.getElementById("left").classList.add("hidden");
-            document.getElementById("leftup").classList.add("hidden");
+
             document.getElementById("right").classList.add("hidden");
             document.getElementById("center").classList.add("hidden");
             document.getElementById("optionlst").classList.add("hidden");
@@ -20588,8 +20732,7 @@
       }
         document.getElementById("left").classList.add("fade");
         document.getElementById("left").classList.remove("show");
-        document.getElementById("leftup").classList.add("fade");
-        document.getElementById("leftup").classList.remove("show");
+
         document.getElementById("center").classList.add("fade");
         document.getElementById("center").classList.remove("show");
         document.getElementById("right").classList.add("fade");
@@ -20600,7 +20743,7 @@
         document.getElementById("setting-overlay").classList.add("show");
         setTimeout(function() {
             document.getElementById("left").classList.add("hidden");
-            document.getElementById("leftup").classList.add("hidden");
+
             document.getElementById("right").classList.add("hidden");
             document.getElementById("center").classList.add("hidden");
             document.getElementById("optionlst").classList.add("hidden");
@@ -20643,8 +20786,7 @@
         }
         document.getElementById("left").classList.add("fade");
         document.getElementById("left").classList.remove("show");
-        document.getElementById("leftup").classList.add("fade");
-        document.getElementById("leftup").classList.remove("show");
+
         document.getElementById("right").classList.add("fade");
         document.getElementById("right").classList.remove("show");
         // document.getElementById("center").classList.add("fade");
@@ -20655,7 +20797,7 @@
         document.getElementById("mod-overlay").classList.add("show");
         setTimeout(function() {
             document.getElementById("left").classList.add("hidden");
-            document.getElementById("leftup").classList.add("hidden");
+
             document.getElementById("right").classList.add("hidden");
             // document.getElementById("center").classList.add("hidden");
             document.getElementById("optionlst").classList.add("hidden");
@@ -21444,7 +21586,9 @@
     }
 
     function showtut(n){
+
       document.getElementById("yesno").classList.remove("hidden");
+      document.getElementById("yesno").style.zIndex=3;
       document.getElementById("optionlst").style.display="none"
       document.getElementById("optionlst").classList.add("hidden");
       document.getElementById("right").children[1].classList.add("hidden");
@@ -21639,9 +21783,7 @@
     <b>랙</b>
 </div>
 
-<button id="leftup" onclick="showtut()">
-    <img src="png/question.png" >
-</button>
+
 
 <button id="left" class="left" onclick="skinon()">
     <img class="" src="png/left0.png">
@@ -22312,7 +22454,7 @@
                     <span>artist</span>
                     <span>price</span>
                 </div>
-                <!-- Add more characters -->
+
             </div>
             <span id="lowerbtn2">
               <button class="pbutton2 hidden" onclick="pbton()" id="gbt1">
@@ -22379,10 +22521,6 @@
 
             <div id="m2price">★ 300</div>
         </div>
-
-
-
-
     </div>
 </div>
 
