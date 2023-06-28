@@ -2209,6 +2209,13 @@
 
     var 핑거={x:0,y:0}
 
+    var canx;
+    var cany;
+
+    var cbnx;
+    var cbny;
+
+
 
 
 
@@ -5200,7 +5207,7 @@
         if(window.innerWidth>window.innerHeight){
           핑거.x = (event.touches[0].clientX / window.innerHeight)* 0.8 - 1;
           핑거.y = -(event.touches[0].clientY / window.innerHeight)*0.8 + 1;
-          lastX = (event.touches[0].clientX / window.innerHeight) * 2 - 1;
+          lastX = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
           lastY = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
         }else{
           핑거.x = (event.touches[0].clientX / window.innerWidth)* 0.8 - 1;
@@ -5224,7 +5231,7 @@
 
           });
         }
-        
+
         if(cat.length>=1){
           if(shiftlock) return;
           if(gamemod==2){
@@ -5336,9 +5343,7 @@
           return;
 
         }else{
-
           ontouch = true
-
 
         }
 
@@ -11233,7 +11238,7 @@
         });
 
 
-        var geometry = new THREE.BoxGeometry(100, 300, 2);
+        var geometry = new THREE.BoxGeometry(200, 300, 2);
         var backmesh = new THREE.Mesh(geometry, material4);
         // backmesh.material.depthTest = false;
         backmesh.material.depthWrite = false;
@@ -15770,19 +15775,20 @@
                 }
                 renderer.setScissorTest(true);
                 renderer.render(scene, topViewCamera);
-            } else if ((window.innerWidth / window.innerHeight) > 13 / 8) {
-              if(skinset[skinnum]=="classic"){
-                var width = window.innerHeight / 1;
-                var height = window.innerHeight / 1;
-              }else{
-                var width = window.innerHeight / 1.1;
-                var height = window.innerHeight / 1.1;
-              }
-                renderer.setViewport(window.innerWidth - height - (window.innerWidth - window.innerHeight) / 8, -3500 * Math.abs(-isoAngle - camera.rotation.x) - 1000 * Math.abs(Math.PI / 4 - camera.rotation.y), width, width);
-                renderer.setScissor(window.innerWidth - height - (window.innerWidth - window.innerHeight) / 8, -3500 * Math.abs(-isoAngle - camera.rotation.x) - 1000 * Math.abs(Math.PI / 4 - camera.rotation.y), width, width);
-                renderer.setScissorTest(true);
-                renderer.render(scene, topViewCamera);
             }
+            // else if ((window.innerWidth / window.innerHeight) > 13 / 8) {
+            //   if(skinset[skinnum]=="classic"){
+            //     var width = window.innerHeight / 1;
+            //     var height = window.innerHeight / 1;
+            //   }else{
+            //     var width = window.innerHeight / 1.1;
+            //     var height = window.innerHeight / 1.1;
+            //   }
+            //     renderer.setViewport(window.innerWidth - height - (window.innerWidth - window.innerHeight) / 8, -3500 * Math.abs(-isoAngle - camera.rotation.x) - 1000 * Math.abs(Math.PI / 4 - camera.rotation.y), width, width);
+            //     renderer.setScissor(window.innerWidth - height - (window.innerWidth - window.innerHeight) / 8, -3500 * Math.abs(-isoAngle - camera.rotation.x) - 1000 * Math.abs(Math.PI / 4 - camera.rotation.y), width, width);
+            //     renderer.setScissorTest(true);
+            //     renderer.render(scene, topViewCamera);
+            // }
         }
         ring[0].children.forEach((item) => {
             item.material.visible = false;
