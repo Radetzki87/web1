@@ -1514,6 +1514,35 @@
 
         }
 
+        .mod-container2 {
+            background-color: rgba(100, 100, 100, 0.5);
+            display: flex;
+            font-family: 'GG';
+            width: 69vmin;
+            height: 45vmin;
+            border-radius: 4vmin;
+            align-items: flex-start;
+            border: 0px solid #000;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            font-size: 3vmin;
+            z-index: 2;
+            margin-top: 3vmin;
+            /*    margin: 240px 0;*/
+        }
+
+        .mod-container2 button {
+
+            /* position: fixed; */
+            right: 10%;
+            font-family: 'GG';
+            font-size: 8vmin;
+            margin: 4vmin 0;
+
+        }
+
         .mod {
 
             display: flex;
@@ -14757,15 +14786,45 @@
             if (rmvftile.length != 0 && ftiles.length == rmvftile.length && ftiles[0].body.boardChanged) {
                 ftiles[0].body.spawnTile(ftiles[0].direction);
                 tempeffects =[];
-                횟수++;
-                if(횟수%5==0){
-                  playlock=true;
-                  setTimeout(function() {
-                    activeFloor=parseInt(횟수/5)%5;
-                    bf=99;
-                    playlock=false;
-                  }, 500);
+                if(gamemod==4){
+                  횟수++;
+                  if(횟수%5==0){
+                    playlock=true;
+                    setTimeout(function() {
+                      activeFloor=parseInt(횟수/5)%5;
+                      var prevfloor=activeFloor-1;
+                      if(prevfloor==-1) prevfloor=4;
+
+                      bf=99;
+                      playlock=false;
+                      if(soundic[sdic[prevfloor][0]].isPlaying) soundic[sdic[prevfloor][0]].stop();
+                      soundic[sdic[activeFloor][0]].play();
+                      songTitleElement.innerText = sdic[activeFloor]["title"];
+                      artistNameElement.innerText = sdic[activeFloor]["producer"];
+                      var songInfo = document.getElementById('song-info');
+                      songInfo.classList.add("moveleft");
+                      songInfo.style.left="0px"
+
+                      document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+                      document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+                      document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+                      document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
+                      document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
+                      document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
+                      document.getElementById('playing').style.color="#eeeeee"
+                      if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
+                      songInfo.classList.add("show1");
+                      songfade=elapsedTime;
+
+
+                    }, 500);
+                  }
+
+
+
+
                 }
+
 
 
                 // var dupeffects=findDuplicates(tempeffects);
@@ -16214,6 +16273,16 @@
                         } else {
                             item.position.z = 1+avz - bw / 2.3;
                         }
+                    }else if(gamemod==4){
+
+                        temptxt=String(횟수)
+                        if (temptxt.toString().length >= 4) {
+                            item.position.z = 4+avz - bw / 3;
+                        } else if (temptxt.toString().length == 3) {
+                            item.position.z = 3+avz - bw / 2.6;
+                        } else {
+                            item.position.z = 1+avz - bw / 2.3;
+                        }
                     }else{
                       if (parseInt(pointbuf).toString().length >= 4) {
                           item.position.z = 1+avz -bw /(3.1+(parseInt(pointbuf).toString().length-4)*0.3);
@@ -16242,7 +16311,7 @@
 
 
 
-            if (pointbuf != 점수||(gamemod==2&&cubes.length==5)) {
+            if (pointbuf != 점수||(gamemod==2&&cubes.length==5)||gamemod==4) {
                 pointbuf = 점수
                 while (포인트.length > 0) {
                     scene.remove(포인트.pop());
@@ -16251,6 +16320,8 @@
 
                 if(gamemod==2){
                   temptxt="↑:"+String(stacknum[cubes.length-1])
+                }else if(gamemod==4){
+                  temptxt=String(횟수)
                 }else{
                   temptxt=parseInt(점수)
                 }
@@ -16258,6 +16329,16 @@
                 createTextMesh(temptxt.toString(), 999, (textMesh) => {
                     if(gamemod==2){
                       textMesh.position.y = (cubes.length-3) * bh - th * 0
+                      if (temptxt.toString().length >= 4) {
+                          textMesh.position.z = 4+avz - bw / 3;
+                      } else if (temptxt.toString().length == 3) {
+                          textMesh.position.z = 3+avz - bw / 2.6;
+                      } else {
+                          textMesh.position.z = 1+avz - bw / 2.3;
+                      }
+                    }else if(gamemod==4){
+                      textMesh.position.y = cubes.length * bh - th * 0
+
                       if (temptxt.toString().length >= 4) {
                           textMesh.position.z = 4+avz - bw / 3;
                       } else if (temptxt.toString().length == 3) {
@@ -23688,7 +23769,7 @@
             <div id="m2price">★ 300</div>
         </div>
     </div>
-    <div class="mod-container">
+    <div class="mod-container2">
         <div class="mod">
             <button id="mod3" class="modbt">
                 <img src="png/collapse.png" >
