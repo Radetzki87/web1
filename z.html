@@ -1340,7 +1340,7 @@
             background-color: rgba(50, 50, 50, 0.2);
             border-radius: 4vmin;
             border: 0px solid #000;
-            width: 85%;
+            width: 88%;
             /* height: 50vw; */
             justify-content:flex-start;
             align-items: left;
@@ -2290,6 +2290,8 @@
 
     var fstep;
     var tfloor;
+
+    var 횟수=0;
 
 
 
@@ -4289,7 +4291,7 @@
             }
             // this.move();
         }
-        spawnTile(direction) {
+        spawnTile(direction, tilenum=0) {
             // if(direction=5){
             //   this.boardChanged=false;
             //   return ;
@@ -4376,10 +4378,23 @@
                 });
             }
             if (emptyPositions.length > 0) {
+                var ntxt;
                 // const position = emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
                 var position = emptyPositions[0];
-                this.board[position.row][position.col] = Math.random() < 0.9 ? 2 : 4;
-                // this.board[position.row][position.col] = 64;
+                if(tilenum==0){
+                  if(gamemod==4){
+                    this.board[position.row][position.col] =Math.pow(2, 1+parseInt(Math.random()*5))
+                  }else{
+                    this.board[position.row][position.col] = Math.random() < 0.9 ? 2 : 4;
+                  }
+
+                  // this.board[position.row][position.col] = 512;
+                  ntxt=String(this.board[position.row][position.col])
+                }else{
+                  this.board[position.row][position.col] = tilenum;
+                  ntxt=String(this.board[position.row][position.col])
+                }
+
                 let ntile;
                 if (this.board[position.row][position.col] == 2) {
                     ntile = tilemold[0].clone();
@@ -4405,10 +4420,58 @@
                     ntile.children[0].material = new THREE.MeshBasicMaterial({
                         color: 0xffffff
                     });
+                }else if(this.board[position.row][position.col] == 16) {
+                    ntile = tilemold[3].clone();
+                    ntile.material = new THREE.MeshLambertMaterial({
+                        color: getColorForNumber(16)
+                    });
+                    ntile.children[0].material = new THREE.MeshBasicMaterial({
+                        color: 0xffffff
+                    });
+                }else if(this.board[position.row][position.col] == 32) {
+                    ntile = tilemold[4].clone();
+                    ntile.material = new THREE.MeshLambertMaterial({
+                        color: getColorForNumber(32)
+                    });
+                    ntile.children[0].material = new THREE.MeshBasicMaterial({
+                        color: 0xffffff
+                    });
                 }else if(this.board[position.row][position.col] == 64) {
                     ntile = tilemold[5].clone();
                     ntile.material = new THREE.MeshLambertMaterial({
                         color: getColorForNumber(64)
+                    });
+                    ntile.children[0].material = new THREE.MeshBasicMaterial({
+                        color: 0xffffff
+                    });
+                }else if(this.board[position.row][position.col] == 128) {
+                    ntile = tilemold[6].clone();
+                    ntile.material = new THREE.MeshLambertMaterial({
+                        color: getColorForNumber(128)
+                    });
+                    ntile.children[0].material = new THREE.MeshBasicMaterial({
+                        color: 0xffffff
+                    });
+                }else if(this.board[position.row][position.col] == 256) {
+                    ntile = tilemold[7].clone();
+                    ntile.material = new THREE.MeshLambertMaterial({
+                        color: getColorForNumber(256)
+                    });
+                    ntile.children[0].material = new THREE.MeshBasicMaterial({
+                        color: 0xffffff
+                    });
+                }else if(this.board[position.row][position.col] == 512) {
+                    ntile = tilemold[8].clone();
+                    ntile.material = new THREE.MeshLambertMaterial({
+                        color: getColorForNumber(512)
+                    });
+                    ntile.children[0].material = new THREE.MeshBasicMaterial({
+                        color: 0xffffff
+                    });
+                }else if(this.board[position.row][position.col] == 1024) {
+                    ntile = tilemold[9].clone();
+                    ntile.material = new THREE.MeshLambertMaterial({
+                        color: getColorForNumber(1024)
                     });
                     ntile.children[0].material = new THREE.MeshBasicMaterial({
                         color: 0xffffff
@@ -4423,11 +4486,18 @@
                 ntile.userData["merge"] = 0;
                 ntile.userData["skin"] = "tile";
                 ntile.userData["skintype"] =1;
+
                 // ntile.material.opacity=1;
                 // ntile.material.visible=true;
                 ntile.children.forEach((text) => {
                     // text.material.opacity=1;
                     // text.material.visible=true;
+
+                    if(ntxt.length>=3){
+                      text.scale.x=0.8-((ntxt.length-3)/5);
+                    }else{
+                      text.scale.x=1;
+                    }
                     text.userData["time"] = elapsedTime;
                     text.userData["merge"] = 0;
                     text.userData["skin"] = "tile";
@@ -5355,9 +5425,9 @@
 
           // document.getElementById("optionlst").style.display="none"
 
-          if(gamemod==0){
+          if(gamemod==0||gamemod==4){
             world.gravity.set(0, -7, 0);
-          }else if(gamemod==1){
+          }else if(gamemod==1||gamemod==3){
             world.gravity.set(0, -8, 0);
           }else if(gamemod==2){
             world.gravity.set(0, -6, 0);
@@ -5423,6 +5493,7 @@
 
         if(cat.length>=1){
           if(shiftlock) return;
+          if(gamemod==4) tempidx=parseInt(횟수/5);
           if(gamemod==2){
             if(cubes.length==5){
               if(tempidx<4) return;
@@ -6173,9 +6244,9 @@
               if(!go) return;
               document.getElementById("tut-info").style.display="none"
               document.getElementById("intro").style.display="none"
-              if(gamemod==0){
+              if(gamemod==0||gamemod==4){
                 world.gravity.set(0, -7, 0);
-              }else if(gamemod==1){
+              }else if(gamemod==1||gamemod==3){
                 world.gravity.set(0, -8, 0);
               }else if(gamemod==2){
                 world.gravity.set(0, -6, 0);
@@ -6283,9 +6354,9 @@
               if(!go) return;
               document.getElementById("tut-info").style.display="none"
               document.getElementById("intro").style.display="none"
-              if(gamemod==0){
+              if(gamemod==0||gamemod==4){
                 world.gravity.set(0, -7, 0);
-              }else if(gamemod==1){
+              }else if(gamemod==1||gamemod==3){
                 world.gravity.set(0, -8, 0);
               }else if(gamemod==2){
                 world.gravity.set(0, -6, 0);
@@ -6541,6 +6612,7 @@
     //   }
     // Create a function to add a new box to the stack
     function restart() {
+        횟수=0;
         tilelst=[];
         fullmax=false;
         // init();
@@ -6587,7 +6659,7 @@
         sideViewCamera.updateProjectionMatrix();
 
         // dl2.shadow.camera.position.y=bh * (cubes.length + 2);
-        if (gamemod==0){
+        if (gamemod==0||gamemod==4){
           for (var i = 0; i < cubes.length; i++) {
             cubes[i].body.material.friction = 0.2;
             cubes[i].body.material.restitution = 0.4;
@@ -6599,7 +6671,7 @@
           world.gravity.set(0, 0, 0);
           world.solver.iterations = 5;
           // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
-        }else if (gamemod==1){
+        }else if (gamemod==1||gamemod==3){
           for (var i = 0; i < cubes.length; i++) {
             cubes[i].body.material.friction = 0.4;
             cubes[i].body.material.restitution = 0.4;
@@ -6952,7 +7024,16 @@
                   cubes.forEach((item) => {
                       item.mesh.userData.game2048.spawnTile();
                       item.mesh.userData.game2048.spawnTile();
+                      if(gamemod==4){
+                        item.mesh.userData.game2048.spawnTile("up",Math.pow(2, 3+parseInt(Math.random()*4)));
+                        item.mesh.userData.game2048.spawnTile("down",Math.pow(2, 3+parseInt(Math.random()*4)));
+                        item.mesh.userData.game2048.spawnTile("left",Math.pow(2, 3+parseInt(Math.random()*4)));
+                        item.mesh.userData.game2048.spawnTile("right",Math.pow(2, 3+parseInt(Math.random()*4)));
+                        item.mesh.userData.game2048.spawnTile("up",Math.pow(2, 3+parseInt(Math.random()*4)));
+                        item.mesh.userData.game2048.spawnTile("down",Math.pow(2, 3+parseInt(Math.random()*4)));
+                      }
                   })
+
                 }else{
                   cubes[4].mesh.userData.game2048.spawnTile();
                   cubes[4].mesh.userData.game2048.spawnTile();
@@ -11070,7 +11151,7 @@
         });
 
 
-        for (var i = 0; i < 11; i++) {
+        for (var i = 0; i < 12; i++) {
           var w = bw / 20
           w += Math.sqrt(Math.pow(2, i)) / 5
           var vw=w
@@ -13415,6 +13496,7 @@
 
             // uilst[0].material.visible=false;
             if (initflag) {
+
               document.getElementById("coin-info").classList.remove("show");
               document.getElementById("coin-info").classList.add("fade");
               // document.getElementById("coin-info").style.opacity=0;
@@ -14593,7 +14675,7 @@
                               console.log(tnum)
                               var tforce=forceset[item.index][tnum]
 
-                              if(gamemod==0){
+                              if(gamemod==0||gamemod==4){
                                 tforce*=1.4;
                                 // if(tutorialflag){
                                 //   tforce*=1.1;
@@ -14674,7 +14756,18 @@
 
             if (rmvftile.length != 0 && ftiles.length == rmvftile.length && ftiles[0].body.boardChanged) {
                 ftiles[0].body.spawnTile(ftiles[0].direction);
-                tempeffects = [];
+                tempeffects =[];
+                횟수++;
+                if(횟수%5==0){
+                  playlock=true;
+                  setTimeout(function() {
+                    activeFloor=parseInt(횟수/5)%5;
+                    bf=99;
+                    playlock=false;
+                  }, 500);
+                }
+
+
                 // var dupeffects=findDuplicates(tempeffects);
                 // var neweffects=removeDuplicates(tempeffects);
                 // console.log(dupeffects);
@@ -20022,11 +20115,12 @@
         document.getElementById("notxt").style.left="15%"
 
         document.querySelector(".gameinfo1").children[0].style.right="10%"
+        document.querySelector(".gameinfo1").children[1].style.right="40%"
 
         // document.querySelector(".gameinfo0").children[0].style.left="70%"
         // document.querySelector(".gameinfo0").children[1].style.left="70%"
         document.querySelector(".gameinfo0").style.textAlign="right"
-        document.querySelector(".gameinfo0").children[2].style.right="80vmin"
+        document.querySelector(".gameinfo0").children[2].style.right="60vmin"
 
         document.getElementById("coin1").style.display="none";
         document.getElementById("coin3").style.display="";
@@ -20045,12 +20139,13 @@
         document.getElementById("max").children[2].style.left="78%"
 
         document.getElementById("총획득").children[0].style.left=""
-        document.getElementById("총획득").children[2].style.left="78%"
+        document.getElementById("총획득").children[2].style.left="72%"
 
         document.getElementById("yestxt").style.left=""
         document.getElementById("notxt").style.left="55%"
 
         document.querySelector(".gameinfo1").children[0].style.right="70%"
+        document.querySelector(".gameinfo1").children[1].style.right="20%"
 
         // document.querySelector(".gameinfo0").children[0].style.left="30%"
         // document.querySelector(".gameinfo0").children[1].style.left="30%"
@@ -20169,7 +20264,9 @@
 
         document.getElementById('tutbtn').style.fontFamily="GG"
 
-
+        document.querySelector(".gameinfo0").children[0].style.fontFamily="GG"
+        document.querySelector(".gameinfo0").children[1].style.fontFamily="GG"
+        document.querySelector(".gameinfo0").children[2].style.fontFamily="GG"
 
         retrytxt[0].style.fontFamily="GG"
         retrytxt[1].style.fontFamily="GG"
@@ -20203,6 +20300,10 @@
 
         document.getElementById('tutbtn').style.fontFamily="elice"
 
+        document.querySelector(".gameinfo0").children[0].style.fontFamily="elice"
+        document.querySelector(".gameinfo0").children[1].style.fontFamily="elice"
+        document.querySelector(".gameinfo0").children[2].style.fontFamily="elice"
+
         retrytxt[0].style.fontFamily="elice"
         retrytxt[1].style.fontFamily="elice"
         // retrytxt[2].style.fontFamily="elice"
@@ -20210,6 +20311,7 @@
         document.getElementById("yesno").children[0].style.fontFamily="elice"
         document.getElementById("yestxt").style.fontFamily="elice"
         document.getElementById("notxt").style.fontFamily="elice"
+
 
         // catbtn[0].children[1].style.fontFamily="elice"
         // document.getElementById("playing").style.fontFamily="elice"
@@ -20234,6 +20336,10 @@
         temp1[0].children[1].style.fontFamily="mono"
 
         document.getElementById('tutbtn').style.fontFamily="mono"
+
+        document.querySelector(".gameinfo0").children[0].style.fontFamily="mono"
+        document.querySelector(".gameinfo0").children[1].style.fontFamily="mono"
+        document.querySelector(".gameinfo0").children[2].style.fontFamily="mono"
 
         retrytxt[0].style.fontFamily="mono"
         retrytxt[1].style.fontFamily="mono"
@@ -20592,7 +20698,8 @@
         var mod0 = document.getElementById('mod0');
         var mod1 = document.getElementById('mod1');
         var mod2 = document.getElementById('mod2');
-        // var mod3 = document.getElementById('mod3');
+        var mod3 = document.getElementById('mod3');
+        var mod4 = document.getElementById('mod4');
 
 
 
@@ -21030,65 +21137,117 @@
             }
         })
 
-        // mod3.addEventListener('click', function() {
-        //
-        //   if(coin>=mod2비용){
-        //     contract(mod2비용,[])
-        //     showpop("",String(mod2비용)+" ★  지불","")
-        //     }else{
-        //       showpop("★가","부족합니다","")
-        //       // Android.showToast("★가 부족합니다");
-        //
-        //       return;
-        //     }
-        //
-        //     if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
-        //         document.getElementById("mod-overlay").classList.remove("show");
-        //         document.getElementById("mod-overlay").classList.add("fade");
-        //         setTimeout(function() {
-        //             document.getElementById("mod-overlay").classList.add("hidden");
-        //         }, 100);
-        //         gamemod=3;
-        //         if (!rotationflag) {
-        //             rotationflag = true
-        //             restartflag = true
-        //             pluscoin = parseInt(점수 / 10)
-        //             // coin += pluscoin;
-        //             restartloc=[];
-        //             restartrot=[];
-        //             for (var i = 0; i < cubes.length; i++) {
-        //                 restartloc.push(cubes[i].mesh.position);
-        //                 restartrot.push(cubes[i].mesh.rotation);
-        //             }
-        //             do{
-        //               ncolornum = parseInt(Math.random() * colorlst.length);
-        //             }while(색보정.indexOf(ncolornum)!=-1)
-        //
-        //             do{
-        //               ncolornum0 = parseInt(Math.random() * colorlst0.length);
-        //             }while(색보정0.indexOf(ncolornum0)!=-1)
-        //             rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-        //             renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
-        //             rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
-        //             renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
-        //             rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
-        //             renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
-        //             rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
-        //             renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
-        //             bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
-        //             nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
-        //             bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
-        //             nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
-        //             bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
-        //             nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
-        //             bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
-        //             nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
-        //             bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
-        //             nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
-        //             rotationend = Math.PI / 4
-        //         }
-        //     }
-        // })
+        mod3.addEventListener('click', function() {
+
+          if(coin>=mod2비용){
+            contract(mod2비용,[])
+            showpop("",String(mod2비용)+" ★  지불","")
+            }else{
+              showpop("★가","부족합니다","")
+              // Android.showToast("★가 부족합니다");
+
+              return;
+            }
+
+            if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
+                document.getElementById("mod-overlay").classList.remove("show");
+                document.getElementById("mod-overlay").classList.add("fade");
+                setTimeout(function() {
+                    document.getElementById("mod-overlay").classList.add("hidden");
+                }, 100);
+                gamemod=3;
+                if (!rotationflag) {
+                    rotationflag = true
+                    restartflag = true
+                    pluscoin = parseInt(점수 / 10)
+                    // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
+                    for (var i = 0; i < cubes.length; i++) {
+                        restartloc.push(cubes[i].mesh.position);
+                        restartrot.push(cubes[i].mesh.rotation);
+                    }
+                    do{
+                      ncolornum = parseInt(Math.random() * colorlst.length);
+                    }while(색보정.indexOf(ncolornum)!=-1)
+
+                    do{
+                      ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    }while(색보정0.indexOf(ncolornum0)!=-1)
+                    rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                    renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                    rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                    renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+                    rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                    renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+                    rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                    renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+                    bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+                    nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+                    bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+                    nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+                    bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+                    nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+                    bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+                    nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+                    bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+                    nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+                    rotationend = Math.PI / 4
+                }
+            }
+        })
+
+        mod4.addEventListener('click', function() {
+            if(gamemod==2){
+              skinnum=0;
+            }
+            if (!document.getElementById("mod-overlay").classList.contains("hidden")) {
+                document.getElementById("mod-overlay").classList.remove("show");
+                document.getElementById("mod-overlay").classList.add("fade");
+                setTimeout(function() {
+                    document.getElementById("mod-overlay").classList.add("hidden");
+                }, 100);
+                gamemod=4;
+                if (!rotationflag) {
+                    rotationflag = true
+                    restartflag = true
+                    pluscoin = parseInt(점수 / 10)
+                    // coin += pluscoin;
+                    restartloc=[];
+                    restartrot=[];
+                    for (var i = 0; i < cubes.length; i++) {
+                        restartloc.push(cubes[i].mesh.position);
+                        restartrot.push(cubes[i].mesh.rotation);
+                    }
+                    do{
+                      ncolornum = parseInt(Math.random() * colorlst.length);
+                    }while(색보정.indexOf(ncolornum)!=-1)
+
+                    do{
+                      ncolornum0 = parseInt(Math.random() * colorlst0.length);
+                    }while(색보정0.indexOf(ncolornum0)!=-1)
+                    rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                    renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                    rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                    renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+                    rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                    renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
+                    rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+                    renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
+                    bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
+                    nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
+                    bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
+                    nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
+                    bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
+                    nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
+                    bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
+                    nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
+                    bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
+                    nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+                    rotationend = Math.PI / 4
+                }
+            }
+        })
 
         reBtn.addEventListener('click', function() {
           if(gamemod==2){
@@ -23528,6 +23687,27 @@
 
             <div id="m2price">★ 300</div>
         </div>
+    </div>
+    <div class="mod-container">
+        <div class="mod">
+            <button id="mod3" class="modbt">
+                <img src="png/collapse.png" >
+            </button>
+            <b class="mlabel">collapse</b>
+            <label>기본</label>
+
+        </div>
+
+        <div class="mod">
+            <button id="mod4" class="modbt" onclick="">
+                <img src="png/hard.png" >
+            </button>
+            <b class="mlabel">SAND CASTLE</b>
+            <label>어려움</label>
+
+        </div>
+
+
     </div>
 </div>
 
