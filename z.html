@@ -16272,7 +16272,7 @@
                             item.position.z = 1+avz - bw / 2.3;
                         }
                     }else if(gamemod==4){
-                        temptxt=String(횟수)
+                        temptxt=String(횟수);
                         if (temptxt.toString().length >= 4) {
                             item.position.z = 4+avz - bw / 3;
                         } else if (temptxt.toString().length == 3) {
@@ -16280,6 +16280,7 @@
                         } else {
                             item.position.z = 1+avz - bw / 2.3;
                         }
+
                     }else{
                       if (parseInt(pointbuf).toString().length >= 4) {
                           item.position.z = 1+avz -bw /(3.1+(parseInt(pointbuf).toString().length-4)*0.3);
@@ -16306,7 +16307,7 @@
                 })
             }
 
-
+            console.log(elapsedTime)
 
             if (pointbuf != 점수||(gamemod==2&&cubes.length==5)||gamemod==4) {
                 pointbuf = 점수
@@ -16335,6 +16336,14 @@
                       }
                     }else if(gamemod==4){
                       textMesh.position.y = cubes.length * bh - th * 0
+                      if(횟수%5==4){
+                        textMesh.scale.x=0.8+(parseInt(elapsedTime*10)%10)*0.05
+                        textMesh.scale.y=0.8+(parseInt(elapsedTime*10)%10)*0.05
+                      }else{
+                        textMesh.scale.x=1
+                        textMesh.scale.y=1
+                      }
+
 
                       if (temptxt.toString().length >= 4) {
                           textMesh.position.z = 4+avz - bw / 3;
