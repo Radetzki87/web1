@@ -49,7 +49,7 @@
             background-color: rgba(100, 100, 100, 0.5);
             font-family: 'GG';
             width: 70vmin;
-            height: 30vmin;
+            height: 38vmin;
             border-radius: 4vmin;
             display: flex;
             flex-direction: column;
@@ -67,6 +67,7 @@
           color: white;
 
         }
+
         #yestxt{
           position: relative;
           right:55%;
@@ -141,9 +142,9 @@
         }
 
         #langimg{
-          margin-top: 1.8vmin;
+          margin-top: 2.2vmin;
           margin-bottom: 0.6vmin;
-          width:20vmin;
+          width:19vmin;
         }
 
         #td0{
@@ -1387,16 +1388,16 @@
         }
 
         .gameinfo1 .b{
-          left:20vmin;
+          /* left:15vmin; */
           /* right:0vmin; */
           position: absolute;
           /* position: relative; */
           /* right:40%; */
           text-align: left;
-          /* transform: translate(0, -1vmin); */
+          transform: translate(0, 2.5vmin);
           /* margin-left: 7vmin;
           margin-right: 7vmin; */
-          font-size: 7vmin;
+          font-size: 5vmin;
           /* align-items:baseline; */
         }
 
@@ -1417,8 +1418,8 @@
           /* right:40%; */
           /* text-align: right; */
           /* transform: translate(0, 2vmin); */
-          margin-top: 15vmin;
-          font-size: 3vmin;
+          margin-top: 17vmin;
+          font-size: 2.5vmin;
           text-align: center;
         }
 
@@ -1445,7 +1446,7 @@
 
         #nrec{
           position: absolute;
-          font-size: 4vmin;
+          font-size: 5vmin;
           right:10vmin;
 
         }
@@ -1498,7 +1499,7 @@
           font-size: 3.5vmin;
           left:30vmin;
           /* margin-left: 38vmin; */
-          margin-top: 0.5vmin;
+          /* margin-top: 0.5vmin; */
         }
 
         .gameinfo .c{
@@ -1870,29 +1871,33 @@
         #lang-back {
             position: absolute;
             width: 100%;
-            height: 100vmin;
-            background-color: rgba(100, 100, 120, 0.65);
+            /* height: 100vmin; */
+            background-color: rgba(150, 150, 150, 0.75);
             z-index: 2;
             align-items: center;
             justify-content: center;
             border-radius: 3vw;
+            padding-bottom: 5vmin;
+            padding-top:2vmin;
+            padding-left:1vmin;
+            padding-right:1vmin;
         }
 
         .lang-grid {
-            margin-top: 5vmin;
+            margin-top: 2vmin;
             /* position: absolute; */
             justify-content: center;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             top:3vmin;
             /* left:3%; */
-            grid-gap: 1vmin;
+            grid-gap: 2vmin;
             align-items: center;
             /*background-color: rgba(50, 100, 250, 0.3);*/
         }
 
         .lang-grid img{
-          width: 15vmin;
+          width: 16vmin;
           /* height: 4.4vmin; */
         }
 
@@ -1902,8 +1907,8 @@
           flex-direction: column;
           align-items: center;
           /*    margin: 10vw 0;*/
-          background-color: rgba(150, 150, 150, 0.9);
-          background-color: transparent;
+          background-color: rgba(130, 130, 130, 0.8);
+          /* background-color: transparent; */
           justify-content: center;
           font-family: 'GG';
           height: 8vmin;
@@ -2597,10 +2602,8 @@
     var cbnx;
     var cbny;
 
-
     var freead=false;
     window.freead=freead;
-
 
     var stacknum=[0,0,0,0,8,8,16,16,16,32,32,32,32,64,64,64,64,128,128,128,128,256,256,256,512,512,512,512,1024,1024,1024,1024,1024,1024]
     var paidskin=[];
@@ -5171,7 +5174,7 @@
                     var thisnum = activeFloor
                     var playable = true
                     for (let i = 0; i < 6; i++) {
-                        if (i == thisnum) continue
+                        if (i == activeFloor) continue
                         if (soundic[sdic[i][0]].isPlaying) {
                             soundic[sdic[i][0]].stop();
                         }
@@ -11576,8 +11579,8 @@
                       if ((window.innerWidth / window.innerHeight) < 4 / 7) {
                         document.getElementById("td9").style.opacity=0.9;
                         document.getElementById("td9").style.top="58%"
-                        if(langnum==34){
-                          document.getElementById("tut-info").children[1].style.top="8%"
+                        if(langnum==30){
+                          document.getElementById("tut-info").children[1].style.top="7.5%"
                         }else{
                           document.getElementById("tut-info").children[1].style.top="7%"
                         }
@@ -11895,113 +11898,6 @@
                     document.getElementById("tut-info").style.display="none"
                   }
                   break;
-                  case 30:
-                    if ((window.innerWidth / window.innerHeight) < 4 / 7) {
-
-                    }else{
-
-                    }
-
-                  if(elapsedTime>8){
-                    tempseq=elapsedTime;
-                    tutstep++;
-                  }else if(elapsedTime>4){
-                    document.getElementById("tut-info").children[0].innerText=textdic[143][langset[langnum]]
-                    document.getElementById("tut-info").children[1].innerText=""
-                  }else{
-                    document.getElementById("tut-info").children[0].innerText=""
-                    document.getElementById("tut-info").children[1].innerText=""
-                  }
-                    break;
-                  case 31:
-                    if ((window.innerWidth / window.innerHeight) < 4 / 7) {
-
-                    }else{
-
-                    }
-                    document.getElementById("tut-info").children[0].innerText=textdic[144][langset[langnum]]
-
-                    if(elapsedTime-tempseq>5){
-                      tempseq=elapsedTime;
-                      tutstep++;
-                    }
-                    break;
-                  case 32:
-                    if ((window.innerWidth / window.innerHeight) < 4 / 7) {
-                      document.getElementById("t1").style.opacity=0;
-                      document.getElementById("t4").style.opacity=1;
-                    }else{
-
-                    }
-                    playlock=false;
-                    document.getElementById("tutbtn").classList.add("hidden");
-                    document.getElementById("tutbtn").style.opacity=0;
-
-                    document.getElementById("td5").style.opacity=0;
-                    document.getElementById("tut-info").children[0].innerText=textdic[145][langset[langnum]]
-                    document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][0])
-                    document.getElementById("tut-info").children[0].style.fontSize=tutsize1
-                    document.getElementById("tut-info").children[1].innerText=textdic[111][langset[langnum]]+String(parseInt(6-elapsedTime+tempseq))
-                    document.getElementById("tut-info").children[1].style.fontSize=tutsize2
-                    if(elapsedTime-tempseq>5){
-                      document.getElementById("t1").style.opacity=0;
-                      tutorialflag=false;
-                      tutstep=0;
-                      shiftlock=false
-                      document.getElementById("tut-info").style.display="none"
-                    }
-                    break;
-                  case 40:
-                    if ((window.innerWidth / window.innerHeight) < 4 / 7) {
-
-                    }else{
-
-                    }
-                  document.getElementById("tut-info").children[0].innerText=textdic[146][langset[langnum]]
-                  document.getElementById("tut-info").children[1].innerText=""
-                  if(elapsedTime>5){
-                    tempseq=elapsedTime;
-                    tutstep++;
-                  }
-                    break;
-                  case 41:
-                    if ((window.innerWidth / window.innerHeight) < 4 / 7) {
-
-                    }else{
-
-                    }
-                    document.getElementById("tut-info").children[0].innerText=textdic[147][langset[langnum]]
-
-                    if(elapsedTime-tempseq>5){
-                      tempseq=elapsedTime;
-                      tutstep++;
-                    }
-                    break;
-                  case 42:
-                    if ((window.innerWidth / window.innerHeight) < 4 / 7) {
-                      document.getElementById("t1").style.opacity=0;
-                      document.getElementById("t4").style.opacity=1;
-                    }else{
-
-                    }
-                    playlock=false;
-                    document.getElementById("tutbtn").classList.add("hidden");
-                    document.getElementById("tutbtn").style.opacity=0;
-
-                    document.getElementById("td5").style.opacity=0;
-                    document.getElementById("tut-info").children[0].innerText=textdic[148][langset[langnum]]
-                    document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][0])
-                    document.getElementById("tut-info").children[0].style.fontSize=tutsize1
-                    document.getElementById("tut-info").children[1].innerText=textdic[111][langset[langnum]]+String(parseInt(6-elapsedTime+tempseq))
-                    document.getElementById("tut-info").children[1].style.fontSize=tutsize2
-                    if(elapsedTime-tempseq>5){
-                      document.getElementById("t1").style.opacity=0;
-                      tutorialflag=false;
-                      tutstep=0;
-                      shiftlock=false
-                      document.getElementById("tut-info").style.display="none"
-                    }
-                    break;
                 default:
                   return
 
@@ -14141,20 +14037,84 @@
                             temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
                             temp1[0].children[2].style.color=hexToHtmlColor(colorlst[colornum][3])
                             등급곱=0.1
-                            if(cubes.length-2>20){
+                            if(cubes.length-3>22){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="S+"
+                                temp1[0].children[2].innerText="G"
+                                temp1[0].children[0].innerText=""
+                              }else{
+                                temp1[0].children[0].innerText="G"
+                                temp1[0].children[2].innerText=""
+                              }
+
+
+                              // temp1[0].children[1].innerText="oat!!!!!!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="미쳤어요?"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="oat!!!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[33][langset[langnum]]
+                              }
+
+
+                              등급곱=0.18;
+                            }else if(cubes.length-3>20){
+                              if(langnum==13||langnum==22||langnum==29||langnum==36){
+                                temp1[0].children[2].innerText="L"
+                                temp1[0].children[0].innerText=""
+                              }else{
+                                temp1[0].children[0].innerText="L"
+                                temp1[0].children[2].innerText=""
+                              }
+
+
+                              // temp1[0].children[1].innerText="oat!!!!!!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="전설의 출현"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="egend!!!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[34][langset[langnum]]
+                              }
+                              등급곱=0.17;
+                            }else if(cubes.length-3>18){
+                              if(langnum==13||langnum==22||langnum==29||langnum==36){
+                                temp1[0].children[2].innerText="M"
+                                temp1[0].children[0].innerText=""
+                              }else{
+                                temp1[0].children[0].innerText="M"
+                                temp1[0].children[2].innerText=""
+                              }
+
+                              // temp1[0].children[1].innerText="oat!!!!!!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="괴물!!!!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="ONSTER!!!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[127][langset[langnum]]
+                              }
+                              등급곱=0.16;
+                            }else if(cubes.length-3>16){
+                              if(langnum==13||langnum==22||langnum==29||langnum==36){
+                                temp1[0].children[2].innerText="+S"
                                 temp1[0].children[0].innerText=""
                               }else{
                                 temp1[0].children[0].innerText="S+"
                                 temp1[0].children[2].innerText=""
                               }
 
+                              // temp1[0].children[1].innerText="egend!!!!!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="타고났군요!!!!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="UPERB!!!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[36][langset[langnum]]
+                              }
 
-                              // temp1[0].children[1].innerText="oat!!!!!!!!"
-                              temp1[0].children[1].innerText=textdic[126][langset[langnum]]
-
-                            }else if(cubes.length-2>19){
+                              등급곱=0.14;
+                            }else if(cubes.length-3>14){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
                                 temp1[0].children[2].innerText="S"
                                 temp1[0].children[0].innerText=""
@@ -14163,22 +14123,36 @@
                                 temp1[0].children[2].innerText=""
                               }
 
-                              // temp1[0].children[1].innerText="oat!!!!!!!!"
-                              temp1[0].children[1].innerText=textdic[126][langset[langnum]]
+                              // temp1[0].children[1].innerText="pecial!!!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="최고에요!!!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="PECIAL!!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[128][langset[langnum]]
+                              }
 
-                            }else if(cubes.length-2>18){
+                              등급곱=0.13;
+                            }else if(cubes.length-3>13){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="A+"
+                                temp1[0].children[2].innerText="+A"
                                 temp1[0].children[0].innerText=""
                               }else{
                                 temp1[0].children[0].innerText="A+"
                                 temp1[0].children[2].innerText=""
                               }
+                              // temp1[0].children[1].innerText="uperb!!!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="굉장해요!!!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="WESOME!!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[129][langset[langnum]]
+                              }
 
-                              // temp1[0].children[1].innerText="egend!!!!!!!"
-                              temp1[0].children[1].innerText=textdic[127][langset[langnum]]
 
-                            }else if(cubes.length-2>17){
+                              등급곱=0.12;
+                            }else if(cubes.length-3>12){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
                                 temp1[0].children[2].innerText="A"
                                 temp1[0].children[0].innerText=""
@@ -14186,22 +14160,18 @@
                                 temp1[0].children[0].innerText="A"
                                 temp1[0].children[2].innerText=""
                               }
-
-                              // temp1[0].children[1].innerText="pecial!!!!!"
-                              temp1[0].children[1].innerText=textdic[128][langset[langnum]]
-
-                            }else if(cubes.length-2>16){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="B+"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="B+"
-                                temp1[0].children[2].innerText=""
-                              }
                               // temp1[0].children[1].innerText="uperb!!!!!"
-                              temp1[0].children[1].innerText=textdic[129][langset[langnum]]
 
-                            }else if(cubes.length-2>15){
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="굉장해요!!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="WESOME!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[37][langset[langnum]]
+                              }
+
+                              등급곱=0.12;
+                            }else if(cubes.length-3>11){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
                                 temp1[0].children[2].innerText="B"
                                 temp1[0].children[0].innerText=""
@@ -14210,20 +14180,16 @@
                                 temp1[0].children[2].innerText=""
                               }
                               // temp1[0].children[1].innerText="wesome!!!!"
-                              temp1[0].children[1].innerText=textdic[130][langset[langnum]]
-
-                            }else if(cubes.length-2>14){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="C+"
-                                temp1[0].children[0].innerText=""
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="대단해요!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="RILLIANT!"
                               }else{
-                                temp1[0].children[0].innerText="C+"
-                                temp1[0].children[2].innerText=""
+                                temp1[0].children[1].innerText=textdic[130][langset[langnum]]
                               }
-                              // temp1[0].children[1].innerText="rilliant!!!"
-                              temp1[0].children[1].innerText=textdic[131][langset[langnum]]
 
-                            }else if(cubes.length-2>13){
+                              등급곱=0.11;
+                            }else if(cubes.length-3>10){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
                                 temp1[0].children[2].innerText="C"
                                 temp1[0].children[0].innerText=""
@@ -14231,21 +14197,17 @@
                                 temp1[0].children[0].innerText="C"
                                 temp1[0].children[2].innerText=""
                               }
-                              // temp1[0].children[1].innerText="ool!!"
-                              temp1[0].children[1].innerText=textdic[132][langset[langnum]]
-
-                            }else if(cubes.length-2>12){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="D+"
-                                temp1[0].children[0].innerText=""
+                              // temp1[0].children[1].innerText="rilliant!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="잘했어요!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="OOL!"
                               }else{
-                                temp1[0].children[0].innerText="D+"
-                                temp1[0].children[2].innerText=""
+                                temp1[0].children[1].innerText=textdic[131][langset[langnum]]
                               }
-                              // temp1[0].children[1].innerText="elightful!"
-                              temp1[0].children[1].innerText=textdic[133][langset[langnum]]
 
-                            }else{
+                              등급곱=0.1
+                            }else if(cubes.length-3>9){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
                                 temp1[0].children[2].innerText="D"
                                 temp1[0].children[0].innerText=""
@@ -14253,28 +14215,132 @@
                                 temp1[0].children[0].innerText="D"
                                 temp1[0].children[2].innerText=""
                               }
+                              // temp1[0].children[1].innerText="ool!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="좋아요!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="OING WELL!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[132][langset[langnum]]
+                              }
+                              등급곱=0.1;
+                            }else if(cubes.length-3>8){
+                              if(langnum==13||langnum==22||langnum==29||langnum==36){
+                                temp1[0].children[2].innerText="E"
+                                temp1[0].children[0].innerText=""
+                              }else{
+                                temp1[0].children[0].innerText="E"
+                                temp1[0].children[2].innerText=""
+                              }
+                              // temp1[0].children[1].innerText="elightful!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="조금 아쉬워요"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="FFICIENT"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[133][langset[langnum]]
+                              }
+                              등급곱=0.1;
+                            }else{
+                              if(langnum==13||langnum==22||langnum==29||langnum==36){
+                                temp1[0].children[2].innerText="F"
+                                temp1[0].children[0].innerText=""
+                              }else{
+                                temp1[0].children[0].innerText="F"
+                                temp1[0].children[2].innerText=""
+                              }
                               // temp1[0].children[1].innerText="fficeint"
-                              temp1[0].children[1].innerText=textdic[134][langset[langnum]]
-
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="성급했어요"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="RAGILE"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[134][langset[langnum]]
+                              }
+                              등급곱=0.09
                             }
                           }else{
                             temp1[0].style.display="inline-flex"
                             temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
                             temp1[0].children[2].style.color=hexToHtmlColor(colorlst[colornum][3])
-                            if(점수>7000){
+                            if(점수>30000){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="S+"
+                                temp1[0].children[2].innerText="G"
+                                temp1[0].children[0].innerText=""
+                              }else{
+                                temp1[0].children[0].innerText="G"
+                                temp1[0].children[2].innerText=""
+                              }
+
+
+                              // temp1[0].children[1].innerText="oat!!!!!!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="미쳤어?"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="oat!!!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[33][langset[langnum]]
+                              }
+
+
+                              등급곱=0.18;
+                            }else if(점수>25000){
+                              if(langnum==13||langnum==22||langnum==29||langnum==36){
+                                temp1[0].children[2].innerText="L"
+                                temp1[0].children[0].innerText=""
+                              }else{
+                                temp1[0].children[0].innerText="L"
+                                temp1[0].children[2].innerText=""
+                              }
+
+
+                              // temp1[0].children[1].innerText="oat!!!!!!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="전설의 출현"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="egend!!!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[34][langset[langnum]]
+                              }
+                              등급곱=0.17;
+                            }else if(점수>20000){
+                              if(langnum==13||langnum==22||langnum==29||langnum==36){
+                                temp1[0].children[2].innerText="M"
+                                temp1[0].children[0].innerText=""
+                              }else{
+                                temp1[0].children[0].innerText="M"
+                                temp1[0].children[2].innerText=""
+                              }
+
+                              // temp1[0].children[1].innerText="oat!!!!!!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="괴물!!!!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="ONSTER!!!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[127][langset[langnum]]
+                              }
+                              등급곱=0.16;
+                            }else if(점수>15000){
+                              if(langnum==13||langnum==22||langnum==29||langnum==36){
+                                temp1[0].children[2].innerText="+S"
                                 temp1[0].children[0].innerText=""
                               }else{
                                 temp1[0].children[0].innerText="S+"
                                 temp1[0].children[2].innerText=""
                               }
-
                               sboard("CgkI3OzStdEUEAIQDg")
-                              // temp1[0].children[1].innerText="oat!!!!!!!!"
-                              temp1[0].children[1].innerText=textdic[126][langset[langnum]]
-                              등급곱=0.16;
-                            }else if(점수>6000){
+                              // temp1[0].children[1].innerText="egend!!!!!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="타고났군요!!!!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="UPERB!!!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[36][langset[langnum]]
+                              }
+
+                              등급곱=0.14;
+                            }else if(점수>10000){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
                                 temp1[0].children[2].innerText="S"
                                 temp1[0].children[0].innerText=""
@@ -14283,22 +14349,36 @@
                                 temp1[0].children[2].innerText=""
                               }
                               sboard("CgkI3OzStdEUEAIQDQ")
-                              // temp1[0].children[1].innerText="oat!!!!!!!!"
-                              temp1[0].children[1].innerText=textdic[126][langset[langnum]]
-                              등급곱=0.15;
-                            }else if(점수>5000){
+                              // temp1[0].children[1].innerText="pecial!!!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="최고에요!!!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="PECIAL!!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[128][langset[langnum]]
+                              }
+
+                              등급곱=0.13;
+                            }else if(점수>8000){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="A+"
+                                temp1[0].children[2].innerText="+A"
                                 temp1[0].children[0].innerText=""
                               }else{
                                 temp1[0].children[0].innerText="A+"
                                 temp1[0].children[2].innerText=""
                               }
+                              // temp1[0].children[1].innerText="uperb!!!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="굉장해요!!!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="WESOME!!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[129][langset[langnum]]
+                              }
                               sboard("CgkI3OzStdEUEAIQDA")
-                              // temp1[0].children[1].innerText="egend!!!!!!!"
-                              temp1[0].children[1].innerText=textdic[127][langset[langnum]]
-                              등급곱=0.14;
-                            }else if(점수>4000){
+
+                              등급곱=0.12;
+                            }else if(점수>5000){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
                                 temp1[0].children[2].innerText="A"
                                 temp1[0].children[0].innerText=""
@@ -14306,22 +14386,18 @@
                                 temp1[0].children[0].innerText="A"
                                 temp1[0].children[2].innerText=""
                               }
-                              sboard("CgkI3OzStdEUEAIQCw")
-                              // temp1[0].children[1].innerText="pecial!!!!!"
-                              temp1[0].children[1].innerText=textdic[128][langset[langnum]]
-                              등급곱=0.13;
-                            }else if(점수>3000){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="B+"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="B+"
-                                temp1[0].children[2].innerText=""
-                              }
                               // temp1[0].children[1].innerText="uperb!!!!!"
-                              temp1[0].children[1].innerText=textdic[129][langset[langnum]]
+                              sboard("CgkI3OzStdEUEAIQCw")
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="굉장해요!!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="WESOME!!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[37][langset[langnum]]
+                              }
+
                               등급곱=0.12;
-                            }else if(점수>2000){
+                            }else if(점수>3000){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
                                 temp1[0].children[2].innerText="B"
                                 temp1[0].children[0].innerText=""
@@ -14330,20 +14406,16 @@
                                 temp1[0].children[2].innerText=""
                               }
                               // temp1[0].children[1].innerText="wesome!!!!"
-                              temp1[0].children[1].innerText=textdic[130][langset[langnum]]
-                              등급곱=0.11;
-                            }else if(점수>1500){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="C+"
-                                temp1[0].children[0].innerText=""
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="대단해요!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="RILLIANT!"
                               }else{
-                                temp1[0].children[0].innerText="C+"
-                                temp1[0].children[2].innerText=""
+                                temp1[0].children[1].innerText=textdic[130][langset[langnum]]
                               }
-                              // temp1[0].children[1].innerText="rilliant!!!"
-                              temp1[0].children[1].innerText=textdic[131][langset[langnum]]
-                              등급곱=0.1
-                            }else if(점수>1000){
+
+                              등급곱=0.11;
+                            }else if(점수>2000){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
                                 temp1[0].children[2].innerText="C"
                                 temp1[0].children[0].innerText=""
@@ -14351,21 +14423,17 @@
                                 temp1[0].children[0].innerText="C"
                                 temp1[0].children[2].innerText=""
                               }
-                              // temp1[0].children[1].innerText="ool!!"
-                              temp1[0].children[1].innerText=textdic[132][langset[langnum]]
-                              등급곱=0.1;
-                            }else if(점수>500){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="D+"
-                                temp1[0].children[0].innerText=""
+                              // temp1[0].children[1].innerText="rilliant!!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="잘했어요!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="OOL!"
                               }else{
-                                temp1[0].children[0].innerText="D+"
-                                temp1[0].children[2].innerText=""
+                                temp1[0].children[1].innerText=textdic[131][langset[langnum]]
                               }
-                              // temp1[0].children[1].innerText="elightful!"
-                              temp1[0].children[1].innerText=textdic[133][langset[langnum]]
-                              등급곱=0.09;
-                            }else{
+
+                              등급곱=0.1
+                            }else if(점수>1000){
                               if(langnum==13||langnum==22||langnum==29||langnum==36){
                                 temp1[0].children[2].innerText="D"
                                 temp1[0].children[0].innerText=""
@@ -14373,8 +14441,49 @@
                                 temp1[0].children[0].innerText="D"
                                 temp1[0].children[2].innerText=""
                               }
+                              // temp1[0].children[1].innerText="ool!!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="좋았어요!"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="OING WELL!"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[132][langset[langnum]]
+                              }
+                              등급곱=0.1;
+                            }else if(점수>500){
+                              if(langnum==13||langnum==22||langnum==29||langnum==36){
+                                temp1[0].children[2].innerText="E"
+                                temp1[0].children[0].innerText=""
+                              }else{
+                                temp1[0].children[0].innerText="E"
+                                temp1[0].children[2].innerText=""
+                              }
+                              // temp1[0].children[1].innerText="elightful!"
+                              if(langnum==1){
+                                temp1[0].children[1].innerText="아쉬워요"
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="FFICIENT"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[133][langset[langnum]]
+                              }
+                              등급곱=0.1;
+                            }else{
+                              if(langnum==13||langnum==22||langnum==29||langnum==36){
+                                temp1[0].children[2].innerText="F"
+                                temp1[0].children[0].innerText=""
+                              }else{
+                                temp1[0].children[0].innerText="F"
+                                temp1[0].children[2].innerText=""
+                              }
+                              var ph=["성급했어요", "고양이가 플레이 했나요?", "술을 많이 드셨나요?", "찬물로 세수하고 오세요", "와르르르~", "아이쿠 손이 미끄러졌네"]
                               // temp1[0].children[1].innerText="fficeint"
-                              temp1[0].children[1].innerText=textdic[134][langset[langnum]]
+                              if(langnum==1){
+                                temp1[0].children[1].innerText=ph[parseInt(Math.random()*ph.length)]
+                              }else if(langnum==0){
+                                temp1[0].children[1].innerText="RAGILE"
+                              }else{
+                                temp1[0].children[1].innerText=textdic[134][langset[langnum]]
+                              }
                               등급곱=0.09
                             }
                           }
@@ -14391,17 +14500,17 @@
                             temp1[0].children[1].style.left=""
                             temp1[0].children[1].style.textAlign="right"
                             if(temp1[0].children[2].innerText.length>1){
-                              temp1[0].children[1].style.right="33vmin"
+                              temp1[0].children[1].style.right="29vmin"
                             }else{
-                              temp1[0].children[1].style.right="24vmin"
+                              temp1[0].children[1].style.right="20vmin"
                             }
                           }else{
                             temp1[0].children[1].style.right=""
                             temp1[0].children[1].style.textAlign="left"
                             if(temp1[0].children[0].innerText.length>1){
-                              temp1[0].children[1].style.left="30vmin"
+                              temp1[0].children[1].style.left="24vmin"
                             }else{
-                              temp1[0].children[1].style.left="21vmin"
+                              temp1[0].children[1].style.left="15vmin"
                             }
                           }
                           if(gamemod==1){
@@ -14447,6 +14556,7 @@
                             if(cubes.length-3>bestscore2){
                               soundic[esound[4]].play();
                               document.querySelector(".gameinfo0").children[2].innerText=textdic[135][langset[langnum]]
+                              document.querySelector(".gameinfo0").children[2].style.color=hexToHtmlColor(colorlst[colornum][1]);
                               if(!webflag) Android.saveLeader("2", cubes.length-3)
                               if(!webflag) setdb([["data", "left", String(cubes.length-3)]]);
                             }else{
@@ -14464,6 +14574,7 @@
                             if(점수>bestscore1){
                               review1=true;
                               document.querySelector(".gameinfo0").children[2].innerText=textdic[135][langset[langnum]]
+                              document.querySelector(".gameinfo0").children[2].style.color=hexToHtmlColor(colorlst[colornum][1]);
                               if(!webflag) Android.saveLeader("1", 점수)
                               if(!webflag) setdb([["data", "down", String(점수)]]);
                             }else{
@@ -14482,6 +14593,7 @@
                               review1=true;
                               soundic[esound[4]].play();
                               document.querySelector(".gameinfo0").children[2].innerText=textdic[135][langset[langnum]]
+                              document.querySelector(".gameinfo0").children[2].style.color=hexToHtmlColor(colorlst[colornum][1]);
                               if(!webflag) Android.saveLeader("0", 점수)
                               if(!webflag) setdb([["data", "up", String(점수)]]);
 
@@ -15611,7 +15723,11 @@
 
 
                 if(gamemod==2){
-                  temptxt="↑:"+String(stacknum[cubes.length-1])
+                  if(langnum==13||langnum==22||langnum==29||langnum==36){
+                    temptxt=String(stacknum[cubes.length-1])+":↑"
+                  }else{
+                    temptxt="↑:"+String(stacknum[cubes.length-1])
+                  }
                 }else if(gamemod==3){
                   temptxt=String(ccount)
                 }else if(gamemod==4){
@@ -15681,7 +15797,12 @@
                     scene.remove(시간.pop());
                 }
                 if(gamemod==2){
-                  timestring=String(cubes.length-3)+" F"
+
+                  if(langnum==13||langnum==22||langnum==29||langnum==36){
+                    timestring="F "+String(cubes.length-3)
+                  }else{
+                    timestring=String(cubes.length-3)+" F"
+                  }
                 }else if(gamemod==3){
                   remain=tbonus-elapsedTime;
                   if(remain<3){
@@ -19442,7 +19563,7 @@
       document.getElementById("pbt").children[1].style.fontFamily="GG"
       document.getElementById("ads0").style.fontFamily="GG"
       document.getElementById("skin0").style.fontFamily="GG"
-      document.querySelector(".gameinfo1").children[1].style.fontFamily="GG"
+      document.querySelector(".gameinfo1").children[1].style.fontFamily="mono"
       document.querySelector(".gameinfo1").children[0].style.fontFamily="GG"
       document.querySelector(".gameinfo1").children[2].style.fontFamily="GG"
       document.getElementById("playing").style.fontFamily="GG"
@@ -20086,8 +20207,8 @@
         var nobtn=document.getElementById('notxt');
 
         yesbtn.addEventListener('click', function() {
-          if(langnum==34){
-            tutsize1="2.5vmin"
+          if(langnum==30){
+            tutsize1="3vmin"
           }else{
             tutsize1="4vmin"
           }
@@ -22466,7 +22587,7 @@
 </div>
 
 
-<div id="credit-info" class="hidden">
+<div id="credit-info" class="hidden" onclick="goBack(5)">
     <button class="backbutton" onclick="goBack(5)">
         <img class="" src="png/left.png">
     </button>
