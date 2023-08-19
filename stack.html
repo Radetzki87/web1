@@ -2577,9 +2577,9 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.2,0.3,0.13,0.2,0.3]
+    var 마찰=[0.2,0.3,0.16,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
-    var 중력=[-7,-11,-8,-7,-7]
+    var 중력=[-7,-11,-9,-7,-7]
 
     var resinit=0
     window.resinit=resinit
@@ -4057,7 +4057,7 @@
         // if(restartflag) return;
         // if(!goahead) return;
 
-        console.log("2")
+
         if(!originflag){
           msetting(function(object) {
             // document.getElementById("intro").classList.add("fade");
@@ -4264,7 +4264,7 @@
 
         if(gamemod==2&&startflag){
           ontouch = true
-          return;
+          // return;
         }
 
 
@@ -4275,11 +4275,13 @@
         const intersects = raycaster.intersectObjects(scene.children);
         var cat=[];
 
+
         if (intersects.length > 0) {
           intersects.forEach((item, i) => {
-            if(item.object.userData["body"]!=null){
-              cat.push(item.object.userData["body"]);
-              tempidx=cat[0].id-1;
+            if(item.object.userData["game2048"]!=null){
+              cat.push(item.object.userData["game2048"]);
+
+              tempidx=cat[0].index;
 
             }
             if(cat.length==1) return;
@@ -4288,25 +4290,14 @@
         }
 
         if(cat.length>=1){
+
+
+
           if(shiftlock) return;
           if(!document.getElementById("credit-info").classList.contains("hidden")) return;
           if(document.getElementById("yesno").style.display!="none") return;
 
-          if(gamemod==4){
-            if (activeFloor==5) {
-              tempidx=parseInt(횟수/5);
-            }else{
-              return;
-            }
 
-          }
-          if(gamemod==2){
-            if(cubes.length==5){
-              if(tempidx<4) return;
-            }else{
-              return;
-            }
-          }
           if (!startflag) {
               startflag = true
 
@@ -4331,6 +4322,23 @@
               elapsedTime=0;
               팝리스트=[false,false,false,false,false]
           }
+
+          if(gamemod==2){
+            if(cubes.length==5){
+              if(tempidx<4) return;
+            }else if(tempidx<cubes.length-1){
+              console.log(tempidx)
+              let force2 = new CANNON.Vec3();
+              force2.set(800*(avx - cubes[tempidx].body.position.x)+800*(cubes[tempidx+1].body.position.x - cubes[tempidx].body.position.x),0,800*(avz - cubes[tempidx].body.position.z)+800*(cubes[tempidx+1].body.position.z - cubes[tempidx].body.position.z));
+              cubes[tempidx].body.applyForce(force2, cubes[tempidx].body.position);
+
+
+
+              return;
+            }
+          }
+
+
           activeFloor = tempidx;
           // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
           //     soundic[sdic[activeFloor]["upper"]].stop();
@@ -5688,6 +5696,7 @@
         });
         현지=[];
         tcheck=[0,0,0,0,0]
+        cubes.length=5;
         resetting(stack, function(object) { //재시작
             msetting1(function(object) {
                 if(gamemod!=2){
