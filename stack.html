@@ -39,6 +39,7 @@
             font-style: normal;
         }
 
+
         #yesno{
             position: absolute;
             left:15%;
@@ -2529,6 +2530,7 @@
     var tempoint=0;
     var stacktime;
 
+    var stepmold=[];
     let tcheck=[0,0,0,0,0];
 
     var 현지화=false;
@@ -2546,7 +2548,7 @@
     var 터치=false;
     var overblock = false
 
-    var fullcam=true;
+    var fullcam=false;
 
 
     var songTitle = 'Song Title';
@@ -2575,8 +2577,8 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.2,0.3,0.17,0.2,0.3]
-    var 탄성=[0.4,0.4,0,0.7,0.4]
+    var 마찰=[0.2,0.3,0.13,0.2,0.3]
+    var 탄성=[0.4,0.4,0.05,0.7,0.4]
     var 중력=[-7,-11,-8,-7,-7]
 
     var resinit=0
@@ -3184,6 +3186,25 @@
 "ブ":{"ha":1389,"x_min":144,"x_max":1360,"o":"m 1054 1171 q 1092 1111 1072 1144 q 1131 1045 1113 1078 q 1161 988 1149 1013 l 1044 939 q 1013 999 1031 967 q 977 1063 996 1031 q 940 1124 958 1096 l 1054 1171 m 1249 1206 q 1288 1147 1267 1181 q 1328 1081 1308 1114 q 1360 1022 1347 1047 l 1244 972 q 1191 1068 1221 1015 q 1133 1160 1161 1121 l 1249 1206 m 1199 908 q 1181 862 1189 889 q 1168 813 1174 835 q 1138 698 1156 761 q 1095 567 1121 635 q 1035 432 1069 499 q 958 307 1001 365 q 813 151 896 224 q 627 21 731 79 q 400 -78 524 -37 l 249 89 q 488 171 388 122 q 663 282 589 219 q 793 415 736 344 q 872 542 839 474 q 926 678 906 610 q 956 807 947 747 q 888 807 936 807 q 775 807 839 807 q 640 807 711 807 q 504 807 569 807 q 387 807 439 807 q 310 807 335 807 q 217 806 261 807 q 144 801 172 804 l 144 997 q 195 992 165 994 q 256 988 225 989 q 310 986 288 986 q 374 986 332 986 q 469 986 415 986 q 581 986 522 986 q 699 986 640 986 q 810 986 758 986 q 899 986 861 986 q 953 986 936 986 q 1003 988 974 986 q 1061 997 1033 989 l 1199 908 z "},
 "リ":{"ha":1389,"x_min":269,"x_max":1115,"o":"m 1115 1078 q 1112 1015 1114 1049 q 1110 939 1110 981 q 1110 851 1110 903 q 1110 749 1110 800 q 1110 664 1110 699 q 1099 469 1110 553 q 1068 324 1089 386 q 1017 213 1047 261 q 949 122 988 165 q 843 33 903 72 q 723 -34 783 -7 q 611 -78 663 -61 l 465 75 q 653 141 569 99 q 800 250 738 183 q 858 331 836 290 q 892 420 881 371 q 909 532 904 469 q 914 675 914 594 q 914 761 914 711 q 914 860 914 811 q 914 939 914 908 q 912 1015 914 981 q 906 1078 910 1049 l 1115 1078 m 471 1067 q 468 1017 469 1042 q 467 960 467 993 q 467 910 467 944 q 467 828 467 875 q 467 731 467 782 q 467 633 467 681 q 467 548 467 586 q 467 490 467 510 q 468 429 467 464 q 471 369 469 394 l 269 369 q 274 425 271 389 q 276 492 276 461 q 276 549 276 511 q 276 634 276 586 q 276 733 276 682 q 276 829 276 783 q 276 910 276 875 q 276 960 276 944 q 275 1010 276 979 q 271 1067 274 1042 l 471 1067 z "
 },
+"Å":{"ha":958,"x_min":0,"x_max":958,"o":"m 732 0 l 660 236 l 299 236 l 226 0 l 0 0 l 350 996 l 607 996 l 958 0 l 732 0 m 538 643 q 519 703 531 667 q 497 776 508 739 q 479 842 486 814 q 460 773 472 814 q 438 695 449 732 q 422 643 428 658 l 351 413 l 610 413 l 538 643 m 478 900 q 356 943 403 900 q 310 1061 310 986 q 356 1179 310 1136 q 478 1222 403 1222 q 600 1179 550 1222 q 650 1063 650 1136 q 601 943 650 986 q 478 900 551 900 m 478 996 q 524 1013 506 996 q 543 1061 543 1031 q 524 1109 543 1092 q 478 1126 506 1126 q 431 1109 450 1126 q 413 1061 413 1092 q 429 1013 413 1031 q 478 996 446 996 z "},
+"É":{"ha":778,"x_min":125,"x_max":711,"o":"m 696 0 l 125 0 l 125 992 l 696 992 l 696 819 l 335 819 l 335 601 l 671 601 l 671 429 l 335 429 l 335 174 l 696 174 l 696 0 m 711 1283 q 660 1236 692 1264 q 591 1178 628 1208 q 519 1120 554 1147 q 457 1075 483 1093 l 319 1075 l 319 1093 q 372 1155 342 1119 q 431 1228 401 1190 q 479 1297 460 1267 l 711 1297 l 711 1283 z "},
+"Ā":{"ha":958,"x_min":0,"x_max":958,"o":"m 732 0 l 660 236 l 299 236 l 226 0 l 0 0 l 350 996 l 607 996 l 958 0 l 732 0 m 538 643 q 519 703 531 667 q 497 776 508 739 q 479 842 486 814 q 460 773 472 814 q 438 695 449 732 q 422 643 428 658 l 351 413 l 610 413 l 538 643 m 708 1218 l 708 1075 l 249 1075 l 249 1218 l 708 1218 z "},
+"Ę":{"ha":778,"x_min":125,"x_max":696,"o":"m 696 0 l 125 0 l 125 992 l 696 992 l 696 819 l 335 819 l 335 601 l 671 601 l 671 429 l 335 429 l 335 174 l 696 174 l 696 0 m 564 -154 q 579 -196 564 -182 q 618 -210 594 -210 q 661 -206 640 -210 q 696 -197 682 -201 l 696 -318 q 649 -328 674 -324 q 590 -333 624 -333 q 467 -290 513 -333 q 421 -178 421 -246 q 465 -64 421 -117 q 574 24 510 -11 l 664 0 q 590 -81 617 -44 q 564 -154 564 -118 z "},
+"Ό":{"ha":1347,"x_min":14,"x_max":1267,"o":"m 1267 497 q 1216 228 1267 343 q 1061 50 1165 114 q 794 -14 957 -14 q 528 50 633 -14 q 373 229 424 114 q 322 499 322 344 q 373 767 322 653 q 528 944 424 881 q 796 1007 633 1007 q 1061 944 957 1007 q 1216 766 1165 881 q 1267 497 1267 651 m 543 497 q 603 252 543 342 q 794 163 663 163 q 988 252 929 163 q 1046 497 1046 342 q 988 743 1046 654 q 796 832 929 832 q 603 743 663 832 q 543 497 543 654 m 14 756 l 14 774 l 79 992 l 311 992 l 311 978 l 153 756 l 14 756 z "},
+"Σ":{"ha":804,"x_min":33,"x_max":771,"o":"m 33 0 l 33 165 l 339 519 l 46 836 l 46 992 l 758 992 l 758 819 l 432 819 q 370 821 404 819 q 297 826 336 822 l 546 551 l 546 499 l 256 165 q 345 172 304 169 q 433 174 386 174 l 771 174 l 771 0 l 33 0 z "},
+"Φ":{"ha":1258,"x_min":67,"x_max":1192,"o":"m 535 -14 l 535 125 q 300 165 392 128 q 157 260 208 201 q 86 385 106 318 q 67 514 67 451 q 89 653 67 586 q 164 775 111 721 q 307 862 217 829 q 535 897 397 894 l 535 1006 l 724 1006 l 724 897 q 951 862 861 894 q 1094 775 1042 829 q 1169 653 1147 721 q 1192 514 1192 586 q 1171 384 1192 451 q 1099 259 1150 317 q 957 165 1049 201 q 724 125 865 128 l 724 -14 l 535 -14 m 535 288 l 535 733 q 365 699 424 729 q 285 620 307 668 q 264 515 264 572 q 288 403 264 453 q 370 322 311 353 q 535 288 429 292 m 724 288 q 888 322 829 292 q 971 403 947 353 q 994 515 994 453 q 973 620 994 572 q 893 699 951 668 q 724 733 835 729 l 724 288 z "},
+"А":{"ha":958,"x_min":0,"x_max":958,"o":"m 732 0 l 660 236 l 299 236 l 226 0 l 0 0 l 350 996 l 607 996 l 958 0 l 732 0 m 538 643 q 519 703 531 667 q 497 776 508 739 q 479 842 486 814 q 460 773 472 814 q 438 695 449 732 q 422 643 428 658 l 351 413 l 610 413 l 538 643 z "},
+"В":{"ha":933,"x_min":125,"x_max":860,"o":"m 433 992 q 733 936 632 992 q 835 740 835 881 q 795 597 835 656 q 682 526 756 539 l 682 519 q 772 485 732 510 q 836 413 813 460 q 860 288 860 365 q 763 76 860 153 q 496 0 665 0 l 125 0 l 125 992 l 433 992 m 457 599 q 584 628 549 599 q 619 713 619 657 q 578 794 619 769 q 446 819 536 819 l 335 819 l 335 599 l 457 599 m 335 432 l 335 174 l 472 174 q 604 210 567 174 q 642 308 642 247 q 603 398 642 364 q 465 432 565 432 l 335 432 z "},
+"Е":{"ha":778,"x_min":125,"x_max":696,"o":"m 696 0 l 125 0 l 125 992 l 696 992 l 696 819 l 335 819 l 335 601 l 671 601 l 671 429 l 335 429 l 335 174 l 696 174 l 696 0 z "},
+"Ж":{"ha":1310,"x_min":0,"x_max":1310,"o":"m 353 515 l 19 992 l 236 992 l 557 511 l 557 992 l 753 992 l 753 511 l 1074 992 l 1290 992 l 957 515 l 1310 0 l 1085 0 l 753 503 l 753 0 l 557 0 l 557 503 l 225 0 l 0 0 l 353 515 z "},
+"О":{"ha":1106,"x_min":81,"x_max":1025,"o":"m 1025 497 q 974 228 1025 343 q 819 50 924 114 q 553 -14 715 -14 q 287 50 392 -14 q 131 229 182 114 q 81 499 81 344 q 131 767 81 653 q 287 944 182 881 q 554 1007 392 1007 q 819 944 715 1007 q 974 766 924 881 q 1025 497 1025 651 m 301 497 q 361 252 301 342 q 553 163 421 163 q 746 252 688 163 q 804 497 804 342 q 746 743 804 654 q 554 832 688 832 q 361 743 421 832 q 301 497 301 654 z "},
+"П":{"ha":1035,"x_min":125,"x_max":910,"o":"m 125 0 l 125 992 l 910 992 l 910 0 l 700 0 l 700 817 l 335 817 l 335 0 l 125 0 z "},
+"Р":{"ha":872,"x_min":125,"x_max":810,"o":"m 442 992 q 722 909 633 992 q 810 682 810 826 q 774 520 810 596 q 653 399 738 444 q 425 353 569 353 l 335 353 l 335 0 l 125 0 l 125 992 l 442 992 m 431 819 l 335 819 l 335 525 l 404 525 q 545 560 493 525 q 597 675 597 596 q 431 819 597 819 z "},
+"Т":{"ha":804,"x_min":28,"x_max":776,"o":"m 507 0 l 297 0 l 297 817 l 28 817 l 28 992 l 776 992 l 776 817 l 507 817 l 507 0 z "},
+"Х":{"ha":926,"x_min":0,"x_max":926,"o":"m 926 0 l 686 0 l 456 375 l 225 0 l 0 0 l 329 511 l 21 992 l 253 992 l 467 635 l 676 992 l 903 992 l 592 500 l 926 0 z "},
+"Э":{"ha":921,"x_min":49,"x_max":840,"o":"m 375 831 q 243 812 308 831 q 115 767 178 793 l 49 936 q 204 987 122 968 q 379 1006 286 1006 q 719 872 599 1006 q 840 494 840 738 q 789 227 840 342 q 631 49 738 113 q 360 -14 525 -14 q 206 -1 275 -14 q 67 38 138 11 l 67 214 q 213 175 146 189 q 347 161 281 161 q 544 224 475 161 q 619 414 614 288 l 189 414 l 189 586 l 618 586 q 549 766 614 701 q 375 831 483 831 z "},
+"Ầ":{"ha":958,"x_min":0,"x_max":958,"o":"m 183 1203 q 102 1267 144 1232 q 29 1343 60 1303 l 29 1357 l 193 1357 q 238 1281 215 1313 q 286 1221 260 1250 l 286 1203 l 183 1203 m 226 1089 q 301 1181 261 1129 q 372 1279 340 1232 l 586 1279 q 658 1181 618 1232 q 732 1089 697 1129 l 732 1071 l 622 1071 q 551 1123 588 1094 q 479 1183 515 1151 q 408 1123 444 1151 q 336 1071 371 1094 l 226 1071 l 226 1089 m 732 0 l 660 236 l 299 236 l 226 0 l 0 0 l 350 996 l 607 996 l 958 0 l 732 0 m 538 643 q 519 703 531 667 q 497 776 508 739 q 479 842 486 814 q 460 773 472 814 q 438 695 449 732 q 422 643 428 658 l 351 413 l 610 413 l 538 643 z "},
+
         "브":{"ha":1264,"x_min":85,"x_max":1158,"o":"m 340 351 q 305 353 319 351 q 278 360 290 356 q 253 375 265 365 q 225 401 240 385 l 176 457 q 140 508 149 485 q 131 575 131 531 l 131 1074 l 311 1074 l 311 860 l 926 860 l 926 1074 l 1106 1074 l 1106 403 q 1054 351 1106 351 l 340 351 m 1158 129 l 1158 -26 l 85 -26 l 85 129 l 1158 129 m 926 507 l 926 704 l 311 704 l 311 592 q 314 572 311 581 q 325 554 317 563 l 354 522 q 369 511 363 515 q 385 507 375 507 l 926 507 z "
         },
         "스":{"ha":1264,"x_min":85,"x_max":1160,"o":"m 1158 129 l 1158 -26 l 85 -26 l 85 129 l 1158 129 m 760 775 q 956 611 853 692 q 1160 458 1060 531 l 1056 325 q 843 492 947 407 q 647 661 739 578 q 633 676 639 669 q 622 693 626 683 q 613 676 618 683 q 600 661 608 669 q 403 490 504 575 q 197 326 303 406 l 90 458 q 290 612 190 532 q 482 776 390 692 q 522 828 511 801 q 533 894 533 854 l 533 1079 l 713 1079 l 713 894 q 720 828 713 854 q 760 775 728 801 z "
@@ -5036,24 +5057,25 @@
 
 
         } else if (event.code === 'KeyQ') {
-          camera.left += bw*0.7
-          camera.right -= bw  *4*0.7
-          camera.top -=  bw*0.7
-          camera.bottom += bw*4*0.7
-          renderer.setSize(window.innerWidth, window.innerHeight);
-          camera.aspect = window.innerWidth / window.innerHeight;
-          camera.updateProjectionMatrix();
-            // if (!startflag) {
-            //     startflag = true
-            // }
-            if (!rotationflag) {
-                lookcenter = false
-                rotationflag = true
-                rotationend = 0
-            }
-            if(lookcenter){
-            }else if(lookright){
-            }
+          fullon();
+          // camera.left += bw*0.7
+          // camera.right -= bw  *4*0.7
+          // camera.top -=  bw*0.7
+          // camera.bottom += bw*4*0.7
+          // renderer.setSize(window.innerWidth, window.innerHeight);
+          // camera.aspect = window.innerWidth / window.innerHeight;
+          // camera.updateProjectionMatrix();
+          //   // if (!startflag) {
+          //   //     startflag = true
+          //   // }
+          //   if (!rotationflag) {
+          //       lookcenter = false
+          //       rotationflag = true
+          //       rotationend = 0
+          //   }
+          //   if(lookcenter){
+          //   }else if(lookright){
+          //   }
         } else if (event.code === 'KeyH') {
             if (!rotationflag) {
                 rotationflag = true
@@ -5735,20 +5757,20 @@
                       dl2.target.position.set(0, 0, 0);
 
                       if (shadowon) {
-                          dl2.shadow.camera.left = -bw * 1.3;
-                          dl2.shadow.camera.right = bw * 1.3 * 4;
-                          dl2.shadow.camera.top = bw * 1.3;
-                          dl2.shadow.camera.bottom = -bw * 1.3 * 4;
+                          dl2.shadow.camera.left = -bw * 3.3;
+                          dl2.shadow.camera.right = bw * 3.3 * 4;
+                          dl2.shadow.camera.top = bw * 3.3;
+                          dl2.shadow.camera.bottom = -bw * 3.3 * 4;
                           dl2.shadow.camera.near = 0.01;
                           dl2.shadow.camera.far = 1000;
                           dl2.shadow.camera.lookAt(0, 0, 0);
                           dl2.castShadow = true;
                           switch (resinit) {
                             case 0:
-                              dl2.shadow.mapSize = new THREE.Vector2(1000, 1000);
+                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                               break;
                             case 1:
-                              dl2.shadow.mapSize = new THREE.Vector2(1200, 1200);
+                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                               console.log("천")
                               break;
                             case 2:
@@ -6209,8 +6231,13 @@
 
             if (true) { //신스킨
                 if(true){//몰드
-                  //archer
+                  //계단
                   var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+
+
+
                   // Load OBJ file
                   // loader.setMaterials(materials);
                   loader.load(ur2+'archero-0.obj', (object) => {
@@ -8846,7 +8873,28 @@
 
 
 
+        var loader = new OBJLoader();
+        loader.load(ur2+'step.obj', (object) => {
+            // object.children[0].rotation.y = Math.PI / 2
+            object.children[0].position.set(0, 0, 0)
+            object.children[0].scale.x = 1.25*2.57 / 2;
+            object.children[0].scale.z = 1.25*2.57 / 2;
+            object.children[0].scale.y = 1.25*2.57 / 2;
 
+            object.children[0].position.z=0.2
+
+            // object.children[0].scale.x=2.25;
+            // object.children[0].scale.z=2.25;
+            // object.children[0].scale.y=1.92;
+            var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
+            var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] ) + '%, ' + String(newcl["l"] ) + '%)');
+            object.children[0].material = new THREE.MeshLambertMaterial({
+                color: tc
+            });
+
+
+            stepmold.push(object.children[0]);
+        });
 
 
 
@@ -9156,7 +9204,6 @@
 
         scene.add(backmesh);
         sideback.push(backmesh)
-
 
 
 
@@ -10967,10 +11014,10 @@
                                 dl2.target.position.set(0, 0, 0);
 
                                 if (shadowon) {
-                                    dl2.shadow.camera.left = -bw * 1.3;
-                                    dl2.shadow.camera.right = bw * 1.3 * 4;
-                                    dl2.shadow.camera.top = bw * 1.3;
-                                    dl2.shadow.camera.bottom = -bw * 1.3 * 4;
+                                    dl2.shadow.camera.left = -bw * 3.3;
+                                    dl2.shadow.camera.right = bw * 3.3 * 4;
+                                    dl2.shadow.camera.top = bw * 3.3;
+                                    dl2.shadow.camera.bottom = -bw * 3.3 * 4;
                                     dl2.shadow.camera.near = 0.01;
                                     dl2.shadow.camera.far = 1000;
                                     dl2.shadow.camera.lookAt(0, 0, 0);
@@ -11865,6 +11912,7 @@
                 })
                 시간.forEach((item) => {
                     item.material.visible = true;
+                    stepmold[0].material.visible = true;
                 })
 
             }
@@ -11974,6 +12022,7 @@
             })
             시간.forEach((item) => {
                 item.material.visible = false;
+                stepmold[0].material.visible = false;
             })
 
             if(!gameoverflag){
@@ -12614,9 +12663,9 @@
                 avz += cubes[i].body.position.z;
                 cubes[i].mesh.children.forEach((item) => {
                   if (item.userData["skin"]==skinset[skinnum]) {
-                    if(gamemod==2){
-                      item.receiveShadow = false;
-                      item.castShadow = false;
+                    if(gamemod==2){//그림자
+                      item.receiveShadow = true;
+                      item.castShadow = true;
                     }else{
                       item.receiveShadow = true;
                       item.castShadow = true;
@@ -15450,9 +15499,9 @@
                 if(gamemod==2){
 
                   if(langnum==13||langnum==22||langnum==29||langnum==36){
-                    timestring="F "+String(cubes.length-3)
+                    timestring=String(cubes.length-3)
                   }else{
-                    timestring=String(cubes.length-3)+" F"
+                    timestring=String(cubes.length-3)
                   }
                 }else if(gamemod==3){
                   remain=tbonus-elapsedTime;
@@ -15501,6 +15550,20 @@
                 createTextMesh(timestring, 998, (textMesh) => {
                   if(gamemod==2){
                     textMesh.position.y = (cubes.length-3) * bh - th * 0
+
+                    if(timestring.length==1){
+                      stepmold[0].position.x=2
+                    }else if(timestring.length==2){
+                      stepmold[0].position.x=2.5
+                    }else if(timestring.length==3){
+                      stepmold[0].position.x=6
+                    }
+
+                    // stepmold[0].material.color=new THREE.MeshLambertMaterial({
+                    //     color: colorlst[colornum][2]
+                    // });
+                    stepmold[0].material.color=new THREE.Color(colorlst[colornum][3])
+                    textMesh.add(stepmold[0])
                   }else if(gamemod==4){
                     if(횟수%5==4){
                       textMesh.scale.x=0.8+(parseInt(elapsedTime*10)%10)*0.05
@@ -15529,6 +15592,8 @@
                     textMesh.depth = 10;
                     textMesh.rotation.order = 'YXZ';
                     textMesh.rotation.y = 2 * Math.PI;
+
+
                     scene.add(textMesh)
                     시간.push(textMesh);
                     // console.log(textMesh);
@@ -15555,6 +15620,7 @@
               item.material.opacity = 0
               item.material.transparent = true;
               item.material.visible = false;
+              stepmold[0].material.visible = false;
           })
         }
         gradback[0].material.visible = true;
@@ -15717,14 +15783,24 @@
                   var height = window.innerWidth / 1;
                   var width1 = window.innerWidth / 1;
                   var height1 = window.innerWidth / 1;
+                  var width2 = window.innerWidth / 1.3;
+                  var height2 = window.innerWidth / 1.3;
+                  var width3 = window.innerWidth / 1.3;
+                  var height3 = window.innerWidth / 1.3;
                 // }
                 if((window.innerWidth / window.innerHeight) > 0.5){
-                  renderer.setViewport(window.innerWidth / 2 - width1 / 2, -(width1 / 10)*1.4-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
+                  if(gamemod==2){
+
+                    renderer.setViewport(window.innerWidth / 2 - width3 / 2, -30-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setScissor(window.innerWidth / 2 - width3 / 2, -30-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                  }else{
+                    renderer.setViewport(window.innerWidth / 2 - width1 / 2, -(width1 / 10)*1.4-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
                   renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width1 / 10)*1.4-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
+                }
                 }else{
                   if(gamemod==2){
-                    renderer.setViewport(window.innerWidth / 2 - width / 2, -60-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
-                    renderer.setScissor(window.innerWidth / 2 - width1 / 2, -60-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
+                    renderer.setViewport(window.innerWidth / 2 - width2 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
+                    renderer.setScissor(window.innerWidth / 2 - width2 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
                   }else{
                     renderer.setViewport(window.innerWidth / 2 - width / 2, 0*-(width / 30)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
                     renderer.setScissor(window.innerWidth / 2 - width1 / 2, 0*-(width / 30)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
@@ -15991,6 +16067,7 @@
             item.material.visible = true
             item.material.opacity = 1
             item.material.transparent = false;
+            stepmold[0].material.visible = true;
         })
         lastTime = currentTime;
         lastTime2= elapsedTime;
