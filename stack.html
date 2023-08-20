@@ -2015,6 +2015,8 @@
             margin: 4vmin 0;
         }
 
+
+
         .progress-container {
           font-size: 4vmin;
             /*display: none;*/
@@ -2129,6 +2131,86 @@
             background-size: 6vmax 3.8vmax;
             width: 6vmax;
             height: 3.8vmax;
+        }
+
+        .pung {
+            position: absolute;
+            background-color: rgba(250, 250, 250, 0.4);
+            border-radius: 4vmin;
+            border:5vmax rgba(50, 50, 50, 0.8);
+            /* background-image: url("png/green_button09.png"); */
+            background-size: 6vmax 4vmax;
+            top: 6vmax;
+            left: -14vmax;
+            width: 14vmax;
+            height: 8vmax;
+            z-index: 2;
+            transition: left 0.4s;
+            text-align: center;
+
+        }
+
+        .hammer {
+
+            position: absolute;
+            /* background-color: rgba(250, 250, 250, 0.5); */
+            border-radius: 4vmin;
+            border:5vmax rgba(50, 50, 50, 0.8);
+            /* background-image: url("png/green_button09.png"); */
+            background-size: 6vmax 4vmax;
+            top: 17.5vmax;
+            left: -14vmax;
+            width: 14vmax;
+            height: 8vmax;
+            z-index: 1;
+            transition: left 0.4s;
+            text-align: center;
+
+        }
+
+        .hammer img{
+            position: relative;
+            left:37%;
+            bottom:0%;
+            /* width: 5vmax; */
+            height: 4vmax;
+            z-index: 3;
+        }
+
+        .pung img{
+            position: relative;
+            left:37%;
+            bottom:0%;
+            /* width: 5vmax; */
+            height: 4vmax;
+            z-index: 3;
+        }
+
+        .hammer div{
+          position: relative;
+          left:38.5%;
+          font-family: 'GG';
+          font-size: 3vmax;
+            /* left:37%;
+            bottom:5%;
+
+            height: 4vmax;
+            z-index: 3; */
+            z-index: 3;
+        }
+
+        .pung div{
+          position: relative;
+          left:38.5%;
+          font-family: 'GG';
+          font-size: 3vmax;
+            /* position: relative;
+            left:37%;
+            bottom:5%;
+
+            height: 4vmax;
+            z-index: 3; */
+            z-index: 3;
         }
 
         .right {
@@ -2530,6 +2612,22 @@
     var tempoint=0;
     var stacktime;
 
+    var itemflag=false;
+    var hammer=false;
+    var pung=false;
+    var itemdrag=false;
+
+    var 해머=0
+    var 뻥=0
+
+    var pshift=[1,1.1,1.2,1.25,1.3,1.325,1.35,1.325,1.3,1.275,1.25,1.225,1.2,1.15,1.1,1.075,1.05]
+
+
+    var itemtouch=false;
+    var iteml=false;
+    var itemr=false;
+    var itemidx;
+
     var stepmold=[];
     let tcheck=[0,0,0,0,0];
 
@@ -2615,6 +2713,8 @@
     var tutsize3="3vmin"
 
     var 핑거={x:0,y:0}
+
+    var 핑거0={x:0,y:0}
 
     var freead=false;
     window.freead=freead;
@@ -4252,14 +4352,17 @@
 
         }
 
+        console.log(핑거.x)
+        console.log(핑거.y)
+
         if ((window.innerWidth / window.innerHeight) >= 4 / 7){
           topflag= false;
         }else{
           topflag= true;
-          if(lastY<-0.3){
-            ontouch = true
-            return;
-          }
+          // if(lastY<-0.3){
+          //   ontouch = true
+          //   return;
+          // }
         }
 
         if(gamemod==2&&startflag){
@@ -4267,6 +4370,52 @@
           // return;
         }
 
+        if(핑거.x<-0.9){
+          if(핑거.y>0.75&&핑거.y<0.9){
+            if(뻥>0){
+              pung=true;
+              hammer=false;
+              itemflag=true;
+              뻥--;
+              document.getElementById('hammer').children[1].innerText=String(해머)
+              document.getElementById('pung').children[1].innerText=String(뻥)
+
+            }else{
+              return;
+            }
+
+            return;
+          }else if(핑거.y>0.55&&핑거.y<0.7){
+            if(해머>0){
+              pung=false;
+              hammer=true;
+              itemflag=true;
+              해머--;
+              document.getElementById('hammer').children[1].innerText=String(해머)
+              document.getElementById('pung').children[1].innerText=String(뻥)
+            }else{
+              return;
+            }
+
+          }
+        }
+
+        // if(cat[0]=="p"){
+        //
+        //   pung=true;
+        //   // ontouch=true;
+        //   itemflag=true;
+        //   console.log(cat.pop())
+        //   return;
+        // }else if(cat[0]=="h"){
+        //
+        //   hammer=true;
+        //   // ontouch=true;
+        //   itemflag=true;
+        //   console.log(cat.pop())
+        //   return;
+        //
+        // }
 
 
 
@@ -4283,14 +4432,15 @@
 
               tempidx=cat[0].index;
 
+
             }
             if(cat.length==1) return;
 
           });
         }
 
-        if(cat.length>=1){
 
+        if(cat.length>=1){
 
 
           if(shiftlock) return;
@@ -4440,10 +4590,108 @@
         }
         // if(inflag) return;
         // event.preventDefault();
-        touchx = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
-        touchy = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
 
-        if (ontouch) {
+
+
+
+        if(window.innerWidth>window.innerHeight){
+          touchx = (event.touches[0].clientX / window.innerHeight) * 2 - 1;
+          touchy = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+
+        }else{
+          touchx = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+          touchy = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+        }
+
+
+
+
+        if(itemflag){
+          if(!itemdrag){
+            itemdrag=true;
+            if(hammer){
+              // if(해머<=0) {
+              //   itemdrag=false;
+              //   itemflag=false;
+              //   hammer=false
+              //   return;
+              // }
+
+              document.getElementById('hammer').style.left="-9vmax"
+              setTimeout(function() {
+                  document.getElementById('hammer').style.left="-10vmax"
+              }, 400);
+            }else if(pung){
+              // if(뻥<=0) {
+              //   itemdrag=false;
+              //   itemflag=false;
+              //   pung=false;
+              //   return;
+              // }
+              document.getElementById('pung').style.left="-9vmax"
+              setTimeout(function() {
+                  document.getElementById('pung').style.left="-10vmax"
+              }, 400);
+            }
+          }
+
+
+
+          if(window.innerWidth>window.innerHeight){
+            핑거0.x = (event.touches[0].clientX / window.innerHeight)* 0.8 - 1;
+            핑거0.y = -(event.touches[0].clientY / window.innerHeight)*0.8 + 1;
+
+          }else{
+            핑거0.x = (event.touches[0].clientX / window.innerWidth)* 0.8 - 1;
+            핑거0.y = -(event.touches[0].clientY / window.innerWidth)*0.8 + 1;
+          }
+
+          raycaster.setFromCamera(핑거0, camera);
+          const intersects = raycaster.intersectObjects(scene.children);
+          var cat=[];
+
+          var tempidx;
+          if (intersects.length > 0) {
+            intersects.forEach((item, i) => {
+              if(item.object.userData["game2048"]!=null){
+                cat.push(item.object.userData["game2048"]);
+                if(cat[0]!="p"&&cat[0]!="h"){
+                  tempidx=cat[0].index;
+                }else{
+                  cat.pop()
+                }
+
+
+              }
+              if(cat.length==1) return;
+
+            });
+          }
+
+
+          if(cat.length>=1){
+            itemtouch=true;
+
+            if(핑거0.x>-0.6){
+              itemr=true;
+              iteml=false;
+              console.log("오른쪽")
+              itemidx=tempidx
+            }else{
+              itemr=false;
+              iteml=true;
+              console.log("왼쪽")
+              itemidx=tempidx
+            }
+            console.log(tempidx)
+
+          }else{
+            itemtouch=false;
+          }
+
+
+
+        }else if (ontouch) {
 
 
             if (!aniflag) {
@@ -4632,6 +4880,84 @@
         } else {
             // event.preventDefault();
             // event.stopPropagation();
+        }
+
+        if(itemflag){
+            if(itemtouch){
+              console.log("아이템 사용")
+              let force2 = new CANNON.Vec3();
+              if(hammer){
+                if(itemr){
+                  force2.set(-1800,0,0)
+                }else if(iteml){
+                  force2.set(0,0,-1800)
+                }
+                setTimeout(function() {
+                    if(해머<=0) document.getElementById('hammer').style.left="-13.3vmax"
+                }, 400);
+
+
+              }else if(pung){
+                if(itemr){
+                  force2.set(1800,0,0)
+                }else if(iteml){
+                  force2.set(0,0,1800)
+                }
+                setTimeout(function() {
+                      if(뻥<=0)  document.getElementById('pung').style.left="-13.3vmax"
+                }, 400);
+
+              }
+
+
+
+              let quaternion = new CANNON.Quaternion();
+              quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[itemidx].mesh.rotation.y);
+              let rotatedVec = force2.clone();
+              // rotatedVec.applyQuaternion(quaternion);
+              rotatedVec=quaternion.vmult(force2);
+
+                // var a=cubes[this.index].body.position
+                // cubes[activeFloor].body.applyForce(force, cubes[activeFloor].body.position.clone().vadd(offset));
+
+
+
+              cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
+
+
+              // if(hammer){
+              //   if(해머<=0) document.getElementById('hammer').style.left="-13.3vmax"
+              // }else if(pung){
+              //   if(뻥<=0)  document.getElementById('pung').style.left="-13.3vmax"
+              // }
+
+              itemflag=false;
+              itemtouch=false;
+               hammer=false;
+               pung=false;
+               itemr=false;
+               iteml=false;
+               itemdrag=false
+            }else{
+              console.log("취소")
+              if(hammer){
+                해머++;
+              }else if(pung){
+                뻥++;
+              }
+              document.getElementById('hammer').children[1].innerText=String(해머)
+              document.getElementById('pung').children[1].innerText=String(뻥)
+
+              itemflag=false;
+              itemtouch=false;
+               hammer=false;
+               pung=false;
+               itemr=false;
+               iteml=false;
+               itemdrag=false
+
+            }
+
         }
 
         ontouch = false;
@@ -5163,10 +5489,10 @@
 
           // dl2.shadow.mapSize = new THREE.Vector2(1000, 1000);
         } else if (event.code === 'KeyC') {
-            if(스샷){
-              스샷=false;
-            }else{
-              스샷=true;
+            for (var i = 0; i < cubes.length-1; i++) {
+              let force2 = new CANNON.Vec3();
+              force2.set(400*(avx - cubes[i].body.position.x)+400*(cubes[i+1].body.position.x - cubes[i].body.position.x),0,400*(avz - cubes[i].body.position.z)+400*(cubes[i+1].body.position.z - cubes[i].body.position.z));
+              cubes[i].body.applyForce(force2, cubes[i].body.position);
             }
 
 
@@ -5695,6 +6021,13 @@
           }
         });
         현지=[];
+        해머=1
+        뻥=1
+        document.getElementById('hammer').children[1].innerText=String(해머)
+        document.getElementById('pung').children[1].innerText=String(뻥)
+
+
+
         tcheck=[0,0,0,0,0]
         cubes.length=5;
         resetting(stack, function(object) { //재시작
@@ -8903,7 +9236,113 @@
 
 
             stepmold.push(object.children[0]);
+
+            //망치
+            var loader1 = new OBJLoader();
+            loader1.load(ur2+'pung-0.obj', (object) => {
+                // object.children[0].rotation.y = Math.PI / 2
+                object.children[0].position.set(0, 0, 0)
+                object.children[0].scale.x = 0.7*2.57 / 2;
+                object.children[0].scale.z = 0.7*2.57 / 2;
+                object.children[0].scale.y = 0.9*2.57 / 2;
+
+
+
+                // object.children[0].scale.x=2.25;
+                // object.children[0].scale.z=2.25;
+                // object.children[0].scale.y=1.92;
+
+                var tc = new THREE.Color(0xB9800F);
+                object.children[0].material = new THREE.MeshLambertMaterial({
+                    color: tc
+                });
+                object.children[0].userData["game2048"] = "p";
+
+
+                stepmold.push(object.children[0]);
+                var loader2 = new OBJLoader();
+                loader2.load(ur2+'pung-1.obj', (object) => {
+                    // object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 0.7*2.57 / 2;
+                    object.children[0].scale.z = 0.7*2.57 / 2;
+                    object.children[0].scale.y = 0.9*2.57 / 2;
+
+
+
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    var tc = new THREE.Color(0xFB5240);
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: tc
+                    });
+                    object.children[0].userData["game2048"] = "p";
+
+
+                    stepmold[1].add(object.children[0])
+
+
+                    var loader3 = new OBJLoader();
+                    loader3.load(ur2+'hammer-0.obj', (object) => {
+                        // object.children[0].rotation.y = Math.PI / 2
+                        object.children[0].position.set(0, 0, 0)
+                        object.children[0].scale.x = 0.8*2.57 / 2;
+                        object.children[0].scale.z = 0.8*2.57 / 2;
+                        object.children[0].scale.y = 0.8*2.57 / 2;
+
+
+
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+
+                        var tc = new THREE.Color(0xBA7433);
+                        object.children[0].material = new THREE.MeshLambertMaterial({
+                            color: tc
+                        });
+                        object.children[0].userData["game2048"] = "h";
+
+                        stepmold.push(object.children[0]);
+                        var loader4 = new OBJLoader();
+                        loader4.load(ur2+'hammer-1.obj', (object) => {
+                            // object.children[0].rotation.y = Math.PI / 2
+                            object.children[0].position.set(0, 0, 0)
+                            object.children[0].scale.x = 0.8*2.57 / 2;
+                            object.children[0].scale.z = 0.8*2.57 / 2;
+                            object.children[0].scale.y = 0.8*2.57 / 2;
+
+
+
+                            // object.children[0].scale.x=2.25;
+                            // object.children[0].scale.z=2.25;
+                            // object.children[0].scale.y=1.92;
+
+                            var tc = new THREE.Color(0x6A6A6A);
+                            object.children[0].material = new THREE.MeshLambertMaterial({
+                                color: tc
+                            });
+                            object.children[0].userData["game2048"] = "h";
+
+
+                            stepmold[2].add(object.children[0])
+
+                            stepmold.push(stepmold[1].clone())
+                            stepmold.push(stepmold[2].clone())
+                        });
+                    });
+                });
+            });
         });
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11861,6 +12300,61 @@
 
             if (initflag) {
               if(gamemod==2){
+
+                if(해머<=0){
+                  document.getElementById('hammer').style.left="-13.3vmax"
+                }else{
+                  document.getElementById('hammer').style.left="-10vmax"
+                }
+
+                if(뻥<=0){
+                  document.getElementById('pung').style.left="-13.3vmax"
+                }else{
+                  document.getElementById('pung').style.left="-10vmax"
+                }
+
+
+                // scene.add(stepmold[1])
+                //
+                // scene.add(stepmold[2])
+
+                scene.add(stepmold[3])
+
+                scene.add(stepmold[4])
+
+                stepmold[1].position.x=bw*1.5
+                stepmold[1].position.y=bh*(cubes.length)
+                stepmold[2].position.x=bw*1.5
+                stepmold[2].position.y=bh*(cubes.length-1.5)
+
+                stepmold[3].position.x=bw
+                stepmold[3].position.y=bh*(cubes.length+5)
+                stepmold[3].rotation.order = 'YXZ';
+                stepmold[3].rotation.y=Math.PI / 2;
+                stepmold[3].rotation.x=Math.PI / 2;
+
+
+                stepmold[4].position.x=bw
+                stepmold[4].position.y=bh*(cubes.length+5)
+                stepmold[4].rotation.order = 'YXZ';
+
+                stepmold[4].rotation.z=Math.PI / 2;
+
+
+                stepmold[3].scale.x = 0.7*3.2 / 2;
+                stepmold[3].scale.z = 0.7*3.2 / 2;
+                stepmold[3].scale.y = 0.9*3.2 / 2;
+
+                stepmold[4].scale.x = 0.8*3.2 / 2;
+                stepmold[4].scale.z = 0.8*3.2 / 2;
+                stepmold[4].scale.y = 0.8*3.2 / 2;
+
+
+
+
+
+
+
                 ptime2=2;
                 if(!webflag) setdb([["data3", "32", String(ptime2)]]);
               }
@@ -12595,6 +13089,21 @@
 
 
                   console.log("콩")
+
+                  document.getElementById('hammer').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+                  document.getElementById('hammer').style.left="-14vmax"
+                  document.getElementById('hammer').style.opacity=1;
+                  document.getElementById('hammer').children[0].style.opacity=1;
+
+                  document.getElementById('hammer').children[1].style.color=hexToHtmlColor(colorlst[colornum][3])
+
+                  document.getElementById('pung').style.left="-14vmax"
+                  document.getElementById('pung').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+                  document.getElementById('pung').style.opacity=1;
+                  document.getElementById('pung').children[0].style.opacity=1;
+
+                  document.getElementById('pung').children[1].style.color=hexToHtmlColor(colorlst[colornum][2])
+
                   if(fullcam){
                        topcam=false
                    }else{
@@ -12689,7 +13198,95 @@
 
         }
 
+        stepmold[1].position.x=avx+bw*1.5
+        stepmold[1].position.z=avz
+        stepmold[1].position.y=bh*(cubes.length)
 
+        stepmold[2].position.x=avx+bw*1.5
+        stepmold[2].position.z=avz
+        stepmold[2].position.y=bh*(cubes.length-1.5)
+
+        if(itemdrag){
+          if(itemtouch){
+            stepmold[4].rotation.x=0
+            if(hammer){
+              var dur=parseInt(elapsedTime*25)%pshift.length
+              stepmold[3].position.y=bh*(cubes.length+15)
+              stepmold[4].position.y=cubes[itemidx].body.position.y
+              if(itemr){
+                stepmold[4].position.z=cubes[itemidx].body.position.z
+                stepmold[4].position.x=cubes[itemidx].body.position.x+bw/1.6
+                stepmold[4].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
+
+              }else if(iteml){
+                stepmold[4].position.x=cubes[itemidx].body.position.x
+                stepmold[4].position.z=cubes[itemidx].body.position.z+bw/1.6
+                stepmold[4].rotation.y=0-(pshift[dur]-1)*Math.PI/3
+
+              }
+
+            }else if(pung){
+              var dur=parseInt(elapsedTime*20)%pshift.length
+              stepmold[4].position.y=bh*(cubes.length+15)
+              stepmold[3].position.y=cubes[itemidx].body.position.y
+              if(itemr){
+
+                stepmold[3].position.z=cubes[itemidx].body.position.z
+                stepmold[3].position.x=cubes[itemidx].body.position.x+bw/1.5+((pshift[dur]-1)*3)
+
+
+                stepmold[3].rotation.y=cubes[itemidx].mesh.rotation.y+Math.PI/2
+
+              }else if(iteml){
+                stepmold[3].position.x=cubes[itemidx].body.position.x
+                stepmold[3].position.z=cubes[itemidx].body.position.z+bw/1.5+((pshift[dur]-1)*3)
+
+
+                stepmold[3].rotation.y=cubes[itemidx].mesh.rotation.y
+
+
+
+              }
+
+
+
+
+              stepmold[3].scale.y = pshift[dur]*0.9*3.2 / 2;
+
+            }
+
+          }else{
+            var dur0=parseInt(elapsedTime*20)%36
+
+            if(pung){
+              var dur=parseInt(elapsedTime*20)%pshift.length
+              stepmold[3].position.z=avz+bw-(핑거0.x+0.6)*bw*2
+              stepmold[3].position.x=avz+bw+(핑거0.x+0.6)*bw*2
+              stepmold[3].position.y=핑거0.y*bh*12-bh*4
+
+              stepmold[3].scale.y = pshift[dur]*0.9*3.2 / 2;
+
+            }else if(hammer){
+              var dur=parseInt(elapsedTime*25)%pshift.length
+              stepmold[4].position.z=avz+bw-(핑거0.x+0.6)*bw*2
+              stepmold[4].position.x=avz+bw+(핑거0.x+0.6)*bw*2
+              stepmold[4].position.y=핑거0.y*bh*12-bh*4
+
+              stepmold[4].rotation.x=Math.PI/10*dur0
+              // stepmold[4].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/4
+            }
+
+
+
+
+
+          }
+
+
+        }else{
+          stepmold[3].position.y=bh*(cubes.length+15)
+          stepmold[4].position.y=bh*(cubes.length+15)
+        }
 
 
 
@@ -15573,6 +16170,9 @@
                     // });
                     stepmold[0].material.color=new THREE.Color(colorlst[colornum][3])
                     textMesh.add(stepmold[0])
+
+
+
                   }else if(gamemod==4){
                     if(횟수%5==4){
                       textMesh.scale.x=0.8+(parseInt(elapsedTime*10)%10)*0.05
@@ -16087,6 +16687,24 @@
     // Start the animation loop
     // if(!gameoverflag) animate();
     // Handle window resizing
+
+    function getitem(n){
+      if(n==1){
+        if(뻥==0){
+          document.getElementById('pung').style.left="-10vmax"
+        }
+        뻥++;
+        document.getElementById('pung').children[1].innerText=String(뻥)
+      }else if(n==2){
+        if(해머==0){
+          document.getElementById('hammer').style.left="-10vmax"
+        }
+        해머++;
+        document.getElementById('hammer').children[1].innerText=String(해머)
+
+      }
+    }
+    window.getitem=getitem;
 
     function newbox(x, y, z, width, height, depth, game2048, idx, flag){
 
@@ -22468,6 +23086,16 @@
 <button id="right" class="right" onclick="optionon()">
     <img class="" src="png/up.png">
     <img class="hidden" src="png/down.png">
+</button>
+
+<button id="hammer" class="hammer" onclick="">
+    <img class="" src="png/hammer.png">
+    <div>0</div>
+</button>
+
+<button id="pung" class="pung" onclick="">
+    <img class="" src="png/pung.png">
+    <div>0</div>
 </button>
 
 <div id="optionlst" class="optionlst hidden">
