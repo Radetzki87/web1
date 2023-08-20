@@ -16,7 +16,7 @@
 
         }
         canvas {
-            overflow-x: hidden;
+            overflow-x: hidden;.
             overflow-y: hidden;
             position: absolute;
             display: block;
@@ -2136,14 +2136,14 @@
         .pung {
             position: absolute;
             background-color: rgba(250, 250, 250, 0.4);
-            border-radius: 4vmin;
+            border-radius: 2vmin;
             border:5vmax rgba(50, 50, 50, 0.8);
             /* background-image: url("png/green_button09.png"); */
-            background-size: 6vmax 4vmax;
-            top: 6vmax;
-            left: -14vmax;
-            width: 14vmax;
-            height: 8vmax;
+            /* background-size: 6vmax 4vmax; */
+            top: 6vh;
+            left: -14vh;
+            width: 14vh;
+            height: 8vh;
             z-index: 2;
             transition: left 0.4s;
             text-align: center;
@@ -2151,18 +2151,17 @@
         }
 
         .hammer {
-
             position: absolute;
             /* background-color: rgba(250, 250, 250, 0.5); */
-            border-radius: 4vmin;
+            border-radius: 2vmin;
             border:5vmax rgba(50, 50, 50, 0.8);
             /* background-image: url("png/green_button09.png"); */
-            background-size: 6vmax 4vmax;
-            top: 17.5vmax;
-            left: -14vmax;
-            width: 14vmax;
-            height: 8vmax;
-            z-index: 1;
+            /* background-size: 6vmax 4vmax; */
+            top: 17.5vh;
+            left: -14vh;
+            width: 14vh;
+            height: 8vh;
+            z-index: 2;
             transition: left 0.4s;
             text-align: center;
 
@@ -2182,7 +2181,7 @@
             left:37%;
             bottom:0%;
             /* width: 5vmax; */
-            height: 4vmax;
+            height: 4vh;
             z-index: 3;
         }
 
@@ -2190,7 +2189,7 @@
           position: relative;
           left:38.5%;
           font-family: 'GG';
-          font-size: 3vmax;
+          font-size: 3vh;
             /* left:37%;
             bottom:5%;
 
@@ -2203,7 +2202,7 @@
           position: relative;
           left:38.5%;
           font-family: 'GG';
-          font-size: 3vmax;
+          font-size: 3vh;
             /* position: relative;
             left:37%;
             bottom:5%;
@@ -3866,7 +3865,7 @@
                     fullc++
                     this.fullflag=true;
                     fullany=true;
-                    tcheck[2]=elapsedTime;
+                    if(오토) tcheck[2]=elapsedTime;
                     if(gamemod==0){
                       cubes[this.index].body.material.friction = 0.16
                       world.solver.iterations=4-fullc;
@@ -4098,8 +4097,8 @@
               if(soundic[esound[5]].isPlaying){
                 soundic[esound[5]].stop();
               }
-                tcheck[3]+=1;
-                console.log(tcheck[3])
+                if(오토) tcheck[3]+=1;
+
               // soundic[esound[5]].play();
 
               // if(ringflag){
@@ -4116,7 +4115,7 @@
 
 
             }else{
-              tcheck[3]=0
+              if(오토) tcheck[3]=0
             }
 
             temp2.forEach((item) => {
@@ -4352,8 +4351,7 @@
 
         }
 
-        console.log(핑거.x)
-        console.log(핑거.y)
+
 
         if ((window.innerWidth / window.innerHeight) >= 4 / 7){
           topflag= false;
@@ -4370,8 +4368,8 @@
           // return;
         }
 
-        if(핑거.x<-0.9){
-          if(핑거.y>0.75&&핑거.y<0.9){
+        if(lastX<-0.9){
+          if(lastY>0.75&&lastY<0.9){
             if(뻥>0){
               pung=true;
               hammer=false;
@@ -4385,7 +4383,7 @@
             }
 
             return;
-          }else if(핑거.y>0.55&&핑거.y<0.7){
+          }else if(lastY>0.55&&lastY<0.7){
             if(해머>0){
               pung=false;
               hammer=true;
@@ -4477,12 +4475,12 @@
             if(cubes.length==5){
               if(tempidx<4) return;
             }else if(tempidx<cubes.length-1){
-              console.log(tempidx)
-              let force2 = new CANNON.Vec3();
-              force2.set(800*(avx - cubes[tempidx].body.position.x)+800*(cubes[tempidx+1].body.position.x - cubes[tempidx].body.position.x),0,800*(avz - cubes[tempidx].body.position.z)+800*(cubes[tempidx+1].body.position.z - cubes[tempidx].body.position.z));
-              cubes[tempidx].body.applyForce(force2, cubes[tempidx].body.position);
-
-
+              // console.log(tempidx)
+              // let force2 = new CANNON.Vec3();
+              // force2.set(800*(avx - cubes[tempidx].body.position.x)+800*(cubes[tempidx+1].body.position.x - cubes[tempidx].body.position.x),0,800*(avz - cubes[tempidx].body.position.z)+800*(cubes[tempidx+1].body.position.z - cubes[tempidx].body.position.z));
+              // cubes[tempidx].body.applyForce(force2, cubes[tempidx].body.position);
+              //
+              //
 
               return;
             }
@@ -4616,23 +4614,30 @@
               //   hammer=false
               //   return;
               // }
+              stepmold[4].material.visible=true;
+              stepmold[4].children[0].material.visible=true;
 
-              document.getElementById('hammer').style.left="-9vmax"
+              document.getElementById('hammer').style.left="-9vh"
               setTimeout(function() {
-                  document.getElementById('hammer').style.left="-10vmax"
+                  document.getElementById('hammer').style.left="-10vh"
               }, 400);
             }else if(pung){
+              stepmold[3].material.visible=true;
+              stepmold[3].children[0].material.visible=true;
               // if(뻥<=0) {
               //   itemdrag=false;
               //   itemflag=false;
               //   pung=false;
               //   return;
               // }
-              document.getElementById('pung').style.left="-9vmax"
+              document.getElementById('pung').style.left="-9vh"
               setTimeout(function() {
-                  document.getElementById('pung').style.left="-10vmax"
+                  document.getElementById('pung').style.left="-10vh"
               }, 400);
             }
+
+
+
           }
 
 
@@ -4888,23 +4893,23 @@
               let force2 = new CANNON.Vec3();
               if(hammer){
                 if(itemr){
-                  force2.set(-1800,0,0)
+                  force2.set(-2800,0,0)
                 }else if(iteml){
-                  force2.set(0,0,-1800)
+                  force2.set(0,0,-2800)
                 }
                 setTimeout(function() {
-                    if(해머<=0) document.getElementById('hammer').style.left="-13.3vmax"
+                    if(해머<=0) document.getElementById('hammer').style.left="-13.3vh"
                 }, 400);
 
 
               }else if(pung){
                 if(itemr){
-                  force2.set(1800,0,0)
+                  force2.set(2800,0,0)
                 }else if(iteml){
-                  force2.set(0,0,1800)
+                  force2.set(0,0,2800)
                 }
                 setTimeout(function() {
-                      if(뻥<=0)  document.getElementById('pung').style.left="-13.3vmax"
+                      if(뻥<=0)  document.getElementById('pung').style.left="-13.3vh"
                 }, 400);
 
               }
@@ -4924,6 +4929,11 @@
 
               cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
 
+              stepmold[3].material.visible=false;
+              stepmold[3].children[0].material.visible=false;
+              stepmold[4].material.visible=false;
+              stepmold[4].children[0].material.visible=false;
+
 
               // if(hammer){
               //   if(해머<=0) document.getElementById('hammer').style.left="-13.3vmax"
@@ -4940,6 +4950,10 @@
                itemdrag=false
             }else{
               console.log("취소")
+              stepmold[3].material.visible=false;
+              stepmold[3].children[0].material.visible=false;
+              stepmold[4].material.visible=false;
+              stepmold[4].children[0].material.visible=false;
               if(hammer){
                 해머++;
               }else if(pung){
@@ -6028,7 +6042,7 @@
 
 
 
-        tcheck=[0,0,0,0,0]
+        if(오토) tcheck=[0,0,0,0,0]
         cubes.length=5;
         resetting(stack, function(object) { //재시작
             msetting1(function(object) {
@@ -6109,17 +6123,16 @@
                           dl2.castShadow = true;
                           switch (resinit) {
                             case 0:
-                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
+                              dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
                               break;
                             case 1:
-                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
-                              console.log("천")
+                              dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
                               break;
                             case 2:
-                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
+                              dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
                               break;
                             case 3:
-                              dl2.shadow.mapSize = new THREE.Vector2(1800, 1800);
+                              dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
                               break;
                             case 4:
                               dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
@@ -11434,8 +11447,7 @@
               setting(1, function(object) {
                   addring();
                       cubes.forEach((item) => {
-                          item.mesh.userData.game2048.spawnTile();
-                          item.mesh.userData.game2048.spawnTile();
+
 
                           // item.mesh.userData.game2048.spawnTile("up",64);
                           // item.mesh.userData.game2048.spawnTile("up",32);
@@ -11449,53 +11461,7 @@
                       // msetting2(function (object) {
                       msetting0(function(object) {
                           txtsetting(function(object) {
-                            if (lighton) {
-                                var ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
-                                scene.add(ambientLight);
-                                // const dL=new THREE.DirectionalLight(0xffffff,0.7);
-                                // dL.position.set(13,30,18);
-                                // scene.add(dL);
-                                var dl2 = new THREE.DirectionalLight(0xFFFFFF, 0.7);
-                                dl2.position.set(20, 100, 80);
-                                // dl2.position.set(-40+Math.random()*80,50,-10+Math.random()*50);
-                                // dl2.position.set(13,30,-18);
-                                dl2.target.position.set(0, 0, 0);
 
-                                if (shadowon) {
-                                    dl2.shadow.camera.left = -bw * 3.3;
-                                    dl2.shadow.camera.right = bw * 3.3 * 4;
-                                    dl2.shadow.camera.top = bw * 3.3;
-                                    dl2.shadow.camera.bottom = -bw * 3.3 * 4;
-                                    dl2.shadow.camera.near = 0.01;
-                                    dl2.shadow.camera.far = 1000;
-                                    dl2.shadow.camera.lookAt(0, 0, 0);
-                                    dl2.castShadow = true;
-                                    switch (resinit) {
-                                      case 0:
-                                        dl2.shadow.mapSize = new THREE.Vector2(1000, 1000);
-                                        break;
-                                      case 1:
-                                        dl2.shadow.mapSize = new THREE.Vector2(1200, 1200);
-                                        break;
-                                      case 2:
-                                        dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
-                                        break;
-                                      case 3:
-                                        dl2.shadow.mapSize = new THREE.Vector2(1800, 1800);
-                                        break;
-                                      case 4:
-                                        dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
-                                        break;
-                                      case 5:
-                                        dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
-                                        break;
-                                      default:
-                                        return;
-                                    }
-
-                                }
-                                scene.add(dl2)
-                            }
                               time0 = performance.now();
                               fps = 0;
                               if(!webflag){
@@ -12302,15 +12268,15 @@
               if(gamemod==2){
 
                 if(해머<=0){
-                  document.getElementById('hammer').style.left="-13.3vmax"
+                  document.getElementById('hammer').style.left="-13.3vh"
                 }else{
-                  document.getElementById('hammer').style.left="-10vmax"
+                  document.getElementById('hammer').style.left="-10vh"
                 }
 
                 if(뻥<=0){
-                  document.getElementById('pung').style.left="-13.3vmax"
+                  document.getElementById('pung').style.left="-13.3vh"
                 }else{
-                  document.getElementById('pung').style.left="-10vmax"
+                  document.getElementById('pung').style.left="-10vh"
                 }
 
 
@@ -12923,7 +12889,7 @@
                 if(onceflag0){
                   camera.rotation.x=-isoAngle;
                   console.log("빵")
-                  tcheck[0]=elapsedTime;
+                  if(오토) tcheck[0]=elapsedTime;
                   console.log(tcheck[0])
                   if(!tutorialflag){
                         document.getElementById("t1").classList.add("hidden");
@@ -13095,14 +13061,14 @@
                   document.getElementById('hammer').style.opacity=1;
                   document.getElementById('hammer').children[0].style.opacity=1;
 
-                  document.getElementById('hammer').children[1].style.color=hexToHtmlColor(colorlst[colornum][3])
+                  document.getElementById('hammer').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
 
                   document.getElementById('pung').style.left="-14vmax"
                   document.getElementById('pung').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
                   document.getElementById('pung').style.opacity=1;
                   document.getElementById('pung').children[0].style.opacity=1;
 
-                  document.getElementById('pung').children[1].style.color=hexToHtmlColor(colorlst[colornum][2])
+                  document.getElementById('pung').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
 
                   if(fullcam){
                        topcam=false
@@ -13198,13 +13164,7 @@
 
         }
 
-        stepmold[1].position.x=avx+bw*1.5
-        stepmold[1].position.z=avz
-        stepmold[1].position.y=bh*(cubes.length)
 
-        stepmold[2].position.x=avx+bw*1.5
-        stepmold[2].position.z=avz
-        stepmold[2].position.y=bh*(cubes.length-1.5)
 
         if(itemdrag){
           if(itemtouch){
@@ -13284,8 +13244,9 @@
 
 
         }else{
-          stepmold[3].position.y=bh*(cubes.length+15)
-          stepmold[4].position.y=bh*(cubes.length+15)
+
+          // stepmold[3].position.y=bh*(cubes.length+15)
+          // stepmold[4].position.y=bh*(cubes.length+15)
         }
 
 
@@ -13646,7 +13607,7 @@
                                 let rotatedVec = force.clone();
                                 // rotatedVec.applyQuaternion(quaternion);
                                 rotatedVec=quaternion.vmult(force);
-                                console.log(rotatedVec)
+
                                   // var a=cubes[this.index].body.position
                                   // cubes[activeFloor].body.applyForce(force, cubes[activeFloor].body.position.clone().vadd(offset));
                                   cubes[item.index].body.applyForce(rotatedVec, cubes[item.index].body.position);
@@ -14016,15 +13977,6 @@
           }
         }
 
-
-
-        // if(elapsedTime - stacktime < 0.5){
-        //   cubes[cubes.length-1].mesh.scale.set(0.8+1*(elapsedTime - stacktime), 0.8+1*(elapsedTime - stacktime),0.8+1*(elapsedTime - stacktime))
-        // }else if(elapsedTime - stacktime < 0.8){
-        //   cubes[cubes.length-1].mesh.scale.set(1.3-(elapsedTime - stacktime-0.5), 1.3-(elapsedTime - stacktime-0.5),1.3-(elapsedTime - stacktime-0.5))
-        // }
-
-
         if(m2flag){
           if(elapsedTime - stacktime <= 0.35){
             if(!m2once){
@@ -14359,7 +14311,7 @@
 
                         }else{
                           gameoverflag = true;
-                          tcheck[1]=elapsedTime;
+                          if(오토) tcheck[1]=elapsedTime;
                           // document.getElementById("t1").classList.add("hidden");
                           // document.getElementById("t2").classList.add("hidden");
                           // document.getElementById("t3").classList.add("hidden");
@@ -16691,13 +16643,13 @@
     function getitem(n){
       if(n==1){
         if(뻥==0){
-          document.getElementById('pung').style.left="-10vmax"
+          document.getElementById('pung').style.left="-10vh"
         }
         뻥++;
         document.getElementById('pung').children[1].innerText=String(뻥)
       }else if(n==2){
         if(해머==0){
-          document.getElementById('hammer').style.left="-10vmax"
+          document.getElementById('hammer').style.left="-10vh"
         }
         해머++;
         document.getElementById('hammer').children[1].innerText=String(해머)
