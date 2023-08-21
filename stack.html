@@ -2645,7 +2645,7 @@
     var 터치=false;
     var overblock = false
 
-    var fullcam=false;
+    var fullcam=true;
 
 
     var songTitle = 'Song Title';
@@ -4674,7 +4674,7 @@
           }
 
 
-          if(cat.length>=1){
+          if(cat.length>=1&&tempidx<cubes.length-1){
             itemtouch=true;
 
             if(핑거0.x>-0.6){
@@ -9255,9 +9255,9 @@
             loader1.load(ur2+'pung-0.obj', (object) => {
                 // object.children[0].rotation.y = Math.PI / 2
                 object.children[0].position.set(0, 0, 0)
-                object.children[0].scale.x = 0.7*2.57 / 2;
-                object.children[0].scale.z = 0.7*2.57 / 2;
-                object.children[0].scale.y = 0.9*2.57 / 2;
+                object.children[0].scale.x = 0.7*3.57 / 2;
+                object.children[0].scale.z = 0.7*3.57 / 2;
+                object.children[0].scale.y = 0.9*3.57 / 2;
 
 
 
@@ -9277,9 +9277,9 @@
                 loader2.load(ur2+'pung-1.obj', (object) => {
                     // object.children[0].rotation.y = Math.PI / 2
                     object.children[0].position.set(0, 0, 0)
-                    object.children[0].scale.x = 0.7*2.57 / 2;
-                    object.children[0].scale.z = 0.7*2.57 / 2;
-                    object.children[0].scale.y = 0.9*2.57 / 2;
+                    object.children[0].scale.x = 0.7*3.57 / 2;
+                    object.children[0].scale.z = 0.7*3.57 / 2;
+                    object.children[0].scale.y = 0.9*3.57 / 2;
 
 
 
@@ -9300,9 +9300,9 @@
                     loader3.load(ur2+'hammer-0.obj', (object) => {
                         // object.children[0].rotation.y = Math.PI / 2
                         object.children[0].position.set(0, 0, 0)
-                        object.children[0].scale.x = 0.8*2.57 / 2;
-                        object.children[0].scale.z = 0.8*2.57 / 2;
-                        object.children[0].scale.y = 0.8*2.57 / 2;
+                        object.children[0].scale.x = 0.8*3.57 / 2;
+                        object.children[0].scale.z = 0.8*3.57 / 2;
+                        object.children[0].scale.y = 0.8*3.57 / 2;
 
 
 
@@ -9321,9 +9321,9 @@
                         loader4.load(ur2+'hammer-1.obj', (object) => {
                             // object.children[0].rotation.y = Math.PI / 2
                             object.children[0].position.set(0, 0, 0)
-                            object.children[0].scale.x = 0.8*2.57 / 2;
-                            object.children[0].scale.z = 0.8*2.57 / 2;
-                            object.children[0].scale.y = 0.8*2.57 / 2;
+                            object.children[0].scale.x = 0.8*3.57 / 2;
+                            object.children[0].scale.z = 0.8*3.57 / 2;
+                            object.children[0].scale.y = 0.8*3.57 / 2;
 
 
 
@@ -9391,37 +9391,37 @@
               }
           }
 
-          var temp5 = [];
-          var text1 = textdic[87][langset[langnum]]+" " + sdic[n][0].substring(0, sdic[n][0].length - 4) + " "
-          console.log(text1);
-          for (var i = 0; i < 100; i++) {
-              var canvas = document.createElement('canvas');
-              var ctx = canvas.getContext('2d');
-              // const padding = 10;
-              ctx.globalAlpha = 1;
-              canvas.width = 16.5 * 6;
-              canvas.height = 5.6 * 6;
-              var tl = text1.length;
-              var textw = tl * (canvas.width / 10);
-              ctx.font = `${14}px Arial`;
-              ctx.fillStyle = 0xFFFFFF;
-              // // ctx.fillText(text, padding, padding + textHeight * 0.8);
-              ctx.fillText(text1, 0 - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
-              ctx.fillText(text1, textw - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
-              ctx.font = `${7}px Arial`;
-
-              ctx.fillText("  "+sdic[n]["producer"], 0, canvas.height * 0.35, canvas.width / 2.5, canvas.height);
-              // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
-              var img3 = new THREE.CanvasTexture(canvas);
-              var material5 = new THREE.MeshLambertMaterial({
-                  map: img3,
-                  side: THREE.DoubleSide,
-                  transparent: true,
-                  opacity: 1
-              });
-              temp5.push(material5);
-          }
-          txtlst.push(temp5);
+          // var temp5 = [];
+          // var text1 = textdic[87][langset[langnum]]+" " + sdic[n][0].substring(0, sdic[n][0].length - 4) + " "
+          // console.log(text1);
+          // for (var i = 0; i < 100; i++) {
+          //     var canvas = document.createElement('canvas');
+          //     var ctx = canvas.getContext('2d');
+          //     // const padding = 10;
+          //     ctx.globalAlpha = 1;
+          //     canvas.width = 16.5 * 6;
+          //     canvas.height = 5.6 * 6;
+          //     var tl = text1.length;
+          //     var textw = tl * (canvas.width / 10);
+          //     ctx.font = `${14}px Arial`;
+          //     ctx.fillStyle = 0xFFFFFF;
+          //     // // ctx.fillText(text, padding, padding + textHeight * 0.8);
+          //     ctx.fillText(text1, 0 - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
+          //     ctx.fillText(text1, textw - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
+          //     ctx.font = `${7}px Arial`;
+          //
+          //     ctx.fillText("  "+sdic[n]["producer"], 0, canvas.height * 0.35, canvas.width / 2.5, canvas.height);
+          //     // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
+          //     var img3 = new THREE.CanvasTexture(canvas);
+          //     var material5 = new THREE.MeshLambertMaterial({
+          //         map: img3,
+          //         side: THREE.DoubleSide,
+          //         transparent: true,
+          //         opacity: 1
+          //     });
+          //     temp5.push(material5);
+          // }
+          txtlst.push(txtlst[txtlst.length-1]);
 
         if (callback) {
             callback();
@@ -12311,6 +12311,8 @@
                 stepmold[3].scale.z = 0.7*3.2 / 2;
                 stepmold[3].scale.y = 0.9*3.2 / 2;
 
+
+
                 stepmold[4].scale.x = 0.8*3.2 / 2;
                 stepmold[4].scale.z = 0.8*3.2 / 2;
                 stepmold[4].scale.y = 0.8*3.2 / 2;
@@ -13175,12 +13177,12 @@
               stepmold[4].position.y=cubes[itemidx].body.position.y
               if(itemr){
                 stepmold[4].position.z=cubes[itemidx].body.position.z
-                stepmold[4].position.x=cubes[itemidx].body.position.x+bw/1.6
+                stepmold[4].position.x=cubes[itemidx].body.position.x+bw/1.5
                 stepmold[4].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
 
               }else if(iteml){
                 stepmold[4].position.x=cubes[itemidx].body.position.x
-                stepmold[4].position.z=cubes[itemidx].body.position.z+bw/1.6
+                stepmold[4].position.z=cubes[itemidx].body.position.z+bw/1.5
                 stepmold[4].rotation.y=0-(pshift[dur]-1)*Math.PI/3
 
               }
@@ -13192,14 +13194,14 @@
               if(itemr){
 
                 stepmold[3].position.z=cubes[itemidx].body.position.z
-                stepmold[3].position.x=cubes[itemidx].body.position.x+bw/1.5+((pshift[dur]-1)*3)
+                stepmold[3].position.x=cubes[itemidx].body.position.x+bw/1.4+((pshift[dur]-1)*3)
 
 
                 stepmold[3].rotation.y=cubes[itemidx].mesh.rotation.y+Math.PI/2
 
               }else if(iteml){
                 stepmold[3].position.x=cubes[itemidx].body.position.x
-                stepmold[3].position.z=cubes[itemidx].body.position.z+bw/1.5+((pshift[dur]-1)*3)
+                stepmold[3].position.z=cubes[itemidx].body.position.z+bw/1.4+((pshift[dur]-1)*3)
 
 
                 stepmold[3].rotation.y=cubes[itemidx].mesh.rotation.y
