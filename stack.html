@@ -2212,6 +2212,75 @@
             z-index: 3;
         }
 
+
+        .pung0{
+            position: absolute;
+
+            /* background-image: url("png/green_button09.png"); */
+            /* background-size: 6vmax 4vmax; */
+            top: 6vh;
+            left: 30%;
+            width: 15vmin;
+            z-index: 2;
+            transition: opacity 0.5s, top 0.8s;
+            display: inline-flex;
+        }
+
+
+        .hammer0 {
+            position: absolute;
+            /* background-color: rgba(250, 250, 250, 0.5); */
+
+            /* background-image: url("png/green_button09.png"); */
+            /* background-size: 6vmax 4vmax; */
+            top: 6vh;
+            left: 30%;
+            width: 15vmin;
+            z-index: 2;
+            transition: opacity 0.5s, top 0.8s;
+
+            display: inline-flex;
+        }
+
+        .hammer0 img{
+
+            /* width: 5vmax; */
+            height: 8vmin;
+            z-index: 3;
+        }
+
+        .pung0 img{
+
+            /* width: 5vmax; */
+            height: 8vmin;
+            z-index: 3;
+        }
+
+        .hammer0 div{
+
+          font-family: 'GG';
+          font-size: 4vmin;
+            /* left:37%;
+            bottom:5%;
+
+            height: 4vmax;
+            z-index: 3; */
+            z-index: 3;
+        }
+
+        .pung0 div{
+
+          font-family: 'GG';
+          font-size: 4vmin;
+            /* position: relative;
+            left:37%;
+            bottom:5%;
+
+            height: 4vmax;
+            z-index: 3; */
+            z-index: 3;
+        }
+
         .right {
             position: absolute;
             border: none;
@@ -4368,7 +4437,7 @@
           // return;
         }
 
-        if(lastX<-0.9){
+        if(lastX<-0.85){
           if(lastY>0.72&&lastY<0.92){
             if(뻥>0){
               pung=true;
@@ -4614,16 +4683,15 @@
               //   hammer=false
               //   return;
               // }
-              stepmold[4].material.visible=true;
-              stepmold[4].children[0].material.visible=true;
+
+
 
               document.getElementById('hammer').style.left="-9vh"
               setTimeout(function() {
                   document.getElementById('hammer').style.left="-10vh"
               }, 400);
             }else if(pung){
-              stepmold[3].material.visible=true;
-              stepmold[3].children[0].material.visible=true;
+
               // if(뻥<=0) {
               //   itemdrag=false;
               //   itemflag=false;
@@ -4639,6 +4707,7 @@
 
 
           }
+
 
 
 
@@ -4674,21 +4743,21 @@
           }
 
 
-          if(cat.length>=1&&tempidx<cubes.length-1){
+          if(cat.length>=1&&tempidx<cubes.length){
             itemtouch=true;
 
             if(핑거0.x>-0.6){
               itemr=true;
               iteml=false;
-              console.log("오른쪽")
+
               itemidx=tempidx
             }else{
               itemr=false;
               iteml=true;
-              console.log("왼쪽")
+
               itemidx=tempidx
             }
-            console.log(tempidx)
+
 
           }else{
             itemtouch=false;
@@ -4893,11 +4962,11 @@
               let force2 = new CANNON.Vec3();
               if(hammer){
                 if(itemr){
-                  force2.set(-2800,0,0)
+                  force2.set(-2500,0,0)
                   이펙트2(itemidx, 128, "left");
 
                 }else if(iteml){
-                  force2.set(0,0,-2800)
+                  force2.set(0,0,-2500)
                   이펙트2(itemidx, 128, "up");
                 }
                 setTimeout(function() {
@@ -4907,10 +4976,10 @@
 
               }else if(pung){
                 if(itemr){
-                  force2.set(2800,0,0)
+                  force2.set(2500,0,0)
                   이펙트2(itemidx, 128, "right");
                 }else if(iteml){
-                  force2.set(0,0,2800)
+                  force2.set(0,0,2500)
                   이펙트2(itemidx, 128, "down");
                 }
                 setTimeout(function() {
@@ -4934,7 +5003,8 @@
 
 
               cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
-              soundic[sdic[activeFloor]["128"]].play();
+
+              soundic[sdic[cubes.length-1]["32"]].play();
 
               stepmold[3].material.visible=false;
               stepmold[3].children[0].material.visible=false;
@@ -5699,6 +5769,8 @@
         }
         console.log(stacknum)
 
+        stacknum=[0,0,0,0,8,8,16,8,16,32,8,16,32,64,8,16,32,64,128,8,16,32,64,128,256]
+
         frontalViewCamera.left= -bw / 1.05
         frontalViewCamera.right = bw / 1.05
         frontalViewCamera.top = bw / 1.05
@@ -6042,8 +6114,8 @@
           }
         });
         현지=[];
-        해머=1
-        뻥=1
+        해머=0;
+        뻥=0;
         document.getElementById('hammer').children[1].innerText=String(해머)
         document.getElementById('pung').children[1].innerText=String(뻥)
 
@@ -11507,16 +11579,17 @@
 
 
                                       // window.setInterval(animate, 100);
-                                      animate();
+                                      // animate();
                                       window.sdic=sdic;
                                       // console.log(sdic)
                                       clickflag=true;
                                       setTimeout(function() {
-                                        터치=true
+
                                         ncolornum=colornum
                                         ncolornum0=colornum0
                                         restart()
-                                      }, 100  );
+                                        animate();
+                                      }, 1000  );
 
                                   }, 500  );
                               })
@@ -12962,7 +13035,7 @@
 
                   if(효과음){
                     esound.forEach((item) => {
-                      soundic[item].setVolume(0.3);
+                      soundic[item]?.setVolume(0.3);
                     });
                     for(let i=0;i<6;i++){
                       let temp=[2,4,8,16,32,64,128,256,512,1024,2048,"up", "down", "left", "right"]
@@ -13064,6 +13137,12 @@
 
 
                   console.log("콩")
+                  setTimeout(function() {
+                    터치=true
+                  }, 500);
+
+                  document.getElementById('hammer0').style.display="none"
+                  document.getElementById('pung0').style.display="none"
 
                   document.getElementById('hammer').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
                   document.getElementById('hammer').style.left="-14vmax"
@@ -13176,39 +13255,46 @@
 
 
         if(itemdrag){
+
+
+
           if(itemtouch){
             stepmold[4].rotation.x=0
             if(hammer){
+              stepmold[4].material.visible=true;
+              stepmold[4].children[0].material.visible=true;
               var dur=parseInt(elapsedTime*25)%pshift.length
               stepmold[3].position.y=bh*(cubes.length+15)
               stepmold[4].position.y=cubes[itemidx].body.position.y
               if(itemr){
                 stepmold[4].position.z=cubes[itemidx].body.position.z
-                stepmold[4].position.x=cubes[itemidx].body.position.x+bw/1.5
+                stepmold[4].position.x=cubes[itemidx].body.position.x+bw/1.4
                 stepmold[4].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
 
               }else if(iteml){
                 stepmold[4].position.x=cubes[itemidx].body.position.x
-                stepmold[4].position.z=cubes[itemidx].body.position.z+bw/1.5
+                stepmold[4].position.z=cubes[itemidx].body.position.z+bw/1.4
                 stepmold[4].rotation.y=0-(pshift[dur]-1)*Math.PI/3
 
               }
 
             }else if(pung){
+              stepmold[3].material.visible=true;
+              stepmold[3].children[0].material.visible=true;
               var dur=parseInt(elapsedTime*20)%pshift.length
               stepmold[4].position.y=bh*(cubes.length+15)
               stepmold[3].position.y=cubes[itemidx].body.position.y
               if(itemr){
 
                 stepmold[3].position.z=cubes[itemidx].body.position.z
-                stepmold[3].position.x=cubes[itemidx].body.position.x+bw/1.4+((pshift[dur]-1)*3)
+                stepmold[3].position.x=cubes[itemidx].body.position.x+bw/1.3+((pshift[dur]-1)*3)
 
 
                 stepmold[3].rotation.y=cubes[itemidx].mesh.rotation.y+Math.PI/2
 
               }else if(iteml){
                 stepmold[3].position.x=cubes[itemidx].body.position.x
-                stepmold[3].position.z=cubes[itemidx].body.position.z+bw/1.4+((pshift[dur]-1)*3)
+                stepmold[3].position.z=cubes[itemidx].body.position.z+bw/1.3+((pshift[dur]-1)*3)
 
 
                 stepmold[3].rotation.y=cubes[itemidx].mesh.rotation.y
@@ -13228,7 +13314,10 @@
             var dur0=parseInt(elapsedTime*20)%36
 
             if(pung){
+              stepmold[3].material.visible=true;
+              stepmold[3].children[0].material.visible=true;
               var dur=parseInt(elapsedTime*20)%pshift.length
+
               stepmold[3].position.z=avz+bw-(핑거0.x+0.6)*bw*2
               stepmold[3].position.x=avz+bw+(핑거0.x+0.6)*bw*2
               stepmold[3].position.y=핑거0.y*bh*12-bh*4
@@ -13236,7 +13325,10 @@
               stepmold[3].scale.y = pshift[dur]*0.9*3.2 / 2;
 
             }else if(hammer){
+              stepmold[4].material.visible=true;
+              stepmold[4].children[0].material.visible=true;
               var dur=parseInt(elapsedTime*25)%pshift.length
+
               stepmold[4].position.z=avz+bw-(핑거0.x+0.6)*bw*2
               stepmold[4].position.x=avz+bw+(핑거0.x+0.6)*bw*2
               stepmold[4].position.y=핑거0.y*bh*12-bh*4
@@ -13451,6 +13543,7 @@
                         var num = parseInt(item.body.board[item.c][item.d])
                         if(num>maxnum) maxnum=num
                         점수+=num;
+                        console.log(점수)
                         // item.body.boardpointer[item.c][item.d].userData["text"]=String(num*2);
                         cubes[item.index].mesh.remove(item.body0);
                         item.body.boardpointer[item.a][item.b] = [];
@@ -13520,6 +13613,13 @@
                               // console.log(sdic)
                               // var tnum=Math.pow(2, (cubes.length-3))
                               if(num==stacknum[activeFloor]&&activeFloor==cubes.length-1&&!m2flag){
+                                if((activeFloor+1)%4==0){
+                                  setTimeout(function() {
+                                    getitem(1+parseInt(elapsedTime*100)%2)
+                                  }, 1000);
+
+
+                                }
                                 if(tutorialflag&&tutstep==23){
                                   tutstep++;
                                   tempseq=elapsedTime;
@@ -15748,6 +15848,18 @@
                     tmb0=0.03;
                     tmb1=0.1;
                   }
+                  if(gamemod==2){
+                    if(itemdrag){
+                      tmb0=0.2;
+                    }else{
+
+                      tmb0=0.04;
+                    }
+
+                    tmb1=0.1;
+                  }
+
+
                   cubes[i].mesh.children[j].material.receiveShadow = true;
                   cubes[i].mesh.children[j].material.castShadow = true;
 
@@ -16194,6 +16306,14 @@
           })
         }
         gradback[0].material.visible = true;
+
+        if(startflag){
+        stepmold[3].material.visible=false;
+        stepmold[3].children[0].material.visible=false;
+        stepmold[4].material.visible=false;
+        stepmold[4].children[0].material.visible=false;
+        }
+
         if (topcam&&!restartflag) {
           if(particleflag) particles.material.visible=false;
             // groundmesh.material.visible = true;
@@ -16656,6 +16776,21 @@
         }
         뻥++;
         document.getElementById('pung').children[1].innerText=String(뻥)
+
+        document.getElementById('pung0').style.display="inline-flex"
+
+        setTimeout(function() {
+          document.getElementById('pung0').style.top="-5vh"
+          document.getElementById('pung0').style.opacity="0.1"
+          setTimeout(function() {
+            document.getElementById('pung0').style.display="none"
+            document.getElementById('pung0').style.top="6vh"
+            document.getElementById('pung0').style.opacity="1"
+          }, 1000);
+        }, 30);
+
+
+
       }else if(n==2){
         if(해머==0){
           document.getElementById('hammer').style.left="-10vh"
@@ -16663,7 +16798,20 @@
         해머++;
         document.getElementById('hammer').children[1].innerText=String(해머)
 
+        document.getElementById('hammer0').style.display="inline-flex"
+        setTimeout(function() {
+          document.getElementById('hammer0').style.top="-5vh"
+          document.getElementById('hammer0').style.opacity="0.1"
+          setTimeout(function() {
+            document.getElementById('hammer0').style.display="none"
+            document.getElementById('hammer0').style.top="6vh"
+            document.getElementById('hammer0').style.opacity="1"
+          }, 1000);
+        }, 30);
+
+
       }
+      soundic[esound[11]].play();
     }
     window.getitem=getitem;
 
@@ -23058,6 +23206,17 @@
     <img class="" src="png/pung.png">
     <div>0</div>
 </button>
+
+
+<div id="hammer0" class="hammer0" onclick="">
+    <img class="" src="png/hammer.png">
+    <div>+</div>
+</div>
+
+<div id="pung0" class="pung0" onclick="">
+    <img class="" src="png/pung.png">
+    <div>+</div>
+</div>
 
 <div id="optionlst" class="optionlst hidden">
     <button onclick="showtut()">
