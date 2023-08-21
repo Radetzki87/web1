@@ -4894,8 +4894,11 @@
               if(hammer){
                 if(itemr){
                   force2.set(-2800,0,0)
+                  이펙트2(itemidx, 128, "left");
+
                 }else if(iteml){
                   force2.set(0,0,-2800)
+                  이펙트2(itemidx, 128, "up");
                 }
                 setTimeout(function() {
                     if(해머<=0) document.getElementById('hammer').style.left="-13.3vh"
@@ -4905,8 +4908,10 @@
               }else if(pung){
                 if(itemr){
                   force2.set(2800,0,0)
+                  이펙트2(itemidx, 128, "right");
                 }else if(iteml){
                   force2.set(0,0,2800)
+                  이펙트2(itemidx, 128, "down");
                 }
                 setTimeout(function() {
                       if(뻥<=0)  document.getElementById('pung').style.left="-13.3vh"
@@ -4922,12 +4927,14 @@
               // rotatedVec.applyQuaternion(quaternion);
               rotatedVec=quaternion.vmult(force2);
 
+
                 // var a=cubes[this.index].body.position
                 // cubes[activeFloor].body.applyForce(force, cubes[activeFloor].body.position.clone().vadd(offset));
 
 
 
               cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
+              soundic[sdic[activeFloor]["128"]].play();
 
               stepmold[3].material.visible=false;
               stepmold[3].children[0].material.visible=false;
