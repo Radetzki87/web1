@@ -4570,7 +4570,7 @@
                   soundic[sdic[i][0]].stop();
               }
           }
-          if (!soundic[sdic[thisnum][0]].isPlaying) {
+          if (!soundic[sdic[thisnum][0]]?.isPlaying) {
               fullguide=0
               songfade=elapsedTime;
               // console.log(songfade);
@@ -13613,13 +13613,7 @@
                               // console.log(sdic)
                               // var tnum=Math.pow(2, (cubes.length-3))
                               if(num==stacknum[activeFloor]&&activeFloor==cubes.length-1&&!m2flag){
-                                if((activeFloor+1)%4==0){
-                                  setTimeout(function() {
-                                    getitem(1+parseInt(elapsedTime*100)%2)
-                                  }, 1000);
 
-
-                                }
                                 if(tutorialflag&&tutstep==23){
                                   tutstep++;
                                   tempseq=elapsedTime;
@@ -14152,6 +14146,12 @@
               });
 
               activeFloor=cubes.length-1;
+
+              if((cubes.length+1)%4==0){
+                setTimeout(function() {
+                  getitem(1+parseInt(elapsedTime*100)%2)
+                }, 50);
+              }
               if(soundic[sdic[activeFloor-1][0]].isPlaying) soundic[sdic[activeFloor-1][0]].stop();
               soundic[sdic[activeFloor][0]].play();
               songTitleElement.innerText = sdic[activeFloor]["title"];
