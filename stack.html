@@ -2716,7 +2716,7 @@
     var 터치=false;
     var overblock = false
 
-    var fullcam=true;
+    var fullcam=false;
 
 
     var songTitle = 'Song Title';
@@ -2745,7 +2745,7 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.2,0.3,0.16,0.2,0.3]
+    var 마찰=[0.2,0.3,0.15,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
     var 중력=[-7,-11,-9,-7,-7]
 
@@ -4748,7 +4748,18 @@
           if(cat.length>=1&&tempidx<cubes.length){
             itemtouch=true;
 
-            if(핑거0.x>-0.6){
+            var toffset0=cubes[tempidx].body.position.x-avx-cubes[tempidx].body.position.z+avz
+            var toffset1;
+            var roffset0=cubes[tempidx].mesh.rotation.y;
+            console.log(Math.cos(roffset0))
+            if(toffset0>0){
+              toffset1=Math.sqrt(toffset0/2)
+            }else{
+              toffset1=-Math.sqrt(-toffset0/2)
+            }
+
+
+            if(핑거0.x>-0.6+toffset1*0.05){
               itemr=true;
               iteml=false;
 
@@ -13320,9 +13331,10 @@
               stepmold[3].children[0].material.visible=true;
               var dur=parseInt(elapsedTime*20)%pshift.length
 
-              stepmold[3].position.z=avz+bw-(핑거0.x+0.6)*bw*2
-              stepmold[3].position.x=avz+bw+(핑거0.x+0.6)*bw*2
-              stepmold[3].position.y=핑거0.y*bh*12-bh*4
+              stepmold[3].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+              stepmold[3].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+              stepmold[3].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
+              // stepmold[3].position.y=핑거0.y*bh*12-bh*4
 
               stepmold[3].scale.y = pshift[dur]*0.9*3.2 / 2;
 
@@ -13331,9 +13343,10 @@
               stepmold[4].children[0].material.visible=true;
               var dur=parseInt(elapsedTime*25)%pshift.length
 
-              stepmold[4].position.z=avz+bw-(핑거0.x+0.6)*bw*2
-              stepmold[4].position.x=avz+bw+(핑거0.x+0.6)*bw*2
-              stepmold[4].position.y=핑거0.y*bh*12-bh*4
+              stepmold[4].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+              stepmold[4].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+              // stepmold[4].position.y=핑거0.y*bh*12-bh*4
+              stepmold[4].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
 
               stepmold[4].rotation.x=Math.PI/10*dur0
               // stepmold[4].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/4
@@ -14083,6 +14096,7 @@
         }
 
         if(m2flag){
+          timebuf=-1
           if(elapsedTime - stacktime <= 0.35){
             if(!m2once){
               cubes[cubes.length-2].mesh.children.forEach((item, i) => {
@@ -14125,6 +14139,7 @@
           }
 
           if(elapsedTime - stacktime > 1&&m2flag){
+
             // console.log(sdic);
             // console.log(cubes);
             // console.log(cubes);
@@ -16296,13 +16311,13 @@
         })
         if(!restartflag){
           포인트.forEach((item) => {
-              item.material.opacity = 0
-              item.material.transparent = true;
+              // item.material.opacity = 0
+              // item.material.transparent = true;
               item.material.visible = false;
           })
           시간.forEach((item) => {
-              item.material.opacity = 0
-              item.material.transparent = true;
+              // item.material.opacity = 0
+              // item.material.transparent = true;
               item.material.visible = false;
               stepmold[0].material.visible = false;
           })
