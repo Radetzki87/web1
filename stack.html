@@ -2682,6 +2682,9 @@
     var tempoint=0;
     var stacktime;
 
+    var draw=false;
+    var drawcount=0;
+
     var itemflag=false;
     var hammer=false;
     var pung=false;
@@ -4439,7 +4442,7 @@
           // return;
         }
 
-        if(lastX<-0.85){
+        if(lastX<-0.7){
           if(lastY>0.72&&lastY<0.92){
             if(뻥>0){
               pung=true;
@@ -5108,7 +5111,7 @@
         sideViewCamera.position.set(bw * 1.5, bw * 0.8, 0);
         sideViewCamera.lookAt(0, bw * 0.8, 0);
     }
-    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.15, bw / 1.15, bw / 1.15, -bw / 1.15, 0.1, 1000);
+    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.4, bw / 1.4, bw / 1.4, -bw / 1.4, 0.1, 1000);
     topViewCamera.position.set(0, bh * 20, 0);
     topViewCamera.lookAt(0, 0, 0);
     var renderer = new THREE.WebGLRenderer({
@@ -5144,7 +5147,7 @@
     groundmesh.position.set(0, -1, 0);
     if (shadowon) groundmesh.receiveShadow = true
     scene.add(groundmesh);
-    let groundshape = new CANNON.Box(new CANNON.Vec3(100 / 2, 2 / 2, 100 / 2));
+    let groundshape = new CANNON.Box(new CANNON.Vec3(bw*2, 2 / 2, bw*2));
     let customMaterial = new CANNON.Material('customMaterial');
     customMaterial.friction = 마찰[0]; // Friction coefficient, range: 0-1
     customMaterial.restitution = 탄성[0]; // Restitution (elasticity), range: 0-1
@@ -5487,11 +5490,18 @@
                 }
             }
         } else if (event.code === 'KeyR') {
-          langnum++
-          if(langnum>langset.length-1) langnum=0;
-          window.langnum=langnum;
-
-          setlang(langnum);
+          if(draw){
+            draw=false;
+            drawcount=elapsedTime+0.3;
+          }else{
+            draw=true;
+            drawcount=elapsedTime;
+          }
+          // langnum++
+          // if(langnum>langset.length-1) langnum=0;
+          // window.langnum=langnum;
+          //
+          // setlang(langnum);
 
 
         } else if (event.code === 'KeyQ') {
@@ -5849,7 +5859,8 @@
         colornum0 = ncolornum0
         window.colornum=colornum
         window.colornum0=colornum0;
-        let groundgeometry = new THREE.BoxGeometry(400, 2, 400);
+        //땅
+        let groundgeometry = new THREE.BoxGeometry(bw*50, 2, bw*50);
         // let groundcolor =new THREE.Color('hsl('+String(30+6*(10))+', 100%, 50%)');
         let groundcolor = new THREE.Color(colorlst[colornum][0])
         // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00*Math.random() });
@@ -9920,7 +9931,7 @@
           scene.add(tmesh)
         }
 
-        if(gamemod==2){
+        if(false){
           var geometry12 = new TextGeometry("STACK", {
               font: font0,
               size: bw / 6,
@@ -10421,6 +10432,7 @@
         scene.add(tmesh)
         현지.push(tmesh);
       }else{
+
         var geometry12 = new TextGeometry("B", {
             font: font0,
             size: bw / 2,
@@ -10439,13 +10451,14 @@
         }
 
         tmesh.position.x = bw * (1.2)
+        tmesh.scale.x=0.85
         tmesh.position.z = bw * (1)
         // textMesh.position.x=0;
         tmesh.depth = 10;
         tmesh.rotation.order = 'YXZ';
         tmesh.rotation.y = Math.PI / 4;
 
-        var geometry12 = new TextGeometry("R", {
+        var geometry12 = new TextGeometry("U", {
             font: font0,
             size: bw / 2,
             height: 두께*th / 2
@@ -10457,7 +10470,8 @@
         });
         var tmesh1 = new THREE.Mesh(geometry12, material);
         // tmesh1.position.y
-        tmesh1.position.x = 4.75;
+        tmesh1.position.x = 4.75*1.05;
+        tmesh1.scale.x=0.85
         tmesh1.depth = 10;
         tmesh1.rotation.order = 'YXZ';
         // tmesh1.rotation.y =Math.PI / 4;
@@ -10475,12 +10489,14 @@
         });
         var tmesh1 = new THREE.Mesh(geometry12, material);
         // tmesh1.position.y
-        tmesh1.position.x = 4.7 * 1.94;
+        tmesh1.position.x = 4.7 * 1.75;
+        tmesh1.scale.x=0.85
         tmesh1.depth = 10;
         tmesh1.rotation.order = 'YXZ';
         // tmesh1.rotation.y =Math.PI / 4;
         tmesh.add(tmesh1)
-        var geometry12 = new TextGeometry("X", {
+
+        var geometry12 = new TextGeometry("L", {
             font: font0,
             size: bw / 2,
             height: 두께*th / 2
@@ -10492,12 +10508,34 @@
         });
         var tmesh1 = new THREE.Mesh(geometry12, material);
         // tmesh1.position.y
-        tmesh1.position.x = 4.7 * 2.9;
+        tmesh1.position.x = 4.7 * 2.45;
+        tmesh1.scale.x=0.85
         tmesh1.depth = 10;
         tmesh1.rotation.order = 'YXZ';
         tmesh.rotation.order = 'YXZ';
         tmesh.rotation.y = Math.PI / 2;
         tmesh.add(tmesh1)
+
+        var geometry12 = new TextGeometry("D", {
+            font: font0,
+            size: bw / 2,
+            height: 두께*th / 2
+        });
+        geometry12.computeBoundingBox();
+        geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+        var material = new THREE.MeshBasicMaterial({
+            color: colorlst0[colornum0][0]
+        });
+        var tmesh1 = new THREE.Mesh(geometry12, material);
+        // tmesh1.position.y
+        tmesh1.position.x = 4.7 * 3.4;
+        tmesh1.scale.x=0.85
+        tmesh1.depth = 10;
+        tmesh1.rotation.order = 'YXZ';
+        tmesh.rotation.order = 'YXZ';
+        tmesh.rotation.y = Math.PI / 2;
+        tmesh.add(tmesh1)
+
         textscene.push(tmesh)
         // gradback.push(tmesh);
         scene.add(tmesh)
@@ -12423,8 +12461,8 @@
               document.getElementById("coin-info").classList.add("fade");
               // document.getElementById("coin-info").style.opacity=0;
 
-              document.getElementById("left").classList.remove("show");
-              document.getElementById("left").classList.add("fade");
+              // document.getElementById("left").classList.remove("show");
+              // document.getElementById("left").classList.add("fade");
 
 
 
@@ -12432,7 +12470,7 @@
               document.getElementById("center").classList.add("fade");
               setTimeout(function() {
                   document.getElementById("coin-info").classList.add("hidden");
-                  document.getElementById("left").classList.add("hidden");
+                  // document.getElementById("left").classList.add("hidden");
 
                   document.getElementById("center").classList.add("hidden");
 
@@ -16331,7 +16369,25 @@
         stepmold[4].children[0].material.visible=false;
         }
 
-        if (topcam&&!restartflag) {
+        // if(!restartflag){
+        //   var width = window.innerWidth;
+        //   var height = window.innerWidth;
+        //   var width1 = window.innerWidth / 1.1;
+        //   var height1 = window.innerWidth / 1.1;
+        //   var width2 = window.innerWidth / 1.4;
+        //   var height2 = window.innerWidth / 1.4;
+        //   var width3 = window.innerWidth / 1.65;
+        //   var height3 = window.innerWidth / 1.65;
+        //   topViewCamera.position.set(avx+bw*1.5, bh *(1) , avz-bw*1.5);
+        //
+        //   renderer.setViewport(window.innerWidth / 2 - width / 2, 0, width, height/3);
+        //   renderer.setScissor(window.innerWidth / 2 - width / 2, 0, width, height/3);
+        //   renderer.setScissorTest(true);
+        //   renderer.render(scene, topViewCamera);
+        // }
+
+
+        if (topcam&&!restartflag&&!itemdrag) {
           if(particleflag) particles.material.visible=false;
             // groundmesh.material.visible = true;
             if (shadowon) groundmesh.receiveShadow = false
@@ -16478,7 +16534,7 @@
             item[0].material.visible=false;
         })
 
-        if (topcam&&!restartflag) {
+        if (topcam&&!restartflag&&!itemdrag) {
             if ((window.innerWidth / window.innerHeight) < 4 / 7) {
                 // if((window.innerWidth / window.innerHeight) > 0.5){
                 //   var width = window.innerWidth / 1.15;
@@ -16486,37 +16542,108 @@
                 //   var width1 = window.innerWidth / 1.15;
                 //   var height1 = window.innerWidth / 1.15;
                 // }else{
-                  var width = window.innerWidth / 1;
-                  var height = window.innerWidth / 1;
-                  var width1 = window.innerWidth / 1;
-                  var height1 = window.innerWidth / 1;
-                  var width2 = window.innerWidth / 1.3;
-                  var height2 = window.innerWidth / 1.3;
-                  var width3 = window.innerWidth / 1.3;
-                  var height3 = window.innerWidth / 1.3;
+                  var width = window.innerWidth / 1.1;
+                  var height = window.innerWidth / 1.1;
+                  var width1 = window.innerWidth / 1.1;
+                  var height1 = window.innerWidth / 1.1;
+                  var width2 = window.innerWidth / 1.4;
+                  var height2 = window.innerWidth / 1.4;
+                  var width3 = window.innerWidth / 1.65;
+                  var height3 = window.innerWidth / 1.65;
                 // }
                 if((window.innerWidth / window.innerHeight) > 0.5){
-                  if(gamemod==2){
 
-                    renderer.setViewport(window.innerWidth / 2 - width3 / 2, -30-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
-                    renderer.setScissor(window.innerWidth / 2 - width3 / 2, -30-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+
+                  if(draw){
+                    var tdraw=elapsedTime-drawcount
+                    if(tdraw>1){
+                      topcam=false;
+                      tdraw=1;
+                    }else{
+                      renderer.setViewport(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                      renderer.setScissor(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                      renderer.setScissorTest(true);
+                      renderer.render(scene, topViewCamera);
+                    }
+
                   }else{
-                    renderer.setViewport(window.innerWidth / 2 - width1 / 2, -(width1 / 10)*1.4-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
-                  renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width1 / 10)*1.4-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
-                }
-                }else{
-                  if(gamemod==2){
-                    renderer.setViewport(window.innerWidth / 2 - width2 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
-                    renderer.setScissor(window.innerWidth / 2 - width2 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
-                  }else{
-                    renderer.setViewport(window.innerWidth / 2 - width / 2, 0*-(width / 30)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
-                    renderer.setScissor(window.innerWidth / 2 - width1 / 2, 0*-(width / 30)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
+                    var tdraw=drawcount-elapsedTime
+                    if(tdraw<0){
+                      tdraw=0
+                    }
+                      renderer.setViewport(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                      renderer.setScissor(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                      renderer.setScissorTest(true);
+                      renderer.render(scene, topViewCamera);
+
+
+
                   }
 
+                }else{
+
+                  if(draw){
+                    var tdraw=elapsedTime-drawcount
+                    if(tdraw>1){
+                      topcam=false;
+                      tdraw=1;
+                    }else{
+                      renderer.setViewport(window.innerWidth / 2 - width2 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
+                      renderer.setScissor(window.innerWidth / 2 - width2 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
+                      renderer.setScissorTest(true);
+                      renderer.render(scene, topViewCamera);
+                    }
+
+                  }else{
+                    var tdraw=drawcount-elapsedTime
+                    if(tdraw<0){
+                      tdraw=0
+                    }
+                      renderer.setViewport(window.innerWidth / 2 - width2 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
+                      renderer.setScissor(window.innerWidth / 2 - width2 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
+                      renderer.setScissorTest(true);
+                      renderer.render(scene, topViewCamera);
+
+
+
+                  }
+
+
                 }
-                renderer.setScissorTest(true);
-                renderer.render(scene, topViewCamera);
+
+            }else{
+              var width3 = window.innerWidth / 1.65;
+              var height3 = window.innerWidth / 1.65;
+                if(draw){
+                  var tdraw=elapsedTime-drawcount
+                  if(tdraw>1){
+                    topcam=false;
+                    tdraw=1;
+                  }else{
+                    renderer.setViewport(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setScissor(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setScissorTest(true);
+                    renderer.render(scene, topViewCamera);
+                  }
+
+                }else{
+                  var tdraw=drawcount-elapsedTime
+                  if(tdraw<0){
+                    tdraw=0
+                  }
+                    renderer.setViewport(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setScissor(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setScissorTest(true);
+                    renderer.render(scene, topViewCamera);
+
+
+
+                }
             }
+
+
+
+
             // else if ((window.innerWidth / window.innerHeight) > 13 / 8) {
             //   if(skinset[skinnum]=="classic"){
             //     var width = window.innerHeight / 1;
@@ -21672,6 +21799,19 @@
     }
     window.fullon=fullon;
 
+    function drawon(){
+
+      if(draw){
+        topcam=true;
+        draw=false;
+        drawcount=elapsedTime+0.3;
+      }else{
+        draw=true;
+        drawcount=elapsedTime;
+      }
+    }
+    window.drawon=drawon;
+
 </script>
 
 <script>
@@ -23201,8 +23341,8 @@
 
 
 
-<button id="left" class="left" onclick="skinon()">
-    <img class="" src="png/left0.png">
+<button id="left" class="left" onclick="drawon()">
+    <img class="" src="png/topcam.png">
 </button>
 
 <button id="center" class="center" onclick="showmod()">
