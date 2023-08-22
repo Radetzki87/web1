@@ -2748,9 +2748,9 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.2,0.3,0.15,0.2,0.3]
+    var 마찰=[0.2,0.3,0.17,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
-    var 중력=[-7,-11,-9,-7,-7]
+    var 중력=[-7,-11,-11,-7,-7]
 
     var resinit=0
     window.resinit=resinit
@@ -5605,7 +5605,7 @@
         } else if (event.code === 'KeyC') {
             for (var i = 0; i < cubes.length-1; i++) {
               let force2 = new CANNON.Vec3();
-              force2.set(400*(avx - cubes[i].body.position.x)+400*(cubes[i+1].body.position.x - cubes[i].body.position.x),0,400*(avz - cubes[i].body.position.z)+400*(cubes[i+1].body.position.z - cubes[i].body.position.z));
+              force2.set(300*(avx - cubes[i].body.position.x)+300*(cubes[i+1].body.position.x - cubes[i].body.position.x),0,300*(avz - cubes[i].body.position.z)+300*(cubes[i+1].body.position.z - cubes[i].body.position.z));
               cubes[i].body.applyForce(force2, cubes[i].body.position);
             }
 
@@ -5631,9 +5631,34 @@
             //     rotationflag = true
             //     rotationend = Math.PI / 4
             // }
-            let force2 = new CANNON.Vec3();
-            force2.set(8800,0,0);
-            cubes[3].body.applyForce(force2, cubes[3].body.position);
+            window.cubes=cubes;
+            var tc=0;
+            for (var i = 0; i < cubes.length-1; i++) {
+
+              if(cubes[i].body.sleepState!=2){
+                // tc++;
+                cubes[i].body.sleep();
+                cubes[i].mesh.children.forEach((item) => {
+                  if(item.userData["skin"]==skinset[skinnum]){
+                    console.log(item.material.color.r)
+                    var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                    console.log(newcl)
+                    item.material.color= new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
+                    // item.children.forEach((text) => {
+                    //   // text.material.color= new THREE.Color(0xFFFFFF);
+                    // });
+                  }
+                });
+              }
+              // if(tc>=5) break;
+
+            }
+
+
+
+            // let force2 = new CANNON.Vec3();
+            // force2.set(8800,0,0);
+            // cubes[3].body.applyForce(force2, cubes[3].body.position);
         }
         // activeFloor = Math.min(stackHeight, Math.max(0, activeFloor));
     });
@@ -5792,7 +5817,7 @@
         }
         console.log(stacknum)
 
-        stacknum=[0,0,0,0,8,8,16,8,16,32,8,16,32,64,8,16,32,64,128,8,16,32,64,128,256]
+        stacknum=[0,0,0,0,8,8,16,8,16,32,8,16,32,64,8,16,32,64,128,8,16,32,64,8,16,32,64,128,256,8,16,32,64,8,16,32,64,128,256,512]
 
         frontalViewCamera.left= -bw / 1.05
         frontalViewCamera.right = bw / 1.05
@@ -13666,10 +13691,34 @@
                               // console.log(sdic)
                               // var tnum=Math.pow(2, (cubes.length-3))
                               if(num==stacknum[activeFloor]&&activeFloor==cubes.length-1&&!m2flag){
-
+                                console.log(activeFloor)
                                 if(tutorialflag&&tutstep==23){
                                   tutstep++;
                                   tempseq=elapsedTime;
+                                }
+
+
+                                if(activeFloor==18||activeFloor==28||activeFloor==39){
+                                  for (var i=0; i < cubes.length; i++) {
+
+                                    if(cubes[i].body.sleepState!=2){
+                                      // tc++;
+                                      cubes[i].body.sleep();
+                                      cubes[i].mesh.children.forEach((item) => {
+                                        if(item.userData["skin"]==skinset[skinnum]){
+                                          console.log(item.material.color.r)
+                                          var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                                          console.log(newcl)
+                                          item.material.color= new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
+                                          // item.children.forEach((text) => {
+                                          //   // text.material.color= new THREE.Color(0xFFFFFF);
+                                          // });
+                                        }
+                                      });
+                                    }
+                                    // if(tc>=5) break;
+
+                                  }
                                 }
                                 // sdic.push(nslst[templst[activeFloor+2]])
                                 msetting2(cubes.length+0, function(object) {
@@ -14230,9 +14279,9 @@
               songInfo.classList.add("show1");
               songfade=elapsedTime;
 
-              if(cubes.length-3>22){
-                fulltower=true;
-              }
+              // if(cubes.length-3>22){
+              //   fulltower=true;
+              // }
             }else{
 
             }
@@ -18799,6 +18848,40 @@
     }
 
     window.resol=resol;
+    function tohsl(c) {
+      const r = c.r
+      const g = c.g
+      const b = c.b
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      const diff = max - min;
+      let h = 0,
+          s = 0,
+          l = (max + min) / 2;
+      if (diff !== 0) {
+          s = l > 0.5 ? diff / (2 - max - min) : diff / (max + min);
+          switch (max) {
+              case r:
+                  h = (g - b) / diff + (g < b ? 6 : 0);
+                  break;
+              case g:
+                  h = (b - r) / diff + 2;
+                  break;
+              case b:
+                  h = (r - g) / diff + 4;
+                  break;
+          }
+          h /= 6;
+      }
+      // HSL 값을 리턴
+      return {
+          h: Math.round(h * 360),
+          s: Math.round(s * 100),
+          l: Math.round(l * 100)
+      };
+
+    }
+
     function hexToHSL(hex0) {
         // hex 값의 RGB 값을 추출
         var hex = hex0.toString();
