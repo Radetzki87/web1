@@ -4736,6 +4736,10 @@
                 cat.push(item.object.userData["game2048"]);
                 if(cat[0]!="p"&&cat[0]!="h"){
                   tempidx=cat[0].index;
+                  // if(cubes[tempidx].body.sleepState==2){
+                  //   return cat.pop()
+                  // }
+
                 }else{
                   cat.pop()
                 }
@@ -4777,6 +4781,7 @@
 
           }else{
             itemtouch=false;
+            return;
           }
 
 
@@ -4978,11 +4983,11 @@
               let force2 = new CANNON.Vec3();
               if(hammer){
                 if(itemr){
-                  force2.set(-2500,0,0)
+                  force2.set(-3500,0,0)
                   이펙트2(itemidx, 128, "left");
 
                 }else if(iteml){
-                  force2.set(0,0,-2500)
+                  force2.set(0,0,-3500)
                   이펙트2(itemidx, 128, "up");
                 }
                 setTimeout(function() {
@@ -4992,10 +4997,10 @@
 
               }else if(pung){
                 if(itemr){
-                  force2.set(2500,0,0)
+                  force2.set(3500,0,0)
                   이펙트2(itemidx, 128, "right");
                 }else if(iteml){
-                  force2.set(0,0,2500)
+                  force2.set(0,0,3500)
                   이펙트2(itemidx, 128, "down");
                 }
                 setTimeout(function() {
@@ -5147,7 +5152,7 @@
     groundmesh.position.set(0, -1, 0);
     if (shadowon) groundmesh.receiveShadow = true
     scene.add(groundmesh);
-    let groundshape = new CANNON.Box(new CANNON.Vec3(bw*2, 2 / 2, bw*2));
+    let groundshape = new CANNON.Box(new CANNON.Vec3(bw/2, 2 / 2, bw/2));
     let customMaterial = new CANNON.Material('customMaterial');
     customMaterial.friction = 마찰[0]; // Friction coefficient, range: 0-1
     customMaterial.restitution = 탄성[0]; // Restitution (elasticity), range: 0-1
@@ -5159,6 +5164,49 @@
     groundBody.position.set(0, -1, 0);
     // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
     world.addBody(groundBody);
+
+
+    let groundBody1 = new CANNON.Body({
+        mass: 0,
+        shape: new CANNON.Box(new CANNON.Vec3(1.75*2*bw/4, 2 / 2, 1.75*2*bw/4)),
+        material: customMaterial
+    });
+    groundBody1.position.set(0, -3, 0);
+    // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
+    world.addBody(groundBody1);
+
+
+    let groundBody2 = new CANNON.Body({
+        mass: 0,
+        shape: new CANNON.Box(new CANNON.Vec3(1.5*bw/2, 2 / 2, 1.5*bw/2)),
+        material: customMaterial
+    });
+    groundBody2.position.set(0, -5, 0);
+    // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
+    world.addBody(groundBody2);
+
+
+    let groundBody3 = new CANNON.Body({
+        mass: 0,
+        shape: new CANNON.Box(new CANNON.Vec3(1.25*bw/2, 2 / 2, 1.25*bw/2)),
+        material: customMaterial
+    });
+    groundBody3.position.set(0, -7, 0);
+    // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
+    world.addBody(groundBody1);
+
+    let groundBody4 = new CANNON.Body({
+        mass: 0,
+        shape: new CANNON.Box(new CANNON.Vec3(bw/2, 2 / 2, bw/2)),
+        material: customMaterial
+    });
+    groundBody4.position.set(0, -9, 0);
+    // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
+    world.addBody(groundBody4);
+
+
+
+
     // groundBody.position.y=boxh/2
     world.gravity.set(0, 0, 0);
     world.broadphase = new CANNON.NaiveBroadphase();
@@ -5505,7 +5553,11 @@
 
 
         } else if (event.code === 'KeyQ') {
-          fullon();
+          // fullon();
+
+          let force2 = new CANNON.Vec3();
+          force2.set(3800,0,0);
+          cubes[activeFloor].body.applyForce(force2, cubes[activeFloor].body.position);
           // camera.left += bw*0.7
           // camera.right -= bw  *4*0.7
           // camera.top -=  bw*0.7
@@ -5632,24 +5684,38 @@
             //     rotationend = Math.PI / 4
             // }
             window.cubes=cubes;
+            groundBody1.position.set(cubes[activeFloor-1].body.position.x, -1+cubes[activeFloor].body.position.y-bh/2, cubes[activeFloor-1].body.position.z);
+            groundBody1.quaternion.copy(cubes[activeFloor-1].body.quaternion);
             var tc=0;
-            for (var i = 0; i < cubes.length-1; i++) {
+            for (var i = 0; i <cubes.length-1; i++) {
 
-              if(cubes[i].body.sleepState!=2){
+
                 // tc++;
+
+                cubes[i].mesh.scale.x=1.75
+                cubes[i].mesh.scale.z=1.75
+
+                cubes[i].mesh.scale.y=1.75
+                cubes[i].mesh.position.y=bh/3+cubes[activeFloor].body.position.y-(cubes.length-i)*bh*cubes[i].mesh.scale.y+bh*cubes[i].mesh.scale.y
+                // cubes[i].mesh.position.y=0
+
+
+                // cubes[i].body.shape = new CANNON.Box(new CANNON.Vec3(1 / 4, 1 / 4, 1 / 4));
                 cubes[i].body.sleep();
                 cubes[i].mesh.children.forEach((item) => {
                   if(item.userData["skin"]==skinset[skinnum]){
+
                     console.log(item.material.color.r)
-                    var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
-                    console.log(newcl)
-                    item.material.color= new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
+
+                    // var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                    // console.log(newcl)
+                    // item.material.color= new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
                     // item.children.forEach((text) => {
                     //   // text.material.color= new THREE.Color(0xFFFFFF);
                     // });
                   }
                 });
-              }
+
               // if(tc>=5) break;
 
             }
@@ -5877,6 +5943,19 @@
         }
         groundBody.position.set(0, -1, 0);
         world.addBody(groundBody);
+
+        groundBody1.position.set(0, -3, 0);
+        world.addBody(groundBody1);
+
+        groundBody2.position.set(0, -5, 0);
+        world.addBody(groundBody2);
+
+        groundBody3.position.set(0, -7, 0);
+        world.addBody(groundBody3);
+
+        groundBody4.position.set(0, -9, 0);
+        world.addBody(groundBody4);
+
         world.broadphase = new CANNON.NaiveBroadphase();
         renderer.clearDepth();
         scene = new THREE.Scene();
@@ -6176,6 +6255,7 @@
             msetting1(function(object) {
                 if(gamemod!=2){
                   cubes.forEach((item) => {
+
                       if(gamemod==4){
                         item.mesh.userData.game2048.spawnTile("up",Math.pow(2, 3+parseInt(Math.random()*4)));
                         item.mesh.userData.game2048.spawnTile("down",Math.pow(2, 2+parseInt(Math.random()*4)));
@@ -6202,6 +6282,14 @@
                   })
 
                 }else{
+                  cubes.forEach((item) => {
+                    item.mesh.scale.x=1
+                    item.mesh.scale.z=1
+                    item.mesh.scale.y=gap
+                    item.body.sleepState=0
+                    // item.body.fixedRotation=true;
+
+                  })
                   cubes[4].mesh.userData.game2048.spawnTile();
                   cubes[4].mesh.userData.game2048.spawnTile();
                   if(ptime2==0){
@@ -13306,9 +13394,9 @@
         if (!gameoverflag&&averageflag&&!re3flag&&!re3flag2) {
           avx = 0;
           avz = 0;
+          var templength=0
             for (var i = 0; i < cubes.length; i++) {
-                avx += cubes[i].body.position.x;
-                avz += cubes[i].body.position.z;
+
                 cubes[i].mesh.children.forEach((item) => {
                   if (item.userData["skin"]==skinset[skinnum]) {
                     if(gamemod==2){//그림자
@@ -13322,9 +13410,13 @@
                     item.material.visible=true;
                   }
                 });
+                if(cubes[i].body.sleepState==2) continue;
+                avx += cubes[i].body.position.x;
+                avz += cubes[i].body.position.z;
+                templength++;
             }
-            avx /= cubes.length;
-            avz /= cubes.length;
+            avx /= templength;
+            avz /= templength;
 
         }
 
@@ -13698,27 +13790,61 @@
                                 }
 
 
-                                if(activeFloor==18||activeFloor==28||activeFloor==39){
-                                  for (var i=0; i < cubes.length; i++) {
+                                if(activeFloor==17||activeFloor==28||activeFloor==39){
+                                  groundBody1.position.set(cubes[activeFloor].body.position.x, -1+cubes[activeFloor].body.position.y-bh/2, cubes[activeFloor].body.position.z);
+                                  groundBody1.quaternion.copy(cubes[activeFloor].body.quaternion);
+                                  var tc=0;
+                                  for (var i = 0; i <cubes.length; i++) {
 
-                                    if(cubes[i].body.sleepState!=2){
-                                      // tc++;
+
+                                      cubes[i].mesh.scale.x=1.75
+                                      cubes[i].mesh.scale.z=1.75
+
+                                      cubes[i].mesh.scale.y=1.75
+                                      cubes[i].mesh.position.y=bh/3+cubes[activeFloor].body.position.y+bh-(cubes.length-i+1)*bh*cubes[i].mesh.scale.y+bh*cubes[i].mesh.scale.y
+                                      // cubes[i].mesh.position.y=0
+
+
+                                      // cubes[i].body.shape = new CANNON.Box(new CANNON.Vec3(1 / 4, 1 / 4, 1 / 4));
                                       cubes[i].body.sleep();
                                       cubes[i].mesh.children.forEach((item) => {
                                         if(item.userData["skin"]==skinset[skinnum]){
+
                                           console.log(item.material.color.r)
-                                          var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
-                                          console.log(newcl)
-                                          item.material.color= new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
+
+                                          // var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                                          // console.log(newcl)
+                                          // item.material.color= new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
                                           // item.children.forEach((text) => {
                                           //   // text.material.color= new THREE.Color(0xFFFFFF);
                                           // });
                                         }
                                       });
-                                    }
+
                                     // if(tc>=5) break;
 
                                   }
+
+                                  // for (var i=0; i < cubes.length; i++) {
+                                  //
+                                  //   if(cubes[i].body.sleepState!=2){
+                                  //     // tc++;
+                                  //     cubes[i].body.sleep();
+                                  //     cubes[i].mesh.children.forEach((item) => {
+                                  //       if(item.userData["skin"]==skinset[skinnum]){
+                                  //         console.log(item.material.color.r)
+                                  //         var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+                                  //         console.log(newcl)
+                                  //         item.material.color= new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
+                                  //         // item.children.forEach((text) => {
+                                  //         //   // text.material.color= new THREE.Color(0xFFFFFF);
+                                  //         // });
+                                  //       }
+                                  //     });
+                                  //   }
+                                  //   // if(tc>=5) break;
+                                  //
+                                  // }
                                 }
                                 // sdic.push(nslst[templst[activeFloor+2]])
                                 msetting2(cubes.length+0, function(object) {
@@ -13728,6 +13854,8 @@
                                   cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-3) * bh+bh, cubes[cubes.length-1].mesh.position.z, bw, bh, bw, game2048, cubes.length, true));
                                   cubes[activeFloor+1].mesh.quaternion.copy(cubes[activeFloor].mesh.quaternion);
                                   cubes[activeFloor+1].body.quaternion.copy(cubes[activeFloor].body.quaternion);
+
+                                  // cubes[activeFloor+1].body.fixedRotation=true;
 
                                   cubes[activeFloor+1].mesh.userData.body = cubes[activeFloor+1].body;
                                   cubes[activeFloor+1].mesh.userData.game2048 = game2048
@@ -14396,7 +14524,7 @@
                     tempheight=bh*4
                   }
 
-                  if (fullmax||(index > 3 && item.mesh.position.y < tempheight+bh/5)||(gamemod==3&&remain<0)||(gamemod==2&&fulltower)) { //오버조건
+                  if (fullmax||(index > 3 && item.body.position.y < tempheight+bh/5)||(gamemod==3&&remain<0)||(gamemod==2&&fulltower)) { //오버조건
                       // overlimit++;
                       if(!gameoverflag){
                         if(gamemod==3&&remain>0){
@@ -15927,8 +16055,11 @@
 
                 }
                 if(!re3flag){
-                  cubes[i].mesh.position.copy(cubes[i].body.position);
-                  cubes[i].mesh.quaternion.copy(cubes[i].body.quaternion);
+                  if(cubes[i].body.sleepState==0){
+                    cubes[i].mesh.position.copy(cubes[i].body.position);
+                    cubes[i].mesh.quaternion.copy(cubes[i].body.quaternion);
+                  }
+
                 }
               }
               cubes[i].mesh.material.visible = false;
