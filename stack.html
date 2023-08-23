@@ -4800,7 +4800,7 @@
             }
           }
 
-
+          if(cubes.length>5) return;
           activeFloor = tempidx;
           // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
           //     soundic[sdic[activeFloor]["upper"]].stop();
@@ -4808,6 +4808,8 @@
           // soundic[sdic[activeFloor]["upper"]].play();
           var thisnum = activeFloor
           var playable = true
+
+
           for (let i = 0; i < 6; i++) {
               // if (i == thisnum || sdic[i][0] == sdic[thisnum][0]) continue
               if (i == thisnum ) continue
@@ -4815,6 +4817,9 @@
                   soundic[sdic[i][0]].stop();
               }
           }
+
+
+
           if (!soundic[sdic[thisnum][0]]?.isPlaying) {
               fullguide=0
               songfade=elapsedTime;
@@ -5408,6 +5413,8 @@
                itemr=false;
                iteml=false;
                itemdrag=false
+
+
             }else{
               console.log("취소")
               stepmold[3].material.visible=false;
@@ -6188,10 +6195,19 @@
         // listener = new THREE.AudioListener();
         // audioLoader = new THREE.AudioLoader();
         world = new CANNON.World();
-        camera.left = -bw * 1.3
-        camera.right = bw * 1.3 * 4
-        camera.top = bw * 1.3
-        camera.bottom = -bw * 1.3 * 4
+
+
+        if((window.innerWidth / window.innerHeight) > 0.5){
+          camera.left = -bw * 1.8
+          camera.right = bw * 1.8 * 4
+          camera.top = bw * 1.8
+          camera.bottom = -bw * 1.8 * 4
+        }else{
+          camera.left = -bw * 1.3
+          camera.right = bw * 1.3 * 4
+          camera.top = bw * 1.3
+          camera.bottom = -bw * 1.3 * 4
+        }
         camera.near = 0.01;
         camera.far = 1000;
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -6760,15 +6776,17 @@
                       // scene.add(dL);
                       var dl2 = new THREE.DirectionalLight(0xFFFFFF, 0.7);
                       dl2.position.set(40, 200, 160);
+
+                      // dl2.position.set(10, 50, 40);
                       // dl2.position.set(-40+Math.random()*80,50,-10+Math.random()*50);
                       // dl2.position.set(13,30,-18);
                       dl2.target.position.set(0, 0, 0);
 
                       if (shadowon) {
-                          dl2.shadow.camera.left = -bw * 6.3;
-                          dl2.shadow.camera.right = bw * 6.3 * 4;
-                          dl2.shadow.camera.top = bw * 6.3;
-                          dl2.shadow.camera.bottom = -bw * 6.3 * 4;
+                          dl2.shadow.camera.left = -bw * 2.3;
+                          dl2.shadow.camera.right = bw * 2.3 * 4;
+                          dl2.shadow.camera.top = bw * 2.3*4;
+                          dl2.shadow.camera.bottom = -bw * 2.3 * 1;
                           dl2.shadow.camera.near = 0.01;
                           dl2.shadow.camera.far = 1000;
                           dl2.shadow.camera.lookAt(0, 0, 0);
@@ -14476,22 +14494,30 @@
                                   if(camval>17){
                                     camval=17;
                                   }
-                                  if(!fullcam){
-                                    camera.left = -bw * 1.3-(camval)/4;
-                                    camera.right = bw * 1.3 * 4+(camval);
-                                    camera.top = bw * 1.3+(camval)/4;
-                                    camera.bottom = -bw * 1.3 * 4-(camval);
+                                  if((window.innerWidth / window.innerHeight) > 0.5){
+                                    camera.left = -bw * 1.8-(camval)/4;
+                                    camera.right = bw * 1.8 * 4+(camval);
+                                    camera.top = bw * 1.8+(camval)/4;
+                                    camera.bottom = -bw * 1.8 * 4-(camval);
                                   }else{
-                                    camera.left = -bw * 1.1-(camval-3)/4;
-                                    camera.right = bw * 1.1 * 4+(camval-3)
-                                    camera.top = bw * 1.1+(camval-3)/4
-                                    camera.bottom = -bw * 1.1 * 4-(camval-3)
+                                    if(!fullcam){
+                                      camera.left = -bw * 1.3-(camval)/4;
+                                      camera.right = bw * 1.3 * 4+(camval);
+                                      camera.top = bw * 1.3+(camval)/4;
+                                      camera.bottom = -bw * 1.3 * 4-(camval);
+                                    }else{
+                                      camera.left = -bw * 1.1-(camval-3)/4;
+                                      camera.right = bw * 1.1 * 4+(camval-3)
+                                      camera.top = bw * 1.1+(camval-3)/4
+                                      camera.bottom = -bw * 1.1 * 4-(camval-3)
 
-                                    // camera.left-=0.25
-                                    // camera.right+=1
-                                    // camera.top+=0.25
-                                    // camera.bottom-=1
+                                      // camera.left-=0.25
+                                      // camera.right+=1
+                                      // camera.top+=0.25
+                                      // camera.bottom-=1
+                                    }
                                   }
+
 
 
                                   camera.near = 0.01;
