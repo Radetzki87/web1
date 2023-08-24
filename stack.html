@@ -2202,7 +2202,7 @@
           position: relative;
           left:38.5%;
           font-family: 'GG';
-          font-size: 3vh;
+          font-size: 2.5vh;
             /* left:37%;
             bottom:5%;
 
@@ -2264,7 +2264,7 @@
           position: relative;
           left:38.5%;
           font-family: 'GG';
-          font-size: 3vh;
+          font-size: 2.5vh;
             /* left:37%;
             bottom:5%;
 
@@ -2342,7 +2342,7 @@
           position: relative;
           left:38.5%;
           font-family: 'GG';
-          font-size: 3vh;
+          font-size: 2.5vh;
             /* left:37%;
             bottom:5%;
 
@@ -2389,7 +2389,7 @@
           position: relative;
           left:38.5%;
           font-family: 'GG';
-          font-size: 3vh;
+          font-size: 2.5vh;
             /* position: relative;
             left:37%;
             bottom:5%;
@@ -2874,6 +2874,11 @@
     var hammer=false;
     var pung=false;
     var itemdrag=false;
+
+    var itemuse=false;
+    var itemuse0=false;
+    var itemtime=0;
+    var uselst=[];
 
     var 해머=0
     var 뻥=0
@@ -5297,6 +5302,7 @@
                 soundic[sdic[cubes.length-1]["32"]].play();
 
               }else if(ice){
+                uselst=[];
                 var tc=0;
                 for (var i = 3; i <cubes.length-1; i++) {
                   if(cubes[i].body.sleepState!=0){
@@ -5304,9 +5310,17 @@
                   }
                   tc++;
                     cubes[i].body.sleep();
+
+                    uselst.push(cubes[i])
+                    itemtime=elapsedTime
+                    itemuse=true;
+
                     cubes[i].mesh.children.forEach((item) => {
                       if(item.userData["skin"]==skinset[skinnum]){
                         var newcl = hexToHSL(hexToHtmlColor(0xD7F3F9))
+
+
+
 
                         item.material.color= new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
                         // item.children.forEach((text) => {
@@ -5316,6 +5330,8 @@
                     });
 
                   if(tc>=3) break;
+
+
 
                 }
                 soundic[esound[13]].play();
@@ -5335,7 +5351,7 @@
                 }, 400);
 
               }else if(pin&&!cubes[itemidx].mesh.userData.pin){
-
+                  uselst=[];
 
                   let customMaterial = new CANNON.Material('customMaterial');
                   customMaterial.friction = 마찰[2]; // Friction coefficient, range: 0-1
@@ -5357,6 +5373,11 @@
                   cubes[itemidx].mesh.userData.body = cubes[itemidx].body;
                   cubes[itemidx].body.sleepState = 0;
                   cubes[itemidx].mesh.userData.pin=true;
+
+
+                  uselst.push(cubes[itemidx])
+                  itemtime=elapsedTime
+                  itemuse0=true;
 
 
                   cubes[itemidx].mesh.scale.x=핀크기;
@@ -6682,6 +6703,11 @@
 
         필=0;
         바=400;
+
+        itemuse=false;
+        itemuse0=false;
+        itemtime=0;
+        uselst=[]
 
         document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
         document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
@@ -13956,7 +13982,13 @@
               stepmold[3].position.y=bh*(cubes.length+15)
               stepmold[5].position.y=cubes[itemidx].body.position.y
               stepmold[5].position.z=cubes[itemidx].body.position.z
-              stepmold[5].position.x=cubes[itemidx].body.position.x+bw/1.4
+
+              if(cubes[itemidx].mesh.userData.pin){
+                stepmold[5].position.x=cubes[itemidx].body.position.x+핀크기*bw/1.3
+              }else{
+                stepmold[5].position.x=cubes[itemidx].body.position.x+bw/1.3
+              }
+
               stepmold[5].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
 
               var icelst=[]
@@ -13993,7 +14025,7 @@
               stepmold[6].position.y=cubes[itemidx].body.position.y
 
                 stepmold[6].position.z=cubes[itemidx].body.position.z
-                stepmold[6].position.x=cubes[itemidx].body.position.x+bw/1.4
+                stepmold[6].position.x=cubes[itemidx].body.position.x+bw/1.3
                 stepmold[6].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
 
                 if(!cubes[itemidx].mesh.pin){
@@ -14025,12 +14057,25 @@
               stepmold[4].position.y=cubes[itemidx].body.position.y
               if(itemr){
                 stepmold[4].position.z=cubes[itemidx].body.position.z
-                stepmold[4].position.x=cubes[itemidx].body.position.x+bw/1.4
+
+
+                if(cubes[itemidx].mesh.userData.pin){
+                  stepmold[4].position.x=cubes[itemidx].body.position.x+핀크기*bw/1.3
+                }else{
+                  stepmold[4].position.x=cubes[itemidx].body.position.x+bw/1.3
+                }
+
                 stepmold[4].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
 
               }else if(iteml){
                 stepmold[4].position.x=cubes[itemidx].body.position.x
-                stepmold[4].position.z=cubes[itemidx].body.position.z+bw/1.4
+
+
+                if(cubes[itemidx].mesh.userData.pin){
+                  stepmold[4].position.z=cubes[itemidx].body.position.z+핀크기*bw/1.3
+                }else{
+                  stepmold[4].position.z=cubes[itemidx].body.position.z+bw/1.3
+                }
                 stepmold[4].rotation.y=0-(pshift[dur]-1)*Math.PI/3
 
               }
@@ -14044,14 +14089,26 @@
               if(itemr){
 
                 stepmold[3].position.z=cubes[itemidx].body.position.z
-                stepmold[3].position.x=cubes[itemidx].body.position.x+bw/1.3+((pshift[dur]-1)*3)
+
+
+                if(cubes[itemidx].mesh.userData.pin){
+                  stepmold[3].position.x=cubes[itemidx].body.position.x+핀크기*bw/1.3+((pshift[dur]-1)*3)
+                }else{
+                  stepmold[3].position.x=cubes[itemidx].body.position.x+bw/1.3+((pshift[dur]-1)*3)
+                }
 
 
                 stepmold[3].rotation.y=cubes[itemidx].mesh.rotation.y+Math.PI/2
 
               }else if(iteml){
                 stepmold[3].position.x=cubes[itemidx].body.position.x
-                stepmold[3].position.z=cubes[itemidx].body.position.z+bw/1.3+((pshift[dur]-1)*3)
+
+
+                if(cubes[itemidx].mesh.userData.pin){
+                  stepmold[3].position.z=cubes[itemidx].body.position.z+핀크기*bw/1.3+((pshift[dur]-1)*3)
+                }else{
+                  stepmold[3].position.z=cubes[itemidx].body.position.z+bw/1.3+((pshift[dur]-1)*3)
+                }
 
 
                 stepmold[3].rotation.y=cubes[itemidx].mesh.rotation.y
@@ -14948,6 +15005,87 @@
             팝리스트[3]=true;
           }
         }
+
+        if(itemuse){
+          if(elapsedTime - itemtime <= 0.15){
+
+            uselst.forEach((item) => {
+              var tsize;
+              if(item.mesh.userData.pin){
+                tsize=핀크기;
+              }else{
+                tsize=1
+              }
+
+
+              var fsize=0.8
+              item.mesh.scale.set(tsize+fsize*0.15-fsize*(elapsedTime - itemtime),gap,tsize+fsize*0.15-fsize*(elapsedTime - itemtime))
+            });
+
+
+
+
+          }else{
+            cubes.forEach((item) => {
+              if(item.mesh.userData.pin){
+                item.mesh.scale.x=핀크기
+                item.mesh.scale.z=핀크기
+              }else{
+                item.mesh.scale.x=1
+                item.mesh.scale.z=1
+              }
+            });
+
+
+            itemuse=false;
+            uselst=[];
+
+
+          }
+
+
+        }
+
+        if(itemuse0){
+          if(elapsedTime - itemtime <= 0.2){
+
+            uselst.forEach((item) => {
+              var tsize;
+              if(item.mesh.userData.pin){
+                tsize=핀크기;
+              }else{
+                tsize=1
+              }
+
+
+              var fsize=1.6
+              item.mesh.scale.set(tsize-fsize*0.2+fsize*(elapsedTime - itemtime),gap,tsize-fsize*0.2+fsize*(elapsedTime - itemtime))
+            });
+
+
+
+
+          }else{
+            cubes.forEach((item) => {
+              if(item.mesh.userData.pin){
+                item.mesh.scale.x=핀크기
+                item.mesh.scale.z=핀크기
+              }else{
+                item.mesh.scale.x=1
+                item.mesh.scale.z=1
+              }
+            });
+
+
+            itemuse0=false;
+            uselst=[];
+
+
+          }
+
+
+        }
+
 
         if(m2flag){
           timebuf=-1
@@ -17955,7 +18093,10 @@
     }
 
     window.freeze=freeze;
-    function getitem(n){
+    function getitem(n=0){
+      if(n==0){
+        n=1+parseInt(Math.random()*8)
+      }
       if(n==1||n==2||n==3){
         if(뻥==0){
           document.getElementById('pung').style.left="-10vh"
