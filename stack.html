@@ -2179,10 +2179,10 @@
             border:5vmax rgba(50, 50, 50, 0.8);
             /* background-image: url("png/green_button09.png"); */
             /* background-size: 6vmax 4vmax; */
-            top: 52vh;
+            top: 55vh;
             left: -14vh;
             width: 14vh;
-            height: 8vh;
+            height: 10vh;
             z-index: 1;
             transition: left 0.4s;
             text-align: center;
@@ -2194,7 +2194,7 @@
             left:37%;
             bottom:0%;
             /* width: 5vmax; */
-            height: 3vmax;
+            height: 5vmax;
             z-index: 1;
         }
 
@@ -2240,11 +2240,11 @@
             border:5vmax rgba(50, 50, 50, 0.8);
             /* background-image: url("png/green_button09.png"); */
             /* background-size: 6vmax 4vmax; */
-            top: 40.5vh;
+            top: 42.5vh;
             left: -14vh;
             width: 14vh;
-            height: 8vh;
-            z-index: 2;
+            height: 10vh;
+            z-index: 1;
             transition: left 0.4s;
             text-align: center;
 
@@ -2255,7 +2255,7 @@
             left:37%;
             bottom:0%;
             /* width: 5vmax; */
-            height: 4vmax;
+            height: 5vmax;
             z-index: 3;
         }
 
@@ -2303,11 +2303,11 @@
 
             /* background-image: url("png/green_button09.png"); */
             /* background-size: 6vmax 4vmax; */
-            top: 29vh;
+            top: 30vh;
             left: -14vh;
             width: 14vh;
-            height: 8vh;
-            z-index: 2;
+            height: 10vh;
+            z-index: 1;
             transition: left 0.4s;
             text-align: center;
 
@@ -2318,7 +2318,7 @@
             left:37%;
             bottom:0%;
             /* width: 5vmax; */
-            height: 3vmax;
+            height: 4vmax;
             z-index: 3;
         }
 
@@ -2366,11 +2366,11 @@
             border:5vmax rgba(50, 50, 50, 0.8);
             /* background-image: url("png/green_button09.png"); */
             /* background-size: 6vmax 4vmax; */
-            top: 6vh;
+            top: 5vh;
             left: -14vh;
             width: 14vh;
-            height: 8vh;
-            z-index: 2;
+            height: 10vh;
+            z-index: 1;
             transition: left 0.4s;
             text-align: center;
 
@@ -2386,8 +2386,8 @@
             top: 17.5vh;
             left: -14vh;
             width: 14vh;
-            height: 8vh;
-            z-index: 2;
+            height: 10vh;
+            z-index: 1;
             transition: left 0.4s;
             text-align: center;
 
@@ -2398,7 +2398,7 @@
             left:37%;
             bottom:0%;
             /* width: 5vmax; */
-            height: 4vh;
+            height: 5vh;
             z-index: 3;
         }
 
@@ -2443,7 +2443,7 @@
             left:37%;
             bottom:0%;
             /* width: 5vmax; */
-            height: 4vh;
+            height: 5vh;
             z-index: 3;
         }
 
@@ -2952,6 +2952,8 @@
 
     var 해머=0
     var 뻥=0
+
+    var superflag=false;
 
     var ice=false;
     var icecount=0;
@@ -4698,7 +4700,7 @@
         if(window.innerWidth>window.innerHeight){
           핑거.x = (event.touches[0].clientX / window.innerHeight)* 0.8 - 1;
           핑거.y = -(event.touches[0].clientY / window.innerHeight)*0.8 + 1;
-          lastX = (event.touches[0].clientX / window.innerHeight) * 2 - 1;
+          lastX = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
           lastY = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
         }else{
           핑거.x = (event.touches[0].clientX / window.innerWidth)* 0.8 - 1;
@@ -4707,6 +4709,8 @@
           lastY = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
 
         }
+
+        console.log(String(lastX)+":"+String(lastY))
 
 
 
@@ -4725,8 +4729,8 @@
           // return;
         }
 
-        if(lastX<-0.7){
-          if(lastY>0.72&&lastY<0.92){
+        if(lastX<-0.65){
+          if(lastY>0.70&&lastY<0.9){
             if(뻥>0){
               pung=true;
               hammer=false;
@@ -4734,7 +4738,17 @@
               itemflag=true;
               pin=false;
               bridge=false;
-              뻥--;
+              if(lastX<-0.84){
+                뻥--;
+              }else{
+                if(뻥>2){
+                  뻥-=3;
+                  superflag=true;
+                }else{
+                  return;
+                }
+              }
+
               document.getElementById('hammer').children[1].innerText=String(해머)
               document.getElementById('pung').children[1].innerText=String(뻥)
               document.getElementById('ice').children[1].innerText=String(얼음)
@@ -4749,7 +4763,7 @@
             }
 
             return;
-          }else if(lastY>0.4&&lastY<0.70){
+          }else if(lastY>0.45&&lastY<0.65){
             if(해머>0){
               pung=false;
               ice=false;
@@ -4757,7 +4771,16 @@
               itemflag=true;
               pin=false;
               bridge=false;
-              해머--;
+              if(lastX<-0.84){
+                해머--;
+              }else{
+                if(해머>2){
+                  해머-=3;
+                  superflag=true;
+                }else{
+                  return;
+                }
+              }
               document.getElementById('hammer').children[1].innerText=String(해머)
               document.getElementById('pung').children[1].innerText=String(뻥)
               document.getElementById('ice').children[1].innerText=String(얼음)
@@ -4772,7 +4795,7 @@
               return;
             }
 
-          }else if(lastY>0.22&&lastY<0.38){
+          }else if(lastY>0.2&&lastY<0.4){
             if(얼음>0){
               pung=false;
               hammer=false;
@@ -4780,7 +4803,18 @@
               itemflag=true;
               pin=false;
               bridge=false;
-              얼음--;
+                얼음--;
+
+              // if(lastX<-0.8){
+              //   얼음--;
+              // }else{
+              //   if(얼음>2){
+              //     얼음-=3;
+              //     superflag=true;
+              //   }else{
+              //     return;
+              //   }
+              // }
               document.getElementById('hammer').children[1].innerText=String(해머)
               document.getElementById('pung').children[1].innerText=String(뻥)
               document.getElementById('ice').children[1].innerText=String(얼음)
@@ -4794,7 +4828,7 @@
               return;
             }
 
-          }else if(lastY>0.08&&lastY<0.2){
+          }else if(lastY>-0.05&&lastY<0.15){
             if(핀>0){
               pung=false;
               hammer=false;
@@ -4802,7 +4836,17 @@
               pin=true;
               bridge=false;
               itemflag=true;
-              핀--;
+                핀--;
+              // if(lastX<-0.8){
+              //   핀--;
+              // }else{
+              //   if(핀>2){
+              //     핀-=3;
+              //     superflag=true;
+              //   }else{
+              //     return;
+              //   }
+              // }
               document.getElementById('hammer').children[1].innerText=String(해머)
               document.getElementById('pung').children[1].innerText=String(뻥)
               document.getElementById('ice').children[1].innerText=String(얼음)
@@ -4816,7 +4860,7 @@
               return;
             }
 
-          }else if(lastY>-0.2&&lastY<0.05){
+          }else if(lastY>-0.3&&lastY<-0.1){
             if(다리>0){
               pung=false;
               hammer=false;
@@ -4825,6 +4869,16 @@
               bridge=true;
               itemflag=true;
               다리--;
+              // if(lastX<-0.8){
+              //   다리--;
+              // }else{
+              //   if(다리>2){
+              //     다리-=3;
+              //     superflag=true;
+              //   }else{
+              //     return;
+              //   }
+              // }
               document.getElementById('hammer').children[1].innerText=String(해머)
               document.getElementById('pung').children[1].innerText=String(뻥)
               document.getElementById('ice').children[1].innerText=String(얼음)
@@ -4930,7 +4984,7 @@
           }
 
           if(cubes.length>5) return;
-          activeFloor = tempidx;
+          activeFloor = 4;
           // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
           //     soundic[sdic[activeFloor]["upper"]].stop();
           // }
@@ -5392,22 +5446,40 @@
         }
 
         if(itemflag){
+            if((hammer||pung)&&itemtouch&&superflag&&itemidx==cubes.length-1){
+              itemtouch=false;
+            }
             if(itemtouch){
 
               console.log("아이템 사용")
               let force2 = new CANNON.Vec3();
               if(hammer){
+
                 if(itemr){
-                  force2.set(-2500,0,0)
+
+
+                  if(superflag){
+                    force2.set(-25000,0,0)
+                  }else{
+                    force2.set(-2500,0,0)
+
+                  }
                   이펙트2(itemidx, 128, "left");
 
                 }else if(iteml){
-                  force2.set(0,0,-2500)
+                  if(superflag){
+                    force2.set(0,0,-25000)
+                  }else{
+                    force2.set(0,0,-2500)
+                  }
+
                   이펙트2(itemidx, 128, "up");
                 }
                 setTimeout(function() {
                     if(해머<=0) document.getElementById('hammer').style.left="-13.3vh"
                 }, 400);
+
+
                 let quaternion = new CANNON.Quaternion();
                 quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[itemidx].mesh.rotation.y);
                 let rotatedVec = force2.clone();
@@ -5417,13 +5489,39 @@
                 cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
                 soundic[sdic[cubes.length-1]["32"]].play();
 
+                  if(superflag){
+                    cubes[itemidx].mesh.userData.bye=true;
+                    cubes[itemidx].mesh.userData.constraint.forEach((item) => {
+                      world.removeConstraint(item);
+
+                    });
+                    setTimeout(function() {
+                      cubes[itemidx].body.sleep();
+                      // cubes[i].body.collisionResponse = false;
+
+                      cubes[itemidx].mesh.userData.ice=true;
+
+                    }, 500);
+
+                  }
+
 
               }else if(pung){
                 if(itemr){
-                  force2.set(2500,0,0)
+                  if(superflag){
+                    force2.set(25000,0,0)
+                  }else{
+                    force2.set(2500,0,0)
+                  }
+
                   이펙트2(itemidx, 128, "right");
                 }else if(iteml){
-                  force2.set(0,0,2500)
+                  if(superflag){
+                    force2.set(0,0,25000)
+                  }else{
+                    force2.set(0,0,2500)
+                  }
+
                   이펙트2(itemidx, 128, "down");
                 }
                 setTimeout(function() {
@@ -5437,6 +5535,21 @@
 
                 cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
                 soundic[sdic[cubes.length-1]["32"]].play();
+                if(superflag){
+                  cubes[itemidx].mesh.userData.bye=true;
+                  cubes[itemidx].mesh.userData.constraint.forEach((item) => {
+                    world.removeConstraint(item);
+
+                  });
+                  setTimeout(function() {
+                    cubes[itemidx].body.sleep();
+                    // cubes[i].body.collisionResponse = false;
+
+                    cubes[itemidx].mesh.userData.ice=true;
+
+                  }, 500);
+
+                }
 
               }else if(ice){
                 uselst=[];
@@ -5595,16 +5708,35 @@
 
                   scene.add(legs[legs.length-1]);
                 }else{
+                  var 아래층=cubes[itemidx-1];
+                  var 취소=false
+                  if(cubes[itemidx-1].mesh.userData.bye==true){
+                    if(cubes[itemidx-2].mesh.userData.bye==true){
+                      if(cubes[itemidx-3].mesh.userData.bye==true){
+                        취소=true;
+                      }else{
+                        아래층=cubes[itemidx-3];
+                      }
+                    }else{
+                      console.log("hi2")
+                      아래층=cubes[itemidx-2];
+                    }
+                  }else{
+                    console.log("hi1")
+                    아래층=cubes[itemidx-1];
+                  }
+
+
 
                   if(itemr){
                     var upperx=cubes[itemidx].mesh.position.x
-                    var lowerx=cubes[itemidx-1].mesh.position.x
+                    var lowerx=아래층.mesh.position.x
                     if(cubes[itemidx].mesh.userData.pin){
                       upperx=cubes[itemidx].mesh.position.x+(핀크기-1)*bw/2;
                     }
 
-                    if(cubes[itemidx-1].mesh.userData.pin){
-                      lowerx=cubes[itemidx-1].mesh.position.x+(핀크기-1)*bw/2;
+                    if(아래층.mesh.userData.pin){
+                      lowerx=아래층.mesh.position.x+(핀크기-1)*bw/2;
                     }
                     var majorx;
                     if(upperx>lowerx){
@@ -5613,7 +5745,7 @@
                       majorx=lowerx
                     }
                     console.log(Math.abs(upperx-lowerx))
-                    if(Math.abs(upperx-lowerx)>2.3){
+                    if(취소||Math.abs(upperx-lowerx)>2.3){
                       console.log("취소")
                       if(draw&&!꺼져){
                         topcam=true;
@@ -5631,14 +5763,34 @@
 
                       if(hammer){
                         해머++;
+                        if(superflag){
+                          해머+=2;
+                          superflag=false
+                        }
                       }else if(pung){
                         뻥++;
+                        if(superflag){
+                          뻥+=2;
+                          superflag=false
+                        }
                       }else if(ice){
                         얼음++;
+                        if(superflag){
+                          얼음+=2;
+                          superflag=false
+                        }
                       }else if(pin){
                         핀++;
+                        if(superflag){
+                          핀+=2;
+                          superflag=false
+                        }
                       }else if(bridge){
                         다리++;
+                        if(superflag){
+                          다리+=2;
+                          superflag=false
+                        }
                       }
                       document.getElementById('hammer').children[1].innerText=String(해머)
                       document.getElementById('pung').children[1].innerText=String(뻥)
@@ -5724,9 +5876,9 @@
                     compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
 
                     if(cubes[itemidx].mesh.userData.pin){
-                      legs[legs.length-1].position.set(majorx+bw/1.5+0.5*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/4);
+                      legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/5);
                     }else{
-                      legs[legs.length-1].position.set(majorx+bw/1.5+0.5*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/4);
+                      legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/5);
 
                     }
                     legs[legs.length-1].quaternion.copy(cubes[itemidx].mesh.quaternion)
@@ -5741,10 +5893,10 @@
                     console.log(legs)
                     var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
                     world.addConstraint(constraint1);
-                    var constraint2 = new CANNON.LockConstraint(compoundBody, cubes[itemidx-1].body);
+                    var constraint2 = new CANNON.LockConstraint(compoundBody, 아래층.body);
                     world.addConstraint(constraint2);
-                    cubes[itemidx-1].mesh.userData.constraint.push(constraint1)
-                    cubes[itemidx-1].mesh.userData.constraint.push(constraint2)
+                    아래층.mesh.userData.constraint.push(constraint1)
+                    아래층.mesh.userData.constraint.push(constraint2)
                     cubes[itemidx].mesh.userData.constraint.push(constraint1)
                     cubes[itemidx].mesh.userData.constraint.push(constraint2)
                     setTimeout(function() {
@@ -5754,13 +5906,13 @@
                     scene.add(legs[legs.length-1]);
                   }else if(iteml){
                     var upperz=cubes[itemidx].mesh.position.z
-                    var lowerz=cubes[itemidx-1].mesh.position.z
+                    var lowerz=아래층.mesh.position.z
                     if(cubes[itemidx].mesh.userData.pin){
                       upperz=cubes[itemidx].mesh.position.z+(핀크기-1)*bw/2;
                     }
 
-                    if(cubes[itemidx-1].mesh.userData.pin){
-                      lowerz=cubes[itemidx-1].mesh.position.z+(핀크기-1)*bw/2;
+                    if(아래층.mesh.userData.pin){
+                      lowerz=아래층.mesh.position.z+(핀크기-1)*bw/2;
                     }
                     var majorz;
                     if(upperz>lowerz){
@@ -5769,7 +5921,7 @@
                       majorz=lowerz
                     }
                     console.log(Math.abs(upperz-lowerz))
-                    if(Math.abs(upperz-lowerz)>2.3){
+                    if(취소||Math.abs(upperz-lowerz)>2.3){
                       console.log("취소")
                       stepmold[3].material.visible=false;
                       stepmold[3].children[0].material.visible=false;
@@ -5781,14 +5933,34 @@
 
                       if(hammer){
                         해머++;
+                        if(superflag){
+                          해머+=2;
+                          superflag=false
+                        }
                       }else if(pung){
                         뻥++;
+                        if(superflag){
+                          뻥+=2;
+                          superflag=false
+                        }
                       }else if(ice){
                         얼음++;
+                        if(superflag){
+                          얼음+=2;
+                          superflag=false
+                        }
                       }else if(pin){
                         핀++;
+                        if(superflag){
+                          핀+=2;
+                          superflag=false
+                        }
                       }else if(bridge){
                         다리++;
+                        if(superflag){
+                          다리+=2;
+                          superflag=false
+                        }
                       }
                       document.getElementById('hammer').children[1].innerText=String(해머)
                       document.getElementById('pung').children[1].innerText=String(뻥)
@@ -5873,7 +6045,7 @@
                     compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
                     compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
 
-                    legs[legs.length-1].position.set(cubes[itemidx].mesh.position.x-bw/4, cubes[itemidx].mesh.position.y-bh/2, majorz+bw/1.5+0.5*bh);
+                    legs[legs.length-1].position.set(cubes[itemidx].mesh.position.x-bw/5, cubes[itemidx].mesh.position.y-bh/2, majorz+bw/1.5+0.6*bh);
 
                     // if(cubes[itemidx].mesh.userData.pin){
                     //   legs[legs.length-1].position.set(majorx+bw/1.5+0.5*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/4);
@@ -5895,10 +6067,10 @@
                     console.log(legs)
                     var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
                     world.addConstraint(constraint1);
-                    var constraint2 = new CANNON.LockConstraint(compoundBody, cubes[itemidx-1].body);
+                    var constraint2 = new CANNON.LockConstraint(compoundBody, 아래층.body);
                     world.addConstraint(constraint2);
-                    cubes[itemidx-1].mesh.userData.constraint.push(constraint1)
-                    cubes[itemidx-1].mesh.userData.constraint.push(constraint2)
+                    아래층.mesh.userData.constraint.push(constraint1)
+                    아래층.mesh.userData.constraint.push(constraint2)
                     cubes[itemidx].mesh.userData.constraint.push(constraint1)
                     cubes[itemidx].mesh.userData.constraint.push(constraint2)
                     setTimeout(function() {
@@ -6004,14 +6176,34 @@
 
               if(hammer){
                 해머++;
+                if(superflag){
+                  해머+=2;
+                  superflag=false
+                }
               }else if(pung){
                 뻥++;
+                if(superflag){
+                  뻥+=2;
+                  superflag=false
+                }
               }else if(ice){
                 얼음++;
+                if(superflag){
+                  얼음+=2;
+                  superflag=false
+                }
               }else if(pin){
                 핀++;
+                if(superflag){
+                  핀+=2;
+                  superflag=false
+                }
               }else if(bridge){
                 다리++;
+                if(superflag){
+                  다리+=2;
+                  superflag=false
+                }
               }
               document.getElementById('hammer').children[1].innerText=String(해머)
               document.getElementById('pung').children[1].innerText=String(뻥)
@@ -6141,43 +6333,43 @@
     world.addBody(groundBody);
 
 
-    let groundBody1 = new CANNON.Body({
-        mass: 0,
-        shape: new CANNON.Box(new CANNON.Vec3(bw/2, bh/2, bw/2)),
-        material: customMaterial
-    });
-    groundBody1.position.set(0, -3, 0);
-    // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
-    world.addBody(groundBody1);
-
-
-    let groundBody2 = new CANNON.Body({
-        mass: 0,
-        shape: new CANNON.Box(new CANNON.Vec3(bw/2, bh/2, bw/2)),
-        material: customMaterial
-    });
-    groundBody2.position.set(0, -5, 0);
-    // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
-    world.addBody(groundBody2);
-
-
-    let groundBody3 = new CANNON.Body({
-        mass: 0,
-        shape: new CANNON.Box(new CANNON.Vec3(bw/2, bh/2, bw/2)),
-        material: customMaterial
-    });
-    groundBody3.position.set(0, -7, 0);
-    // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
-    world.addBody(groundBody1);
-
-    let groundBody4 = new CANNON.Body({
-        mass: 0,
-        shape: new CANNON.Box(new CANNON.Vec3(bw/2, bh/2, bw/2)),
-        material: customMaterial
-    });
-    groundBody4.position.set(0, -9, 0);
-    // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
-    world.addBody(groundBody4);
+    // let groundBody1 = new CANNON.Body({
+    //     mass: 0,
+    //     shape: new CANNON.Box(new CANNON.Vec3(bw/2, bh/2, bw/2)),
+    //     material: customMaterial
+    // });
+    // groundBody1.position.set(0, -3, 0);
+    // // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
+    // world.addBody(groundBody1);
+    //
+    //
+    // let groundBody2 = new CANNON.Body({
+    //     mass: 0,
+    //     shape: new CANNON.Box(new CANNON.Vec3(bw/2, bh/2, bw/2)),
+    //     material: customMaterial
+    // });
+    // groundBody2.position.set(0, -5, 0);
+    // // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
+    // world.addBody(groundBody2);
+    //
+    //
+    // let groundBody3 = new CANNON.Body({
+    //     mass: 0,
+    //     shape: new CANNON.Box(new CANNON.Vec3(bw/2, bh/2, bw/2)),
+    //     material: customMaterial
+    // });
+    // groundBody3.position.set(0, -7, 0);
+    // // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
+    // world.addBody(groundBody1);
+    //
+    // let groundBody4 = new CANNON.Body({
+    //     mass: 0,
+    //     shape: new CANNON.Box(new CANNON.Vec3(bw/2, bh/2, bw/2)),
+    //     material: customMaterial
+    // });
+    // groundBody4.position.set(0, -9, 0);
+    // // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
+    // world.addBody(groundBody4);
 
 
 
@@ -6930,17 +7122,17 @@
         groundBody.position.set(0, -1, 0);
         world.addBody(groundBody);
 
-        groundBody1.position.set(0, -3, 0);
-        world.addBody(groundBody1);
-
-        groundBody2.position.set(0, -5, 0);
-        world.addBody(groundBody2);
-
-        groundBody3.position.set(0, -7, 0);
-        world.addBody(groundBody3);
-
-        groundBody4.position.set(0, -9, 0);
-        world.addBody(groundBody4);
+        // groundBody1.position.set(0, -3, 0);
+        // world.addBody(groundBody1);
+        //
+        // groundBody2.position.set(0, -5, 0);
+        // world.addBody(groundBody2);
+        //
+        // groundBody3.position.set(0, -7, 0);
+        // world.addBody(groundBody3);
+        //
+        // groundBody4.position.set(0, -9, 0);
+        // world.addBody(groundBody4);
 
         world.broadphase = new CANNON.NaiveBroadphase();
         renderer.clearDepth();
@@ -7270,7 +7462,7 @@
 
         필=0;
         바=400;
-
+        superflag=false;
         itemuse=false;
         itemuse0=false;
         itemtime=0;
@@ -7335,6 +7527,7 @@
                     item.mesh.userData.freeze=false;
                     item.mesh.userData.pin=false;
                     item.mesh.userData.ice=false;
+                    item.mesh.userData.bye=false;
                     item.mesh.userData.constraint=[];
                     // item.body.fixedRotation=true;
 
@@ -10491,7 +10684,7 @@
         }
 
 
-        var geometry1 = new THREE.BoxGeometry(0.05*bw, 1.2*bh, 0.05*bw);
+        var geometry1 = new THREE.BoxGeometry(0.05*bw, 1.3*bh, 0.05*bw);
         var material1 = new THREE.MeshLambertMaterial({
             color: new THREE.Color(0xD7F3F9)
         });
@@ -10525,7 +10718,7 @@
         legmold.push(mesh5)
 
 
-        var geometry1 = new THREE.BoxGeometry(0.05*bw, 1.2*bh, 0.05*bw);
+        var geometry1 = new THREE.BoxGeometry(0.05*bw, 1.3*bh, 0.05*bw);
         var material1 = new THREE.MeshLambertMaterial({
             color: new THREE.Color(0xD7F3F9)
         });
@@ -12025,7 +12218,7 @@
 
             cubes[cubes.length - 1].mesh.userData.body = cubes[cubes.length - 1].body;
             cubes[cubes.length - 1].mesh.userData.game2048 = game2048
-            cubes[cubes.length - 1].body.sleepState = 1;
+            cubes[cubes.length - 1].body.sleepState = 0;
             var loc = [];
             for (let row = 0; row < 칸; row++) {
                 var temp = [];
@@ -14636,6 +14829,7 @@
                   }
                 });
                 if(cubes[i].body.sleepState==2) continue;
+                if(cubes[i].mesh.userData.bye) continue;
                 avx += cubes[i].body.position.x;
                 avz += cubes[i].body.position.z;
                 templength++;
@@ -14736,7 +14930,11 @@
 
 
             }else if(hammer){
-
+              if(superflag){
+                stepmold[4].scale.set(1.3*0.8*3.57 / 2,1.3*0.8*3.57 / 2,1.3*0.8*3.57 / 2)
+              }else{
+                stepmold[4].scale.set(1*0.8*3.57 / 2,1*0.8*3.57 / 2,1*0.8*3.57 / 2)
+              }
               stepmold[4].material.visible=true;
               stepmold[4].children[0].material.visible=true;
               var dur=parseInt(elapsedTime*25)%pshift.length
@@ -14768,6 +14966,13 @@
               }
 
             }else if(pung){
+              if(superflag){
+                stepmold[3].scale.x=1.8*0.7*3.2 / 2
+                stepmold[3].scale.z=1.8*0.7*3.2 / 2
+              }else{
+                stepmold[3].scale.x=0.7*3.2 / 2
+                stepmold[3].scale.z=0.7*3.2 / 2
+              }
               stepmold[3].material.visible=true;
               stepmold[3].children[0].material.visible=true;
               var dur=parseInt(elapsedTime*20)%pshift.length
@@ -14847,7 +15052,7 @@
               stepmold[7].position.y=cubes[itemidx].body.position.y-bh/2
               if(itemr){
 
-                stepmold[7].position.z=cubes[itemidx].body.position.z-bw/4
+                stepmold[7].position.z=cubes[itemidx].body.position.z-bw/5
 
 
                 if(cubes[itemidx].mesh.userData.pin){
@@ -14859,7 +15064,7 @@
 
                 stepmold[7].rotation.y=cubes[itemidx].mesh.rotation.y
               }else if(iteml){
-                stepmold[7].position.x=cubes[itemidx].body.position.x-bw/4
+                stepmold[7].position.x=cubes[itemidx].body.position.x-bw/5
 
 
                 if(cubes[itemidx].mesh.userData.pin){
@@ -14887,6 +15092,13 @@
             var dur0=parseInt(elapsedTime*20)%36
 
             if(pung){
+              if(superflag){
+                stepmold[3].scale.x=1.8*0.7*3.2 / 2
+                stepmold[3].scale.z=1.8*0.7*3.2 / 2
+              }else{
+                stepmold[3].scale.x=0.7*3.2 / 2
+                stepmold[3].scale.z=0.7*3.2 / 2
+              }
               stepmold[3].material.visible=true;
               stepmold[3].children[0].material.visible=true;
               var dur=parseInt(elapsedTime*20)%pshift.length
@@ -14899,6 +15111,11 @@
               stepmold[3].scale.y = pshift[dur]*0.9*3.2 / 2;
 
             }else if(hammer){
+              if(superflag){
+                stepmold[4].scale.set(1.3*0.8*3.57 / 2,1.3*0.8*3.57 / 2,1.3*0.8*3.57 / 2)
+              }else{
+                stepmold[4].scale.set(1*0.8*3.57 / 2,1*0.8*3.57 / 2,1*0.8*3.57 / 2)
+              }
               stepmold[4].material.visible=true;
               stepmold[4].children[0].material.visible=true;
               var dur=parseInt(elapsedTime*25)%pshift.length
@@ -15312,6 +15529,7 @@
                                   cubes[activeFloor+1].mesh.userData.pin=false;
                                   cubes[activeFloor+1].mesh.userData.constraint=[];
                                   cubes[activeFloor+1].mesh.userData.ice=false;
+                                  cubes[activeFloor+1].mesh.userData.bye=false;
                                   cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
                                   cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
                                   activeFloor=cubes.length;
@@ -16094,841 +16312,741 @@
         // console.log(cubes[0].mesh.position)
         // console.log(cubes[0].mesh.rotation)
 
-        if (!gameoverflag) {
-              cubes.forEach((item, index) => {
-                  var tempheight;
-                  if(gamemod==2){
-                    tempheight=bh*(index-4)
-                  }else{
-                    tempheight=bh*4
+        if (!gameoverflag&&startflag) {
+          var 오버=false;
+          if (Math.abs(cubes[cubes.length-1].mesh.rotation.x) > Math.PI/3 || Math.abs(cubes[cubes.length-1].mesh.rotation.z) > Math.PI/3) {
+            오버=true;
+          }
+          var overcount=0;
+          for (var i = 3; i < cubes.length; i++) {
+            if(!cubes[i].mesh.userData.bye){
+              overcount++;
+            }
+
+          }
+          console.log(overcount);
+          if(cubes.length>=6){
+            if (cubes[cubes.length-1].mesh.position.y<=bh*(overcount-3)) {
+              오버=true;
+            }
+          }else{
+            if (cubes[cubes.length-1].mesh.position.y<=bh*1.1) {
+              오버=true;
+            }
+          }
+
+
+          if ((오버)||(gamemod==2&&fulltower)) { //오버조건
+              // overlimit++;
+              if(!gameoverflag){
+                if(gamemod==2){
+                  gameoverflag = true;
+                  if(오토) tcheck[1]=elapsedTime;
+
+                  document.getElementById('hammer').style.left="-13.3vh"
+                  document.getElementById('pung').style.left="-13.3vh"
+                  document.getElementById('ice').style.left="-13.3vh"
+                  document.getElementById('pin').style.left="-13.3vh"
+                  document.getElementById('bridge').style.left="-13.3vh"
+                  // document.getElementById("t1").classList.add("hidden");
+                  // document.getElementById("t2").classList.add("hidden");
+                  // document.getElementById("t3").classList.add("hidden");
+                  // document.getElementById("t4").classList.add("hidden");
+                  // document.getElementById("t5").classList.add("hidden");
+                  // document.getElementById("t6").classList.add("hidden");
+                  //
+                  // document.getElementById("t1").style.opacity=0;
+                  // document.getElementById("t2").style.opacity=0;
+                  // document.getElementById("t3").style.opacity=0;
+                  // document.getElementById("t4").style.opacity=0;
+                  // document.getElementById("t5").style.opacity=0;
+                  // document.getElementById("t6").style.opacity=0;
+                  //
+                  //
+                  // document.getElementById("td0").classList.add("hidden");
+                  // document.getElementById("td1").classList.add("hidden");
+                  // document.getElementById("td2").classList.add("hidden");
+                  // document.getElementById("td3").classList.add("hidden");
+                  // document.getElementById("td4").classList.add("hidden");
+                  // document.getElementById("td5").classList.add("hidden");
+                  // document.getElementById("td6").classList.add("hidden");
+                  // document.getElementById("td9").classList.add("hidden");
+                  // document.getElementById("td10").classList.add("hidden");
+                  //
+                  // document.getElementById("td0").style.opacity=0;
+                  // document.getElementById("td1").style.opacity=0;
+                  // document.getElementById("td2").style.opacity=0;
+                  // document.getElementById("td3").style.opacity=0;
+                  // document.getElementById("td4").style.opacity=0;
+                  // document.getElementById("td5").style.opacity=0;
+                  // document.getElementById("td6").style.opacity=0;
+                  // document.getElementById("td9").style.opacity=0;
+                  // document.getElementById("td10").style.opacity=0;
+
+
+                  // return;
+                  if(tutorialflag){
+                    if(gamemod==0||gamemod==1){
+
+                      sboard("CgkI3OzStdEUEAIQEw")
+                    }
+
+                    document.getElementById("t4").style.opacity=0;
+                    document.getElementById("t5").style.opacity=0;
+                    tutorialflag=false;
+                    tutstep=0;
+                    shiftlock=false
+                    document.getElementById("tut-info").style.display="none"
+                  }
+                  soundic[esound[4]].play();
+
+                  endsound=sdic[activeFloor][0];
+                  if(배경음){
+                    soundic[endsound]?.setVolume(0.15);
                   }
 
-                  if (fullmax||(index > 3 && item.body.position.y < tempheight+bh/5)||(gamemod==3&&remain<0)||(gamemod==2&&fulltower)) { //오버조건
-                      // overlimit++;
-                      if(!gameoverflag){
-                        if(gamemod==3&&remain>0){
-                          playlock=true;
-                          if(!re3flag){
-                            if(re3flag2){
-                              if(elapsedTime-re3time>1) {
-                                do{
-                                  ncolornum = parseInt(Math.random() * colorlst.length);
-                                }while(색보정.indexOf(ncolornum)!=-1)
-
-                                do{
-                                  ncolornum0 = parseInt(Math.random() * colorlst0.length);
-                                }while(색보정0.indexOf(ncolornum0)!=-1)
-                                rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-                                renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
-                                rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
-                                renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
-                                rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
-                                renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
-                                rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
-                                renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
-                                bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
-                                nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
-                                bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
-                                nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
-                                bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
-                                nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
-                                bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
-                                nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
-                                bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
-                                nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
-                                ccount++
-                                if(ccount!=1) {
-                                  tbonus+=10;
-                                  soundic[esound[11]].play();
-                                }
-
-                                re3loc=[];
-
-                                for (let i = 0; i < 5; i++) {
-                                    for (var j = cubes[i].mesh.children.length - 1; j >= 0; j--) {
-                                        if (cubes[i].mesh.children[j].userData["skin"] == "tile") {
-                                            cubes[i].mesh.remove(cubes[i].mesh.children[j]);
-                                        }
-                                    }
-                                    cubes[i].mesh.userData["game2048"].board = new Array(4).fill(null).map(() => new Array(4).fill(0));
-                                    cubes[i].body.force.set(0,0,0)
-                                    cubes[i].body.torque.set(0,0,0)
-                                    cubes[i].body.velocity.set(0, 0, 0);
-                                    cubes[i].body.angularVelocity.set(0, 0, 0);
-                                    cubes[i].mesh.position.set(0, (i) * bh + bh / 2, 0);
-                                    cubes[i].mesh.rotation.set(0,0,0);
-                                    // cubes[i].body.position.set(0, (i) * bh + bh / 2, 0);
-                                    if(i==4){
-                                      var avx0=0
-                                      var avz0=0
-
-                                      for (var j = 0; j < 4; j++) {
-                                        avx0+=cubes[j].body.position.x;
-                                        avz0+=cubes[j].body.position.z;
-                                      }
-                                      cubes[i].body.position.set(avx0/4, (i) * bh + bh / 2,avz0/4 );
-
-                                    }else{
-                                      cubes[i].body.position.set(-bw/3+Math.random()*bw*0.666, (i) * bh + bh / 2, -bw/3+Math.random()*bw*0.666);
-                                    }
-
-                                    re3loc.push(cubes[i].body.position)
-
-                                    cubes[i].body.quaternion.copy(cubes[i].mesh.quaternion);
-                                    // cubes[i].body.position.copy(cubes[i].mesh.position);
 
 
-                                    for (var k = 0; k < 5-i; k++) {
-                                      // cubes[i].mesh.userData.game2048.spawnTile();
-                                      cubes[i].mesh.userData.game2048.spawnTile("down",Math.pow(2, 2+parseInt(Math.random()*(5-i))));
-                                    }
+                  topcam = false;
 
+                  document.getElementById("gameover-overlay").classList.remove("fade");
+                  document.getElementById("gameover-overlay").classList.remove("hidden");
+                  document.getElementById("gameover-overlay").classList.add("show");
 
-                                    cubes[i].mesh.position.y=200;
-                                    // cubes[i].mesh.position.x=avx;
-                                    // cubes[i].mesh.position.z=avz;
-                                    // camera.position.x=bw*2+avx;
-                                    // camera.position.z=bw*2+avz;
+                  var temp1=document.querySelectorAll(".gameover");
 
-                                    restartloc.push(cubes[i].mesh.position);
-                                    restartrot.push(cubes[i].mesh.rotation);
-
-
-                                    groundBody.position.set(0, -1, 0);
-                                    world.gravity.set(0, 중력[3], 0);
-
-                                }
-                                re3time=elapsedTime;
-                                re3flag=true;
-                                re3flag2=false;
-
-                              }
-                            }else{
-                              console.log(2);
-
-                              activeFloor = cubes.length;
-                              bf=99;
-                              cubes.forEach((item,idx) => {
-                                  item.mesh.userData["game2048"].fullflag=false;
-
-                                  item.mesh.children.forEach((tile, index) => {
-                                      if (tile.userData["skin"] == "tile") {
-                                          item.mesh.remove(tile);
-                                      }
-                                  });
-                              })
-                              topcam=false;
-                              restartloc=[];
-                              restartrot=[];
-                              re3flag2=true;
-                              re3time=elapsedTime;
-                              groundBody.position.set(0, -150, 0);
-                              world.gravity.set(0, -100, 0);
-
-                            }
-                          }
-
-
-                        }else{
-                          gameoverflag = true;
-                          if(오토) tcheck[1]=elapsedTime;
-
-                          document.getElementById('hammer').style.left="-13.3vh"
-                          document.getElementById('pung').style.left="-13.3vh"
-                          document.getElementById('ice').style.left="-13.3vh"
-                          document.getElementById('pin').style.left="-13.3vh"
-                          document.getElementById('bridge').style.left="-13.3vh"
-                          // document.getElementById("t1").classList.add("hidden");
-                          // document.getElementById("t2").classList.add("hidden");
-                          // document.getElementById("t3").classList.add("hidden");
-                          // document.getElementById("t4").classList.add("hidden");
-                          // document.getElementById("t5").classList.add("hidden");
-                          // document.getElementById("t6").classList.add("hidden");
-                          //
-                          // document.getElementById("t1").style.opacity=0;
-                          // document.getElementById("t2").style.opacity=0;
-                          // document.getElementById("t3").style.opacity=0;
-                          // document.getElementById("t4").style.opacity=0;
-                          // document.getElementById("t5").style.opacity=0;
-                          // document.getElementById("t6").style.opacity=0;
-                          //
-                          //
-                          // document.getElementById("td0").classList.add("hidden");
-                          // document.getElementById("td1").classList.add("hidden");
-                          // document.getElementById("td2").classList.add("hidden");
-                          // document.getElementById("td3").classList.add("hidden");
-                          // document.getElementById("td4").classList.add("hidden");
-                          // document.getElementById("td5").classList.add("hidden");
-                          // document.getElementById("td6").classList.add("hidden");
-                          // document.getElementById("td9").classList.add("hidden");
-                          // document.getElementById("td10").classList.add("hidden");
-                          //
-                          // document.getElementById("td0").style.opacity=0;
-                          // document.getElementById("td1").style.opacity=0;
-                          // document.getElementById("td2").style.opacity=0;
-                          // document.getElementById("td3").style.opacity=0;
-                          // document.getElementById("td4").style.opacity=0;
-                          // document.getElementById("td5").style.opacity=0;
-                          // document.getElementById("td6").style.opacity=0;
-                          // document.getElementById("td9").style.opacity=0;
-                          // document.getElementById("td10").style.opacity=0;
-
-
-                          re3flag2=false;
-                          re3flag=false;
-                          // return;
-                          if(tutorialflag){
-                            if(gamemod==0||gamemod==1){
-
-                              sboard("CgkI3OzStdEUEAIQEw")
-                            }
-
-                            document.getElementById("t4").style.opacity=0;
-                            document.getElementById("t5").style.opacity=0;
-                            tutorialflag=false;
-                            tutstep=0;
-                            shiftlock=false
-                            document.getElementById("tut-info").style.display="none"
-                          }
-                          soundic[esound[4]].play();
-
-                          endsound=sdic[activeFloor][0];
-                          if(배경음){
-                            soundic[endsound]?.setVolume(0.15);
-                          }
-
-
-
-                          topcam = false;
-
-                          document.getElementById("gameover-overlay").classList.remove("fade");
-                          document.getElementById("gameover-overlay").classList.remove("hidden");
-                          document.getElementById("gameover-overlay").classList.add("show");
-
-                          var temp1=document.querySelectorAll(".gameover");
-
-                          temp1.forEach((item, i) => {
-                            item.style.opacity=0;
+                  temp1.forEach((item, i) => {
+                    item.style.opacity=0;
+                  });
+                  if(gamemod<2){
+                    if(skinset[skinnum]=="skelecton"){
+                      cubes[activeFloor].mesh.children.forEach((item) => {
+                        if(item.userData["skin"]=="tile"){
+                          item.material.visible=false;
+                          item.children.forEach((text) => {
+                            text.material.visible=false;
                           });
-                          if(gamemod<2){
-                            if(skinset[skinnum]=="skelecton"){
-                              cubes[activeFloor].mesh.children.forEach((item) => {
-                                if(item.userData["skin"]=="tile"){
-                                  item.material.visible=false;
-                                  item.children.forEach((text) => {
-                                    text.material.visible=false;
-                                  });
 
-                                }else if(item.userData["skin"]=="bottom"){
-                                  item.material.visible=false;
-                                }
-                              });
-
-                            }
-                          }
-
-
-                          var temp1=document.querySelectorAll(".gameinfo1");
-
-                          if(gamemod==2){
-                            temp1[0].style.display="inline-flex"
-                            temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
-                            temp1[0].children[2].style.color=hexToHtmlColor(colorlst[colornum][3])
-                            등급곱=0.1
-                            if(langnum==1){
-                              temp1[0].children[1].style.fontFamily="mono"
-                            }
-                            if(cubes.length-3>50){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="G"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="G"
-                                temp1[0].children[2].innerText=""
-                              }
-
-
-                              // temp1[0].children[1].innerText="oat!!!!!!!!"
-                              if(langnum==0){
-                                temp1[0].children[1].innerText="oat!!!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[159][langset[langnum]]
-                              }
-
-
-                              등급곱=0.18;
-                            }else if(cubes.length-3>44){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="L"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="L"
-                                temp1[0].children[2].innerText=""
-                              }
-
-
-                              // temp1[0].children[1].innerText="oat!!!!!!!!"
-                              if(langnum==0){
-                                temp1[0].children[1].innerText="egend!!!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[160][langset[langnum]]
-                              }
-                              등급곱=0.17;
-                            }else if(cubes.length-3>34){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="M"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="M"
-                                temp1[0].children[2].innerText=""
-                              }
-
-                              // temp1[0].children[1].innerText="oat!!!!!!!!"
-                              if(langnum==0){
-                                temp1[0].children[1].innerText="ONSTER!!!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[161][langset[langnum]]
-                              }
-                              등급곱=0.16;
-                            }else if(cubes.length-3>31){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="+S"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="S+"
-                                temp1[0].children[2].innerText=""
-                              }
-
-                              // temp1[0].children[1].innerText="egend!!!!!!!"
-                              if(langnum==0){
-                                temp1[0].children[1].innerText="UPERB!!!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[162][langset[langnum]]
-                              }
-
-                              등급곱=0.14;
-                            }else if(cubes.length-3>24){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="S"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="S"
-                                temp1[0].children[2].innerText=""
-                              }
-
-                              // temp1[0].children[1].innerText="pecial!!!!!"
-                              if(langnum==0){
-                                temp1[0].children[1].innerText="PECIAL!!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[163][langset[langnum]]
-                              }
-
-                              등급곱=0.13;
-                            }else if(cubes.length-3>15){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="+A"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="A+"
-                                temp1[0].children[2].innerText=""
-                              }
-                              // temp1[0].children[1].innerText="uperb!!!!!"
-                              if(langnum==0){
-                                temp1[0].children[1].innerText="WESOME!!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[164][langset[langnum]]
-                              }
-
-
-                              등급곱=0.12;
-                            }else if(cubes.length-3>14){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="A"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="A"
-                                temp1[0].children[2].innerText=""
-                              }
-                              // temp1[0].children[1].innerText="uperb!!!!!"
-
-                              if(langnum==0){
-                                temp1[0].children[1].innerText="WESOME!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[165][langset[langnum]]
-                              }
-
-                              등급곱=0.12;
-                            }else if(cubes.length-3>12){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="B"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="B"
-                                temp1[0].children[2].innerText=""
-                              }
-                              // temp1[0].children[1].innerText="wesome!!!!"
-                              if(langnum==0){
-                                temp1[0].children[1].innerText="RILLIANT!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[166][langset[langnum]]
-                              }
-
-                              등급곱=0.11;
-                            }else if(cubes.length-3>10){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="C"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="C"
-                                temp1[0].children[2].innerText=""
-                              }
-                              // temp1[0].children[1].innerText="rilliant!!!"
-                              if(langnum==0){
-                                temp1[0].children[1].innerText="OOL!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[167][langset[langnum]]
-                              }
-
-                              등급곱=0.1
-                            }else if(cubes.length-3>9){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="D"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="D"
-                                temp1[0].children[2].innerText=""
-                              }
-                              // temp1[0].children[1].innerText="ool!!"
-                              if(langnum==0){
-                                temp1[0].children[1].innerText="OING WELL!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[168][langset[langnum]]
-                              }
-                              등급곱=0.1;
-                            }else if(cubes.length-3>8){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="E"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="E"
-                                temp1[0].children[2].innerText=""
-                              }
-                              // temp1[0].children[1].innerText="elightful!"
-                              if(langnum==0){
-                                temp1[0].children[1].innerText="FFICIENT"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[169][langset[langnum]]
-                              }
-                              등급곱=0.1;
-                            }else{
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="F"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="F"
-                                temp1[0].children[2].innerText=""
-                              }
-                              // temp1[0].children[1].innerText="fficeint"
-                              if(langnum==0){
-                                temp1[0].children[1].innerText="RAGILE"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[170][langset[langnum]]
-                              }
-                              등급곱=0.09
-                            }
-                          }else{
-                            temp1[0].style.display="inline-flex"
-                            temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
-                            temp1[0].children[2].style.color=hexToHtmlColor(colorlst[colornum][3])
-                            if(langnum==1){
-                              temp1[0].children[1].style.fontFamily="GG"
-                            }
-                            if(점수>30000){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="G"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="G"
-                                temp1[0].children[2].innerText=""
-                              }
-
-
-                              if(langnum==0||langnum==1){
-                                temp1[0].children[1].innerText="OAT!!!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[159][langset[langnum]]
-                              }
-
-
-                              등급곱=0.18;
-                            }else if(점수>25000){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="L"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="L"
-                                temp1[0].children[2].innerText=""
-                              }
-
-                              if(langnum==0||langnum==1){
-                                temp1[0].children[1].innerText="EGEND!!!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[160][langset[langnum]]
-                              }
-                              등급곱=0.17;
-                            }else if(점수>20000){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="M"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="M"
-                                temp1[0].children[2].innerText=""
-                              }
-
-
-                              if(langnum==0||langnum==1){
-                                temp1[0].children[1].innerText="ONSTER!!!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[161][langset[langnum]]
-                              }
-                              등급곱=0.16;
-                            }else if(점수>15000){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="+S"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="S+"
-                                temp1[0].children[2].innerText=""
-                              }
-                              sboard("CgkI3OzStdEUEAIQDg")
-
-                              if(langnum==0||langnum==1){
-                                temp1[0].children[1].innerText="UPERB!!!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[162][langset[langnum]]
-                              }
-
-                              등급곱=0.14;
-                            }else if(점수>10000){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="S"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="S"
-                                temp1[0].children[2].innerText=""
-                              }
-                              sboard("CgkI3OzStdEUEAIQDQ")
-
-                              if(langnum==0||langnum==1){
-                                temp1[0].children[1].innerText="PECIAL!!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[163][langset[langnum]]
-                              }
-
-                              등급곱=0.13;
-                            }else if(점수>8000){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="+A"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="A+"
-                                temp1[0].children[2].innerText=""
-                              }
-
-
-                              if(langnum==0||langnum==1){
-                                temp1[0].children[1].innerText="ESTHETIC!!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[164][langset[langnum]]
-                              }
-                              sboard("CgkI3OzStdEUEAIQDA")
-
-                              등급곱=0.12;
-                            }else if(점수>5000){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="A"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="A"
-                                temp1[0].children[2].innerText=""
-                              }
-                              // temp1[0].children[1].innerText="uperb!!!!!"
-                              sboard("CgkI3OzStdEUEAIQCw")
-
-
-                              if(langnum==0||langnum==1){
-                                temp1[0].children[1].innerText="WESOME!!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[165][langset[langnum]]
-                              }
-
-                              등급곱=0.12;
-                            }else if(점수>3000){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="B"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="B"
-                                temp1[0].children[2].innerText=""
-                              }
-
-                              if(langnum==0||langnum==1){
-                                temp1[0].children[1].innerText="RILLIANT!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[166][langset[langnum]]
-                              }
-
-                              등급곱=0.11;
-                            }else if(점수>2000){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="C"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="C"
-                                temp1[0].children[2].innerText=""
-                              }
-
-
-                              if(langnum==0||langnum==1){
-                                temp1[0].children[1].innerText="OOL!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[167][langset[langnum]]
-                              }
-
-                              등급곱=0.1
-                            }else if(점수>1000){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="D"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="D"
-                                temp1[0].children[2].innerText=""
-                              }
-
-
-                              if(langnum==0||langnum==1){
-                                temp1[0].children[1].innerText="OING WELL!"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[168][langset[langnum]]
-                              }
-                              등급곱=0.1;
-                            }else if(점수>500){
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="E"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="E"
-                                temp1[0].children[2].innerText=""
-                              }
-
-
-                              if(langnum==0||langnum==1){
-                                temp1[0].children[1].innerText="FFICIENT"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[169][langset[langnum]]
-                              }
-                              등급곱=0.1;
-                            }else{
-                              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                                temp1[0].children[2].innerText="F"
-                                temp1[0].children[0].innerText=""
-                              }else{
-                                temp1[0].children[0].innerText="F"
-                                temp1[0].children[2].innerText=""
-                              }
-
-
-                              if(langnum==0||langnum==1){
-                                temp1[0].children[1].innerText="RAGILE"
-                              }else{
-                                temp1[0].children[1].innerText=textdic[170][langset[langnum]]
-                              }
-                              등급곱=0.09
-                            }
-
-                            if(gamemod==1){
-                              등급곱+=0.05
-                            }
-                          }
-
-
-                          if(langnum==13||langnum==22||langnum==29||langnum==36){
-                            temp1[0].children[1].style.left=""
-                            temp1[0].children[1].style.textAlign="right"
-                            if(temp1[0].children[2].innerText.length>1){
-                              temp1[0].children[1].style.right="31vmin"
-                            }else{
-                              temp1[0].children[1].style.right="20vmin"
-                            }
-                          }else{
-                            temp1[0].children[1].style.right=""
-                            temp1[0].children[1].style.textAlign="left"
-                            if(temp1[0].children[0].innerText.length>1){
-                              temp1[0].children[1].style.left="25vmin"
-                            }else{
-                              temp1[0].children[1].style.left="15vmin"
-                            }
-                          }
-                          if(gamemod==1){
-                            temp1[0].children[3].innerText="("+textdic[82][langset[langnum]]+")"
-                          }else{
-                            temp1[0].children[3].innerText=""
-                          }
-
-
-                          document.getElementById("총획득").classList.remove("show");
-                          document.getElementById("코인").classList.remove("show");
-                          document.getElementById("기본").classList.remove("show");
-                          document.getElementById("full").classList.remove("show");
-                          document.getElementById("max").classList.remove("show");
-                          document.getElementById("시간").classList.remove("show");
-                          document.getElementById("총획득").classList.add("hidden");
-                          document.getElementById("코인").classList.add("hidden");
-                          document.getElementById("기본").classList.add("hidden");
-                          document.getElementById("full").classList.add("hidden");
-                          document.getElementById("max").classList.add("hidden");
-                          document.getElementById("시간").classList.add("hidden");
-
-                          // document.getElementById("기본").children[1].style.color=hexToHtmlColor(colorlst[colornum][2]);
-                          // document.getElementById("시간").children[1].style.color=hexToHtmlColor(colorlst[colornum][2]);
-                          // document.getElementById("max").children[1].style.color=hexToHtmlColor(colorlst[colornum][2]);
-                          // document.getElementById("full").children[1].style.color=hexToHtmlColor(colorlst[colornum][2]);
-
-                          document.getElementById("기본").children[1].style.color="lightyellow"
-                          document.getElementById("시간").children[1].style.color="lightyellow"
-                          document.getElementById("max").children[1].style.color="lightyellow"
-                          document.getElementById("full").children[1].style.color="lightyellow"
-                          // document.getElementById("코인").children[1].style.color=hexToHtmlColor(colorlst[colornum][0]);
-
-                          if(gamemod==2){
-                            if(langnum==13||langnum==22||langnum==29||langnum==36){
-                              document.querySelector(".gameinfo0").children[0].innerText=String(cubes.length-3)+": "+textdic[42][langset[langnum]]
-                              document.querySelector(".gameinfo0").children[1].innerText=String(parseInt(bestscore2))+": "+textdic[43][langset[langnum]]
-                            }else{
-                              document.querySelector(".gameinfo0").children[0].innerText=textdic[42][langset[langnum]]+": "+String(cubes.length-3);
-                              document.querySelector(".gameinfo0").children[1].innerText=textdic[43][langset[langnum]]+": "+String(bestscore2);
-                            }
-
-                            if(cubes.length-3>bestscore2){
-                              setTimeout(function() {
-                                soundic[esound[10]].play();
-                                document.querySelector(".gameinfo0").children[2].innerText=textdic[135][langset[langnum]]
-                                document.querySelector(".gameinfo0").children[2].style.color="yellow"
-                              }, 1000);
-
-
-                              if(!webflag) Android.saveLeader("2", cubes.length-3)
-                              if(!webflag) setdb([["data", "left", String(cubes.length-3)]]);
-                            }else{
-                              document.querySelector(".gameinfo0").children[2].innerText=""
-                            }
-                          }else if(gamemod==1){
-                            if(langnum==13||langnum==22||langnum==29||langnum==36){
-                              document.querySelector(".gameinfo0").children[0].innerText=String(점수)+": "+textdic[42][langset[langnum]]
-                              document.querySelector(".gameinfo0").children[1].innerText=String(parseInt(bestscore1))+": "+textdic[43][langset[langnum]]
-                            }else{
-                              document.querySelector(".gameinfo0").children[0].innerText=textdic[42][langset[langnum]]+": "+String(점수)
-                              document.querySelector(".gameinfo0").children[1].innerText=textdic[43][langset[langnum]]+": "+String(parseInt(bestscore1));
-                            }
-
-                            if(점수>bestscore1){
-                              review1=true;
-                              setTimeout(function() {
-                                soundic[esound[10]].play();
-                                document.querySelector(".gameinfo0").children[2].innerText=textdic[135][langset[langnum]]
-                                document.querySelector(".gameinfo0").children[2].style.color="yellow"
-                              }, 1000);
-
-                              if(!webflag) Android.saveLeader("1", 점수)
-                              if(!webflag) setdb([["data", "down", String(점수)]]);
-                            }else{
-                              document.querySelector(".gameinfo0").children[2].innerText=""
-                            }
-                          }else if(gamemod==0){
-                            if(langnum==13||langnum==22||langnum==29||langnum==36){
-                              document.querySelector(".gameinfo0").children[0].innerText=String(점수)+": "+textdic[42][langset[langnum]]
-                              document.querySelector(".gameinfo0").children[1].innerText=String(parseInt(bestscore))+": "+textdic[43][langset[langnum]]
-                            }else{
-                              document.querySelector(".gameinfo0").children[0].innerText=textdic[42][langset[langnum]]+": "+String(점수)
-                              document.querySelector(".gameinfo0").children[1].innerText=textdic[43][langset[langnum]]+": "+String(parseInt(bestscore));
-                            }
-
-                            if(점수>bestscore){
-                              review1=true;
-                              setTimeout(function() {
-                                soundic[esound[10]].play();
-                                document.querySelector(".gameinfo0").children[2].innerText=textdic[135][langset[langnum]]
-                                document.querySelector(".gameinfo0").children[2].style.color="yellow"
-                              }, 1000);
-
-                              if(!webflag) Android.saveLeader("0", 점수)
-                              if(!webflag) setdb([["data", "up", String(점수)]]);
-
-                            }else{
-                              document.querySelector(".gameinfo0").children[2].innerText=""
-                            }
-                          }
-
-
-
-
-                          document.getElementById('song-info').classList.remove("show1");
-                          document.getElementById('song-info').classList.add("hidden");
-                          var temp0=document.querySelectorAll(".gameover");
-                          if(gamemod>=2){
-                            document.querySelector(".gameinfo").classList.remove("show");
-                            document.querySelector(".gameinfo").classList.add("hidden");
-                            temp0[1].style.opacity=1;
-                            temp0[1].classList.remove("hidden");
-                            temp0[1].classList.add("show");
-                            temp0[1].style.display=""
-                          }else{
-                            document.querySelector(".gameinfo").classList.remove("hidden");
-                            document.querySelector(".gameinfo").classList.add("show");
-                            temp0[1].classList.remove("show");
-                            temp0[1].classList.add("hidden");
-                            temp0[1].style.display="none"
-                          }
-                          showinfo(gamemod);
-                          activeFloor = cubes.length;
-
-
-                          if(gamemod==2){
-                            cubes[cubes.length-1].mesh.children.forEach((item) => {
-                               if(item.userData["skin"]=="tile"){
-                                 item.material.visible=false;
-                                 item.children.forEach((text) => {
-                                   text.material.visible=false;
-                                 });
-                               }else if(item.userData["skin"]=="bottom"){
-                                 item.material.visible=false;
-                               }else if(item.userData["skin"]==skinset[skinnum]){
-                                 item.material.visible=true;
-                                 item.material.opacity=1;
-                                 item.material.alphaTest=item.material.opacity;
-                                 item.material.transparent=false;
-                               }
-                            });
-
-                          }else{
-                            if(skinset[skinnum]!="classic"){  //클
-                              cubes[cubes.length-1].mesh.children.forEach((item) => {
-                                 if(item.userData["skin"]=="tile"){
-                                   item.material.visible=false;
-                                   item.children.forEach((text) => {
-                                     text.material.visible=false;
-                                   });
-                                 }else if(item.userData["skin"]=="bottom"){
-                                   item.material.visible=false;
-                                 }
-                              });
-                            }
-                          }
+                        }else if(item.userData["skin"]=="bottom"){
+                          item.material.visible=false;
                         }
+                      });
 
-                      }
+                    }
                   }
-              })
+
+
+                  var temp1=document.querySelectorAll(".gameinfo1");
+
+                  if(gamemod==2){
+                    temp1[0].style.display="inline-flex"
+                    temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
+                    temp1[0].children[2].style.color=hexToHtmlColor(colorlst[colornum][3])
+                    등급곱=0.1
+                    if(langnum==1){
+                      temp1[0].children[1].style.fontFamily="mono"
+                    }
+                    if(cubes.length-3>50){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="G"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="G"
+                        temp1[0].children[2].innerText=""
+                      }
+
+
+                      // temp1[0].children[1].innerText="oat!!!!!!!!"
+                      if(langnum==0){
+                        temp1[0].children[1].innerText="oat!!!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[159][langset[langnum]]
+                      }
+
+
+                      등급곱=0.18;
+                    }else if(cubes.length-3>44){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="L"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="L"
+                        temp1[0].children[2].innerText=""
+                      }
+
+
+                      // temp1[0].children[1].innerText="oat!!!!!!!!"
+                      if(langnum==0){
+                        temp1[0].children[1].innerText="egend!!!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[160][langset[langnum]]
+                      }
+                      등급곱=0.17;
+                    }else if(cubes.length-3>34){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="M"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="M"
+                        temp1[0].children[2].innerText=""
+                      }
+
+                      // temp1[0].children[1].innerText="oat!!!!!!!!"
+                      if(langnum==0){
+                        temp1[0].children[1].innerText="ONSTER!!!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[161][langset[langnum]]
+                      }
+                      등급곱=0.16;
+                    }else if(cubes.length-3>31){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="+S"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="S+"
+                        temp1[0].children[2].innerText=""
+                      }
+
+                      // temp1[0].children[1].innerText="egend!!!!!!!"
+                      if(langnum==0){
+                        temp1[0].children[1].innerText="UPERB!!!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[162][langset[langnum]]
+                      }
+
+                      등급곱=0.14;
+                    }else if(cubes.length-3>24){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="S"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="S"
+                        temp1[0].children[2].innerText=""
+                      }
+
+                      // temp1[0].children[1].innerText="pecial!!!!!"
+                      if(langnum==0){
+                        temp1[0].children[1].innerText="PECIAL!!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[163][langset[langnum]]
+                      }
+
+                      등급곱=0.13;
+                    }else if(cubes.length-3>15){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="+A"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="A+"
+                        temp1[0].children[2].innerText=""
+                      }
+                      // temp1[0].children[1].innerText="uperb!!!!!"
+                      if(langnum==0){
+                        temp1[0].children[1].innerText="WESOME!!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[164][langset[langnum]]
+                      }
+
+
+                      등급곱=0.12;
+                    }else if(cubes.length-3>14){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="A"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="A"
+                        temp1[0].children[2].innerText=""
+                      }
+                      // temp1[0].children[1].innerText="uperb!!!!!"
+
+                      if(langnum==0){
+                        temp1[0].children[1].innerText="WESOME!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[165][langset[langnum]]
+                      }
+
+                      등급곱=0.12;
+                    }else if(cubes.length-3>12){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="B"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="B"
+                        temp1[0].children[2].innerText=""
+                      }
+                      // temp1[0].children[1].innerText="wesome!!!!"
+                      if(langnum==0){
+                        temp1[0].children[1].innerText="RILLIANT!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[166][langset[langnum]]
+                      }
+
+                      등급곱=0.11;
+                    }else if(cubes.length-3>10){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="C"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="C"
+                        temp1[0].children[2].innerText=""
+                      }
+                      // temp1[0].children[1].innerText="rilliant!!!"
+                      if(langnum==0){
+                        temp1[0].children[1].innerText="OOL!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[167][langset[langnum]]
+                      }
+
+                      등급곱=0.1
+                    }else if(cubes.length-3>9){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="D"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="D"
+                        temp1[0].children[2].innerText=""
+                      }
+                      // temp1[0].children[1].innerText="ool!!"
+                      if(langnum==0){
+                        temp1[0].children[1].innerText="OING WELL!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[168][langset[langnum]]
+                      }
+                      등급곱=0.1;
+                    }else if(cubes.length-3>8){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="E"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="E"
+                        temp1[0].children[2].innerText=""
+                      }
+                      // temp1[0].children[1].innerText="elightful!"
+                      if(langnum==0){
+                        temp1[0].children[1].innerText="FFICIENT"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[169][langset[langnum]]
+                      }
+                      등급곱=0.1;
+                    }else{
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="F"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="F"
+                        temp1[0].children[2].innerText=""
+                      }
+                      // temp1[0].children[1].innerText="fficeint"
+                      if(langnum==0){
+                        temp1[0].children[1].innerText="RAGILE"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[170][langset[langnum]]
+                      }
+                      등급곱=0.09
+                    }
+                  }else{
+                    temp1[0].style.display="inline-flex"
+                    temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
+                    temp1[0].children[2].style.color=hexToHtmlColor(colorlst[colornum][3])
+                    if(langnum==1){
+                      temp1[0].children[1].style.fontFamily="GG"
+                    }
+                    if(점수>30000){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="G"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="G"
+                        temp1[0].children[2].innerText=""
+                      }
+
+
+                      if(langnum==0||langnum==1){
+                        temp1[0].children[1].innerText="OAT!!!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[159][langset[langnum]]
+                      }
+
+
+                      등급곱=0.18;
+                    }else if(점수>25000){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="L"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="L"
+                        temp1[0].children[2].innerText=""
+                      }
+
+                      if(langnum==0||langnum==1){
+                        temp1[0].children[1].innerText="EGEND!!!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[160][langset[langnum]]
+                      }
+                      등급곱=0.17;
+                    }else if(점수>20000){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="M"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="M"
+                        temp1[0].children[2].innerText=""
+                      }
+
+
+                      if(langnum==0||langnum==1){
+                        temp1[0].children[1].innerText="ONSTER!!!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[161][langset[langnum]]
+                      }
+                      등급곱=0.16;
+                    }else if(점수>15000){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="+S"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="S+"
+                        temp1[0].children[2].innerText=""
+                      }
+                      sboard("CgkI3OzStdEUEAIQDg")
+
+                      if(langnum==0||langnum==1){
+                        temp1[0].children[1].innerText="UPERB!!!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[162][langset[langnum]]
+                      }
+
+                      등급곱=0.14;
+                    }else if(점수>10000){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="S"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="S"
+                        temp1[0].children[2].innerText=""
+                      }
+                      sboard("CgkI3OzStdEUEAIQDQ")
+
+                      if(langnum==0||langnum==1){
+                        temp1[0].children[1].innerText="PECIAL!!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[163][langset[langnum]]
+                      }
+
+                      등급곱=0.13;
+                    }else if(점수>8000){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="+A"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="A+"
+                        temp1[0].children[2].innerText=""
+                      }
+
+
+                      if(langnum==0||langnum==1){
+                        temp1[0].children[1].innerText="ESTHETIC!!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[164][langset[langnum]]
+                      }
+                      sboard("CgkI3OzStdEUEAIQDA")
+
+                      등급곱=0.12;
+                    }else if(점수>5000){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="A"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="A"
+                        temp1[0].children[2].innerText=""
+                      }
+                      // temp1[0].children[1].innerText="uperb!!!!!"
+                      sboard("CgkI3OzStdEUEAIQCw")
+
+
+                      if(langnum==0||langnum==1){
+                        temp1[0].children[1].innerText="WESOME!!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[165][langset[langnum]]
+                      }
+
+                      등급곱=0.12;
+                    }else if(점수>3000){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="B"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="B"
+                        temp1[0].children[2].innerText=""
+                      }
+
+                      if(langnum==0||langnum==1){
+                        temp1[0].children[1].innerText="RILLIANT!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[166][langset[langnum]]
+                      }
+
+                      등급곱=0.11;
+                    }else if(점수>2000){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="C"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="C"
+                        temp1[0].children[2].innerText=""
+                      }
+
+
+                      if(langnum==0||langnum==1){
+                        temp1[0].children[1].innerText="OOL!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[167][langset[langnum]]
+                      }
+
+                      등급곱=0.1
+                    }else if(점수>1000){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="D"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="D"
+                        temp1[0].children[2].innerText=""
+                      }
+
+
+                      if(langnum==0||langnum==1){
+                        temp1[0].children[1].innerText="OING WELL!"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[168][langset[langnum]]
+                      }
+                      등급곱=0.1;
+                    }else if(점수>500){
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="E"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="E"
+                        temp1[0].children[2].innerText=""
+                      }
+
+
+                      if(langnum==0||langnum==1){
+                        temp1[0].children[1].innerText="FFICIENT"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[169][langset[langnum]]
+                      }
+                      등급곱=0.1;
+                    }else{
+                      if(langnum==13||langnum==22||langnum==29||langnum==36){
+                        temp1[0].children[2].innerText="F"
+                        temp1[0].children[0].innerText=""
+                      }else{
+                        temp1[0].children[0].innerText="F"
+                        temp1[0].children[2].innerText=""
+                      }
+
+
+                      if(langnum==0||langnum==1){
+                        temp1[0].children[1].innerText="RAGILE"
+                      }else{
+                        temp1[0].children[1].innerText=textdic[170][langset[langnum]]
+                      }
+                      등급곱=0.09
+                    }
+
+                    if(gamemod==1){
+                      등급곱+=0.05
+                    }
+                  }
+
+
+                  if(langnum==13||langnum==22||langnum==29||langnum==36){
+                    temp1[0].children[1].style.left=""
+                    temp1[0].children[1].style.textAlign="right"
+                    if(temp1[0].children[2].innerText.length>1){
+                      temp1[0].children[1].style.right="31vmin"
+                    }else{
+                      temp1[0].children[1].style.right="20vmin"
+                    }
+                  }else{
+                    temp1[0].children[1].style.right=""
+                    temp1[0].children[1].style.textAlign="left"
+                    if(temp1[0].children[0].innerText.length>1){
+                      temp1[0].children[1].style.left="25vmin"
+                    }else{
+                      temp1[0].children[1].style.left="15vmin"
+                    }
+                  }
+                  if(gamemod==1){
+                    temp1[0].children[3].innerText="("+textdic[82][langset[langnum]]+")"
+                  }else{
+                    temp1[0].children[3].innerText=""
+                  }
+
+
+                  document.getElementById("총획득").classList.remove("show");
+                  document.getElementById("코인").classList.remove("show");
+                  document.getElementById("기본").classList.remove("show");
+                  document.getElementById("full").classList.remove("show");
+                  document.getElementById("max").classList.remove("show");
+                  document.getElementById("시간").classList.remove("show");
+                  document.getElementById("총획득").classList.add("hidden");
+                  document.getElementById("코인").classList.add("hidden");
+                  document.getElementById("기본").classList.add("hidden");
+                  document.getElementById("full").classList.add("hidden");
+                  document.getElementById("max").classList.add("hidden");
+                  document.getElementById("시간").classList.add("hidden");
+
+                  // document.getElementById("기본").children[1].style.color=hexToHtmlColor(colorlst[colornum][2]);
+                  // document.getElementById("시간").children[1].style.color=hexToHtmlColor(colorlst[colornum][2]);
+                  // document.getElementById("max").children[1].style.color=hexToHtmlColor(colorlst[colornum][2]);
+                  // document.getElementById("full").children[1].style.color=hexToHtmlColor(colorlst[colornum][2]);
+
+                  document.getElementById("기본").children[1].style.color="lightyellow"
+                  document.getElementById("시간").children[1].style.color="lightyellow"
+                  document.getElementById("max").children[1].style.color="lightyellow"
+                  document.getElementById("full").children[1].style.color="lightyellow"
+                  // document.getElementById("코인").children[1].style.color=hexToHtmlColor(colorlst[colornum][0]);
+
+                  if(gamemod==2){
+                    if(langnum==13||langnum==22||langnum==29||langnum==36){
+                      document.querySelector(".gameinfo0").children[0].innerText=String(cubes.length-3)+": "+textdic[42][langset[langnum]]
+                      document.querySelector(".gameinfo0").children[1].innerText=String(parseInt(bestscore2))+": "+textdic[43][langset[langnum]]
+                    }else{
+                      document.querySelector(".gameinfo0").children[0].innerText=textdic[42][langset[langnum]]+": "+String(cubes.length-3);
+                      document.querySelector(".gameinfo0").children[1].innerText=textdic[43][langset[langnum]]+": "+String(bestscore2);
+                    }
+
+                    if(cubes.length-3>bestscore2){
+                      setTimeout(function() {
+                        soundic[esound[10]].play();
+                        document.querySelector(".gameinfo0").children[2].innerText=textdic[135][langset[langnum]]
+                        document.querySelector(".gameinfo0").children[2].style.color="yellow"
+                      }, 1000);
+
+
+                      if(!webflag) Android.saveLeader("2", cubes.length-3)
+                      if(!webflag) setdb([["data", "left", String(cubes.length-3)]]);
+                    }else{
+                      document.querySelector(".gameinfo0").children[2].innerText=""
+                    }
+                  }else if(gamemod==1){
+                    if(langnum==13||langnum==22||langnum==29||langnum==36){
+                      document.querySelector(".gameinfo0").children[0].innerText=String(점수)+": "+textdic[42][langset[langnum]]
+                      document.querySelector(".gameinfo0").children[1].innerText=String(parseInt(bestscore1))+": "+textdic[43][langset[langnum]]
+                    }else{
+                      document.querySelector(".gameinfo0").children[0].innerText=textdic[42][langset[langnum]]+": "+String(점수)
+                      document.querySelector(".gameinfo0").children[1].innerText=textdic[43][langset[langnum]]+": "+String(parseInt(bestscore1));
+                    }
+
+                    if(점수>bestscore1){
+                      review1=true;
+                      setTimeout(function() {
+                        soundic[esound[10]].play();
+                        document.querySelector(".gameinfo0").children[2].innerText=textdic[135][langset[langnum]]
+                        document.querySelector(".gameinfo0").children[2].style.color="yellow"
+                      }, 1000);
+
+                      if(!webflag) Android.saveLeader("1", 점수)
+                      if(!webflag) setdb([["data", "down", String(점수)]]);
+                    }else{
+                      document.querySelector(".gameinfo0").children[2].innerText=""
+                    }
+                  }else if(gamemod==0){
+                    if(langnum==13||langnum==22||langnum==29||langnum==36){
+                      document.querySelector(".gameinfo0").children[0].innerText=String(점수)+": "+textdic[42][langset[langnum]]
+                      document.querySelector(".gameinfo0").children[1].innerText=String(parseInt(bestscore))+": "+textdic[43][langset[langnum]]
+                    }else{
+                      document.querySelector(".gameinfo0").children[0].innerText=textdic[42][langset[langnum]]+": "+String(점수)
+                      document.querySelector(".gameinfo0").children[1].innerText=textdic[43][langset[langnum]]+": "+String(parseInt(bestscore));
+                    }
+
+                    if(점수>bestscore){
+                      review1=true;
+                      setTimeout(function() {
+                        soundic[esound[10]].play();
+                        document.querySelector(".gameinfo0").children[2].innerText=textdic[135][langset[langnum]]
+                        document.querySelector(".gameinfo0").children[2].style.color="yellow"
+                      }, 1000);
+
+                      if(!webflag) Android.saveLeader("0", 점수)
+                      if(!webflag) setdb([["data", "up", String(점수)]]);
+
+                    }else{
+                      document.querySelector(".gameinfo0").children[2].innerText=""
+                    }
+                  }
+
+
+
+
+                  document.getElementById('song-info').classList.remove("show1");
+                  document.getElementById('song-info').classList.add("hidden");
+                  var temp0=document.querySelectorAll(".gameover");
+                  if(gamemod>=2){
+                    document.querySelector(".gameinfo").classList.remove("show");
+                    document.querySelector(".gameinfo").classList.add("hidden");
+                    temp0[1].style.opacity=1;
+                    temp0[1].classList.remove("hidden");
+                    temp0[1].classList.add("show");
+                    temp0[1].style.display=""
+                  }else{
+                    document.querySelector(".gameinfo").classList.remove("hidden");
+                    document.querySelector(".gameinfo").classList.add("show");
+                    temp0[1].classList.remove("show");
+                    temp0[1].classList.add("hidden");
+                    temp0[1].style.display="none"
+                  }
+                  showinfo(gamemod);
+                  activeFloor = cubes.length;
+
+
+                  if(gamemod==2){
+                    cubes[cubes.length-1].mesh.children.forEach((item) => {
+                       if(item.userData["skin"]=="tile"){
+                         item.material.visible=false;
+                         item.children.forEach((text) => {
+                           text.material.visible=false;
+                         });
+                       }else if(item.userData["skin"]=="bottom"){
+                         item.material.visible=false;
+                       }else if(item.userData["skin"]==skinset[skinnum]){
+                         item.material.visible=true;
+                         item.material.opacity=1;
+                         item.material.alphaTest=item.material.opacity;
+                         item.material.transparent=false;
+                       }
+                    });
+
+                  }else{
+                    if(skinset[skinnum]!="classic"){  //클
+                      cubes[cubes.length-1].mesh.children.forEach((item) => {
+                         if(item.userData["skin"]=="tile"){
+                           item.material.visible=false;
+                           item.children.forEach((text) => {
+                             text.material.visible=false;
+                           });
+                         }else if(item.userData["skin"]=="bottom"){
+                           item.material.visible=false;
+                         }
+                      });
+                    }
+                  }
+                }
+
+              }
+          }
+
+              // cubes.forEach((item, index) => {
+              //     var tempheight;
+              //     if(gamemod==2){
+              //       tempheight=bh*(index-4)
+              //     }else{
+              //       tempheight=bh*4
+              //     }
+              //
+              //
+              // })
         }
 
         if(gameoverflag){
@@ -21647,6 +21765,16 @@
     function retry(n=0) {
       // coin=parseInt(nslst["data"]["0"]);
       // coin+=pluscoin;
+
+      legs.forEach((item) => {
+        item.material.visible=false;
+        item.children.forEach((child) => {
+          child.material.visible=false;
+        });
+
+
+      });
+
       bf=999
       if(n==2||n==3){
         Android.showToast("Network connection required");
