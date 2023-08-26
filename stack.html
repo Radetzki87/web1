@@ -449,7 +449,7 @@
             /* left: 4vw; */
             width:100%;
             display: inline-flex;
-            z-index: 1;
+            z-index: 2;
             align-items: center;
             justify-content: left;
             text-align: left;
@@ -2172,6 +2172,67 @@
             height: 3.8vmax;
         }
 
+        .bridge {
+            position: absolute;
+            /* background-color: rgba(250, 250, 250, 0.5); */
+            border-radius: 2vmin;
+            border:5vmax rgba(50, 50, 50, 0.8);
+            /* background-image: url("png/green_button09.png"); */
+            /* background-size: 6vmax 4vmax; */
+            top: 52vh;
+            left: -14vh;
+            width: 14vh;
+            height: 8vh;
+            z-index: 1;
+            transition: left 0.4s;
+            text-align: center;
+
+        }
+
+        .bridge img{
+            position: relative;
+            left:37%;
+            bottom:0%;
+            /* width: 5vmax; */
+            height: 3vmax;
+            z-index: 1;
+        }
+
+        .bridge div{
+          position: relative;
+          left:38.5%;
+          font-family: 'GG';
+          font-size: 2.5vh;
+            /* left:37%;
+            bottom:5%;
+
+            height: 4vmax;
+            z-index: 3; */
+            z-index: 1;
+        }
+
+        .bridge0 {
+            position: absolute;
+            /* background-color: rgba(250, 250, 250, 0.5); */
+
+            /* background-image: url("png/green_button09.png"); */
+            /* background-size: 6vmax 4vmax; */
+            top: 6vh;
+            left: 30%;
+            width: 15vmin;
+            z-index: 2;
+            transition: opacity 0.5s, top 0.8s;
+
+            display: inline-flex;
+        }
+
+        .bridge0 img{
+
+            /* width: 5vmax; */
+            height: 5vmin;
+            z-index: 3;
+        }
+
         .pin {
             position: absolute;
             /* background-color: rgba(250, 250, 250, 0.5); */
@@ -2238,7 +2299,8 @@
             position: absolute;
             /* background-color: rgba(250, 250, 250, 0.5); */
             border-radius: 2vmin;
-            border:5vmax rgba(50, 50, 50, 0.8);
+            border: 0.3vmax inset rgba(50, 50, 50, 1);
+
             /* background-image: url("png/green_button09.png"); */
             /* background-size: 6vmax 4vmax; */
             top: 29vh;
@@ -2294,6 +2356,8 @@
             height: 5vmin;
             z-index: 3;
         }
+
+
 
         .pung {
             position: absolute;
@@ -2867,6 +2931,12 @@
     var tempoint=0;
     var stacktime;
 
+    var legs=[];
+
+    var 꺼져=false;
+
+    var icelst0=[];
+
     var draw=false;
     var drawcount=0;
 
@@ -2892,8 +2962,15 @@
 
     var 핀크기=1.3;
 
+
+    var 다리=0;
+    var bridge=false;
+
     var 바=400;
     var 필=0;
+
+    var itemleft="-9vh"
+    var itemleft1="-8vh"
 
 
     var pshift=[1,1.1,1.2,1.25,1.3,1.325,1.35,1.325,1.3,1.275,1.25,1.225,1.2,1.15,1.1,1.075,1.05]
@@ -2907,6 +2984,7 @@
     var itemidx;
 
     var stepmold=[];
+    var legmold=[];
     let tcheck=[0,0,0,0,0];
 
     var 현지화=false;
@@ -4655,12 +4733,17 @@
               ice=false;
               itemflag=true;
               pin=false;
+              bridge=false;
               뻥--;
               document.getElementById('hammer').children[1].innerText=String(해머)
               document.getElementById('pung').children[1].innerText=String(뻥)
               document.getElementById('ice').children[1].innerText=String(얼음)
               document.getElementById('pin').children[1].innerText=String(핀)
-
+              document.getElementById('bridge').children[1].innerText=String(다리)
+              if(topcam){
+                draw=true;
+                drawcount=elapsedTime;
+              }
             }else{
               return;
             }
@@ -4673,43 +4756,84 @@
               hammer=true;
               itemflag=true;
               pin=false;
+              bridge=false;
               해머--;
               document.getElementById('hammer').children[1].innerText=String(해머)
               document.getElementById('pung').children[1].innerText=String(뻥)
               document.getElementById('ice').children[1].innerText=String(얼음)
               document.getElementById('pin').children[1].innerText=String(핀)
+              document.getElementById('bridge').children[1].innerText=String(다리)
+              if(topcam){
+                draw=true;
+                drawcount=elapsedTime;
+              }
+
             }else{
               return;
             }
 
-          }else if(lastY>0.18&&lastY<0.38){
+          }else if(lastY>0.22&&lastY<0.38){
             if(얼음>0){
               pung=false;
               hammer=false;
               ice=true;
               itemflag=true;
               pin=false;
+              bridge=false;
               얼음--;
               document.getElementById('hammer').children[1].innerText=String(해머)
               document.getElementById('pung').children[1].innerText=String(뻥)
               document.getElementById('ice').children[1].innerText=String(얼음)
               document.getElementById('pin').children[1].innerText=String(핀)
+              document.getElementById('bridge').children[1].innerText=String(다리)
+              if(topcam){
+                draw=true;
+                drawcount=elapsedTime;
+              }
             }else{
               return;
             }
 
-          }else if(lastY>-0.2&&lastY<0.15){
+          }else if(lastY>0.08&&lastY<0.2){
             if(핀>0){
               pung=false;
               hammer=false;
               ice=false;
               pin=true;
+              bridge=false;
               itemflag=true;
               핀--;
               document.getElementById('hammer').children[1].innerText=String(해머)
               document.getElementById('pung').children[1].innerText=String(뻥)
               document.getElementById('ice').children[1].innerText=String(얼음)
               document.getElementById('pin').children[1].innerText=String(핀)
+              document.getElementById('bridge').children[1].innerText=String(다리)
+              if(topcam){
+                draw=true;
+                drawcount=elapsedTime;
+              }
+            }else{
+              return;
+            }
+
+          }else if(lastY>-0.2&&lastY<0.05){
+            if(다리>0){
+              pung=false;
+              hammer=false;
+              ice=false;
+              pin=false;
+              bridge=true;
+              itemflag=true;
+              다리--;
+              document.getElementById('hammer').children[1].innerText=String(해머)
+              document.getElementById('pung').children[1].innerText=String(뻥)
+              document.getElementById('ice').children[1].innerText=String(얼음)
+              document.getElementById('pin').children[1].innerText=String(핀)
+              document.getElementById('bridge').children[1].innerText=String(다리)
+              if(topcam){
+                draw=true;
+                drawcount=elapsedTime;
+              }
             }else{
               return;
             }
@@ -4839,7 +4963,7 @@
               var songInfo = document.getElementById('song-info');
               songInfo.classList.add("moveleft");
               songInfo.style.left="0px"
-              document.querySelector("#song-info").style.zIndex="1"
+              document.querySelector("#song-info").style.zIndex="2"
 
               document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
               document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
@@ -4941,9 +5065,9 @@
 
 
 
-              document.getElementById('hammer').style.left="-9vh"
+              document.getElementById('hammer').style.left=itemleft1
               setTimeout(function() {
-                  document.getElementById('hammer').style.left="-10vh"
+                  document.getElementById('hammer').style.left=itemleft
               }, 400);
             }else if(pung){
 
@@ -4953,9 +5077,9 @@
               //   pung=false;
               //   return;
               // }
-              document.getElementById('pung').style.left="-9vh"
+              document.getElementById('pung').style.left=itemleft1
               setTimeout(function() {
-                  document.getElementById('pung').style.left="-10vh"
+                  document.getElementById('pung').style.left=itemleft
               }, 400);
             }else if(ice){
 
@@ -4965,9 +5089,9 @@
               //   pung=false;
               //   return;
               // }
-              document.getElementById('ice').style.left="-9vh"
+              document.getElementById('ice').style.left=itemleft1
               setTimeout(function() {
-                  document.getElementById('ice').style.left="-10vh"
+                  document.getElementById('ice').style.left=itemleft
               }, 400);
             }else if(pin){
 
@@ -4977,9 +5101,21 @@
               //   pung=false;
               //   return;
               // }
-              document.getElementById('pin').style.left="-9vh"
+              document.getElementById('pin').style.left=itemleft1
               setTimeout(function() {
-                  document.getElementById('pin').style.left="-10vh"
+                  document.getElementById('pin').style.left=itemleft
+              }, 400);
+            }else if(bridge){
+
+              // if(뻥<=0) {
+              //   itemdrag=false;
+              //   itemflag=false;
+              //   pung=false;
+              //   return;
+              // }
+              document.getElementById('bridge').style.left=itemleft1
+              setTimeout(function() {
+                  document.getElementById('bridge').style.left=itemleft
               }, 400);
             }
 
@@ -4992,12 +5128,12 @@
 
 
           if(window.innerWidth>window.innerHeight){
-            핑거0.x = (event.touches[0].clientX / window.innerHeight)* 0.8 - 1;
-            핑거0.y = -(event.touches[0].clientY / window.innerHeight)*0.8 + 1;
+            핑거0.x = 0.01+(event.touches[0].clientX / window.innerHeight)* 0.8 - 1;
+            핑거0.y = 0.04-(event.touches[0].clientY / window.innerHeight)*0.8 + 1;
 
           }else{
-            핑거0.x = (event.touches[0].clientX / window.innerWidth)* 0.8 - 1;
-            핑거0.y = -(event.touches[0].clientY / window.innerWidth)*0.8 + 1;
+            핑거0.x = 0.01+(event.touches[0].clientX / window.innerWidth)* 0.8 - 1;
+            핑거0.y = 0.04-(event.touches[0].clientY / window.innerWidth)*0.8 + 1;
           }
 
           raycaster.setFromCamera(핑거0, camera);
@@ -5201,7 +5337,7 @@
                         var songInfo = document.getElementById('song-info');
                         songInfo.classList.add("moveleft");
                         songInfo.style.left="0px"
-                        document.querySelector("#song-info").style.zIndex="1"
+                        document.querySelector("#song-info").style.zIndex="2"
 
                         document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
                         document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
@@ -5257,6 +5393,7 @@
 
         if(itemflag){
             if(itemtouch){
+
               console.log("아이템 사용")
               let force2 = new CANNON.Vec3();
               if(hammer){
@@ -5310,6 +5447,10 @@
                   }
                   tc++;
                     cubes[i].body.sleep();
+                    // cubes[i].body.collisionResponse = false;
+
+                    cubes[i].mesh.userData.ice=true;
+
 
                     uselst.push(cubes[i])
                     itemtime=elapsedTime
@@ -5359,8 +5500,11 @@
 
                   let groundBody = new CANNON.Body({
                       mass: 3,
-                      shape: new CANNON.Box(new CANNON.Vec3(핀크기*bw/2, bh/2, 핀크기*bw/2)),
-                      material: customMaterial
+                      shape: new CANNON.Box(new CANNON.Vec3(핀크기*bw/2, 0.99*bh/2, 핀크기*bw/2)),
+                      material: customMaterial,
+                      allowSleep: true,
+                      sleepSpeedLimit: 1000,
+                      sleepTimeLimit: 0
                   });
                   groundBody.position.set(cubes[itemidx].mesh.position.x, cubes[itemidx].mesh.position.y, cubes[itemidx].mesh.position.z);
                   groundBody.quaternion.copy(cubes[itemidx].mesh.quaternion);
@@ -5373,6 +5517,14 @@
                   cubes[itemidx].mesh.userData.body = cubes[itemidx].body;
                   cubes[itemidx].body.sleepState = 0;
                   cubes[itemidx].mesh.userData.pin=true;
+
+
+                  cubes[itemidx].mesh.userData.constraint.forEach((item) => {
+                    world.removeConstraint(item);
+
+                  });
+
+
 
 
                   uselst.push(cubes[itemidx])
@@ -5405,6 +5557,386 @@
 
                 });
 
+              }else if(bridge){
+                if(false){
+                  legs.push(legmold[1].clone())
+
+                  legs[legs.length-1].material=new THREE.MeshLambertMaterial({
+                      color: new THREE.Color(0xD7F3F9)
+                  });
+
+
+
+
+
+                  var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.1*bw/2, 0.3*bw/2, 0.1*bw/2)); // 가로, 세로, 높이
+                  var boxBody0 = new CANNON.Body({ mass: 3 });
+                  boxBody0.addShape(boxShape0);
+                  boxBody0.position.set(0, 0, 0);
+
+                  legs[legs.length-1].quaternion.copy(cubes[itemidx].mesh.quaternion)
+                  legs[legs.length-1].position.set(cubes[itemidx].mesh.position.x+bw/2+0.05*bw, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z);
+
+                  // legs[legs.length-1].rotation.z=-1;
+
+                  boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+                  boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
+
+                  world.addBody(boxBody0);
+                  legs[legs.length-1].userData.body=boxBody0;
+
+                  console.log(legs)
+                  var constraint1 = new CANNON.LockConstraint(boxBody0, cubes[itemidx].body);
+                  world.addConstraint(constraint1);
+
+                  var constraint2 = new CANNON.LockConstraint(boxBody0, cubes[itemidx-1].body);
+                  world.addConstraint(constraint2);
+
+
+                  scene.add(legs[legs.length-1]);
+                }else{
+
+                  if(itemr){
+                    var upperx=cubes[itemidx].mesh.position.x
+                    var lowerx=cubes[itemidx-1].mesh.position.x
+                    if(cubes[itemidx].mesh.userData.pin){
+                      upperx=cubes[itemidx].mesh.position.x+(핀크기-1)*bw/2;
+                    }
+
+                    if(cubes[itemidx-1].mesh.userData.pin){
+                      lowerx=cubes[itemidx-1].mesh.position.x+(핀크기-1)*bw/2;
+                    }
+                    var majorx;
+                    if(upperx>lowerx){
+                      majorx=upperx
+                    }else{
+                      majorx=lowerx
+                    }
+                    console.log(Math.abs(upperx-lowerx))
+                    if(Math.abs(upperx-lowerx)>2.3){
+                      console.log("취소")
+                      if(draw&&!꺼져){
+                        topcam=true;
+                        draw=false;
+                        drawcount=elapsedTime+0.3;
+                      }
+
+                      stepmold[3].material.visible=false;
+                      stepmold[3].children[0].material.visible=false;
+                      stepmold[4].material.visible=false;
+                      stepmold[4].children[0].material.visible=false;
+                      stepmold[5].material.visible=false;
+                      stepmold[6].material.visible=false;
+                      stepmold[7].material.visible=false;
+
+                      if(hammer){
+                        해머++;
+                      }else if(pung){
+                        뻥++;
+                      }else if(ice){
+                        얼음++;
+                      }else if(pin){
+                        핀++;
+                      }else if(bridge){
+                        다리++;
+                      }
+                      document.getElementById('hammer').children[1].innerText=String(해머)
+                      document.getElementById('pung').children[1].innerText=String(뻥)
+                      document.getElementById('ice').children[1].innerText=String(얼음)
+                      document.getElementById('pin').children[1].innerText=String(핀)
+                      document.getElementById('bridge').children[1].innerText=String(다리)
+                      cubes.forEach((item,) => {
+                        if(!item.mesh.userData.pin){
+                          item.mesh.scale.x=1
+                          item.mesh.scale.z=1;
+                        }else{
+                          item.mesh.scale.x=핀크기
+                          item.mesh.scale.z=핀크기
+                        }
+
+                      });
+                      itemflag=false;
+                      itemtouch=false;
+                       hammer=false;
+                       pung=false;
+                       ice=false
+                       pin=false
+                       bridge=false
+                       itemr=false;
+                       iteml=false;
+                       itemdrag=false
+
+                       ontouch = false;
+                       bufflag = true
+                       dragflag = false;
+
+                       return;
+                    }
+                    legs.push(legmold[0].clone())
+
+                    legs[legs.length-1].material=new THREE.MeshLambertMaterial({
+                        color: new THREE.Color(0xD7F3F9)
+                    });
+
+                    legs[legs.length-1].children[0].material=new THREE.MeshLambertMaterial({
+                        color: new THREE.Color(0xD7F3F9)
+                    });
+                    legs[legs.length-1].children[1].material=new THREE.MeshLambertMaterial({
+                        color: new THREE.Color(0xD7F3F9)
+                    });
+
+
+                    var compoundBody = new CANNON.Body({ mass: 0.3,
+                      allowSleep: true,
+                      sleepSpeedLimit: 1000,
+                      sleepTimeLimit: 0
+                    });
+
+                    var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
+                    var boxBody0 = new CANNON.Body({ mass: 0.1,
+                      allowSleep: true,
+                      sleepSpeedLimit: 1000,
+                      sleepTimeLimit: 0
+                    });
+                    boxBody0.addShape(boxShape0);
+                    boxBody0.position.set(0, 0, 0);
+
+                    var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+                    var boxBody1 = new CANNON.Body({ mass: 0.1,
+                      allowSleep: true,
+                      sleepSpeedLimit: 1000,
+                      sleepTimeLimit: 0
+                    });
+                    boxBody1.addShape(boxShape1);
+                    boxBody1.position.set(0, 0, 0);
+
+                    var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+                    var boxBody2 = new CANNON.Body({ mass: 0.1,
+                      allowSleep: true,
+                      sleepSpeedLimit: 1000,
+                      sleepTimeLimit: 0
+                    });
+                    boxBody2.addShape(boxShape2);
+                    boxBody2.position.set(0, 0, 0);
+
+                    compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+                    compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
+                    compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
+
+                    if(cubes[itemidx].mesh.userData.pin){
+                      legs[legs.length-1].position.set(majorx+bw/1.5+0.5*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/4);
+                    }else{
+                      legs[legs.length-1].position.set(majorx+bw/1.5+0.5*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/4);
+
+                    }
+                    legs[legs.length-1].quaternion.copy(cubes[itemidx].mesh.quaternion)
+                    // legs[legs.length-1].rotation.z=-1;
+
+                    compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+                    compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
+
+                    world.addBody(compoundBody);
+                    legs[legs.length-1].userData.body=compoundBody;
+                    legs[legs.length-1].userData.right=true;
+                    console.log(legs)
+                    var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
+                    world.addConstraint(constraint1);
+                    var constraint2 = new CANNON.LockConstraint(compoundBody, cubes[itemidx-1].body);
+                    world.addConstraint(constraint2);
+                    cubes[itemidx-1].mesh.userData.constraint.push(constraint1)
+                    cubes[itemidx-1].mesh.userData.constraint.push(constraint2)
+                    cubes[itemidx].mesh.userData.constraint.push(constraint1)
+                    cubes[itemidx].mesh.userData.constraint.push(constraint2)
+                    setTimeout(function() {
+                        if(다리<=0) document.getElementById('bridge').style.left="-13.3vh"
+                    }, 400);
+
+                    scene.add(legs[legs.length-1]);
+                  }else if(iteml){
+                    var upperz=cubes[itemidx].mesh.position.z
+                    var lowerz=cubes[itemidx-1].mesh.position.z
+                    if(cubes[itemidx].mesh.userData.pin){
+                      upperz=cubes[itemidx].mesh.position.z+(핀크기-1)*bw/2;
+                    }
+
+                    if(cubes[itemidx-1].mesh.userData.pin){
+                      lowerz=cubes[itemidx-1].mesh.position.z+(핀크기-1)*bw/2;
+                    }
+                    var majorz;
+                    if(upperz>lowerz){
+                      majorz=upperz
+                    }else{
+                      majorz=lowerz
+                    }
+                    console.log(Math.abs(upperz-lowerz))
+                    if(Math.abs(upperz-lowerz)>2.3){
+                      console.log("취소")
+                      stepmold[3].material.visible=false;
+                      stepmold[3].children[0].material.visible=false;
+                      stepmold[4].material.visible=false;
+                      stepmold[4].children[0].material.visible=false;
+                      stepmold[5].material.visible=false;
+                      stepmold[6].material.visible=false;
+                      stepmold[7].material.visible=false;
+
+                      if(hammer){
+                        해머++;
+                      }else if(pung){
+                        뻥++;
+                      }else if(ice){
+                        얼음++;
+                      }else if(pin){
+                        핀++;
+                      }else if(bridge){
+                        다리++;
+                      }
+                      document.getElementById('hammer').children[1].innerText=String(해머)
+                      document.getElementById('pung').children[1].innerText=String(뻥)
+                      document.getElementById('ice').children[1].innerText=String(얼음)
+                      document.getElementById('pin').children[1].innerText=String(핀)
+                      document.getElementById('bridge').children[1].innerText=String(다리)
+                      cubes.forEach((item,) => {
+                        if(!item.mesh.userData.pin){
+                          item.mesh.scale.x=1
+                          item.mesh.scale.z=1;
+                        }else{
+                          item.mesh.scale.x=핀크기
+                          item.mesh.scale.z=핀크기
+                        }
+
+                      });
+                      itemflag=false;
+                      itemtouch=false;
+                       hammer=false;
+                       pung=false;
+                       ice=false
+                       pin=false
+                       bridge=false
+                       itemr=false;
+                       iteml=false;
+                       itemdrag=false
+
+                       ontouch = false;
+                       bufflag = true
+                       dragflag = false;
+
+                       return;
+                    }
+                    legs.push(legmold[2].clone())
+
+                    legs[legs.length-1].material=new THREE.MeshLambertMaterial({
+                        color: new THREE.Color(0xD7F3F9)
+                    });
+
+                    legs[legs.length-1].children[0].material=new THREE.MeshLambertMaterial({
+                        color: new THREE.Color(0xD7F3F9)
+                    });
+                    legs[legs.length-1].children[1].material=new THREE.MeshLambertMaterial({
+                        color: new THREE.Color(0xD7F3F9)
+                    });
+
+
+                    var compoundBody = new CANNON.Body({ mass: 0.3,
+                      allowSleep: true,
+                      sleepSpeedLimit: 1000,
+                      sleepTimeLimit: 0
+                    });
+
+                    var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
+                    var boxBody0 = new CANNON.Body({ mass: 0.1,
+                      allowSleep: true,
+                      sleepSpeedLimit: 1000,
+                      sleepTimeLimit: 0
+                    });
+                    boxBody0.addShape(boxShape0);
+                    boxBody0.position.set(0, 0, 0);
+
+                    var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+                    var boxBody1 = new CANNON.Body({ mass: 0.1,
+                      allowSleep: true,
+                      sleepSpeedLimit: 1000,
+                      sleepTimeLimit: 0
+                    });
+                    boxBody1.addShape(boxShape1);
+                    boxBody1.position.set(0, 0, 0);
+
+                    var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+                    var boxBody2 = new CANNON.Body({ mass: 0.1,
+                      allowSleep: true,
+                      sleepSpeedLimit: 1000,
+                      sleepTimeLimit: 0
+                    });
+                    boxBody2.addShape(boxShape2);
+                    boxBody2.position.set(0, 0, 0);
+
+                    compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+                    compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
+                    compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
+
+                    legs[legs.length-1].position.set(cubes[itemidx].mesh.position.x-bw/4, cubes[itemidx].mesh.position.y-bh/2, majorz+bw/1.5+0.5*bh);
+
+                    // if(cubes[itemidx].mesh.userData.pin){
+                    //   legs[legs.length-1].position.set(majorx+bw/1.5+0.5*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/4);
+                    // }else{
+                    //   legs[legs.length-1].position.set(majorx+bw/1.5+0.5*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/4);
+                    //
+                    // }
+                    legs[legs.length-1].quaternion.copy(cubes[itemidx].mesh.quaternion)
+
+                    // legs[legs.length-1].rotation.z=-1;
+
+                    compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+                    compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
+
+                    world.addBody(compoundBody);
+                    legs[legs.length-1].userData.body=compoundBody;
+                    legs[legs.length-1].userData.right=false;
+
+                    console.log(legs)
+                    var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
+                    world.addConstraint(constraint1);
+                    var constraint2 = new CANNON.LockConstraint(compoundBody, cubes[itemidx-1].body);
+                    world.addConstraint(constraint2);
+                    cubes[itemidx-1].mesh.userData.constraint.push(constraint1)
+                    cubes[itemidx-1].mesh.userData.constraint.push(constraint2)
+                    cubes[itemidx].mesh.userData.constraint.push(constraint1)
+                    cubes[itemidx].mesh.userData.constraint.push(constraint2)
+                    setTimeout(function() {
+                        if(다리<=0) document.getElementById('bridge').style.left="-13.3vh"
+                    }, 400);
+
+
+                    scene.add(legs[legs.length-1]);
+                  }
+
+                }
+
+
+
+
+
+                //
+                // if(itemr){
+                //   force2.set(-2500,0,0)
+                //   이펙트2(itemidx, 128, "left");
+                //
+                // }else if(iteml){
+                //   force2.set(0,0,-2500)
+                //   이펙트2(itemidx, 128, "up");
+                // }
+                // setTimeout(function() {
+                //     if(다리<=0) document.getElementById('bridge').style.left="-13.3vh"
+                // }, 400);
+                // let quaternion = new CANNON.Quaternion();
+                // quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[itemidx].mesh.rotation.y);
+                // let rotatedVec = force2.clone();
+                // // rotatedVec.applyQuaternion(quaternion);
+                // rotatedVec=quaternion.vmult(force2);
+                //
+                // cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
+                // soundic[sdic[cubes.length-1]["32"]].play();
+
+
               }
 
 
@@ -5417,6 +5949,7 @@
               stepmold[4].children[0].material.visible=false;
               stepmold[5].material.visible=false;
               stepmold[6].material.visible=false;
+              stepmold[7].material.visible=false;
 
 
               // if(hammer){
@@ -5431,19 +5964,43 @@
                pung=false;
                ice=false
                pin=false
+               bridge=false
                itemr=false;
                iteml=false;
                itemdrag=false
+               setTimeout(function() {
+                 // cubes.forEach((item, i) => {
+                 //   if(item.mesh.userData.ice&&item.body.sleepState==0){
+                 //     item.body.sleep()
+                 //
+                 //   }
+                 // });
+                 if(draw&&!꺼져){
+                   topcam=true;
+                   draw=false;
+                   drawcount=elapsedTime+0.3;
+                 }
+               }, 300);
+
 
 
             }else{
               console.log("취소")
+
+
+                if(draw&&!꺼져){
+                  topcam=true;
+                  draw=false;
+                  drawcount=elapsedTime+0.3;
+                }
+
               stepmold[3].material.visible=false;
               stepmold[3].children[0].material.visible=false;
               stepmold[4].material.visible=false;
               stepmold[4].children[0].material.visible=false;
               stepmold[5].material.visible=false;
               stepmold[6].material.visible=false;
+              stepmold[7].material.visible=false;
 
               if(hammer){
                 해머++;
@@ -5453,11 +6010,14 @@
                 얼음++;
               }else if(pin){
                 핀++;
+              }else if(bridge){
+                다리++;
               }
               document.getElementById('hammer').children[1].innerText=String(해머)
               document.getElementById('pung').children[1].innerText=String(뻥)
               document.getElementById('ice').children[1].innerText=String(얼음)
               document.getElementById('pin').children[1].innerText=String(핀)
+              document.getElementById('bridge').children[1].innerText=String(다리)
               cubes.forEach((item,) => {
                 if(!item.mesh.userData.pin){
                   item.mesh.scale.x=1
@@ -5474,6 +6034,7 @@
                pung=false;
                ice=false
                pin=false
+               bridge=false
                itemr=false;
                iteml=false;
                itemdrag=false
@@ -5736,7 +6297,7 @@
                   var songInfo = document.getElementById('song-info');
                   songInfo.classList.add("moveleft");
                   songInfo.style.left="0px"
-                  document.querySelector("#song-info").style.zIndex="1"
+                  document.querySelector("#song-info").style.zIndex="2"
 
                   document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
                   document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
@@ -5898,7 +6459,7 @@
                   var songInfo = document.getElementById('song-info');
                   songInfo.classList.add("moveleft");
                   songInfo.style.left="0px"
-                  document.querySelector("#song-info").style.zIndex="1"
+                  document.querySelector("#song-info").style.zIndex="2"
 
                   document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
                   document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
@@ -6361,7 +6922,8 @@
           forceAmount = bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 15;
+          world.solver.iterations = 25;
+          // world.solver.tolerance = 8
           gap=0.981;
 
         }
@@ -6614,6 +7176,10 @@
           if(skinnum==8){
             skinnum=13;
           }
+
+          if(skinnum==1){
+            skinnum=0;
+          }
           if(gamemod==2){
             if(skinnum==7){
               skinnum=11;
@@ -6699,6 +7265,7 @@
         얼음=1;
         icecount=0;
         핀=1;
+        다리=1;
 
 
         필=0;
@@ -6722,9 +7289,11 @@
         document.getElementById('pung').children[1].innerText=String(뻥)
         document.getElementById('ice').children[1].innerText=String(얼음)
         document.getElementById('pin').children[1].innerText=String(핀)
+        document.getElementById('bridge').children[1].innerText=String(다리)
 
 
-
+        legs=[];
+        icelst0=[];
         if(오토) tcheck=[0,0,0,0,0]
         cubes.length=5;
         resetting(stack, function(object) { //재시작
@@ -6765,6 +7334,8 @@
                     item.body.sleepState=0
                     item.mesh.userData.freeze=false;
                     item.mesh.userData.pin=false;
+                    item.mesh.userData.ice=false;
+                    item.mesh.userData.constraint=[];
                     // item.body.fixedRotation=true;
 
                   })
@@ -9739,7 +10310,7 @@
             shape: shape,
             material: customMaterial,
             allowSleep: true,
-            sleepSpeedLimit: 100,
+            sleepSpeedLimit: 1000,
             sleepTimeLimit: 0
         });
         body.position.set(0, y, 0);
@@ -9920,7 +10491,60 @@
         }
 
 
+        var geometry1 = new THREE.BoxGeometry(0.05*bw, 1.2*bh, 0.05*bw);
+        var material1 = new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0xD7F3F9)
+        });
+        let mesh = new THREE.Mesh(geometry1, material1);
 
+
+        var geometry2 = new THREE.BoxGeometry(1*bh, 0.05*bw, 0.05*bw);
+        let mesh2 = new THREE.Mesh(geometry2, material1);
+        mesh2.position.x=-bh/2
+        mesh2.position.y=1.13*bh/2
+
+        var geometry3 = new THREE.BoxGeometry(1*bh, 0.05*bw, 0.05*bw);
+        let mesh3 = new THREE.Mesh(geometry3, material1);
+        mesh3.position.x=-bh/2
+        mesh3.position.y=-1.13*bh/2
+
+        mesh.add(mesh2)
+        mesh.add(mesh3)
+        legmold.push(mesh)
+
+
+
+
+        var geometry1 = new THREE.BoxGeometry(0.1*bw, 0.3*bw, 0.1*bw);
+        var material1 = new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0xD7F3F9)
+        });
+        var mesh5 = new THREE.Mesh(geometry1, material1);
+
+
+        legmold.push(mesh5)
+
+
+        var geometry1 = new THREE.BoxGeometry(0.05*bw, 1.2*bh, 0.05*bw);
+        var material1 = new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0xD7F3F9)
+        });
+        let nmesh = new THREE.Mesh(geometry1, material1);
+
+
+        var geometry2 = new THREE.BoxGeometry(0.05*bw, 0.05*bw, 1*bh);
+        let nmesh2 = new THREE.Mesh(geometry2, material1);
+        nmesh2.position.z=-bh/2
+        nmesh2.position.y=1.13*bh/2
+
+        var geometry3 = new THREE.BoxGeometry(0.05*bw, 0.05*bw, 1*bh);
+        let nmesh3 = new THREE.Mesh(geometry3, material1);
+        nmesh3.position.z=-bh/2
+        nmesh3.position.y=-1.13*bh/2
+
+        nmesh.add(nmesh2)
+        nmesh.add(nmesh3)
+        legmold.push(nmesh)
 
 
 
@@ -9951,9 +10575,9 @@
             loader1.load(ur2+'pung-0.obj', (object) => {
                 // object.children[0].rotation.y = Math.PI / 2
                 object.children[0].position.set(0, 0, 0)
-                object.children[0].scale.x = 0.7*3.57 / 2;
-                object.children[0].scale.z = 0.7*3.57 / 2;
-                object.children[0].scale.y = 0.9*3.57 / 2;
+                object.children[0].scale.x = 1*0.7*3.57 / 2;
+                object.children[0].scale.z = 1*0.7*3.57 / 2;
+                object.children[0].scale.y = 1*0.9*3.57 / 2;
 
 
 
@@ -9973,9 +10597,9 @@
                 loader2.load(ur2+'pung-1.obj', (object) => {
                     // object.children[0].rotation.y = Math.PI / 2
                     object.children[0].position.set(0, 0, 0)
-                    object.children[0].scale.x = 0.7*3.57 / 2;
-                    object.children[0].scale.z = 0.7*3.57 / 2;
-                    object.children[0].scale.y = 0.9*3.57 / 2;
+                    object.children[0].scale.x = 1*0.7*3.57 / 2;
+                    object.children[0].scale.z = 1*0.7*3.57 / 2;
+                    object.children[0].scale.y = 1*0.9*3.57 / 2;
 
 
 
@@ -9996,9 +10620,9 @@
                     loader3.load(ur2+'hammer-0.obj', (object) => {
                         // object.children[0].rotation.y = Math.PI / 2
                         object.children[0].position.set(0, 0, 0)
-                        object.children[0].scale.x = 0.8*3.57 / 2;
-                        object.children[0].scale.z = 0.8*3.57 / 2;
-                        object.children[0].scale.y = 0.8*3.57 / 2;
+                        object.children[0].scale.x = 1.3*0.8*3.57 / 2;
+                        object.children[0].scale.z = 1.3*0.8*3.57 / 2;
+                        object.children[0].scale.y = 1.3*0.8*3.57 / 2;
 
 
 
@@ -10017,9 +10641,9 @@
                         loader4.load(ur2+'hammer-1.obj', (object) => {
                             // object.children[0].rotation.y = Math.PI / 2
                             object.children[0].position.set(0, 0, 0)
-                            object.children[0].scale.x = 0.8*3.57 / 2;
-                            object.children[0].scale.z = 0.8*3.57 / 2;
-                            object.children[0].scale.y = 0.8*3.57 / 2;
+                            object.children[0].scale.x = 1.3*0.8*3.57 / 2;
+                            object.children[0].scale.z = 1.3*0.8*3.57 / 2;
+                            object.children[0].scale.y = 1.3*0.8*3.57 / 2;
 
 
 
@@ -10050,9 +10674,9 @@
                             loader5.load(ur2+'pin.obj', (object) => {
                                 // object.children[0].rotation.y = Math.PI / 2
                                 object.children[0].position.set(0, 0, 0)
-                                object.children[0].scale.x = 0.8*3.57 / 2;
-                                object.children[0].scale.z = 0.8*3.57 / 2;
-                                object.children[0].scale.y = 0.8*3.57 / 2;
+                                object.children[0].scale.x = 1.5*3.57 / 2;
+                                object.children[0].scale.z = 1.5*3.57 / 2;
+                                object.children[0].scale.y = 1.5*3.57 / 2;
 
 
                                 // object.children[0].scale.x=2.25;
@@ -10066,7 +10690,33 @@
                                 object.children[0].userData["game2048"] = "h";
 
                                 stepmold.push(object.children[0]);
-                              })
+
+                                var loader6 = new OBJLoader();
+                                loader6.load(ur2+'bridge.obj', (object) => {
+                                    // object.children[0].rotation.y = Math.PI / 2
+                                    object.children[0].position.set(0, 0, 0)
+                                    object.children[0].scale.x = 0.8*3.57 / 2;
+                                    object.children[0].scale.z = 0.8*3.57 / 2;
+                                    object.children[0].scale.y = 0.8*3.57 / 2;
+
+
+                                    // object.children[0].scale.x=2.25;
+                                    // object.children[0].scale.z=2.25;
+                                    // object.children[0].scale.y=1.92;
+
+                                    var tc = new THREE.Color(0xBA7433);
+                                    object.children[0].material = new THREE.MeshLambertMaterial({
+                                        color: tc
+                                    });
+                                    object.children[0].userData["game2048"] = "h";
+
+                                    // stepmold.push(object.children[0]);
+
+                                    stepmold.push(legmold[0]);
+
+
+                                })
+                            })
                         });
                     });
                 });
@@ -11634,7 +12284,7 @@
                   var songInfo = document.getElementById('song-info');
                   songInfo.classList.add("moveleft");
                   songInfo.style.left="0px"
-                  document.querySelector("#song-info").style.zIndex="1"
+                  document.querySelector("#song-info").style.zIndex="2"
 
                   document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
                   document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
@@ -11792,7 +12442,7 @@
                 var songInfo = document.getElementById('song-info');
                 songInfo.classList.add("moveleft");
                 songInfo.style.left="0px"
-                document.querySelector("#song-info").style.zIndex="1"
+                document.querySelector("#song-info").style.zIndex="2"
 
                 document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
                 document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
@@ -11888,7 +12538,7 @@
               var songInfo = document.getElementById('song-info');
               songInfo.classList.add("moveleft");
               songInfo.style.left="0px"
-              document.querySelector("#song-info").style.zIndex="1"
+              document.querySelector("#song-info").style.zIndex="2"
 
               document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
               document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
@@ -12292,6 +12942,7 @@
 
 
         if (startflag&&!gameoverflag) { //스타트
+            window.cubes=cubes
 
 
             if(tutorialflag){
@@ -13023,25 +13674,31 @@
                 if(해머<=0){
                   document.getElementById('hammer').style.left="-13.3vh"
                 }else{
-                  document.getElementById('hammer').style.left="-10vh"
+                  document.getElementById('hammer').style.left=itemleft
                 }
 
                 if(뻥<=0){
                   document.getElementById('pung').style.left="-13.3vh"
                 }else{
-                  document.getElementById('pung').style.left="-10vh"
+                  document.getElementById('pung').style.left=itemleft
                 }
 
                 if(얼음<=0){
                   document.getElementById('ice').style.left="-13.3vh"
                 }else{
-                  document.getElementById('ice').style.left="-10vh"
+                  document.getElementById('ice').style.left=itemleft
                 }
 
                 if(핀<=0){
                   document.getElementById('pin').style.left="-13.3vh"
                 }else{
-                  document.getElementById('pin').style.left="-10vh"
+                  document.getElementById('pin').style.left=itemleft
+                }
+
+                if(다리<=0){
+                  document.getElementById('bridge').style.left="-13.3vh"
+                }else{
+                  document.getElementById('bridge').style.left=itemleft
                 }
 
 
@@ -13054,6 +13711,7 @@
                 scene.add(stepmold[4])
                 scene.add(stepmold[5])
                 scene.add(stepmold[6])
+                scene.add(stepmold[7])
 
                 stepmold[1].position.x=bw*1.5
                 stepmold[1].position.y=bh*(cubes.length)
@@ -13071,6 +13729,7 @@
                 stepmold[4].position.y=bh*(cubes.length+5)
                 stepmold[5].position.y=bh*(cubes.length+15)
                 stepmold[6].position.y=bh*(cubes.length+15)
+                stepmold[7].position.y=bh*(cubes.length+15)
                 stepmold[4].rotation.order = 'YXZ';
 
                 stepmold[4].rotation.z=Math.PI / 2;
@@ -13838,6 +14497,7 @@
                   document.getElementById('pung0').style.display="none"
                   document.getElementById('ice0').style.display="none"
                   document.getElementById('pin0').style.display="none"
+                  document.getElementById('bridge0').style.display="none"
 
                   document.getElementById('hammer').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
                   document.getElementById('hammer').style.left="-14vmax"
@@ -13847,25 +14507,45 @@
                   document.getElementById('hammer').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
 
                   document.getElementById('pung').style.left="-14vmax"
-                  document.getElementById('pung').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+                  document.getElementById('pung').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
                   document.getElementById('pung').style.opacity=1;
                   document.getElementById('pung').children[0].style.opacity=1;
 
                   document.getElementById('pung').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
 
                   document.getElementById('ice').style.left="-14vmax"
-                  document.getElementById('ice').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+                  document.getElementById('ice').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
                   document.getElementById('ice').style.opacity=1;
                   document.getElementById('ice').children[0].style.opacity=1;
 
                   document.getElementById('ice').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
 
                   document.getElementById('pin').style.left="-14vmax"
-                  document.getElementById('pin').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][1])
+                  document.getElementById('pin').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
                   document.getElementById('pin').style.opacity=1;
                   document.getElementById('pin').children[0].style.opacity=1;
 
                   document.getElementById('pin').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
+
+                  document.getElementById('bridge').style.left="-14vmax"
+                  document.getElementById('bridge').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+                  document.getElementById('bridge').style.opacity=1;
+                  document.getElementById('bridge').children[0].style.opacity=1;
+                  document.getElementById('bridge').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
+
+
+                  document.getElementById('bridge').style.border="0.3vmax inset"
+                  document.getElementById('ice').style.border="0.3vmax inset"
+                  document.getElementById('pin').style.border="0.3vmax inset"
+                  document.getElementById('hammer').style.border="0.3vmax inset"
+                  document.getElementById('pung').style.border="0.3vmax inset"
+
+                  document.getElementById('bridge').style.borderColor=hexToHtmlColor(colorlst[colornum][3])
+                  document.getElementById('ice').style.borderColor=hexToHtmlColor(colorlst[colornum][3])
+                  document.getElementById('pin').style.borderColor=hexToHtmlColor(colorlst[colornum][3])
+
+                  document.getElementById('hammer').style.borderColor=hexToHtmlColor(colorlst[colornum][2])
+                  document.getElementById('pung').style.borderColor=hexToHtmlColor(colorlst[colornum][2])
 
                   if(fullcam){
                        topcam=false
@@ -13974,7 +14654,9 @@
           if(itemtouch){
             stepmold[4].rotation.x=0
             stepmold[5].rotation.x=0
-            stepmold[6].rotation.x=0
+            // stepmold[6].rotation.x=0
+            stepmold[7].rotation.y=0
+            stepmold[7].rotation.x=0
             if(ice){
               stepmold[5].material.visible=true;
               stepmold[5].material.visible=true;
@@ -14017,7 +14699,7 @@
 
 
             }else if(pin){
-
+              stepmold[6].rotation.x=Math.PI/2;
               stepmold[6].material.visible=true;
               stepmold[6].material.visible=true;
               var dur=parseInt(elapsedTime*25)%pshift.length
@@ -14026,7 +14708,12 @@
 
                 stepmold[6].position.z=cubes[itemidx].body.position.z
                 stepmold[6].position.x=cubes[itemidx].body.position.x+bw/1.3
-                stepmold[6].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
+
+
+                // stepmold[6].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
+
+                var dur0=parseInt(elapsedTime*20)%36
+                stepmold[6].rotation.y=Math.PI/10*dur0
 
                 if(!cubes[itemidx].mesh.pin){
                   cubes[itemidx].mesh.scale.x=1+(pshift[dur]-1)*0.9
@@ -14122,6 +14809,78 @@
 
               stepmold[3].scale.y = pshift[dur]*0.9*3.2 / 2;
 
+            }else if(bridge){
+
+              // stepmold[7].material.visible=true;
+              //
+              // var dur=parseInt(elapsedTime*25)%pshift.length
+              // stepmold[3].position.y=bh*(cubes.length+15)
+              // stepmold[7].position.y=cubes[itemidx].body.position.y
+              // if(itemr){
+              //   stepmold[7].position.z=cubes[itemidx].body.position.z
+              //
+              //
+              //   if(cubes[itemidx].mesh.userData.pin){
+              //     stepmold[7].position.x=cubes[itemidx].body.position.x+핀크기*bw/1.3
+              //   }else{
+              //     stepmold[7].position.x=cubes[itemidx].body.position.x+bw/1.3
+              //   }
+              //
+              //   stepmold[7].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
+              //
+              // }else if(iteml){
+              //   stepmold[7].position.x=cubes[itemidx].body.position.x
+              //
+              //
+              //   if(cubes[itemidx].mesh.userData.pin){
+              //     stepmold[7].position.z=cubes[itemidx].body.position.z+핀크기*bw/1.3
+              //   }else{
+              //     stepmold[7].position.z=cubes[itemidx].body.position.z+bw/1.3
+              //   }
+              //   stepmold[7].rotation.y=0-(pshift[dur]-1)*Math.PI/3
+              //
+              // }
+              stepmold[7].material.visible=true;
+
+              var dur=parseInt(elapsedTime*20)%pshift.length
+              stepmold[4].position.y=bh*(cubes.length+15)
+              stepmold[7].position.y=cubes[itemidx].body.position.y-bh/2
+              if(itemr){
+
+                stepmold[7].position.z=cubes[itemidx].body.position.z-bw/4
+
+
+                if(cubes[itemidx].mesh.userData.pin){
+                  stepmold[7].position.x=cubes[itemidx].body.position.x+핀크기*bw/1.2+((pshift[dur]-1)*3)
+                }else{
+                  stepmold[7].position.x=cubes[itemidx].body.position.x+bw/1.2+((pshift[dur]-1)*3)
+                }
+
+
+                stepmold[7].rotation.y=cubes[itemidx].mesh.rotation.y
+              }else if(iteml){
+                stepmold[7].position.x=cubes[itemidx].body.position.x-bw/4
+
+
+                if(cubes[itemidx].mesh.userData.pin){
+                  stepmold[7].position.z=cubes[itemidx].body.position.x+핀크기*bw/1.2+((pshift[dur]-1)*3)
+                }else{
+                  stepmold[7].position.z=cubes[itemidx].body.position.x+bw/1.2+((pshift[dur]-1)*3)
+                }
+
+
+                stepmold[7].rotation.y=cubes[itemidx].mesh.rotation.y-Math.PI/2
+
+
+
+
+              }
+
+
+
+
+              stepmold[7].scale.x = pshift[dur]*0.9*3.2 / 2;
+
             }
 
           }else{
@@ -14150,6 +14909,18 @@
               stepmold[4].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
 
               stepmold[4].rotation.x=Math.PI/10*dur0
+              // stepmold[4].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/4
+            }else if(bridge){
+              stepmold[7].material.visible=true;
+
+              var dur=parseInt(elapsedTime*25)%pshift.length
+
+              stepmold[7].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+              stepmold[7].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+              // stepmold[4].position.y=핑거0.y*bh*12-bh*4
+              stepmold[7].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
+
+              stepmold[7].rotation.x=Math.PI/10*dur0
               // stepmold[4].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/4
             }else if(ice){
               // cubes.forEach((item,) => {
@@ -14188,11 +14959,13 @@
             }else if(pin){
               stepmold[6].material.visible=true;
               stepmold[6].material.visible=true;
-              var dur=parseInt(elapsedTime*25)%pshift.length
+
               stepmold[6].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
               stepmold[6].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+              stepmold[6].rotation.x=Math.PI/2;
               stepmold[6].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
-              stepmold[6].rotation.x=Math.PI/10*dur0
+              var dur=parseInt(elapsedTime*25)%pshift.length
+              stepmold[6].rotation.y=Math.PI/10*dur0
               cubes.forEach((item) => {
                 if(item.mesh.userData.pin){
                   item.mesh.scale.x=핀크기
@@ -14481,10 +15254,12 @@
                               필+=num;
                               if(필>=바){
                                 필-=바;
-                                if(parseInt(Math.random()*2)%2==0){
+                                if(parseInt(Math.random()*3)%3==0){
                                   getitem(7);
-                                }else{
+                                }else if(parseInt(Math.random()*3)%3==1){
                                   getitem(8);
+                                }else{
+                                  getitem(9);
                                 }
 
                                 바+=100
@@ -14535,6 +15310,8 @@
                                   cubes[activeFloor+1].mesh.userData.body = cubes[activeFloor+1].body;
                                   cubes[activeFloor+1].mesh.userData.game2048 = game2048
                                   cubes[activeFloor+1].mesh.userData.pin=false;
+                                  cubes[activeFloor+1].mesh.userData.constraint=[];
+                                  cubes[activeFloor+1].mesh.userData.ice=false;
                                   cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
                                   cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
                                   activeFloor=cubes.length;
@@ -15151,9 +15928,15 @@
             // console.log(txtlst);
 
 
-            cubes.forEach((item,) => {
+            cubes.forEach((item) => {
 
               item.mesh.userData["freeze"]=false
+              if(item.mesh.userData.ice&&item.body.sleepState==0){
+                item.body.sleep()
+                // item.body.sleepState=;
+                // item.body.force.set(0,0,0)
+                // item.body.torque.set(0,0,0)
+              }
 
 
             });
@@ -15177,7 +15960,7 @@
 
               if((cubes.length-1)%3==0){
                 // setTimeout(function() {
-                  getitem(1+parseInt(Math.random()*8))
+                  getitem(0)
                 // }, 50);
               }
               if(soundic[sdic[activeFloor-1][0]].isPlaying) soundic[sdic[activeFloor-1][0]].stop();
@@ -15190,7 +15973,7 @@
               var songInfo = document.getElementById('song-info');
               songInfo.classList.add("moveleft");
               songInfo.style.left="0px"
-              document.querySelector("#song-info").style.zIndex="1"
+              document.querySelector("#song-info").style.zIndex="2"
 
               document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
               document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
@@ -15454,6 +16237,7 @@
                           document.getElementById('pung').style.left="-13.3vh"
                           document.getElementById('ice').style.left="-13.3vh"
                           document.getElementById('pin').style.left="-13.3vh"
+                          document.getElementById('bridge').style.left="-13.3vh"
                           // document.getElementById("t1").classList.add("hidden");
                           // document.getElementById("t2").classList.add("hidden");
                           // document.getElementById("t3").classList.add("hidden");
@@ -16838,6 +17622,20 @@
         }
 
         if(!restartflag){
+          if(legs.length>0){
+            legs.forEach((item) => {
+              item.position.copy(item.userData.body.position);
+              if(item.userData.right){
+                item.position.x=item.userData.body.position.x-bw/5
+              }else{
+                item.position.z=item.userData.body.position.z-bw/5
+              }
+
+              item.quaternion.copy(item.userData.body.quaternion);
+            });
+          }
+
+
           for (var i = 0; i < cubes.length; i++) {
             for (var j = 0; j < cubes[i].mesh.children.length; j++) {
               cubes[i].mesh.material.receiveShadow = false;
@@ -17381,7 +18179,7 @@
         // }
 
 
-        if (topcam&&!restartflag&&!itemdrag) {
+        if (topcam&&!restartflag) {
           if(particleflag) particles.material.visible=false;
             // groundmesh.material.visible = true;
             if (shadowon) groundmesh.receiveShadow = false
@@ -17528,7 +18326,7 @@
             item[0].material.visible=false;
         })
 
-        if (topcam&&!restartflag&&!itemdrag) {
+        if (topcam&&!restartflag) {
             if ((window.innerWidth / window.innerHeight) < 4 / 7) {
                 // if((window.innerWidth / window.innerHeight) > 0.5){
                 //   var width = window.innerWidth / 1.15;
@@ -18095,11 +18893,11 @@
     window.freeze=freeze;
     function getitem(n=0){
       if(n==0){
-        n=1+parseInt(Math.random()*8)
+        n=1+parseInt(Math.random()*9)
       }
       if(n==1||n==2||n==3){
         if(뻥==0){
-          document.getElementById('pung').style.left="-10vh"
+          document.getElementById('pung').style.left=itemleft
         }
         뻥++;
         document.getElementById('pung').children[1].innerText=String(뻥)
@@ -18127,7 +18925,7 @@
 
       }else if(n==4||n==5||n==6){
         if(해머==0){
-          document.getElementById('hammer').style.left="-10vh"
+          document.getElementById('hammer').style.left=itemleft
         }
         해머++;
         document.getElementById('hammer').children[1].innerText=String(해머)
@@ -18153,7 +18951,7 @@
 
       }else if(n==7){
         if(얼음==0){
-          document.getElementById('ice').style.left="-10vh"
+          document.getElementById('ice').style.left=itemleft
         }
         얼음++;
         document.getElementById('ice').children[1].innerText=String(얼음)
@@ -18179,7 +18977,7 @@
 
       }else if(n==8){
         if(핀==0){
-          document.getElementById('pin').style.left="-10vh"
+          document.getElementById('pin').style.left=itemleft
         }
         핀++;
         document.getElementById('pin').children[1].innerText=String(핀)
@@ -18194,6 +18992,33 @@
             document.getElementById('pin0').style.opacity="1"
           }, 1000);
         }, 30);
+
+        if(soundic[esound[11]].isPlaying){
+          soundic[esound[11]].stop();
+        }
+
+
+        soundic[esound[11]].play();
+
+
+      }else if(n==9){
+        if(다리==0){
+          document.getElementById('bridge').style.left=itemleft
+        }
+        다리++;
+        document.getElementById('bridge').children[1].innerText=String(다리)
+
+        document.getElementById('bridge0').style.display="inline-flex"
+        setTimeout(function() {
+          document.getElementById('bridge0').style.top="-5vh"
+          document.getElementById('bridge0').style.opacity="0.1"
+          setTimeout(function() {
+            document.getElementById('bridge0').style.display="none"
+            document.getElementById('bridge0').style.top="6vh"
+            document.getElementById('bridge0').style.opacity="1"
+          }, 1000);
+        }, 30);
+
 
         if(soundic[esound[11]].isPlaying){
           soundic[esound[11]].stop();
@@ -19556,7 +20381,7 @@
           shape: shape,
           material: customMaterial,
           allowSleep: true,
-          sleepSpeedLimit: 100,
+          sleepSpeedLimit: 1000,
           sleepTimeLimit: 0
       });
       body.position.set(x, y, z);
@@ -23089,10 +23914,12 @@
     function drawon(){
 
       if(draw){
+        꺼져=false;
         topcam=true;
         draw=false;
         drawcount=elapsedTime+0.3;
       }else{
+        꺼져=true;
         draw=true;
         drawcount=elapsedTime;
       }
@@ -24676,6 +25503,16 @@
 
 <div id="pin0" class="pin0" onclick="">
     <img class="" src="png/pin.png">
+    <div>+</div>
+</div>
+
+<button id="bridge" class="bridge" onclick="">
+    <img class="" src="png/staple.png">
+    <div>0</div>
+</button>
+
+<div id="bridge0" class="bridge0" onclick="">
+    <img class="" src="png/staple.png">
     <div>+</div>
 </div>
 
