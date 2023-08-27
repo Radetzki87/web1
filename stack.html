@@ -2950,6 +2950,8 @@
     var itemtime=0;
     var uselst=[];
 
+
+    var 무게=4;
     var 해머=0
     var 뻥=0
 
@@ -3033,7 +3035,7 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.2,0.3,0.18,0.2,0.3]
+    var 마찰=[0.2,0.3,0.16,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
     var 중력=[-7,-11,-10,-7,-7]
 
@@ -5616,7 +5618,7 @@
                   customMaterial.restitution = 탄성[2]; // Restitution (elasticity), range: 0-1
 
                   let groundBody = new CANNON.Body({
-                      mass: 3,
+                      mass: 무게,
                       shape: new CANNON.Box(new CANNON.Vec3(핀크기*bw/2, 0.99*bh/2, 핀크기*bw/2)),
                       material: customMaterial,
                       allowSleep: true,
@@ -5687,7 +5689,7 @@
 
 
                   var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.1*bw/2, 0.3*bw/2, 0.1*bw/2)); // 가로, 세로, 높이
-                  var boxBody0 = new CANNON.Body({ mass: 3 });
+                  var boxBody0 = new CANNON.Body({ mass: 무게 });
                   boxBody0.addShape(boxShape0);
                   boxBody0.position.set(0, 0, 0);
 
@@ -10514,7 +10516,7 @@
             customMaterial.friction = 0.3
         }
         const body = new CANNON.Body({
-            mass: 3,
+            mass: 무게,
             shape: shape,
             material: customMaterial,
             allowSleep: true,
@@ -20519,7 +20521,7 @@
           customMaterial.friction = 0.3
       }
       const body = new CANNON.Body({
-          mass: 3,
+          mass: 무게,
           shape: shape,
           material: customMaterial,
           allowSleep: true,
