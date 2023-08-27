@@ -2936,6 +2936,8 @@
 
     var 빌더=true;
 
+    var combo=0;
+
     var cubemold=[];
 
     var maxnow;
@@ -7564,6 +7566,7 @@
         if(오토) tcheck=[0,0,0,0,0]
         cubes.length=5;
         maxnow=0;
+        combo=0;
         resetting(stack, function(object) { //재시작
             msetting1(function(object) {
                 if(gamemod!=2){
@@ -16394,28 +16397,31 @@
                   // getitem(0)
                 // }, 50);
               }
-              if(soundic[sdic[activeFloor-2][0]].isPlaying) soundic[sdic[activeFloor-2][0]].stop();
-              soundic[sdic[activeFloor-1][0]].play();
-              songTitleElement.innerText = sdic[activeFloor-1]["title"];
-              if(langnum==13||langnum==22||langnum==29||langnum==36){
-                document.getElementById("playing").style.left=String(2+1.1*songTitleElement.innerText.length)+"vmax"
-              }
-              artistNameElement.innerText = sdic[activeFloor]["producer"];
-              var songInfo = document.getElementById('song-info');
-              songInfo.classList.add("moveleft");
-              songInfo.style.left="0px"
-              document.querySelector("#song-info").style.zIndex="2"
+              if(false){
+                if(soundic[sdic[activeFloor-2][0]].isPlaying) soundic[sdic[activeFloor-2][0]].stop();
+                soundic[sdic[activeFloor-1][0]].play();
+                songTitleElement.innerText = sdic[activeFloor-1]["title"];
+                if(langnum==13||langnum==22||langnum==29||langnum==36){
+                  document.getElementById("playing").style.left=String(2+1.1*songTitleElement.innerText.length)+"vmax"
+                }
+                artistNameElement.innerText = sdic[activeFloor]["producer"];
+                var songInfo = document.getElementById('song-info');
+                songInfo.classList.add("moveleft");
+                songInfo.style.left="0px"
+                document.querySelector("#song-info").style.zIndex="2"
 
-              document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
-              document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
-              document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
-              document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
-              document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
-              document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
-              document.getElementById('playing').style.color="#eeeeee"
-              if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
-              songInfo.classList.add("show1");
-              songfade=elapsedTime;
+                document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+                document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+                document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+                document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
+                document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
+                document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
+                document.getElementById('playing').style.color="#eeeeee"
+                if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
+                songInfo.classList.add("show1");
+                songfade=elapsedTime;
+              }
+
 
               // if(cubes.length-3>22){
               //   fulltower=true;
@@ -19243,7 +19249,30 @@
 
           }
           if(Math.abs(cubemold[0].position.x-cubes[cubes.length-1].mesh.position.x)+Math.abs(cubemold[0].position.z-cubes[cubes.length-1].mesh.position.z)<0.1){
-            getitem(0)
+            setTimeout(function() {
+              getitem(0)
+            }, 500);
+            if(combo==0){
+              soundic[sdic[3][4]].play()
+
+            }else if(combo==1){
+              soundic[sdic[3][8]].play()
+            }else if(combo==2){
+              soundic[sdic[3][16]].play()
+            }else if(combo==3){
+              soundic[sdic[3][32]].play()
+            }else if(combo==4){
+              soundic[sdic[3][64]].play()
+            }else if(combo==5){
+              soundic[sdic[3][128]].play()
+            }else if(combo>=6){
+              soundic[sdic[3][256]].play()
+            }
+            combo++;
+
+          }else{
+            combo=0
+            soundic[esound[5]].play();
           }
 
           cubes.push(newbox(cubemold[0].position.x,  (overcount) * bh+bh, cubemold[0].position.z, bw, bh, bw, game2048, cubes.length, true));
