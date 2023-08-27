@@ -3033,9 +3033,9 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.2,0.3,0.17,0.2,0.3]
+    var 마찰=[0.2,0.3,0.18,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
-    var 중력=[-7,-11,-11,-7,-7]
+    var 중력=[-7,-11,-10,-7,-7]
 
     var resinit=0
     window.resinit=resinit
@@ -4710,7 +4710,7 @@
 
         }
 
-        console.log(String(lastX)+":"+String(lastY))
+        // console.log(String(lastX)+":"+String(lastY))
 
 
 
@@ -4738,7 +4738,8 @@
               itemflag=true;
               pin=false;
               bridge=false;
-              if(lastX<-0.84){
+              // 뻥--;
+              if(lastX<-0.75){
                 뻥--;
               }else{
                 if(뻥>2){
@@ -4771,7 +4772,8 @@
               itemflag=true;
               pin=false;
               bridge=false;
-              if(lastX<-0.84){
+                // 해머--;
+              if(lastX<-0.75){
                 해머--;
               }else{
                 if(해머>2){
@@ -5461,7 +5463,7 @@
                   if(superflag){
                     force2.set(-25000,0,0)
                   }else{
-                    force2.set(-2500,0,0)
+                    force2.set(-3000,0,0)
 
                   }
                   이펙트2(itemidx, 128, "left");
@@ -5470,7 +5472,7 @@
                   if(superflag){
                     force2.set(0,0,-25000)
                   }else{
-                    force2.set(0,0,-2500)
+                    force2.set(0,0,-3000)
                   }
 
                   이펙트2(itemidx, 128, "up");
@@ -5490,6 +5492,7 @@
                 soundic[sdic[cubes.length-1]["32"]].play();
 
                   if(superflag){
+                    superflag=false;
                     cubes[itemidx].mesh.userData.bye=true;
                     cubes[itemidx].mesh.userData.constraint.forEach((item) => {
                       world.removeConstraint(item);
@@ -5511,7 +5514,7 @@
                   if(superflag){
                     force2.set(25000,0,0)
                   }else{
-                    force2.set(2500,0,0)
+                    force2.set(3000,0,0)
                   }
 
                   이펙트2(itemidx, 128, "right");
@@ -5519,7 +5522,7 @@
                   if(superflag){
                     force2.set(0,0,25000)
                   }else{
-                    force2.set(0,0,2500)
+                    force2.set(0,0,3000)
                   }
 
                   이펙트2(itemidx, 128, "down");
@@ -5536,6 +5539,7 @@
                 cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
                 soundic[sdic[cubes.length-1]["32"]].play();
                 if(superflag){
+                  superflag=false;
                   cubes[itemidx].mesh.userData.bye=true;
                   cubes[itemidx].mesh.userData.constraint.forEach((item) => {
                     world.removeConstraint(item);
@@ -5817,7 +5821,7 @@
                        itemr=false;
                        iteml=false;
                        itemdrag=false
-
+                       superflag=false;
                        ontouch = false;
                        bufflag = true
                        dragflag = false;
@@ -5987,7 +5991,7 @@
                        itemr=false;
                        iteml=false;
                        itemdrag=false
-
+                       superflag=false;
                        ontouch = false;
                        bufflag = true
                        dragflag = false;
@@ -6137,6 +6141,7 @@
                ice=false
                pin=false
                bridge=false
+               superflag=false;
                itemr=false;
                iteml=false;
                itemdrag=false
@@ -6226,6 +6231,7 @@
                pung=false;
                ice=false
                pin=false
+               superflag=false;
                bridge=false
                itemr=false;
                iteml=false;
@@ -7451,17 +7457,26 @@
             item.classList.remove("set")
           }
         });
-        현지=[];
-        해머=1;
-        뻥=1;
-        얼음=1;
+
         icecount=0;
-        핀=1;
-        다리=1;
+        현지=[];
+
+        //
+        // 해머=1;
+        // 뻥=1;
+        // 얼음=1;
+        // 핀=1;
+        // 다리=1;
+
+        해머=0;
+        뻥=0;
+        얼음=0;
+        핀=0;
+        다리=0;
 
 
         필=0;
-        바=400;
+        바=300;
         superflag=false;
         itemuse=false;
         itemuse0=false;
@@ -15479,7 +15494,7 @@
                                   getitem(9);
                                 }
 
-                                바+=100
+                                바+=50
                               }
                               document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
                               document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
@@ -15518,7 +15533,14 @@
                                   // document.getElementById("intro").classList.add("fade");
                                   const game2048 = new Game2048(칸, cubes.length);
 
-                                  cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-3) * bh+bh, cubes[cubes.length-1].mesh.position.z, bw, bh, bw, game2048, cubes.length, true));
+                                  var overcount=0;
+                                  for (var i = 3; i < cubes.length; i++) {
+                                    if(!cubes[i].mesh.userData.bye){
+                                      overcount++;
+                                    }
+
+                                  }
+                                  cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (overcount) * bh+bh, cubes[cubes.length-1].mesh.position.z, bw, bh, bw, game2048, cubes.length, true));
                                   cubes[activeFloor+1].mesh.quaternion.copy(cubes[activeFloor].mesh.quaternion);
                                   cubes[activeFloor+1].body.quaternion.copy(cubes[activeFloor].body.quaternion);
 
@@ -16176,7 +16198,7 @@
 
               activeFloor=cubes.length-1;
 
-              if((cubes.length-1)%3==0){
+              if((cubes.length-1)%2==0){
                 // setTimeout(function() {
                   getitem(0)
                 // }, 50);
@@ -16324,7 +16346,7 @@
             }
 
           }
-          console.log(overcount);
+          // console.log(overcount);
           if(cubes.length>=6){
             if (cubes[cubes.length-1].mesh.position.y<=bh*(overcount-3)) {
               오버=true;
@@ -16457,7 +16479,7 @@
 
 
                       // temp1[0].children[1].innerText="oat!!!!!!!!"
-                      if(langnum==0){
+                      if(langnum==0||langnum==1){
                         temp1[0].children[1].innerText="oat!!!!"
                       }else{
                         temp1[0].children[1].innerText=textdic[159][langset[langnum]]
@@ -16476,7 +16498,7 @@
 
 
                       // temp1[0].children[1].innerText="oat!!!!!!!!"
-                      if(langnum==0){
+                      if(langnum==0||langnum==1){
                         temp1[0].children[1].innerText="egend!!!!"
                       }else{
                         temp1[0].children[1].innerText=textdic[160][langset[langnum]]
@@ -16492,7 +16514,7 @@
                       }
 
                       // temp1[0].children[1].innerText="oat!!!!!!!!"
-                      if(langnum==0){
+                      if(langnum==0||langnum==1){
                         temp1[0].children[1].innerText="ONSTER!!!!"
                       }else{
                         temp1[0].children[1].innerText=textdic[161][langset[langnum]]
@@ -16508,7 +16530,7 @@
                       }
 
                       // temp1[0].children[1].innerText="egend!!!!!!!"
-                      if(langnum==0){
+                      if(langnum==0||langnum==1){
                         temp1[0].children[1].innerText="UPERB!!!!"
                       }else{
                         temp1[0].children[1].innerText=textdic[162][langset[langnum]]
@@ -16525,7 +16547,7 @@
                       }
 
                       // temp1[0].children[1].innerText="pecial!!!!!"
-                      if(langnum==0){
+                      if(langnum==0||langnum==1){
                         temp1[0].children[1].innerText="PECIAL!!!"
                       }else{
                         temp1[0].children[1].innerText=textdic[163][langset[langnum]]
@@ -16541,7 +16563,7 @@
                         temp1[0].children[2].innerText=""
                       }
                       // temp1[0].children[1].innerText="uperb!!!!!"
-                      if(langnum==0){
+                      if(langnum==0||langnum==1){
                         temp1[0].children[1].innerText="WESOME!!!"
                       }else{
                         temp1[0].children[1].innerText=textdic[164][langset[langnum]]
@@ -16559,7 +16581,7 @@
                       }
                       // temp1[0].children[1].innerText="uperb!!!!!"
 
-                      if(langnum==0){
+                      if(langnum==0||langnum==1){
                         temp1[0].children[1].innerText="WESOME!!"
                       }else{
                         temp1[0].children[1].innerText=textdic[165][langset[langnum]]
@@ -16575,7 +16597,7 @@
                         temp1[0].children[2].innerText=""
                       }
                       // temp1[0].children[1].innerText="wesome!!!!"
-                      if(langnum==0){
+                      if(langnum==0||langnum==1){
                         temp1[0].children[1].innerText="RILLIANT!"
                       }else{
                         temp1[0].children[1].innerText=textdic[166][langset[langnum]]
@@ -16591,7 +16613,7 @@
                         temp1[0].children[2].innerText=""
                       }
                       // temp1[0].children[1].innerText="rilliant!!!"
-                      if(langnum==0){
+                      if(langnum==0||langnum==1){
                         temp1[0].children[1].innerText="OOL!"
                       }else{
                         temp1[0].children[1].innerText=textdic[167][langset[langnum]]
@@ -16607,7 +16629,7 @@
                         temp1[0].children[2].innerText=""
                       }
                       // temp1[0].children[1].innerText="ool!!"
-                      if(langnum==0){
+                      if(langnum==0||langnum==1){
                         temp1[0].children[1].innerText="OING WELL!"
                       }else{
                         temp1[0].children[1].innerText=textdic[168][langset[langnum]]
@@ -16622,7 +16644,7 @@
                         temp1[0].children[2].innerText=""
                       }
                       // temp1[0].children[1].innerText="elightful!"
-                      if(langnum==0){
+                      if(langnum==0||langnum==1){
                         temp1[0].children[1].innerText="FFICIENT"
                       }else{
                         temp1[0].children[1].innerText=textdic[169][langset[langnum]]
@@ -16637,7 +16659,7 @@
                         temp1[0].children[2].innerText=""
                       }
                       // temp1[0].children[1].innerText="fficeint"
-                      if(langnum==0){
+                      if(langnum==0||langnum==1){
                         temp1[0].children[1].innerText="RAGILE"
                       }else{
                         temp1[0].children[1].innerText=textdic[170][langset[langnum]]
