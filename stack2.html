@@ -2932,6 +2932,9 @@
 
     var stacktime;
 
+    var axis=[];
+
+    var posy;
     var guideflag = true;
 
     var 빌더=true;
@@ -4934,7 +4937,16 @@
 
 
         if(startflag){
-          up();
+          if(lastX>-0.55&&lastX<0.55){
+            up()
+            return;
+          }else{
+            return;
+          }
+
+
+
+
         }
 
 
@@ -7450,6 +7462,8 @@
           if(skinnum==15){
             skinnum=3;
           }
+
+          skinnum=0;
 
 
         }else{
@@ -12286,28 +12300,34 @@
         var origin = new THREE.Vector3(0, 0, 0);
         var length = 200;
         var hex = colorlst[colornum][3];
-
-        // arrowHelper.children.[1].computeLineDistances();
+        var arrowHelper = new THREE.ArrowHelper(dir, origin, length, hex)
+        arrowHelper.children.forEach((item) => {
+            item.material.opacity = 0.3;
+            item.material.transparent = true;
+            item.material.linewidth = 3
+        })
+        // arrowHelper.children[1].computeLineDistances();
         // arrowHelper.geometry.boundingSphere.radius=20
         //애로우
-        // scene.add(arrowHelper);
+        scene.add(arrowHelper);
+        axis.push(arrowHelper);
 
         if (guideflag) {
             var origin2 = new THREE.Vector3(cubes[0].mesh.position.x - bw / 1.98, 0, cubes[0].mesh.position.z + bw / 1.98);
             var origin3 = new THREE.Vector3(cubes[0].mesh.position.x + bw / 1.98, 0, cubes[0].mesh.position.z - bw / 1.98);
             var origin4 = new THREE.Vector3(cubes[0].mesh.position.x + bw / 1.98, 0, cubes[0].mesh.position.z + bw / 1.98);
             var material = new THREE.LineDashedMaterial({
-                color: colorlst[colornum][2],
+                color: colorlst[colornum][3],
                 dashSize: 1,
                 gapSize: 1,
                 linewidth: 2,
                 scale: 3,
-                opacity: 0.7,
+                opacity: 0.6,
                 transparent: true
             });
             var points = [];
             points.push(origin2);
-            points.push(new THREE.Vector3(origin2.x, bh * cubes.length * 0.8, origin2.z));
+            points.push(new THREE.Vector3(origin2.x, bh * cubes.length * 0.65, origin2.z));
             var geometry = new THREE.BufferGeometry().setFromPoints(points);
             var line = new THREE.Line(geometry, material);
             line.computeLineDistances();
@@ -12315,7 +12335,7 @@
             guide.push(line);
             var points = [];
             points.push(origin3);
-            points.push(new THREE.Vector3(origin3.x, bh * cubes.length * 0.8, origin3.z));
+            points.push(new THREE.Vector3(origin3.x, bh * cubes.length * 0.65, origin3.z));
             var geometry = new THREE.BufferGeometry().setFromPoints(points);
             var line = new THREE.Line(geometry, material);
             line.computeLineDistances();
@@ -12323,7 +12343,7 @@
             guide.push(line);
             var points = [];
             points.push(origin4);
-            points.push(new THREE.Vector3(origin4.x, bh * cubes.length *0.8, origin4.z));
+            points.push(new THREE.Vector3(origin4.x, bh * cubes.length *0.65, origin4.z));
             var geometry = new THREE.BufferGeometry().setFromPoints(points);
             var line = new THREE.Line(geometry, material);
             line.computeLineDistances();
@@ -14970,7 +14990,7 @@
               if(gamemod!=2){
                 camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
               }else{
-                camera.position.y=2*(bh * ((5)*0.5+3))+(-isoAngle - camera.rotation.x)*30
+                if(!m2flag) camera.position.y=2*(bh * ((5)*0.5+3))+(-isoAngle - camera.rotation.x)*30
               }
                 // camera.rotation.x -= Math.PI / 256
                 camera.rotation.x -= deltaTime / 1200
@@ -15054,6 +15074,8 @@
             }
             avx /= templength;
             avz /= templength;
+            axis[0].position.x = avx;
+            axis[0].position.z = avz;
 
         }
 
@@ -16305,11 +16327,11 @@
 
         if(m2flag){
           timebuf=-1
-          var posy=camera.position.y
+
           if(elapsedTime - stacktime <= 0.35){
 
             if(!m2once){
-
+              posy=camera.position.y
               cubes[cubes.length-2].mesh.children.forEach((item, i) => {
                 if(item.userData["skintype"]=="top"){
                   cubes[cubes.length-2].mesh.remove(item)
@@ -16326,7 +16348,7 @@
               m2once=true;
             }
 
-
+            camera.position.y=posy+((elapsedTime - stacktime)/0.35)*bh
             if(skinset[skinnum]=="classic"){
               cubes[cubes.length-1].mesh.scale.set((0.45+(elapsedTime - stacktime))*cubes[cubes.length-1].mesh.userData.combo, 0.65+(elapsedTime - stacktime),0.45+(elapsedTime - stacktime))
             }else{
@@ -16348,6 +16370,7 @@
             // });
 
           }else{
+            // camera.position.y=posy+((elapsedTime - stacktime))*bh
             if(skinset[skinnum]=="classic"){
               cubes[cubes.length-1].mesh.scale.set(0.8,0.978,0.8)
             }else{
@@ -17305,13 +17328,18 @@
         if (orthoflag && lookcenter&&bf!=activeFloor) {
             if (!gameoverflag) {
                 if (activeFloor == cubes.length) {
-                    camera.position.set(
-                        2*(bw * 2 )+ avx,
-                        // cubes[cubes.length-1].mesh.position.y+bh*5,
-                        2*(bh * (cubes.length + 2)),
-                        2*(bw * 2 )+ avz,
-                    );
-                    if(gamemod==2) {
+
+                    camera.position.x=2*(bw * 2 )+ avx
+                    camera.position.z=2*(bw * 2 )+ avz
+
+                    // camera.position.set(
+                    //     2*(bw * 2 )+ avx,
+                    //     // cubes[cubes.length-1].mesh.position.y+bh*5,
+                    //     2*(bh * (cubes.length + 2)),
+                    //     2*(bw * 2 )+ avz,
+                    // );
+                    if(gamemod==2&&!m2flag) {
+
                       camera.position.y= 2*(bh * ((cubes.length)*0.5+3))
                     }
 
@@ -17409,7 +17437,7 @@
                                 2*(bh * (cubes.length + 2)),
                                 2*(bw * 2 )+ avz
                             );
-                            if(gamemod==2) camera.position.y=2*(bh * ((cubes.length)*0.5+3))
+                            if(gamemod==2&&!m2flag) camera.position.y=2*(bh * ((cubes.length)*0.5+3))
 
 
 
@@ -17967,7 +17995,10 @@
           if(gamemod!=2){
             camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
           }else{
-            camera.position.y=2*(bh * (5*0.5+3))+(-isoAngle - camera.rotation.x)*30
+            if(!m2flag){
+              camera.position.y=2*(bh * (5*0.5+3))+(-isoAngle - camera.rotation.x)*30
+            }
+
           }
         }
 
@@ -18199,14 +18230,15 @@
             // }
             if(fullcam){
               if(gamemod==2){
-                camera.position.y= 2*(bh * ((cubes.length)*0.5+4))+(-isoAngle - camera.rotation.x)*30
+
+                if(!m2flag) camera.position.y= 2*(bh * ((cubes.length)*0.5+4))+(-isoAngle - camera.rotation.x)*30
               }else{
                 camera.position.y=2*(bh * (5 + 3))+(-isoAngle - camera.rotation.x)*30
               }
 
             }else{
               if(gamemod==2){
-                camera.position.y= 2*(bh * ((cubes.length)*0.5+3))+(-isoAngle - camera.rotation.x)*30
+                if(!m2flag) camera.position.y= 2*(bh * ((cubes.length)*0.5+3))+(-isoAngle - camera.rotation.x)*30
               }else{
                 camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
               }
