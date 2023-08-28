@@ -4249,6 +4249,7 @@
                       if(world.solver.iterations<=1){
                         world.solver.iterations=1;
                         gap=0.979;
+
                       }
                     }
 
@@ -7206,7 +7207,7 @@
           forceAmount = bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 25;
+          world.solver.iterations = 5;
           // world.solver.tolerance = 8
           gap=0.981;
 
@@ -15850,9 +15851,9 @@
                                   // console.log(camval)
 
                                   var camval=cubes.length-icecount
-                                  if(camval>17){
-                                    camval=17;
-                                  }
+                                  // if(camval>17){
+                                  //   camval=17;
+                                  // }
                                   if((window.innerWidth / window.innerHeight) > 4/7){
                                     camera.left = -bw * 1.8-(camval)/4;
                                     camera.right = bw * 1.8 * 4+(camval);
@@ -19450,10 +19451,10 @@
           //
           // console.log(camval)
 
-          var camval=cubes.length-icecount
-          if(camval>17){
-            camval=17;
-          }
+          var camval=cubes.length
+          // if(camval>17){
+          //   camval=17;
+          // }
           if((window.innerWidth / window.innerHeight) > 4/7){
             camera.left = -bw * 1.8-(camval)/4;
             camera.right = bw * 1.8 * 4+(camval);
@@ -19461,10 +19462,11 @@
             camera.bottom = -bw * 1.8 * 4-(camval);
           }else{
             if(!fullcam){
-              camera.left = -bw * 1.3-(camval)/4;
-              camera.right = bw * 1.3 * 4+(camval);
-              camera.top = bw * 1.3+(camval)/4;
-              camera.bottom = -bw * 1.3 * 4-(camval);
+
+              camera.left = -bw * 1.1-(camval*2)/4;
+              camera.right = bw * 1.1 * 4+(camval*2);
+              camera.top = bw * 1.1+(camval*2/4);
+              camera.bottom = -bw * 1.1 * 4-(camval*2);
             }else{
               camera.left = -bw * 1.1-(camval-3)/4;
               camera.right = bw * 1.1 * 4+(camval-3)
