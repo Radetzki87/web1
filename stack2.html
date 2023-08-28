@@ -2932,6 +2932,8 @@
 
     var stacktime;
 
+    var 투시=false;
+
     var axis=[];
 
     var posy;
@@ -6528,6 +6530,12 @@
                 팝리스트=[false,false,false,false,false]
                 return;
             }
+
+            if(startflag){
+                up()
+                return;
+            }
+            return
             if(cubes.length==5&&activeFloor==5){
 
             }else{
@@ -6690,6 +6698,11 @@
                 팝리스트=[false,false,false,false,false]
                 // return;
             }
+            if(startflag){
+                up()
+                return;
+            }
+            return
             if(cubes.length==5&&activeFloor==5){
 
             }else{
@@ -6784,14 +6797,13 @@
                 }
             }
         } else if (event.code === 'KeyR') {
-          // if(draw){
-          //   draw=false;
-          //   drawcount=elapsedTime+0.3;
-          // }else{
-          //   draw=true;
-          //   drawcount=elapsedTime;
-          // }
-          up(16);
+          if(투시){
+            투시=false;
+          }else{
+            투시=true;
+
+          }
+
           // langnum++
           // if(langnum>langset.length-1) langnum=0;
           // window.langnum=langnum;
@@ -15592,12 +15604,64 @@
 
         }
 
-        if (dimlines.length > 0) {
-            dimlines.forEach((item) => {
-                scene.remove(dimlines.pop())
-            })
+
+        if(curves.length>0){
+        curves.forEach((item)=>{
+          scene.remove(curves.pop())
+          })
         }
 
+        if(dimlines.length>0){
+          dimlines.forEach((item)=>{
+            scene.remove(dimlines.pop())
+          })
+        }
+
+        if(투시&&curveflag&&!gameoverflag){
+          var pointlst=[];
+          // pointlst.push(new THREE.Vector3(cubes[0].mesh.position.x,0,cubes[0].mesh.position.z))
+          for(var i=3;i<cubes.length;i++){
+            pointlst.push(new THREE.Vector3( cubes[i].mesh.position.x,cubes[i].mesh.position.y+bh/4, cubes[i].mesh.position.z ))
+          }
+
+
+          // pointlst.push(new THREE.Vector3(cubes[cubes.length-1].mesh.position.x,cubes[cubes.length-1].mesh.position.y+bh,cubes[cubes.length-1].mesh.position.z))
+          var curve = new THREE.CatmullRomCurve3(pointlst);
+          var points = curve.getPoints( 60 );
+          var geometry = new THREE.BufferGeometry().setFromPoints( points );
+          var material = new THREE.LineDashedMaterial( { color: colorlst[colornum][2], dashSize:1, gapSize: 1 ,linewidth: 3,  scale: 7
+          });
+
+          material.opacity=1;
+          material.transparent=true;
+          // Create the final object to add to the scene
+          var curveObject = new THREE.Line( geometry, material );
+          curveObject.computeLineDistances();
+
+          curves.push(curveObject);
+          scene.add(curveObject)
+
+          // for(var i=0;i<pointlst.length;i++){
+          //   var material = new THREE.LineDashedMaterial( { color: colorlst[colornum][3], dashSize:1, gapSize: 0.5 ,linewidth: 0.5,  scale: 4
+          //   })
+          //   material.opacity=0.8;
+          //   material.transparent=true;
+          //   var points = [];
+          //   if(averageflag){
+          //     points.push( new THREE.Vector3( avx, pointlst[i].y, avz ) );
+          //   }else{
+          //     points.push( new THREE.Vector3( cubes[0].mesh.position.x, pointlst[i].y, cubes[0].mesh.position.z ) );
+          //   }
+          //
+          //   points.push( pointlst[i] );
+          //   var geometry = new THREE.BufferGeometry().setFromPoints( points );
+          //   var line = new THREE.Line( geometry, material );
+          //   line.computeLineDistances();
+          //   scene.add(line);
+          //   dimlines.push(line);
+          // }
+
+        }
 
 
         if (ftiles.length != 0) {
@@ -16349,6 +16413,11 @@
             }
 
             camera.position.y=posy+((elapsedTime - stacktime)/0.35)*bh
+            시간.forEach((item) => {
+              if(gamemod==2){
+                item.position.y = (cubes.length-3) * bh +((elapsedTime - stacktime)/0.35)*bh
+              }
+            })
             if(skinset[skinnum]=="classic"){
               cubes[cubes.length-1].mesh.scale.set((0.45+(elapsedTime - stacktime))*cubes[cubes.length-1].mesh.userData.combo, 0.65+(elapsedTime - stacktime),0.45+(elapsedTime - stacktime))
             }else{
@@ -18086,7 +18155,16 @@
                   cubes[i].mesh.children[j].material.castShadow = true;
 
                   if(activeFloor==cubes.length){
-                    cubes[i].mesh.children[j].material.depthWrite=true;
+                    if(투시){
+                      cubes[i].mesh.children[j].material.opacity = tmb0;
+                      cubes[i].mesh.children[j].material.alphaTest = 0
+                      cubes[i].mesh.children[j].material.transparent = true;
+                      cubes[i].mesh.children[j].material.depthWrite=false;
+
+                    }else{
+                      cubes[i].mesh.children[j].material.depthWrite=true;
+                    }
+
 
                   }else if(i==activeFloor){
                     // console.log(" visible:"+String(tile.material.visible)+" opacity:"+String(tile.material.opacity)+" alphatest:"+String(tile.material.alphaTest)+" transparent:"+String(tile.material.transparent))
@@ -18310,7 +18388,9 @@
 
                 시간.forEach((item) => {
                   if(gamemod==2){
-                    item.position.y = (cubes.length-3) * bh - th * 0
+                    if(!m2flag){
+                      item.position.y = (cubes.length-2) * bh - th * 0
+                    }
                     item.position.x = avx - bw / 2.5;
                     item.position.z = avz - bw / 1.5;
                   }else{
@@ -18458,7 +18538,7 @@
 
                 createTextMesh(timestring, 998, (textMesh) => {
                   if(gamemod==2){
-                    textMesh.position.y = (cubes.length-3) * bh - th * 0
+                    textMesh.position.y = (cubes.length-2) * bh - th * 0
 
                     if(timestring.length==1){
                       stepmold[0].position.x=2
@@ -19278,6 +19358,14 @@
         msetting2(cubes.length+0, function(object) {
           // document.getElementById("intro").classList.add("fade");
           const game2048 = new Game2048(칸, cubes.length);
+
+          if(cubes.length-3>=24){
+            if(cubes[cubes.length-24].body.sleepState!=0){
+              cubes[cubes.length-24].body.sleep();
+              cubes[cubes.length-24].mesh.userData.ice=true;
+            }
+
+          }
 
           var overcount=0;
           for (var i = 3; i < cubes.length; i++) {
