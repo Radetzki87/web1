@@ -14,8 +14,6 @@
             margin: 0;
             overscroll-behavior-x: none;
             overscroll-behavior-y: none;
-
-
         }
         canvas {
             overflow-x: hidden;.
@@ -25,7 +23,6 @@
             overscroll-behavior-y: none;
             overscroll-behavior-x: none;
         }
-
 
         @font-face {
             font-family: 'mono';
@@ -40,7 +37,6 @@
             font-weight: normal;
             font-style: normal;
         }
-
 
         #yesno{
             position: absolute;
@@ -65,7 +61,6 @@
         #yesno b{
           margin-top: 2vmin;
           color: white;
-
         }
 
         #yestxt{
@@ -77,7 +72,6 @@
           position: absolute;
           left:55%;
         }
-
 
         .yesno-container{
             display: inline-flex;
@@ -100,7 +94,6 @@
           position: absolute;
           /* width:100%; */
           height:50%;
-
         }
 
 
@@ -2929,7 +2922,20 @@
     var playlock=false;
     var templayer=99;
     var tempoint=0;
+
     var stacktime;
+
+
+
+    var posy;
+
+    var 빌더=false;
+
+    var higliht=true;
+
+    var card=[];
+
+    var maxnow;
 
     var legs=[];
 
@@ -4155,6 +4161,7 @@
                 ntile.userData["merge"] = 0;
                 ntile.userData["skin"] = "tile";
                 ntile.userData["skintype"] =1;
+                ntile.userData["number"]=this.board[position.row][position.col]
 
                 // ntile.material.opacity=1;
                 // ntile.material.visible=true;
@@ -4916,6 +4923,8 @@
         //
         // }
 
+        if(cubes.length>5) return;
+
 
 
 
@@ -4938,7 +4947,7 @@
           });
         }
 
-
+        // console.log(cat)
         if(cat.length>=1){
 
 
@@ -6751,13 +6760,14 @@
                 }
             }
         } else if (event.code === 'KeyR') {
-          if(draw){
-            draw=false;
-            drawcount=elapsedTime+0.3;
-          }else{
-            draw=true;
-            drawcount=elapsedTime;
-          }
+          // if(draw){
+          //   draw=false;
+          //   drawcount=elapsedTime+0.3;
+          // }else{
+          //   draw=true;
+          //   drawcount=elapsedTime;
+          // }
+          up(16);
           // langnum++
           // if(langnum>langset.length-1) langnum=0;
           // window.langnum=langnum;
@@ -7160,7 +7170,7 @@
           forceAmount = bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 25;
+          world.solver.iterations = 10;
           // world.solver.tolerance = 8
           gap=0.981;
 
@@ -7543,6 +7553,7 @@
         icelst0=[];
         if(오토) tcheck=[0,0,0,0,0]
         cubes.length=5;
+        maxnow=0;
         resetting(stack, function(object) { //재시작
             msetting1(function(object) {
                 if(gamemod!=2){
@@ -13183,7 +13194,6 @@
         let deltaTime = currentTime - lastTime;
 
 
-
         let deltaTime2= elapsedTime - lastTime2;
 
 
@@ -13191,6 +13201,7 @@
 
         if (startflag&&!gameoverflag) { //스타트
             window.cubes=cubes
+
 
 
             if(tutorialflag){
@@ -14718,7 +14729,7 @@
                   2*(bw * 2 ),
               );
               if(gamemod==2) {
-                camera.position.y= 2*(bh * (5*0.5+3))
+                if(!m2flag)camera.position.y= 2*(bh * (5*0.5+3))
               }
             }else{
               if(onceflag1){
@@ -14807,7 +14818,7 @@
               if(gamemod!=2){
                 camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
               }else{
-                camera.position.y=2*(bh * ((5)*0.5+3))+(-isoAngle - camera.rotation.x)*30
+                if(!m2flag)camera.position.y=2*(bh * ((5)*0.5+3))+(-isoAngle - camera.rotation.x)*30
               }
                 // camera.rotation.x -= Math.PI / 256
                 camera.rotation.x -= deltaTime / 1200
@@ -15464,6 +15475,7 @@
                             item.body.boardpointer[item.c][item.d].userData["time"] = elapsedTime;
                             item.body.boardpointer[item.c][item.d].userData["skin"] = "tile";
                             item.body.boardpointer[item.c][item.d].userData["merge"] = 1;
+                            item.body.boardpointer[item.c][item.d].userData["number"] = num;
                             const color = getColorForNumber(num);
                             var tile = item.body.boardpointer[item.c][item.d];
                             if (tile.material.color.getHex() !== color) {
@@ -15541,34 +15553,14 @@
 
                               // console.log(sdic)
                               // var tnum=Math.pow(2, (cubes.length-3))
-                              if(num==stacknum[activeFloor]&&activeFloor==cubes.length-1&&!m2flag){
+
+                              if(num==stacknum[activeFloor]&&activeFloor==cubes.length-1&&!m2flag&&!빌더){
                                 console.log(activeFloor)
                                 if(tutorialflag&&tutstep==23){
                                   tutstep++;
                                   tempseq=elapsedTime;
                                 }
 
-
-                                // if(activeFloor==5){
-                                //   freeze(activeFloor, 1)
-                                // }else if(activeFloor==7){
-                                //   freeze(activeFloor, 2)
-                                // }else if(activeFloor==9){
-                                //   freeze(activeFloor, 3)
-                                // }else if(activeFloor==11){
-                                //   freeze(activeFloor, 4)
-                                // }
-
-                                // if(activeFloor==17){
-                                //   freeze(activeFloor, 1)
-                                // }else if(activeFloor==28){
-                                //   freeze(activeFloor, 2)
-                                // }else if(activeFloor==43){
-                                //   freeze(activeFloor, 3)
-                                // }else if(activeFloor==54){
-                                //   freeze(activeFloor, 4)
-                                // }
-                                // sdic.push(nslst[templst[activeFloor+2]])
                                 msetting2(cubes.length+0, function(object) {
                                   // document.getElementById("intro").classList.add("fade");
                                   const game2048 = new Game2048(칸, cubes.length);
@@ -16146,11 +16138,9 @@
 
         if(m2flag){
           timebuf=-1
-          var posy=camera.position.y
           if(elapsedTime - stacktime <= 0.35){
-
             if(!m2once){
-
+              posy=camera.position.y
               cubes[cubes.length-2].mesh.children.forEach((item, i) => {
                 if(item.userData["skintype"]=="top"){
                   cubes[cubes.length-2].mesh.remove(item)
@@ -16166,6 +16156,18 @@
               });
               m2once=true;
             }
+
+            camera.position.y=posy+((elapsedTime - stacktime)/0.35)*bh
+            시간.forEach((item) => {
+              if(gamemod==2){
+                item.position.y = (cubes.length-4) * bh +((elapsedTime - stacktime)/0.35)*bh
+              }
+            })
+            포인트.forEach((item) => {
+              if(gamemod==2){
+                item.position.y = (cubes.length-4) * bh +((elapsedTime - stacktime)/0.35)*bh
+              }
+            })
 
 
             if(skinset[skinnum]=="classic"){
@@ -16320,7 +16322,7 @@
 
 
         }
-
+        //스케일
         if (elapsedTime - atchanged > 0 && elapsedTime - atchanged < 0.1) {
             bounceflag = true;
             if (activeFloor != cubes.length) {
@@ -16330,7 +16332,7 @@
                         if (elapsedTime - item.userData.time > 0 && elapsedTime - item.userData.time < 0.1) {
                             item.scale.x = 0.6 + 4 * (elapsedTime - item.userData.time);
                             item.scale.z = 0.6 + 4 * (elapsedTime - item.userData.time);
-                            item.scale.y = 0.5 * Math.cos(2 * 2 * 15.708 * (elapsedTime - item.userData.time)) + 0.4
+                            // item.scale.y = 0.5 * Math.cos(2 * 2 * 15.708 * (elapsedTime - item.userData.time)) + 0.4
                             tscale = item.scale.y
                             // console.log(item.scale.x)
                         }
@@ -16339,7 +16341,7 @@
                         if (elapsedTime - item.userData.time > 0 && elapsedTime - item.userData.time < 0.1) {
                             item.scale.x = 0.7 + 4 * (elapsedTime - item.userData.time);
                             item.scale.z = 0.7 + 4 * (elapsedTime - item.userData.time);
-                            item.scale.y = 0.6 * Math.cos((elapsedTime - item.userData.time)) + 0.3
+                            // item.scale.y = 0.6 * Math.cos((elapsedTime - item.userData.time)) + 0.3
                             tscale = 0.9;
                             // console.log(item.scale.x)
                         }
@@ -16357,11 +16359,11 @@
                     if(item.userData["skintype"]==9){
                       item.scale.x = 0.99
                       item.scale.z = 0.99
-                      item.scale.y = gap
+                      // item.scale.y = gap
                     }else{
                       item.scale.x = 1
                       item.scale.z = 1
-                      item.scale.y = gap
+                      // item.scale.y = gap
                     }
 
                 })
@@ -17135,13 +17137,17 @@
         if (orthoflag && lookcenter&&bf!=activeFloor) {
             if (!gameoverflag) {
                 if (activeFloor == cubes.length) {
-                    camera.position.set(
-                        2*(bw * 2 )+ avx,
-                        // cubes[cubes.length-1].mesh.position.y+bh*5,
-                        2*(bh * (cubes.length + 2)),
-                        2*(bw * 2 )+ avz,
-                    );
-                    if(gamemod==2) {
+                    camera.position.x=2*(bw * 2 )+ avx
+                    camera.position.z=2*(bw * 2 )+ avz
+
+                    // camera.position.set(
+                    //     2*(bw * 2 )+ avx,
+                    //     // cubes[cubes.length-1].mesh.position.y+bh*5,
+                    //     2*(bh * (cubes.length + 2)),
+                    //     2*(bw * 2 )+ avz,
+                    // );
+                    if(gamemod==2&&!m2flag) {
+
                       camera.position.y= 2*(bh * ((cubes.length)*0.5+3))
                     }
 
@@ -17232,15 +17238,19 @@
                     for (var i = 0; i < cubes.length; i++) {
 
                         if (i == activeFloor) {
-                            camera.position.set(
-                                2*(bw * 2 )+ avx,
-                                // cubes[cubes.length-1].mesh.position.y+(i-3)*bh,
-                                // cubes[cubes.length-1].mesh.position.y+bh*5,
-                                2*(bh * (cubes.length + 2)),
-                                2*(bw * 2 )+ avz
-                            );
-                            if(gamemod==2) camera.position.y=2*(bh * ((cubes.length)*0.5+3))
+                          camera.position.x=2*(bw * 2 )+ avx
+                          camera.position.z=2*(bw * 2 )+ avz
 
+                          // camera.position.set(
+                          //     2*(bw * 2 )+ avx,
+                          //     // cubes[cubes.length-1].mesh.position.y+bh*5,
+                          //     2*(bh * (cubes.length + 2)),
+                          //     2*(bw * 2 )+ avz,
+                          // );
+                          if(gamemod==2&&!m2flag) {
+
+                            camera.position.y= 2*(bh * ((cubes.length)*0.5+3))
+                          }
 
 
 
@@ -18029,14 +18039,14 @@
             // }
             if(fullcam){
               if(gamemod==2){
-                camera.position.y= 2*(bh * ((cubes.length)*0.5+4))+(-isoAngle - camera.rotation.x)*30
+                if(!m2flag) camera.position.y= 2*(bh * ((cubes.length)*0.5+4))+(-isoAngle - camera.rotation.x)*30
               }else{
                 camera.position.y=2*(bh * (5 + 3))+(-isoAngle - camera.rotation.x)*30
               }
 
             }else{
               if(gamemod==2){
-                camera.position.y= 2*(bh * ((cubes.length)*0.5+3))+(-isoAngle - camera.rotation.x)*30
+                if(!m2flag)camera.position.y= 2*(bh * ((cubes.length)*0.5+3))+(-isoAngle - camera.rotation.x)*30
               }else{
                 camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
               }
@@ -19068,6 +19078,104 @@
       }
 
 
+    }
+
+    function on(n){
+      for (let row = 0; row < 4; row++) {
+          for (let col = 0; col < 4; col++) {
+            if(cubes[cubes.length-1].mesh.userData.game2048.board[row][col]==n){
+              console.log(cubes[cubes.length-1].mesh.userData.game2048.boardpointer[row][col]);
+              cubes[cubes.length-1].mesh.userData.game2048.boardpointer[row][col].scale.y=2;
+              cubes[cubes.length-1].mesh.userData.game2048.boardpointer[row][col].children[0].scale.z=2;
+            }
+          }
+      }
+
+    }
+
+    window.on=on;
+
+    function up(n){
+      if(!m2flag){
+        msetting2(cubes.length+0, function(object) {
+          // document.getElementById("intro").classList.add("fade");
+          const game2048 = new Game2048(칸, cubes.length);
+
+          var overcount=0;
+          for (var i = 3; i < cubes.length; i++) {
+            if(!cubes[i].mesh.userData.bye){
+              overcount++;
+            }
+
+          }
+          cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (overcount) * bh+bh, cubes[cubes.length-1].mesh.position.z, bw, bh, bw, game2048, cubes.length, true));
+          cubes[activeFloor+1].mesh.quaternion.copy(cubes[activeFloor].mesh.quaternion);
+          cubes[activeFloor+1].body.quaternion.copy(cubes[activeFloor].body.quaternion);
+
+          // cubes[activeFloor+1].body.fixedRotation=true;
+
+          cubes[activeFloor+1].mesh.userData.body = cubes[activeFloor+1].body;
+          cubes[activeFloor+1].mesh.userData.game2048 = game2048
+          cubes[activeFloor+1].mesh.userData.pin=false;
+          cubes[activeFloor+1].mesh.userData.constraint=[];
+          cubes[activeFloor+1].mesh.userData.ice=false;
+          cubes[activeFloor+1].mesh.userData.bye=false;
+          cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
+          cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
+          activeFloor=cubes.length;
+          stacktime=elapsedTime;
+
+          // var camval=0
+          // cubes.forEach((item) => {
+          //   if(item.body.sleepState!=2) camval++
+          // });
+          //
+          // console.log(camval)
+
+          var camval=cubes.length-icecount
+          if(camval>17){
+            camval=17;
+          }
+          if((window.innerWidth / window.innerHeight) > 4/7){
+            camera.left = -bw * 1.8-(camval)/4;
+            camera.right = bw * 1.8 * 4+(camval);
+            camera.top = bw * 1.8+(camval)/4;
+            camera.bottom = -bw * 1.8 * 4-(camval);
+          }else{
+            if(!fullcam){
+              camera.left = -bw * 1.3-(camval)/4;
+              camera.right = bw * 1.3 * 4+(camval);
+              camera.top = bw * 1.3+(camval)/4;
+              camera.bottom = -bw * 1.3 * 4-(camval);
+            }else{
+              camera.left = -bw * 1.1-(camval-3)/4;
+              camera.right = bw * 1.1 * 4+(camval-3)
+              camera.top = bw * 1.1+(camval-3)/4
+              camera.bottom = -bw * 1.1 * 4-(camval-3)
+
+              // camera.left-=0.25
+              // camera.right+=1
+              // camera.top+=0.25
+              // camera.bottom-=1
+            }
+          }
+
+
+
+          camera.near = 0.01;
+          camera.far = 1000;
+          camera.lookAt.x=0
+          camera.lookAt.z=0
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+        })
+        // console.log(sdic);
+        // console.log(txtlst);
+        // dl2.position.y=50+((cubes.length-3) * bh)
+        // dl2.shadow.camera.position.y= bh * (cubes.length)
+
+      }
     }
 
     window.freeze=freeze;
@@ -24691,7 +24799,6 @@
                     gridlst[2 + i].children[2].style.fontSize="2vmin";
                     gridlst[2 + i].children[4].style.display="none";
                     gridlst[2 + i].children[2].style.color="white";
-
                 } else {
                     gridlst[2 + i].children[2].style.color="black";
                     gridlst[2 + i].children[2].style.fontSize="2vmin";
