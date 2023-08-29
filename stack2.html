@@ -5604,7 +5604,7 @@
                   if(superflag){
                     force2.set(-25000,0,0)
                   }else{
-                    force2.set(-3000,0,0)
+                    force2.set(-3500,0,0)
 
                   }
                   이펙트2(itemidx, 128, "left", 0);
@@ -5613,7 +5613,7 @@
                   if(superflag){
                     force2.set(0,0,-25000)
                   }else{
-                    force2.set(0,0,-3000)
+                    force2.set(0,0,-3500)
                   }
 
                   이펙트2(itemidx, 128, "up", 0);
@@ -5659,7 +5659,7 @@
                   if(superflag){
                     force2.set(25000,0,0)
                   }else{
-                    force2.set(3000,0,0)
+                    force2.set(3500,0,0)
                   }
 
                   이펙트2(itemidx, 128, "right");
@@ -5667,7 +5667,7 @@
                   if(superflag){
                     force2.set(0,0,25000)
                   }else{
-                    force2.set(0,0,3000)
+                    force2.set(0,0,3500)
                   }
 
                   이펙트2(itemidx, 128, "down");
@@ -7867,6 +7867,7 @@
                       sboard("CgkI3OzStdEUEAIQEQ")
                     }
                     addring();
+                    document.getElementById("intro").children[2].style.display=""
 
 
 
@@ -12298,69 +12299,71 @@
 
 
 
-        for (var j = 0; j < 5; j++) {
-            var temp = [];
-            // var text = "재생 중: " + sdic[j][0].substring(0, sdic[j][0].length - 4) + " "
-            var text = textdic[87][langset[langnum]]+" " + sdic[j][0].substring(0, sdic[j][0].length - 4) + " "
-            for (var i = 0; i < 100; i++) {
-                var canvas = document.createElement('canvas');
-                var ctx = canvas.getContext('2d');
-                // const padding = 10;
-                ctx.globalAlpha = 1;
-                canvas.width = 16.5 * 6;
-                canvas.height = 5.6 * 6;
-                var tl = text.length;
-                var textw = tl * (canvas.width / 10);
-                // ctx.fillStyle = 0xFFFFFF;
-                // ctx.fillRect(0, 0, canvas.width, canvas.height);
-                // if(langnum==0||langnum==3||langnum==4||langnum==8||langnum==9||langnum==11||langnum==19||langnum==21||langnum==23||langnum==25||langnum==28||langnum==33||langnum==35||langnum==37||langnum==39){
-                //   ctx.font = `${14}px `+"GG";
-                // }else if(langnum==1){
-                //   ctx.font = `${14}px `+"mono";
-                // }else if(langnum==2){
-                //   ctx.font = `${14}px `+"nsjp";
-                // }else if(langnum==5){
-                //   ctx.font = `${14}px `+"nssc";
-                // }else if(langnum==6){
-                //   ctx.font = `${14}px `+"nstc";
-                // }else if(langnum==13||langnum==22||langnum==29){
-                //   ctx.font = `${14}px `+"nsar";
-                // }else if(langnum==16){
-                //   ctx.font = `${14}px `+"nsth";
-                // }else if(langnum==30){
-                //   ctx.font = `${14}px `+"nsmy";
-                // }else if(langnum==34){
-                //   ctx.font = `${14}px `+"nsbn";
-                // }else if(langnum==36){
-                //   ctx.font = `${14}px `+"nshb";
-                // }else{
-                //   ctx.font = `${14}px `+"ns";
-                // }
-                  // ctx.font = `${14}px `+"ns";
+        // for (var j = 0; j < 5; j++) {
+        //     var temp = [];
+        //     // var text = "재생 중: " + sdic[j][0].substring(0, sdic[j][0].length - 4) + " "
+        //     var text = textdic[87][langset[langnum]]+" " + sdic[j][0].substring(0, sdic[j][0].length - 4) + " "
+        //     for (var i = 0; i < 100; i++) {
+        //         var canvas = document.createElement('canvas');
+        //         var ctx = canvas.getContext('2d');
+        //         // const padding = 10;
+        //         ctx.globalAlpha = 1;
+        //         canvas.width = 16.5 * 6;
+        //         canvas.height = 5.6 * 6;
+        //         var tl = text.length;
+        //         var textw = tl * (canvas.width / 10);
+        //         // ctx.fillStyle = 0xFFFFFF;
+        //         // ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //         // if(langnum==0||langnum==3||langnum==4||langnum==8||langnum==9||langnum==11||langnum==19||langnum==21||langnum==23||langnum==25||langnum==28||langnum==33||langnum==35||langnum==37||langnum==39){
+        //         //   ctx.font = `${14}px `+"GG";
+        //         // }else if(langnum==1){
+        //         //   ctx.font = `${14}px `+"mono";
+        //         // }else if(langnum==2){
+        //         //   ctx.font = `${14}px `+"nsjp";
+        //         // }else if(langnum==5){
+        //         //   ctx.font = `${14}px `+"nssc";
+        //         // }else if(langnum==6){
+        //         //   ctx.font = `${14}px `+"nstc";
+        //         // }else if(langnum==13||langnum==22||langnum==29){
+        //         //   ctx.font = `${14}px `+"nsar";
+        //         // }else if(langnum==16){
+        //         //   ctx.font = `${14}px `+"nsth";
+        //         // }else if(langnum==30){
+        //         //   ctx.font = `${14}px `+"nsmy";
+        //         // }else if(langnum==34){
+        //         //   ctx.font = `${14}px `+"nsbn";
+        //         // }else if(langnum==36){
+        //         //   ctx.font = `${14}px `+"nshb";
+        //         // }else{
+        //         //   ctx.font = `${14}px `+"ns";
+        //         // }
+        //           // ctx.font = `${14}px `+"ns";
+        //
+        //         // ctx.fillStyle = 0x009F4D;
+        //         ctx.font = `${14}px Arial`;
+        //         ctx.fillStyle = 0xFFFFFF;
+        //         // // ctx.fillText(text, padding, padding + textHeight * 0.8);
+        //         ctx.fillText(text, 0 - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
+        //         ctx.fillText(text, textw - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
+        //         ctx.font = `${7}px Arial`;
+        //         ctx.fillText("  "+sdic[j]["producer"], 0, canvas.height * 0.35, canvas.width / 2.5, canvas.height);
+        //         // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
+        //         var img3 = new THREE.CanvasTexture(canvas);
+        //         var material5 = new THREE.MeshLambertMaterial({
+        //             map: img3,
+        //             side: THREE.DoubleSide,
+        //             transparent: true,
+        //             opacity: 1
+        //         });
+        //         // var plane = new THREE.Mesh(geometry5, material5);
+        //         // plane.position.set(bw, bw, bw)
+        //         // plane.rotation.y=Math.PI/2
+        //         temp.push(material5);
+        //     }
+        //     txtlst.push(temp);
+        // }
 
-                // ctx.fillStyle = 0x009F4D;
-                ctx.font = `${14}px Arial`;
-                ctx.fillStyle = 0xFFFFFF;
-                // // ctx.fillText(text, padding, padding + textHeight * 0.8);
-                ctx.fillText(text, 0 - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
-                ctx.fillText(text, textw - (i) * (textw / 100), canvas.height * 0.8, textw, canvas.height);
-                ctx.font = `${7}px Arial`;
-                ctx.fillText("  "+sdic[j]["producer"], 0, canvas.height * 0.35, canvas.width / 2.5, canvas.height);
-                // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
-                var img3 = new THREE.CanvasTexture(canvas);
-                var material5 = new THREE.MeshLambertMaterial({
-                    map: img3,
-                    side: THREE.DoubleSide,
-                    transparent: true,
-                    opacity: 1
-                });
-                // var plane = new THREE.Mesh(geometry5, material5);
-                // plane.position.set(bw, bw, bw)
-                // plane.rotation.y=Math.PI/2
-                temp.push(material5);
-            }
-            txtlst.push(temp);
-        }
+
         if (callback) {
             callback();
         }
@@ -13398,6 +13401,7 @@
                                   // document.getElementById("coin2").innerText=String(freead);
                                 }
                                   setTimeout(function() {
+                                      document.getElementById("intro").children[2].style.display="none"
                                       document.getElementById("intro").children[2].style.opacity="0.8";
                                       goahead=true;
 
@@ -19673,7 +19677,7 @@
             var 기준=1;
             if(combo==0){
               setTimeout(function() {
-                if(parseInt(Math.random()*4)%4==0){
+                if(parseInt(Math.random()*4)%3==0){
                   getitem(0)
                 }
               }, 400);
@@ -19681,7 +19685,7 @@
               기준=1
             }else if(combo==1){
               setTimeout(function() {
-                if(parseInt(Math.random()*4)%4==0){
+                if(parseInt(Math.random()*4)%3==0){
                   getitem(0)
                 }
               }, 400);
@@ -19689,7 +19693,7 @@
               기준=1
             }else if(combo==2){
               setTimeout(function() {
-                if(parseInt(Math.random()*3)%3==0){
+                if(parseInt(Math.random()*3)%2==0){
                   getitem(0)
                 }
               }, 400);
@@ -19697,7 +19701,7 @@
               기준=1
             }else if(combo==3){
               setTimeout(function() {
-                if(parseInt(Math.random()*3)%3==0){
+                if(parseInt(Math.random()*3)%2==0){
                   getitem(0)
                 }
               }, 400);
@@ -19705,9 +19709,9 @@
               기준=1.15
             }else if(combo==4){
               setTimeout(function() {
-                if(parseInt(Math.random()*2)%2==0){
+
                   getitem(0)
-                }
+
               }, 400);
               soundic[sdic[3][256]].play()
               기준=1.2
@@ -19733,7 +19737,7 @@
           }else{
             combo=0
             setTimeout(function() {
-              if(parseInt(Math.random()*6)%6==0){
+              if(parseInt(Math.random()*5)%5==0){
                 getitem(0)
               }
             }, 400);
