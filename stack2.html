@@ -2145,6 +2145,61 @@
             z-index: 2;
         }
 
+        .top-container{
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: center;
+          position: absolute;
+          border: none;
+          background-color: transparent;
+          /* background-image: url("png/green_button09.png"); */
+          /* background-size: 6vmax 4vmax;
+           */
+           opacity: 0.8;
+          top: 1vmin;
+          left: -8%;
+          width: 70vmin;
+          height: 25vmin;
+          z-index: 2;
+        }
+
+        .cell{
+          align-items: center;
+          border: 1.3vmin solid #FFF;
+          border-radius: 11vmin;
+          width: 11vmin;
+          height: 11vmin;
+          margin-left: 0.7vmin;
+          justify-content: center;
+
+        }
+
+        .cell img{
+          height: 7vmin;
+          /* height: 12vmin; */
+
+        }
+
+        #top3{
+          align-items: center;
+          border: 1.3vmin solid #FFF;
+          border-radius: 18vmin;
+          width: 18vmin;
+          height: 18vmin;
+          margin-left: 0.7vmin;
+          justify-content: center;
+
+        }
+
+        #top3 img{
+          height: 15vmin;
+          /* height: 12vmin; */
+
+        }
+
+
+
         .center {
             position: absolute;
             border: none;
@@ -2383,28 +2438,29 @@
             border:5vmax rgba(50, 50, 50, 0.8);
             /* background-image: url("png/green_button09.png"); */
             /* background-size: 6vmax 4vmax; */
-            top: 17.5vh;
-            left: -14vh;
+            /* top: 17.5vh; */
+            top: 55vh;
+            right: -14vh;
             width: 14vh;
-            height: 10vh;
+            height: 12vh;
             z-index: 1;
-            transition: left 0.4s;
+            transition: right 0.4s;
             text-align: center;
 
         }
 
         .hammer img{
             position: relative;
-            left:37%;
+            right:28%;
             bottom:0%;
             /* width: 5vmax; */
-            height: 5vh;
+            height: 7vh;
             z-index: 3;
         }
 
         .hammer div{
           position: relative;
-          left:38.5%;
+          right:38.5%;
           font-family: 'GG';
           font-size: 2.5vh;
             /* left:37%;
@@ -2531,6 +2587,8 @@
             z-index: 3; */
             z-index: 3;
         }
+
+
 
         .right {
             position: absolute;
@@ -2932,6 +2990,15 @@
 
     var stacktime;
 
+    var itemlst=[];
+
+    var itemfull=false;
+    var 득템=false;
+    var temtime=0;
+
+    var 높이1=5
+    var 높이0=2;
+
     var 투시=false;
 
     var axis=[];
@@ -2963,11 +3030,11 @@
 
     var itemuse=false;
     var itemuse0=false;
+    var itemuse2=false;
     var itemtime=0;
     var uselst=[];
 
-
-    var 무게=4;
+    var 무게=5;
     var 해머=0
     var 뻥=0
 
@@ -2989,8 +3056,8 @@
     var 바=400;
     var 필=0;
 
-    var itemleft="-9vh"
-    var itemleft1="-8vh"
+    var itemleft="-6vh"
+    var itemleft1="-5vh"
 
 
     var pshift=[1,1.1,1.2,1.25,1.3,1.325,1.35,1.325,1.3,1.275,1.25,1.225,1.2,1.15,1.1,1.075,1.05]
@@ -3145,7 +3212,8 @@
     var stackHeight;
     var 칸 = 4;
     var bw = 40 / 3
-    var bh = 5 / 1.3
+    // var bh = 5 / 1.3
+    var bh = 5 / 1.5
     // var bw=14
     // var bh=4
     var tw = bw / 칸
@@ -4748,152 +4816,180 @@
           // return;
         }
 
-        if(lastX<-0.65){
-          if(lastY>0.70&&lastY<0.9){
-            if(뻥>0){
-              pung=true;
-              hammer=false;
-              ice=false;
+        if(lastX>0.65){
+          // if(lastY>0.70&&lastY<0.9){
+          //   if(뻥>0){
+          //     pung=true;
+          //     hammer=false;
+          //     ice=false;
+          //     itemflag=true;
+          //     pin=false;
+          //     bridge=false;
+          //     // 뻥--;
+          //     if(lastX<-0.75){
+          //       뻥--;
+          //     }else{
+          //       if(뻥>2){
+          //         뻥-=3;
+          //         superflag=true;
+          //       }else{
+          //         return;
+          //       }
+          //     }
+          //
+          //     // document.getElementById('hammer').children[1].innerText=String(해머)
+          //     // document.getElementById('pung').children[1].innerText=String(뻥)
+          //     // document.getElementById('ice').children[1].innerText=String(얼음)
+          //     // document.getElementById('pin').children[1].innerText=String(핀)
+          //     // document.getElementById('bridge').children[1].innerText=String(다리)
+          //     if(topcam){
+          //       draw=true;
+          //       drawcount=elapsedTime;
+          //     }
+          //     return;
+          //   }else{
+          //     return;
+          //   }
+          //
+          //   return;
+          // }else if(lastY>0.45&&lastY<0.65){
+          //   if(해머>0){
+          //     pung=false;
+          //     ice=false;
+          //     hammer=true;
+          //     itemflag=true;
+          //     pin=false;
+          //     bridge=false;
+          //       // 해머--;
+          //     if(lastX<-0.75){
+          //       해머--;
+          //     }else{
+          //       if(해머>2){
+          //         해머-=3;
+          //         superflag=true;
+          //       }else{
+          //         return;
+          //       }
+          //     }
+          //     // document.getElementById('hammer').children[1].innerText=String(해머)
+          //     // document.getElementById('pung').children[1].innerText=String(뻥)
+          //     // document.getElementById('ice').children[1].innerText=String(얼음)
+          //     // document.getElementById('pin').children[1].innerText=String(핀)
+          //     // document.getElementById('bridge').children[1].innerText=String(다리)
+          //     if(topcam){
+          //       draw=true;
+          //       drawcount=elapsedTime;
+          //     }
+          //     return;
+          //
+          //   }else{
+          //     return;
+          //   }
+          //
+          // }else if(lastY>0.2&&lastY<0.4){
+          //   if(얼음>0){
+          //     pung=false;
+          //     hammer=false;
+          //     ice=true;
+          //     itemflag=true;
+          //     pin=false;
+          //     bridge=false;
+          //       얼음--;
+          //
+          //     // if(lastX<-0.8){
+          //     //   얼음--;
+          //     // }else{
+          //     //   if(얼음>2){
+          //     //     얼음-=3;
+          //     //     superflag=true;
+          //     //   }else{
+          //     //     return;
+          //     //   }
+          //     // }
+          //     // document.getElementById('hammer').children[1].innerText=String(해머)
+          //     // document.getElementById('pung').children[1].innerText=String(뻥)
+          //     // document.getElementById('ice').children[1].innerText=String(얼음)
+          //     // document.getElementById('pin').children[1].innerText=String(핀)
+          //     // document.getElementById('bridge').children[1].innerText=String(다리)
+          //     if(topcam){
+          //       draw=true;
+          //       drawcount=elapsedTime;
+          //     }
+          //     return;
+          //   }else{
+          //     return;
+          //   }
+          //
+          // }else if(lastY>-0.05&&lastY<0.15){
+          //   if(핀>0){
+          //     pung=false;
+          //     hammer=false;
+          //     ice=false;
+          //     pin=true;
+          //     bridge=false;
+          //     itemflag=true;
+          //       핀--;
+          //     // if(lastX<-0.8){
+          //     //   핀--;
+          //     // }else{
+          //     //   if(핀>2){
+          //     //     핀-=3;
+          //     //     superflag=true;
+          //     //   }else{
+          //     //     return;
+          //     //   }
+          //     // }
+          //     // document.getElementById('hammer').children[1].innerText=String(해머)
+          //     // temtime
+          //     // document.getElementById('ice').children[1].innerText=String(얼음)
+          //     // document.getElementById('pin').children[1].innerText=String(핀)
+          //     // document.getElementById('bridge').children[1].innerText=String(다리)
+          //     if(topcam){
+          //       draw=true;
+          //       drawcount=elapsedTime;
+          //     }
+          //     return;
+          //   }else{
+          //     return;
+          //   }
+          //
+          // }else
+          if(lastY>-0.4&&lastY<-0.00){
+            if(itemlst.length>0){
+              if(itemlst[0]==0){
+                pung=true;
+                hammer=false;
+                ice=false;
+                pin=false;
+                bridge=false;
+              }else if(itemlst[0]==1){
+                pung=false;
+                hammer=true;
+                ice=false;
+                pin=false;
+                bridge=false;
+              }else if(itemlst[0]==2){
+                pung=false;
+                hammer=false;
+                ice=true;
+                pin=false;
+                bridge=false;
+              }else if(itemlst[0]==3){
+                pung=false;
+                hammer=false;
+                ice=false;
+                pin=true;
+                bridge=false;
+              }else if(itemlst[0]==4){
+                pung=false;
+                hammer=false;
+                ice=false;
+                pin=false;
+                bridge=true;
+              }
+
               itemflag=true;
-              pin=false;
-              bridge=false;
-              // 뻥--;
-              if(lastX<-0.75){
-                뻥--;
-              }else{
-                if(뻥>2){
-                  뻥-=3;
-                  superflag=true;
-                }else{
-                  return;
-                }
-              }
-
-              document.getElementById('hammer').children[1].innerText=String(해머)
-              document.getElementById('pung').children[1].innerText=String(뻥)
-              document.getElementById('ice').children[1].innerText=String(얼음)
-              document.getElementById('pin').children[1].innerText=String(핀)
-              document.getElementById('bridge').children[1].innerText=String(다리)
-              if(topcam){
-                draw=true;
-                drawcount=elapsedTime;
-              }
-              return;
-            }else{
-              return;
-            }
-
-            return;
-          }else if(lastY>0.45&&lastY<0.65){
-            if(해머>0){
-              pung=false;
-              ice=false;
-              hammer=true;
-              itemflag=true;
-              pin=false;
-              bridge=false;
-                // 해머--;
-              if(lastX<-0.75){
-                해머--;
-              }else{
-                if(해머>2){
-                  해머-=3;
-                  superflag=true;
-                }else{
-                  return;
-                }
-              }
-              document.getElementById('hammer').children[1].innerText=String(해머)
-              document.getElementById('pung').children[1].innerText=String(뻥)
-              document.getElementById('ice').children[1].innerText=String(얼음)
-              document.getElementById('pin').children[1].innerText=String(핀)
-              document.getElementById('bridge').children[1].innerText=String(다리)
-              if(topcam){
-                draw=true;
-                drawcount=elapsedTime;
-              }
-              return;
-
-            }else{
-              return;
-            }
-
-          }else if(lastY>0.2&&lastY<0.4){
-            if(얼음>0){
-              pung=false;
-              hammer=false;
-              ice=true;
-              itemflag=true;
-              pin=false;
-              bridge=false;
-                얼음--;
-
-              // if(lastX<-0.8){
-              //   얼음--;
-              // }else{
-              //   if(얼음>2){
-              //     얼음-=3;
-              //     superflag=true;
-              //   }else{
-              //     return;
-              //   }
-              // }
-              document.getElementById('hammer').children[1].innerText=String(해머)
-              document.getElementById('pung').children[1].innerText=String(뻥)
-              document.getElementById('ice').children[1].innerText=String(얼음)
-              document.getElementById('pin').children[1].innerText=String(핀)
-              document.getElementById('bridge').children[1].innerText=String(다리)
-              if(topcam){
-                draw=true;
-                drawcount=elapsedTime;
-              }
-              return;
-            }else{
-              return;
-            }
-
-          }else if(lastY>-0.05&&lastY<0.15){
-            if(핀>0){
-              pung=false;
-              hammer=false;
-              ice=false;
-              pin=true;
-              bridge=false;
-              itemflag=true;
-                핀--;
-              // if(lastX<-0.8){
-              //   핀--;
-              // }else{
-              //   if(핀>2){
-              //     핀-=3;
-              //     superflag=true;
-              //   }else{
-              //     return;
-              //   }
-              // }
-              document.getElementById('hammer').children[1].innerText=String(해머)
-              document.getElementById('pung').children[1].innerText=String(뻥)
-              document.getElementById('ice').children[1].innerText=String(얼음)
-              document.getElementById('pin').children[1].innerText=String(핀)
-              document.getElementById('bridge').children[1].innerText=String(다리)
-              if(topcam){
-                draw=true;
-                drawcount=elapsedTime;
-              }
-              return;
-            }else{
-              return;
-            }
-
-          }else if(lastY>-0.3&&lastY<-0.1){
-            if(다리>0){
-              pung=false;
-              hammer=false;
-              ice=false;
-              pin=false;
-              bridge=true;
-              itemflag=true;
-              다리--;
+              // 다리--;
               // if(lastX<-0.8){
               //   다리--;
               // }else{
@@ -4904,11 +5000,11 @@
               //     return;
               //   }
               // }
-              document.getElementById('hammer').children[1].innerText=String(해머)
-              document.getElementById('pung').children[1].innerText=String(뻥)
-              document.getElementById('ice').children[1].innerText=String(얼음)
-              document.getElementById('pin').children[1].innerText=String(핀)
-              document.getElementById('bridge').children[1].innerText=String(다리)
+              // document.getElementById('hammer').children[1].innerText=String(해머)
+              // document.getElementById('pung').children[1].innerText=String(뻥)
+              // document.getElementById('ice').children[1].innerText=String(얼음)
+              // document.getElementById('pin').children[1].innerText=String(핀)
+              // document.getElementById('bridge').children[1].innerText=String(다리)
               if(topcam){
                 draw=true;
                 drawcount=elapsedTime;
@@ -5148,6 +5244,10 @@
         if(itemflag){
           if(!itemdrag){
             itemdrag=true;
+            document.getElementById('hammer').style.right=itemleft1
+            setTimeout(function() {
+                document.getElementById('hammer').style.right=itemleft
+            }, 400);
             if(hammer){
               // if(해머<=0) {
               //   itemdrag=false;
@@ -5158,10 +5258,10 @@
 
 
 
-              document.getElementById('hammer').style.left=itemleft1
-              setTimeout(function() {
-                  document.getElementById('hammer').style.left=itemleft
-              }, 400);
+              // document.getElementById('hammer').style.left=itemleft1
+              // setTimeout(function() {
+              //     document.getElementById('hammer').style.left=itemleft
+              // }, 400);
             }else if(pung){
 
               // if(뻥<=0) {
@@ -5170,10 +5270,11 @@
               //   pung=false;
               //   return;
               // }
-              document.getElementById('pung').style.left=itemleft1
-              setTimeout(function() {
-                  document.getElementById('pung').style.left=itemleft
-              }, 400);
+
+              // document.getElementById('pung').style.left=itemleft1
+              // setTimeout(function() {
+              //     document.getElementById('pung').style.left=itemleft
+              // }, 400);
             }else if(ice){
 
               // if(뻥<=0) {
@@ -5182,10 +5283,11 @@
               //   pung=false;
               //   return;
               // }
-              document.getElementById('ice').style.left=itemleft1
-              setTimeout(function() {
-                  document.getElementById('ice').style.left=itemleft
-              }, 400);
+
+              // document.getElementById('ice').style.left=itemleft1
+              // setTimeout(function() {
+              //     document.getElementById('ice').style.left=itemleft
+              // }, 400);
             }else if(pin){
 
               // if(뻥<=0) {
@@ -5194,10 +5296,11 @@
               //   pung=false;
               //   return;
               // }
-              document.getElementById('pin').style.left=itemleft1
-              setTimeout(function() {
-                  document.getElementById('pin').style.left=itemleft
-              }, 400);
+
+              // document.getElementById('pin').style.left=itemleft1
+              // setTimeout(function() {
+              //     document.getElementById('pin').style.left=itemleft
+              // }, 400);
             }else if(bridge){
 
               // if(뻥<=0) {
@@ -5206,10 +5309,11 @@
               //   pung=false;
               //   return;
               // }
-              document.getElementById('bridge').style.left=itemleft1
-              setTimeout(function() {
-                  document.getElementById('bridge').style.left=itemleft
-              }, 400);
+
+              // document.getElementById('bridge').style.left=itemleft1
+              // setTimeout(function() {
+              //     document.getElementById('bridge').style.left=itemleft
+              // }, 400);
             }
 
 
@@ -5514,8 +5618,12 @@
 
                   이펙트2(itemidx, 128, "up", 0);
                 }
+                itemlst.splice(0,1)
+                itemuse2=true;
+                itemtime=elapsedTime
+                document.getElementById('hammer').style.right="-13.3vh"
                 setTimeout(function() {
-                    if(해머<=0) document.getElementById('hammer').style.left="-13.3vh"
+                    itemupdate();
                 }, 400);
 
 
@@ -5564,8 +5672,13 @@
 
                   이펙트2(itemidx, 128, "down");
                 }
+
+                itemlst.splice(0,1)
+                itemuse2=true;
+                itemtime=elapsedTime
+                document.getElementById('hammer').style.right="-13.3vh"
                 setTimeout(function() {
-                      if(뻥<=0)  document.getElementById('pung').style.left="-13.3vh"
+                    itemupdate();
                 }, 400);
                 let quaternion = new CANNON.Quaternion();
                 quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[itemidx].mesh.rotation.y);
@@ -5641,8 +5754,12 @@
 
                 });
                 icecount+=tc;
+                itemlst.splice(0,1)
+                itemuse2=true;
+                itemtime=elapsedTime
+                document.getElementById('hammer').style.right="-13.3vh"
                 setTimeout(function() {
-                      if(얼음<=0)  document.getElementById('ice').style.left="-13.3vh"
+                    itemupdate();
                 }, 400);
 
               }else if(pin&&!cubes[itemidx].mesh.userData.pin){
@@ -5697,8 +5814,12 @@
                 soundic[esound[13]].play();
 
 
+                itemlst.splice(0,1)
+                itemuse2=true;
+                itemtime=elapsedTime
+                document.getElementById('hammer').style.right="-13.3vh"
                 setTimeout(function() {
-                      if(핀<=0)  document.getElementById('pin').style.left="-13.3vh"
+                    itemupdate();
                 }, 400);
 
                 cubes.forEach((item) => {
@@ -5842,11 +5963,11 @@
                           superflag=false
                         }
                       }
-                      document.getElementById('hammer').children[1].innerText=String(해머)
-                      document.getElementById('pung').children[1].innerText=String(뻥)
-                      document.getElementById('ice').children[1].innerText=String(얼음)
-                      document.getElementById('pin').children[1].innerText=String(핀)
-                      document.getElementById('bridge').children[1].innerText=String(다리)
+                      // document.getElementById('hammer').children[1].innerText=String(해머)
+                      // document.getElementById('pung').children[1].innerText=String(뻥)
+                      // document.getElementById('ice').children[1].innerText=String(얼음)
+                      // document.getElementById('pin').children[1].innerText=String(핀)
+                      // document.getElementById('bridge').children[1].innerText=String(다리)
                       cubes.forEach((item,) => {
                         if(!item.mesh.userData.pin){
                           item.mesh.scale.x=1*item.mesh.userData.combo
@@ -5949,8 +6070,12 @@
                     아래층.mesh.userData.constraint.push(constraint2)
                     cubes[itemidx].mesh.userData.constraint.push(constraint1)
                     cubes[itemidx].mesh.userData.constraint.push(constraint2)
+                    itemlst.splice(0,1)
+                    itemuse2=true;
+                    itemtime=elapsedTime
+                    document.getElementById('hammer').style.right="-13.3vh"
                     setTimeout(function() {
-                        if(다리<=0) document.getElementById('bridge').style.left="-13.3vh"
+                        itemupdate();
                     }, 400);
 
                     scene.add(legs[legs.length-1]);
@@ -6027,11 +6152,11 @@
                           superflag=false
                         }
                       }
-                      document.getElementById('hammer').children[1].innerText=String(해머)
-                      document.getElementById('pung').children[1].innerText=String(뻥)
-                      document.getElementById('ice').children[1].innerText=String(얼음)
-                      document.getElementById('pin').children[1].innerText=String(핀)
-                      document.getElementById('bridge').children[1].innerText=String(다리)
+                      // document.getElementById('hammer').children[1].innerText=String(해머)
+                      // document.getElementById('pung').children[1].innerText=String(뻥)
+                      // document.getElementById('ice').children[1].innerText=String(얼음)
+                      // document.getElementById('pin').children[1].innerText=String(핀)
+                      // document.getElementById('bridge').children[1].innerText=String(다리)
                       cubes.forEach((item,) => {
                         if(!item.mesh.userData.pin){
                           item.mesh.scale.x=1*item.mesh.userData.combo
@@ -6138,9 +6263,14 @@
                     아래층.mesh.userData.constraint.push(constraint2)
                     cubes[itemidx].mesh.userData.constraint.push(constraint1)
                     cubes[itemidx].mesh.userData.constraint.push(constraint2)
+                    itemlst.splice(0,1)
+                    itemuse2=true;
+                    itemtime=elapsedTime
+                    document.getElementById('hammer').style.right="-13.3vh"
                     setTimeout(function() {
-                        if(다리<=0) document.getElementById('bridge').style.left="-13.3vh"
+                        itemupdate();
                     }, 400);
+
 
 
                     scene.add(legs[legs.length-1]);
@@ -6210,6 +6340,8 @@
               // }else if(pung){
               //   if(뻥<=0)  document.getElementById('pung').style.left="-13.3vmax"
               // }
+
+              document.getElementById('hammer').style.right="-13.3vh"
 
               itemflag=false;
               itemtouch=false;
@@ -6287,11 +6419,11 @@
                   superflag=false
                 }
               }
-              document.getElementById('hammer').children[1].innerText=String(해머)
-              document.getElementById('pung').children[1].innerText=String(뻥)
-              document.getElementById('ice').children[1].innerText=String(얼음)
-              document.getElementById('pin').children[1].innerText=String(핀)
-              document.getElementById('bridge').children[1].innerText=String(다리)
+              // document.getElementById('hammer').children[1].innerText=String(해머)
+              // document.getElementById('pung').children[1].innerText=String(뻥)
+              // document.getElementById('ice').children[1].innerText=String(얼음)
+              // document.getElementById('pin').children[1].innerText=String(핀)
+              // document.getElementById('bridge').children[1].innerText=String(다리)
               cubes.forEach((item,) => {
                 if(!item.mesh.userData.pin){
                   item.mesh.scale.x=1*item.mesh.userData.combo
@@ -7208,7 +7340,7 @@
           forceAmount = bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 5;
+          world.solver.iterations = 15;
           // world.solver.tolerance = 8
           gap=0.981;
 
@@ -7570,6 +7702,7 @@
         superflag=false;
         itemuse=false;
         itemuse0=false;
+        itemuse2=false;
         itemtime=0;
         uselst=[]
 
@@ -7582,16 +7715,20 @@
         document.getElementById('pgr2').style.color=hexToHtmlColor(colorlst[colornum][2]);
 
 
-        document.getElementById('hammer').children[1].innerText=String(해머)
-        document.getElementById('pung').children[1].innerText=String(뻥)
-        document.getElementById('ice').children[1].innerText=String(얼음)
-        document.getElementById('pin').children[1].innerText=String(핀)
-        document.getElementById('bridge').children[1].innerText=String(다리)
+        // document.getElementById('hammer').children[1].innerText=String(해머)
+        // document.getElementById('pung').children[1].innerText=String(뻥)
+        // document.getElementById('ice').children[1].innerText=String(얼음)
+        // document.getElementById('pin').children[1].innerText=String(핀)
+        // document.getElementById('bridge').children[1].innerText=String(다리)
 
-
+        itemlst=[];
+        itemupdate()
         legs=[];
         icelst0=[];
         guide=[];
+        itemfull=false;
+        득템=false;
+        temtime=0;
         if(오토) tcheck=[0,0,0,0,0]
         cubes.length=5;
         maxnow=0;
@@ -7600,7 +7737,6 @@
             msetting1(function(object) {
                 if(gamemod!=2){
                   cubes.forEach((item) => {
-
                       if(gamemod==4){
                         item.mesh.userData.game2048.spawnTile("up",Math.pow(2, 3+parseInt(Math.random()*4)));
                         item.mesh.userData.game2048.spawnTile("down",Math.pow(2, 2+parseInt(Math.random()*4)));
@@ -12319,19 +12455,20 @@
         //normalize the direction vector (convert to vector of length 1)
         dir.normalize();
         var origin = new THREE.Vector3(0, 0, 0);
-        var length = 500;
-        var hex = colorlst[colornum][1];
+        var length = bh*4;
+        var hex = colorlst[colornum][0];
         var arrowHelper = new THREE.ArrowHelper(dir, origin, length, hex)
         arrowHelper.children.forEach((item) => {
-            item.material.opacity = 0.3;
+            item.material.opacity = 0.4;
             item.material.transparent = true;
             item.material.linewidth = 2
         })
+        arrowHelper.remove(arrowHelper.children[1]);
         // arrowHelper.children[1].computeLineDistances();
         // arrowHelper.geometry.boundingSphere.radius=20
         //애로우
-        // scene.add(arrowHelper);
-        // axis.push(arrowHelper);
+        scene.add(arrowHelper);
+        axis.push(arrowHelper);
 
         if (guideflag) {
             var origin2 = new THREE.Vector3(cubes[0].mesh.position.x - bw / 1.98, 0, cubes[0].mesh.position.z + bw / 1.98);
@@ -14115,38 +14252,37 @@
 
 
 
-
               if(gamemod==2){
-
-                if(해머<=0){
-                  document.getElementById('hammer').style.left="-13.3vh"
-                }else{
-                  document.getElementById('hammer').style.left=itemleft
-                }
-
-                if(뻥<=0){
-                  document.getElementById('pung').style.left="-13.3vh"
-                }else{
-                  document.getElementById('pung').style.left=itemleft
-                }
-
-                if(얼음<=0){
-                  document.getElementById('ice').style.left="-13.3vh"
-                }else{
-                  document.getElementById('ice').style.left=itemleft
-                }
-
-                if(핀<=0){
-                  document.getElementById('pin').style.left="-13.3vh"
-                }else{
-                  document.getElementById('pin').style.left=itemleft
-                }
-
-                if(다리<=0){
-                  document.getElementById('bridge').style.left="-13.3vh"
-                }else{
-                  document.getElementById('bridge').style.left=itemleft
-                }
+                document.getElementById('hammer').style.right="-13.3vh"
+                // if(해머<=0){
+                //   document.getElementById('hammer').style.left="-13.3vh"
+                // }else{
+                //   document.getElementById('hammer').style.left=itemleft
+                // }
+                //
+                // if(뻥<=0){
+                //   document.getElementById('pung').style.left="-13.3vh"
+                // }else{
+                //   document.getElementById('pung').style.left=itemleft
+                // }
+                //
+                // if(얼음<=0){
+                //   document.getElementById('ice').style.left="-13.3vh"
+                // }else{
+                //   document.getElementById('ice').style.left=itemleft
+                // }
+                //
+                // if(핀<=0){
+                //   document.getElementById('pin').style.left="-13.3vh"
+                // }else{
+                //   document.getElementById('pin').style.left=itemleft
+                // }
+                //
+                // if(다리<=0){
+                //   document.getElementById('bridge').style.left="-13.3vh"
+                // }else{
+                //   document.getElementById('bridge').style.left=itemleft
+                // }
 
 
                 // scene.add(stepmold[1])
@@ -14466,7 +14602,7 @@
                 if(gamemod!=2){
                   camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
                 }else{
-                  camera.position.y=2*(bh * (5*0.5+3))+(-isoAngle - camera.rotation.x)*30
+                  camera.position.y=2*(bh * (5*0.5+높이1))+(-isoAngle - camera.rotation.x)*30
                 }
 
                 var canvas = document.createElement('canvas');
@@ -14922,7 +15058,7 @@
                   2*(bw * 2 ),
               );
               if(gamemod==2) {
-                camera.position.y= 2*(bh * (5*0.5+3))
+                camera.position.y= 2*(bh * (5*0.5+높이1))
               }
             }else{
               if(onceflag1){
@@ -14945,59 +15081,59 @@
                     터치=true
                   }, 500);
 
-                  document.getElementById('hammer0').style.display="none"
-                  document.getElementById('pung0').style.display="none"
-                  document.getElementById('ice0').style.display="none"
-                  document.getElementById('pin0').style.display="none"
-                  document.getElementById('bridge0').style.display="none"
-
+                  // document.getElementById('hammer0').style.display="none"
+                  // document.getElementById('pung0').style.display="none"
+                  // document.getElementById('ice0').style.display="none"
+                  // document.getElementById('pin0').style.display="none"
+                  // document.getElementById('bridge0').style.display="none"
+                  //
                   document.getElementById('hammer').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
-                  document.getElementById('hammer').style.left="-14vmax"
+                  document.getElementById('hammer').style.right="-14vmax"
                   document.getElementById('hammer').style.opacity=1;
                   document.getElementById('hammer').children[0].style.opacity=1;
 
-                  document.getElementById('hammer').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
-
-                  document.getElementById('pung').style.left="-14vmax"
-                  document.getElementById('pung').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
-                  document.getElementById('pung').style.opacity=1;
-                  document.getElementById('pung').children[0].style.opacity=1;
-
-                  document.getElementById('pung').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
-
-                  document.getElementById('ice').style.left="-14vmax"
-                  document.getElementById('ice').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
-                  document.getElementById('ice').style.opacity=1;
-                  document.getElementById('ice').children[0].style.opacity=1;
-
-                  document.getElementById('ice').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
-
-                  document.getElementById('pin').style.left="-14vmax"
-                  document.getElementById('pin').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
-                  document.getElementById('pin').style.opacity=1;
-                  document.getElementById('pin').children[0].style.opacity=1;
-
-                  document.getElementById('pin').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
-
-                  document.getElementById('bridge').style.left="-14vmax"
-                  document.getElementById('bridge').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
-                  document.getElementById('bridge').style.opacity=1;
-                  document.getElementById('bridge').children[0].style.opacity=1;
-                  document.getElementById('bridge').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
-
-
-                  document.getElementById('bridge').style.border="0.3vmax inset"
-                  document.getElementById('ice').style.border="0.3vmax inset"
-                  document.getElementById('pin').style.border="0.3vmax inset"
+                  // document.getElementById('hammer').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
+                  //
+                  // document.getElementById('pung').style.left="-14vmax"
+                  // document.getElementById('pung').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+                  // document.getElementById('pung').style.opacity=1;
+                  // document.getElementById('pung').children[0].style.opacity=1;
+                  //
+                  // document.getElementById('pung').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
+                  //
+                  // document.getElementById('ice').style.left="-14vmax"
+                  // document.getElementById('ice').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+                  // document.getElementById('ice').style.opacity=1;
+                  // document.getElementById('ice').children[0].style.opacity=1;
+                  //
+                  // document.getElementById('ice').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
+                  //
+                  // document.getElementById('pin').style.left="-14vmax"
+                  // document.getElementById('pin').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+                  // document.getElementById('pin').style.opacity=1;
+                  // document.getElementById('pin').children[0].style.opacity=1;
+                  //
+                  // document.getElementById('pin').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
+                  //
+                  // document.getElementById('bridge').style.left="-14vmax"
+                  // document.getElementById('bridge').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+                  // document.getElementById('bridge').style.opacity=1;
+                  // document.getElementById('bridge').children[0].style.opacity=1;
+                  // document.getElementById('bridge').children[1].style.color=hexToHtmlColor(colorlst[colornum][0])
+                  //
+                  //
+                  // document.getElementById('bridge').style.border="0.3vmax inset"
+                  // document.getElementById('ice').style.border="0.3vmax inset"
+                  // document.getElementById('pin').style.border="0.3vmax inset"
                   document.getElementById('hammer').style.border="0.3vmax inset"
-                  document.getElementById('pung').style.border="0.3vmax inset"
-
-                  document.getElementById('bridge').style.borderColor=hexToHtmlColor(colorlst[colornum][3])
-                  document.getElementById('ice').style.borderColor=hexToHtmlColor(colorlst[colornum][3])
-                  document.getElementById('pin').style.borderColor=hexToHtmlColor(colorlst[colornum][3])
-
+                  // document.getElementById('pung').style.border="0.3vmax inset"
+                  //
+                  // document.getElementById('bridge').style.borderColor=hexToHtmlColor(colorlst[colornum][3])
+                  // document.getElementById('ice').style.borderColor=hexToHtmlColor(colorlst[colornum][3])
+                  // document.getElementById('pin').style.borderColor=hexToHtmlColor(colorlst[colornum][3])
+                  //
                   document.getElementById('hammer').style.borderColor=hexToHtmlColor(colorlst[colornum][2])
-                  document.getElementById('pung').style.borderColor=hexToHtmlColor(colorlst[colornum][2])
+                  // document.getElementById('pung').style.borderColor=hexToHtmlColor(colorlst[colornum][2])
 
                   if(fullcam){
                        topcam=false
@@ -15011,7 +15147,7 @@
               if(gamemod!=2){
                 camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
               }else{
-                if(!m2flag) camera.position.y=2*(bh * ((5)*0.5+3))+(-isoAngle - camera.rotation.x)*30
+                if(!m2flag) camera.position.y=2*(bh * ((5)*0.5+높이1))+(-isoAngle - camera.rotation.x)*30
               }
                 // camera.rotation.x -= Math.PI / 256
                 camera.rotation.x -= deltaTime / 1200
@@ -15093,10 +15229,20 @@
                 avz += cubes[i].body.position.z;
                 templength++;
             }
+            var overcount=0;
+            for (var i = 3; i < cubes.length; i++) {
+              if(!cubes[i].mesh.userData.bye){
+                overcount++;
+              }
+
+            }
+
             avx /= templength;
             avz /= templength;
-            // axis[0].position.x = avx;
-            // axis[0].position.z = avz;
+            axis[0].position.x = avx;
+            axis[0].position.z = avz;
+            axis[0].position.y = (overcount-1)*bh
+
 
         }
 
@@ -15104,9 +15250,14 @@
 
         if(itemdrag){
 
+          document.getElementById("top3").style.borderColor="blue"
+          var dur0=parseInt(elapsedTime*80)%72
+          document.getElementById("top3").children[0].style.height=String(15+2*Math.cos(Math.PI/36*dur0))+"vmin"
+
 
 
           if(itemtouch){
+
             stepmold[4].rotation.x=0
             stepmold[5].rotation.x=0
             // stepmold[6].rotation.x=0
@@ -15317,9 +15468,9 @@
 
 
                 if(cubes[itemidx].mesh.userData.pin){
-                  stepmold[7].position.x=cubes[itemidx].body.position.x+핀크기*bw/1.2+((pshift[dur]-1)*3)
+                  stepmold[7].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData.combo*핀크기*bw/1.2+((pshift[dur]-1)*3)
                 }else{
-                  stepmold[7].position.x=cubes[itemidx].body.position.x+bw/1.2+((pshift[dur]-1)*3)
+                  stepmold[7].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData.combo*bw/1.2+((pshift[dur]-1)*3)
                 }
 
 
@@ -15329,9 +15480,9 @@
 
 
                 if(cubes[itemidx].mesh.userData.pin){
-                  stepmold[7].position.z=cubes[itemidx].body.position.x+핀크기*bw/1.2+((pshift[dur]-1)*3)
+                  stepmold[7].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData.combo*핀크기*bw/1.2+((pshift[dur]-1)*3)
                 }else{
-                  stepmold[7].position.z=cubes[itemidx].body.position.x+bw/1.2+((pshift[dur]-1)*3)
+                  stepmold[7].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData.combo*bw/1.2+((pshift[dur]-1)*3)
                 }
 
 
@@ -15463,7 +15614,8 @@
 
 
         }else{
-
+          document.getElementById("top3").style.borderColor="white"
+          document.getElementById("top3").children[0].style.height=String("15vmin")
           // stepmold[3].position.y=bh*(cubes.length+15)
           // stepmold[4].position.y=bh*(cubes.length+15)
         }
@@ -16317,6 +16469,79 @@
           }
         }
 
+        if(득템){
+          var idx=itemlst.length-1;
+          if(elapsedTime - temtime <= 1){
+            var dur0=parseInt(elapsedTime*120)%72
+
+            var newcl = hexToHSL(hexToHtmlColor(0x22EE22))
+            // console.log(newcl)
+            document.getElementById("top"+String(3-idx)).style.borderColor=hslToHex(newcl.h, newcl.s, newcl.l+10+20*Math.cos(Math.PI/36*dur0))
+            if(idx==0){
+
+              document.getElementById("top"+String(3-idx)).children[0].style.height=String(15+3*Math.cos(Math.PI/36*dur0))+"vmin"
+            }else{
+              document.getElementById("top"+String(3-idx)).children[0].style.height=String(7+1.5*Math.cos(Math.PI/36*dur0))+"vmin"
+            }
+
+          }else{
+            document.getElementById("top"+String(3-idx)).style.borderColor="white"
+            득템=false;
+            if(idx==0){
+              document.getElementById("top"+String(3-idx)).children[0].style.height=String(15)+"vmin"
+            }else{
+              document.getElementById("top"+String(3-idx)).children[0].style.height=String(7)+"vmin"
+            }
+
+
+          }
+        }
+
+        if(itemfull){
+          if(elapsedTime - temtime <= 1){
+            var dur0=parseInt(elapsedTime*150)%72
+
+
+            var newcl = hexToHSL(hexToHtmlColor(0xEE2222))
+
+            document.getElementById("top3").style.borderColor=hslToHex(newcl.h, newcl.s, newcl.l+10+20*Math.cos(Math.PI/36*dur0))
+            document.getElementById("top2").style.borderColor=hslToHex(newcl.h, newcl.s, newcl.l+10+20*Math.cos(Math.PI/36*dur0))
+            document.getElementById("top1").style.borderColor=hslToHex(newcl.h, newcl.s, newcl.l+10+20*Math.cos(Math.PI/36*dur0))
+            document.getElementById("top0").style.borderColor=hslToHex(newcl.h, newcl.s, newcl.l+10+20*Math.cos(Math.PI/36*dur0))
+
+            document.getElementById("top3").children[0].style.height=String(15+2*Math.cos(Math.PI/36*dur0))+"vmin"
+            document.getElementById("top2").children[0].style.height=String(7+1*Math.cos(Math.PI/36*dur0))+"vmin"
+            document.getElementById("top1").children[0].style.height=String(7+1*Math.cos(Math.PI/36*dur0))+"vmin"
+            document.getElementById("top0").children[0].style.height=String(7+1*Math.cos(Math.PI/36*dur0))+"vmin"
+
+
+          }else{
+            document.getElementById("top3").style.borderColor="white"
+            document.getElementById("top2").style.borderColor="white"
+            document.getElementById("top1").style.borderColor="white"
+            document.getElementById("top0").style.borderColor="white"
+
+            document.getElementById("top3").children[0].style.height=String(15)+"vmin"
+            document.getElementById("top2").children[0].style.height=String(7)+"vmin"
+            document.getElementById("top1").children[0].style.height=String(7)+"vmin"
+            document.getElementById("top0").children[0].style.height=String(7)+"vmin"
+            itemfull=false;
+
+          }
+        }
+        if(itemuse2){
+          if(elapsedTime - itemtime <= 0.35){
+            var dur0=parseInt(elapsedTime*150)%72
+            document.getElementById("top3").children[0].style.height=String(15-((elapsedTime - itemtime)*15)/0.35)+"vmin"
+
+          }else{
+            document.getElementById("top3").children[0].style.display="none"
+            itemuse2=false;
+          }
+
+
+        }
+
         if(itemuse){
           if(elapsedTime - itemtime <= 0.15){
 
@@ -16421,13 +16646,17 @@
               m2once=true;
 
               if(cubes[cubes.length-1].mesh.userData.combo==1){
-                이펙트2(cubes.length-1, 4, "left", 1);
+                이펙트2(cubes.length-1, 2, "left", 1);
+
               }else if(cubes[cubes.length-1].mesh.userData.combo==1.1){
                 이펙트2(cubes.length-1, 16, "left", 1);
+
               }else if(cubes[cubes.length-1].mesh.userData.combo==1.2){
                 이펙트2(cubes.length-1, 64, "left", 1);
+
               }else if(cubes[cubes.length-1].mesh.userData.combo==1.3){
                 이펙트2(cubes.length-1, 256, "left", 1);
+
               }
             }
 
@@ -16687,12 +16916,15 @@
                   });
 
                   if(오토) tcheck[1]=elapsedTime;
+                  document.getElementById('hammer').style.right="-13.3vh"
+                  // document.getElementById('hammer').style.left="-13.3vh"
+                  // document.getElementById('pung').style.left="-13.3vh"
+                  // document.getElementById('ice').style.left="-13.3vh"
+                  // document.getElementById('pin').style.left="-13.3vh"
+                  // document.getElementById('bridge').style.left="-13.3vh"
 
-                  document.getElementById('hammer').style.left="-13.3vh"
-                  document.getElementById('pung').style.left="-13.3vh"
-                  document.getElementById('ice').style.left="-13.3vh"
-                  document.getElementById('pin').style.left="-13.3vh"
-                  document.getElementById('bridge').style.left="-13.3vh"
+
+
                   // document.getElementById("t1").classList.add("hidden");
                   // document.getElementById("t2").classList.add("hidden");
                   // document.getElementById("t3").classList.add("hidden");
@@ -17433,7 +17665,7 @@
                     // );
                     if(gamemod==2&&!m2flag) {
 
-                      camera.position.y= 2*(bh * ((cubes.length)*0.5+3))
+                      camera.position.y= 2*(bh * ((cubes.length)*0.5+높이1))
                     }
 
                     cubes.forEach((item, index) => {
@@ -17530,7 +17762,7 @@
                                 2*(bh * (cubes.length + 2)),
                                 2*(bw * 2 )+ avz
                             );
-                            if(gamemod==2&&!m2flag) camera.position.y=2*(bh * ((cubes.length)*0.5+3))
+                            if(gamemod==2&&!m2flag) camera.position.y=2*(bh * ((cubes.length)*0.5+높이1))
 
 
 
@@ -18089,7 +18321,7 @@
             camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
           }else{
             if(!m2flag){
-              camera.position.y=2*(bh * (5*0.5+3))+(-isoAngle - camera.rotation.x)*30
+              camera.position.y=2*(bh * (5*0.5+높이1))+(-isoAngle - camera.rotation.x)*30
             }
 
           }
@@ -18369,14 +18601,14 @@
             if(fullcam){
               if(gamemod==2){
 
-                if(!m2flag) camera.position.y= 2*(bh * ((cubes.length)*0.5+4))+(-isoAngle - camera.rotation.x)*30
+                if(!m2flag) camera.position.y= 2*(bh * ((cubes.length)*0.5+높이1+1))+(-isoAngle - camera.rotation.x)*30
               }else{
                 camera.position.y=2*(bh * (5 + 3))+(-isoAngle - camera.rotation.x)*30
               }
 
             }else{
               if(gamemod==2){
-                if(!m2flag) camera.position.y= 2*(bh * ((cubes.length)*0.5+3))+(-isoAngle - camera.rotation.x)*30
+                if(!m2flag) camera.position.y= 2*(bh * ((cubes.length)*0.5+높이1))+(-isoAngle - camera.rotation.x)*30
               }else{
                 camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
               }
@@ -19434,30 +19666,65 @@
             }
 
           }
-          if(Math.abs(cubemold[0].position.x-cubes[cubes.length-1].mesh.position.x)+Math.abs(cubemold[0].position.z-cubes[cubes.length-1].mesh.position.z)<0.2){
-            setTimeout(function() {
-              getitem(0)
-            }, 500);
+
+
+          if(Math.abs(cubemold[0].position.x-cubes[cubes.length-1].mesh.position.x)+Math.abs(cubemold[0].position.z-cubes[cubes.length-1].mesh.position.z)<0.1){
+
             var 기준=1;
             if(combo==0){
+              setTimeout(function() {
+                if(parseInt(Math.random()*4)%4==0){
+                  getitem(0)
+                }
+              }, 400);
               soundic[sdic[3][8]].play()
               기준=1
             }else if(combo==1){
+              setTimeout(function() {
+                if(parseInt(Math.random()*4)%4==0){
+                  getitem(0)
+                }
+              }, 400);
               soundic[sdic[3][32]].play()
               기준=1
             }else if(combo==2){
+              setTimeout(function() {
+                if(parseInt(Math.random()*3)%3==0){
+                  getitem(0)
+                }
+              }, 400);
               soundic[sdic[3][64]].play()
               기준=1
             }else if(combo==3){
+              setTimeout(function() {
+                if(parseInt(Math.random()*3)%3==0){
+                  getitem(0)
+                }
+              }, 400);
               soundic[sdic[3][128]].play()
               기준=1.15
             }else if(combo==4){
+              setTimeout(function() {
+                if(parseInt(Math.random()*2)%2==0){
+                  getitem(0)
+                }
+              }, 400);
               soundic[sdic[3][256]].play()
               기준=1.2
             }else if(combo==5){
+              setTimeout(function() {
+
+                  getitem(0)
+
+              }, 400);
               soundic[sdic[3][512]].play()
               기준=1.25
             }else if(combo>=6){
+              setTimeout(function() {
+
+                  getitem(10)
+
+              }, 400);
               soundic[sdic[3][1024]].play()
               기준=1.3
             }
@@ -19465,6 +19732,11 @@
 
           }else{
             combo=0
+            setTimeout(function() {
+              if(parseInt(Math.random()*6)%6==0){
+                getitem(0)
+              }
+            }, 400);
             soundic[esound[5]].play();
           }
 
@@ -19560,28 +19832,46 @@
     window.freeze=freeze;
     function getitem(n=0){
       if(n==0){
-        n=1+parseInt(Math.random()*9)
+        n=1+parseInt(Math.random()*5)
       }
-      if(n==1||n==2||n==3){
+
+      if(n==10){
+        n=3+parseInt(Math.random()*3)
+      }
+
+      document.getElementById('hammer').style.right=itemleft
+      if(n==1){
         if(뻥==0){
-          document.getElementById('pung').style.left=itemleft
+          // document.getElementById('pung').style.left=itemleft
+        }
+        if(itemlst.length==0){
+          document.getElementById('hammer').style.right=itemleft
+        }
+        if(itemlst.length<4){
+          itemlst.push(0)
+          득템=true;
+          temtime=elapsedTime
+        }else{
+          console.log("full")
+          itemfull=true;
+          temtime=elapsedTime
         }
 
-        뻥++;
-        document.getElementById('pung').children[1].innerText=String(뻥)
-
-
-        document.getElementById('pung0').style.display="inline-flex"
-
-        setTimeout(function() {
-          document.getElementById('pung0').style.top="-5vh"
-          document.getElementById('pung0').style.opacity="0.1"
-          setTimeout(function() {
-            document.getElementById('pung0').style.display="none"
-            document.getElementById('pung0').style.top="6vh"
-            document.getElementById('pung0').style.opacity="1"
-          }, 1000);
-        }, 30);
+        // 뻥++;
+        // document.getElementById('pung').children[1].innerText=String(뻥)
+        //
+        //
+        // document.getElementById('pung0').style.display="inline-flex"
+        //
+        // setTimeout(function() {
+        //   document.getElementById('pung0').style.top="-5vh"
+        //   document.getElementById('pung0').style.opacity="0.1"
+        //   setTimeout(function() {
+        //     document.getElementById('pung0').style.display="none"
+        //     document.getElementById('pung0').style.top="6vh"
+        //     document.getElementById('pung0').style.opacity="1"
+        //   }, 1000);
+        // }, 30);
         if(soundic[esound[16]].isPlaying){
           soundic[esound[16]].stop();
         }
@@ -19591,24 +19881,35 @@
 
 
 
-      }else if(n==4||n==5||n==6){
+      }else if(n==2){
         if(해머==0){
-          document.getElementById('hammer').style.left=itemleft
+          // document.getElementById('hammer').style.left=itemleft
         }
-        해머++;
-
-        document.getElementById('hammer').children[1].innerText=String(해머)
-
-        document.getElementById('hammer0').style.display="inline-flex"
-        setTimeout(function() {
-          document.getElementById('hammer0').style.top="-5vh"
-          document.getElementById('hammer0').style.opacity="0.1"
-          setTimeout(function() {
-            document.getElementById('hammer0').style.display="none"
-            document.getElementById('hammer0').style.top="6vh"
-            document.getElementById('hammer0').style.opacity="1"
-          }, 1000);
-        }, 30);
+        // 해머++;
+        if(itemlst.length==0){
+          document.getElementById('hammer').style.right=itemleft
+        }
+        if(itemlst.length<4){
+          itemlst.push(1)
+          득템=true;
+          temtime=elapsedTime
+        }else{
+          console.log("full")
+          itemfull=true;
+          temtime=elapsedTime
+        }
+        // document.getElementById('hammer').children[1].innerText=String(해머)
+        //
+        // document.getElementById('hammer0').style.display="inline-flex"
+        // setTimeout(function() {
+        //   document.getElementById('hammer0').style.top="-5vh"
+        //   document.getElementById('hammer0').style.opacity="0.1"
+        //   setTimeout(function() {
+        //     document.getElementById('hammer0').style.display="none"
+        //     document.getElementById('hammer0').style.top="6vh"
+        //     document.getElementById('hammer0').style.opacity="1"
+        //   }, 1000);
+        // }, 30);
 
         if(soundic[esound[16]].isPlaying){
           soundic[esound[16]].stop();
@@ -19618,23 +19919,35 @@
         soundic[esound[16]].play();
 
 
-      }else if(n==7){
+      }else if(n==3){
         if(얼음==0){
-          document.getElementById('ice').style.left=itemleft
+          // document.getElementById('ice').style.left=itemleft
         }
-        얼음++;
-        document.getElementById('ice').children[1].innerText=String(얼음)
-
-        document.getElementById('ice0').style.display="inline-flex"
-        setTimeout(function() {
-          document.getElementById('ice0').style.top="-5vh"
-          document.getElementById('ice0').style.opacity="0.1"
-          setTimeout(function() {
-            document.getElementById('ice0').style.display="none"
-            document.getElementById('ice0').style.top="6vh"
-            document.getElementById('ice0').style.opacity="1"
-          }, 1000);
-        }, 30);
+        if(itemlst.length==0){
+          document.getElementById('hammer').style.right=itemleft
+        }
+        if(itemlst.length<4){
+          itemlst.push(2)
+          득템=true;
+          temtime=elapsedTime
+        }else{
+          console.log("full")
+          itemfull=true;
+          temtime=elapsedTime
+        }
+        // 얼음++;
+        // document.getElementById('ice').children[1].innerText=String(얼음)
+        //
+        // document.getElementById('ice0').style.display="inline-flex"
+        // setTimeout(function() {
+        //   document.getElementById('ice0').style.top="-5vh"
+        //   document.getElementById('ice0').style.opacity="0.1"
+        //   setTimeout(function() {
+        //     document.getElementById('ice0').style.display="none"
+        //     document.getElementById('ice0').style.top="6vh"
+        //     document.getElementById('ice0').style.opacity="1"
+        //   }, 1000);
+        // }, 30);
 
         if(soundic[esound[11]].isPlaying){
           soundic[esound[11]].stop();
@@ -19644,23 +19957,35 @@
         soundic[esound[11]].play();
 
 
-      }else if(n==8){
+      }else if(n==4){
         if(핀==0){
-          document.getElementById('pin').style.left=itemleft
+          // document.getElementById('pin').style.left=itemleft
         }
-        핀++;
-        document.getElementById('pin').children[1].innerText=String(핀)
-
-        document.getElementById('pin0').style.display="inline-flex"
-        setTimeout(function() {
-          document.getElementById('pin0').style.top="-5vh"
-          document.getElementById('pin0').style.opacity="0.1"
-          setTimeout(function() {
-            document.getElementById('pin0').style.display="none"
-            document.getElementById('pin0').style.top="6vh"
-            document.getElementById('pin0').style.opacity="1"
-          }, 1000);
-        }, 30);
+        // 핀++;
+        if(itemlst.length==0){
+          document.getElementById('hammer').style.right=itemleft
+        }
+        if(itemlst.length<4){
+          itemlst.push(3)
+          득템=true;
+          temtime=elapsedTime
+        }else{
+          console.log("full")
+          itemfull=true;
+          temtime=elapsedTime
+        }
+        // document.getElementById('pin').children[1].innerText=String(핀)
+        //
+        // document.getElementById('pin0').style.display="inline-flex"
+        // setTimeout(function() {
+        //   document.getElementById('pin0').style.top="-5vh"
+        //   document.getElementById('pin0').style.opacity="0.1"
+        //   setTimeout(function() {
+        //     document.getElementById('pin0').style.display="none"
+        //     document.getElementById('pin0').style.top="6vh"
+        //     document.getElementById('pin0').style.opacity="1"
+        //   }, 1000);
+        // }, 30);
 
         if(soundic[esound[11]].isPlaying){
           soundic[esound[11]].stop();
@@ -19670,23 +19995,35 @@
         soundic[esound[11]].play();
 
 
-      }else if(n==9){
+      }else if(n==5){
         if(다리==0){
-          document.getElementById('bridge').style.left=itemleft
+          // document.getElementById('bridge').style.left=itemleft
         }
-        다리++;
-        document.getElementById('bridge').children[1].innerText=String(다리)
-
-        document.getElementById('bridge0').style.display="inline-flex"
-        setTimeout(function() {
-          document.getElementById('bridge0').style.top="-5vh"
-          document.getElementById('bridge0').style.opacity="0.1"
-          setTimeout(function() {
-            document.getElementById('bridge0').style.display="none"
-            document.getElementById('bridge0').style.top="6vh"
-            document.getElementById('bridge0').style.opacity="1"
-          }, 1000);
-        }, 30);
+        // 다리++;
+        if(itemlst.length==0){
+          document.getElementById('hammer').style.right=itemleft
+        }
+        if(itemlst.length<4){
+          itemlst.push(4)
+          득템=true;
+          temtime=elapsedTime
+        }else{
+          console.log("full")
+          itemfull=true;
+          temtime=elapsedTime
+        }
+        // document.getElementById('bridge').children[1].innerText=String(다리)
+        //
+        // document.getElementById('bridge0').style.display="inline-flex"
+        // setTimeout(function() {
+        //   document.getElementById('bridge0').style.top="-5vh"
+        //   document.getElementById('bridge0').style.opacity="0.1"
+        //   setTimeout(function() {
+        //     document.getElementById('bridge0').style.display="none"
+        //     document.getElementById('bridge0').style.top="6vh"
+        //     document.getElementById('bridge0').style.opacity="1"
+        //   }, 1000);
+        // }, 30);
 
 
         if(soundic[esound[11]].isPlaying){
@@ -19698,12 +20035,45 @@
 
 
       }
+
+      itemupdate();
 
 
 
 
     }
     window.getitem=getitem;
+
+    var itempng=["png/pung.png","png/hammer.png","png/freeze.png","png/pin.png","png/staple.png" ]
+    function itemupdate(){
+      document.getElementById("top3").children[0].style.display=""
+      if(itemlst[0]!=null){
+        document.getElementById('hammer').style.right=itemleft
+        document.getElementById('hammer').children[0].src = itempng[itemlst[0]]
+        document.getElementById("top3").children[0].src = itempng[itemlst[0]]
+      }else{
+        document.getElementById('hammer').style.right="-13.3vh"
+        document.getElementById("top3").children[0].src = ""
+      }
+
+      if(itemlst[1]!=null){
+        document.getElementById("top2").children[0].src = itempng[itemlst[1]]
+      }else{
+        document.getElementById("top2").children[0].src = ""
+      }
+
+      if(itemlst[2]!=null){
+        document.getElementById("top1").children[0].src = itempng[itemlst[2]]
+      }else{
+        document.getElementById("top1").children[0].src = ""
+      }
+
+      if(itemlst[3]!=null){
+        document.getElementById("top0").children[0].src = itempng[itemlst[3]]
+      }else{
+        document.getElementById("top0").children[0].src = ""
+      }
+    }
 
     function newbox(x, y, z, width, height, depth, game2048, idx, flag){
 
@@ -26073,7 +26443,47 @@
 
 
 
+    // <button id="pung" class="pung" onclick="">
+    //     <img class="" src="png/pung.png">
+    //     <div>0</div>
+    // </button>
+    //
+    // <button id="ice" class="ice" onclick="">
+    //     <img class="" src="png/freeze.png">
+    //     <div>0</div>
+    // </button>
+    //
+    // <div id="ice0" class="ice0" onclick="">
+    //     <img class="" src="png/freeze.png">
+    //     <div>+</div>
+    // </div>
+    //
+    // <button id="pin" class="pin" onclick="">
+    //     <img class="" src="png/pin.png">
+    //     <div>0</div>
+    // </button>
+    //
+    // <div id="pin0" class="pin0" onclick="">
+    //     <img class="" src="png/pin.png">
+    //     <div>+</div>
+    // </div>
+    //
+    // <button id="bridge" class="bridge" onclick="">
+    //     <img class="" src="png/staple.png">
+    //     <div>0</div>
+    // </button>
+    //
+    // <div id="bridge0" class="bridge0" onclick="">
+    //     <img class="" src="png/staple.png">
+    //     <div>+</div>
+    // </div>
+    // <div id="pung0" class="pung0" onclick="">
+    //     <img class="" src="png/pung.png">
+    //     <div>+</div>
+    // </div>
+
 //바디
+
 </script>
 <div id="fps">123</div>
 <div id="tutorial" class="hidden">
@@ -26169,12 +26579,28 @@
     <span class="pgr-count" id="pgr2">3/10</span>
 </div>
 
+<button id="top" class="top-container" onclick="">
+    <div class="cell" id="top0">
+      <img class="" src="png/hammer.png">
+    </div>
+    <div class="cell" id="top1">
+      <img class="" src="png/hammer.png">
+    </div>
+    <div class="cell" id="top2">
+      <img class="" src="png/pung.png">
+    </div>
+    <div class="cell" id="top3">
+      <img class="" src="png/bridge.png">
+    </div>
+</button>
+
+
 
 <button id="left" class="left" onclick="drawon()">
     <img class="" src="png/topcam.png">
 </button>
 
-<button id="center" class="center" onclick="showmod()">
+<button id="center" class="center" onclick="">
     <img class="" src="png/gamepad.png">
 </button>
 
@@ -26185,55 +26611,17 @@
 
 <button id="hammer" class="hammer" onclick="">
     <img class="" src="png/hammer.png">
-    <div>0</div>
+
 </button>
 
-<button id="pung" class="pung" onclick="">
-    <img class="" src="png/pung.png">
-    <div>0</div>
-</button>
-
-<button id="ice" class="ice" onclick="">
-    <img class="" src="png/freeze.png">
-    <div>0</div>
-</button>
-
-<div id="ice0" class="ice0" onclick="">
-    <img class="" src="png/freeze.png">
-    <div>+</div>
-</div>
-
-<button id="pin" class="pin" onclick="">
-    <img class="" src="png/pin.png">
-    <div>0</div>
-</button>
-
-<div id="pin0" class="pin0" onclick="">
-    <img class="" src="png/pin.png">
-    <div>+</div>
-</div>
-
-<button id="bridge" class="bridge" onclick="">
-    <img class="" src="png/staple.png">
-    <div>0</div>
-</button>
-
-<div id="bridge0" class="bridge0" onclick="">
-    <img class="" src="png/staple.png">
-    <div>+</div>
-</div>
 
 
-
-<div id="hammer0" class="hammer0" onclick="">
+<div id="hammer0" class="hammer0 hidden" onclick="">
     <img class="" src="png/hammer.png">
     <div>+</div>
 </div>
 
-<div id="pung0" class="pung0" onclick="">
-    <img class="" src="png/pung.png">
-    <div>+</div>
-</div>
+
 
 <div id="optionlst" class="optionlst hidden">
     <button onclick="showtut()">
