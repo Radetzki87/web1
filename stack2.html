@@ -5779,14 +5779,14 @@
 
 
                   if(itemr){
-                    var upperx=cubes[itemidx].mesh.userData.combo*cubes[itemidx].mesh.position.x
-                    var lowerx=아래층.mesh.userData.combo*아래층.mesh.position.x
+                    var upperx=cubes[itemidx].mesh.position.x+((cubes[itemidx].mesh.userData.combo-1)*bw/2);
+                    var lowerx=아래층.mesh.position.x+((아래층.mesh.userData.combo-1)*bw/2);
                     if(cubes[itemidx].mesh.userData.pin){
-                      upperx=cubes[itemidx].mesh.userData.combo*(cubes[itemidx].mesh.position.x+(핀크기-1)*bw/2);
+                      upperx=cubes[itemidx].mesh.position.x+((핀크기*cubes[itemidx].mesh.userData.combo-1)*bw/2);
                     }
 
                     if(아래층.mesh.userData.pin){
-                      lowerx=아래층.mesh.userData.combo*(아래층.mesh.position.x+(핀크기-1)*bw/2);
+                      lowerx=아래층.mesh.position.x+((아래층.mesh.userData.combo*핀크기-1)*bw/2);
                     }
                     var majorx;
                     if(upperx>lowerx){
@@ -5969,14 +5969,15 @@
                     이펙트2(itemidx, 16, "left");
                     soundic[sdic[cubes.length-1]["16"]].play();
                   }else if(iteml){
-                    var upperz=cubes[itemidx].mesh.userData.combo*cubes[itemidx].mesh.position.z
-                    var lowerz=아래층.mesh.userData.combo*아래층.mesh.position.z
+
+                    var upperz=cubes[itemidx].mesh.position.z+((cubes[itemidx].mesh.userData.combo-1)*bw/2);
+                    var lowerz=아래층.mesh.position.z+((아래층.mesh.userData.combo-1)*bw/2);
                     if(cubes[itemidx].mesh.userData.pin){
-                      upperz=cubes[itemidx].mesh.userData.combo*(cubes[itemidx].mesh.position.z+(핀크기-1)*bw/2);
+                      upperz=cubes[itemidx].mesh.position.z+((핀크기*cubes[itemidx].mesh.userData.combo-1)*bw/2);
                     }
 
                     if(아래층.mesh.userData.pin){
-                      lowerz=아래층.mesh.userData.combo*(아래층.mesh.position.z+(핀크기-1)*bw/2);
+                      lowerz=아래층.mesh.position.z+((핀크기*아래층.mesh.userData.combo-1)*bw/2);
                     }
                     var majorz;
                     if(upperz>lowerz){
@@ -17327,13 +17328,16 @@
                   document.getElementById('song-info').classList.remove("show1");
                   document.getElementById('song-info').classList.add("hidden");
                   var temp0=document.querySelectorAll(".gameover");
-                  if(gamemod>=2){
+                  if(gamemod==2){
                     document.querySelector(".gameinfo").classList.remove("show");
                     document.querySelector(".gameinfo").classList.add("hidden");
-                    temp0[1].style.opacity=1;
-                    temp0[1].classList.remove("hidden");
-                    temp0[1].classList.add("show");
-                    temp0[1].style.display=""
+                    temp0[1].classList.remove("show");
+                    temp0[1].classList.add("hidden");
+                    temp0[1].style.display="none"
+                    // temp0[1].style.opacity=1;
+                    // temp0[1].classList.remove("hidden");
+                    // temp0[1].classList.add("show");
+                    // temp0[1].style.display=""
                   }else{
                     document.querySelector(".gameinfo").classList.remove("hidden");
                     document.querySelector(".gameinfo").classList.add("show");
