@@ -3235,9 +3235,44 @@
     var templayer=99;
     var tempoint=0;
 
+    var stagemesh=[];
+
+    var stagepos=[];
+
+
     var stageset=[];
 
     var stacktime;
+
+    var mapflag=false;
+
+    var zoomflag=false;
+    var superzoom=false;
+    var zoompos;
+    var zoomtime;
+    var initpos;
+
+    var nowscale;
+    var zoomscale;
+
+    var nowpos;
+
+
+    var 타일맵=[];
+
+    var 스테이지타일1=[[[],[20,1],[20,1],[],[],[],[],[],[],[],[],[]],
+[[20,0],[18,3],[18,3],[18,1],[20,2],[],[],[],[],[],[],[]],
+[[],[12,0],[8,0],[18,0],[20,2],[],[],[],[],[],[],[]],
+[[],[4,0],[20,0],[14,0],[17,1],[],[],[],[],[],[],[]],
+[[],[],[20,1],[18,0],[15,1],[20,2],[],[],[],[],[],[]],
+[[],[],[18,0],[18,3],[20,2],[],[],[],[],[],[],[]],
+[[],[],[18,0],[11,0],[4,0],[],[],[],[],[],[],[]],
+[[],[],[16,1],[20,2],[4,0],[],[],[],[],[],[],[]],
+[[],[],[],[],[],[],[],[],[],[],[],[]],
+[[],[],[],[],[],[],[],[],[],[],[],[]],
+[[],[],[],[],[],[],[],[],[],[],[],[]],
+[[],[],[],[],[],[],[],[],[],[],[],[]],
+[[],[],[],[],[],[],[],[],[],[],[],[]]]
 
 
 
@@ -3263,6 +3298,8 @@
     var legcopy=[];
 
     var propsmold=[];
+
+
 
     var itemfull=false;
     var 득템=false;
@@ -5215,7 +5252,7 @@
           // return;
         }
 
-        if(lastX>0.65){
+        if(!mapflag&&lastX>0.65){
           // if(lastY>0.70&&lastY<0.9){
           //   if(뻥>0){
           //     pung=true;
@@ -5462,10 +5499,42 @@
               tempidx=cat[0].index;
 
 
+            }else if(item.object.userData.stage!=null){
+              if(zoomflag){
+                nowscale=0.6
+              }else{
+                nowscale=1.3
+              }
+              zoomflag=true;
+              console.log(String(item.object.userData.chapter)+String(item.object.userData.stage))
+              stageclick(String(item.object.userData.chapter)+String(item.object.userData.stage))
+
+
+
+              stagepos=[stagemesh[0].position.x, stagemesh[0].position.z]
+              nowpos=camera.position;
+              zoompos=item.object.position;
+              console.log(zoompos)
+              zoomtime=elapsedTime;
+
+              console.log(item.object.userData.stage)
+              return;
+
+
+            }else{
+              // zoomflag=false;
+              // nowpos=camera.position;
+              // zoompos=initpos;
+              // console.log(zoompos)
+              // zoomtime=elapsedTime;
             }
             if(cat.length==1) return;
 
           });
+        }
+
+        if(mapflag){
+          stagepos=[stagemesh[0].position.x, stagemesh[0].position.z]
         }
 
 
@@ -5798,8 +5867,18 @@
 
         }else if (ontouch) {
 
+            if(mapflag){
+              stagemesh[0].position.x=stagepos[0]-20*(window.innerHeight/window.innerWidth)*(touchy - lastY)+12*(touchx - lastX)
+              stagemesh[0].position.z=stagepos[1]-12*(touchx - lastX)-20*(window.innerHeight/window.innerWidth)*(touchy - lastY)
 
-            if (!aniflag) {
+              // if(stagemesh[0].position.x<=1){
+              //   stagemesh[0].position.x=1
+              // }
+              console.log("\n")
+              console.log(stagemesh[0].position.x)
+              console.log(stagemesh[0].position.z)
+              console.log("\n")
+            }else if (!aniflag) {
                 if (touchx - lastX > 0.1/(window.innerWidth/window.innerHeight)) {
                     if (gameoverflag) {
                         ontouch = false
@@ -6900,6 +6979,7 @@
         var camera = new THREE.OrthographicCamera(-bw * 1.3, bw * 1.3 * 4, bw * 1.3, -bw * 1.3 * 4, 0.1, 1000);
         // var camera = new THREE.OrthographicCamera(-bw * 1.3*2, bw * 1.3*2, bw * 1.3*2, -bw * 1.3*2, 0.1, 1000);
         camera.position.set(2*bw * 2, 0, 2*bw * 2);
+
         camera.lookAt(0, 0, 0);
         camera.rotation.order = 'YXZ';
         camera.rotation.x = -isoAngle;
@@ -7519,10 +7599,157 @@
           // setlang(langnum);
 
 
+        }else if (event.code === 'KeyO') {
+          if(!zoomflag){
+            nowscale=1.3
+          }else{
+            nowscale=0.6
+          }
+          stagepos=[stagemesh[0].position.x, stagemesh[0].position.z]
+          zoomflag=false;
+          nowpos=camera.position;
+          zoompos=initpos;
+          console.log(zoompos)
+          zoomtime=elapsedTime;
+
         }else if (event.code === 'KeyP') {
+            if(mapflag){
+              mapflag=false;
+              cubes.forEach((item) => {
+                item.mesh.material.visible=true;
+
+                item.mesh.children.forEach((child) => {
+                  if(child.userData["skin"]==skinset[skinnum]){
+                    child.material.visible=true;
+                    child.children.forEach((grandchild) => {
+                      grandchild.material.visible=true;
+                    });
+                  }else if(child.userData["skin"]=="bottom"){
+                    child.material.visible=true;
+                    child.children.forEach((grandchild) => {
+                      grandchild.material.visible=true;
+                    });
+                  }else if(child.userData["skin"]=="tile"){
+                    child.material.visible=true;
+                    child.children.forEach((grandchild) => {
+                      grandchild.material.visible=true;
+                    });
+                  }
+
+
+
+                });
+
+              });
+
+              return;
+            }else{
+              mapflag=true;
+            }
+
+            if(배경.length!=0) return;
 
             var 배수=1;
 
+
+
+            var geometry1 = new THREE.BoxGeometry(bw, bh, bw);
+            var material1 = new THREE.MeshBasicMaterial({
+                visible:false
+            });
+
+            var tmesh=new THREE.Mesh(geometry1, material1);
+
+            for (var i = 0; i < 13; i++) {
+              for (var j = 0; j < 11; j++) {
+                if(스테이지타일1[i][j].length!=0){
+                  var 스케일=1.8;
+
+                  var clone=타일맵[parseInt(스테이지타일1[i][j][0])-1].clone();
+                  if(i==1&&j==0){
+                    clone.userData.stage=1;
+                    clone.userData.chapter=1;
+
+                    var geometry12 = new TextGeometry("1:1", {
+                        font: font0,
+                        size: bw / 16,
+                        height: 두께*th / 6
+                    });
+                    geometry12.computeBoundingBox();
+                    geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+                    var material = new THREE.MeshBasicMaterial({
+                        color: 0xFFFFFF
+                    });
+                    var txtmesh = new THREE.Mesh(geometry12, material);
+                    txtmesh.position.y = bh/2
+                    txtmesh.position.x = -bh/1.5
+                    txtmesh.position.z = +bh/1.5
+                    // textMesh.position.x=0;
+                    txtmesh.depth = 2;
+                    txtmesh.rotation.order = 'YXZ';
+                    txtmesh.rotation.x = -Math.PI / 3;
+                    txtmesh.rotation.y = -Math.PI / 4;
+
+                    clone.add(txtmesh)
+
+                  }
+
+                  if(i==0&&j==1){
+                    clone.userData.stage=2;
+                    clone.userData.chapter=1;
+                  }
+
+                  if(i==0&&j==2){
+                    clone.userData.stage=3;
+                    clone.userData.chapter=1;
+                  }
+
+
+                  if(i==1&&j==4){
+                    clone.userData.stage=4;
+                    clone.userData.chapter=1;
+                  }
+
+                  if(i==2&&j==4){
+                    clone.userData.stage=5;
+                    clone.userData.chapter=1;
+                  }
+
+                  clone.position.set(-1.5*bw+(j*(스케일*6.9/2)),-bh/2,-1.5*bw+(i*(스케일*6.9/2)))
+                  clone.scale.set(스케일,스케일,스케일)
+
+                  switch (parseInt(스테이지타일1[i][j][1])) {
+                      case 0:
+                          clone.rotation.y = 3*Math.PI / 2;
+                          break;
+                      case 1:
+                          clone.rotation.y = 2*Math.PI / 2;
+                          break;
+                      case 2:
+                          clone.rotation.y = Math.PI / 2;
+                          break;
+                      case 3:
+                          clone.rotation.y = 0;
+                          break;
+                      default:
+                          return;
+                  }
+
+
+
+                  스테이지타일1[i][j].push(clone)
+                  tmesh.add(clone)
+
+                }
+
+              }
+            }
+            tmesh.rotation.y = Math.PI;
+            scene.add(tmesh);
+            stagemesh.push(tmesh);
+
+
+            console.log(스테이지타일1);
 
             // for (var i = 0; i < 10; i++) {
             //   var ran1=Math.random();
@@ -7564,68 +7791,39 @@
             //   cloud.push(backmesh)
             // }
 
-
-            var clone=propsmold[7].clone();
-            clone.position.set(0,(-40-bh)/2,0)
-            clone.scale.set(22,20,22)
-
-            clone.rotation.y = Math.PI / 4;
-
-            scene.add(clone);
-
-
-
-
-            var 배수=8;
-
-
-            var canvas = document.createElement('canvas');
-            var ctx = canvas.getContext('2d');
-            canvas.width = 160*배수;
-            canvas.height = 90*배수;
-
-
-            ctx.drawImage(배경3,0,0,160*배수,90*배수);
-
-
-            var img30 = new THREE.CanvasTexture(canvas);
-            // scene.background = img3;
-            var material40 = new THREE.MeshBasicMaterial({
-                map: img30,
-                transparent: true,
-                opacity: 1
-            });
-
-            var geometry = new THREE.BoxGeometry(배수*16, 배수*11, 0);
-            var backmesh = new THREE.Mesh(geometry, material40);
-            // backmesh.material.depthTest = false;
-            backmesh.material.depthWrite = true;;
-            backmesh.rotation.order = 'YXZ';
-            // backmesh.rotation.x = -Math.PI / 4;
-            backmesh.rotation.y = Math.PI / 4;
-            backmesh.position.z = -bw*1.65;
-            backmesh.position.x = -bw*1.65;
-            backmesh.position.y = 배수*10/2;
-
-            scene.add(backmesh);
-            배경.push(backmesh)
-
-
-
-
-
-
-
-
-
-
-
-
-          // langnum++
-          // if(langnum>langset.length-1) langnum=0;
-          // window.langnum=langnum;
-          //
-          // setlang(langnum);
+            // var 배수=8;
+            //
+            //
+            // var canvas = document.createElement('canvas');
+            // var ctx = canvas.getContext('2d');
+            // canvas.width = 160*배수;
+            // canvas.height = 90*배수;
+            //
+            //
+            // ctx.drawImage(배경3,0,0,160*배수,90*배수);
+            //
+            //
+            // var img30 = new THREE.CanvasTexture(canvas);
+            // // scene.background = img3;
+            // var material40 = new THREE.MeshBasicMaterial({
+            //     map: img30,
+            //     transparent: true,
+            //     opacity: 1
+            // });
+            //
+            // var geometry = new THREE.BoxGeometry(배수*16, 배수*11, 0);
+            // var backmesh = new THREE.Mesh(geometry, material40);
+            // // backmesh.material.depthTest = false;
+            // backmesh.material.depthWrite = true;;
+            // backmesh.rotation.order = 'YXZ';
+            // // backmesh.rotation.x = -Math.PI / 4;
+            // backmesh.rotation.y = Math.PI / 4;
+            // backmesh.position.z = -bw*1.65;
+            // backmesh.position.x = -bw*1.65;
+            // backmesh.position.y = 배수*10/2;
+            //
+            // scene.add(backmesh);
+            // 배경.push(backmesh)
 
 
         }else if (event.code === 'KeyT') {
@@ -8661,7 +8859,7 @@
             backmesh.rotation.y = Math.PI / 4;
             backmesh.position.z = -bw*1.85;
             backmesh.position.x = -bw*1.85;
-            backmesh.position.y = 배수*9/2-bh/3;
+            backmesh.position.y = 배수*9/2-bh/2;
 
             scene.add(backmesh);
             배경.push(backmesh)
@@ -12042,6 +12240,42 @@
 
 
 
+        for (let i = 0; i < 20; i++) {
+          let str;
+          if(i>=9){
+            str=String(i+1)
+          }else{
+            str="0"+String(i+1)
+          }
+
+          let mtlLoader9 = new MTLLoader();
+          mtlLoader9.load(ur2+'Overworld_Land_'+str+'.mtl', function(materials) {
+              materials.preload();
+              let loader9 = new OBJLoader();
+              // Load OBJ file
+              loader9.setMaterials(materials);
+              loader9.load(ur2+'Overworld_Land_'+str+'.obj', (object) => {
+
+                  object.children[0].rotation.y = Math.PI / 2
+                  object.children[0].position.set(0, 0, 0)
+                  object.children[0].scale.x =1
+                  object.children[0].scale.z = 1
+                  object.children[0].scale.y = 1
+                  object.children[0].userData.idx=i+1
+                  object.children[0].userData.type="1"
+
+
+                  if (shadowon) {
+                      object.children[0].receiveShadow = true;
+                      object.children[0].castShadow = true;
+                  }
+
+                타일맵.push(object.children[0]);
+              })
+            })
+
+        }
+
 
         var mtlLoader = new MTLLoader();
         mtlLoader.load(ur2+'heart.mtl', function(materials) {
@@ -14812,6 +15046,66 @@
             }
           });
 
+          if(elapsedTime-zoomtime<1){
+            if(zoomflag){
+
+              stagemesh[0].position.x=stagepos[0]+(-stagepos[0])*(elapsedTime-zoomtime)
+              stagemesh[0].position.z=stagepos[1]+(-stagepos[1])*(elapsedTime-zoomtime)
+
+
+
+
+              camera.position.x=nowpos.x+(-zoompos.x-nowpos.x+5*bw)*(elapsedTime-zoomtime)
+
+              camera.position.z=nowpos.z+(-zoompos.z-nowpos.z+5*bw)*(elapsedTime-zoomtime)
+              if(nowscale==0.6){
+
+              }else{
+                camera.left = -bw * (1.3-(elapsedTime-zoomtime)*0.8)
+                camera.right = bw * (1.3-(elapsedTime-zoomtime)*0.8) * 4
+                camera.top = bw * (1.3-(elapsedTime-zoomtime)*0.8)
+                camera.bottom = -bw * (1.3-(elapsedTime-zoomtime)*0.8) * 4
+              }
+
+              camera.near = 0.01;
+              camera.far = 1000;
+              // camera.lookAt.x=0
+              // camera.lookAt.z=0
+              renderer.setSize(window.innerWidth, window.innerHeight);
+              camera.aspect = window.innerWidth / window.innerHeight;
+              camera.updateProjectionMatrix();
+
+
+            }else{
+              stagemesh[0].position.x=stagepos[0]+(-stagepos[0])*(elapsedTime-zoomtime)
+              stagemesh[0].position.z=stagepos[1]+(-stagepos[1])*(elapsedTime-zoomtime)
+
+              camera.position.x=nowpos.x+(zoompos.x-nowpos.x)*(elapsedTime-zoomtime)
+              camera.position.z=nowpos.z+(zoompos.z-nowpos.z)*(elapsedTime-zoomtime)
+              camera.position.y=nowpos.y+(zoompos.y-nowpos.y)*(elapsedTime-zoomtime)
+
+              if(nowscale==0.6){
+                camera.left = -bw * (0.5+(elapsedTime-zoomtime)*0.8)
+                camera.right = bw * (0.5+(elapsedTime-zoomtime)*0.8) * 4
+                camera.top = bw * (0.5+(elapsedTime-zoomtime)*0.8)
+                camera.bottom = -bw * (0.5+(elapsedTime-zoomtime)*0.8) * 4
+              }else{
+
+              }
+
+              camera.near = 0.01;
+              camera.far = 1000;
+              // camera.lookAt.x=0
+              // camera.lookAt.z=0
+              renderer.setSize(window.innerWidth, window.innerHeight);
+              camera.aspect = window.innerWidth / window.innerHeight;
+              camera.updateProjectionMatrix();
+
+            }
+
+          }
+
+
             // if(!m2flag){
             //   cubemold[0].material.visible=true;
             //   cubemold[1].material.visible=true;
@@ -15594,6 +15888,14 @@
             }
 
             if (initflag) {
+
+
+              initpos=camera.position.clone();
+              타일맵.sort(function(a, b) {
+                  return a.userData.idx - b.userData.idx;
+              });
+
+              console.log(타일맵)
               guide.forEach((item) => {
                 item.material.visible=true;
               });
@@ -15764,6 +16066,146 @@
                     item.material.visible = true;
                     stepmold[0].material.visible = true;
                 })
+
+
+
+
+                if(mapflag){
+                  mapflag=false;
+                  cubes.forEach((item) => {
+                    item.mesh.material.visible=true;
+
+                    item.mesh.children.forEach((child) => {
+                      if(child.userData["skin"]==skinset[skinnum]){
+                        child.material.visible=true;
+                        child.children.forEach((grandchild) => {
+                          grandchild.material.visible=true;
+                        });
+                      }else if(child.userData["skin"]=="bottom"){
+                        child.material.visible=true;
+                        child.children.forEach((grandchild) => {
+                          grandchild.material.visible=true;
+                        });
+                      }else if(child.userData["skin"]=="tile"){
+                        child.material.visible=true;
+                        child.children.forEach((grandchild) => {
+                          grandchild.material.visible=true;
+                        });
+                      }
+
+
+
+                    });
+
+                  });
+
+                  return;
+                }else{
+                  if(배경.length==0) mapflag=true;
+                }
+
+                if(배경.length==0){
+                  var 배수=1;
+
+
+
+                  var geometry1 = new THREE.BoxGeometry(bw, bh, bw);
+                  var material1 = new THREE.MeshBasicMaterial({
+                      visible:false
+                  });
+
+                  var tmesh=new THREE.Mesh(geometry1, material1);
+
+                  for (var i = 0; i < 13; i++) {
+                    for (var j = 0; j < 11; j++) {
+                      if(스테이지타일1[i][j].length!=0){
+                        var 스케일=1.8;
+
+                        var clone=타일맵[parseInt(스테이지타일1[i][j][0])-1].clone();
+                        if(i==1&&j==0){
+                          clone.userData.stage=1;
+                          clone.userData.chapter=1;
+
+                          var geometry12 = new TextGeometry("1:1", {
+                              font: font0,
+                              size: bw / 16,
+                              height: 두께*th / 6
+                          });
+                          geometry12.computeBoundingBox();
+                          geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+                          var material = new THREE.MeshBasicMaterial({
+                              color: 0xFFFFFF
+                          });
+                          var txtmesh = new THREE.Mesh(geometry12, material);
+                          txtmesh.position.y = bh/2
+                          txtmesh.position.x = -bh/1.5
+                          txtmesh.position.z = +bh/1.5
+                          // textMesh.position.x=0;
+                          txtmesh.depth = 2;
+                          txtmesh.rotation.order = 'YXZ';
+                          txtmesh.rotation.x = -Math.PI / 3;
+                          txtmesh.rotation.y = -Math.PI / 4;
+
+                          clone.add(txtmesh)
+
+                        }
+
+                        if(i==0&&j==1){
+                          clone.userData.stage=2;
+                          clone.userData.chapter=1;
+                        }
+
+                        if(i==0&&j==2){
+                          clone.userData.stage=3;
+                          clone.userData.chapter=1;
+                        }
+
+
+                        if(i==1&&j==4){
+                          clone.userData.stage=4;
+                          clone.userData.chapter=1;
+                        }
+
+                        if(i==2&&j==4){
+                          clone.userData.stage=5;
+                          clone.userData.chapter=1;
+                        }
+
+                        clone.position.set(-1.5*bw+(j*(스케일*6.9/2)),-bh/2,-1.5*bw+(i*(스케일*6.9/2)))
+                        clone.scale.set(스케일,스케일,스케일)
+
+                        switch (parseInt(스테이지타일1[i][j][1])) {
+                            case 0:
+                                clone.rotation.y = 3*Math.PI / 2;
+                                break;
+                            case 1:
+                                clone.rotation.y = 2*Math.PI / 2;
+                                break;
+                            case 2:
+                                clone.rotation.y = Math.PI / 2;
+                                break;
+                            case 3:
+                                clone.rotation.y = 0;
+                                break;
+                            default:
+                                return;
+                        }
+
+
+
+                        스테이지타일1[i][j].push(clone)
+                        tmesh.add(clone)
+
+                      }
+
+                    }
+                  }
+                  tmesh.rotation.y = Math.PI;
+                  scene.add(tmesh);
+                  stagemesh.push(tmesh);
+                }
+
+
 
             }
         } else {
@@ -18002,7 +18444,7 @@
           timebuf=-1
 
           if(elapsedTime - stacktime <= 0.35){
-            console.log(배경[0].position.y)
+
             if(배경.length!=0){
               // 배경[1].position.y-=0.01
               cloud0.forEach((item) => {
@@ -19055,16 +19497,21 @@
         if (orthoflag && lookcenter&&bf!=activeFloor) {
             if (!gameoverflag) {
                 if (activeFloor == cubes.length) {
-
+                  if(!mapflag){
                     camera.position.x=2*(bw * 2 )+ avx
                     camera.position.z=2*(bw * 2 )+ avz
+                  }
 
-                    // camera.position.set(
-                    //     2*(bw * 2 )+ avx,
-                    //     // cubes[cubes.length-1].mesh.position.y+bh*5,
-                    //     2*(bh * (cubes.length + 2)),
-                    //     2*(bw * 2 )+ avz,
-                    // );
+
+                    // if(!mapflag){
+                    //   camera.position.set(
+                    //       2*(bw * 2 )+ avx,
+                    //       // cubes[cubes.length-1].mesh.position.y+bh*5,
+                    //       2*(bh * (cubes.length + 2)),
+                    //       2*(bw * 2 )+ avz,
+                    //   );
+                    // }
+
                     if(gamemod==2&&!m2flag) {
 
                       camera.position.y= 2*(bh * ((cubes.length)*0.5+높이1))
@@ -19157,13 +19604,15 @@
                     for (var i = 0; i < cubes.length; i++) {
 
                         if (i == activeFloor) {
-                            camera.position.set(
-                                2*(bw * 2 )+ avx,
-                                // cubes[cubes.length-1].mesh.position.y+(i-3)*bh,
-                                // cubes[cubes.length-1].mesh.position.y+bh*5,
-                                2*(bh * (cubes.length + 2)),
-                                2*(bw * 2 )+ avz
-                            );
+                            if(!mapflag){
+                              camera.position.set(
+                                  2*(bw * 2 )+ avx,
+                                  // cubes[cubes.length-1].mesh.position.y+(i-3)*bh,
+                                  // cubes[cubes.length-1].mesh.position.y+bh*5,
+                                  2*(bh * (cubes.length + 2)),
+                                  2*(bw * 2 )+ avz
+                              );
+                            }
                             if(gamemod==2&&!m2flag) camera.position.y=2*(bh * ((cubes.length)*0.5+높이1))
 
 
@@ -19421,13 +19870,16 @@
                 }
             }
         }else {
-          if (!restartflag) {
-            camera.position.x=2*(bw * 2 )+ avx;
-            camera.position.z=2*(bw * 2 )+ avz;
-          }else{
-            camera.position.z=2*(bw * 2);
-            camera.position.x=2*(bw * 2);
+          if(!mapflag){
+            if (!restartflag) {
+              camera.position.x=2*(bw * 2 )+ avx;
+              camera.position.z=2*(bw * 2 )+ avz;
+            }else{
+              camera.position.z=2*(bw * 2);
+              camera.position.x=2*(bw * 2);
+            }
           }
+
 
           for (var i = 0; i < cubes.length; i++) {
               cubes[i].mesh.children.forEach((item) => {
@@ -20015,6 +20467,21 @@
           ring[0].children.forEach((item) => {
               item.material.visible = false;
           })
+      }
+
+      if(mapflag){
+        cubes.forEach((item) => {
+          item.mesh.material.visible=false;
+          item.mesh.children.forEach((child) => {
+            child.material.visible=false;
+            child.children.forEach((grandchild) => {
+              grandchild.material.visible=false;
+            });
+
+          });
+
+        });
+
       }
 
 
@@ -26469,6 +26936,98 @@
     }
     window.drawon=drawon;
 
+    function stageplay(){
+
+
+      var ch=document.getElementById("sub").children[2].innerText.split(" ")[0]
+      var st=document.getElementById("sub").children[2].innerText.split(" ")[1]
+      console.log("플레이 "+ch+": "+st)
+      mapflag=false;
+      cubes.forEach((item) => {
+        item.mesh.material.visible=true;
+
+        item.mesh.children.forEach((child) => {
+          if(child.userData["skin"]==skinset[skinnum]){
+            child.material.visible=true;
+            child.children.forEach((grandchild) => {
+              grandchild.material.visible=true;
+            });
+          }else if(child.userData["skin"]=="bottom"){
+            child.material.visible=true;
+            child.children.forEach((grandchild) => {
+              grandchild.material.visible=true;
+            });
+          }else if(child.userData["skin"]=="tile"){
+            child.material.visible=true;
+            child.children.forEach((grandchild) => {
+              grandchild.material.visible=true;
+            });
+          }
+
+
+
+        });
+
+      });
+      retry(0, ch, st)
+
+
+
+
+
+    }
+
+    window.stageplay=stageplay;
+
+
+    function stageclick(text){
+      var ch;
+      var st;
+      var panellst = document.querySelectorAll(".panel");
+      panellst.forEach((item) => {
+        // console.log(item.children)
+        for (var i = 0; i < item.children.length; i++) {
+          if(item.children[i].classList.contains("set")){
+            item.children[i].classList.remove("set")
+          }
+        }
+
+      });
+
+      if(text.length>2){
+        ch=text[0];
+        st=text[1]+text[2];
+      }else{
+        ch=text[0];
+        st=text[1];
+      }
+      console.log("p"+ch+st)
+      if(document.getElementById("p"+ch+st).classList.contains("set")){
+        document.getElementById("p"+ch+st).classList.remove("set")
+      }else{
+        document.getElementById("p"+ch+st).classList.add("set")
+      }
+
+      document.getElementById("popsub").style.display=""
+
+      document.getElementById("popsub").children[0].children[0].children[0].innerText=document.getElementById("p"+ch+st).children[0].innerText
+      document.getElementById("popsub").children[0].children[0].children[1].src=document.getElementById("p"+ch+st).children[1].src
+      document.getElementById("popsub").children[0].children[0].children[2].innerText=document.getElementById("p"+ch+st).children[2].innerText
+      document.getElementById("popsub").children[0].children[0].children[3].innerText=document.getElementById("p"+ch+st).children[3].innerText
+      document.getElementById("popsub").children[0].children[0].children[4].innerText=document.getElementById("p"+ch+st).children[4].innerText
+
+
+
+
+
+
+
+      document.getElementById("sub").children[0].innerText=document.getElementById("p"+ch+st).children[0].innerText
+      document.getElementById("sub").children[2].innerText=ch+" "+st
+
+    }
+    window.stageclick=stageclick;
+
 </script>
 
 <script>
@@ -27617,64 +28176,9 @@
 
     }
 
-    function stageclick(text){
-      var ch;
-      var st;
-      var panellst = document.querySelectorAll(".panel");
-      panellst.forEach((item) => {
-        // console.log(item.children)
-        for (var i = 0; i < item.children.length; i++) {
-          if(item.children[i].classList.contains("set")){
-            item.children[i].classList.remove("set")
-          }
-        }
-
-      });
-
-      if(text.length>2){
-        ch=text[0];
-        st=text[1]+text[2];
-      }else{
-        ch=text[0];
-        st=text[1];
-      }
-      console.log("p"+ch+st)
-      if(document.getElementById("p"+ch+st).classList.contains("set")){
-        document.getElementById("p"+ch+st).classList.remove("set")
-      }else{
-        document.getElementById("p"+ch+st).classList.add("set")
-      }
-
-      document.getElementById("popsub").style.display=""
-
-      document.getElementById("popsub").children[0].children[0].children[0].innerText=document.getElementById("p"+ch+st).children[0].innerText
-      document.getElementById("popsub").children[0].children[0].children[1].src=document.getElementById("p"+ch+st).children[1].src
-      document.getElementById("popsub").children[0].children[0].children[2].innerText=document.getElementById("p"+ch+st).children[2].innerText
-      document.getElementById("popsub").children[0].children[0].children[3].innerText=document.getElementById("p"+ch+st).children[3].innerText
-      document.getElementById("popsub").children[0].children[0].children[4].innerText=document.getElementById("p"+ch+st).children[4].innerText
 
 
 
-
-
-
-
-      document.getElementById("sub").children[0].innerText=document.getElementById("p"+ch+st).children[0].innerText
-      document.getElementById("sub").children[2].innerText=ch+" "+st
-
-    }
-
-    function stageplay(){
-
-
-      var ch=document.getElementById("sub").children[2].innerText.split(" ")[0]
-      var st=document.getElementById("sub").children[2].innerText.split(" ")[1]
-      console.log("플레이 "+ch+": "+st)
-      retry(0, ch, st)
-
-
-
-    }
 
     function stageon(){
 
