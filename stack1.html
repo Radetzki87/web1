@@ -3315,9 +3315,17 @@
 
     var 세이브;
 
+    var initmappos;
+
     var badgelst=[];
 
     var mapflag=false;
+
+    var 줌=false
+
+    var 줌아웃=false
+
+    var 인게임=true;
 
 
 
@@ -3331,10 +3339,12 @@
     var zoompos;
     var zoomtime;
     var initpos;
+    var tilepos;
 
     var nowscale;
     var zoomscale;
 
+    var camdata;
     var nowpos;
 
 
@@ -5626,6 +5636,7 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
         //
         //
         // }
+        console.log("뾰대압")
         if(mapflag&&zoomflag){
           return;
         }
@@ -5657,13 +5668,17 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
                   nowscale=1.3
                 }
                 console.log("간드아")
+                startflag=true
+
+                console.log(startflag)
+                console.log(initflag)
                 zoomflag=true;
                 console.log(String(item.object.userData.chapter)+String(item.object.userData.stage))
                 stageclick(String(item.object.userData.chapter)+String(item.object.userData.stage))
 
-                stagepos=[stagemesh[현챕터-1].position.x, stagemesh[현챕터-1].position.z]
-                nowpos=camera.position;
-                zoompos=item.object.position;
+                stagepos=stagemesh[현챕터-1].position.clone();
+                nowpos=camera.position.clone();
+                zoompos=item.object.position.clone();
                 console.log(zoompos)
                 zoomtime=elapsedTime;
 
@@ -5690,13 +5705,14 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
               //   ontouch=false;
               // }
             }
+            return;
             if(cat.length==1) return;
 
           });
         }
 
         if(mapflag){
-          stagepos=[stagemesh[현챕터-1].position.x, stagemesh[현챕터-1].position.z]
+          stagepos=stagemesh[현챕터-1].position.clone();
         }
 
 
@@ -6032,8 +6048,8 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
             if(mapflag){
               // stagemesh[0].position.x=stagepos[0]-20*(window.innerHeight/window.innerWidth)*(touchy - lastY)+12*(touchx - lastX)
 
-              stagemesh[현챕터-1].position.x=stagepos[0]-2*2.0*(window.innerHeight/window.innerWidth)*(touchy - lastY)+2*1.2*(touchx - lastX)
-              stagemesh[현챕터-1].position.z=stagepos[1]-2*1.2*(touchx - lastX)-2*2.0*(window.innerHeight/window.innerWidth)*(touchy - lastY)
+              stagemesh[현챕터-1].position.x=stagepos.x-2*2.0*(window.innerHeight/window.innerWidth)*(touchy - lastY)+2*1.2*(touchx - lastX)
+              stagemesh[현챕터-1].position.z=stagepos.z-2*1.2*(touchx - lastX)-2*2.0*(window.innerHeight/window.innerWidth)*(touchy - lastY)
 
               // if(stagemesh[0].position.x<=1){
               //   stagemesh[0].position.x=1
@@ -7849,7 +7865,7 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
           }else{
             nowscale=0.6
           }
-          stagepos=[stagemesh[현챕터-1].position.x, stagemesh[현챕터-1].position.z]
+          stagepos=stagemesh[현챕터-1].position.clone();
           zoomflag=false;
           nowpos=camera.position;
           zoompos=initpos;
@@ -8247,6 +8263,7 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
           //   }
         } else if (event.code === 'KeyH') {
             if (!rotationflag) {
+                console.log("테스트1")
                 rotationflag = true
                 restartflag = true
                 pluscoin = parseInt(점수 / 10)
@@ -8324,11 +8341,16 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
 
           // dl2.shadow.mapSize = new THREE.Vector2(1000, 1000);
         } else if (event.code === 'KeyC') {
-            for (var i = 0; i < cubes.length-1; i++) {
-              let force2 = new CANNON.Vec3();
-              force2.set(300*(avx - cubes[i].body.position.x)+300*(cubes[i+1].body.position.x - cubes[i].body.position.x),0,300*(avz - cubes[i].body.position.z)+300*(cubes[i+1].body.position.z - cubes[i].body.position.z));
-              cubes[i].body.applyForce(force2, cubes[i].body.position);
-            }
+            // for (var i = 0; i < cubes.length-1; i++) {
+            //   let force2 = new CANNON.Vec3();
+            //   force2.set(300*(avx - cubes[i].body.position.x)+300*(cubes[i+1].body.position.x - cubes[i].body.position.x),0,300*(avz - cubes[i].body.position.z)+300*(cubes[i+1].body.position.z - cubes[i].body.position.z));
+            //   cubes[i].body.applyForce(force2, cubes[i].body.position);
+            // }
+
+            let force2 = new CANNON.Vec3();
+            force2.set(0,0,6000);
+            cubes[activeFloor].body.applyForce(force2, cubes[activeFloor].body.position);
+
 
 
 
@@ -8472,36 +8494,53 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
         // audioLoader = new THREE.AudioLoader();
         world = new CANNON.World();
 
+        if(!줌){
+          if((window.innerWidth / window.innerHeight) > 4/7){
+            camera.left = -bw * 1.8
+            camera.right = bw * 1.8 * 4
+            camera.top = bw * 1.8
+            camera.bottom = -bw * 1.8 * 4
+          }else{
+            camera.left = -bw * 1.3
+            camera.right = bw * 1.3 * 4
+            camera.top = bw * 1.3
+            camera.bottom = -bw * 1.3 * 4
+          }
 
-        if((window.innerWidth / window.innerHeight) > 4/7){
-          camera.left = -bw * 1.8
-          camera.right = bw * 1.8 * 4
-          camera.top = bw * 1.8
-          camera.bottom = -bw * 1.8 * 4
+          camera.position.set(
+              2*(bw * 2 ),
+              // cubes[cubes.length-1].mesh.position.y+bh*5,
+              2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30,
+              2*(bw * 2 ),
+          );
         }else{
-          camera.left = -bw * 1.3
-          camera.right = bw * 1.3 * 4
-          camera.top = bw * 1.3
-          camera.bottom = -bw * 1.3 * 4
+
+            camera.left = camdata[0]
+            camera.right = camdata[1]
+            camera.top = camdata[2]
+            camera.bottom = camdata[3]
+
+            camera.position.set(
+              nowpos.x,
+              nowpos.y,
+              nowpos.z
+            );
+
         }
+
         camera.near = 0.01;
         camera.far = 1000;
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
 
-        if(현스테이지!=null){
-          camera.rotation.x=-isoAngle
+        if(줌){
+          camera.rotation.x=-isoAngle-0.1
         }else{
           camera.rotation.x=restartend;
         }
 
-        camera.position.set(
-            2*(bw * 2 ),
-            // cubes[cubes.length-1].mesh.position.y+bh*5,
-            2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30,
-            2*(bw * 2 ),
-        );
+
 
 
         if(fullcam){
@@ -9060,11 +9099,18 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
           // scene.add(clone);
 
           scene.add(stagemesh[현챕터-1])
+          // var 스케일=14.2857
           var 스케일=14.2857
           stagemesh[현챕터-1].scale.set(스케일,스케일,스케일)
-          stagemesh[현챕터-1].position.y=-bh*3+(스케일*2-bh)/2
-          stagemesh[현챕터-1].position.x=+스케일*스테이지타일[현스테이지.챕터][zoompos[0]][zoompos[1]][3].position.x
-          stagemesh[현챕터-1].position.z=+스케일*스테이지타일[현스테이지.챕터][zoompos[0]][zoompos[1]][3].position.z
+          // stagemesh[현챕터-1].position.y=-bh*3+(스케일*2-bh)/2
+          // stagemesh[현챕터-1].position.x=+스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.x
+          // stagemesh[현챕터-1].position.z=+스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.z
+
+          stagemesh[현챕터-1].position.y=stagepos.y
+          stagemesh[현챕터-1].position.x=stagepos.x+스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.x
+          stagemesh[현챕터-1].position.z=stagepos.z+스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.z
+          zoompos=stagemesh[현챕터-1].position.clone();
+
 
           badgelst.forEach((item) => {
             item.material.visible=false;
@@ -14317,6 +14363,7 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
             cubes[i].body.force.set(0,0,0)
             cubes[i].body.torque.set(0,0,0)
 
+
             if(gamemod!=2){
               cubes[i].body.velocity.set(0, 0, 0);
               cubes[i].body.angularVelocity.set(0, 0, 0);
@@ -14324,7 +14371,7 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
               cubes[i].body.quaternion.copy(cubes[i].mesh.quaternion);
               world.addBody(cubes[i].body);
               scene.add(cubes[i].mesh)
-            }else if(i>=  3){
+            }else if(i>= 3){
 
 
               cubes[i].body.velocity.set(0, 0, 0);
@@ -15403,6 +15450,161 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
 
         let deltaTime2= elapsedTime - lastTime2;
 
+        if(!startflag&&줌){
+          if(elapsedTime-0<=1){
+            // var 스케일=1+(13.2857)*(elapsedTime-0)
+            // stagemesh[현챕터-1].scale.set(스케일,스케일,스케일)
+            //
+            // stagemesh[현챕터-1].position.y=zoompos.y+((-zoompos.y)+(-bh*3+(스케일*2-bh)/2))*elapsedTime
+            // stagemesh[현챕터-1].position.x=zoompos.x+((-zoompos.x)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.x))*elapsedTime
+            // stagemesh[현챕터-1].position.z=zoompos.z+((-zoompos.z)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.z))*elapsedTime
+
+            camera.left = -bw * (6-(elapsedTime)*4.7)
+            camera.right = bw * (6-(elapsedTime)*4.7) * 4
+            camera.top = bw * (6-(elapsedTime)*4.7)
+            camera.bottom = -bw * (6-(elapsedTime)*4.7) * 4
+
+            camera.near = 0.01;
+            camera.far = 1000;
+
+
+            // camera.lookAt.x=0
+            // camera.lookAt.z=0
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+
+
+
+            // stagemesh[현챕터-1].position.y=stagepos[2]+(-stagepos[2])*(elapsedTime-0)+(-bh*3-(14.2857*2-bh)/2)*(elapsedTime-0)
+            // stagemesh[현챕터-1].position.x=stagepos[0]+(-stagepos[0])*(elapsedTime-0)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.x)
+            // stagemesh[현챕터-1].position.z=stagepos[1]+(-stagepos[1])*(elapsedTime-0)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.z)
+          }else{
+            줌=false;
+            인게임=true;
+          }
+        }
+
+        if(!startflag&&줌아웃){
+          if(elapsedTime-0<=1){
+            // var 스케일=1+(13.2857)*(elapsedTime-0)
+            // stagemesh[현챕터-1].scale.set(스케일,스케일,스케일)
+            //
+            // stagemesh[현챕터-1].position.y=zoompos.y+((-zoompos.y)+(-bh*3+(스케일*2-bh)/2))*elapsedTime
+            // stagemesh[현챕터-1].position.x=zoompos.x+((-zoompos.x)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.x))*elapsedTime
+            // stagemesh[현챕터-1].position.z=zoompos.z+((-zoompos.z)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.z))*elapsedTime
+
+            camera.left = -bw * (1.3+(elapsedTime)*4.7)
+            camera.right = bw * (1.3+(elapsedTime)*4.7) * 4
+            camera.top = bw * (1.3+(elapsedTime)*4.7)
+            camera.bottom = -bw * (1.3+(elapsedTime)*4.7) * 4
+
+            camera.near = 0.01;
+            camera.far = 1000;
+
+
+            // camera.lookAt.x=0
+            // camera.lookAt.z=0
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+
+
+
+            // stagemesh[현챕터-1].position.y=stagepos[2]+(-stagepos[2])*(elapsedTime-0)+(-bh*3-(14.2857*2-bh)/2)*(elapsedTime-0)
+            // stagemesh[현챕터-1].position.x=stagepos[0]+(-stagepos[0])*(elapsedTime-0)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.x)
+            // stagemesh[현챕터-1].position.z=stagepos[1]+(-stagepos[1])*(elapsedTime-0)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.z)
+          }else{
+            줌아웃=false;
+            zoomflag=false;
+            mapflag=true;
+            gameoverflag=false
+            startflag=false;
+            initflag=false;
+
+            인게임=false;
+
+            rotationflag=false;
+            restartflag=false;
+
+
+            stagemesh[현챕터-1].scale.set(1,1,1)
+            stagemesh[현챕터-1].position.set(initmappos.x,initmappos.y,initmappos.z)
+            camera.position.set(initpos.x,initpos.y,initpos.z)
+
+            camera.left = -bw * (1.3)
+            camera.right = bw * (1.3) * 4
+            camera.top = bw * (1.3)
+            camera.bottom = -bw *(1.3) * 4
+
+            camera.near = 0.01;
+            camera.far = 1000;
+
+
+            // camera.lookAt.x=0
+            // camera.lookAt.z=0
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+
+            for (let i = 0; i < cubes.length; i++) {
+                cubes[i].body.force.set(0,0,0)
+                cubes[i].body.torque.set(0,0,0)
+
+                if(i>=5){
+                  scene.remove(cubes[i].mesh)
+                  cubes[i].body.sleep()
+
+                }else if(i>=3){
+                  cubes[i].mesh.position.set(0, (i-3  ) * bh + bh / 2, 0);
+                  cubes[i].mesh.rotation.set(0, 0, 0);
+                  cubes[i].body.velocity.set(0, 0, 0);
+                  cubes[i].body.angularVelocity.set(0, 0, 0);
+                  cubes[i].body.position.set(0, (i-3  ) * bh + bh / 2, 0);
+                  cubes[i].body.quaternion.copy(cubes[i].mesh.quaternion);
+                }
+
+
+            }
+            cubes.length=5;
+            activeFloor=5
+
+
+
+
+
+            badgelst.forEach((item) => {
+              if(item.userData.chapter==현챕터){
+                item.material.visible=true
+                if(item.children[0]==null) return;
+                item.children[0].material.visible=true;
+                if(세이브[(item.userData.chapter-1)*10+(item.userData.stage-1)].해금=="1"){
+                  item.children[1].material.visible=true;
+                  item.children[3].material.visible=true;
+                  item.children[5].material.visible=true;
+                  if(세이브[(item.userData.chapter-1)*10+(item.userData.stage-1)].스타=="1"){
+                    item.children[2].material.visible=true;
+                  }else if(세이브[(item.userData.chapter-1)*10+(item.userData.stage-1)].스타=="2"){
+                    item.children[2].material.visible=true;
+                    item.children[4].material.visible=true;
+                  }else if(세이브[(item.userData.chapter-1)*10+(item.userData.stage-1)].스타=="3"){
+                    item.children[2].material.visible=true;
+                    item.children[4].material.visible=true;
+                    item.children[6].material.visible=true;
+                  }
+                }
+
+
+              }
+
+            });
+
+          }
+        }
+
 
 
 
@@ -15464,13 +15666,15 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
           });
 
 
+
+
           if(superzoom){
             if(elapsedTime-zoomtime<1){
               var 스케일=1+(13.2857)*(elapsedTime-zoomtime)
               stagemesh[현챕터-1].scale.set(스케일,스케일,스케일)
-              stagemesh[현챕터-1].position.y=stagepos[2]+(-stagepos[2])*(elapsedTime-zoomtime)+(-bh*3-(14.2857*2-bh)/2)*(elapsedTime-zoomtime)
-              stagemesh[현챕터-1].position.x=stagepos[0]+(-stagepos[0])*(elapsedTime-zoomtime)+(스케일*스테이지타일[현스테이지.챕터][zoompos[0]][zoompos[1]][3].position.x)
-              stagemesh[현챕터-1].position.z=stagepos[1]+(-stagepos[1])*(elapsedTime-zoomtime)+(스케일*스테이지타일[현스테이지.챕터][zoompos[0]][zoompos[1]][3].position.z)
+              stagemesh[현챕터-1].position.y=stagepos.y+(-stagepos.y)*(elapsedTime-zoomtime)+(-bh*3-(14.2857*2-bh)/2)*(elapsedTime-zoomtime)
+              stagemesh[현챕터-1].position.x=stagepos.x+(-stagepos.x)*(elapsedTime-zoomtime)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.x)
+              stagemesh[현챕터-1].position.z=stagepos.z+(-stagepos.z)*(elapsedTime-zoomtime)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.z)
 
               camera.position.x=nowpos.x+(-nowpos.x+6.1*bw)*(elapsedTime-zoomtime)
               camera.position.z=nowpos.z+(-nowpos.z+6.1*bw)*(elapsedTime-zoomtime)
@@ -15506,8 +15710,8 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
           }else if(mapflag&&elapsedTime-zoomtime<1){
             if(zoomflag){
               console.log("호옹이"+String(nowscale))
-              stagemesh[현챕터-1].position.x=stagepos[0]+(-stagepos[0])*(elapsedTime-zoomtime)
-              stagemesh[현챕터-1].position.z=stagepos[1]+(-stagepos[1])*(elapsedTime-zoomtime)
+              stagemesh[현챕터-1].position.x=stagepos.x+(-stagepos.x)*(elapsedTime-zoomtime)
+              stagemesh[현챕터-1].position.z=stagepos.z+(-stagepos.z)*(elapsedTime-zoomtime)
               camera.position.x=nowpos.x+(-zoompos.x-nowpos.x+5*bw)*(elapsedTime-zoomtime)
               camera.position.z=nowpos.z+(-zoompos.z-nowpos.z+5*bw)*(elapsedTime-zoomtime)
               if(nowscale==0.6){
@@ -15529,8 +15733,8 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
 
 
             }else{
-              stagemesh[현챕터-1].position.x=stagepos[0]+(-stagepos[0])*(elapsedTime-zoomtime)
-              stagemesh[현챕터-1].position.z=stagepos[1]+(-stagepos[1])*(elapsedTime-zoomtime)
+              stagemesh[현챕터-1].position.x=stagepos.x+(-stagepos.x)*(elapsedTime-zoomtime)
+              stagemesh[현챕터-1].position.z=stagepos.z+(-stagepos.z)*(elapsedTime-zoomtime)
 
               camera.position.x=nowpos.x+(zoompos.x-nowpos.x)*(elapsedTime-zoomtime)
               camera.position.z=nowpos.z+(zoompos.z-nowpos.z)*(elapsedTime-zoomtime)
@@ -16340,13 +16544,15 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
             }
 
             if (initflag) {
+              restartflag=false
+              rotationflag=false
               console.log("헐")
               document.getElementById("popsub").style.display="none"
               mapflag=false;
 
 
 
-              initpos=camera.position.clone();
+              // initpos=camera.position.clone();
               타일맵.sort(function(a, b) {
                   return a.userData.idx - b.userData.idx;
               });
@@ -16872,7 +17078,7 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
 
 
                 for (var i = 0; i < cubes.length; i++) {
-                    cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) +(restartloc[i].y) * 1.49 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
+                    cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), -bh*3+((i) * bh + bh / 2) +(restartloc[i].y) * 1.49 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].y * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     if(skinset[skinnum]=="classic"){
                       // cubes[i].mesh.position.z=cubes[i].body.position.z
@@ -17070,6 +17276,8 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
                 if(onceflag0){
                   camera.rotation.x=-isoAngle;
                   console.log("빵")
+                  startflag=false;
+                  initflag=true
 
 
 
@@ -17328,7 +17536,7 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
                 groundmesh.material.alphaTest=groundmesh.material.opacity;
             }
         }
-        if (rotationflag) {
+        if (false) {
             if (Math.abs(camera.rotation.y - rotationend) < 0.0001) {
                 rotationflag = false;
                 if (rotationend == 0) {
@@ -19080,7 +19288,7 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
         // console.log(cubes[0].mesh.position)
         // console.log(cubes[0].mesh.rotation)
 
-        if (!gameoverflag&&startflag) {
+        if (!gameoverflag&&startflag&&인게임) {
           var 오버=false;
           if (Math.abs(cubes[cubes.length-1].mesh.rotation.x) > Math.PI/3 || Math.abs(cubes[cubes.length-1].mesh.rotation.z) > Math.PI/3) {
             오버=true;
@@ -19761,7 +19969,7 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
                   document.getElementById('song-info').classList.remove("show1");
                   document.getElementById('song-info').classList.add("hidden");
                   var temp0=document.querySelectorAll(".gameover");
-                  if(gamemod==2){
+                  if(gamemod==2){ //겜오
                     document.querySelector(".gameinfo").classList.remove("show");
                     document.querySelector(".gameinfo").classList.add("hidden");
                     // temp0[1].classList.remove("show");
@@ -19771,6 +19979,16 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
                     temp0[1].classList.remove("hidden");
                     temp0[1].classList.add("show");
                     temp0[1].style.display=""
+
+                    temp0[2].style.opacity=1;
+                    temp0[2].classList.remove("hidden");
+                    temp0[2].classList.add("show");
+                    temp0[2].style.display=""
+
+                    temp0[3].style.opacity=1;
+                    temp0[3].classList.remove("hidden");
+                    temp0[3].classList.add("show");
+                    temp0[3].style.display=""
                   }else{
                     document.querySelector(".gameinfo").classList.remove("hidden");
                     document.querySelector(".gameinfo").classList.add("show");
@@ -19872,6 +20090,7 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
                     if(gamemod==2&&!m2flag) {
 
                       camera.position.y= 2*(bh * ((cubes.length)*0.5+높이1))
+                      console.log("하이")
                     }
 
                     cubes.forEach((item, index) => {
@@ -19971,6 +20190,7 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
                               );
                             }
                             if(gamemod==2&&!m2flag) camera.position.y=2*(bh * ((cubes.length)*0.5+높이1))
+                            console.log("방가")
 
 
 
@@ -20227,7 +20447,10 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
                 }
             }
         }else {
-          if(!mapflag){
+          if(!mapflag&&!줌){
+
+
+            // console.log("크크")
             if (!restartflag) {
               camera.position.x=2*(bw * 2 )+ avx;
               camera.position.z=2*(bw * 2 )+ avz;
@@ -20527,7 +20750,8 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
 
         if(startflag) world.step(1 / 60, deltaTime/850);
 
-        if(등장){
+        if(등장&&!줌){
+          console.log("넌무너ㅣ")
           if(gamemod!=2){
             camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
           }else{
@@ -20867,7 +21091,14 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
             //     renderer.setScissorTest(true);
             //     renderer.render(scene, camera);
             // }
-            if(fullcam){
+            if((줌||줌아웃)&&!startflag&&elapsedTime<1){
+              console.log("아오르꺼")
+
+              // camera.position.set(nowpos.x,nowpos.y,nowpos.z)
+              camera.position.x=2*bw*10
+              camera.position.z=2*bw*10
+              camera.position.y=2*bw*6.54+nowpos.y
+            }else if(fullcam){
               if(gamemod==2){
 
                 if(!m2flag) camera.position.y= 2*(bh * ((cubes.length)*0.5+높이1+1))+(-isoAngle - camera.rotation.x)*30
@@ -25034,11 +25265,13 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
       document.getElementById("main").style.display="none"
       document.getElementById("sub").style.display="none"
       document.getElementById("popsub").style.display="none"
-      if(ch!=""){
+      if(줌){
         현스테이지=stageset[parseInt(ch-1)*10+parseInt(st)-1];
         목표층=현스테이지.조건
         챕터=현스테이지.챕터;
         스테이지=현스테이지.스테이지;
+
+        restartflag = true
         return restart()
       }else{
         목표층=60;
@@ -26269,8 +26502,17 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
     function ok(){
       document.getElementById("warpper").style.display="none"
       stagemesh[현챕터-1].scale.set(1,1,1)
+      if(줌아웃){
+        camera.position.set(initpos.x, initpos.y, initpos.z)
+      }
+      initmappos=stagemesh[현챕터-1].position.clone();
+      initpos=camera.position.clone();
+
+      console.log("이닛맵포스:")
+      console.log(initmappos)
       startflag=true;
-      initflag=false;
+      mapflag=true;
+      // initflag=false;
       badgelst.forEach((item) => {
         if(item.userData.chapter==현챕터){
           item.material.visible=true
@@ -26581,7 +26823,6 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
       mapflag=true;
       cubes.forEach((item) => {
         item.mesh.material.visible=true;
-
         item.mesh.children.forEach((child) => {
           if(child.userData["skin"]==skinset[skinnum]){
             child.material.visible=true;
@@ -27097,6 +27338,7 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
           close(예스노)
 
           return retry(0, 현챕터, 현스테)
+
           if(parseInt(Math.random()*5)>=3){
               if(freead){
                   elapsedTime=0;
@@ -27119,6 +27361,34 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
                 retry()
               }
           }
+
+
+        })
+
+        reBtn2.addEventListener('click', function() {
+          if(restartflag) return;
+
+
+          줌아웃=true;
+          mapflag=true;
+          startflag=false;
+          elapsedTime=0;
+
+          close(모드)
+          close(세팅)
+          close(게임오버)
+          close(튜토리얼)
+          close(라이트)
+          close(예스노)
+
+
+
+
+          // ok();
+
+
+          // return retry(0, 현챕터, 현스테)
+
 
 
         })
@@ -27733,17 +28003,29 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
       //
       // });
       현스테이지=stageset[parseInt(ch-1)*10+parseInt(st)-1];
-      superzoom=true;
-      stagepos=[stagemesh[현챕터-1].position.x, stagemesh[현챕터-1].position.z,stagemesh[현챕터-1].position.y ]
-      nowpos=camera.position;
+      // superzoom=true;
+      // stagepos=[stagemesh[현챕터-1].position.x, stagemesh[현챕터-1].position.z,stagemesh[현챕터-1].position.y ]
 
+      stagepos=stagemesh[현챕터-1].position.clone();
+
+      nowpos=camera.position.clone();
       var 좌표=세이브[(현챕터-1)*10+(현스테-1)].좌표;
-
-
-
-      zoompos=[parseInt(좌표.split("/")[1].split(":")[0]), parseInt(좌표.split("/")[1].split(":")[1])]
+      tilepos=[parseInt(좌표.split("/")[1].split(":")[0]), parseInt(좌표.split("/")[1].split(":")[1])]
+      camdata=[camera.left,camera.right,camera.top,camera.bottom]
       console.log(zoompos)
       zoomtime=elapsedTime;
+
+
+      zoomflag=false;
+      superzoom=false;
+      mapflag=false
+      startflag=false
+      initflag=false
+
+      줌=true;
+
+      return retry(0, 현챕터, 현스테)
+
 
 
       // console.log(camera.position)
@@ -29747,9 +30029,26 @@ var 스테이지타일=[[[[],[1,2,0],[2,3,0],[1,1,0],[],[],[],[],[],[],[],[]],
 
 
 
+
+
         <div class="gameover">
             <label class="glabel0">Back to Normal</label>
             <button id="restartbtn4" class="gameoverbt">
+                <img src="png/return.png" >
+            </button>
+        </div>
+
+
+        <div class="gameover">
+            <label class="glabel0">맵으로</label>
+            <button id="restartbtn2" class="gameoverbt">
+                <img src="png/return.png" >
+            </button>
+        </div>
+
+        <div class="gameover">
+            <label class="glabel0">건설</label>
+            <button id="restartbtn3" class="gameoverbt">
                 <img src="png/return.png" >
             </button>
         </div>
