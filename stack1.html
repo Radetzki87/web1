@@ -3386,9 +3386,12 @@
 
     var 시작높이=-1;
 
-    var 배율1=1.3
+    var 로딩완료=false
 
-    var 배율2=0.6
+
+    var 배율1=1.1
+
+    var 배율0=0.4
 
     var 세이브;
 
@@ -5268,6 +5271,7 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
     var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
     function handleTouchStart(event) {
+        if(propsmold.length!=11||!로딩완료) return;
         if(!터치) return
         // if(originflag&&-isoAngle != camera.rotation.x) return;
 
@@ -5754,9 +5758,9 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
               if(item.object.userData.stage!=null){
                 if(mapflag){
                   if(!zoomflag){
-                    nowscale=1.3
+                    nowscale=배율1
                   }else{
-                    nowscale=0.6
+                    nowscale=배율0
                   }
                   console.log("간드아")
                   startflag=true
@@ -5783,9 +5787,9 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
                   document.getElementById("popsub").style.display="none"
                   console.log("가라")
                   if(!zoomflag){
-                    nowscale=1.3
+                    nowscale=배율1
                   }else{
-                    nowscale=0.6
+                    nowscale=배율0
                   }
                   stagepos=stagemesh[현챕터-1].position.clone();
                   zoomflag=false;
@@ -8010,9 +8014,9 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
 
         }else if (event.code === 'KeyO') {
           if(!zoomflag){
-            nowscale=1.3
+            nowscale=배율1
           }else{
-            nowscale=0.6
+            nowscale=배율0
           }
           stagepos=stagemesh[현챕터-1].position.clone();
           zoomflag=false;
@@ -8650,10 +8654,10 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
             camera.top = bw * 1.8
             camera.bottom = -bw * 1.8 * 4
           }else{
-            camera.left = -bw * 1.3
-            camera.right = bw * 1.3 * 4
-            camera.top = bw * 1.3
-            camera.bottom = -bw * 1.3 * 4
+            camera.left = -bw * 배율1
+            camera.right = bw * 배율1 * 4
+            camera.top = bw * 배율1
+            camera.bottom = -bw * 배율1 * 4
           }
 
           camera.position.set(
@@ -8766,6 +8770,9 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
         groundBody.position.set(0, -1+bh+(bh*시작높이), 0);
         world.addBody(groundBody);
 
+
+
+
         // groundBody1.position.set(0, -3, 0);
         // world.addBody(groundBody1);
         //
@@ -8804,6 +8811,9 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
             });
         }
         groundmesh = new THREE.Mesh(groundgeometry, groundmaterial);
+
+
+
         groundmesh.position.set(0, -1, 0);
         groundmesh.userData.skin="ground"
         if (shadowon) groundmesh.receiveShadow = false
@@ -8814,21 +8824,27 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
           remain=30;
           tbonus=30
         }
-        scene.add(groundmesh);
+        // scene.add(groundmesh);
 
 
         var tgeo = new THREE.BoxGeometry(bw*500, 2, bw*500);
 
         var tmaterial = new THREE.MeshLambertMaterial({
-            color: new THREE.Color(0x33CCFF),
+            color: new THREE.Color(0xEEAAEE),
             visible: true,
             opacity: 0.2,
             transparent: true
         });
 
         var 뉴바닥=new THREE.Mesh(tgeo, tmaterial);
-        뉴바닥.position.set(0, -bh*2, 0);
-        뉴바닥.receiveShadow = true
+        if(!mapflag){
+          뉴바닥.position.set(0, -bh*2, 0);
+        }else{
+          뉴바닥.position.set(0, -bh*2, 0);
+        }
+
+
+        뉴바닥.receiveShadow = false
         scene.add(뉴바닥);
 
 
@@ -9330,7 +9346,7 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
           var material40 = new THREE.MeshBasicMaterial({
               map: img30,
               transparent: true,
-              opacity: 1
+              opacity: 0.0
           });
 
           var geometry = new THREE.BoxGeometry(배수*16*3, 배수*90*3, 1);
@@ -9597,6 +9613,14 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
                       // const dL=new THREE.DirectionalLight(0xEEffEE,0.7);
                       // dL.position.set(13,30,18);
                       // scene.add(dL);
+
+                      var dl3 = new THREE.DirectionalLight(0xF0FFFF, 0.3);
+                      dl3.position.set(-80, 100, -80);
+                      dl3.target.position.set(0, 0, 0);
+                      dl3.castShadow = false;
+                      scene.add(dl3)
+
+                      // 빛
                       var dl2 = new THREE.DirectionalLight(0xFFFFDF, 0.6);
                       dl2.position.set(40, 200, 160);
 
@@ -13193,15 +13217,15 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
                                                                                                                                 color: tc
                                                                                                                             })
                                                                                                                             propsmold.push(object.children[0]);
-                                                                                                                            mtlLoader.load(ur2+'newbase-1.mtl', function(materials) {
+                                                                                                                            mtlLoader.load(ur2+'newbase-4.mtl', function(materials) {
                                                                                                                                 materials.preload();
                                                                                                                                 loader.setMaterials(materials);
-                                                                                                                                loader.load(ur2+'newbase-1.obj', (object) => {
+                                                                                                                                loader.load(ur2+'newbase-4.obj', (object) => {
                                                                                                                                   // object.children[0].rotation.y = Math.PI / 2
-                                                                                                                                  object.children[0].position.set(0, 0, 0)
-                                                                                                                                  object.children[0].scale.x = 1
-                                                                                                                                  object.children[0].scale.z = 1
-                                                                                                                                  object.children[0].scale.y = 1
+                                                                                                                                  object.children[0].position.set(0, -0.12, 0)
+                                                                                                                                  object.children[0].scale.x = 0.85
+                                                                                                                                  object.children[0].scale.z = 0.85
+                                                                                                                                  object.children[0].scale.y = 0.85
                                                                                                                                   object.children[0].receiveShadow = true;
                                                                                                                                   object.children[0].castShadow = true;
                                                                                                                                   propsmold[10].add(object.children[0])
@@ -13469,6 +13493,7 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
                                     // stepmold.push(object.children[0]);
 
                                     stepmold.push(legmold[0]);
+                                    로딩완료=true
 
 
                                 })
@@ -15874,10 +15899,10 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
             // stagemesh[현챕터-1].position.x=zoompos.x+((-zoompos.x)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.x))*elapsedTime
             // stagemesh[현챕터-1].position.z=zoompos.z+((-zoompos.z)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.z))*elapsedTime
 
-            camera.left = -bw * (5.5-(elapsedTime)*4.2)
-            camera.right = bw * (5.5-(elapsedTime)*4.2) * 4
-            camera.top = bw * (5.5-(elapsedTime)*4.2)
-            camera.bottom = -bw * (5.5-(elapsedTime)*4.2) * 4
+            camera.left = -bw * (5.5-(elapsedTime)*(5.5-배율1))
+            camera.right = bw * (5.5-(elapsedTime)*(5.5-배율1)) * 4
+            camera.top = bw * (5.5-(elapsedTime)*(5.5-배율1))
+            camera.bottom = -bw * (5.5-(elapsedTime)*(5.5-배율1)) * 4
 
             camera.near = 0.01;
             camera.far = 1000;
@@ -15921,10 +15946,10 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
             // stagemesh[현챕터-1].position.z=stagepos.x-(stagepos.x)*elapsedTime
 
 
-            camera.left = -bw * (1.3+(elapsedTime)*15.7)
-            camera.right = bw * (1.3+(elapsedTime)*15.7) * 4
-            camera.top = bw * (1.3+(elapsedTime)*15.7)
-            camera.bottom = -bw * (1.3+(elapsedTime)*15.7) * 4
+            camera.left = -bw * (배율1+(elapsedTime)*15.7)
+            camera.right = bw * (배율1+(elapsedTime)*15.7) * 4
+            camera.top = bw * (배율1+(elapsedTime)*15.7)
+            camera.bottom = -bw * (배율1+(elapsedTime)*15.7) * 4
 
             camera.near = 0.01;
             camera.far = 1000;
@@ -15960,10 +15985,10 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
             stagemesh[현챕터-1].position.set(initmappos.x,initmappos.y,initmappos.z)
             camera.position.set(initpos.x,initpos.y,initpos.z)
 
-            camera.left = -bw * (1.3)
-            camera.right = bw * (1.3) * 4
-            camera.top = bw * (1.3)
-            camera.bottom = -bw *(1.3) * 4
+            camera.left = -bw * (배율1)
+            camera.right = bw * (배율1) * 4
+            camera.top = bw * (배율1)
+            camera.bottom = -bw *(배율1) * 4
 
             camera.near = 0.01;
             camera.far = 1000;
@@ -16110,7 +16135,7 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
 
               if(item.userData.chapter==현챕터){
                 if(세이브[(item.userData.chapter-1)*10+(item.userData.stage-1)].해금=="1"&&item.children[4]!=null){
-                  item.position.y=-bh/2+1.85*bh/2+(bh/10)*(Math.sin(Math.PI/36*dur0))
+                  item.position.y=-bh/2.1+1.85*bh/2+(bh/12)*(Math.sin(Math.PI/36*dur0))
                 }
 
 
@@ -16137,10 +16162,10 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
 
 
 
-              camera.left = -bw * (0.6+(elapsedTime-zoomtime)*0.7)
-              camera.right = bw * (0.6+(elapsedTime-zoomtime)*0.7) * 4
-              camera.top = bw * (0.6+(elapsedTime-zoomtime)*0.7)
-              camera.bottom = -bw * (0.6+(elapsedTime-zoomtime)*0.7) * 4
+              camera.left = -bw * (배율0+(elapsedTime-zoomtime)*(배율1-배율0))
+              camera.right = bw * (배율0+(elapsedTime-zoomtime)*(배율1-배율0)) * 4
+              camera.top = bw * (배율0+(elapsedTime-zoomtime)*(배율1-배율0))
+              camera.bottom = -bw * (배율0+(elapsedTime-zoomtime)*(배율1-배율0)) * 4
 
               camera.near = 0.01;
               camera.far = 1000;
@@ -16168,13 +16193,13 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
               stagemesh[현챕터-1].position.z=stagepos.z+(-stagepos.z)*(elapsedTime-zoomtime)
               camera.position.x=nowpos.x+(-zoompos.x-nowpos.x+5*bw)*(elapsedTime-zoomtime)
               camera.position.z=nowpos.z+(-zoompos.z-nowpos.z+5*bw)*(elapsedTime-zoomtime)
-              if(nowscale==0.6){
+              if(nowscale==배율0){
 
               }else{
-                camera.left = -bw * (1.3-(elapsedTime-zoomtime)*0.7)
-                camera.right = bw * (1.3-(elapsedTime-zoomtime)*0.7) * 4
-                camera.top = bw * (1.3-(elapsedTime-zoomtime)*0.7)
-                camera.bottom = -bw * (1.3-(elapsedTime-zoomtime)*0.7) * 4
+                camera.left = -bw * (배율1-(elapsedTime-zoomtime)*(배율1-배율0))
+                camera.right = bw * (배율1-(elapsedTime-zoomtime)*(배율1-배율0)) * 4
+                camera.top = bw * (배율1-(elapsedTime-zoomtime)*(배율1-배율0))
+                camera.bottom = -bw * (배율1-(elapsedTime-zoomtime)*(배율1-배율0)) * 4
               }
 
               camera.near = 0.01;
@@ -16194,11 +16219,11 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
               camera.position.z=nowpos.z+(zoompos.z-nowpos.z)*(elapsedTime-zoomtime)
               camera.position.y=nowpos.y+(zoompos.y-nowpos.y)*(elapsedTime-zoomtime)
 
-              if(nowscale==0.6){
-                camera.left = -bw * (0.6+(elapsedTime-zoomtime)*0.7)
-                camera.right = bw * (0.6+(elapsedTime-zoomtime)*0.7) * 4
-                camera.top = bw * (0.6+(elapsedTime-zoomtime)*0.7)
-                camera.bottom = -bw * (0.6+(elapsedTime-zoomtime)*0.7) * 4
+              if(nowscale==배율0){
+                camera.left = -bw * (배율0+(elapsedTime-zoomtime)*(배율1-배율0))
+                camera.right = bw * (배율0+(elapsedTime-zoomtime)*(배율1-배율0)) * 4
+                camera.top = bw * (배율0+(elapsedTime-zoomtime)*(배율1-배율0))
+                camera.bottom = -bw * (배율0+(elapsedTime-zoomtime)*(배율1-배율0)) * 4
               }else{
 
               }
@@ -18862,11 +18887,11 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
                                     camera.top = bw * 1.8+(camval)/4;
                                     camera.bottom = -bw * 1.8 * 4-(camval);
                                   }else{
-                                    if(!fullcam){
-                                      camera.left = -bw * 1.3-(camval)/4;
-                                      camera.right = bw * 1.3 * 4+(camval);
-                                      camera.top = bw * 1.3+(camval)/4;
-                                      camera.bottom = -bw * 1.3 * 4-(camval);
+                                    if(!fullcam){ //카메라
+                                      camera.left = -bw * (배율1+0.1)-(camval)/4;
+                                      camera.right = bw * (배율1+0.1) * 4+(camval);
+                                      camera.top = bw * (배율1+0.1)+(camval)/4;
+                                      camera.bottom = -bw * (배율1+0.1) * 4-(camval);
                                     }else{
                                       camera.left = -bw * 1.1-(camval-3)/4;
                                       camera.right = bw * 1.1 * 4+(camval-3)
@@ -26995,9 +27020,16 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
             return;
           }else if(item.userData.skin=="base"){
             item.material.visible=true
-            item.children[0].material.visible=true;
-            item.children[1].material.visible=true;
-            item.children[2].material.visible=true;
+            if(세이브[(item.userData.chapter-1)*10+(item.userData.stage-1)].해금=="1"){
+              item.children[0].material.visible=true;
+              item.children[1].material.visible=true;
+              item.children[2].material.visible=true;
+            }else{
+              item.children[0].material.visible=false;
+              item.children[1].material.visible=false;
+              item.children[2].material.visible=false;
+            }
+
 
             return
           }
@@ -27026,8 +27058,8 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
 
       });
 
-
-            for (var i = 0; i < 25; i++) {
+      //구름
+            for (var i = 0; i < 10; i++) {
               var clone=propsmold[2].clone();
               var temp0=parseInt(Math.random()*2)%2
               var temp1=parseInt(Math.random()*2)%2
@@ -27343,9 +27375,19 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
 
 
                   if(data.해금=="0"){
-                    // mesh0.material = new THREE.MeshLambertMaterial({
-                    //     color: 0x535353
-                    // })
+                    mesh0.material = new THREE.MeshLambertMaterial({
+                        color: 0x836363
+                    })
+                    mesh0.children[0].material=new THREE.MeshLambertMaterial({
+                        color: 0x836363
+                    })
+                    mesh0.children[1].material=new THREE.MeshLambertMaterial({
+                        color: 0x836363
+                    })
+                    mesh0.children[2].material=new THREE.MeshLambertMaterial({
+                        color: 0x836363
+                    })
+
                     //
                     // mesh0.children[1].material = new THREE.MeshLambertMaterial({
                     //     color: 0x896633
@@ -27355,9 +27397,9 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
                     //     color: 0x697633
                     // })
                   }else{
-                    // mesh0.material = new THREE.MeshLambertMaterial({
-                    //     color: 0x535353
-                    // })
+                    mesh0.material = new THREE.MeshLambertMaterial({
+                        color: 0x708311
+                    })
                     // mesh0.children[0].material = new THREE.MeshLambertMaterial({
                     //     color: 0x8099A9                   })
                     //
@@ -27454,11 +27496,35 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
                               opacity: 1
                           });
                     }else{
+                      backmesh.children[2].material.visible=true;
+
                       backmesh.material=new THREE.MeshLambertMaterial({
-                            color: 0xAA662A,
+                            color: 0xB6EB6F,
                             transparent: true,
                             opacity: 1
                         });
+
+                        backmesh.children[0].material=new THREE.MeshLambertMaterial({
+                              color: 0x8BDC1E,
+                              transparent: true,
+                              opacity: 1
+                          });
+
+                          backmesh.children[1].material=new THREE.MeshLambertMaterial({
+                                color: 0x77BC1A,
+                                transparent: true,
+                                opacity: 1
+                            });
+                          backmesh.children[3].material=new THREE.MeshLambertMaterial({
+                                color: 0x77BC1A,
+                                transparent: true,
+                                opacity: 1
+                            });
+                          backmesh.children[5].material=new THREE.MeshLambertMaterial({
+                                color: 0x77BC1A,
+                                transparent: true,
+                                opacity: 1
+                            });
                     }
 
 
@@ -28283,7 +28349,7 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
 
             clone.mesh.quaternion.copy(cubes[i].mesh.quaternion);
 
-            clone.mesh.position.set(스테이지타일[현챕터-1][tilepos[0]][tilepos[1]][3].position.x+(cubes[i].mesh.position.x)*스케일,(cubes[i].mesh.position.y)*스케일,스테이지타일[현챕터-1][tilepos[0]][tilepos[1]][3].position.z-(cubes[i].mesh.position.z)*스케일)
+            clone.mesh.position.set(스테이지타일[현챕터-1][tilepos[0]][tilepos[1]][3].position.x-(cubes[i].mesh.position.x)*스케일,(cubes[i].mesh.position.y)*스케일,스테이지타일[현챕터-1][tilepos[0]][tilepos[1]][3].position.z-(cubes[i].mesh.position.z)*스케일)
 
             clone.mesh.freeze=cubes[i].mesh.userData.freeze;
             clone.mesh.pin=cubes[i].mesh.userData.pin;
