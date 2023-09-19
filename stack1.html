@@ -3391,7 +3391,7 @@
 
     var 배율1=1.1
 
-    var 배율0=0.4
+    var 배율0=0.45
 
     var 세이브;
 
@@ -3432,7 +3432,7 @@
 
 
 
-var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,3,0],[4,2,0],[],[]],
+var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,3,0],[4,2,0],[],[]],
 [[4,1,0],[20,1,0],[20,0,0],[16,3,2],[20,0,0],[16,3,3],[2,1,0],[2,3,0],[4,1,0],[],[]],
 [[4,0,0],[16,1,1],[15,1,0],[18,3,0],[15,1,0],[18,3,0],[18,1,0],[15,1,4],[20,2,0],[4,0,0],[]],
 [[4,2,0],[2,1,0],[2,0,0],[2,0,0],[12,1,0],[2,0,0],[15,0,0],[12,0,0],[2,1,0],[4,1,0],[]],
@@ -3853,7 +3853,7 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
     var shadowon = true;
     var initflag = false;
 
-    let skinset = ["base","skelecton","hiphop","lofi","hotel", "brick1", "brick2","gb", "classic","r808", "space","archer", "donut", "building", "tower",  "adam"];
+    let skinset = ["base","skelecton","hiphop","lofi","hotel", "brick1", "brick2","gb", "classic","r808", "space","archer", "donut", "building", "tower",  "adam", "m1", "m3"];
     window.skinset=skinset;
     skinset.forEach((item)=>{
       skinmold[item]=[];
@@ -5271,7 +5271,7 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
     var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
     function handleTouchStart(event) {
-        if(propsmold.length!=11||!로딩완료) return;
+        if(propsmold.length!=12||!로딩완료) return;
         if(!터치) return
         // if(originflag&&-isoAngle != camera.rotation.x) return;
 
@@ -8830,7 +8830,7 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
         var tgeo = new THREE.BoxGeometry(bw*500, 2, bw*500);
 
         var tmaterial = new THREE.MeshLambertMaterial({
-            color: new THREE.Color(0xEEAAEE),
+            color: new THREE.Color(colorlst[colornum][2]),
             visible: true,
             opacity: 0.2,
             transparent: true
@@ -9241,7 +9241,7 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
           stacknum=현스테이지.stacknum
           console.log(현스테이지)
           if(현스테이지.챕터==1){
-            skinnum=skinset.indexOf("brick1")
+            skinnum=skinset.indexOf("m1")
           }else if(현스테이지.챕터==2){
             skinnum=skinset.indexOf("archer")
           }else if(현스테이지.챕터==3){
@@ -10376,6 +10376,450 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
                           mesh.add(object.children[0]);
                       });
                   });
+
+                  //m3
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load(ur2+'/src/m3-0.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57*1.083;
+                      object.children[0].scale.z = 2.57*1.083;
+                      object.children[0].scale.y = 2.57*0.933;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "m3"
+                      object.children[0].userData["skintype"] =0;
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: 0xD4650A
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst[idx].push(object.children[0].material)
+                      // clmeshlst2[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load(ur2+'/src/m3-1.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57*1.083;
+                      object.children[0].scale.z = 2.57*1.083;
+                      object.children[0].scale.y = 2.57*0.933;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "m3"
+                      object.children[0].userData["skintype"] =2;
+
+                      var newcl = hexToHSL(hexToHtmlColor(0xE84226))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"]*0.6) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst2[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load(ur2+'/src/m3-2.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load(ur2+'/src/m3-2.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+
+                          object.children[0].scale.x = 2.57*1.083;
+                          object.children[0].scale.z = 2.57*1.083;
+                          object.children[0].scale.y = 2.57*0.933;
+
+                          // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
+                          object.children[0].userData["skin"] = "m3"
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
+
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load(ur2+'/src/m3-3.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load(ur2+'/src/m3-3.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+
+                          object.children[0].scale.x = 2.57*1.083;
+                          object.children[0].scale.z = 2.57*1.083;
+                          object.children[0].scale.y = 2.57*0.933;
+
+                          // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
+                          object.children[0].userData["skin"] = "m3"
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load(ur2+'/src/m3-4.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load(ur2+'/src/m3-4.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+
+                          object.children[0].scale.x = 2.57*1.083;
+                          object.children[0].scale.z = 2.57*1.083;
+                          object.children[0].scale.y = 2.57*0.933;
+
+                          // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
+                          object.children[0].userData["skin"] = "m3"
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
+                  //m2
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load(ur2+'/src/M2-0.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57*0.722;
+                      object.children[0].scale.z = 2.57*0.722;
+                      object.children[0].scale.y = 2.57*0.5;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "m1"
+                      object.children[0].userData["skintype"] =2;
+                      object.children[0].userData["variation"] =0;
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: 0xD4650A
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      // clmeshlst2[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load(ur2+'/src/M2-1.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57*0.722;
+                      object.children[0].scale.z = 2.57*0.722;
+                      object.children[0].scale.y = 2.57*0.5;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "m1"
+                      object.children[0].userData["skintype"] =0;
+                      object.children[0].userData["variation"] =0;
+
+                      var newcl = hexToHSL(hexToHtmlColor(0xE84226))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"]*0.6) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load(ur2+'/src/M2-2.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57*0.722;
+                      object.children[0].scale.z = 2.57*0.722;
+                      object.children[0].scale.y = 2.57*0.5;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "m1"
+                      object.children[0].userData["skintype"] =1;
+                      object.children[0].userData["variation"] =0;
+                      var newcl = hexToHSL(hexToHtmlColor(0x4C1708))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] *1.25) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst1[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+
+
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load(ur2+'/src/M2-3.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57*0.722;
+                      object.children[0].scale.z = 2.57*0.722;
+                      object.children[0].scale.y = 2.57*0.5;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "m1"
+
+                      object.children[0].userData["variation"] =0;
+                      var newcl = hexToHSL(hexToHtmlColor(0xA0A9A9))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] *1.25) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      // clmeshlst1[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+                  //m20
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load(ur2+'/src/m4-0.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57*0.722;
+                      object.children[0].scale.z = 2.57*0.722;
+                      object.children[0].scale.y = 2.57*0.5;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "m1"
+                      object.children[0].userData["skintype"] =2;
+                      object.children[0].userData["variation"] =1;
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: 0xD4650A
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      // clmeshlst2[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load(ur2+'/src/m4-1.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57*0.722;
+                      object.children[0].scale.z = 2.57*0.722;
+                      object.children[0].scale.y = 2.57*0.5;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "m1"
+                      object.children[0].userData["skintype"] =0;
+                      object.children[0].userData["variation"] =1;
+
+                      var newcl = hexToHSL(hexToHtmlColor(0xE84226))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"]*0.6) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load(ur2+'/src/m4-2.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57*0.722;
+                      object.children[0].scale.z = 2.57*0.722;
+                      object.children[0].scale.y = 2.57*0.5;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "m1"
+                      object.children[0].userData["skintype"] =1;
+                      object.children[0].userData["variation"] =1;
+                      var newcl = hexToHSL(hexToHtmlColor(0x4C1708))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] *1.25) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst1[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+
+
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load(ur2+'/src/m4-3.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57*0.722;
+                      object.children[0].scale.z = 2.57*0.722;
+                      object.children[0].scale.y = 2.57*0.5;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "m1"
+
+                      object.children[0].userData["variation"] =1;
+                      var newcl = hexToHSL(hexToHtmlColor(0xA0A9A9))
+                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] *1.25) + '%)');
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: tc
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      // clmeshlst1[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load(ur2+'/src/m4-4.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load(ur2+'/src/m2-4.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+
+                          object.children[0].scale.x = 2.57*0.722;
+                          object.children[0].scale.z = 2.57*0.722;
+                          object.children[0].scale.y = 2.57*0.5;
+
+                          // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
+                          object.children[0].userData["skin"] = "m1"
+                          object.children[0].userData["subskin"] = "window"
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
+
+
+
 
                   //lofi
                   var loader = new OBJLoader();
@@ -13253,7 +13697,27 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
                                                                                                                                               object.children[0].receiveShadow = true;
                                                                                                                                               object.children[0].castShadow = true;
                                                                                                                                               propsmold[10].add(object.children[0])
+                                                                                                                                              loader.load(ur2+'candy.obj', (object) => {
+                                                                                                                                                  // object.children[0].rotation.y = Math.PI / 2
+                                                                                                                                                  object.children[0].position.set(0, 0, 0)
+                                                                                                                                                  object.children[0].scale.x = 1
+                                                                                                                                                  object.children[0].scale.z = 1
+                                                                                                                                                  object.children[0].scale.y = 1
+                                                                                                                                                  object.children[0].receiveShadow = true;
+                                                                                                                                                  object.children[0].castShadow = true;
 
+                                                                                                                                                  // object.children[0].position.z=0.2
+
+                                                                                                                                                  // object.children[0].scale.x=2.25;
+                                                                                                                                                  // object.children[0].scale.z=2.25;
+                                                                                                                                                  // object.children[0].scale.y=1.92;
+                                                                                                                                                  var newcl = hexToHSL(hexToHtmlColor(0x365f10));
+                                                                                                                                                  var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] ) + '%, ' + String(newcl["l"] ) + '%)');
+                                                                                                                                                  object.children[0].material = new THREE.MeshLambertMaterial({
+                                                                                                                                                      color: colorlst[colornum][3]
+                                                                                                                                                  })
+                                                                                                                                                  propsmold.push(object.children[0])
+                                                                                                                                                })
                                                                                                                                             })
                                                                                                                                           })
                                                                                                                                       })
@@ -23426,12 +23890,16 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
           }
           var geoms = [];
           if (true) { //신스킨
-
+              var trot=parseInt(Math.random()*4);
+              var rand1=parseInt(Math.random()*2);
               var moldkey=Object.keys(skinmold);
               moldkey.forEach((item) => {
                 skinmold[item].forEach((obj) => {
                   let obj1=obj.clone();
                   let mat1=obj.material.clone();
+
+
+
                   if(obj1.userData["skintype"]=="top"){
                     // if(gamemod==2){
                     //   return;
@@ -23472,6 +23940,21 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
                   }else{
                     obj1.material=mat1
                     // if(!flag) clmeshlst[idx].push(obj1.material);
+                  }
+
+
+
+                  if(obj1.userData["skin"]=="m1"){
+                    if(obj1.userData["variation"]==rand1){
+                      return;
+                    }
+                    obj1.rotation.y=trot*(Math.PI/2)
+                  }
+
+
+
+                  if(obj1.userData["skin"]=="m3"){
+                    obj1.rotation.y=trot*(Math.PI/2)
                   }
                   //
                   // if(obj1.userData["skin"]=="skelecton"){
@@ -27296,15 +27779,40 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
                   });
 
                   var geometry = new THREE.BoxGeometry(1.8*(2.8), 1.8*(2.2), 0);
+
+
                   var mesh2 = new THREE.Mesh(geometry, material40);
+
+
+                  // var mesh2=propsmold[11].clone();
+                  // mesh2.material=new THREE.MeshToonMaterial({
+                  //     color: colorlst[colornum][2]
+                  //
+                  // })
+                  //
+                  // mesh2.material.shininess = 100
+                  // mesh2.material.specular = new THREE.Color(0x1188ff)
+
+
+
                   mesh2.userData.stage=parseInt(스테이지타일[r][i][j][2]);
                   mesh2.userData.chapter=r+1;
 
                   mesh2.userData.skin="button";
+                  mesh2.scale.set(1,1,1)
+
+                  // mesh2.position.x=clone.position.x
+                  // mesh2.position.z=clone.position.z
+                  // mesh2.position.y=0-bh/16
+
                   mesh2.rotation.y = Math.PI / 4;
                   mesh2.position.x=clone.position.x-bh/2
                   mesh2.position.z=clone.position.z-bh/2
                   mesh2.position.y=0+bh/2
+
+                  // mesh2.rotation.y = Math.PI / 2;
+
+
                   badgelst.push(mesh2)
                   tmesh.add(mesh2)
 
@@ -27675,6 +28183,62 @@ var 스테이지타일=[[[[],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0],[4,
           }
           tmesh.rotation.y = Math.PI;
           // scene.add(tmesh);
+
+
+          var geometry12 = new TextGeometry("STAGE 1", {
+              font: font0,
+              size: bw /5,
+              height: 두께*th/1.9
+          });
+          geometry12.computeBoundingBox();
+          geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+          var material = new THREE.MeshBasicMaterial({
+              color: colorlst[colornum][0]
+          });
+          var txtmesh0 = new THREE.Mesh(geometry12, material);
+
+          txtmesh0.depth = 2;
+          txtmesh0.rotation.order = 'YXZ';
+          txtmesh0.position.x=-bw*2.2
+          txtmesh0.position.z=-bw*1.4
+
+
+          txtmesh0.rotation.x =-Math.PI / 2
+          txtmesh0.rotation.z =-Math.PI / 2
+
+
+
+          txtmesh0.receiveShadow = true;
+          // txtmesh0.castShadow = true;
+          tmesh.add(txtmesh0)
+
+          var geometry12 = new TextGeometry("STAGE 1", {
+              font: font0,
+              size: bw /5,
+              height: 두께*th/1.9
+          });
+          geometry12.computeBoundingBox();
+          geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+          var material = new THREE.MeshBasicMaterial({
+              color: colorlst[colornum][1]
+          });
+          var txtmesh0 = new THREE.Mesh(geometry12, material);
+
+          txtmesh0.depth = 2;
+          txtmesh0.rotation.order = 'YXZ';
+          txtmesh0.position.x=-bw*1.4
+          txtmesh0.position.z=-bw*2.2
+
+
+          txtmesh0.rotation.x =-Math.PI / 2
+          txtmesh0.rotation.z =Math.PI
+
+
+
+          txtmesh0.receiveShadow = true;
+          // txtmesh0.castShadow = true;
+          tmesh.add(txtmesh0)
+
           stagemesh.push(tmesh);
           // console.log(세이브)
         }
