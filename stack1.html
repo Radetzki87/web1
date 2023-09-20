@@ -3386,12 +3386,20 @@
 
     var 시작높이=-1;
 
+    var 제이슨;
+
     var 로딩완료=false
 
 
     var 배율1=1.1
 
     var 배율0=0.45
+
+
+
+    var 스케일0=0.2
+
+    var 스케일1=1/스케일0
 
     var 세이브;
 
@@ -3853,7 +3861,7 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
     var shadowon = true;
     var initflag = false;
 
-    let skinset = ["base","skelecton","hiphop","lofi","hotel", "brick1", "brick2","gb", "classic","r808", "space","archer", "donut", "building", "tower",  "adam", "m1", "m3"];
+    let skinset = ["base","skelecton","hiphop","lofi","hotel", "brick1", "brick2","gb", "classic","r808", "space","archer", "donut", "building", "tower",  "adam", "m1", "m3", "cabin"];
     window.skinset=skinset;
     skinset.forEach((item)=>{
       skinmold[item]=[];
@@ -7933,77 +7941,322 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
 
 
         }else if (event.code === 'KeyU') {
-          scene.add(stagemesh[현챕터-1]);
-          if(mapflag){
-            mapflag=false;
-            cubes.forEach((item) => {
-              item.mesh.material.visible=true;
-
-              item.mesh.children.forEach((child) => {
-                if(child.userData["skin"]==skinset[skinnum]){
-                  child.material.visible=true;
-                  child.children.forEach((grandchild) => {
-                    grandchild.material.visible=true;
-                  });
-                }else if(child.userData["skin"]=="bottom"){
-                  child.material.visible=true;
-                  child.children.forEach((grandchild) => {
-                    grandchild.material.visible=true;
-                  });
-                }else if(child.userData["skin"]=="tile"){
-                  child.material.visible=true;
-                  child.children.forEach((grandchild) => {
-                    grandchild.material.visible=true;
-                  });
-                }
 
 
+          // bf=99
+          // startflag=false
+          // initflag=false
 
-              });
+          // scene.add(stagemesh[현챕터-1]);
+          // if(mapflag){
+          //   mapflag=false;
+          //   cubes.forEach((item) => {
+          //     item.mesh.material.visible=true;
+          //
+          //     item.mesh.children.forEach((child) => {
+          //       if(child.userData["skin"]==skinset[skinnum]){
+          //         child.material.visible=true;
+          //         child.children.forEach((grandchild) => {
+          //           grandchild.material.visible=true;
+          //         });
+          //       }else if(child.userData["skin"]=="bottom"){
+          //         child.material.visible=true;
+          //         child.children.forEach((grandchild) => {
+          //           grandchild.material.visible=true;
+          //         });
+          //       }else if(child.userData["skin"]=="tile"){
+          //         child.material.visible=true;
+          //         child.children.forEach((grandchild) => {
+          //           grandchild.material.visible=true;
+          //         });
+          //       }
+          //
+          //
+          //
+          //     });
+          //
+          //   });
+          //
+          //   return;
+          // }else{
+          //   mapflag=true;
+          //   zoomflag=false;
+          //   zoomtime=-2;
+          //
+          // }
 
-            });
 
-            return;
-          }else{
-            mapflag=true;
-            zoomflag=false;
-            zoomtime=-2;
+          var se=세이브["0"]["설계도"]
+          var se0=se.replace(/;/g, ',')
+          var se1=se0.replace(/""/g, ";")
+          var se2=se1.replace(/"/g, "")
+          var se3=se2.replace(/;/g, '"')
 
-          }
+          var 큐브=JSON.parse(제이슨);
 
-
-
-          for (var i = 3; i < cubes.length; i++) {
+          for (var i = 0; i < 큐브.length; i++) {
             var clone={};
             var pinsize=1;
-            if(cubes[i].mesh.userData.pin){
+            if(큐브[i].pin){
               pinsize=핀크기
             }
-            var 스케일=0.07
-            var geometry1 = new THREE.BoxGeometry(cubes[i].mesh.userData.combo*pinsize*bw*스케일, bh*스케일, cubes[i].mesh.userData.combo*pinsize*bw*스케일);
-            var material1 = new THREE.MeshLambertMaterial({
-                color: cubes[i].mesh.material.color
-            });
+            var 스케일=스케일0
+            if(큐브[i].skinnum==skinset.indexOf("base")){
+              var geometry1 = new THREE.BoxGeometry(큐브[i].combo*pinsize*bw, bh, 큐브[i].combo*pinsize*bw);
+              var material1 = new THREE.MeshLambertMaterial({
+                  color: 큐브[i].color
+              });
 
-            clone.mesh=new THREE.Mesh(geometry1, material1);
+              clone.mesh=new THREE.Mesh(geometry1, material1);
+              clone.mesh.scale.set(스케일,스케일,스케일)
+            }else if(큐브[i].skinnum==skinset.indexOf("m1")){
+              var geometry1 = new THREE.BoxGeometry(bw, bh, bw);
+              var material1 = new THREE.MeshLambertMaterial({
+                  color: 큐브[i].color,
+                  visible: false
+              });
 
-            clone.mesh.quaternion.copy(cubes[i].mesh.quaternion);
+              clone.mesh=new THREE.Mesh(geometry1, material1);
+              clone.mesh.scale.set(큐브[i].combo*pinsize*스케일,스케일,큐브[i].combo*pinsize*스케일)
+
+              var trot=parseInt(Math.random()*4);
+
+              var moldkey=Object.keys(skinmold);
+              moldkey.forEach((item) => {
+                skinmold[item].forEach((obj) => {
+                  let obj1=obj.clone();
+                  if(obj1.userData["skin"]=="m1"){
+                    let mat1=obj.material.clone();
+                    var newcolor1=큐브[i].color
+                    var nc = hexToHSL(hexToHtmlColor(큐브[i].color))
+                    var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
+                    var newcolor4 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]*0.8) + '%, ' + String(nc["l"]*1.2) + '%)');
+                    var newcolor5 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]*1.1) + '%, ' + String(nc["l"]*0.85) + '%)');
+
+
+
+                    // if(obj1.userData["skintype"]=="top"){
+                    //   // if(gamemod==2){
+                    //   //   return;
+                    //   // }
+                    //   if(gamemod==2){
+                    //     if(idx>4){
+                    //       obj1.material=mat1
+                    //     }else{
+                    //       return;
+                    //     }
+                    //   }else{
+                    //     if(idx==4){
+                    //       obj1.material=mat1
+                    //     }else{
+                    //       return;
+                    //     }
+                    //   }
+                    //
+                    //
+                    //
+                    //
+                    //
+                    // }else
+
+                    if(obj1.userData["skintype"]==0){
+                      obj1.material=new THREE.MeshLambertMaterial({
+                          color: newcolor3
+                      });
+
+                    }else if(obj1.userData["skintype"]==1){
+                      obj1.material=new THREE.MeshLambertMaterial({
+                          color: newcolor4
+                      });
+
+                    }else if(obj1.userData["skintype"]==2){
+                      obj1.material=new THREE.MeshLambertMaterial({
+                          color: newcolor5
+                      });
+
+                    }else{
+                      obj1.material=mat1
+                      obj1.material.visible=true;
+                      // if(!flag) clmeshlst[idx].push(obj1.material);
+                    }
+
+
+                    if(obj1.userData["subskin"] == "window"){
+                      obj1.rotation.y=trot*(Math.PI/2)
+
+                    }
+
+                    if(큐브[i].ver==1&&obj1.userData["variation"]==0){
+                      return;
+                    }
+
+                    if(큐브[i].ver==0&&obj1.userData["variation"]==1){
+                      return;
+                    }
+                    obj1.receiveShadow = true;
+                    obj1.castShadow = true;
+                    clone.mesh.add(obj1);
+
+                  }
+                });
+              });
+
+
+            }else if(큐브[i].skinnum==skinset.indexOf("m3")){
+              var geometry1 = new THREE.BoxGeometry(bw, bh, bw);
+              var material1 = new THREE.MeshLambertMaterial({
+                  color: 큐브[i].color,
+                  visible: false
+              });
+
+              clone.mesh=new THREE.Mesh(geometry1, material1);
+              clone.mesh.scale.set(큐브[i].combo*pinsize*스케일,스케일,큐브[i].combo*pinsize*스케일)
+
+              var trot=큐브[i].rot
+
+              var moldkey=Object.keys(skinmold);
+              moldkey.forEach((item) => {
+                skinmold[item].forEach((obj) => {
+                  let obj1=obj.clone();
+                  if(obj1.userData["skin"]=="m3"){
+                    let mat1=obj.material.clone();
+                    var newcolor1=큐브[i].color
+                    var nc = hexToHSL(hexToHtmlColor(큐브[i].color))
+                    var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
+                    var newcolor4 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]*0.8) + '%, ' + String(nc["l"]*1.2) + '%)');
+                    var newcolor5 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]*1.1) + '%, ' + String(nc["l"]*0.85) + '%)');
+
+
+
+                    if(obj1.userData["skintype"]==0){
+                      obj1.material=new THREE.MeshLambertMaterial({
+                          color: newcolor3
+                      });
+
+                    }else if(obj1.userData["skintype"]==1){
+                      obj1.material=new THREE.MeshLambertMaterial({
+                          color: newcolor4
+                      });
+
+                    }else if(obj1.userData["skintype"]==2){
+                      obj1.material=new THREE.MeshLambertMaterial({
+                          color: newcolor5
+                      });
+
+                    }else{
+                      obj1.material=mat1
+                      obj1.material.visible=true;
+                      // if(!flag) clmeshlst[idx].push(obj1.material);
+                    }
+
+                    obj1.rotation.y=trot*(Math.PI/2)
+
+
+                    if(큐브[i].ver==1&&obj1.userData["variation"]==0){
+                      return;
+                    }
+
+                    if(큐브[i].ver==0&&obj1.userData["variation"]==1){
+                      return;
+                    }
+                    obj1.receiveShadow = true;
+                    obj1.castShadow = true;
+                    clone.mesh.add(obj1);
+
+                  }
+                });
+              });
+
+
+            }else if(큐브[i].skinnum==skinset.indexOf("cabin")){
+              var geometry1 = new THREE.BoxGeometry(bw, bh, bw);
+              var material1 = new THREE.MeshLambertMaterial({
+                  color: 큐브[i].color,
+                  visible: false
+              });
+
+              clone.mesh=new THREE.Mesh(geometry1, material1);
+              clone.mesh.scale.set(큐브[i].combo*pinsize*스케일,스케일,큐브[i].combo*pinsize*스케일)
+
+              var trot=큐브[i].rot
+
+              var moldkey=Object.keys(skinmold);
+              moldkey.forEach((item) => {
+                skinmold[item].forEach((obj) => {
+                  let obj1=obj.clone();
+                  if(obj1.userData["skin"]=="cabin"){
+                    let mat1=obj.material.clone();
+                    var newcolor1=큐브[i].color
+                    var nc = hexToHSL(hexToHtmlColor(큐브[i].color))
+                    var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
+                    var newcolor4 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]*0.8) + '%, ' + String(nc["l"]*1.2) + '%)');
+                    var newcolor5 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]*1.1) + '%, ' + String(nc["l"]*0.85) + '%)');
+
+
+
+                    if(obj1.userData["skintype"]==0){
+                      obj1.material=new THREE.MeshLambertMaterial({
+                          color: newcolor3
+                      });
+
+                    }else if(obj1.userData["skintype"]==1){
+                      obj1.material=new THREE.MeshLambertMaterial({
+                          color: newcolor4
+                      });
+
+                    }else if(obj1.userData["skintype"]==2){
+                      obj1.material=new THREE.MeshLambertMaterial({
+                          color: newcolor5
+                      });
+
+                    }else{
+                      obj1.material=mat1
+                      obj1.material.visible=true;
+                      // if(!flag) clmeshlst[idx].push(obj1.material);
+                    }
+
+                    obj1.rotation.y=trot*(Math.PI/2)
+
+
+                    obj1.receiveShadow = true;
+                    obj1.castShadow = true;
+                    clone.mesh.add(obj1);
+
+                  }
+                });
+              });
+
+
+            }
+
+            // clone.mesh.quaternion.copy(큐브[i].quaternion);
+            clone.mesh.quaternion["_w"]=큐브[i].quaternion[3]
+            clone.mesh.quaternion["_x"]=큐브[i].quaternion[0]
+            clone.mesh.quaternion["_y"]=큐브[i].quaternion[1]
+            clone.mesh.quaternion["_z"]=큐브[i].quaternion[2]
+
             // clone.mesh.position.copy(cubes[i].mesh.position);
-            clone.mesh.position.set(스테이지타일[0][2][1][3].position.x+(cubes[i].mesh.position.x)*스케일,(cubes[i].mesh.position.y)*스케일,스테이지타일[0][2][1][3].position.z-(cubes[i].mesh.position.z)*스케일)
+            clone.mesh.position.x=큐브[i].position[0]
+            clone.mesh.position.y=큐브[i].position[1]
+            clone.mesh.position.z=큐브[i].position[2]
 
-            clone.mesh.freeze=cubes[i].mesh.userData.freeze;
-            clone.mesh.pin=cubes[i].mesh.userData.pin;
-            clone.mesh.ice=cubes[i].mesh.userData.ice;
-            clone.mesh.bye=cubes[i].mesh.userData.bye;
-            clone.mesh.combo=cubes[i].mesh.userData.combo;
-            clone.mesh.constraint=cubes[i].mesh.userData.constraint.length;
+            clone.mesh.freeze=큐브[i].freeze;
+            clone.mesh.pin=큐브[i].pin;
+            clone.mesh.ice=큐브[i].ice;
+            clone.mesh.bye=큐브[i].bye;
+            clone.mesh.combo=큐브[i].combo;
+            clone.mesh.constraint=큐브[i].constraint.length;
             clone.mesh.receiveShadow = true;
             clone.mesh.castShadow = true;
 
 
+
+
+
             stagemesh[현챕터-1].add(clone.mesh);
-            stagemesh[현챕터-1].scale.set(1,1,1);
-            stagemesh[현챕터-1].position.set(0,0,0);
+
+            // stagemesh[현챕터-1].scale.set(1,1,1);
+            // stagemesh[현챕터-1].position.set(0,0,0);
 
           }
 
@@ -9240,8 +9493,9 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
         }else{
           stacknum=현스테이지.stacknum
           console.log(현스테이지)
+          //스킨
           if(현스테이지.챕터==1){
-            skinnum=skinset.indexOf("m1")
+            skinnum=skinset.indexOf("cabin")
           }else if(현스테이지.챕터==2){
             skinnum=skinset.indexOf("archer")
           }else if(현스테이지.챕터==3){
@@ -9271,7 +9525,8 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
 
           scene.add(stagemesh[현챕터-1])
           // var 스케일=14.2857
-          var 스케일=14.2857
+          // var 스케일=14.2857
+          var 스케일=스케일1
           stagemesh[현챕터-1].scale.set(스케일,스케일,스케일)
           // stagemesh[현챕터-1].position.y=-bh*3+(스케일*2-bh)/2
           // stagemesh[현챕터-1].position.x=+스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.x
@@ -9577,6 +9832,8 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
                     item.mesh.userData.ice=false;
                     item.mesh.userData.bye=false;
                     item.mesh.userData.combo=1;
+                    item.mesh.userData.ver=0;
+                    item.mesh.userData.rot=0;
                     item.mesh.userData.constraint=[];
                     // item.body.fixedRotation=true;
 
@@ -10558,7 +10815,7 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
                           object.children[0].receiveShadow = true;
                           object.children[0].castShadow = true;
                       }
-                      // clmeshlst2[idx].push(object.children[0].material)
+                      clmeshlst2[idx].push(object.children[0].material)
                       if(idx==0){
                         skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
                       }
@@ -10659,7 +10916,7 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
                       }
                       mesh.add(object.children[0]);
                   });
-                  //m20
+                  //m20 중세
                   var loader = new OBJLoader();
                   // Load OBJ file
                   // loader.setMaterials(materials);
@@ -10682,7 +10939,7 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
                           object.children[0].receiveShadow = true;
                           object.children[0].castShadow = true;
                       }
-                      // clmeshlst2[idx].push(object.children[0].material)
+                      clmeshlst2[idx].push(object.children[0].material)
                       if(idx==0){
                         skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
                       }
@@ -10806,6 +11063,172 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
                           // object.children[0].add(rectLight);
                           object.children[0].userData["skin"] = "m1"
                           object.children[0].userData["subskin"] = "window"
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
+
+
+                  //캐빈
+                  var loader = new OBJLoader();
+                  // Load OBJ file
+                  // loader.setMaterials(materials);
+                  loader.load(ur2+'/src/cabin-0.obj', (object) => {
+                      object.children[0].rotation.y = Math.PI / 2
+                      object.children[0].position.set(0, 0, 0)
+                      object.children[0].scale.x = 2.57*0.5532;
+                      object.children[0].scale.z = 2.57*0.5532;
+                      object.children[0].scale.y = 2.57*0.4516;
+                      // object.children[0].scale.x=2.25;
+                      // object.children[0].scale.z=2.25;
+                      // object.children[0].scale.y=1.92;
+                      object.children[0].userData["skin"] = "cabin"
+                      object.children[0].userData["skintype"] =0;
+
+                      object.children[0].material = new THREE.MeshLambertMaterial({
+                          color: 0xD4650A
+                      });
+                      if (shadowon) {
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                      }
+                      clmeshlst[idx].push(object.children[0].material)
+                      if(idx==0){
+                        skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                      }
+                      mesh.add(object.children[0]);
+                  });
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load(ur2+'/src/cabin-1.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load(ur2+'/src/cabin-1.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+
+                          object.children[0].scale.x = 2.57*0.5532;
+                          object.children[0].scale.z = 2.57*0.5532;
+                          object.children[0].scale.y = 2.57*0.4516;
+
+                          // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
+                          object.children[0].userData["skin"] = "cabin"
+
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load(ur2+'/src/cabin-2.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load(ur2+'/src/cabin-2.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+
+                          object.children[0].scale.x = 2.57*0.5532;
+                          object.children[0].scale.z = 2.57*0.5532;
+                          object.children[0].scale.y = 2.57*0.4516;
+
+                          // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
+                          object.children[0].userData["skin"] = "cabin"
+
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
+
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load(ur2+'/src/cabin-3.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load(ur2+'/src/cabin-3.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+
+                          object.children[0].scale.x = 2.57*0.5532;
+                          object.children[0].scale.z = 2.57*0.5532;
+                          object.children[0].scale.y = 2.57*0.4516;
+
+                          // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
+                          object.children[0].userData["skin"] = "cabin"
+
+                          if (shadowon) {
+                              object.children[0].receiveShadow = true;
+                              object.children[0].castShadow = true;
+                          }
+                          if(idx==0){
+                            skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                          }
+                          mesh.add(object.children[0]);
+                      });
+                  });
+
+                  var mtlLoader = new MTLLoader();
+                  mtlLoader.load(ur2+'/src/cabin-4.mtl', function(materials) {
+                      materials.preload();
+                      var loader = new OBJLoader();
+                      // Load OBJ file
+                      loader.setMaterials(materials);
+                      loader.load(ur2+'/src/cabin-4.obj', (object) => {
+                          object.children[0].rotation.y = Math.PI / 2
+
+                          object.children[0].scale.x = 2.57*0.5532;
+                          object.children[0].scale.z = 2.57*0.5532;
+                          object.children[0].scale.y = 2.57*0.4516;
+
+                          // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                          // plight.position.set( 0, 0, bw/2 );
+                          // object.children[0].add(rectLight);
+                          object.children[0].userData["skin"] = "cabin"
+
                           if (shadowon) {
                               object.children[0].receiveShadow = true;
                               object.children[0].castShadow = true;
@@ -15353,7 +15776,7 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
             if(n==0){
               cubes.push(createBox(0, (i) * bh + bh / 2, 0, bw, bh, bw, game2048, i));
             }else{
-              cubes.push(newbox(0, (i) * bh + bh / 2, 0, bw, bh, bw, game2048, i, false));
+              cubes.push(newbox(0, (i) * bh + bh / 2, 0, bw, bh, bw, game2048, i, false, 1,0));
             }
 
             cubes[cubes.length - 1].mesh.userData.body = cubes[cubes.length - 1].body;
@@ -16363,10 +16786,10 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
             // stagemesh[현챕터-1].position.x=zoompos.x+((-zoompos.x)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.x))*elapsedTime
             // stagemesh[현챕터-1].position.z=zoompos.z+((-zoompos.z)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.z))*elapsedTime
 
-            camera.left = -bw * (5.5-(elapsedTime)*(5.5-배율1))
-            camera.right = bw * (5.5-(elapsedTime)*(5.5-배율1)) * 4
-            camera.top = bw * (5.5-(elapsedTime)*(5.5-배율1))
-            camera.bottom = -bw * (5.5-(elapsedTime)*(5.5-배율1)) * 4
+            camera.left = -bw * (2.4-(elapsedTime)*(2.4-배율1))
+            camera.right = bw * (2.4-(elapsedTime)*(2.4-배율1)) * 4
+            camera.top = bw * (2.4-(elapsedTime)*(2.4-배율1))
+            camera.bottom = -bw * (2.4-(elapsedTime)*(2.4-배율1)) * 4
 
             camera.near = 0.01;
             camera.far = 1000;
@@ -16410,10 +16833,10 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
             // stagemesh[현챕터-1].position.z=stagepos.x-(stagepos.x)*elapsedTime
 
 
-            camera.left = -bw * (배율1+(elapsedTime)*15.7)
-            camera.right = bw * (배율1+(elapsedTime)*15.7) * 4
-            camera.top = bw * (배율1+(elapsedTime)*15.7)
-            camera.bottom = -bw * (배율1+(elapsedTime)*15.7) * 4
+            camera.left = -bw * (배율1+(elapsedTime)*3.7)
+            camera.right = bw * (배율1+(elapsedTime)*3.7) * 4
+            camera.top = bw * (배율1+(elapsedTime)*3.7)
+            camera.bottom = -bw * (배율1+(elapsedTime)*3.7) * 4
 
             camera.near = 0.01;
             camera.far = 1000;
@@ -16613,9 +17036,9 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
 
           if(superzoom){
             if(elapsedTime-zoomtime<1){
-              var 스케일=1+(13.2857)*(elapsedTime-zoomtime)
+              var 스케일=1+(스케일1-1)*(elapsedTime-zoomtime)
               stagemesh[현챕터-1].scale.set(스케일,스케일,스케일)
-              stagemesh[현챕터-1].position.y=stagepos.y+(-stagepos.y)*(elapsedTime-zoomtime)+(-bh*3-(14.2857*2-bh)/2)*(elapsedTime-zoomtime)
+              stagemesh[현챕터-1].position.y=stagepos.y+(-stagepos.y)*(elapsedTime-zoomtime)+(-bh*3-(스케일1*2-bh)/2)*(elapsedTime-zoomtime)
               stagemesh[현챕터-1].position.x=stagepos.x+(-stagepos.x)*(elapsedTime-zoomtime)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.x)
               stagemesh[현챕터-1].position.z=stagepos.z+(-stagepos.z)*(elapsedTime-zoomtime)+(스케일*스테이지타일[현스테이지.챕터][tilepos[0]][tilepos[1]][3].position.z)
 
@@ -19317,13 +19740,17 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
                                     }
 
                                   }
-                                  cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,   (bh*(overcount+시작높이+2)), cubes[cubes.length-1].mesh.position.z, bw, bh, bw, game2048, cubes.length, true));
+                                  let rand1=parseInt(Math.random()*2);
+                                  let trot=parseInt(Math.random()*4);
+                                  cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,   (bh*(overcount+시작높이+2)), cubes[cubes.length-1].mesh.position.z, bw, bh, bw, game2048, cubes.length, true, rand1,trot));
                                   cubes[activeFloor+1].mesh.quaternion.copy(cubes[activeFloor].mesh.quaternion);
                                   cubes[activeFloor+1].body.quaternion.copy(cubes[activeFloor].body.quaternion);
 
                                   // cubes[activeFloor+1].body.fixedRotation=true;
 
                                   cubes[activeFloor+1].mesh.userData.body = cubes[activeFloor+1].body;
+                                  cubes[activeFloor+1].mesh.userData.ver = rand1
+                                  cubes[activeFloor+1].mesh.userData.rot = trot
                                   cubes[activeFloor+1].mesh.userData.game2048 = game2048
                                   cubes[activeFloor+1].mesh.userData.pin=false;
                                   cubes[activeFloor+1].mesh.userData.constraint=[];
@@ -23537,7 +23964,7 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
       }
     }
 
-    function newbox(x, y, z, width, height, depth, game2048, idx, flag){
+    function newbox(x, y, z, width, height, depth, game2048, idx, flag, rand1, trot){
 
 
       if(flag){
@@ -23890,8 +24317,8 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
           }
           var geoms = [];
           if (true) { //신스킨
-              var trot=parseInt(Math.random()*4);
-              var rand1=parseInt(Math.random()*2);
+
+
               var moldkey=Object.keys(skinmold);
               moldkey.forEach((item) => {
                 skinmold[item].forEach((obj) => {
@@ -23946,14 +24373,21 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
 
                   if(obj1.userData["skin"]=="m1"){
                     if(obj1.userData["variation"]==rand1){
+
                       return;
+
                     }
+
                     obj1.rotation.y=trot*(Math.PI/2)
                   }
 
 
 
                   if(obj1.userData["skin"]=="m3"){
+                    obj1.rotation.y=trot*(Math.PI/2)
+                  }
+
+                  if(obj1.userData["skin"]=="cabin"){
                     obj1.rotation.y=trot*(Math.PI/2)
                   }
                   //
@@ -27494,7 +27928,9 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
       console.log(initmappos)
       startflag=true;
       mapflag=true;
-      // initflag=false;
+      initflag=false;
+      skinnum=skinset.indexOf("m1")
+      bf=99
       // return;
       badgelst.forEach((item) => {
         if(item.userData.chapter==현챕터){
@@ -28896,14 +29332,16 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
         reBtn3.addEventListener('click', function() {
 
           // if(restartflag) return;
-
+          // console.log(JSON.stringify({cube:cubes}))
+          var a=[]
           for (var i = 3; i < cubes.length; i++) {
+            var b={};
             var clone={};
             var pinsize=1;
             if(cubes[i].mesh.userData.pin){
               pinsize=핀크기
             }
-            var 스케일=0.07
+            var 스케일=스케일0
             var geometry1 = new THREE.BoxGeometry(cubes[i].mesh.userData.combo*pinsize*bw*스케일, bh*스케일, cubes[i].mesh.userData.combo*pinsize*bw*스케일);
             var material1 = new THREE.MeshLambertMaterial({
                 color: cubes[i].mesh.material.color
@@ -28912,6 +29350,8 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
             clone.mesh=new THREE.Mesh(geometry1, material1);
 
             clone.mesh.quaternion.copy(cubes[i].mesh.quaternion);
+
+
 
             clone.mesh.position.set(스테이지타일[현챕터-1][tilepos[0]][tilepos[1]][3].position.x-(cubes[i].mesh.position.x)*스케일,(cubes[i].mesh.position.y)*스케일,스테이지타일[현챕터-1][tilepos[0]][tilepos[1]][3].position.z-(cubes[i].mesh.position.z)*스케일)
 
@@ -28924,16 +29364,37 @@ var 스테이지타일=[[[[4,1,0],[4,2,0],[4,3,0],[4,0,0],[4,1,0],[4,2,0],[4,2,0
             clone.mesh.receiveShadow = true;
             clone.mesh.castShadow = true;
 
+            b.freeze=cubes[i].mesh.userData.freeze;
+            b.pin=cubes[i].mesh.userData.pin;
+            b.ice=cubes[i].mesh.userData.ice;
+            b.bye=cubes[i].mesh.userData.bye;
+            b.combo=cubes[i].mesh.userData.combo;
+            b.constraint=cubes[i].mesh.userData.constraint.length;
+            b.position=[스테이지타일[현챕터-1][tilepos[0]][tilepos[1]][3].position.x-(cubes[i].mesh.position.x)*스케일,(cubes[i].mesh.position.y)*스케일,스테이지타일[현챕터-1][tilepos[0]][tilepos[1]][3].position.z-(cubes[i].mesh.position.z)*스케일]
+            b.quaternion=cubes[i].mesh.quaternion.clone();
+            b.skinnum=skinnum
+            b.ver=cubes[i].mesh.userData.ver;
+            b.rot=cubes[i].mesh.userData.rot;
 
-            stagemesh[현챕터-1].add(clone.mesh);
+            b.color=cubes[i].mesh.material.color
+
+
+            // stagemesh[현챕터-1].add(clone.mesh);
+
             var sdickeys = Object.keys(soundic);
             sdickeys.forEach((item) => {
               soundic[item]?.stop();
             });
 
+            a.push(b)
+
+
 
           }
 
+
+          제이슨=JSON.stringify(a);
+          window.a=a;
           줌아웃=true;
           인게임=false;
 
