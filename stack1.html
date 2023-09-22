@@ -3391,7 +3391,7 @@
     var 로딩완료=false
 
 
-    var 배율1=1
+    var 배율1=1.1
 
     var 배율0=0.45
 
@@ -5261,6 +5261,10 @@
     var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
     function handleTouchStart(event) {
+
+        if(mapflag&&elapsedTime-zoomtime<1){
+          return;
+        }
         if(propsmold.length!=12||!로딩완료) return;
         if(!터치) return
         // if(originflag&&-isoAngle != camera.rotation.x) return;
@@ -5745,7 +5749,7 @@
             }
 
             if(mapflag){
-              if(item.object.userData.stage!=null){
+              if(item.object.userData.stage!=null&&item.object.userData.skin!="badge"&&item.object.userData.skin!="newbase"&&item.object.userData.skin!="base"){
                 if(mapflag){
                   if(!zoomflag){
                     nowscale=배율1
@@ -5753,6 +5757,7 @@
                     nowscale=배율0
                   }
                   console.log("간드아")
+                  console.log(item.object.userData.skin)
                   startflag=true
                   cat.push(item.object)
                   console.log(startflag)
@@ -6159,12 +6164,49 @@
             if(mapflag){
               // stagemesh[0].position.x=stagepos[0]-20*(window.innerHeight/window.innerWidth)*(touchy - lastY)+12*(touchx - lastX)
 
+              // if(stagemesh[현챕터-1].position.z<-4){
+              //   stagemesh[현챕터-1].position.z=-4
+              //   return;
+              // }else if(stagemesh[현챕터-1].position.x<-20){
+              //   stagemesh[현챕터-1].position.x=-20
+              //   return
+              // }else{
+              //   stagemesh[현챕터-1].position.x=stagepos.x-5*2.0*(window.innerHeight/window.innerWidth)*(touchy - lastY)+5*1.2*(touchx - lastX)
+              //   stagemesh[현챕터-1].position.z=stagepos.z-5*1.2*(touchx - lastX)-5*2.0*(window.innerHeight/window.innerWidth)*(touchy - lastY)
+              //   if(stagemesh[현챕터-1].position.z<-4){
+              //     stagemesh[현챕터-1].position.z=-4
+              //
+              //   }else if(stagemesh[현챕터-1].position.x<-20){
+              //     stagemesh[현챕터-1].position.x=-20
+              //
+              //   }
+              // }
+
               stagemesh[현챕터-1].position.x=stagepos.x-5*2.0*(window.innerHeight/window.innerWidth)*(touchy - lastY)+5*1.2*(touchx - lastX)
               stagemesh[현챕터-1].position.z=stagepos.z-5*1.2*(touchx - lastX)-5*2.0*(window.innerHeight/window.innerWidth)*(touchy - lastY)
+              if(stagemesh[현챕터-1].position.z<-4){
+                stagemesh[현챕터-1].position.z=-4
+
+              }
+
+              if(stagemesh[현챕터-1].position.x<-20){
+                stagemesh[현챕터-1].position.x=-20
+
+              }
+
+
+
+
+
+
+
+
 
               // if(stagemesh[0].position.x<=1){
               //   stagemesh[0].position.x=1
               // }
+
+
               console.log("\n")
               console.log(stagemesh[현챕터-1].position.x)
               console.log(stagemesh[현챕터-1].position.z)
@@ -8984,6 +9026,8 @@
           camera.rotation.x=restartend;
         }
 
+        // camera.rotation.x=-isoAngle+0.7
+
 
 
 
@@ -9551,7 +9595,7 @@
             skinnum=skinset.indexOf("brickhouse")
           }
 
-          skinnum=skinset.indexOf("brickhouse")
+          // skinnum=skinset.indexOf("brickhouse")
 
           // skinnum=skinset.indexOf("archer")
           // if(현스테이지.챕터==1){
@@ -28737,6 +28781,8 @@
                   // parseInt(스테이지타일[r][i][j][2])
                   clone.userData.stage=parseInt(스테이지타일[r][i][j][2]);
                   clone.userData.chapter=r+1;
+
+                  clone.userData.skin="newbase"
                   var data=세이브[(clone.userData.chapter-1)*10+(clone.userData.stage-1)]
 
 
@@ -28766,6 +28812,14 @@
                     mesh2.userData.j=j+1;
                     data.좌표=String(clone.position.x)+":"+String(clone.position.z)+"/"+String(i)+":"+String(j+1)
                   }else if(parseInt(스테이지타일[r][i][j][1])==2){
+                    mesh0.position.x=clone.position.x
+                    mesh0.position.z=clone.position.z+bw/2.2
+                    mesh0.userData.i=i+1;
+                    mesh0.userData.j=j;
+                    mesh2.userData.i=i+1;
+                    mesh2.userData.j=j;
+                    data.좌표=String(clone.position.x)+":"+String(clone.position.z)+"/"+String(i+1)+":"+String(j)
+                  }else{
                     mesh0.position.x=clone.position.x
                     mesh0.position.z=clone.position.z+bw/2.2
                     mesh0.userData.i=i+1;
