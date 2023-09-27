@@ -1017,49 +1017,51 @@
 
         #skin-left {
 
-            left: 35vmin;
+            left: 15vmin;
             font-family: 'GG';
             /*margin-left: 1vw;*/
-            font-size: 3vmin;
+            font-size: 2vmin;
             text-align: center;
             background-color: transparent;
             background-image: url("png/yellow_sliderLeft.png");
-            background-size: 9vmin 9vmin;
+            background-size: 6vmin 6vmin;
             border: none;
-            width: 9vmin;
-            height: 9vmin;
+            width: 6vmin;
+            height: 6vmin;
             cursor: pointer;
             margin: 0 4vmin;
         }
 
         #skin-right {
-            right: 35vmin;
+            right: 15vmin;
             font-family: 'GG';
             /*margin-left: 2vw;*/
-            font-size: 3vmin;
+            font-size: 2vmin;
             text-align: center;
             background-color: transparent;
             background-image: url("png/yellow_sliderRight.png");
-            background-size: 9vmin 9vmin;
+            background-size: 6vmin 6vmin;
             border: none;
-            width: 9vmin;
-            height: 9vmin;
+            width: 6vmin;
+            height: 6vmin;
             cursor: pointer;
             margin: 0 4vmin;
         }
 
         #skin-middle {
-            font-size: 3vmin;
+            font-size: 2vmin;
             display: inline-flex;
             align-items: center;
         }
 
         #skin-middle img {
-            width: 17vmin;
+            width: 10vmin;
+            height:  7vmin;
             margin: 0 2vw;
         }
 
         .option-RL {
+            margin-top: 4vmin;
             display: flex;
             /*flex-direction: column;*/
             align-items: center;
@@ -3384,6 +3386,9 @@
 
     var stacktime;
 
+    var bterial0;
+    var bterial1;
+
     var 시작높이=-1;
 
     var 제이슨;
@@ -3391,13 +3396,13 @@
     var 로딩완료=false
 
 
-    var 배율1=1.4
+    var 배율1=1.1
 
     var 배율0=0.45
 
 
 
-    var 스케일0=0.2
+    var 스케일0=0.25
 
     var 스케일1=1/스케일0
 
@@ -3438,7 +3443,7 @@
 
     var 타일맵=[];
 
-
+    var 현재;
     var tilepos0;
 
     //
@@ -4697,6 +4702,10 @@
           this.보정=보정;
         }
 
+        this.star1=parseInt(조건/3)
+        this.star2=2*parseInt(조건/3)
+        this.star3=조건
+
         if(스택.length==0){
           this.stacknum=[0,0,0,0,8,8,16]
           for (var i = 0; i < 28; i++) {
@@ -5322,9 +5331,10 @@
 
     function handleTouchStart(event) {
 
-        if(mapflag&&elapsedTime-zoomtime<1){
-          return;
-        }
+        // if(mapflag&&elapsedTime-zoomtime<1){
+        //   return;
+        // }
+
         if(propsmold.length!=12||!로딩완료) return;
         if(!터치) return
         // if(originflag&&-isoAngle != camera.rotation.x) return;
@@ -5817,10 +5827,10 @@
 
             if(mapflag){
               if(item.object.userData.stage!=null&&item.object.userData.skin!="badge"&&item.object.userData.skin!="newbase"&&item.object.userData.skin!="base"){
-                // if(세이브[(item.object.userData.chapter-1)*10+(item.object.userData.stage-1)].해금=="0"){
-                //   showpop("이전 스테이지를 먼저 해금하세요","","")
-                //   return
-                // }
+                if(세이브[(item.object.userData.chapter-1)*10+(item.object.userData.stage-1)].해금=="0"){
+                  showpop("이전 스테이지를 먼저 해금하세요","","")
+                  return
+                }
 
                 if(mapflag){
                   if(!zoomflag){
@@ -8440,12 +8450,17 @@
           }else{
             nowscale=배율0
           }
+
+
           stagepos=stagemesh[현챕터-1].position.clone();
           zoomflag=false;
           nowpos=camera.position;
           zoompos=initpos;
           console.log(zoompos)
           zoomtime=elapsedTime;
+
+
+
 
         }else if (event.code === 'KeyP') {
             if(mapflag){
@@ -8915,6 +8930,12 @@
           // }
 
           // dl2.shadow.mapSize = new THREE.Vector2(1000, 1000);
+        }else if (event.code === 'KeyM') {
+          fulltower=true;
+
+
+
+
         } else if (event.code === 'KeyC') {
             // for (var i = 0; i < cubes.length-1; i++) {
             //   let force2 = new CANNON.Vec3();
@@ -9909,10 +9930,10 @@
                 opacity: 1
             });
 
-            var rana=7+parseInt(Math.random()*4)
+            var rana=7+parseInt(Math.random()*15)
             var ranb=7+parseInt(Math.random()*4)
 
-            var geometry = new THREE.BoxGeometry((배수*rana), (배수*ranb), 0);
+            var geometry = new THREE.BoxGeometry((배수*rana), (배수*rana), 0);
             var backmesh = new THREE.Mesh(geometry, material40);
             // backmesh.material.depthTest = false;
             backmesh.material.depthWrite = false;
@@ -17551,13 +17572,18 @@
             zoomflag=false;
             mapflag=true;
             gameoverflag=false
-            startflag=false;
+
+            startflag=true;
+
             initflag=false;
 
             인게임=false;
 
             rotationflag=false;
             restartflag=false;
+
+            elapsedTime=0
+            zoomtime=-20
 
 
             stagemesh[현챕터-1].scale.set(1,1,1)
@@ -17578,6 +17604,14 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
+
+            stagepos=stagemesh[현챕터-1].position.clone();
+            // nowpos=camera.position;
+            // zoompos=initpos;
+            // stagemesh[현챕터-1].position.x=0
+            // stagemesh[현챕터-1].position.z=0
+            // camera.position.x=zoompos.x
+            // camera.position.z=zoompos.z
 
 
             for (let i = 0; i < cubes.length; i++) {
@@ -17607,9 +17641,9 @@
 
 
             badgelst.forEach((item) => {
-              if(item.userData.chapter==현챕터){
+              if(true){
                 item.material.visible=true
-                if(item.children[0]==null) return;
+
                 if(item.userData.skin=="base"){
                   item.children[0].material.visible=true;
                   item.children[1].material.visible=true
@@ -17618,14 +17652,52 @@
                   return
                 }
                 if(item.userData.skin=="button"){
-                  item.children[0].material.visible=true;
-                  item.children[1].material.visible=true
+
+                  if(세이브[(item.userData.chapter-1)*10+(item.userData.stage-1)].해금=="1"){
+                    console.log(세이브[(item.userData.chapter-1)*10+(item.userData.stage-1)])
+                    item.material=bterial0
+                  }
+                  item.material.visible=true;
 
 
                 }
+                if(item.children[0]==null) return;
                 item.children[0].material.visible=true;
                 if(item.userData.skin=="badge"){
+
+
                   if(세이브[(item.userData.chapter-1)*10+(item.userData.stage-1)].해금=="1"){
+
+
+                    item.material=new THREE.MeshLambertMaterial({
+                          color: 0xB6EB6F,
+                          transparent: true,
+                          opacity: 1
+                      });
+
+                    item.children[0].material=new THREE.MeshLambertMaterial({
+                          color: 0x8BDC1E,
+                          transparent: true,
+                          opacity: 1
+                      });
+
+                    item.children[1].material=new THREE.MeshLambertMaterial({
+                          color: 0x77BC1A,
+                          transparent: true,
+                          opacity: 1
+                      });
+                    item.children[3].material=new THREE.MeshLambertMaterial({
+                          color: 0x77BC1A,
+                          transparent: true,
+                          opacity: 1
+                      });
+                    item.children[5].material=new THREE.MeshLambertMaterial({
+                          color: 0x77BC1A,
+                          transparent: true,
+                          opacity: 1
+                      });
+
+
                     item.children[1].material.visible=true;
                     item.children[3].material.visible=true;
                     item.children[5].material.visible=true;
@@ -17721,13 +17793,13 @@
 
             badgelst.forEach((item) => {
 
-              if(item.userData.chapter==현챕터){
-                if(세이브[(item.userData.chapter-1)*10+(item.userData.stage-1)].해금=="1"&&item.children[4]!=null){
-                  item.position.y=-bh/2.1+1.85*bh/2+(bh/12)*(Math.sin(Math.PI/36*dur0))
-                }
 
-
+              if((item.userData.chapter-1)*10+(item.userData.stage-1)==현재&&item.children[4]!=null){
+                item.position.y=-bh/2.1+1.85*bh/2+(bh/12)*(Math.sin(Math.PI/36*dur0))
               }
+
+
+
 
             });
           }
@@ -17805,7 +17877,7 @@
 
               camera.position.x=nowpos.x+(zoompos.x-nowpos.x)*(elapsedTime-zoomtime)
               camera.position.z=nowpos.z+(zoompos.z-nowpos.z)*(elapsedTime-zoomtime)
-              camera.position.y=nowpos.y+(zoompos.y-nowpos.y)*(elapsedTime-zoomtime)
+              // camera.position.y=nowpos.y+(zoompos.y-nowpos.y)*(elapsedTime-zoomtime)
 
               if(nowscale==배율0){
                 camera.left = -bw * (배율0+(elapsedTime-zoomtime)*(배율1-배율0))
@@ -21509,6 +21581,56 @@
                   var temp1=document.querySelectorAll(".gameinfo1");
 
                   if(gamemod==2){
+
+                    if(cubes.length-3>=현스테이지.star3){
+                      console.log("스타3")
+                      if(세이브[현재].스타=="0"){
+                        세이브[현재+1].해금="1"
+                        세이브[현재].스타="3"
+                        현재=현재+1
+                        세이브[99].좌표=세이브[현재].좌표;
+                        tilepos0=[parseInt(세이브[99].좌표.split("/")[1].split(":")[0]), parseInt(세이브[99].좌표.split("/")[1].split(":")[1])]
+                      }else if(parseInt(세이브[현재].스타)<3){
+                        세이브[현재].스타="3"
+                      }
+
+
+
+                    }else if(cubes.length-3>=현스테이지.star2){
+                      console.log("스타2")
+                      if(세이브[현재].스타=="0"){
+                        세이브[현재+1].해금="1"
+                        세이브[현재].스타="2"
+                        현재=현재+1
+                        세이브[99].좌표=세이브[현재].좌표;
+                        tilepos0=[parseInt(세이브[99].좌표.split("/")[1].split(":")[0]), parseInt(세이브[99].좌표.split("/")[1].split(":")[1])]
+                      }else if(parseInt(세이브[현재].스타)<2){
+                        세이브[현재].스타="2"
+                      }
+
+
+                    }else if(cubes.length-3>=현스테이지.star1){
+                      console.log("스타1")
+                      if(세이브[현재].스타=="0"){
+                        세이브[현재+1].해금="1"
+                        세이브[현재].스타="1"
+                        현재=현재+1
+                        세이브[99].좌표=세이브[현재].좌표;
+                        tilepos0=[parseInt(세이브[99].좌표.split("/")[1].split(":")[0]), parseInt(세이브[99].좌표.split("/")[1].split(":")[1])]
+                      }else if(parseInt(세이브[현재].스타)<1){
+                        세이브[현재].스타="1"
+                      }
+                    }
+                    console.log(현재)
+
+                    window.세이브=세이브
+                    window.현재=현재
+
+
+
+
+
+
                     temp1[0].style.display="inline-flex"
                     temp1[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][3])
                     temp1[0].children[2].style.color=hexToHtmlColor(colorlst[colornum][3])
@@ -23134,6 +23256,7 @@
           })
       }
 
+
       if(mapflag){
         cubes.forEach((item) => {
           item.mesh.material.visible=false;
@@ -23211,6 +23334,15 @@
                 renderer.render(scene, camera);
         }
 
+        if(!인게임){
+          while (포인트.length > 0) {
+              scene.remove(포인트.pop());
+          }
+          while (시간.length > 0) {
+              scene.remove(시간.pop());
+          }
+        }
+
 
         if (!gameoverflag&&!restartflag&&인게임) {
             if(re3flag){
@@ -23284,6 +23416,8 @@
 
                 })
             }
+
+
 
 
 
@@ -26868,9 +27002,9 @@
 
 
       if(soundic[esound[idx]].isPlaying){
-        setTimeout(function() {
-          showpop(t1, t2, t3, idx);
-        }, 1000);
+        // setTimeout(function() {
+        //   showpop(t1, t2, t3, idx);
+        // }, 1000);
         return;
       }else{
 
@@ -28651,7 +28785,7 @@
       bf=99
       // return;
       badgelst.forEach((item) => {
-        if(item.userData.chapter==현챕터){
+        if(true){
           item.material.visible=true
           if(item.children[0]==null){
             return;
@@ -28706,15 +28840,15 @@
       });
 
       //구름
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 40; i++) {
               var clone=propsmold[2].clone();
               var temp0=parseInt(Math.random()*2)%2
               var temp1=parseInt(Math.random()*2)%2
 
-              var rana=-2*bw+Math.random()*(1.8*6.6/4)*20
-              var ranb=-2*bw+Math.random()*(1.8*6.6/4)*20
+              var rana=-2*bw+Math.random()*(1.8*6.6/4)*90
+              var ranb=-2*bw+Math.random()*(1.8*6.6/4)*90
               var rany=Math.random()*6
-              var ranc=bh*(1+rany)
+              var ranc=1.5*bh*(1+rany)
 
               var rand=parseInt(Math.random()*6)
 
@@ -28772,23 +28906,28 @@
                 clone.material.opacity=1
                   cloud0.push(clone)
               }else if(parseInt(rany)==1){
-                clone.scale.set(1.3,1.1,1.3)
+                // clone.scale.set(1.3,1.1,1.3)
+                clone.scale.set(1.5,1.2,1.5)
                 clone.material.opacity=1
                   cloud1.push(clone)
               }else if(parseInt(rany)==2){
-                clone.scale.set(1.6,1.2,1.6)
+                // clone.scale.set(1.6,1.2,1.6)
+                clone.scale.set(2,1.5,2)
                 clone.material.opacity=0.97
                   cloud2.push(clone)
               }else if(parseInt(rany)==3){
-                clone.scale.set(1.9,1.3,1.9)
+                // clone.scale.set(1.9,1.3,1.9)
+                clone.scale.set(2.5,1.8,2.5)
                 clone.material.opacity=0.94
                   cloud3.push(clone)
               }else if(parseInt(rany)==4){
-                clone.scale.set(2.2,1.4,2.2)
+                // clone.scale.set(2.2,1.4,2.2)
+                clone.scale.set(3,2,3)
                 clone.material.opacity=0.91
                 cloud4.push(clone)
               }else if(parseInt(rany)==5){
-                clone.scale.set(2.5,1.5,2.5)
+                // clone.scale.set(2.5,1.5,2.5)
+                clone.scale.set(3.5,2.3,3.5)
                 clone.material.opacity=0.86
                 cloud5.push(clone)
               }
@@ -28835,7 +28974,7 @@
               ctx.drawImage(버튼,0,0,280,220);
               var img30 = new THREE.CanvasTexture(canvas);
               // scene.background = img3;
-              var material40 = new THREE.MeshBasicMaterial({
+              baterial0 = new THREE.MeshBasicMaterial({
                   map: img30,
                   transparent: true,
                   opacity: 1
@@ -28849,14 +28988,14 @@
               ctx.drawImage(버튼1,0,0,280,220);
               var img31 = new THREE.CanvasTexture(canvas);
               // scene.background = img3;
-              var material44 = new THREE.MeshBasicMaterial({
+              baterial1 = new THREE.MeshBasicMaterial({
                   map: img31,
                   transparent: true,
                   opacity: 1
               });
 
               var geometry = new THREE.BoxGeometry(1.5*(2.8), 1.5*(2.2), 0);
-              var mesh0 = new THREE.Mesh(geometry, material40);
+              var mesh0 = new THREE.Mesh(geometry, baterial0);
               // backmesh.material.depthTest = false;
               mesh0.material.depthWrite = false;
               mesh0.rotation.order = 'YXZ';
@@ -28917,6 +29056,7 @@
       stagepos=stagemesh[현챕터-1].position.clone();
       nowpos=camera.position.clone();
       zoompos=스테이지타일[현챕터-1][tilepos0[0]][tilepos0[1]][3].position.clone();
+
       // item.object.position.clone();
       zoomtime=elapsedTime;
 
@@ -28974,7 +29114,8 @@
                   ctx.drawImage(버튼,0,0,280,220);
                   var img30 = new THREE.CanvasTexture(canvas);
                   // scene.background = img3;
-                  var material40 = new THREE.MeshBasicMaterial({
+
+                  bterial0 = new THREE.MeshBasicMaterial({
                       map: img30,
                       transparent: true,
                       opacity: 1
@@ -28987,7 +29128,7 @@
                   ctx.drawImage(버튼1,0,0,280,220);
                   var img31 = new THREE.CanvasTexture(canvas);
                   // scene.background = img3;
-                  var material44 = new THREE.MeshBasicMaterial({
+                  bterial1 = new THREE.MeshBasicMaterial({
                       map: img31,
                       transparent: true,
                       opacity: 1
@@ -28996,7 +29137,7 @@
                   var geometry = new THREE.BoxGeometry(1.8*(2.8), 1.8*(2.2), 0);
 
 
-                  var mesh2 = new THREE.Mesh(geometry, material40);
+                  var mesh2 = new THREE.Mesh(geometry, bterial0);
 
 
                   // var mesh2=propsmold[11].clone();
@@ -29018,10 +29159,14 @@
                   //
                   // mesh2.material.specular = new THREE.Color(0x1188ff)
 
+                  var t01=parseInt(스테이지타일[r][i][j][2])%10;
+                  if(t01==0) t01=10
+                  var t02=1+parseInt((parseInt(스테이지타일[r][i][j][2])-1)/10);
 
+                  console.log(String(t01)+" : "+String(t02))
 
-                  mesh2.userData.stage=parseInt(스테이지타일[r][i][j][2]);
-                  mesh2.userData.chapter=r+1;
+                  mesh2.userData.stage=t01
+                  mesh2.userData.chapter=t02
 
                   mesh2.userData.skin="button";
                   // mesh2.scale.set(0.2,0.2,0.2)
@@ -29063,8 +29208,8 @@
                   // backmesh.rotation.x = -Math.PI / 4;
                   // mesh0.rotation.y = Math.PI / 4;
                   // parseInt(스테이지타일[r][i][j][2])
-                  clone.userData.stage=parseInt(스테이지타일[r][i][j][2]);
-                  clone.userData.chapter=r+1;
+                  clone.userData.stage=t01
+                  clone.userData.chapter=t02
 
                   clone.userData.skin="newbase"
                   var data=세이브[(clone.userData.chapter-1)*10+(clone.userData.stage-1)]
@@ -29114,11 +29259,11 @@
                   }
 
                   mesh0.position.y=bh/6
-                  mesh0.rotation.y = Math.PI/2 ;
+                  mesh0.rotation.y=Math.PI/2 ;
 
 
-                  mesh0.userData.stage=parseInt(스테이지타일[r][i][j][2]);
-                  mesh0.userData.chapter=r+1;
+                  mesh0.userData.stage=t01
+                  mesh0.userData.chapter=t02;
                   // mesh0.userData.i=i;
                   // mesh0.userData.j=j;
                   mesh0.userData.skin="base";
@@ -29142,7 +29287,7 @@
                         color: 0x836363
                     })
 
-                    mesh2.material=material44;
+                    mesh2.material=bterial1;
 
                     //
                     // mesh0.children[1].material = new THREE.MeshLambertMaterial({
@@ -29157,6 +29302,8 @@
                         color: 0x708311
                     })
                     mesh2.material=material40
+
+                    mesh2.material=bterial0;
                     // mesh0.children[0].material = new THREE.MeshLambertMaterial({
                     //     color: 0x8099A9                   })
                     //
@@ -29176,8 +29323,8 @@
 
                   var backmesh = propsmold[8].clone()
                   backmesh.userData.skin="badge"
-                  backmesh.userData.stage=parseInt(스테이지타일[r][i][j][2]);
-                  backmesh.userData.chapter=r+1;
+                  backmesh.userData.stage=t01
+                  backmesh.userData.chapter=t02
 
                   backmesh.userData.i=i;
                   backmesh.userData.j=j;
@@ -29388,8 +29535,8 @@
                   txtmesh.rotation.x =-Math.PI / 2
                   txtmesh.rotation.z =-Math.PI / 2
 
-                  txtmesh.userData.stage=parseInt(스테이지타일[r][i][j][2]);
-                  txtmesh.userData.chapter=r+1;
+                  txtmesh.userData.stage=t01
+                  txtmesh.userData.chapter=t02
 
                   txtmesh.receiveShadow = true;
                   txtmesh.castShadow = true;
@@ -29548,10 +29695,14 @@
       //   document.getElementById("warpper").style.display="none"
       // }
 
+
+
       for (var i = 0; i < 50; i++) {
           if(세이브[i].해금=="0"){
             세이브[99].좌표=세이브[i-1].좌표;
+            현재=i-1;
             tilepos0=[parseInt(세이브[99].좌표.split("/")[1].split(":")[0]), parseInt(세이브[99].좌표.split("/")[1].split(":")[1])]
+            console.log(현재)
             break;
           }
       }
@@ -31225,6 +31376,8 @@
         현스테=parseInt(st)
       }
 
+      현스테이지=stageset[parseInt(ch-1)*10+parseInt(st)-1];
+
       var 좌표=세이브[(현챕터-1)*10+(현스테-1)].좌표;
       tilepos=[parseInt(좌표.split("/")[1].split(":")[0]), parseInt(좌표.split("/")[1].split(":")[1])]
       console.log("p"+ch+st)
@@ -31240,9 +31393,25 @@
       document.getElementById("popsub").children[0].children[0].children[3].innerText=""
       document.getElementById("popsub").children[0].children[0].children[4].innerText=""
 
+
+      document.getElementById("popsub01").children[0].children[1].innerText=현스테이지.star1
+      document.getElementById("popsub01").children[1].children[1].innerText=현스테이지.star2
+      document.getElementById("popsub01").children[2].children[1].innerText=현스테이지.star3
+
+
+      document.getElementById("board").children[0].children[0].innerText=ch+"-"+st
+
+      document.getElementById("board").children[1].children[1].innerText=현스테이지.star1
+      document.getElementById("board").children[2].children[1].innerText=현스테이지.star2
+      document.getElementById("board").children[3].children[1].innerText=현스테이지.star3
+
       document.getElementById("sub").children[0].innerText=""
       document.getElementById("sub").children[2].innerText=ch+" "+st
 
+      for(var i = 0; i < parseInt(세이브[(현챕터-1)*10+(현스테-1)].스타); i++){
+        document.getElementById("popsub01").children[i].style.backgroundColor="#AEEB81"
+        document.getElementById("board").children[1+i].style.backgroundColor="#AEEB81"
+      }
     }
     window.stageclick=stageclick;
 
@@ -33262,14 +33431,7 @@
                     <b id="skin1">skin shop</b>
 
                 </button>
-                <div class="option-RL">
-                    <button id="skin-left" onclick="skinshift(0)">◀</button>
-                    <label id="skin-middle">
-                        <img src="png/base.png" alt="Character 2">
-                        <div>base</div>
-                    </label>
-                    <button id="skin-right" onclick="skinshift(1)">▶</button>
-                </div>
+
 
                 <h1 class="title" id="theme0">THEME</h1>
                 <button class="cat-button" onclick="showGrid(0)">
@@ -33814,7 +33976,7 @@
           <div>🤍🤍🤍</div>
           <div>desc1</div>
           <div>desc2</div>
-        </button>
+      </button>
       <div class="panel-title" id="popsub01">
         <div class="popsub010">
           <div>❤️🤍🤍</div>
@@ -33828,8 +33990,18 @@
           <div>❤️❤️❤️</div>
           <div>: 1:00</div>
         </div>
-          <button class="subbtn" onclick="stageplay()">PLAY</button>
+
+        <div class="option-RL">
+            <button id="skin-left" onclick="skinshift(0)">◀</button>
+            <label id="skin-middle">
+                <img src="png/base.png" alt="Character 2">
+                <div>base</div>
+            </label>
+            <button id="skin-right" onclick="skinshift(1)">▶</button>
         </div>
+
+        <button class="subbtn" onclick="stageplay()">PLAY</button>
+      </div>
   </div>
 </div>
 
