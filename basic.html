@@ -2469,8 +2469,8 @@
     var tuttxt1="▲ Touch the Tower ▲"
     var tuttxt2="▼ Swipe the Numbers ▼"
 
-    var tmb0=0.03;
-    var tmb1=0.07;
+    var tmb0=0.7;
+    var tmb1=0.7;
 
     var webflag=true;
     window.webflag=webflag
@@ -2588,9 +2588,9 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.25,0.3,0.17,0.2,0.3]
-    var 탄성=[0.4,0.4,0.2,0.7,0.4]
-    var 중력=[-9,-11,-8,-7,-7]
+    var 마찰=[0.1,0.3,0.17,0.2,0.3]
+    var 탄성=[0.2,0.4,0.2,0.7,0.4]
+    var 중력=[-7,-11,-8,-7,-7]
 
     var resinit=5
     window.resinit=resinit
@@ -2606,7 +2606,7 @@
     var 스샷=false
     var 스크린=false;
 
-    var edgeflag=true;
+    var edgeflag=false;
 
     var remain=30;
     var tbonus=30;
@@ -3790,18 +3790,20 @@
                     });
                     // gameoverflag=true;
                     if(gamemod<2){
-                      var fullall=true;
-                      for (var i = 0; i < 5; i++) {
-                        if(!cubes[i].mesh.userData["game2048"].fullflag){
-                          fullall=false;
-                        }
-                      }
-                      if(fullall){
-                        fullmax=true;
+                      fullmax=true;
 
-                        sboard("CgkI3OzStdEUEAIQEQ")
-
-                      }
+                      // var fullall=true;
+                      // for (var i = 0; i < 5; i++) {
+                      //   if(!cubes[i].mesh.userData["game2048"].fullflag){
+                      //     fullall=false;
+                      //   }
+                      // }
+                      // if(fullall){
+                      //   fullmax=true;
+                      //
+                      //   sboard("CgkI3OzStdEUEAIQEQ")
+                      //
+                      // }
                     }
                   }
                 }
@@ -4662,7 +4664,7 @@
         sideViewCamera.position.set(bw * 1.5, bw * 0.8, 0);
         sideViewCamera.lookAt(0, bw * 0.8, 0);
     }
-    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.15, bw / 1.15, bw / 1.15, -bw / 1.15, 0.1, 1000);
+    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.45, bw / 1.45, bw / 1.45, -bw / 1.45, 0.1, 1000);
     topViewCamera.position.set(0, bh * 20, 0);
     topViewCamera.lookAt(0, 0, 0);
     var renderer = new THREE.WebGLRenderer({
@@ -4675,7 +4677,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight, false);
     document.body.appendChild(renderer.domElement);
     var world = new CANNON.World();
-    let groundgeometry = new THREE.BoxGeometry(400, 2, 400);
+    let groundgeometry = new THREE.BoxGeometry(18, 40, 18);
     // let groundcolor =new THREE.Color('hsl('+String(30+6*(10))+', 100%, 50%)');
     let groundcolor = new THREE.Color(colorlst[colornum][0])
     // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00*Math.random() });
@@ -4683,8 +4685,8 @@
         var groundmaterial = new THREE.MeshLambertMaterial({
             color: groundcolor,
             visible: true,
-            opacity: 땅투명,
-            transparent: true
+            opacity: 1,
+            transparent: false
         });
     } else {
         var groundmaterial = new THREE.MeshBasicMaterial({
@@ -4695,10 +4697,10 @@
     groundmaterial.friction=마찰[0];
     groundmaterial.restitution=탄성[0];
     let groundmesh = new THREE.Mesh(groundgeometry, groundmaterial);
-    groundmesh.position.set(0, -1, 0);
+    groundmesh.position.set(0, -20, 0);
     if (shadowon) groundmesh.receiveShadow = true
     scene.add(groundmesh);
-    let groundshape = new CANNON.Box(new CANNON.Vec3(100 / 2, 2 / 2, 100 / 2));
+    let groundshape = new CANNON.Box(new CANNON.Vec3(18 / 2, 40 / 2, 18 / 2));
     let customMaterial = new CANNON.Material('customMaterial');
     customMaterial.friction = 마찰[0]; // Friction coefficient, range: 0-1
     customMaterial.restitution = 탄성[0]; // Restitution (elasticity), range: 0-1
@@ -4707,13 +4709,13 @@
         shape: groundshape,
         material: customMaterial
     });
-    groundBody.position.set(0, -1, 0);
+    groundBody.position.set(0, -20, 0);
     // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
     world.addBody(groundBody);
     // groundBody.position.y=boxh/2
     world.gravity.set(0, 0, 0);
     world.broadphase = new CANNON.NaiveBroadphase();
-    world.solver.iterations = 20;
+    world.solver.iterations = 25;
 
     document.addEventListener('keydown', (event) => {
         // if(inflag) return;
@@ -5724,12 +5726,12 @@
                 txtsetting(function(object) {
 
                   if (lighton) {
-                      var ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+                      var ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
                       scene.add(ambientLight);
                       // const dL=new THREE.DirectionalLight(0xffffff,0.7);
                       // dL.position.set(13,30,18);
                       // scene.add(dL);
-                      var dl2 = new THREE.DirectionalLight(0xFFFFFF, 0.7);
+                      var dl2 = new THREE.DirectionalLight(0xFFFFFF, 0.3);
                       dl2.position.set(20, 100, 80);
                       // dl2.position.set(-40+Math.random()*80,50,-10+Math.random()*50);
                       // dl2.position.set(13,30,-18);
@@ -5799,7 +5801,7 @@
         // const fontLoader = new THREE.FontLoader();
         if (fontSize == 999) {
             var fsize = bw / 4
-            var fhight = 두께*th / 4
+            var fhight = 두께*th / 2
             if(gamemod==4){
               if(parseInt(text)%5==4){
                 var fcolor = colorlst[colornum][0]
@@ -5855,17 +5857,20 @@
         });
         geometry.computeBoundingBox();
         geometry.translate(-geometry.boundingBox.max.x / 2, -geometry.boundingBox.min.y - 0.13, 0);
-        if (fontSize == 996) {
+        if (fontSize == 996||fontSize == 999) {
             var material = new THREE.MeshLambertMaterial({
                 color: fcolor
             });
+
+
         } else {
             var material = new THREE.MeshBasicMaterial({
                 color: fcolor
             });
         }
         const mesh = new THREE.Mesh(geometry, material);
-
+        mesh.receiveShadow = true;
+        mesh.castShadow = true;
 
         if(text.length>=3){
           mesh.scale.x=0.9-((text.length-3)/10);
@@ -8553,54 +8558,54 @@
 
         //ring
         // let originHelper = new THREE.Object3D();
-        var geoms = [];
-        var w = bw /80;
-
-        originHelper.position.set(0,bw / 2 ,0)
-        originHelper.updateWorldMatrix(true, false);
-        var tg = new THREE.PlaneGeometry(bw*1.013 , w);
-        tg.applyMatrix4(originHelper.matrixWorld);
-        geoms.push(tg)
-
-        originHelper.position.set(0,-bw / 2 ,0)
-        originHelper.updateWorldMatrix(true, false);
-        var tg = new THREE.PlaneGeometry(bw*1.013 , w);
-        tg.applyMatrix4(originHelper.matrixWorld);
-        geoms.push(tg)
-
-        originHelper.position.set(-bw / 2 ,0,0)
-        originHelper.updateWorldMatrix(true, false);
-        var tg = new THREE.PlaneGeometry(w, bw*0.99);
-        tg.applyMatrix4(originHelper.matrixWorld);
-        geoms.push(tg)
-
-        originHelper.position.set(+bw / 2 ,0,0)
-        originHelper.updateWorldMatrix(true, false);
-        var tg = new THREE.PlaneGeometry(w, bw*0.99);
-        tg.applyMatrix4(originHelper.matrixWorld);
-        geoms.push(tg)
-
-
-
-        var mgeo = new BufferGeometryUtils.mergeGeometries(
-            geoms, false);
-        var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-        var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] * 1) + '%)');
-        var mesh1 = new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({
-          color: tc,
-          side: THREE.DoubleSide
-        }));
-        mesh1.scale.set(0.99, 0.99, 0.99);
-
-        mesh1.rotation.order = 'YXZ';
-        mesh1.rotation.x = Math.PI / 2;
-        // mesh1.position.y=-bh/2
-
-        // mesh1.userData["bottom"] = true;
-        mesh1.userData["skin"] = "bottom"
-        mesh1.userData["skintype"] =9;
-        clmeshlst[idx].push(mesh1.material)
-        mesh.add(mesh1);
+        // var geoms = [];
+        // var w = bw /80;
+        //
+        // originHelper.position.set(0,bw / 2 ,0)
+        // originHelper.updateWorldMatrix(true, false);
+        // var tg = new THREE.PlaneGeometry(bw*1.013 , w);
+        // tg.applyMatrix4(originHelper.matrixWorld);
+        // geoms.push(tg)
+        //
+        // originHelper.position.set(0,-bw / 2 ,0)
+        // originHelper.updateWorldMatrix(true, false);
+        // var tg = new THREE.PlaneGeometry(bw*1.013 , w);
+        // tg.applyMatrix4(originHelper.matrixWorld);
+        // geoms.push(tg)
+        //
+        // originHelper.position.set(-bw / 2 ,0,0)
+        // originHelper.updateWorldMatrix(true, false);
+        // var tg = new THREE.PlaneGeometry(w, bw*0.99);
+        // tg.applyMatrix4(originHelper.matrixWorld);
+        // geoms.push(tg)
+        //
+        // originHelper.position.set(+bw / 2 ,0,0)
+        // originHelper.updateWorldMatrix(true, false);
+        // var tg = new THREE.PlaneGeometry(w, bw*0.99);
+        // tg.applyMatrix4(originHelper.matrixWorld);
+        // geoms.push(tg)
+        //
+        //
+        //
+        // var mgeo = new BufferGeometryUtils.mergeGeometries(
+        //     geoms, false);
+        // var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+        // var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] * 1) + '%)');
+        // var mesh1 = new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({
+        //   color: tc,
+        //   side: THREE.DoubleSide
+        // }));
+        // mesh1.scale.set(0.99, 0.99, 0.99);
+        //
+        // mesh1.rotation.order = 'YXZ';
+        // mesh1.rotation.x = Math.PI / 2;
+        // // mesh1.position.y=-bh/2
+        //
+        // // mesh1.userData["bottom"] = true;
+        // mesh1.userData["skin"] = "bottom"
+        // mesh1.userData["skintype"] =9;
+        // clmeshlst[idx].push(mesh1.material)
+        // mesh.add(mesh1);
 
 
 
@@ -9177,7 +9182,7 @@
         if(gamemod==2){
           tmesh.position.y = cubes[0].body.position.y+9
         }else{
-          tmesh.position.y = cubes[0].body.position.y + 12
+          tmesh.position.y = cubes[0].body.position.y -5
         }
         tmesh.position.x = bw * (-0.05)
         tmesh.position.z = bw * (1.2)
@@ -9493,7 +9498,7 @@
         if(gamemod==2){
           tmesh.position.y = cubes[0].body.position.y+9
         }else{
-          tmesh.position.y = cubes[0].body.position.y + 12
+          tmesh.position.y = cubes[0].body.position.y -5
         }
         tmesh.position.y+=0.3
         tmesh.position.x = bw * (1.2)
@@ -9581,7 +9586,7 @@
         if(gamemod==2){
           tmesh.position.y = cubes[0].body.position.y+9
         }else{
-          tmesh.position.y = cubes[0].body.position.y + 12
+          tmesh.position.y = cubes[0].body.position.y -5
         }
 
         tmesh.position.x = bw * (1.2)
@@ -9664,7 +9669,7 @@
         if(gamemod==2){
           tmesh.position.y = cubes[0].body.position.y+9
         }else{
-          tmesh.position.y = cubes[0].body.position.y + 12
+          tmesh.position.y = cubes[0].body.position.y -5
         }
         tmesh.position.y+=0.3
         tmesh.position.x = bw * (1.2)
@@ -9754,7 +9759,7 @@
         if(gamemod==2){
           tmesh.position.y = cubes[0].body.position.y+9
         }else{
-          tmesh.position.y = cubes[0].body.position.y + 12
+          tmesh.position.y = cubes[0].body.position.y -5
         }
 
         tmesh.position.x = bw * (1.2)
@@ -9836,7 +9841,7 @@
         if(gamemod==2){
           tmesh.position.y = cubes[0].body.position.y+9
         }else{
-          tmesh.position.y = cubes[0].body.position.y + 12
+          tmesh.position.y = cubes[0].body.position.y -5
         }
 
         tmesh.position.x = bw * (1.2)
@@ -10103,13 +10108,14 @@
           id2=1
         } else{
           id0=1
-          id2=2
+          id2=1
+          callback();
         }
 
         for (let i = id0; i < id2; i++) {
             const game2048 = new Game2048(칸, i);
             if(n==0){
-              cubes.push(createBox(0, (i) * bh + bh*5 / 2, 0, bw*1.3, bh*5, bw*1.3, game2048, i));
+              cubes.push(createBox(0, (i) * bh + bh / 2, 0, bw, bh*1, bw*1, game2048, i));
             }else{
               cubes.push(newbox(0, (i+4) * bh + bh / 2, 0, bw, bh, bw, game2048, i, false));
               cubes[0].body.sleep()
@@ -10132,6 +10138,7 @@
           activeFloor = cubes.length;
 
         }
+        activeFloor = 1;
 
         if (callback) {
           if(n==0){
@@ -10944,11 +10951,18 @@
               getdb()
             }
 
+            camera.left = -bw * 1.15
+            camera.right = bw * 1.15 * 4
+            camera.top = bw * 1.15
+            camera.bottom = -bw * 1.15 * 4
 
+
+            skinnum=skinset.indexOf("classic")
             // if(!webflag) initdb()
             tsetting(function(object) {
             setting(0, function(object) { //시작0
               setting(1, function(object) {
+
                   addring();
                       cubes.forEach((item) => {
                           item.mesh.userData.game2048.spawnTile();
@@ -10972,33 +10986,35 @@
                                 // const dL=new THREE.DirectionalLight(0xffffff,0.7);
                                 // dL.position.set(13,30,18);
                                 // scene.add(dL);
-                                var dl2 = new THREE.DirectionalLight(0xFFFFFF, 0.7);
-                                dl2.position.set(20, 100, 80);
-                                // dl2.position.set(-40+Math.random()*80,50,-10+Math.random()*50);
+                                var dl2 = new THREE.DirectionalLight(0xFFFFFF, 0.3);
+                                dl2.position.set(-30, 100, 80);
+                                // dl2.position.set(-40+Math.random()*80,100,-50+Math.random()*100);
                                 // dl2.position.set(13,30,-18);
                                 dl2.target.position.set(0, 0, 0);
 
+
+
                                 if (shadowon) {
-                                    dl2.shadow.camera.left = -bw * 1.3;
-                                    dl2.shadow.camera.right = bw * 1.3 * 4;
-                                    dl2.shadow.camera.top = bw * 1.3;
-                                    dl2.shadow.camera.bottom = -bw * 1.3 * 4;
+                                    dl2.shadow.camera.left = -bw * 1;
+                                    dl2.shadow.camera.right = bw * 1 * 4;
+                                    dl2.shadow.camera.top = bw * 1;
+                                    dl2.shadow.camera.bottom = -bw * 1 * 4;
                                     dl2.shadow.camera.near = 0.01;
                                     dl2.shadow.camera.far = 1000;
                                     dl2.shadow.camera.lookAt(0, 0, 0);
                                     dl2.castShadow = true;
                                     switch (resinit) {
                                       case 0:
-                                        dl2.shadow.mapSize = new THREE.Vector2(1000, 1000);
+                                        dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
                                         break;
                                       case 1:
-                                        dl2.shadow.mapSize = new THREE.Vector2(1200, 1200);
+                                        dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
                                         break;
                                       case 2:
-                                        dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
+                                        dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
                                         break;
                                       case 3:
-                                        dl2.shadow.mapSize = new THREE.Vector2(1800, 1800);
+                                        dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
                                         break;
                                       case 4:
                                         dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
@@ -11013,6 +11029,7 @@
                                 }
                                 scene.add(dl2)
                             }
+                              activeFloor=0;
                               time0 = performance.now();
                               fps = 0;
                               if(!webflag){
@@ -11047,6 +11064,7 @@
                                         })
                                       }
                                       document.getElementById("coin2").innerText=String(coin);
+
                                       bf=999;
 
 
@@ -12546,6 +12564,9 @@
 
 
                   console.log("콩")
+
+                  activeFloor=0;
+                  bf=999;
                   if(fullcam){
                        topcam=false
                    }else{
@@ -12637,6 +12658,9 @@
             }
             avx /= cubes.length;
             avz /= cubes.length;
+
+            avx=0;
+            avz=0;
 
         }
 
@@ -13010,10 +13034,10 @@
                               var force = new CANNON.Vec3();
                               var tnum=parseInt(Math.log2(num))-2;
 
-                              var tforce=forceset[item.index][tnum]
+                              var tforce=forceset[item.index+2][tnum]
 
                               if(gamemod==0||gamemod==4){
-                                tforce*=1.14
+                                tforce*=0.8
                                 // tforce+=60*(4-item.index)
                                 // if(tutorialflag){
                                 //   tforce*=1.1;
@@ -14435,7 +14459,7 @@
                     camera.position.set(
                         2*(bw * 2 )+ avx,
                         // cubes[cubes.length-1].mesh.position.y+bh*5,
-                        2*(bh * (cubes.length + 2)),
+                        2*(bh * (cubes.length)),
                         2*(bw * 2 )+ avz,
                     );
                     if(gamemod==2) {
@@ -14448,21 +14472,7 @@
                         // item.mesh.material.opacity = 0
                         item.mesh.material.alphaTest=0
                         item.mesh.material.transparent = true;
-                        if(index==0){
-                          item.mesh.children.forEach((tile) => {
-                            if (tile.userData["skin"] == "base") {
-                                tile.material.visible = true;
-                                tile.material.opacity = 1;
-                                // tile.material.alphaTest = 1;
-                                tile.material.transparent = false;
-                                tile.material.depthWrite=true;
 
-                            }
-
-                          })
-
-                          return;
-                        }
                         item.mesh.children.forEach((tile) => {
                             if (tile.userData["skin"] == "tile") {
                               if(skinset[skinnum]=="classic"){//클
@@ -14548,7 +14558,7 @@
                                 2*(bw * 2 )+ avx,
                                 // cubes[cubes.length-1].mesh.position.y+(i-3)*bh,
                                 // cubes[cubes.length-1].mesh.position.y+bh*5,
-                                2*(bh * (cubes.length + 2)),
+                                2*(bh * (cubes.length)),
                                 2*(bw * 2 )+ avz
                             );
                             if(gamemod==2) camera.position.y=2*(bh * (cubes.length*0.5+3))
@@ -14747,7 +14757,11 @@
                                       }
                                     } else if (tile.userData["skin"] == "bottom") {
                                       if(skinset[skinnum]=="classic"){//클
-
+                                        tile.position.y=bh/3;
+                                        // tile.scale.set(0.9,0.9,0.9)
+                                        tile.material.visible = true;
+                                        tile.material.opacity = 1
+                                        tile.material.transparent = false;
                                       }else{
                                         if(tile.userData["skintype"] == 9){
                                           tile.position.y=-bh/3;
@@ -15097,7 +15111,7 @@
 
         if(등장){
           if(gamemod!=2){
-            camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
+            camera.position.y=2*(bh * (5 ))+(-isoAngle - camera.rotation.x)*30
           }else{
             camera.position.y=2*(bh * (5*0.5+3))+(-isoAngle - camera.rotation.x)*30
           }
@@ -15170,7 +15184,7 @@
                       cubes[i].mesh.children[j].material.depthWrite=true;
                     }else{
                       cubes[i].mesh.children[j].material.visible = true;
-                      cubes[i].mesh.children[j].material.opacity = tmb0;
+                      cubes[i].mesh.children[j].material.opacity = 0.2;
                       cubes[i].mesh.children[j].material.alphaTest = 0
 
                       cubes[i].mesh.children[j].material.transparent = true;
@@ -15263,9 +15277,9 @@
           //
           // })
       } else {
-          ring[0].children.forEach((item) => {
-              item.material.visible = false;
-          })
+          // ring[0].children.forEach((item) => {
+          //     item.material.visible = false;
+          // })
       }
 
 
@@ -15296,16 +15310,16 @@
             // }
             if(fullcam){
               if(gamemod==2){
-                camera.position.y= 2*(bh * (cubes.length*0.5+4))+(-isoAngle - camera.rotation.x)*30
+                camera.position.y= 2*(bh * (cubes.length*0.5+2))+(-isoAngle - camera.rotation.x)*30
               }else{
-                camera.position.y=2*(bh * (5 + 3))+(-isoAngle - camera.rotation.x)*30
+                camera.position.y=2*(bh * (5 + 1))+(-isoAngle - camera.rotation.x)*30
               }
 
             }else{
               if(gamemod==2){
-                camera.position.y= 2*(bh * (cubes.length*0.5+3))+(-isoAngle - camera.rotation.x)*30
+                camera.position.y= 2*(bh * (cubes.length*0.5+1))+(-isoAngle - camera.rotation.x)*30
               }else{
-                camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
+                camera.position.y=2*(bh * (5 ))+(-isoAngle - camera.rotation.x)*30
               }
 
             }
@@ -15329,16 +15343,17 @@
             var temptxt;
             if (averageflag) {
                 포인트.forEach((item) => {
-                    item.position.x = avx - bw / 1.5;
+                    item.position.x = 1.34*bw+avx - bw / 1.5;
+                    item.position.y = (cubes.length-2) * bh - th * 0
                     if(gamemod==2){
-                      item.position.y = (cubes.length-3) * bh - th * 0
+                      item.position.y = (cubes.length-5) * bh - th * 0
                         temptxt="+:"+String(stacknum[cubes.length-1])
                         if (temptxt.toString().length >= 4) {
-                            item.position.z = 4+avz - bw / 3;
+                            item.position.z = 1.5*bw+4+avz - bw / 3;
                         } else if (temptxt.toString().length == 3) {
-                            item.position.z = 3+avz - bw / 2.6;
+                            item.position.z = 1.5*bw+3+avz - bw / 2.6;
                         } else {
-                            item.position.z = 1+avz - bw / 2.3;
+                            item.position.z = 1.5*bw+1+avz - bw / 2.3;
                         }
                     }else if(gamemod==3){
                         temptxt=String(ccount);
@@ -15362,12 +15377,12 @@
 
                     }else{
                       if (parseInt(pointbuf).toString().length >= 4) {
-                          item.position.z = 1+avz -bw /(3.1+(parseInt(pointbuf).toString().length-4)*0.3);
+                          item.position.z = 0.3*bw+1+avz -bw /(3.1+(parseInt(pointbuf).toString().length-4)*0.3);
                       } else if (parseInt(pointbuf).toString().length == 3) {
                           // item.position.z = 3+avz - bw / 2.6;
-                          item.position.z = 1+avz - bw / 2.6;
+                          item.position.z = 0.3*bw+1+avz - bw / 2.6;
                       } else {
-                          item.position.z = 1+avz - bw / 2.3;
+                          item.position.z = 0.3*bw+1+avz - bw / 2.3;
                       }
                     }
 
@@ -15438,20 +15453,24 @@
                           textMesh.position.z = 1+avz - bw / 2.3;
                       }
                     }else{
-                      textMesh.position.y = cubes.length * bh - th * 0
+                      // item.position.x = 1.4*bw+avx - bw / 1.5;
+                      // item.position.y = (cubes.length-3) * bh - th * 0
+
+                      textMesh.position.y = (cubes.length-2) * bh - th * 0
                       if (temptxt.toString().length >= 4) {
-                          textMesh.position.z = 1+avz - bw /(3.1+(temptxt.toString().length-4)*0.3);
+                          textMesh.position.z =0.3*bw+ 1+avz - bw /(3.1+(temptxt.toString().length-4)*0.3);
                       } else if (temptxt.toString().length == 3) {
                           // textMesh.position.z = 3+avz - bw / 2.6;
-                          textMesh.position.z = 1+avz - bw / 2.6;
+                          textMesh.position.z = 0.3*bw+1+avz - bw / 2.6;
                       } else {
-                          textMesh.position.z = 1+avz - bw / 2.3;
+                          textMesh.position.z = 0.3*bw+1+avz - bw / 2.3;
                       }
                     }
 
                     // textMesh.position.z=0
 
-                    textMesh.position.x = avx - bw / 1.5;
+                    // textMesh.position.x = avx - bw / 1.5;
+                    textMesh.position.x = 1.34*bw+avx - bw / 1.5;
                     textMesh.depth = 10;
                     textMesh.rotation.order = 'YXZ';
                     textMesh.rotation.y = Math.PI / 2;
@@ -15564,9 +15583,9 @@
 
         }
 
-        ring[0].children.forEach((item) => {
-            item.material.visible = false;
-        })
+        // ring[0].children.forEach((item) => {
+        //     item.material.visible = false;
+        // })
         if(!restartflag){
           포인트.forEach((item) => {
               item.material.opacity = 0
@@ -15583,14 +15602,14 @@
         if (topcam&&!restartflag) {
           if(particleflag) particles.material.visible=false;
             // groundmesh.material.visible = true;
-            if (shadowon) groundmesh.receiveShadow = false
+            if (shadowon) groundmesh.receiveShadow = true
             if (activeFloor == cubes.length) {
               for (var i = 0; i < cubes.length; i++) {
                   cubes[i].mesh.children.forEach((item) => {
                     if (item.userData["skin"]==skinset[skinnum]) {
                         // item.material.visible=false;
-                        item.receiveShadow = false;
-                        item.castShadow = false;
+                        item.receiveShadow = true;
+                        item.castShadow = true;
                     }
                   });
                 }
@@ -15607,8 +15626,8 @@
             } else {
                 for (var i = 0; i < cubes.length; i++) {
                     cubes[i].mesh.children.forEach((item) => {
-                      if(item.userData["skintype"] == 9&&(i==activeFloor)&&edgeflag){
-                        item.material.visible = true;
+                      if(item.userData["skintype"] == 9&&(i==activeFloor)){
+                        item.material.visible = false;
                         item.material.opacity=1;
                         item.material.alphaTest=0
                         item.receiveShadow = false;
@@ -15623,8 +15642,8 @@
                             item.material.opacity=1;
                             // item.material.alphaTest=item.material.opacity
                             item.material.visible=true;
-                            item.receiveShadow = false;
-                            item.castShadow = false;
+                            item.receiveShadow = true;
+                            item.castShadow = true;
                           }else{
                             item.material.visible=false;
                             item.receiveShadow = false;
@@ -15698,18 +15717,18 @@
                 var tb3;
                 var tb4;
                 if((activeFloor==0)&&edgeflag){
-                  cubes[1].mesh.children.forEach((item, i) => {
-                    if(item.userData["skintype"] == 9){
-                      ta1=item.material.transparent
-                      ta2=item.material.visible
-                      ta3=item.material.opacity
-                      ta4=item.material.alphaTest
-                      item.material.transparent = true;
-                      item.material.visible = true;
-                      item.material.opacity=0.2;
-                      item.material.alphaTest=item.material.opacity
-                    }
-                  });
+                  // cubes[1].mesh.children.forEach((item, i) => {
+                  //   if(item.userData["skintype"] == 9){
+                  //     ta1=item.material.transparent
+                  //     ta2=item.material.visible
+                  //     ta3=item.material.opacity
+                  //     ta4=item.material.alphaTest
+                  //     item.material.transparent = true;
+                  //     item.material.visible = true;
+                  //     item.material.opacity=0.2;
+                  //     item.material.alphaTest=item.material.opacity
+                  //   }
+                  // });
                 }
 
                 // if(activeFloor==cubes.lenght-1){
@@ -15741,15 +15760,15 @@
                   var height1 = window.innerWidth / 1;
                 // }
                 if((window.innerWidth / window.innerHeight) > 0.5){
-                  renderer.setViewport(window.innerWidth / 2 - width1 / 2, -(width1 / 10)*1.4-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
-                  renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width1 / 10)*1.4-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
+                  renderer.setViewport(window.innerWidth / 2 - width1 / 2, -(width1 / 1000)*1.4-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
+                  renderer.setScissor(window.innerWidth / 2 - width1 / 2, -(width1 / 1000)*1.4-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width1, height1);
                 }else{
                   if(gamemod==2){
                     renderer.setViewport(window.innerWidth / 2 - width / 2, -60-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
                     renderer.setScissor(window.innerWidth / 2 - width1 / 2, -60-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
                   }else{
-                    renderer.setViewport(window.innerWidth / 2 - width / 2, 0*-(width / 30)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
-                    renderer.setScissor(window.innerWidth / 2 - width1 / 2, 0*-(width / 30)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
+                    renderer.setViewport(window.innerWidth / 2 - width / 2, 0*-(width / 3000)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
+                    renderer.setScissor(window.innerWidth / 2 - width1 / 2, 0*-(width / 3000)-3000 * Math.abs(-isoAngle - camera.rotation.x) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width, height);
                   }
 
                 }
@@ -15770,9 +15789,9 @@
             //     renderer.render(scene, topViewCamera);
             // }
         }
-        ring[0].children.forEach((item) => {
-            item.material.visible = false;
-        })
+        // ring[0].children.forEach((item) => {
+        //     item.material.visible = false;
+        // })
 
 
         if(edgeflag){
@@ -17256,52 +17275,52 @@
 
       //ring
       // let originHelper = new THREE.Object3D();
-      var geoms = [];
-      var w = bw /80;
-
-      originHelper.position.set(0,bw / 2 ,0)
-      originHelper.updateWorldMatrix(true, false);
-      var tg = new THREE.PlaneGeometry(bw*1.013 , w);
-      tg.applyMatrix4(originHelper.matrixWorld);
-      geoms.push(tg)
-
-      originHelper.position.set(0,-bw / 2 ,0)
-      originHelper.updateWorldMatrix(true, false);
-      var tg = new THREE.PlaneGeometry(bw*1.013 , w);
-      tg.applyMatrix4(originHelper.matrixWorld);
-      geoms.push(tg)
-
-      originHelper.position.set(-bw / 2 ,0,0)
-      originHelper.updateWorldMatrix(true, false);
-      var tg = new THREE.PlaneGeometry(w, bw*0.99);
-      tg.applyMatrix4(originHelper.matrixWorld);
-      geoms.push(tg)
-
-      originHelper.position.set(+bw / 2 ,0,0)
-      originHelper.updateWorldMatrix(true, false);
-      var tg = new THREE.PlaneGeometry(w, bw*0.99);
-      tg.applyMatrix4(originHelper.matrixWorld);
-      geoms.push(tg)
-
-
-
-      var mgeo = new BufferGeometryUtils.mergeGeometries(
-          geoms, false);
-      // var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
-      var tc = newcolor3
-      var mesh1 = new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({
-        color: tc,
-        side: THREE.DoubleSide
-      }));
-      mesh1.scale.set(0.99, 0.99, 0.99);
-      mesh1.rotation.order = 'YXZ';
-      mesh1.rotation.x = Math.PI / 2;
-
-      // mesh1.userData["bottom"] = true;
-      mesh1.userData["skin"] = "bottom"
-      mesh1.userData["skintype"] =9;
-      if(!flag) clmeshlst[idx].push(mesh1.material)
-      mesh.add(mesh1);
+      // var geoms = [];
+      // var w = bw /80;
+      //
+      // originHelper.position.set(0,bw / 2 ,0)
+      // originHelper.updateWorldMatrix(true, false);
+      // var tg = new THREE.PlaneGeometry(bw*1.013 , w);
+      // tg.applyMatrix4(originHelper.matrixWorld);
+      // geoms.push(tg)
+      //
+      // originHelper.position.set(0,-bw / 2 ,0)
+      // originHelper.updateWorldMatrix(true, false);
+      // var tg = new THREE.PlaneGeometry(bw*1.013 , w);
+      // tg.applyMatrix4(originHelper.matrixWorld);
+      // geoms.push(tg)
+      //
+      // originHelper.position.set(-bw / 2 ,0,0)
+      // originHelper.updateWorldMatrix(true, false);
+      // var tg = new THREE.PlaneGeometry(w, bw*0.99);
+      // tg.applyMatrix4(originHelper.matrixWorld);
+      // geoms.push(tg)
+      //
+      // originHelper.position.set(+bw / 2 ,0,0)
+      // originHelper.updateWorldMatrix(true, false);
+      // var tg = new THREE.PlaneGeometry(w, bw*0.99);
+      // tg.applyMatrix4(originHelper.matrixWorld);
+      // geoms.push(tg)
+      //
+      //
+      //
+      // var mgeo = new BufferGeometryUtils.mergeGeometries(
+      //     geoms, false);
+      // // var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+      // var tc = newcolor3
+      // var mesh1 = new THREE.Mesh(mgeo, new THREE.MeshLambertMaterial({
+      //   color: tc,
+      //   side: THREE.DoubleSide
+      // }));
+      // mesh1.scale.set(0.99, 0.99, 0.99);
+      // mesh1.rotation.order = 'YXZ';
+      // mesh1.rotation.x = Math.PI / 2;
+      //
+      // // mesh1.userData["bottom"] = true;
+      // mesh1.userData["skin"] = "bottom"
+      // mesh1.userData["skintype"] =9;
+      // if(!flag) clmeshlst[idx].push(mesh1.material)
+      // mesh.add(mesh1);
 
 
 
@@ -17689,8 +17708,8 @@
           });
         }
 
-        ring.push(mesh0);
-        scene.add(mesh0);
+        // ring.push(mesh0);
+        // scene.add(mesh0);
 
 
 
