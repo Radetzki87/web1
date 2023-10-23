@@ -3760,14 +3760,14 @@
                     this.fullflag=true;
                     fullany=true;
                     tcheck[2]=elapsedTime;
-                    if(gamemod==0){
-                      cubes[this.index].body.material.friction = 0.16
-                      world.solver.iterations=4-fullc;
-                      if(world.solver.iterations<=1){
-                        world.solver.iterations=1;
-                        gap=0.979;
-                      }
-                    }
+                    // if(gamemod==0){
+                    //   cubes[this.index].body.material.friction = 0.16
+                    //   world.solver.iterations=4-fullc;
+                    //   if(world.solver.iterations<=1){
+                    //     world.solver.iterations=1;
+                    //     gap=0.979;
+                    //   }
+                    // }
 
 
 
@@ -4664,7 +4664,7 @@
         sideViewCamera.position.set(bw * 1.5, bw * 0.8, 0);
         sideViewCamera.lookAt(0, bw * 0.8, 0);
     }
-    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.45, bw / 1.45, bw / 1.45, -bw / 1.45, 0.1, 1000);
+    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.65, bw / 1.65, bw / 1.65, -bw / 1.65, 0.1, 1000);
     topViewCamera.position.set(0, bh * 20, 0);
     topViewCamera.lookAt(0, 0, 0);
     var renderer = new THREE.WebGLRenderer({
@@ -4715,7 +4715,7 @@
     // groundBody.position.y=boxh/2
     world.gravity.set(0, 0, 0);
     world.broadphase = new CANNON.NaiveBroadphase();
-    world.solver.iterations = 25;
+    world.solver.iterations = 15;
 
     document.addEventListener('keydown', (event) => {
         // if(inflag) return;
@@ -5552,7 +5552,7 @@
         //       dl2.color=new THREE.Color(0xffffff);
         //       dl2.intensity=0.7
         //       dl2.castShadow = true;
-        //       dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
+        //       dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
         //       if(gamemod==2){
         //         dl2.intensity=0.7
         //
@@ -5761,10 +5761,10 @@
                               dl2.shadow.mapSize = new THREE.Vector2(1800, 1800);
                               break;
                             case 4:
-                              dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
+                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                               break;
                             case 5:
-                              dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
+                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                               break;
                             default:
                               return;
@@ -5801,7 +5801,7 @@
         // const fontLoader = new THREE.FontLoader();
         if (fontSize == 999) {
             var fsize = bw / 4
-            var fhight = 두께*th / 2
+            var fhight = 두께*th / 1.5
             if(gamemod==4){
               if(parseInt(text)%5==4){
                 var fcolor = colorlst[colornum][0]
@@ -11005,22 +11005,22 @@
                                     dl2.castShadow = true;
                                     switch (resinit) {
                                       case 0:
-                                        dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
+                                        dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                                         break;
                                       case 1:
-                                        dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
+                                        dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                                         break;
                                       case 2:
-                                        dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
+                                        dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                                         break;
                                       case 3:
-                                        dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
+                                        dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                                         break;
                                       case 4:
-                                        dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
+                                        dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                                         break;
                                       case 5:
-                                        dl2.shadow.mapSize = new THREE.Vector2(2000, 2000);
+                                        dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                                         break;
                                       default:
                                         return;
@@ -12809,7 +12809,7 @@
             if(gamemod==1){
               var speed = deltaTime*bw / 205;
             }else{
-              var speed = deltaTime*bw / 225;
+              var speed = deltaTime*bw / 250;
             }
 
             // const vspeed=speed*2;
@@ -15602,7 +15602,7 @@
         if (topcam&&!restartflag) {
           if(particleflag) particles.material.visible=false;
             // groundmesh.material.visible = true;
-            if (shadowon) groundmesh.receiveShadow = true
+            if (shadowon) groundmesh.receiveShadow = false
             if (activeFloor == cubes.length) {
               for (var i = 0; i < cubes.length; i++) {
                   cubes[i].mesh.children.forEach((item) => {
