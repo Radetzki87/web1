@@ -2198,7 +2198,7 @@
             font-family: 'GG';
             position: absolute;
             font-size: 3vmin;
-            /*display: none;*/
+            display: none;
             flex-grow: 1;
             /*padding-left: 70%;*/
             /*padding:10%;*/
@@ -2323,7 +2323,7 @@
         }
 
         .top-container{
-          display: flex;
+          display: none;
           flex-direction: row;
           align-items: flex-start;
           justify-content: center;
@@ -6684,6 +6684,155 @@
     window.addEventListener("touchend", handleTouchEnd, {
         passive: true
     });
+
+    // window.addEventListener('click', (event) => {
+    //
+    //   if(ingame){
+    //     lastX = (event.clientX / window.innerWidth) * 2 - 1;
+    //     lastY = -(event.clientY / window.innerHeight) * 2 + 1;
+    //     for (var i = 0; i < 1; i++) {
+    //       var trand0=parseInt(Math.random()*2);
+    //       // var trand0=1
+    //       var tscale0;
+    //       var tcolor;
+    //       switch (trand0){
+    //           case 0:
+    //               tcolor=0x000000
+    //               tscale0=1
+    //               break;
+    //           case 1:
+    //               tcolor=0x0000FF
+    //               tscale0=1.3
+    //               break;
+    //           case 2:
+    //               tcolor=0x00FF00
+    //               tscale0=1.4
+    //               break;
+    //           case 3:
+    //               tcolor=0x00FFFF
+    //               tscale0=1.6
+    //               break;
+    //           case 4:
+    //               tcolor=0xFF0000
+    //               tscale0=1.8
+    //               break;
+    //           case 5:
+    //               tcolor=0xFF00FF
+    //               tscale0=2
+    //               break;
+    //           case 6:
+    //               tcolor=0xFFFF00
+    //               tscale0=2.2
+    //               break;
+    //           case 7:
+    //               tcolor=0xFFFFFF
+    //               tscale0=2.4
+    //               break;
+    //           case 8:
+    //               tcolor=0xFC950C
+    //               tscale0=2.5
+    //               break;
+    //           default:
+    //               return;
+    //       }
+    //
+    //       var tscale=1+Math.random()
+    //       var geometry1 = new THREE.BoxGeometry(0.54*bh*tscale0, bh*0.3, 0.73*bh*tscale0);
+    //
+    //       // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+    //
+    //       var material1 = new THREE.MeshLambertMaterial({
+    //           transparent:true,
+    //           opacity:0,
+    //           color: tcolor
+    //       });
+    //
+    //       var loader = new OBJLoader();
+    //       var mtlLoader = new MTLLoader();
+    //
+    //       var mesh=new THREE.Mesh(geometry1, material1);
+    //       mesh.userData.wood=0;
+    //       mesh.add(propsmold[6].clone())
+    //       mesh.add(propsmold[7].clone())
+    //       mesh.add(propsmold[8].clone())
+    //
+    //       var temp0=2.6
+    //
+    //       mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+    //       mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+    //       mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+    //       if(trand0==1){
+    //         mesh.add(propsmold[9].clone())
+    //         mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+    //       }
+    //       console.log(lastX)
+    //       mesh.position.set(0,bh*18,-lastX*33)
+    //
+    //       mesh.rotation.z=(Math.PI/2)
+    //       var customMaterial = new CANNON.Material('customMaterial');
+    //       customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
+    //       customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
+    //       mesh.rotation.x=-(Math.PI/2)
+    //       if(trand0==0){
+    //         var groundBody = new CANNON.Body({
+    //             mass: 무게*3,
+    //             shape: new CANNON.Box(new CANNON.Vec3(0.54*bh*tscale0/2, bh*0.3/2, 0.7*bh*tscale0/2)),
+    //             // shape: new CANNON.Cylinder(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 20),
+    //             material: customMaterial,
+    //             allowSleep: true,
+    //             sleepSpeedLimit: 1000,
+    //             sleepTimeLimit: 0
+    //         });
+    //
+    //
+    //         groundBody.position.copy(mesh.position);
+    //         groundBody.quaternion.copy(mesh.quaternion);
+    //
+    //       }else if(trand0==1){
+    //         var groundBody = new CANNON.Body({
+    //           mass: 무게*3,
+    //           allowSleep: true,
+    //           sleepSpeedLimit: 1000,
+    //           material: customMaterial,
+    //           sleepTimeLimit: 0
+    //         });
+    //
+    //         var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.54*bh*tscale0/2, bh*0.3/2, 0.7*bh*tscale0/2));
+    //
+    //         var boxShape1 = new CANNON.Box(new CANNON.Vec3(1.43*0.54*bh*tscale0/2, bh*0.3/2, 0.15*0.7*bh*tscale0/2));
+    //
+    //         var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.9*0.54*bh*tscale0/2, bh*0.3/2, 0.15*0.7*bh*tscale0/2));
+    //
+    //         var boxShape3 = new CANNON.Box(new CANNON.Vec3(0.4*0.54*bh*tscale0/2, bh*0.3/2, 0.15*0.7*bh*tscale0/2));
+    //
+    //         groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+    //         groundBody.addShape(boxShape1, new CANNON.Vec3(0, 0, 0.5*0.7*bh*tscale0/2-(0.5*0.15*0.7*bh*tscale0/2)));
+    //         groundBody.addShape(boxShape2, new CANNON.Vec3(0, 0, 0.5*0.7*bh*tscale0/2+1.5))
+    //         groundBody.addShape(boxShape3, new CANNON.Vec3(0, 0, 0.5*0.7*bh*tscale0/2+2.8))
+    //
+    //         groundBody.position.copy(mesh.position);
+    //         groundBody.quaternion.copy(mesh.quaternion);
+    //       }
+    //
+    //
+    //       mesh.userData.body=groundBody;
+    //       mesh.userData.id=ballidx
+    //       mesh.userData.alive=true;
+    //       mesh.userData.target=false;
+    //       mesh.userData.rank=trand0;
+    //       mesh.userData.time=elapsedTime;
+    //       ballidx++;
+    //
+    //       과일.push(mesh);
+    //       // 쇠공.push(mesh);
+    //       scene.add(mesh);
+    //       world.addBody(groundBody);
+    //
+    //
+    //     }
+    //   }
+    // });
+
     let boxSize = 1;
     let boxh = boxSize / 2;
     // Set up the scene, camera, and renderer
