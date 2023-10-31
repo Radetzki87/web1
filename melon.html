@@ -248,7 +248,7 @@
 
         #ring img{
           image-rendering: auto;
-          width:35vmin;
+          width:45vmin;
 
         }
 
@@ -3204,6 +3204,7 @@
     var whale=[];
     var swhale=[];
     var bear=[];
+    var fox=[];
 
 
     var tflag=false;
@@ -3358,7 +3359,7 @@
 
     var 마찰=[0.2,0.3,0.17,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
-    var 중력=[-25,-25,-45,-7,-7]
+    var 중력=[-25,-25,-55,-7,-7]
 
     var resinit=0
     window.resinit=resinit
@@ -4885,34 +4886,16 @@
             document.getElementById("intro").style.opacity="0";
             setTimeout(function() {
                 if(tutorialflag){
-                  if ((window.innerWidth / window.innerHeight) < 4 / 7) {
-                    document.getElementById("t1").classList.remove("hidden")
-                  }else{
-                    document.getElementById("t6").classList.remove("hidden")
-                  }
 
-                  document.getElementById("tut-info").style.zIndex=4;
-
-                  var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-
-                  document.getElementById("tut-info").children[0].style.color="#FFFFFF"
-                  document.getElementById("tut-info").children[1].style.color="#FFFFFF"
-                  document.getElementById("tut-info").children[0].style.fontSize=tutsize1
-                  document.getElementById("tut-info").children[1].style.fontSize=tutsize1
 
 
                 }else if(!스샷){
                   document.getElementById("yesno").style.display="none"
 
-                  var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
 
-                  document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][3]);
-                  document.getElementById("tut-info").children[1].style.color=hexToHtmlColor(colorlst[colornum][3]);
-                  document.getElementById("tut-info").children[0].style.fontSize=tutsize1
-                  document.getElementById("tut-info").children[1].style.fontSize=tutsize1
-                  document.getElementById("tut-info").children[1].innerText=""
+
                   // document.getElementById("tut-info").style.display="none"
-                  // document.getElementById("tut-info").children[0].innerText=""
+                  //
                 }
 
                 if(!webflag){
@@ -4942,8 +4925,7 @@
                   }
                 }
 
-                document.getElementById("tut-info").style.opacity="0.8";
-                document.getElementById("tut-info").style.zIndex=1;
+
 
             }, 1500);
 
@@ -5060,7 +5042,7 @@
             }
         }
 
-        if(document.getElementById("main").style.display!="none"||document.getElementById("warpper").style.display!="none"){
+        if(document.getElementById("warpper").style.display!="none"){
           return;
         }
 
@@ -5138,25 +5120,29 @@
 
 
         if(cat.length>=1){
-          console.log(cat[0])
-          let force2 = new CANNON.Vec3();
-
-          var toffset0=cat[0].userData.body.position.x-cat[0].userData.body.position.z
-          var toffset1;
-
-          if(toffset0>0){
-            toffset1=Math.sqrt(toffset0/2)
-          }else{
-            toffset1=-Math.sqrt(-toffset0/2)
+          if(ready){
+            dragflag=true
+            ontouch=true;
           }
-
-          console.log(핑거0.x)
-
-          if(parseInt(Math.random()*2)==0){
-            force2.set(0,0,-9688);
-          }else{
-            force2.set(0,0,9688);
-          }
+          // console.log(cat[0])
+          // let force2 = new CANNON.Vec3();
+          //
+          // var toffset0=cat[0].userData.body.position.x-cat[0].userData.body.position.z
+          // var toffset1;
+          //
+          // if(toffset0>0){
+          //   toffset1=Math.sqrt(toffset0/2)
+          // }else{
+          //   toffset1=-Math.sqrt(-toffset0/2)
+          // }
+          //
+          // console.log(핑거0.x)
+          //
+          // if(parseInt(Math.random()*2)==0){
+          //   force2.set(0,0,-9688);
+          // }else{
+          //   force2.set(0,0,9688);
+          // }
 
 
 
@@ -5854,7 +5840,7 @@
         if(dragflag){
           let newo=newone(과일.length-1, next,0,-lastX*33)
           next=parseInt(Math.random()*4);
-          // next=9
+          // next=3
           scene.add(newo);
 
 
@@ -6794,8 +6780,8 @@
 
                 document.getElementById("tut-info").children[0].style.color="#FFFFFF"
                 document.getElementById("tut-info").children[1].style.color="#FFFFFF"
-                document.getElementById("tut-info").children[0].style.fontSize=tutsize1
-                document.getElementById("tut-info").children[1].style.fontSize=tutsize1
+
+
 
 
               }else if(!스샷){
@@ -6805,11 +6791,11 @@
 
                 document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][3]);
                 document.getElementById("tut-info").children[1].style.color=hexToHtmlColor(colorlst[colornum][3]);
-                document.getElementById("tut-info").children[0].style.fontSize=tutsize1
-                document.getElementById("tut-info").children[1].style.fontSize=tutsize1
-                document.getElementById("tut-info").children[1].innerText=""
+
+
+
                 // document.getElementById("tut-info").style.display="none"
-                // document.getElementById("tut-info").children[0].innerText=""
+                //
               }
 
               if(!webflag){
@@ -6839,8 +6825,8 @@
                 }
               }
 
-              document.getElementById("tut-info").style.opacity="0.8";
-              document.getElementById("tut-info").style.zIndex=1;
+
+
 
           }, 1500);
 
@@ -7021,7 +7007,7 @@
                 document.getElementById("intro").style.opacity="0";
                 setTimeout(function() {
                     document.getElementById("tut-info").children[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][0]);
-                    document.getElementById("tut-info").style.opacity="0.8";
+
                 }, 1500);
 
                 originflag=true;
@@ -7187,9 +7173,9 @@
                 document.getElementById("intro").style.top="-120%";
                 document.getElementById("intro").style.opacity="0";
                 setTimeout(function() {
-                  document.getElementById("tut-info").children[0].innerText=""
+
                     document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][0]);
-                    document.getElementById("tut-info").style.opacity="0.8";
+
                 }, 1500);
 
                 originflag=true;
@@ -7348,7 +7334,7 @@
           for (var i = 과일.length-1; i >=0; i--) {
             for (var j = i-1; j >=0; j--) {
               if (colide(과일[i].userData.body,과일[j].userData.body)&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
-                if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=9){
+                if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
 
                   // if(Math.sqrt(과일[i].userData.body.velocity.z*과일[i].userData.body.velocity.z+과일[i].userData.body.velocity.y*과일[i].userData.body.velocity.y)>Math.sqrt(과일[j].userData.body.velocity.z*과일[j].userData.body.velocity.z+과일[j].userData.body.velocity.y*과일[j].userData.body.velocity.y)){
                   //   var prev=과일[i]
@@ -8908,7 +8894,7 @@
         //       dl2.color=new THREE.Color(0xffffff);
         //       dl2.intensity=0.7
         //       dl2.castShadow = true;
-        //       dl2.shadow.mapSize = new THREE.Vector2(700, 700);;
+        //       dl2.shadow.mapSize = new THREE.Vector2(500, 500);
         //       if(gamemod==2){
         //         dl2.intensity=0.7
         //
@@ -9133,8 +9119,8 @@
                     // item.body.fixedRotation=true;
 
                   })
-                  cubes[4].mesh.userData.game2048.spawnTile();
-                  cubes[4].mesh.userData.game2048.spawnTile();
+                  // cubes[4].mesh.userData.game2048.spawnTile();
+                  // cubes[4].mesh.userData.game2048.spawnTile();
                   if(ptime2==0){
                     if(webflag){
                       // ptime2=1;
@@ -9185,22 +9171,22 @@
                           dl2.castShadow = true;
                           switch (resinit) {
                             case 0:
-                              dl2.shadow.mapSize = new THREE.Vector2(700, 700);;
+                              dl2.shadow.mapSize = new THREE.Vector2(500, 500);
                               break;
                             case 1:
-                              dl2.shadow.mapSize = new THREE.Vector2(700, 700);;
+                              dl2.shadow.mapSize = new THREE.Vector2(500, 500);
                               break;
                             case 2:
-                              dl2.shadow.mapSize = new THREE.Vector2(700, 700);;
+                              dl2.shadow.mapSize = new THREE.Vector2(500, 500);
                               break;
                             case 3:
-                              dl2.shadow.mapSize = new THREE.Vector2(700, 700);;
+                              dl2.shadow.mapSize = new THREE.Vector2(500, 500);
                               break;
                             case 4:
-                              dl2.shadow.mapSize = new THREE.Vector2(700, 700);;
+                              dl2.shadow.mapSize = new THREE.Vector2(500, 500);
                               break;
                             case 5:
-                              dl2.shadow.mapSize = new THREE.Vector2(700, 700);;
+                              dl2.shadow.mapSize = new THREE.Vector2(500, 500);
                               break;
                             default:
                               return;
@@ -12846,6 +12832,134 @@
             });
         });
 
+        var tmx0=1.8
+        var tmy0=0
+        var tmz0=-1.1
+
+        var loader = new OBJLoader();
+        var mtlLoader = new MTLLoader();
+        mtlLoader.load(ur2+'src/fox-0.mtl', function(materials) {
+            materials.preload();
+            loader.setMaterials(materials);
+            loader.load(ur2+'src/fox-0.obj', (object) => {
+              // object.children[0].rotation.y = Math.PI / 2
+              object.children[0].position.set(tmx0, tmy0, tmz0)
+              object.children[0].scale.x = 3
+              object.children[0].scale.z = 3
+              object.children[0].scale.y = 3
+
+              object.children[0].rotation.x = Math.PI / 2
+
+              // object.children[0].position.z=0.2
+
+              // object.children[0].scale.x=2.25;
+              // object.children[0].scale.z=2.25;
+              // object.children[0].scale.y=1.92;
+              object.children[0].receiveShadow = true;
+              object.children[0].castShadow = true;
+              fox.push(object.children[0]);
+              var loader = new OBJLoader();
+              var mtlLoader = new MTLLoader();
+              mtlLoader.load(ur2+'src/fox-1.mtl', function(materials) {
+                  materials.preload();
+                  loader.setMaterials(materials);
+                  loader.load(ur2+'src/fox-1.obj', (object) => {
+                    // object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(tmx0, tmy0, tmz0)
+                    object.children[0].scale.x = 3
+                    object.children[0].scale.z = 3
+                    object.children[0].scale.y = 3
+
+                    object.children[0].rotation.x = Math.PI / 2
+
+                    // object.children[0].position.z=0.2
+
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].receiveShadow = true;
+                    object.children[0].castShadow = true;
+                    fox.push(object.children[0]);
+                    var loader = new OBJLoader();
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load(ur2+'src/fox-2.mtl', function(materials) {
+                        materials.preload();
+                        loader.setMaterials(materials);
+                        loader.load(ur2+'src/fox-2.obj', (object) => {
+                          // object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(tmx0, tmy0, tmz0)
+                          object.children[0].scale.x = 3
+                          object.children[0].scale.z = 3
+                          object.children[0].scale.y = 3
+
+                          object.children[0].rotation.x = Math.PI / 2
+
+                          // object.children[0].position.z=0.2
+
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                          fox.push(object.children[0]);
+                          var loader = new OBJLoader();
+                          var mtlLoader = new MTLLoader();
+                          mtlLoader.load(ur2+'src/fox-3.mtl', function(materials) {
+                              materials.preload();
+                              loader.setMaterials(materials);
+                              loader.load(ur2+'src/fox-3.obj', (object) => {
+                                // object.children[0].rotation.y = Math.PI / 2
+                                object.children[0].position.set(tmx0, tmy0, tmz0)
+                                object.children[0].scale.x = 3
+                                object.children[0].scale.z = 3
+                                object.children[0].scale.y = 3
+
+                                object.children[0].rotation.x = Math.PI / 2
+
+                                // object.children[0].position.z=0.2
+
+                                // object.children[0].scale.x=2.25;
+                                // object.children[0].scale.z=2.25;
+                                // object.children[0].scale.y=1.92;
+                                object.children[0].receiveShadow = true;
+                                object.children[0].castShadow = true;
+                                fox.push(object.children[0]);
+                                var loader = new OBJLoader();
+                                var mtlLoader = new MTLLoader();
+                                mtlLoader.load(ur2+'src/fox-0.mtl', function(materials) {
+                                    materials.preload();
+                                    loader.setMaterials(materials);
+                                    loader.load(ur2+'src/fox-0.obj', (object) => {
+                                      // object.children[0].rotation.y = Math.PI / 2
+                                      object.children[0].position.set(tmx0, tmy0, tmz0)
+                                      object.children[0].scale.x = 3
+                                      object.children[0].scale.z = 3
+                                      object.children[0].scale.y = 3
+
+                                      object.children[0].rotation.x = Math.PI / 2
+
+                                      // object.children[0].position.z=0.2
+
+                                      // object.children[0].scale.x=2.25;
+                                      // object.children[0].scale.z=2.25;
+                                      // object.children[0].scale.y=1.92;
+                                      object.children[0].receiveShadow = true;
+                                      object.children[0].castShadow = true;
+                                      fox.push(object.children[0]);
+
+
+                                    });
+                                });
+                              });
+                          });
+                        });
+                    });
+                  });
+              });
+            });
+        });
+
+
         var tmx2=0.1
         var tmy2=0
         var tmz2=1
@@ -15139,7 +15253,7 @@
                 document.getElementById("intro").style.opacity="0";
                 setTimeout(function() {
                     document.getElementById("tut-info").children[0].children[0].style.color=hexToHtmlColor(colorlst[colornum][0]);
-                    document.getElementById("tut-info").style.opacity="0.8";
+
                 }, 1500);
 
                 originflag=true;
@@ -15295,9 +15409,9 @@
               document.getElementById("intro").style.top="-120%";
               document.getElementById("intro").style.opacity="0";
               setTimeout(function() {
-                document.getElementById("tut-info").children[0].innerText=""
+
                   document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][0]);
-                  document.getElementById("tut-info").style.opacity="0.8";
+
               }, 1500);
 
               originflag=true;
@@ -15579,7 +15693,7 @@
               break;
           case 4:
               tcolor=0xFF0000
-              tscale0=1.9+initscale
+              tscale0=2.1+initscale
               break;
           case 5:
               tcolor=0xFF00FF
@@ -15775,10 +15889,10 @@
           groundBody.position.copy(mesh.position);
           groundBody.quaternion.copy(mesh.quaternion);
         }
-      }else if(rnk==4||rnk==5){
+      }else if(rnk==5||rnk==6){
           var t1=1
           var t2=0.5
-          if(rnk==5){
+          if(rnk==6){
             t1=1.338
           }
           var geometry1 = new THREE.BoxGeometry(0.5*bh*tscale0, bh*0.3, t1*0.73*bh*tscale0);
@@ -15823,7 +15937,7 @@
           //   mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
           // }
 
-          if(rnk==5){
+          if(rnk==6){
             mesh.add(seal[5].clone())
             mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
           }
@@ -15866,10 +15980,96 @@
 
 
 
-      }else if(rnk==6||rnk==7){
+      }else if(rnk==4){
+          var t1=1
+          var geometry1 = new THREE.BoxGeometry(0.4*bh*tscale0, bh*0.3, t1*0.68*bh*tscale0*1.239);
+
+          // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+
+          var material1 = new THREE.MeshLambertMaterial({
+              transparent:true,
+              opacity:0,
+              color: tcolor
+          });
+
+
+          var mesh=new THREE.Mesh(geometry1, material1);
+          var geometry2 = new THREE.BoxGeometry(0.5, 1, 0.2);
+          // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+          var material2 = new THREE.MeshLambertMaterial({
+              transparent:true,
+              opacity:0,
+              color: tcolor
+          });
+          var mesh2=new THREE.Mesh(geometry2, material2);
+          mesh2.position.x=3
+
+
+          mesh.userData.wood=0;
+          // mesh.add(mesh2)
+          mesh.add(fox[4].clone())
+          mesh.add(fox[1].clone())
+          mesh.add(fox[2].clone())
+          mesh.add(fox[3].clone())
+          var temp0=1.42
+
+          mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+          mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+          mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+          mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+          // mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+
+
+          // if(rnk==9){
+          //   mesh.add(bear[5].clone())
+          //   mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+          // }
+
+          if(tx!=999){
+            deg=-(Math.PI/2)
+            mesh.position.set(0,bh*17,tx)
+          }else{
+            mesh.position.set(0,bh*17,-bw*1.7+Math.random()*(bw*3.4))
+          }
+
+
+          mesh.rotation.z=(Math.PI/2)
+          // mesh.rotation.z=(Math.PI/2)
+
+
+          mesh.rotation.x=deg
+
+          var customMaterial = new CANNON.Material('customMaterial');
+          customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
+          customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
+          mesh.rotation.x=-(Math.PI/2)
+
+          var groundBody = new CANNON.Body({
+            mass: 무게*3,
+            allowSleep: true,
+            sleepSpeedLimit: 1000,
+            material: customMaterial,
+            sleepTimeLimit: 0
+          });
+
+          var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.4*bh*tscale0/2, bh*0.3/2, t1*1.239*0.68*bh*tscale0/2));
+
+          var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.703*0.4*bh*tscale0/2, bh*0.3/2, 0.171*t1*1.239*0.68*bh*tscale0/2));
+
+
+          groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.68*bh*tscale0/2+(t1-1)*1.239*0.68*bh*tscale0/2));
+          groundBody.addShape(boxShape1, new CANNON.Vec3(0.4*bh*tscale0/2+0.703*0.4*bh*tscale0/2, 0, -t1*1.239*0.68*bh*tscale0/2+0.171*t1*1.239*0.68*bh*tscale0/2));
+
+          groundBody.position.copy(mesh.position);
+          groundBody.quaternion.copy(mesh.quaternion);
+
+
+
+      }else if(rnk==7||rnk==8){
           var t1=1
 
-          if(rnk==7){
+          if(rnk==8){
             t1=1.208;
           }
 
@@ -15911,7 +16111,7 @@
           mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
           // mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
 
-          if(rnk==7){
+          if(rnk==8){
             mesh.add(bear[4].clone())
             mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
           }
@@ -15976,14 +16176,14 @@
         var mesh=new THREE.Mesh(geometry1, material1);
         mesh.userData.wood=0;
 
-        if(rnk==8){
+        if(rnk==9){
           console.log("고래")
           mesh.add(whale[5].clone())
           mesh.add(whale[1].clone())
           mesh.add(whale[2].clone())
           mesh.add(whale[3].clone())
           mesh.add(whale[4].clone())
-        }else if(rnk==9){
+        }else if(rnk==10){
           mesh.add(swhale[5].clone())
           mesh.add(swhale[1].clone())
           mesh.add(swhale[2].clone())
@@ -16333,12 +16533,12 @@
                               fps = 0;
                               if(!webflag){
                                 if(ptime0==0){
-                                  document.getElementById("tut-info").children[0].innerText=""
+
                                   findlang();
                                 }
                                 setdb([["data3", "8", String(ptime0+1)]]);
                               }else{
-                                document.getElementById("tut-info").children[0].innerText=""
+
                                 findlang();
                                 if(스샷) document.getElementById("intro").children[2].style.display="none"
                               }
@@ -16541,8 +16741,7 @@
 
 
           var lapflag=false;
-          var box1=new THREE.Box3().setFromObject(laser[0]);
-          var box2;
+
           과일.forEach((item) => {
             if(item.userData.alive&&item.userData.id>0){
               if(item.userData.rank==1){
@@ -16559,27 +16758,45 @@
                   item.children[2].position.z=-0.5
                   item.children[3].position.z=0.6-0.2*(pshift[dur]-1);
                 }
-              }else if(item.userData.rank==4||item.userData.rank==5){
+              }else if(item.userData.rank==5||item.userData.rank==6){
                 item.children[1].position.z=1.3-0.8*(pshift[dur]-1);
                 item.children[2].position.z=1.3
                 item.children[3].position.z=1.4
                 item.children[4].position.z=1.3-0.3*(pshift[dur]-1);
                 item.children[4].position.x=0.9-0.4*(pshift[dur]-1);
 
-                if(item.userData.rank>=5){
+                if(item.userData.rank>=6){
                   item.children[5].position.z=1.1-0.3*(pshift[dur]-1);
                 }
                 // item.children[1].position.z=2*(pshift[dur]-1);
                 // item.children[3].position.z=1-0.2*(pshift[dur]-1);
-              }else if(item.userData.rank==6||item.userData.rank==7){
+              }else if(item.userData.rank==4){
+                var tmx0=1.8
+                var tmy0=0
+                var tmz0=-1.1
+                item.children[0].position.z=tmz0-0.5*(pshift[dur]-1);
+                item.children[1].position.z=tmz0-0.3*(pshift[dur]-1);
+                item.children[3].position.z=tmz0+0.4*(pshift[dur]-1);
+
+                // item.children[0].position.x=0
+                // item.children[0].position.z=0.2-0.5*(pshift[dur]-1);
+                // item.children[2].position.z=0.3-0.3*(pshift[dur]-1);
+                // item.children[3].position.z=+0.3*(pshift[dur]-1);
+                // item.children[1].position.z=-0.5*(pshift[dur]-1);
+                // item.children[2].position.z=0.3*(pshift[dur]-1);
+                // if(item.userData.rank==7){
+                //   item.children[4].position.z=-0.2*(pshift[dur]-1);
+                // }
+                // item.children[3].position.z=1-0.2*(pshift[dur]-1);
+              }else if(item.userData.rank==7||item.userData.rank==8){
                 item.children[0].position.z=-0.5*(pshift[dur]-1);
                 item.children[1].position.z=-0.5*(pshift[dur]-1);
                 item.children[2].position.z=0.3*(pshift[dur]-1);
-                if(item.userData.rank==7){
+                if(item.userData.rank==8){
                   item.children[4].position.z=-0.2*(pshift[dur]-1);
                 }
                 // item.children[3].position.z=1-0.2*(pshift[dur]-1);
-              }else if(item.userData.rank==8||item.userData.rank==9){
+              }else if(item.userData.rank==9||item.userData.rank==10){
                   item.children[0].position.z=1-0.4*(pshift[dur]-1);
                   item.children[1].position.z=1-0.2*(pshift[dur]-1);
                   item.children[2].position.z=1+0.4*(pshift[dur]-1);
@@ -16703,10 +16920,10 @@
                   }
 
                   if(langnum==0){
-                    document.getElementById("tut-info").children[0].innerText=""
+
                     document.getElementById("tut-info").children[1].innerText="Great job! one block is now active."
                   }else{
-                    document.getElementById("tut-info").children[0].innerText=""
+
                     document.getElementById("tut-info").children[1].innerText=textdic[93][langset[langnum]];
                   }
 
@@ -16731,10 +16948,10 @@
                   }
                   if(langnum==0){
                     document.getElementById("tut-info").children[0].innerText="You can switch layers \nby either tapping another layer or\nby dragging up and down."
-                    document.getElementById("tut-info").children[1].innerText=""
+
                   }else{
                     document.getElementById("tut-info").children[0].innerText=textdic[94][langset[langnum]]
-                    document.getElementById("tut-info").children[1].innerText=""
+
                   }
 
                   if(elapsedTime>8){
@@ -16743,7 +16960,7 @@
                     if((window.innerWidth / window.innerHeight) < 4 / 7){
                       document.getElementById("tutbtn").style.top="55%"
                     }else{
-                      document.getElementById("tutbtn").style.top="90%"
+
                     }
                   }
                   break;
@@ -16752,11 +16969,11 @@
                 document.getElementById("tutbtn").style.display="none"
 
                 if((window.innerWidth / window.innerHeight) < 4 / 7){
-                  document.getElementById("tutbtn").style.top="90%"
+
                   document.getElementById("t6").style.opacity=0
 
                 }else{
-                  document.getElementById("tutbtn").style.top="90%"
+
                   document.getElementById("t1").style.opacity=0;
                   document.getElementById("t2").style.opacity=0;
                   document.getElementById("t3").style.opacity=0;
@@ -16782,10 +16999,10 @@
                   }
 
                   if(langnum==0){
-                    document.getElementById("tut-info").children[0].innerText=""
+
                     document.getElementById("tut-info").children[1].innerText="As you've noticed,\nEach block features numbered tiles."
                   }else{
-                    document.getElementById("tut-info").children[0].innerText=""
+
                     document.getElementById("tut-info").children[1].innerText=textdic[95][langset[langnum]]
                   }
 
@@ -16831,10 +17048,10 @@
                     document.getElementById("td1").style.opacity=1;
                     document.getElementById("t6").style.opacity=0
                     if(langnum==0){
-                      document.getElementById("tut-info").children[0].innerText=""
+
                       document.getElementById("tut-info").children[1].innerText="To slide these number tiles,\nswipe up, down, left, or right from the bottom of the screen."
                     }else{
-                      document.getElementById("tut-info").children[0].innerText=""
+
                       document.getElementById("tut-info").children[1].innerText=textdic[96][langset[langnum]]
 
                     }
@@ -16846,10 +17063,10 @@
                     document.getElementById("td1").classList.remove("hidden");
                     document.getElementById("td1").style.opacity=0.6;
                     if(langnum==0){
-                      document.getElementById("tut-info").children[0].innerText=""
+
                       document.getElementById("tut-info").children[1].innerText="To slide these number tiles,\nswipe up, down, left, or right outside of the blocks."
                     }else{
-                      document.getElementById("tut-info").children[0].innerText=""
+
                       document.getElementById("tut-info").children[1].innerText=textdic[97][langset[langnum]]
 
                     }
@@ -16883,7 +17100,7 @@
                     document.getElementById("tut-info").children[0].innerText="When these tiles meet,\nthey'll merge together!"
                     document.getElementById("tut-info").children[1].innerText="Let's give it a try!"
                   }else{
-                    document.getElementById("tut-info").children[0].innerText=""
+
                     document.getElementById("tut-info").children[1].innerText=textdic[98][langset[langnum]]
                   }
 
@@ -16940,7 +17157,7 @@
                     document.getElementById("tut-info").children[1].innerText="Have you noticed that the blocks seem to move slightly?"
                   }else{
                     document.getElementById("tut-info").children[0].innerText=textdic[101][langset[langnum]]
-                    document.getElementById("tut-info").children[1].innerText=""
+
                   }
 
                   if(elapsedTime-tempseq>4){
@@ -16976,10 +17193,10 @@
                   activeFloor=templayer;
                   bf=99;
 
-                  document.getElementById("tut-info").children[1].innerText=""
+
                   if(langnum==0){
                     document.getElementById("tut-info").children[0].innerText="Exactly! When numbers combine,\nthey create a force in the direction of the slide on the active block"
-                    document.getElementById("tut-info").children[1].innerText=""
+
                     if(elapsedTime-tempseq>4){
                       document.getElementById("td4").style.opacity=0;
 
@@ -16997,9 +17214,9 @@
                       }else{
                         document.getElementById("td9").style.opacity=0.9;
                         document.getElementById("td9").style.top="7%"
-                        document.getElementById("tut-info").children[1].style.top="10%"
+
                       }
-                      document.getElementById("tutbtn").style.display="";
+                      ;
                       document.getElementById("tutbtn").classList.remove("hidden");
                       document.getElementById("tutbtn").style.opacity=1;
 
@@ -17007,7 +17224,7 @@
 
                   }else{
                     document.getElementById("tut-info").children[0].innerText=textdic[102][langset[langnum]]
-                    document.getElementById("tut-info").children[1].innerText=""
+
                     if(elapsedTime-tempseq>4){
                       document.getElementById("td4").style.opacity=0;
                       document.getElementById("td9").classList.remove("hidden");
@@ -17023,11 +17240,11 @@
                       }else{
                         document.getElementById("td9").style.opacity=0.9;
                         document.getElementById("td9").style.top="7%"
-                        document.getElementById("tut-info").children[1].style.top="10%"
+
                       }
 
                     document.getElementById("tut-info").children[1].innerText=textdic[103][langset[langnum]]
-                    document.getElementById("tutbtn").style.display="";
+                    ;
                     document.getElementById("tutbtn").classList.remove("hidden");
                     document.getElementById("tutbtn").style.opacity=1;
                     }
@@ -17047,7 +17264,7 @@
                     document.getElementById("t1").style.opacity=0;
                     document.getElementById("t4").style.opacity=1;
                     document.getElementById("t6").style.opacity=0
-                    document.getElementById("tut-info").children[1].style.top="4%"
+
 
                     // document.getElementById("td0").style.opacity=1;
                   }else{
@@ -17088,7 +17305,7 @@
                       tutstep=8;
                       activeFloor=5;
                       bf=99;
-                      document.getElementById("tut-info").children[0].style.fontSize=tutsize1;
+                      ;
                     }
                   }
 
@@ -17139,7 +17356,7 @@
                   }
                   playlock=false;
                   document.getElementById("tut-info").children[0].innerText=textdic[108][langset[langnum]]+"\n("+ String(점수)+" / "+String(tempoint+50)+" )"
-                  document.getElementById("tut-info").children[1].innerText=""
+
                   if(elapsedTime - atchanged > 0.15&&점수-tempoint>50){
                     tempseq=elapsedTime;
                     tutstep++;
@@ -17156,7 +17373,7 @@
                   }
                   document.getElementById("tut-info").children[0].innerText=textdic[109][langset[langnum]]
                   // document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][1])
-                  document.getElementById("tut-info").children[1].innerText=""
+
                   if(elapsedTime-tempseq>2.5){
                     tempseq=elapsedTime;
                     tutstep++;
@@ -17177,7 +17394,7 @@
                     document.getElementById("tut-info").children[0].innerText=textdic[110][langset[langnum]]
                   }
                   // document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][0])
-                  document.getElementById("tut-info").children[0].style.fontSize=tutsize1;
+                  ;
 
                   document.getElementById("tut-info").children[1].innerText=textdic[111][langset[langnum]]+String(parseInt(6-elapsedTime+tempseq))
                   document.getElementById("tut-info").children[1].style.fontSize=tutsize2
@@ -17195,7 +17412,7 @@
                     if(!restartflag){
                       document.getElementById("t1").classList.remove("hidden")
                       document.getElementById("t1").style.opacity=1;
-                      document.getElementById("tut-info").children[0].innerText="▲ "+textdic[3][langset[langnum]]+" ▲"
+
                     }
                   break;
                 case 20:
@@ -17206,7 +17423,7 @@
                   }
                   // shiftlock=false;
                   playlock=true;
-                  document.getElementById("tut-info").children[0].innerText=""
+
                   document.getElementById("tut-info").children[1].innerText=textdic[93][langset[langnum]]
 
                   if(elapsedTime>3){
@@ -17220,7 +17437,7 @@
 
                     }
                   document.getElementById("tut-info").children[0].innerText=textdic[112][langset[langnum]]
-                  document.getElementById("tut-info").children[1].innerText=""
+
                   if(elapsedTime>8){
                     tempseq=elapsedTime;
                     tutstep++;
@@ -17254,7 +17471,7 @@
                     document.getElementById("td3").style.opacity=0.6;
                   }
                   playlock=false;
-                  document.getElementById("tut-info").children[0].innerText=""
+
                   document.getElementById("tut-info").children[1].innerText=textdic[115][langset[langnum]]
                   break;
                 case 24:
@@ -17266,8 +17483,8 @@
                   playlock=true;
 
                   document.getElementById("td3").style.opacity=0;
-                  document.getElementById("tut-info").children[0].innerText=""
-                  document.getElementById("tut-info").children[1].innerText=""
+
+
                   if(elapsedTime-tempseq>2){
                     tempseq=elapsedTime;
                     tutstep++;
@@ -17281,7 +17498,7 @@
                   }
 
 
-                  document.getElementById("tut-info").children[0].innerText=""
+
                   document.getElementById("tut-info").children[1].innerText=textdic[116][langset[langnum]]
                   if(elapsedTime-tempseq>1){
                     tempseq=elapsedTime;
@@ -17293,7 +17510,7 @@
                   playlock=false;
 
                   document.getElementById("tut-info").children[0].innerText=textdic[117][langset[langnum]]
-                  document.getElementById("tut-info").children[1].innerText=""
+
                   if(elapsedTime-tempseq>3){
                     document.getElementById("tut-info").children[1].innerText=textdic[118][langset[langnum]]
                     document.getElementById("td5").classList.remove("hidden");
@@ -17316,13 +17533,13 @@
 
                   }
                   playlock=false;
-                  document.getElementById("tutbtn").classList.add("hidden");
+
                   document.getElementById("tutbtn").style.opacity=0;
 
                   document.getElementById("td5").style.opacity=0;
                   document.getElementById("tut-info").children[0].innerText=textdic[119][langset[langnum]]
                   document.getElementById("tut-info").children[0].style.color=hexToHtmlColor(colorlst[colornum][0])
-                  document.getElementById("tut-info").children[0].style.fontSize=tutsize1
+
                   document.getElementById("tut-info").children[1].innerText=textdic[111][langset[langnum]]+String(parseInt(6-elapsedTime+tempseq))
                   document.getElementById("tut-info").children[1].style.fontSize=tutsize2
                   if(elapsedTime-tempseq>5){
@@ -17338,68 +17555,68 @@
 
               }
 
-              if(txtcount3%4==0){
-
-                document.getElementById("td0").style.top="16%"
-                document.getElementById("tutbtn").style.opacity="0.8";
-                document.getElementById("tut-info").children[0].style.opacity="0.4";
-                document.getElementById("tut-info").children[1].style.opacity="0.4";
-              }else if(txtcount3%4==1){
-                document.getElementById("td0").style.top="15%"
-
-              }else if(txtcount3%4==2){
-                document.getElementById("td0").style.top="16%"
-                document.getElementById("tutbtn").style.opacity="1";
-                document.getElementById("tut-info").children[0].style.opacity="1";
-                document.getElementById("tut-info").children[1].style.opacity="1";
-              }else if(txtcount3%4==3){
-                document.getElementById("td0").style.top="15%"
-
-              }
+              // if(txtcount3%4==0){
+              //
+              //   document.getElementById("td0").style.top="16%"
+              //   document.getElementById("tutbtn").style.opacity="0.8";
+              //   document.getElementById("tut-info").children[0].style.opacity="0.4";
+              //   document.getElementById("tut-info").children[1].style.opacity="0.4";
+              // }else if(txtcount3%4==1){
+              //   document.getElementById("td0").style.top="15%"
+              //
+              // }else if(txtcount3%4==2){
+              //   document.getElementById("td0").style.top="16%"
+              //   document.getElementById("tutbtn").style.opacity="1";
+              //   document.getElementById("tut-info").children[0].style.opacity="1";
+              //   document.getElementById("tut-info").children[1].style.opacity="1";
+              // }else if(txtcount3%4==3){
+              //   document.getElementById("td0").style.top="15%"
+              //
+              // }
             }else{
 
 
-              document.getElementById("t0").innerText=""
-              if(parseInt(fullguide*10000)>3&&!restartflag&&gamemod<2&&activeFloor!=5&&!gameoverflag){
-                var txtcount3 = parseInt(elapsedTime*2 ) % 100
-                if(cubes[activeFloor].mesh.userData["game2048"].fullflag){
-                  if ((window.innerWidth / window.innerHeight) < 4 / 7) {
-                    document.getElementById("tut-info").style.display=""
-                    document.getElementById("td0").classList.remove("hidden");
-                    document.getElementById("td0").style.opacity=1;
-
-
-                  }else{
-                    document.getElementById("tut-info").style.display=""
-                    document.getElementById("td0").classList.remove("hidden");
-                    document.getElementById("td0").style.opacity=0.6;
-
-                  }
-
-                  if(txtcount3%4==0){
-
-                    document.getElementById("td0").style.top="16%"
-
-                  }else if(txtcount3%4==1){
-                    document.getElementById("td0").style.top="15%"
-
-                  }else if(txtcount3%4==2){
-                    document.getElementById("td0").style.top="16%"
-
-                  }else if(txtcount3%4==3){
-                    document.getElementById("td0").style.top="15%"
-
-                  }
-                }else{
-                  document.getElementById("tut-info").style.display="none"
-                  document.getElementById("td0").classList.add("hidden");
-                  document.getElementById("td0").style.opacity=0;
-                }
-              }else{
-                document.getElementById("tut-info").style.display="none"
-                document.getElementById("td0").classList.add("hidden");
-                document.getElementById("td0").style.opacity=0;
-              }
+              //
+              // if(parseInt(fullguide*10000)>3&&!restartflag&&gamemod<2&&activeFloor!=5&&!gameoverflag){
+              //   var txtcount3 = parseInt(elapsedTime*2 ) % 100
+              //   if(cubes[activeFloor].mesh.userData["game2048"].fullflag){
+              //     if ((window.innerWidth / window.innerHeight) < 4 / 7) {
+              //       document.getElementById("tut-info").style.display=""
+              //       document.getElementById("td0").classList.remove("hidden");
+              //       document.getElementById("td0").style.opacity=1;
+              //
+              //
+              //     }else{
+              //       document.getElementById("tut-info").style.display=""
+              //       document.getElementById("td0").classList.remove("hidden");
+              //       document.getElementById("td0").style.opacity=0.6;
+              //
+              //     }
+              //
+              //     if(txtcount3%4==0){
+              //
+              //       document.getElementById("td0").style.top="16%"
+              //
+              //     }else if(txtcount3%4==1){
+              //       document.getElementById("td0").style.top="15%"
+              //
+              //     }else if(txtcount3%4==2){
+              //       document.getElementById("td0").style.top="16%"
+              //
+              //     }else if(txtcount3%4==3){
+              //       document.getElementById("td0").style.top="15%"
+              //
+              //     }
+              //   }else{
+              //     document.getElementById("tut-info").style.display="none"
+              //     document.getElementById("td0").classList.add("hidden");
+              //     document.getElementById("td0").style.opacity=0;
+              //   }
+              // }else{
+              //   document.getElementById("tut-info").style.display="none"
+              //   document.getElementById("td0").classList.add("hidden");
+              //   document.getElementById("td0").style.opacity=0;
+              // }
 
 
             }
@@ -17582,17 +17799,17 @@
             document.getElementById("tut-info").children[0].style.color="#FFFFFF"
             document.getElementById("tut-info").children[1].style.color="#FFFFFF"
             document.getElementById("tut-info").style.zIndex=5;
-            document.getElementById("tut-info").children[0].style.fontSize=tutsize1
-            document.getElementById("tut-info").children[1].style.fontSize=tutsize1
+
+
             if(elapsedTime>0.4){
               if ((window.innerWidth / window.innerHeight) < 4 / 7) {
                 if(document.getElementById("t1").classList.contains("hidden")){
                   document.getElementById("t1").classList.remove("hidden")
                   setTimeout(function() {
                     document.getElementById("t1").style.opacity=1;
-                    document.getElementById("tut-info").style.opacity="0.8";
-                    document.getElementById("tut-info").children[0].innerText="▲ "+textdic[3][langset[langnum]]+" ▲"
-                    document.getElementById("tut-info").children[1].innerText=""
+
+
+
                   }, 100);
                 }
               }else{
@@ -17608,9 +17825,9 @@
 
                 setTimeout(function() {
 
-                  document.getElementById("tut-info").style.opacity="0.8";
-                  document.getElementById("tut-info").children[0].innerText="▲ "+textdic[3][langset[langnum]]+" ▲"
-                  document.getElementById("tut-info").children[1].innerText=""
+
+
+
                 }, 100);
               }
 
@@ -17621,16 +17838,16 @@
             document.getElementById("tut-info").children[0].style.color="#FFFFFF"
             document.getElementById("tut-info").children[1].style.color="#FFFFFF"
             document.getElementById("tut-info").style.zIndex=5;
-            document.getElementById("tut-info").children[0].style.fontSize=tutsize1
-            document.getElementById("tut-info").children[1].style.fontSize=tutsize1
+
+
             if(elapsedTime>0.4){
               if(document.getElementById("t1").classList.contains("hidden")){
                 document.getElementById("t1").classList.remove("hidden")
                 setTimeout(function() {
                   document.getElementById("t1").style.opacity=1;
-                  document.getElementById("tut-info").style.opacity="0.8";
-                  document.getElementById("tut-info").children[0].innerText="▲ "+textdic[3][langset[langnum]]+" ▲"
-                  document.getElementById("tut-info").children[1].innerText=""
+
+
+
                 }, 100);
               }
 
@@ -17640,16 +17857,16 @@
             document.getElementById("tut-info").children[0].style.color="#FFFFFF"
             document.getElementById("tut-info").children[1].style.color="#FFFFFF"
             document.getElementById("tut-info").style.zIndex=5;
-            document.getElementById("tut-info").children[0].style.fontSize=tutsize1
-            document.getElementById("tut-info").children[1].style.fontSize=tutsize1
+
+
             if(elapsedTime>0.4){
               if(document.getElementById("t1").classList.contains("hidden")){
                 document.getElementById("t1").classList.remove("hidden")
                 setTimeout(function() {
                   document.getElementById("t1").style.opacity=1;
-                  document.getElementById("tut-info").style.opacity="0.8";
-                  document.getElementById("tut-info").children[0].innerText="▲ "+textdic[3][langset[langnum]]+" ▲"
-                  document.getElementById("tut-info").children[1].innerText=""
+
+
+
                 }, 100);
               }
 
@@ -17659,16 +17876,16 @@
             document.getElementById("tut-info").children[0].style.color="#FFFFFF"
             document.getElementById("tut-info").children[1].style.color="#FFFFFF"
             document.getElementById("tut-info").style.zIndex=5;
-            document.getElementById("tut-info").children[0].style.fontSize=tutsize1
-            document.getElementById("tut-info").children[1].style.fontSize=tutsize1
+
+
             if(elapsedTime>0.4){
               if(document.getElementById("t1").classList.contains("hidden")){
                 document.getElementById("t1").classList.remove("hidden")
                 setTimeout(function() {
                   document.getElementById("t1").style.opacity=1;
-                  document.getElementById("tut-info").style.opacity="0.8";
-                  document.getElementById("tut-info").children[0].innerText="▲ "+textdic[3][langset[langnum]]+" ▲"
-                  document.getElementById("tut-info").children[1].innerText=""
+
+
+
                 }, 100);
               }
 
@@ -17729,13 +17946,13 @@
             var txtcount3 = parseInt(elapsedTime*2 ) % 100
             // document.getElementById("tut-info").children[0].style.color="#FFFFFF"
 
-            document.getElementById("t0").innerText=String(목표층)+"층 까지 도달해보세요!"
+
             if(txtcount3%2==0){
               document.getElementById("intro").children[2].style.opacity="0.1";
-              document.getElementById("tut-info").children[0].style.opacity="0.3";
+
             }else{
               document.getElementById("intro").children[2].style.opacity="1";
-              document.getElementById("tut-info").children[0].style.opacity="1";
+
             }
 
         }
@@ -18370,52 +18587,16 @@
 
                   if(!tutorialflag){
                         // document.getElementById("t0").classList.remove("hidden");
-                        document.getElementById("t0").innerText=String(목표층)+"층 까지 완성하세요"
 
-                        document.getElementById("t1").classList.add("hidden");
-                        document.getElementById("t2").classList.add("hidden");
-                        document.getElementById("t3").classList.add("hidden");
-                        document.getElementById("t4").classList.add("hidden");
-                        document.getElementById("t5").classList.add("hidden");
-                        document.getElementById("t6").classList.add("hidden");
-
-                        document.getElementById("t1").style.opacity=0;
-                        document.getElementById("t2").style.opacity=0;
-                        document.getElementById("t3").style.opacity=0;
-                        document.getElementById("t4").style.opacity=0;
-                        document.getElementById("t5").style.opacity=0;
-                        document.getElementById("t6").style.opacity=0;
-
-
-                        document.getElementById("td0").classList.add("hidden");
-                        document.getElementById("td1").classList.add("hidden");
-                        document.getElementById("td2").classList.add("hidden");
-                        document.getElementById("td3").classList.add("hidden");
-                        document.getElementById("td4").classList.add("hidden");
-                        document.getElementById("td5").classList.add("hidden");
-                        document.getElementById("td6").classList.add("hidden");
-                        document.getElementById("td9").classList.add("hidden");
-                        document.getElementById("td10").classList.add("hidden");
-
-                        document.getElementById("td0").style.opacity=0;
-                        document.getElementById("td1").style.opacity=0;
-                        document.getElementById("td2").style.opacity=0;
-                        document.getElementById("td3").style.opacity=0;
-                        document.getElementById("td4").style.opacity=0;
-                        document.getElementById("td5").style.opacity=0;
-                        document.getElementById("td6").style.opacity=0;
-                        document.getElementById("td9").style.opacity=0;
-                        document.getElementById("td10").style.opacity=0;
                     }
                   if(!스샷){
                     setTimeout(function() {
-                      document.getElementById("tut-info").style.display=""
-                      document.getElementById("tut-info").style.opacity="0.8";
-                      document.getElementById("tut-info").children[0].innerText="▲ "+textdic[3][langset[langnum]]+" ▲"
-                      document.getElementById("tut-info").children[1].innerText=""
+
+
+
                     }, 1000);
                   }else{
-                    document.getElementById("tut-info").style.display="none"
+
                   }
 
 
@@ -18458,11 +18639,7 @@
                   window.esound=esound
                   window.soundic=soundic;
 
-                  if(tutorialflag){
-                    document.getElementById("tut-info").style.zIndex=5;
-                  }else{
-                    document.getElementById("tut-info").style.zIndex=1;
-                  }
+
 
                   var sdickeys = Object.keys(soundic);
                   sdickeys.forEach((item) => {
@@ -18537,7 +18714,7 @@
                   console.log("콩")
                   document.getElementById("hammer").style.display="none"
                   document.getElementById("warpper").style.display="none"
-                  document.getElementById("main").style.display="none"
+
                   // document.getElementById("sub").style.display="none"
                   document.getElementById("song-info").style.display="none"
 
@@ -21822,7 +21999,7 @@
               if(item.userData.alive){
                 item.position.copy(item.userData.body.position);
                 item.quaternion.copy(item.userData.body.quaternion);
-                if(item.userData.rank>=8||item.userData.rank==0){
+                if(item.userData.rank>=9||item.userData.rank==0){
                   const adjustmentQuaternion = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), Math.PI / 2);
                   item.quaternion.multiply(adjustmentQuaternion);
                   item.rotation.x-=Math.PI;
@@ -25027,9 +25204,9 @@
           document.getElementById("td5").style.top="66%"
           document.getElementById("td5").style.right="8%"
           document.getElementById("td6").style.top="50%"
-          document.getElementById("tutbtn").style.top="89%"
-          document.getElementById("tut-info").children[0].style.top="48%"
-          document.getElementById("tut-info").children[1].style.top="4%"
+
+
+
         }else{
           if(fullcam){
             fullon()
@@ -25050,9 +25227,9 @@
             document.getElementById("td4").style.right="1%"
             document.getElementById("td5").style.top="50%"
             document.getElementById("td6").style.top="30%"
-            document.getElementById("tutbtn").style.top="90%"
-            document.getElementById("tut-info").children[0].style.top="68%"
-            document.getElementById("tut-info").children[1].style.top="10%"
+
+
+
           }else{
             document.getElementById("td0").style.top="15%"
             document.getElementById("td0").style.left="50vmin"
@@ -25067,9 +25244,9 @@
             document.getElementById("td5").style.top="66%"
             document.getElementById("td5").style.right="8%"
             document.getElementById("td6").style.top="50%"
-            document.getElementById("tutbtn").style.top="89%"
-            document.getElementById("tut-info").children[0].style.top="48%"
-            document.getElementById("tut-info").children[1].style.top="10%"
+
+
+
           }
 
 
@@ -26267,7 +26444,7 @@
       });
 
       document.getElementById("warpper").style.display="none"
-      document.getElementById("main").style.display="none"
+
       document.getElementById("sub").style.display="none"
       if(ch!=""){
         목표층=parseInt(ch)*10+parseInt(st);
@@ -26782,9 +26959,7 @@
       // pointtxt.children[1].innerText=textdic[43][langset[langnum]];
       // document.getElementById("playing").innerText=textdic[87][langset[langnum]]
 
-      document.getElementById('tutbtn').children[0].innerText=textdic[120][langset[n]];
 
-      document.getElementById('t0').innerText="▲ "+textdic[3][langset[langnum]]+" ▲";
 
 
 
@@ -26818,7 +26993,7 @@
 
       document.getElementById("intro").children[2].innerText=textdic[2][langset[langnum]];
 
-      document.getElementById("tut-info").children[0].innerText="▲ "+textdic[3][langset[langnum]]+" ▲"
+
 
       document.getElementById("resolution").innerText=textdic[5][langset[langnum]];
       setlst[0].children[2].innerText=textdic[6][langset[langnum]];
@@ -26959,8 +27134,8 @@
       tlist.push(document.getElementById("ads2"))
       tlist.push(document.getElementById("skin1"))
       tlist.push(document.getElementById("intro").children[2])
-      tlist.push(document.getElementById("tut-info").children[0])
-      tlist.push(document.getElementById("tut-info").children[1])
+
+
       tlist.push(document.getElementById("resolution"))
       tlist.push(document.querySelector(".setting-grid"))
       tlist.push(modtxt.children[0])
@@ -26999,7 +27174,7 @@
 
 
       tlist.forEach((item) => {
-          item.style.fontFamily=tempfont;
+          // item.style.fontFamily=tempfont;
       });
 
     if(langnum==1){
@@ -27075,7 +27250,7 @@
 
 
           resinit=parseInt(nslst["data3"]["2"]);
-          resinit=4;
+          resinit=0;
 
           window.resinit=resinit;
 
@@ -27555,9 +27730,9 @@
             document.getElementById("td5").style.top="66%"
             document.getElementById("td5").style.right="8%"
             document.getElementById("td6").style.top="50%"
-            document.getElementById("tutbtn").style.top="89%"
-            document.getElementById("tut-info").children[0].style.top="47%"
-            document.getElementById("tut-info").children[1].style.top="4%"
+
+
+
             document.getElementById("td9").style.top="58%"
             document.getElementById("td9").style.right="22vmin"
           }else{
@@ -27578,9 +27753,9 @@
               document.getElementById("td4").style.right="1%"
               document.getElementById("td5").style.top="50%"
               document.getElementById("td6").style.top="30%"
-              document.getElementById("tutbtn").style.top="90%"
-              document.getElementById("tut-info").children[0].style.top="68%"
-              document.getElementById("tut-info").children[1].style.top="10%"
+
+
+
               document.getElementById("td9").style.top="10%"
               document.getElementById("td9").style.right="5vmin"
             }else{
@@ -27597,9 +27772,9 @@
               document.getElementById("td5").style.top="66%"
               document.getElementById("td5").style.right="8%"
               document.getElementById("td6").style.top="50%"
-              document.getElementById("tutbtn").style.top="89%"
-              document.getElementById("tut-info").children[0].style.top="48%"
-              document.getElementById("tut-info").children[1].style.top="10%"
+
+
+
               document.getElementById("td9").style.top="58%"
               document.getElementById("td9").style.right="22vmin"
 
@@ -27645,15 +27820,15 @@
           document.getElementById("td9").style.opacity=0;
           document.getElementById("td10").style.opacity=0;
 
-          document.getElementById("tutbtn").style.display=""
-          document.getElementById("tutbtn").classList.add("hidden");
 
-          document.getElementById("tut-info").children[0].innerText=""
-          document.getElementById("tut-info").children[1].innerText=""
 
-          document.getElementById("tut-info").children[0].style.fontSize=tutsize1
-          document.getElementById("tut-info").children[1].style.fontSize=tutsize1
-          document.getElementById("tut-info").style.opacity=0;
+
+
+
+
+
+
+
 
           elapsedTime=0;
           if(gamemod==2){
@@ -27685,38 +27860,7 @@
 
         })
 
-        tutbtn.addEventListener('click', function() {
 
-
-            if(gamemod==1||gamemod==0){
-              if(tutstep==7){
-                tutstep=7.5;
-                // activeFloor=5;
-                // bf=99;
-                tempseq=elapsedTime;
-                tempoint=점수;
-              }else if(1){
-                if(activeFloor==5) activeFloor=4;
-                tutstep=2;
-                // activeFloor=5;
-                // bf=99;
-                tempseq=elapsedTime;
-                fstep=[];
-                tfloor=activeFloor;
-                for (var i = 0; i < 6; i++) {
-                  tfloor++;
-                  if(tfloor>5) tfloor=0;
-                  fstep.push(tfloor);
-                }
-                // tempoint=점수;
-              }
-
-
-            }else if(gamemod==2){
-              tutstep++;
-              tempseq=elapsedTime;
-            }
-        })
 
         pbtn2.addEventListener('click', function() {
           var ptxt = pbtn2.children[2].innerText;
@@ -29759,7 +29903,7 @@
     function stageon(){
       if(document.getElementById("warpper").style.display=="none"){
         document.getElementById("warpper").style.display="flex"
-        document.getElementById("main").style.display="none"
+
         document.getElementById("sub").style.display="flex"
       }else{
         document.getElementById("warpper").style.display="none"
@@ -29769,7 +29913,7 @@
 
     function quick(){
       document.getElementById("warpper").style.display="none"
-      document.getElementById("main").style.display="none"
+
       document.getElementById("sub").style.display="none"
     }
 
@@ -30142,30 +30286,6 @@
     <h2 id="coin3">:★</h2>
 </div>
 
-<div id="tut-info">
-    <label id="t0">▲ 브릭들을 터치하세요 ▲</label>
-    <div id="t01"> </div>
-    <img id="t1" src="png/timg0.png" class="hidden">
-    <img id="t2" src="png/timg1.png" class="hidden">
-    <img id="t3" src="png/timg2.png" class="hidden">
-    <img id="t4" src="png/timg3.png" class="hidden">
-    <img id="t5" src="png/timg5.png" class="hidden">
-    <img id="t6" src="png/timg4.png" class="hidden">
-
-    <img id="td0" src="png/td0.png" class="hidden">
-    <img id="td1" src="png/td1.png" class="hidden">
-    <img id="td2" src="png/td2.png" class="hidden">
-    <img id="td3" src="png/td3.png" class="hidden">
-    <img id="td4" src="png/td4.png" class="hidden">
-    <img id="td5" src="png/td5.png" class="hidden">
-    <img id="td6" src="" class="hidden">
-    <img id="td9" src="png/td9.gif" class="hidden">
-    <img id="td10" src="png/td10.gif" class="hidden">
-
-
-    <button id="tutbtn" onclick="" class="hidden">
-        <b> 이해했어요! </b>
-    </button>
 
 
 
@@ -31374,13 +31494,7 @@
   <img src="png/ring.png">
 </div>
 
-<div class="main" id="main">
-  <label >2048 BUILD</label>
-  <button class="mainbtn" onclick="stageon()">STAGE PLAY</button>
-  <button class="mainbtn" onclick="quick()">QUICK PLAY</button>
-  <button class="smallbtn">option</button>
 
-</div>
 
 
 
