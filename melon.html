@@ -3273,7 +3273,7 @@
     var itemtime=0;
     var uselst=[];
 
-    var 무게=7;
+    var 무게=50;
     var 해머=0
     var 뻥=0
 
@@ -8669,7 +8669,7 @@
           forceAmount = bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 30;
+          world.solver.iterations = 15;
           // world.solver.tolerance = 8
           gap=0.981;
 
@@ -15695,23 +15695,23 @@
               break;
           case 6:
               tcolor=0xFFFF00
-              tscale0=2.7+initscale
+              tscale0=2.2+initscale
               break;
           case 7:
               tcolor=0xFFFFFF
-              tscale0=3.2+initscale
+              tscale0=2.7+initscale
               break;
           case 8:
               tcolor=0xFC950C
-              tscale0=3.5+initscale
+              tscale0=3.2+initscale
               break;
           case 9:
               tcolor=0xFC950C
-              tscale0=3.9+initscale
+              tscale0=3.5+initscale
               break;
           case 10:
               tcolor=0xFC956C
-              tscale0=3.7+initscale
+              tscale0=3.9+initscale
               break;
           case 11:
               tcolor=0xFC25AC
@@ -15883,6 +15883,92 @@
           groundBody.position.copy(mesh.position);
           groundBody.quaternion.copy(mesh.quaternion);
         }
+      }else if(rnk==4){
+          var t1=1
+          var geometry1 = new THREE.BoxGeometry(0.4*bh*tscale0, bh*0.3, t1*0.68*bh*tscale0*1.239);
+
+          // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+
+          var material1 = new THREE.MeshLambertMaterial({
+              transparent:true,
+              opacity:0,
+              color: tcolor
+          });
+
+
+          var mesh=new THREE.Mesh(geometry1, material1);
+          var geometry2 = new THREE.BoxGeometry(0.5, 1, 0.2);
+          // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+          var material2 = new THREE.MeshLambertMaterial({
+              transparent:true,
+              opacity:0,
+              color: tcolor
+          });
+          var mesh2=new THREE.Mesh(geometry2, material2);
+          mesh2.position.x=3
+
+
+          mesh.userData.wood=0;
+          // mesh.add(mesh2)
+          mesh.add(fox[4].clone())
+          mesh.add(fox[1].clone())
+          mesh.add(fox[2].clone())
+          mesh.add(fox[3].clone())
+          var temp0=1.42
+
+          mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+          mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+          mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+          mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+          // mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+
+
+          // if(rnk==9){
+          //   mesh.add(bear[5].clone())
+          //   mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+          // }
+
+          if(tx!=999){
+            deg=-(Math.PI/2)
+            mesh.position.set(0,bh*17,tx)
+          }else{
+            mesh.position.set(0,bh*17,-bw*1.7+Math.random()*(bw*3.4))
+          }
+
+
+          mesh.rotation.z=(Math.PI/2)
+          // mesh.rotation.z=(Math.PI/2)
+
+
+          mesh.rotation.x=deg
+
+          var customMaterial = new CANNON.Material('customMaterial');
+          customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
+          customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
+
+
+          var groundBody = new CANNON.Body({
+            mass: 무게*3,
+            allowSleep: true,
+            sleepSpeedLimit: 1000,
+            material: customMaterial,
+            sleepTimeLimit: 0
+          });
+
+          var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.4*bh*tscale0/2, bh*0.3/2, t1*1.239*0.68*bh*tscale0/2));
+
+          var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.703*0.4*bh*tscale0/2, bh*0.3/2, 0.171*t1*1.239*0.68*bh*tscale0/2));
+
+
+          groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.68*bh*tscale0/2+(t1-1)*1.239*0.68*bh*tscale0/2));
+          groundBody.addShape(boxShape1, new CANNON.Vec3(0.4*bh*tscale0/2+0.703*0.4*bh*tscale0/2, 0, -t1*1.239*0.68*bh*tscale0/2+0.171*t1*1.239*0.68*bh*tscale0/2));
+
+          groundBody.position.copy(mesh.position);
+          groundBody.quaternion.copy(mesh.quaternion);
+
+
+
       }else if(rnk==5||rnk==6){
           var t1=1
           var t2=0.5
@@ -15950,7 +16036,7 @@
           var customMaterial = new CANNON.Material('customMaterial');
           customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
           customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
-          mesh.rotation.x=-(Math.PI/2)
+
 
           var groundBody = new CANNON.Body({
             mass: 무게*3,
@@ -15969,92 +16055,6 @@
 
           groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, (t1-1)*0.75*bh*tscale0/2));
           groundBody.addShape(boxShape1, new CANNON.Vec3(1, 0, -0.5*0.7*bh*tscale0/2+(0.5*0.15*0.7*bh*tscale0/2)));
-          groundBody.position.copy(mesh.position);
-          groundBody.quaternion.copy(mesh.quaternion);
-
-
-
-      }else if(rnk==4){
-          var t1=1
-          var geometry1 = new THREE.BoxGeometry(0.4*bh*tscale0, bh*0.3, t1*0.68*bh*tscale0*1.239);
-
-          // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
-
-          var material1 = new THREE.MeshLambertMaterial({
-              transparent:true,
-              opacity:0,
-              color: tcolor
-          });
-
-
-          var mesh=new THREE.Mesh(geometry1, material1);
-          var geometry2 = new THREE.BoxGeometry(0.5, 1, 0.2);
-          // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
-          var material2 = new THREE.MeshLambertMaterial({
-              transparent:true,
-              opacity:0,
-              color: tcolor
-          });
-          var mesh2=new THREE.Mesh(geometry2, material2);
-          mesh2.position.x=3
-
-
-          mesh.userData.wood=0;
-          // mesh.add(mesh2)
-          mesh.add(fox[4].clone())
-          mesh.add(fox[1].clone())
-          mesh.add(fox[2].clone())
-          mesh.add(fox[3].clone())
-          var temp0=1.42
-
-          mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-          mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-          mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-          mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-          // mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-
-
-
-          // if(rnk==9){
-          //   mesh.add(bear[5].clone())
-          //   mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-          // }
-
-          if(tx!=999){
-            deg=-(Math.PI/2)
-            mesh.position.set(0,bh*17,tx)
-          }else{
-            mesh.position.set(0,bh*17,-bw*1.7+Math.random()*(bw*3.4))
-          }
-
-
-          mesh.rotation.z=(Math.PI/2)
-          // mesh.rotation.z=(Math.PI/2)
-
-
-          mesh.rotation.x=deg
-
-          var customMaterial = new CANNON.Material('customMaterial');
-          customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
-          customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
-          mesh.rotation.x=-(Math.PI/2)
-
-          var groundBody = new CANNON.Body({
-            mass: 무게*3,
-            allowSleep: true,
-            sleepSpeedLimit: 1000,
-            material: customMaterial,
-            sleepTimeLimit: 0
-          });
-
-          var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.4*bh*tscale0/2, bh*0.3/2, t1*1.239*0.68*bh*tscale0/2));
-
-          var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.703*0.4*bh*tscale0/2, bh*0.3/2, 0.171*t1*1.239*0.68*bh*tscale0/2));
-
-
-          groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.68*bh*tscale0/2+(t1-1)*1.239*0.68*bh*tscale0/2));
-          groundBody.addShape(boxShape1, new CANNON.Vec3(0.4*bh*tscale0/2+0.703*0.4*bh*tscale0/2, 0, -t1*1.239*0.68*bh*tscale0/2+0.171*t1*1.239*0.68*bh*tscale0/2));
-
           groundBody.position.copy(mesh.position);
           groundBody.quaternion.copy(mesh.quaternion);
 
@@ -16132,7 +16132,7 @@
           var customMaterial = new CANNON.Material('customMaterial');
           customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
           customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
-          mesh.rotation.x=-(Math.PI/2)
+
 
           var groundBody = new CANNON.Body({
             mass: 무게*3,
@@ -16202,7 +16202,7 @@
         mesh.rotation.z=(Math.PI/2)
         // mesh.rotation.y=-(Math.PI/2)
 
-        mesh.rotation.x=deg
+        mesh.rotation.x=-(Math.PI/2)
 
         var customMaterial = new CANNON.Material('customMaterial');
         customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
@@ -16862,7 +16862,8 @@
               점수+=(balls[nidx].rank+1)*10
               console.log(점수)
               newo.position.copy(balls[nidx].now.position)
-              // newo.position.y+=0.5
+              if(balls[nidx].rank==3||balls[nidx].rank==6||balls[nidx].rank==7)
+              newo.position.y+=3
               newo.userData.body.position.copy(newo.position);
               scene.remove(balls[nidx].prev);
               scene.remove(balls[nidx].now);
