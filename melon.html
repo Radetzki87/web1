@@ -3186,6 +3186,10 @@
     var next=0;
     var drop=-2;
 
+    var nextpool=[0,0,0,1,1,1,2,2,2,3,3,3,4,4]
+
+    var lx=26.8
+
     var ready=false;
 
     var laser=[];
@@ -5120,6 +5124,37 @@
           if(ready){
             dragflag=true
             ontouch=true;
+
+            if(next<2){
+              if(lastX<-0.69){
+                lastX=-0.69
+              }
+              if(lastX>0.69){
+                lastX=0.69
+              }
+            }else if(next==2){
+              if(lastX<-0.68){
+                lastX=-0.68
+              }
+              if(lastX>0.68){
+                lastX=0.68
+              }
+            }else if(next==3){
+              if(lastX<-0.62){
+                lastX=-0.62
+              }
+              if(lastX>0.62){
+                lastX=0.62
+              }
+            }else if(next==4){
+              if(lastX<-0.66){
+                lastX=-0.66
+              }
+              if(lastX>0.53){
+                lastX=0.53
+              }
+            }
+            axis[0].position.z=-lastX*lx
           }
           // console.log(cat[0])
           // let force2 = new CANNON.Vec3();
@@ -5156,6 +5191,38 @@
             if(ready){
               dragflag=true
               ontouch=true;
+
+              if(next<2){
+                if(lastX<-0.69){
+                  lastX=-0.69
+                }
+                if(lastX>0.69){
+                  lastX=0.69
+                }
+              }else if(next==2){
+                if(lastX<-0.68){
+                  lastX=-0.68
+                }
+                if(lastX>0.68){
+                  lastX=0.68
+                }
+              }else if(next==3){
+                if(lastX<-0.62){
+                  lastX=-0.62
+                }
+                if(lastX>0.62){
+                  lastX=0.62
+                }
+              }else if(next==4){
+                if(lastX<-0.66){
+                  lastX=-0.66
+                }
+                if(lastX>0.53){
+                  lastX=0.53
+                }
+              }
+
+              axis[0].position.z=-lastX*lx
             }
 
 
@@ -5234,7 +5301,7 @@
             //   mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
             // }
             // console.log(lastX)
-            // mesh.position.set(0,bh*17,-lastX*33)
+            // mesh.position.set(0,bh*16.5,-lastX*33)
             //
             // mesh.rotation.z=(Math.PI/2)
             // var customMaterial = new CANNON.Material('customMaterial');
@@ -5474,11 +5541,42 @@
           lastX = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
           lastY = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
         }
+        if(next<2){
+          if(lastX<-0.69){
+            lastX=-0.69
+          }
+          if(lastX>0.69){
+            lastX=0.69
+          }
+        }else if(next==2){
+          if(lastX<-0.68){
+            lastX=-0.68
+          }
+          if(lastX>0.68){
+            lastX=0.68
+          }
+        }else if(next==3){
+          if(lastX<-0.62){
+            lastX=-0.62
+          }
+          if(lastX>0.62){
+            lastX=0.62
+          }
+        }else if(next==4){
+          if(lastX<-0.66){
+            lastX=-0.66
+          }
+          if(lastX>0.53){
+            lastX=0.53
+          }
+        }
 
         if(dragflag){
           sample.forEach((item, i) => {
-            item.position.z=-lastX*26.6
+            item.position.z=-lastX*lx
           });
+          axis[0].position.z=-lastX*lx
+          console.log(lastX)
 
         }
 
@@ -5835,8 +5933,40 @@
         }
 
         if(dragflag){
-          let newo=newone(과일.length-1, next,0,-lastX*30)
-          next=parseInt(Math.random()*4);
+          if(next<2){
+            if(lastX<-0.69){
+              lastX=-0.69
+            }
+            if(lastX>0.69){
+              lastX=0.69
+            }
+          }else if(next==2){
+            if(lastX<-0.68){
+              lastX=-0.68
+            }
+            if(lastX>0.68){
+              lastX=0.68
+            }
+          }else if(next==3){
+            if(lastX<-0.62){
+              lastX=-0.62
+            }
+            if(lastX>0.62){
+              lastX=0.62
+            }
+          }else if(next==4){
+            if(lastX<-0.66){
+              lastX=-0.66
+            }
+            if(lastX>0.53){
+              lastX=0.53
+            }
+          }
+
+
+          let newo=newone(과일.length-1, next,0,-lastX*lx)
+          axis[0].position.z=-lastX*lx
+          next=nextpool[parseInt(Math.random()*nextpool.length)];
           // next=3
           scene.add(newo);
 
@@ -6757,6 +6887,7 @@
     });
 
     window.addEventListener('click', (event) => {
+      if(propsmold.length!=11) return;
       if(!originflag){
         // topflag= true;
         msetting(function(object) {
@@ -6838,12 +6969,42 @@
           lastX = (event.clientX / window.innerWidth) * 2 - 1;
           lastY = -(event.clientY / window.innerHeight) * 2 + 1;
 
-          let newo=newone(과일.length-1, next,0,-lastX*30)
-          next=parseInt(Math.random()*4);
+          if(next<2){
+            if(lastX<-0.69){
+              lastX=-0.69
+            }
+            if(lastX>0.69){
+              lastX=0.69
+            }
+          }else if(next==2){
+            if(lastX<-0.68){
+              lastX=-0.68
+            }
+            if(lastX>0.68){
+              lastX=0.68
+            }
+          }else if(next==3){
+            if(lastX<-0.62){
+              lastX=-0.62
+            }
+            if(lastX>0.62){
+              lastX=0.62
+            }
+          }else if(next==4){
+            if(lastX<-0.66){
+              lastX=-0.66
+            }
+            if(lastX>0.53){
+              lastX=0.53
+            }
+          }
+
+          let newo=newone(과일.length-1, next,0,-lastX*lx)
+          axis[0].position.z=-lastX*lx
+          next=nextpool[parseInt(Math.random()*nextpool.length)];
           // next=9
           scene.add(newo);
           console.log("클릭")
-
 
 
           newo.userData.body.position.copy(newo.position);
@@ -15755,9 +15916,9 @@
 
         if(tx!=999){
           deg=-(Math.PI/2)
-          mesh.position.set(0,bh*17,tx)
+          mesh.position.set(0,bh*16.5,tx)
         }else{
-          mesh.position.set(0,bh*17,-bw*1.7+Math.random()*(bw*3.4))
+          mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
         }
 
 
@@ -15826,9 +15987,9 @@
 
         if(tx!=999){
           deg=-(Math.PI/2)
-          mesh.position.set(0,bh*17,tx)
+          mesh.position.set(0,bh*16.5,tx)
         }else{
-          mesh.position.set(0,bh*17,-bw*1.7+Math.random()*(bw*3.4))
+          mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
         }
 
 
@@ -15931,9 +16092,9 @@
 
           if(tx!=999){
             deg=-(Math.PI/2)
-            mesh.position.set(0,bh*17,tx)
+            mesh.position.set(0,bh*16.5,tx)
           }else{
-            mesh.position.set(0,bh*17,-bw*1.7+Math.random()*(bw*3.4))
+            mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
           }
 
 
@@ -16024,9 +16185,9 @@
 
           if(tx!=999){
             deg=-(Math.PI/2)
-            mesh.position.set(0,bh*17,tx)
+            mesh.position.set(0,bh*16.5,tx)
           }else{
-            mesh.position.set(0,bh*17,-bw*1.7+Math.random()*(bw*3.4))
+            mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
           }
 
 
@@ -16117,9 +16278,9 @@
 
           if(tx!=999){
             deg=-(Math.PI/2)
-            mesh.position.set(0,bh*17,tx)
+            mesh.position.set(0,bh*16.5,tx)
           }else{
-            mesh.position.set(0,bh*17,-bw*1.7+Math.random()*(bw*3.4))
+            mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
           }
 
 
@@ -16195,9 +16356,9 @@
 
         if(tx!=999){
           deg=-(Math.PI/2)
-          mesh.position.set(0,bh*17,tx)
+          mesh.position.set(0,bh*16.5,tx)
         }else{
-          mesh.position.set(0,bh*17,-bw*1.7+Math.random()*(bw*3.4))
+          mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
         }
         mesh.rotation.z=(Math.PI/2)
         // mesh.rotation.y=-(Math.PI/2)
@@ -16619,16 +16780,15 @@
 
                 }
                 item.position.x=0
-                item.position.y=bh*16.5
+                item.position.y=bh*16
 
                 if(dragflag){
                   axis[0].children[0].material.visible=true;
                 }else{
                   axis[0].children[0].material.visible=false;
                 }
-
-                axis[0].position.z=item.position.z
-                axis[0].position.x=0
+                // if(dragflag)
+                axis[0].position.x=bh*0.3
                 axis[0].position.y=bh*4.2
 
 
@@ -16736,11 +16896,12 @@
 
           var lapflag=false;
 
-          과일.forEach((item) => {
-            if(item.userData.alive&&item.userData.id>0){
+          sample.forEach((item) => {
+
               if(item.userData.rank==1){
                 item.children[0].position.z=-0.5*(pshift[dur]-1);
                 item.children[1].position.z=2*(pshift[dur]-1);
+                item.children[2].position.y=0.8
               }else if(item.userData.rank==2||item.userData.rank==3){
 
                 item.children[0].position.z=-0.5*(pshift[dur]-1);
@@ -16750,6 +16911,40 @@
                   item.children[0].position.z=-0.4-0.5*(pshift[dur]-1);
                   item.children[1].position.z=-0.4+2*(pshift[dur]-1);
                   item.children[2].position.z=-0.5
+
+                  item.children[3].position.z=0.6-0.2*(pshift[dur]-1);
+                }
+              }else if(item.userData.rank==4){
+                var tmx0=1.8
+                var tmy0=0
+                var tmz0=-1.1
+                item.children[0].position.z=tmz0-0.5*(pshift[dur]-1);
+                item.children[1].position.z=tmz0-0.3*(pshift[dur]-1);
+                item.children[3].position.z=tmz0+0.4*(pshift[dur]-1);
+                item.children[3].position.x=tmx0-0.2
+
+
+              }
+            
+          });
+
+
+          과일.forEach((item) => {
+            if(item.userData.alive&&item.userData.id>0){
+              if(item.userData.rank==1){
+                item.children[0].position.z=-0.5*(pshift[dur]-1);
+                item.children[1].position.z=2*(pshift[dur]-1);
+                item.children[2].position.y=0.8
+              }else if(item.userData.rank==2||item.userData.rank==3){
+
+                item.children[0].position.z=-0.5*(pshift[dur]-1);
+                item.children[1].position.z=2*(pshift[dur]-1);
+                item.children[3].position.z=1-0.2*(pshift[dur]-1);
+                if(item.userData.rank==2){
+                  item.children[0].position.z=-0.4-0.5*(pshift[dur]-1);
+                  item.children[1].position.z=-0.4+2*(pshift[dur]-1);
+                  item.children[2].position.z=-0.5
+
                   item.children[3].position.z=0.6-0.2*(pshift[dur]-1);
                 }
               }else if(item.userData.rank==5||item.userData.rank==6){
@@ -16759,8 +16954,12 @@
                 item.children[4].position.z=1.3-0.3*(pshift[dur]-1);
                 item.children[4].position.x=0.9-0.4*(pshift[dur]-1);
 
+                item.children[2].position.y=0.2
+                item.children[4].position.y=0.2
+
                 if(item.userData.rank>=6){
                   item.children[5].position.z=1.1-0.3*(pshift[dur]-1);
+                  item.children[5].position.y=-0.2
                 }
                 // item.children[1].position.z=2*(pshift[dur]-1);
                 // item.children[3].position.z=1-0.2*(pshift[dur]-1);
@@ -16771,6 +16970,7 @@
                 item.children[0].position.z=tmz0-0.5*(pshift[dur]-1);
                 item.children[1].position.z=tmz0-0.3*(pshift[dur]-1);
                 item.children[3].position.z=tmz0+0.4*(pshift[dur]-1);
+                item.children[3].position.x=tmx0-0.2
 
                 // item.children[0].position.x=0
                 // item.children[0].position.z=0.2-0.5*(pshift[dur]-1);
@@ -16840,15 +17040,15 @@
 
           balls.forEach((item, i) => {
             // if(item.c-item.nx<0.1&&item.d-item.ny<0.1){
-            if(elapsedTime-item.time>0.2){
+            if(elapsedTime-item.time>0.3){
               rmvballlst.push(i);
             }else{
-              item.nx=item.a+(item.now.position.z-item.a)*((elapsedTime-item.time)/0.2)
-              item.ny=item.b+(item.now.position.y-item.b)*((elapsedTime-item.time)/0.2)
+              item.nx=item.a+(item.now.position.z-item.a)*((elapsedTime-item.time)/0.3)
+              item.ny=item.b+(item.now.position.y-item.b)*((elapsedTime-item.time)/0.3)
 
               item.prev.position.z=item.nx
               item.prev.position.y=item.ny
-              item.prev.rotation.x=item.deg+(item.now.rotation.x-item.deg)*((elapsedTime-item.time)/0.2)
+              item.prev.rotation.x=item.deg+(item.now.rotation.x-item.deg)*((elapsedTime-item.time)/0.3)
             }
           });
 
@@ -22010,7 +22210,14 @@
             if(!과일[i].userData.alive){
               과일[i].scale.set(1,1,1)
               과일.splice(i,1)
+            }else if(과일[i].userData.body.position.y<0){
+              world.remove(과일[i].userData.body)
+              scene.remove(과일[i])
+              과일.splice(i,1)
             }
+
+
+
 
           }
 
