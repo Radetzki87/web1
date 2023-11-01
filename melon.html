@@ -244,6 +244,11 @@
           top:145vw;
           width:42vmin;
           z-index: 2;
+
+          -webkit-user-select: none;  /* Chrome, Safari, Opera */
+          -moz-user-select: none;     /* Firefox */
+          -ms-user-select: none;      /* IE 10+ */
+          user-select: none;          /* Standard syntax */
         }
 
         #ring img{
@@ -3277,7 +3282,7 @@
     var itemtime=0;
     var uselst=[];
 
-    var 무게=50;
+    var 무게=10;
     var 해머=0
     var 뻥=0
 
@@ -5967,7 +5972,7 @@
           let newo=newone(과일.length-1, next,0,-lastX*lx)
           axis[0].position.z=-lastX*lx
           next=nextpool[parseInt(Math.random()*nextpool.length)];
-          // next=3
+          // next=9
           scene.add(newo);
 
 
@@ -5979,7 +5984,7 @@
           과일.push(newo)
           dragflag = false;
           drop=elapsedTime;
-          console.log("터치")
+          console.log(과일)
 
         }
 
@@ -15145,33 +15150,33 @@
         axis.push(arrowHelper);
 
 
-        var dir = new THREE.Vector3(0, 0, 1);
-        //normalize the direction vector (convert to vector of length 1)
-        dir.normalize();
-        var origin = new THREE.Vector3(0, 0, 0);
-        var length = bw*4;
-        var hex = 0XFFFFFF
-        var arrowHelper = new THREE.ArrowHelper(dir, origin, length, hex)
-        arrowHelper.children.forEach((item) => {
-            item.material.opacity = 1;
-            item.material.transparent = true;
-            item.material.linewidth = 2
-
-        })
-        arrowHelper.remove(arrowHelper.children[1]);
-        arrowHelper.children[0].material=new THREE.LineDashedMaterial( {
-        	color: 0x000000,
-        	linewidth: 2,
-        	scale: 2,
-        	dashSize: 5,
-        	gapSize: 3,
-        } );
-
-        arrowHelper.children[0].computeLineDistances();
-        // arrowHelper.geometry.boundingSphere.radius=20
-        //애로우
-        scene.add(arrowHelper);
-        axis.push(arrowHelper);
+        // var dir = new THREE.Vector3(0, 0, 1);
+        // //normalize the direction vector (convert to vector of length 1)
+        // dir.normalize();
+        // var origin = new THREE.Vector3(0, 0, 0);
+        // var length = bw*4;
+        // var hex = 0XFFFFFF
+        // var arrowHelper = new THREE.ArrowHelper(dir, origin, length, hex)
+        // arrowHelper.children.forEach((item) => {
+        //     item.material.opacity = 1;
+        //     item.material.transparent = true;
+        //     item.material.linewidth = 2
+        //
+        // })
+        // arrowHelper.remove(arrowHelper.children[1]);
+        // arrowHelper.children[0].material=new THREE.LineDashedMaterial( {
+        // 	color: 0x000000,
+        // 	linewidth: 2,
+        // 	scale: 2,
+        // 	dashSize: 5,
+        // 	gapSize: 3,
+        // } );
+        //
+        // arrowHelper.children[0].computeLineDistances();
+        // // arrowHelper.geometry.boundingSphere.radius=20
+        // //애로우
+        // scene.add(arrowHelper);
+        // axis.push(arrowHelper);
 
         if (guideflag) {
             var origin2 = new THREE.Vector3(cubes[0].mesh.position.x - bw / 1.98, 0, cubes[0].mesh.position.z + bw / 1.98);
@@ -15824,7 +15829,7 @@
         rnk+=1;
       }
 
-      if(rnk==10){
+      if(rnk==11){
         rnk=0
       }
 
@@ -16764,24 +16769,21 @@
 
         if (startflag&&!gameoverflag) { //스타트
 
-          axis[1].position.y=bh*15.5
-          axis[1].position.x=0
-          axis[1].position.z=-bw*1.6
-          axis[1].children[0].material.visible=true;
+          // axis[1].position.y=bh*15.5
+          // axis[1].position.x=0.2
+          // axis[1].position.z=-bw*1.6
+          // axis[1].children[0].material.visible=true;
 
           sample.forEach((item, i) => {
-            if(elapsedTime-drop>0.7){
+            if(elapsedTime-drop>0.4){
               ready=true;
               if(i==next){
                 if(i==0){
                   item.rotation.y=0
                   item.rotation.x=-Math.PI/2
-
-
                 }
                 item.position.x=0
                 item.position.y=bh*16
-
                 if(dragflag){
                   axis[0].children[0].material.visible=true;
                 }else{
@@ -16805,87 +16807,83 @@
 
           });
 
+          if((parseInt(elapsedTime*100%2)==0)){
+            for (var i = 과일.length-1; i >=0; i--) {
+              for (var j = i-1; j >=0; j--) {
+                if (colide(과일[i].userData.body,과일[j].userData.body)&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
+                  if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
 
-          for (var i = 과일.length-1; i >=0; i--) {
-            for (var j = i-1; j >=0; j--) {
-              if (colide(과일[i].userData.body,과일[j].userData.body)&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
-                if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=9){
 
-                  // if(Math.sqrt(과일[i].userData.body.velocity.z*과일[i].userData.body.velocity.z+과일[i].userData.body.velocity.y*과일[i].userData.body.velocity.y)>Math.sqrt(과일[j].userData.body.velocity.z*과일[j].userData.body.velocity.z+과일[j].userData.body.velocity.y*과일[j].userData.body.velocity.y)){
-                  //   var prev=과일[i]
-                  //   var now=과일[j]
-                  // }else{
-                  //   var prev=과일[j]
-                  //   var now=과일[i]
-                  // }
-                  if(과일[j].userData.body.position.y<과일[i].userData.body.position.y){
-                    var prev=과일[i]
-                    var now=과일[j]
-                  }else{
-                    var now=과일[i]
-                    var prev=과일[j]
+                    if(과일[j].userData.body.position.y<과일[i].userData.body.position.y){
+                      var prev=과일[i]
+                      var now=과일[j]
+                    }else{
+                      var now=과일[i]
+                      var prev=과일[j]
+                    }
+
+
+                    var a=prev.position.z
+                    var b=prev.position.y
+                    var c=now.position.z
+                    var d=now.position.y
+
+                    balls.push(new Ball(a, b, c, d, prev, now, elapsedTime))
+                    prev.userData.alive=false;
+                    now.userData.target=true;
+                    world.remove(prev.userData.body)
+
+                    // world.remove(과일[j].userData.body)
+                    // 과일.splice(i, 1);
+                    // 과일.splice(j, 1);
+
+                    console.log(balls)
+
+                    //
+                    //
+                    // let newo=newone(i, 과일[i].userData.rank)
+                    //
+                    // newo.position.copy(과일[i].position)
+                    // // newo.quaternion.copy(과일[i].quaternion)
+                    // newo.userData.body.position.copy(newo.position);
+                    // // newo.userData.body.quaternion.copy(newo.quaternion);
+                    //
+                    //
+                    //
+                    // world.remove(과일[i].userData.body)
+                    // scene.remove(과일[i])
+                    //
+                    //
+                    // 과일.splice(i, 1, newo);
+                    //
+                    //
+                    //
+                    // setTimeout(() => {
+                    //   // 쇠공.push(newo);
+                    //   scene.add(newo);
+                    //   world.addBody(newo.userData.body);
+                    // }, 200);
+                    //
+                    //
+                    //
+                    // world.remove(과일[j].userData.body)
+                    // scene.remove(과일[j])
+                    // 과일.splice(j, 1);
+
+
+
+
+
+
+                    break;
+
                   }
-
-
-                  var a=prev.position.z
-                  var b=prev.position.y
-                  var c=now.position.z
-                  var d=now.position.y
-
-                  balls.push(new Ball(a, b, c, d, prev, now, elapsedTime))
-                  prev.userData.alive=false;
-                  now.userData.target=true;
-                  world.remove(prev.userData.body)
-
-                  // world.remove(과일[j].userData.body)
-                  // 과일.splice(i, 1);
-                  // 과일.splice(j, 1);
-
-                  console.log(balls)
-
-                  //
-                  //
-                  // let newo=newone(i, 과일[i].userData.rank)
-                  //
-                  // newo.position.copy(과일[i].position)
-                  // // newo.quaternion.copy(과일[i].quaternion)
-                  // newo.userData.body.position.copy(newo.position);
-                  // // newo.userData.body.quaternion.copy(newo.quaternion);
-                  //
-                  //
-                  //
-                  // world.remove(과일[i].userData.body)
-                  // scene.remove(과일[i])
-                  //
-                  //
-                  // 과일.splice(i, 1, newo);
-                  //
-                  //
-                  //
-                  // setTimeout(() => {
-                  //   // 쇠공.push(newo);
-                  //   scene.add(newo);
-                  //   world.addBody(newo.userData.body);
-                  // }, 200);
-                  //
-                  //
-                  //
-                  // world.remove(과일[j].userData.body)
-                  // scene.remove(과일[j])
-                  // 과일.splice(j, 1);
-
-
-
-
-
-
-                  break;
 
                 }
 
               }
-
             }
+
           }
 
 
@@ -16925,11 +16923,11 @@
 
 
               }
-            
+
           });
 
 
-          과일.forEach((item) => {
+          과일.forEach((item,i) => {
             if(item.userData.alive&&item.userData.id>0){
               if(item.userData.rank==1){
                 item.children[0].position.z=-0.5*(pshift[dur]-1);
@@ -16949,6 +16947,7 @@
                 }
               }else if(item.userData.rank==5||item.userData.rank==6){
                 item.children[1].position.z=1.3-0.8*(pshift[dur]-1);
+
                 item.children[2].position.z=1.3
                 item.children[3].position.z=1.4
                 item.children[4].position.z=1.3-0.3*(pshift[dur]-1);
@@ -16986,6 +16985,7 @@
                 item.children[0].position.z=-0.5*(pshift[dur]-1);
                 item.children[1].position.z=-0.5*(pshift[dur]-1);
                 item.children[2].position.z=0.3*(pshift[dur]-1);
+                item.children[1].material.visible=false;
                 if(item.userData.rank==8){
                   item.children[4].position.z=-0.2*(pshift[dur]-1);
                 }
@@ -16994,7 +16994,6 @@
                   item.children[0].position.z=1-0.4*(pshift[dur]-1);
                   item.children[1].position.z=1-0.2*(pshift[dur]-1);
                   item.children[2].position.z=1+0.4*(pshift[dur]-1);
-
                   item.children[3].position.z=1+0.3*(pshift[dur]-1);
                   item.children[3].position.x=-0.2+0.2*(pshift[dur]-1);
                   item.children[4].position.x=-0.2+0.2*(pshift[dur]-1);
@@ -17002,10 +17001,12 @@
               }
 
 
-
-              if(item.position.y>15*bh){
-                lapflag=true;
+              if(i!=과일.length-1){
+                if(item.position.y>16*bh){
+                  lapflag=true;
+                }
               }
+
 
 
 
@@ -17015,12 +17016,12 @@
           });
 
           if(lapflag&&과일.length>10){
-            axis[1].children[0].material.color = new THREE.Color(0xF81108);
+            // axis[1].children[0].material.color = new THREE.Color(0xF81108);
             laser[0].material.color = new THREE.Color(0xF81108);
             lasertime+=deltaTime
           }else{
             lasertime=0;
-            axis[1].children[0].material.color = new THREE.Color(0x000000);
+            // axis[1].children[0].material.color = new THREE.Color(0x000000);
             laser[0].material.color = new THREE.Color(0x000000);
           }
           if(lasertime>0){
@@ -18755,7 +18756,7 @@
 
                     var mesh=new THREE.Mesh(geometry1, material1);
 
-                    mesh.position.set(0,bh*(15.6),0)
+                    mesh.position.set(bh*0.3,bh*(15.6),0)
 
 
 
