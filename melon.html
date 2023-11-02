@@ -437,6 +437,18 @@
 
         }
 
+        #fps2{
+          right:90%;
+          font-family: 'GG';
+          color: white;
+          font-size: 2vh;
+          z-index: 4;
+          background-color: rgba(0,0,0,0);
+          position: absolute;
+          top:2%;
+
+        }
+
         #grid0{
           background-color: rgba(100, 195, 0, 0.7);
           transform: translate(3vmin, -18vmin);
@@ -3064,7 +3076,7 @@
 
     var 인트로=document.getElementById("intro")
 
-    var 예스노=document.getElementById("yesno")
+    var 예스노=
 
     window.옵션=옵션
     window.카테그=카테그
@@ -4910,7 +4922,7 @@
 
 
                 }else if(!스샷){
-                  document.getElementById("yesno").style.display="none"
+
 
 
 
@@ -4921,9 +4933,9 @@
                 if(!webflag){
                   if(ptime2==110){
 
-                    document.getElementById("yesno").classList.remove("hidden");
-                    document.getElementById("yesno").style.zIndex=3;
-                    document.getElementById("yesno").style.display=""
+
+
+
                     document.getElementById("optionlst").style.display="none"
                     document.getElementById("optionlst").classList.add("hidden");
                     document.getElementById("right").children[1].classList.add("hidden");
@@ -4934,14 +4946,14 @@
                   setdb([["data3", "8", String(ptime0+1)]]);
                 }else{
                   if(ptime2==110){
-                    document.getElementById("yesno").classList.remove("hidden");
-                    document.getElementById("yesno").style.zIndex=3;
+
+
                     document.getElementById("optionlst").style.display="none"
                     document.getElementById("optionlst").classList.add("hidden");
                     document.getElementById("right").children[1].classList.add("hidden");
                     document.getElementById("right").children[0].classList.remove("hidden");
                     document.getElementById("right").children[0].style.display = ""
-                    document.getElementById("yesno").style.display=""
+
                   }
                 }
 
@@ -5059,9 +5071,6 @@
             }
         }
 
-        if(document.getElementById("warpper").style.display!="none"){
-          return;
-        }
 
 
         var tempidx=99;
@@ -5387,7 +5396,7 @@
         if(true){
           if(shiftlock) return;
           if(!document.getElementById("credit-info").classList.contains("hidden")) return;
-          if(document.getElementById("yesno").style.display!="none") return;
+
 
 
           if (!startflag) {
@@ -6926,7 +6935,7 @@
 
 
               }else if(!스샷){
-                document.getElementById("yesno").style.display="none"
+
 
                 var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
 
@@ -6940,9 +6949,9 @@
               if(!webflag){
                 if(ptime2==110){
 
-                  document.getElementById("yesno").classList.remove("hidden");
-                  document.getElementById("yesno").style.zIndex=3;
-                  document.getElementById("yesno").style.display=""
+
+
+
                   document.getElementById("optionlst").style.display="none"
                   document.getElementById("optionlst").classList.add("hidden");
                   document.getElementById("right").children[1].classList.add("hidden");
@@ -6953,14 +6962,14 @@
                 setdb([["data3", "8", String(ptime0+1)]]);
               }else{
                 if(ptime2==110){
-                  document.getElementById("yesno").classList.remove("hidden");
-                  document.getElementById("yesno").style.zIndex=3;
+
+
                   document.getElementById("optionlst").style.display="none"
                   document.getElementById("optionlst").classList.add("hidden");
                   document.getElementById("right").children[1].classList.add("hidden");
                   document.getElementById("right").children[0].classList.remove("hidden");
                   document.getElementById("right").children[0].style.display = ""
-                  document.getElementById("yesno").style.display=""
+
                 }
               }
 
@@ -9294,9 +9303,9 @@
                     if(webflag){
                       // ptime2=1;
                       // setTimeout(function() {
-                      //   document.getElementById("yesno").classList.remove("hidden");
-                      //   document.getElementById("yesno").style.zIndex=3;
-                      //   document.getElementById("yesno").style.display=""
+                      //
+                      //
+                      //
                       // }, 1000);
 
                     }else{
@@ -9305,9 +9314,9 @@
 
 
                       // setTimeout(function() {
-                      //   document.getElementById("yesno").classList.remove("hidden");
-                      //   document.getElementById("yesno").style.zIndex=3;
-                      //   document.getElementById("yesno").style.display=""
+                      //
+                      //
+                      //
                       // }, 1000);
                     }
                   }
@@ -16645,13 +16654,13 @@
               document.getElementById("opt5").classList.remove("locked")
 
             }
-            document.getElementById("mod-overlay").classList.remove("show");
-            document.getElementById("mod-overlay").classList.add("fade");
+
+
 
             document.getElementById("credit-info").classList.remove("show");
             document.getElementById("credit-info").classList.add("fade");
             setTimeout(function() {
-                document.getElementById("mod-overlay").classList.add("hidden");
+
                 document.getElementById("credit-info").classList.add("hidden");
             }, 100);
 
@@ -16778,12 +16787,12 @@
                               if(!webflag){
                                 if(ptime0==0){
 
-                                  findlang();
+                                  // findlang();
                                 }
                                 setdb([["data3", "8", String(ptime0+1)]]);
                               }else{
 
-                                findlang();
+                                // findlang();
                                 if(스샷) document.getElementById("intro").children[2].style.display="none"
                               }
                               // console.log(txtlst);
@@ -19104,7 +19113,7 @@
 
                   console.log("콩")
                   document.getElementById("hammer").style.display="none"
-                  document.getElementById("warpper").style.display="none"
+
 
                   // document.getElementById("sub").style.display="none"
                   document.getElementById("song-info").style.display="none"
@@ -19727,6 +19736,11 @@
         }
 
         document.getElementById('fps').style.display=""
+
+
+        document.getElementById('fps2').innerText=String(과일.length);
+
+
 
         if(!스샷){
           if(fpslst.length>30) {
@@ -25391,9 +25405,9 @@
 
       });
 
-      document.getElementById("warpper").style.display="none"
 
-      document.getElementById("sub").style.display="none"
+
+
       if(ch!=""){
         목표층=parseInt(ch)*10+parseInt(st);
         챕터=parseInt(ch);
@@ -25721,8 +25735,8 @@
         document.getElementById("총획득").children[2].style.left="15%"
 
 
-        document.getElementById("yestxt").style.left="55%"
-        document.getElementById("notxt").style.left="15%"
+
+
 
         // document.querySelector(".gameinfo1").children[0].style.right="10%"
         document.querySelector(".gameinfo1").children[1].style.textAlign="right"
@@ -25773,8 +25787,8 @@
         document.getElementById("총획득").children[0].style.left=""
         document.getElementById("총획득").children[2].style.left="72%"
 
-        document.getElementById("yestxt").style.left=""
-        document.getElementById("notxt").style.left="55%"
+
+
 
         // document.querySelector(".gameinfo1").children[0].style.right="70%"
         // document.querySelector(".gameinfo1").children[1].style.right="20%"
@@ -25886,9 +25900,9 @@
       document.getElementById("grid1t").innerText=textdic[61][langset[n]]
       document.getElementById("pbt").children[1].innerText=textdic[63][langset[n]]
 
-      document.getElementById("yesno").children[0].innerText=textdic[121][langset[n]]
-      document.getElementById("yestxt").innerText=textdic[123][langset[n]]
-      document.getElementById("notxt").innerText=textdic[124][langset[n]]
+
+
+
 
       var modtxt=document.querySelector(".modinfo1");
       var modlst=document.querySelectorAll(".mod");
@@ -26073,9 +26087,7 @@
       tlist.push(retrytxt[1])
       // retrytxt[2].style.fontFamily="GG"
 
-      tlist.push(document.getElementById("yesno").children[0])
-      tlist.push(document.getElementById("yestxt"))
-      tlist.push(document.getElementById("notxt"))
+
       tlist.push(document.getElementById("playing"))
 
       tlist.push(document.getElementById("코인"))
@@ -26192,7 +26204,7 @@
           // langnum=4;
           // langnum=1;
 
-          setlang(langnum)
+          // setlang(langnum)
 
 
 
@@ -26240,7 +26252,7 @@
           }
 
 
-          setlang(langnum);
+          // setlang(langnum);
           templst0.forEach((item) => {
             if(tkey[item]== "1"){
               if(paidskin.indexOf(skey[item])==-1){
@@ -26343,7 +26355,7 @@
         resinit=0;
         window.resinit=resinit;
         resol(resinit);
-        setlang(langnum);
+        // setlang(langnum);
 
         if(parseInt(nslst["data"]["2"])=="1"){
             freead=true;
@@ -26645,222 +26657,9 @@
         var yesbtn=document.getElementById('yestxt');
         var nobtn=document.getElementById('notxt');
 
-        yesbtn.addEventListener('click', function() {
-
-          if(fullcam){
-            fullcam=false;
-            topcam=true;
-          }
-          if(gamemod==0){
-            if(!webflag) setdb([["data3", "8", String(ptime0+1)]]);
-          }else if(gamemod==1){
-            if(!webflag) setdb([["data3", "16", String(ptime1+1)]]);
-          }else if(gamemod==2){
-            if(!webflag) setdb([["data3", "32", String(ptime2+1)]]);
-
-          }
-          if(langnum==30){
-            tutsize1="3vmin"
-          }else{
-            tutsize1="4vmin"
-          }
-          if ((window.innerWidth / window.innerHeight) < 4 / 7) {
-            document.getElementById("td0").style.top="15%"
-            document.getElementById("td0").style.left="50vmin"
-            document.getElementById("td1").style.top="16%"
-            document.getElementById("td1").style.right="18%"
-            document.getElementById("td2").style.top="20%"
-            document.getElementById("td2").style.right="18%"
-            document.getElementById("td3").style.top="26%"
-            document.getElementById("td3").style.right="18%"
-            document.getElementById("td4").style.top="66%"
-            document.getElementById("td4").style.right="3%"
-            document.getElementById("td5").style.top="66%"
-            document.getElementById("td5").style.right="8%"
-            document.getElementById("td6").style.top="50%"
 
 
 
-            document.getElementById("td9").style.top="58%"
-            document.getElementById("td9").style.right="22vmin"
-          }else{
-
-            if(window.innerWidth > window.innerHeight){
-              document.getElementById("td0").style.left="50vmin"
-              document.getElementById("td0").style.top="2%"
-              document.getElementById("td1").style.top="2%"
-              document.getElementById("td1").style.right="-1%"
-
-              document.getElementById("td2").style.top="2%"
-              document.getElementById("td2").style.right="1%"
-
-              document.getElementById("td3").style.top="2%"
-              document.getElementById("td3").style.right="1%"
-
-              document.getElementById("td4").style.top="10%"
-              document.getElementById("td4").style.right="1%"
-              document.getElementById("td5").style.top="50%"
-              document.getElementById("td6").style.top="30%"
-
-
-
-              document.getElementById("td9").style.top="10%"
-              document.getElementById("td9").style.right="5vmin"
-            }else{
-              document.getElementById("td0").style.top="15%"
-              document.getElementById("td0").style.left="50vmin"
-              document.getElementById("td1").style.top="16%"
-              document.getElementById("td1").style.right="18%"
-              document.getElementById("td2").style.top="20%"
-              document.getElementById("td2").style.right="18%"
-              document.getElementById("td3").style.top="26%"
-              document.getElementById("td3").style.right="18%"
-              document.getElementById("td4").style.top="66%"
-              document.getElementById("td4").style.right="8%"
-              document.getElementById("td5").style.top="66%"
-              document.getElementById("td5").style.right="8%"
-              document.getElementById("td6").style.top="50%"
-
-
-
-              document.getElementById("td9").style.top="58%"
-              document.getElementById("td9").style.right="22vmin"
-
-            }
-
-
-          }
-
-          document.getElementById('yesno').style.display="none"
-          document.getElementById("tut-info").style.display="flex"
-          document.getElementById("t1").classList.add("hidden");
-          document.getElementById("t2").classList.add("hidden");
-          document.getElementById("t3").classList.add("hidden");
-          document.getElementById("t4").classList.add("hidden");
-          document.getElementById("t5").classList.add("hidden");
-          document.getElementById("t6").classList.add("hidden");
-
-          document.getElementById("t1").style.opacity=0;
-          document.getElementById("t2").style.opacity=0;
-          document.getElementById("t3").style.opacity=0;
-          document.getElementById("t4").style.opacity=0;
-          document.getElementById("t5").style.opacity=0;
-          document.getElementById("t6").style.opacity=0;
-
-
-          document.getElementById("td0").classList.add("hidden");
-          document.getElementById("td1").classList.add("hidden");
-          document.getElementById("td2").classList.add("hidden");
-          document.getElementById("td3").classList.add("hidden");
-          document.getElementById("td4").classList.add("hidden");
-          document.getElementById("td5").classList.add("hidden");
-          document.getElementById("td6").classList.add("hidden");
-          document.getElementById("td9").classList.add("hidden");
-          document.getElementById("td10").classList.add("hidden");
-
-          document.getElementById("td0").style.opacity=0;
-          document.getElementById("td1").style.opacity=0;
-          document.getElementById("td2").style.opacity=0;
-          document.getElementById("td3").style.opacity=0;
-          document.getElementById("td4").style.opacity=0;
-          document.getElementById("td5").style.opacity=0;
-          document.getElementById("td6").style.opacity=0;
-          document.getElementById("td9").style.opacity=0;
-          document.getElementById("td10").style.opacity=0;
-
-
-
-
-
-
-
-
-
-
-
-          elapsedTime=0;
-          if(gamemod==2){
-            tutstep=20;
-          }else if(gamemod==3){
-            tutstep=30;
-          }else if(gamemod==4){
-            tutstep=40;
-          }else{
-            tutstep=99;
-          }
-
-          tutorialflag=true;
-          retry()
-
-        })
-
-        nobtn.addEventListener('click', function() {
-          if(gamemod==0){
-            if(!webflag) setdb([["data3", "8", String(ptime0+1)]]);
-          }else if(gamemod==1){
-            if(!webflag) setdb([["data3", "16", String(ptime1+1)]]);
-          }else if(gamemod==2){
-            if(!webflag) setdb([["data3", "32", String(ptime2+1)]]);
-
-          }
-            document.getElementById('yesno').style.display="none"
-            // document.getElementById("yesno").style.zIndex=3;
-
-        })
-
-
-
-        pbtn2.addEventListener('click', function() {
-          var ptxt = pbtn2.children[2].innerText;
-          if (ptxt[0] == "0") {
-            return;
-          }else if(Number.isInteger(parseInt(ptxt[0]))){
-            var skincode=ptxt.split(" ");
-            var skinn=parseInt(skincode[0])
-            var skincost=parseInt(skincode[1])
-
-            if(coin>=skincost){
-              contract(skincost, [["data1", templst0[skinn], "1"]],function() {
-
-                var gridlst = document.querySelectorAll("#shop >.grid >div");
-                gridlst[skinn].children[1].classList.add("hidden");
-                gridlst[skinn].classList.remove("hidden");
-                gridlst[skinn].classList.remove("lock");
-                gridlst[skinn].children[2].innerText = skinlang2[skinn];
-                gridlst[skinn].children[4].innerText = ""
-                var ptxt = document.querySelectorAll("#lowerbtn2>.pbutton2>label");
-                var pcode = document.querySelectorAll("#lowerbtn2>.pbutton2>h1");
-                ptxt[0].innerText = gridlst[skinn].children[2].innerText + "\n "+textdic[88][langset[langnum]]
-                document.getElementById('gbt1').style.backgroundColor="rgba(0, 195, 0, 0.7)"
-                pcode[0].innerText = "0"
-                var ulcount = 0;
-                var acount=0;
-                var tlst=[];
-                var tkey = nslst["data1"]
-                var skey = nslst["skin"]
-                templst0.forEach((item) => {
-                    tlst.push(tkey[item])
-                    if (tkey[item] == "1") {
-                        ulcount++
-                    }
-                    if(tkey[item] != "0") acount++
-
-                })
-                document.getElementById('sbar1').style.width=String(parseInt(100*(ulcount/acount)))+"%";
-                document.getElementById('sbar2').innerText=String(ulcount)+"/"+String(acount)
-
-              })
-
-                showpop("",String(skincost)+" ★",textdic[88][langset[langnum]])
-
-
-            }else{
-              showpop("","★",textdic[89][langset[langnum]],15)
-              console.log("돈이 업서ㅜ")
-            }
-
-          }
-        })
 
         sidebtn.addEventListener('click', function() {
             if(sidecam){
@@ -26870,164 +26669,7 @@
             }
         })
 
-        backbtn.addEventListener('click', function() {
-          var sdickeys = Object.keys(soundic);
 
-          sdickeys.forEach((item) => {
-            soundic[item]?.stop();
-          });
-        })
-
-        mod0.addEventListener('click', function() {
-          if(restartflag) return;
-            close(세팅)
-            close(게임오버)
-            close(튜토리얼)
-            close(라이트)
-            close(예스노)
-            close(모드)
-
-            if(parseInt(Math.random()*5)>=3){
-                if(freead){
-                    elapsedTime=0;
-                    if(gamemod>=2){
-                      gamemod=0;
-                      retry(1)
-                    }else{
-                      gamemod=0;
-                      retry()
-                    }
-
-                }else{
-                    var sdickeys = Object.keys(soundic);
-                    sdickeys.forEach((item) => {
-                      soundic[item]?.stop();
-                    });
-                    if(webflag){
-                      if(gamemod>=2){
-                        gamemod=0;
-                        retry(1)
-                      }else{
-                        gamemod=0;
-                        retry()
-                      }
-                    }else{
-                      if(gamemod==2) skinnum=0
-                      gamemod=0;
-                      Android.showAd();
-                    }
-
-                }
-            }else{
-              if(gamemod>=2){
-                gamemod=0;
-                retry(1)
-              }else{
-                gamemod=0;
-                retry()
-              }
-            }
-        })
-
-        mod1.addEventListener('click', function() {
-          if(restartflag) return;
-
-          close(세팅)
-          close(게임오버)
-          close(튜토리얼)
-          close(라이트)
-          close(예스노)
-          close(모드)
-
-
-          if(parseInt(Math.random()*5)>=3){
-              if(freead){
-                  elapsedTime=0;
-                  if(gamemod>=2){
-                    gamemod=1;
-                    retry(1)
-                  }else{
-                    gamemod=1;
-                    retry()
-                  }
-              }else{
-                  var sdickeys = Object.keys(soundic);
-                  sdickeys.forEach((item) => {
-                    soundic[item]?.stop();
-                  });
-                  if(webflag){
-                    if(gamemod>=2){
-                      gamemod=1;
-                      retry(1)
-                    }else{
-                      gamemod=1;
-                      retry()
-                    }
-                  }else{
-                    if(gamemod==2) skinnum=0
-                    gamemod=1;
-                    Android.showAd();
-                  }
-
-              }
-          }else{
-            if(gamemod>=2){
-              gamemod=1;
-              retry(1)
-            }else{
-              gamemod=1;
-              retry()
-            }
-          }
-        })
-
-        mod2.addEventListener('click', function() {
-          if(restartflag) return;
-
-
-          if(coin>=mod2비용){
-            contract(mod2비용,[], function(){
-              showpop("",String(mod2비용)+" ★",textdic[88][langset[langnum]],0)
-            })
-
-
-          }else{
-
-              showpop("","★",textdic[89][langset[langnum]],15)
-
-
-            // Android.showToast("★가 부족합니다");
-            return;
-          }
-          gamemod=2;
-          close(세팅)
-          close(게임오버)
-          close(튜토리얼)
-          close(라이트)
-          close(예스노)
-          close(모드)
-
-          if(parseInt(Math.random()*5)>=3){
-              if(freead){
-                  elapsedTime=0;
-                  retry()
-              }else{
-                  var sdickeys = Object.keys(soundic);
-                  sdickeys.forEach((item) => {
-                    soundic[item]?.stop();
-                  });
-                  if(webflag){
-                    retry()
-                  }else{
-                    Android.showAd();
-                  }
-
-              }
-          }else{
-              retry()
-          }
-
-        })
 
 
 
@@ -27230,300 +26872,7 @@
           }
         })
 
-        songbtn.addEventListener('click', function() {
-          var sdickeys = Object.keys(soundic);
-          var ptxt = songbtn.children[2].innerText;
-          sdickeys.forEach((item) => {
-            soundic[item]?.stop();
-          });
-          // console.log(ptxt);
-          if(sdickeys.indexOf(ptxt)==-1){
-            audioLoader.load(ur1+ ptxt, function(buffer) {
-                var sound = new THREE.Audio(listener);
-                sound.setBuffer(buffer);
-                sound.setVolume(0.3);
-                soundic[ptxt] = sound;
-                soundic[ptxt]?.play();
-            });
-          }else{
-              soundic[ptxt]?.play();
-          }
 
-        });
-        playbtn.addEventListener('click', function() {
-          var ptxt = playbtn.children[2].innerText;
-          if (ptxt[0] == "9"){ //플레이
-            var newcode=ptxt.split("#")[1];
-            console.log(newcode)
-            playcode=newcode;
-            // if(!webflag) setdb("data3", "0", String(playcode));
-            if(parseInt(newcode[0])==1){
-              skinnum=skinset.indexOf("base")
-            }else if(parseInt(newcode[0])==2){
-              skinnum=skinset.indexOf("lofi")
-            }else if(parseInt(newcode[0])==3){
-              skinnum=skinset.indexOf("gb")
-            }else if(parseInt(newcode[0])==4){
-              skinnum=skinset.indexOf("r808")
-            }else if(parseInt(newcode[0])==5){
-              skinnum=skinset.indexOf("hiphop")
-            }else{
-              skinnum=skinset.indexOf(themelst[parseInt(newcode[0])])
-            }
-
-            playbtn.classList.remove("show");
-            playbtn.classList.add("fade");
-            document.getElementById("categ1").classList.remove("show");
-            document.getElementById("categ1").classList.add("fade");
-            document.getElementById("step1").classList.remove("show");
-            document.getElementById("step1").classList.add("fade");
-            document.getElementById("step3").classList.remove("show");
-            document.getElementById("step3").classList.add("fade");
-            document.getElementById("options-overlay").classList.remove("show");
-            document.getElementById("options-overlay").classList.add("fade");
-            document.getElementById("left").classList.remove("fade");
-            document.getElementById("right").classList.remove("fade");
-            setTimeout(function() {
-                playbtn.classList.add("hidden");
-                document.getElementById("categ1").classList.add("hidden");
-                document.getElementById("step3").classList.add("hidden");
-                document.getElementById("step1").classList.add("hidden");
-                document.getElementById("options-overlay").classList.add("hidden");
-                document.getElementById("left").classList.remove("hidden");
-                document.getElementById("right").classList.remove("hidden");
-                document.getElementById("left").classList.add("show");
-                document.getElementById("right").classList.add("show");
-            }, 100);
-            if(!playbtn.classList.contains("hidden")) playbtn.classList.add("hidden")
-
-            var ptitle = ptxt.substring(2, ptxt.length)
-            for (let i = 0; i < 6; i++) {
-                if (soundic[sdic[i][0]]?.isPlaying) {
-                    soundic[sdic[i][0]].stop();
-                }
-            }
-            if(parseInt(Math.random()*5)>=3){
-                if(freead){
-                    elapsedTime=0;
-                    if(gamemod>=2){
-                      gamemod=0;
-                      retry()
-                    }else{
-                      gamemod=0;
-                      retry()
-                    }
-                }else{
-                    var sdickeys = Object.keys(soundic);
-                    sdickeys.forEach((item) => {
-                      soundic[item]?.stop();
-                    });
-                    if(webflag){
-                      if(gamemod>=2){
-                        gamemod=0;
-                        retry()
-                      }else{
-                        gamemod=0;
-                        retry()
-                      }
-                    }else{
-                      if(gamemod>=2) gamemod=0;
-
-                      Android.showAd();
-                    }
-
-                }
-            }else{
-              if(gamemod>=2){
-                gamemod=0;
-                retry()
-              }else{
-
-                retry()
-              }
-            }
-
-
-          }else if (ptxt[0] == "3") { //음악구매
-
-            var gridlst = document.querySelectorAll("#categ1>.grid >div");
-            var tname=ptxt.substring(2, ptxt.length)
-
-            var item=nslst[tname];
-            if(parseInt(item.price)<=coin){
-              contract(parseInt(item.price), [[tname, "unlock", "0"]], function(){
-                // var pcode = document.querySelectorAll("#lowerbtn2>.pbutton2>h1");
-                var vtnum=themelst.indexOf(document.getElementById("categ1").children[1].innerText);
-                var pbtn = document.querySelectorAll(".pbutton")
-                // document.getElementById("pbt").style.backgroundImage = 'url("https://raw.githubusercontent.com/Radetzki87/web1/master/png/blue_button00.png")'
-                document.getElementById("pbt").children[1].innerText = gridlst[0].children[3].innerText +" - ("+gridlst[1].children[3].innerText + ")\n "+textdic[63][langset[langnum]] +" ▶"
-                pbtn[0].style.backgroundColor="rgba(100, 195, 0, 0.7)";
-                document.getElementById("pbt").children[2].innerText="9#"+String(vtnum+1)+"1";
-                var ulcount = 0;
-                var acount=0;
-                console.log("pp")
-                console.log(tname)
-                gridlst.forEach((div, idx) => {
-                  if(idx==0||idx==1) return;
-                  if(!div.classList.contains("hidden")){
-                    if(div.classList.contains("locked")){
-                      acount++
-                    }else{
-                      acount++
-                      ulcount++
-                    }
-                  }
-                  if(div.children[2].innerText==item.title){
-
-                    div.classList.remove("locked");
-                    div.children[2].style.color="white"
-                    div.children[1].style.display="none"
-                    div.children[4].style.display="none"
-                    ulcount++
-                  }
-                });
-
-                document.getElementById('tbar1').style.width=String(parseInt(100*((ulcount)/(acount))))+"%";
-                document.getElementById('tbar2').innerText=String(ulcount)+"/"+String(acount)
-              })
-                showpop("",item.price+" ★",textdic[88][langset[langnum]])
-
-
-            }else{
-                showpop("★",textdic[89][langset[langnum]],"",15)
-
-            }
-            return;
-          }else if(ptxt[0] == "2"){
-            playbtn.classList.remove("show");
-            playbtn.classList.add("fade");
-            document.getElementById("categ1").classList.remove("show");
-            document.getElementById("categ1").classList.add("fade");
-            document.getElementById("step1").classList.remove("show");
-            document.getElementById("step1").classList.add("fade");
-            document.getElementById("step3").classList.remove("show");
-            document.getElementById("step3").classList.add("fade");
-            document.getElementById("options-overlay").classList.remove("show");
-            document.getElementById("options-overlay").classList.add("fade");
-            document.getElementById("left").classList.remove("fade");
-            document.getElementById("right").classList.remove("fade");
-            setTimeout(function() {
-                playbtn.classList.add("hidden");
-                document.getElementById("categ1").classList.add("hidden");
-                document.getElementById("step3").classList.add("hidden");
-                document.getElementById("step1").classList.add("hidden");
-                document.getElementById("options-overlay").classList.add("hidden");
-                document.getElementById("left").classList.remove("hidden");
-                document.getElementById("right").classList.remove("hidden");
-                document.getElementById("left").classList.add("show");
-                document.getElementById("right").classList.add("show");
-            }, 100);
-            if(!playbtn.classList.contains("hidden")) playbtn.classList.add("hidden")
-            var ptitle = ptxt.substring(2, ptxt.length)
-            for (let i = 0; i < 6; i++) {
-                if (soundic[sdic[i][0]]?.isPlaying) {
-                    soundic[sdic[i][0]].stop();
-                }
-            }
-            if(gamemod>=2) gamemod=0;
-            if (nslst[ptitle].type == "wooden") {
-                skinnum = skinset.indexOf("base")
-            } else if (nslst[ptitle].type == "lofi") {
-                skinnum = skinset.indexOf("lofi")
-            } else if (nslst[ptitle].type == "retro") {
-                skinnum = skinset.indexOf("gb")
-            } else if (nslst[ptitle].type == "r808") {
-                skinnum = skinset.indexOf("r808")
-            } else if (nslst[ptitle].type == "hiphop") {
-                skinnum = skinset.indexOf("hiphop")
-            }
-            sdic = [];
-            // console.log(ptitle)
-            sdic.push(nslst[ptitle])
-            sdic.push(nslst[ptitle])
-            sdic.push(nslst[ptitle])
-            sdic.push(nslst[ptitle])
-            sdic.push(nslst[ptitle])
-            sdic.push(nslst[ptitle])
-            if (!rotationflag) {
-                rotationflag = true
-                restartflag = true
-                pluscoin = parseInt(점수 / 10)
-                // coin += pluscoin;
-                restartloc=[];
-                restartrot=[];
-                for (var i = 0; i < cubes.length; i++) {
-                    restartloc.push(cubes[i].mesh.position);
-                    restartrot.push(cubes[i].mesh.rotation);
-                }
-                do{
-                  ncolornum = parseInt(Math.random() * colorlst.length);
-                }while(색보정.indexOf(ncolornum)!=-1)
-
-                do{
-                  ncolornum0 = parseInt(Math.random() * colorlst0.length);
-                }while(색보정0.indexOf(ncolornum0)!=-1)
-                rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-                renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
-                rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
-                renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
-                rehsl3 = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
-                renhsl3 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][2]))
-                rehsl4 = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
-                renhsl4 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][3]))
-                bhsl0 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][0]))
-                nbhsl0 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][0]))
-                bhsl1 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][1]))
-                nbhsl1 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][1]))
-                bhsl2 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][2]))
-                nbhsl2 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][2]))
-                bhsl3 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][3]))
-                nbhsl3 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][3]))
-                bhsl4 = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
-                nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
-                rotationend = Math.PI / 4
-            }
-            return;
-          }else if(ptxt[0] == "4"){ //테마구매
-            var gridlst = document.querySelectorAll("#categ1>.grid >div");
-            var tprice=parseInt(ptxt.substring(3, ptxt.length));
-
-
-            var tnum=parseInt(ptxt[1]);
-            var item=nslst[tname];
-            if(tprice<=coin){
-              contract(tprice, [["data", templst0[tnum+2], "1"]], function(){
-              showGrid(tnum)
-
-              // if(tnum==2){
-              //   if(paidskin.indexOf("gb")==-1){
-              //     paidskin.push("gb")
-              //   }
-              // }else if(tnum==3){
-              //   if(paidskin.indexOf("r808")==-1){
-              //     paidskin.push("r808")
-              //   }
-              // }else{
-              //   if(paidskin.indexOf("themelst[tnum]")==-1){
-              //     paidskin.push(themelst[tnum])
-              //   }
-              // }
-
-
-              })
-                showpop("",String(tprice)+" ★",textdic[88][langset[langnum]])
-
-
-            }else{
-                showpop("","★",textdic[89][langset[langnum]],15)
-
-
-              // Android.showToast("★가 부족합니다");
-            }
-            return;
-          }
-
-        })
-        // Loop through each radio button and add an event listener
     });
 
     function adon(){
@@ -27927,9 +27276,6 @@
         // document.getElementById("m1best").innerText="BEST : "+String(bestscore1)
         // document.getElementById("m2best").innerText="BEST : "+String(bestscore2)
 
-        if(!document.getElementById("mod-overlay").classList.contains("hidden")){
-          return goBack(8);
-        }
 
         if(!document.getElementById("tutorial").classList.contains("hidden")){
           document.getElementById("tutorial").classList.remove("show");
@@ -27947,8 +27293,8 @@
         // document.getElementById("center").classList.remove("show");
         document.getElementById("optionlst").classList.add("fade");
         document.getElementById("optionlst").classList.remove("show");
-        document.getElementById("mod-overlay").classList.remove("hidden");
-        document.getElementById("mod-overlay").classList.add("show");
+
+
         setTimeout(function() {
             document.getElementById("left").classList.add("hidden");
 
@@ -28463,7 +27809,7 @@
     function langclick(n){
       document.getElementById("lang-back").classList.remove("show");
       document.getElementById("lang-back").classList.add("fade");
-      setlang(n-1);
+      // setlang(n-1);
 
       setTimeout(function() {
           document.getElementById("lang-back").classList.add("hidden");
@@ -28555,8 +27901,8 @@
         }
 
         if(n==5){
-          document.getElementById("mod-overlay").classList.remove("show");
-          document.getElementById("mod-overlay").classList.add("fade");
+
+
           document.getElementById("setting-overlay").classList.remove("show");
           document.getElementById("setting-overlay").classList.add("fade");
 
@@ -28575,7 +27921,7 @@
 
 
           setTimeout(function() {
-              document.getElementById("mod-overlay").classList.add("hidden");
+
               document.getElementById("credit-info").classList.add("hidden");
               document.getElementById("setting-overlay").classList.add("hidden");
 
@@ -28589,8 +27935,8 @@
         }
 
         if(n==8){
-          document.getElementById("mod-overlay").classList.remove("show");
-          document.getElementById("mod-overlay").classList.add("fade");
+
+
           document.getElementById("setting-overlay").classList.remove("show");
           document.getElementById("setting-overlay").classList.add("fade");
 
@@ -28611,7 +27957,7 @@
 
 
           setTimeout(function() {
-              document.getElementById("mod-overlay").classList.add("hidden");
+
               document.getElementById("credit-info").classList.add("hidden");
               document.getElementById("setting-overlay").classList.add("hidden");
               if(document.getElementById("center").classList.contains("hidden")){
@@ -28773,14 +28119,14 @@
 
     function showtut(n){
 
-      document.getElementById("yesno").classList.remove("hidden");
-      document.getElementById("yesno").style.zIndex=3;
+
+
       document.getElementById("optionlst").style.display="none"
       document.getElementById("optionlst").classList.add("hidden");
       document.getElementById("right").children[1].classList.add("hidden");
       document.getElementById("right").children[0].classList.remove("hidden");
       document.getElementById("right").children[0].style.display = ""
-      document.getElementById("yesno").style.display=""
+
 
 
       if(gamemod==2){
@@ -29201,6 +28547,7 @@
 </script>
 
 <div id="fps">123</div>
+<div id="fps2">123</div>
 <div id="tutorial" class="hidden">
 
     <img class="tut1" src="">
@@ -29396,171 +28743,7 @@
         <label id="mailinfo">📬:brix2048@raekgames.com</label>
     </div>
 
-    <div id="lang-back" class="hidden">
-        <div class="lang-grid">
-            <button class="lsetting" onclick="langclick(1)">
-                <img src="png/font1.png" >
-            </button>
 
-            <button class="lsetting" onclick="langclick(2)">
-                <img src="png/font2.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(3)">
-                <img src="png/font3.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(4)">
-                <img src="png/font4.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(5)">
-                <img src="png/font5.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(6)">
-                <img src="png/font6.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(7)">
-                <img src="png/font7.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(8)">
-                <img src="png/font8.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(9)">
-                <img src="png/font9.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(10)">
-                <img src="png/font10.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(11)">
-                <img src="png/font11.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(12)">
-                <img src="png/font12.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(13)">
-                <img src="png/font13.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(14)">
-                <img src="png/font14.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(15)">
-                <img src="png/font15.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(16)">
-                <img src="png/font16.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(17)">
-                <img src="png/font17.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(18)">
-                <img src="png/font18.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(19)">
-                <img src="png/font19.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(20)">
-                <img src="png/font20.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(21)">
-                <img src="png/font21.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(22)">
-                <img src="png/font22.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(23)">
-                <img src="png/font23.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(24)">
-                <img src="png/font24.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(25)">
-                <img src="png/font25.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(26)">
-                <img src="png/font26.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(27)">
-                <img src="png/font27.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(28)">
-                <img src="png/font28.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(29)">
-                <img src="png/font29.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(30)">
-                <img src="png/font30.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(31)">
-                <img src="png/font31.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(32)">
-                <img src="png/font32.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(33)">
-                <img src="png/font33.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(34)">
-                <img src="png/font34.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(35)">
-                <img src="png/font35.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(36)">
-                <img src="png/font36.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(37)">
-                <img src="png/font37.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(38)">
-                <img src="png/font38.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(39)">
-                <img src="png/font39.png" >
-            </button>
-
-            <button class="lsetting" onclick="langclick(40)">
-                <img src="png/font40.png" >
-            </button>
-
-
-        </div>
-    </div>
 
 
 </div>
@@ -29701,742 +28884,6 @@
             </div>
         </div>
 
-
-
-        <div id="categ1" class="hidden">
-            <button class="backbutton" onclick="goBack(9)" id="backbtn">
-                <img class="" src="png/left.png">
-            </button>
-            <h1 class="title">Category</h1>
-
-            <img src="png/0.png" alt="Mute" id="img2">
-
-            <div class="progress-container">
-                <div class="progress">
-                    <div class="progress-bar" style="width: 30%" id="tbar1"></div>
-                </div>
-                <span class="unlocked-count" id="tbar2">3/10</span>
-            </div>
-
-            <div class="grid">
-                <div class="character locked" onclick="showPopup(0)" id="grid0">
-                    <img src=""  class="charimg">
-                    <img  src="" class="">
-                    <img  src="" class="">
-                    <span id="grid0t">mix</span>
-
-                </div>
-                <div class="character locked" onclick="showPopup(1)" id="grid1">
-                    <img src=""  class="charimg">
-                    <img  src="" class="">
-                    <img  src="" class="">
-                    <span id="grid1t">random</span>
-
-                </div>
-                <div class="character locked" onclick="showPopup(2)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 3</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(3)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(4)">
-                    <img src="" alt="Character 1" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 1</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(5)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 2</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(6)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 3</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(7)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(8)">
-                    <img src="" alt="Character 1" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 1</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(9)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 2</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(10)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 3</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(11)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(12)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(13)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(14)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(15)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(16)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(17)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character locked" onclick="showPopup(18)">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <!-- Add more characters -->
-            </div>
-            <span id="lowerbtn">
-              <button class="pbutton hidden" onclick="pbton()" id="pbt">
-                  <img src="" alt="Character 2">
-                  <label>Play</label>
-                  <h1>a</h1>
-              </button>
-              <button class="sbutton hidden" onclick="" id="pbt2">
-                  <img src="png/musicOn.png" alt="">
-                  <label></label>
-                  <h1></h1>
-              </button>
-            </span>
-        </div>
-
-        <div id="step3" class="hidden">
-            <button class="backbutton" onclick="goBack()">
-                <img class="" src="png/left.png">
-            </button>
-            <h1 class="title">Character 1</h1>
-            <div class="character-details">
-                <img src="" alt="Character 1" style="width: 200px; height: 200px;">
-                <p>Description of Character 1</p>
-                <button class="button arrow-left" onclick="alert('Switch to previous character')">&lt;</button>
-                <button class="button arrow-right" onclick="alert('Switch to next character')">&gt;</button>
-            </div>
-        </div>
-
-        <div id="shop" class="hidden">
-            <button class="backbutton" onclick="goBack(11)">
-                <img class="" src="png/left.png">
-            </button>
-            <h1 class="title">SKIN SHOP</h1>
-
-            <img src="png/0.png">
-
-            <div class="progress-container">
-                <div class="progress">
-                    <div class="progress-bar" style="width: 30%" id="sbar1"></div>
-                </div>
-                <span class="unlocked-count" id="sbar2">3/10</span>
-            </div>
-            <div class="grid" id="skinshop">
-                <div class="character lock" onclick="showPopup2(0)" id="g1">
-                    <img src="png/base.png" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 3</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock" onclick="showPopup2(1)" id="g2">
-                    <img src="png/adam.png" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 3</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock" onclick="showPopup2(2)" id="g3">
-                    <img src="png/donut.png" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 3</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock" onclick="showPopup2(3)" id="g4">
-                    <img src="png/tower.png" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock" onclick="showPopup2(4)" id="g5">
-                    <img src="png/building.png" alt="Character 1" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 1</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock" onclick="showPopup2(5)" id="g6">
-                    <img src="png/archer.png" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 2</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock hidden" onclick="showPopup2(6)" id="g7">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 3</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock hidden" onclick="showPopup2(7)" id="g8">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock hidden" onclick="showPopup2(8)" id="g9">
-                    <img src="" alt="Character 1" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 1</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock hidden" onclick="showPopup2(9)" id="g10">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 2</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock hidden" onclick="showPopup2(10)" id="g11">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 3</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock hidden" onclick="showPopup2(11)" id="g12">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock hidden" onclick="showPopup2(12)" id="g13">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock hidden" onclick="showPopup2(12)" id="g14">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock hidden" onclick="showPopup2(12)" id="g15">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock hidden" onclick="showPopup2(12)" id="g16">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-                <div class="character lock hidden" onclick="showPopup2(12)" id="g17">
-                    <img src="" alt="Character 2" class="charimg">
-                    <img src="png/locked.png" alt="locked" class="lockimg">
-                    <span>Character 4</span>
-                    <span>artist</span>
-                    <span>price</span>
-                </div>
-            </div>
-            <span id="lowerbtn2">
-              <button class="pbutton2 hidden" onclick="pbton()" id="gbt1">
-                  <img src="" alt="Character 2">
-                  <label>Play</label>
-                  <h1>a</h1>
-              </button>
-              <button class="sbutton hidden" onclick="" id="gbt2">
-                  <img src="png/musicOn.png" alt="">
-                  <label></label>
-                  <h1></h1>
-              </button>
-            </span>
-        </div>
-
-    </div>
-</div>
-<div id="yesno" class="hidden">
-    <b>튜토리얼을 시작할까요?</b>
-    <div class="yesno-container">
-        <button id="yestxt">
-            YES
-        </button>
-        <button id="notxt">
-            NO
-        </button>
-    </div>
-</div>
-
-<div id="mod-overlay" class="mod-overlay hidden">
-    <button class="backbutton" onclick="goBack(8)">
-        <img class="" src="png/left.png">
-    </button>
-    <div class="modinfo1">
-        <label class="a">GAME MOD</label>
-        <label class="b"></label>
-    </div>
-    <div class="mod-container">
-        <div class="mod">
-            <button id="mod0" class="modbt">
-                <img src="png/normal.png" >
-            </button>
-            <b class="mlabel">NORMAL</b>
-            <label>기본</label>
-            <label>기본</label>
-
-        </div>
-
-        <div class="mod">
-            <button id="mod1" class="modbt" onclick="">
-                <img src="png/hard.png" >
-            </button>
-            <b class="mlabel">HARD</b>
-            <label>어려움</label>
-            <label>기본</label>
-        </div>
-
-        <div class="mod">
-            <button id="mod2" class="modbt">
-                <img src="png/stack.png" >
-            </button>
-            <b class="mlabel">STACK</b>
-            <label>스택</label>
-            <label>기본</label>
-        </div>
-    </div>
-
-</div>
-
-
-
-<div class="warpper" id="warpper">
-  <input class="radio" id="one" name="group" type="radio" checked>
-  <input class="radio" id="two" name="group" type="radio">
-  <input class="radio" id="three" name="group" type="radio">
-  <input class="radio" id="four" name="group" type="radio">
-  <input class="radio" id="five" name="group" type="radio">
-
-  <div class="tabs">
-    <label class="tab" id="one-tab" for="one">
-      <div>CHAPTER 1</div>
-      <img src="png/hammer.png">
-    </label>
-
-    <label class="tab" id="two-tab" for="two">
-      <div>CHAPTER 2</div>
-      <img src="png/pung.png">
-    </label>
-
-    <label class="tab" id="three-tab" for="three">
-      <div>CHAPTER 3</div>
-      <img src="png/freeze.png">
-    </label>
-
-    <label class="tab" id="four-tab" for="four">
-      <div>CHAPTER 4</div>
-      <img src="png/pin.png">
-    </label>
-
-    <label class="tab" id="five-tab" for="five">
-      <div>CHAPTER 5</div>
-      <img src="png/staple.png">
-    </label>
-  </div>
-
-  <div class="panels">
-    <div class="panel" id="one-panel">
-      <button class="panel-title" onclick="stageclick('11')" id="p11">
-        <div>stage1</div>
-        <img src="png/hammer.png">
-        <div>❤️🤍🤍</div>
-        <div>desc2</div>
-      </button>
-      <button class="panel-title" onclick="stageclick('12')" id="p12">
-        <div>stage2</div>
-        <img src="png/hammer.png">
-        <div>🤍🤍🤍</div>
-        <div>desc2</div>
-      </button>
-      <button class="panel-title" onclick="stageclick('13')" id="p13">
-        <div>stage3</div>
-        <img src="png/hammer.png">
-        <div>🤍🤍🤍</div>
-        <div>desc2</div>
-      </button>
-      <button class="panel-title" onclick="stageclick('14')" id="p14">
-        <div>stage4</div>
-        <img src="png/hammer.png">
-        <div>🤍🤍🤍</div>
-        <div>desc2</div>
-      </button>
-      <button class="panel-title" onclick="stageclick('15')" id="p15">
-        <div>stage5</div>
-        <img src="png/hammer.png">
-        <div>🤍🤍🤍</div>
-        <div>desc2</div>
-      </button>
-      <button class="panel-title" onclick="stageclick('16')" id="p16">
-        <div>stage6</div>
-        <img src="png/hammer.png">
-        <div>🤍🤍🤍</div>
-        <div>desc2</div>
-      </button>
-      <button class="panel-title" onclick="stageclick('17')" id="p17">
-        <div>stage7</div>
-        <img src="png/hammer.png">
-        <div>🤍🤍🤍</div>
-        <div>desc2</div>
-      </button>
-      <button class="panel-title" onclick="stageclick('18')" id="p18">
-        <div>stage8</div>
-        <img src="png/hammer.png">
-        <div>🤍🤍🤍</div>
-        <div>desc2</div>
-      </button>
-      <button class="panel-title" onclick="stageclick('19')" id="p19">
-        <div>stage9</div>
-        <img src="png/hammer.png">
-        <div>🤍🤍🤍</div>
-        <div>desc2</div>
-      </button>
-      <button class="panel-title" onclick="stageclick('110')" id="p110">
-        <div>stage10</div>
-        <img src="png/hammer.png">
-        <div>🤍🤍🤍</div>
-        <div>desc2</div>
-      </button>
-    </div>
-
-    <div class="panel" id="two-panel">
-        <button class="panel-title" onclick="stageclick('21')" id="p21">
-          <div>stage1</div>
-          <img src="png/pung.png">
-          <div>❤️🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('22')" id="p22">
-          <div>stage2</div>
-          <img src="png/pung.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('23')" id="p23">
-          <div>stage3</div>
-          <img src="png/pung.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('24')" id="p24">
-          <div>stage4</div>
-          <img src="png/pung.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('25')" id="p25">
-          <div>stage5</div>
-          <img src="png/pung.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('26')" id="p26">
-          <div>stage6</div>
-          <img src="png/pung.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('27')" id="p27">
-          <div>stage7</div>
-          <img src="png/pung.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('28')" id="p28">
-          <div>stage8</div>
-          <img src="png/pung.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('29')" id="p29">
-          <div>stage9</div>
-          <img src="png/pung.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('210')" id="p210">
-          <div>stage10</div>
-          <img src="png/pung.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-    </div>
-
-    <div class="panel" id="three-panel">
-        <button class="panel-title" onclick="stageclick('31')" id="p31">
-          <div>stage1</div>
-          <img src="png/freeze.png">
-          <div>❤️🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('32')" id="p32">
-          <div>stage2</div>
-          <img src="png/freeze.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('33')" id="p33">
-          <div>stage3</div>
-          <img src="png/freeze.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('34')" id="p34">
-          <div>stage4</div>
-          <img src="png/freeze.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('35')" id="p35">
-          <div>stage5</div>
-          <img src="png/freeze.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('36')" id="p36">
-          <div>stage6</div>
-          <img src="png/freeze.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('37')" id="p37">
-          <div>stage7</div>
-          <img src="png/freeze.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('38')" id="p38">
-          <div>stage8</div>
-          <img src="png/freeze.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('39')" id="p39">
-          <div>stage9</div>
-          <img src="png/freeze.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('310')" id="p310">
-          <div>stage10</div>
-          <img src="png/freeze.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-    </div>
-
-    <div class="panel" id="four-panel">
-        <button class="panel-title" onclick="stageclick('41')" id="p41">
-          <div>stage1</div>
-          <img src="png/pin.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('42')" id="p42">
-          <div>stage2</div>
-          <img src="png/pin.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('43')" id="p43">
-          <div>stage3</div>
-          <img src="png/pin.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('44')" id="p44">
-          <div>stage4</div>
-          <img src="png/pin.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('45')" id="p45">
-          <div>stage5</div>
-          <img src="png/pin.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('46')" id="p46">
-          <div>stage6</div>
-          <img src="png/pin.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('47')" id="p47">
-          <div>stage7</div>
-          <img src="png/pin.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('48')" id="p48">
-          <div>stage8</div>
-          <img src="png/pin.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('49')" id="p49">
-          <div>stage9</div>
-          <img src="png/pin.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('410')" id="p410">
-          <div>stage10</div>
-          <img src="png/pin.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-    </div>
-
-    <div class="panel" id="five-panel">
-        <button class="panel-title" onclick="stageclick('51')" id="p51">
-          <div>stage1</div>
-          <img src="png/staple.png">
-          <div>❤️🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('52')" id="p52">
-          <div>stage2</div>
-          <img src="png/staple.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('53')" id="p53">
-          <div>stage3</div>
-          <img src="png/staple.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('54')" id="p54">
-          <div>stage4</div>
-          <img src="png/staple.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('55')" id="p55">
-          <div>stage5</div>
-          <img src="png/staple.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('56')" id="p56">
-          <div>stage6</div>
-          <img src="png/staple.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('57')" id="p57">
-          <div>stage7</div>
-          <img src="png/staple.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('58')" id="p58">
-          <div>stage8</div>
-          <img src="png/staple.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('59')" id="p59">
-          <div>stage9</div>
-          <img src="png/staple.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-        <button class="panel-title" onclick="stageclick('510')" id="p510">
-          <div>stage10</div>
-          <img src="png/staple.png">
-          <div>🤍🤍🤍</div>
-          <div>desc2</div>
-        </button>
-    </div>
-  </div>
-</div>
 
 <div id="ring">
   <img src="png/ring.png">
