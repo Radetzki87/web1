@@ -3231,6 +3231,8 @@
 
     var testmold=[]
 
+    var 배=[]
+
     var 쇠공=[];
 
     var 과일=[];
@@ -3371,7 +3373,7 @@
 
     var 마찰=[0.2,0.3,0.17,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
-    var 중력=[-25,-25,-45,-7,-7]
+    var 중력=[-25,-25,-170,-7,-7]
 
     var resinit=0
     window.resinit=resinit
@@ -8284,7 +8286,7 @@
 
             var mesh=new THREE.Mesh(geometry1, material1);
 
-            mesh.position.set(0,bh*(4.5),0)
+            mesh.position.set(0,bh*(3.5),0)
 
 
             var customMaterial = new CANNON.Material('customMaterial');
@@ -8843,7 +8845,7 @@
           forceAmount = bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 15;
+          world.solver.iterations = 45;
           // world.solver.tolerance = 8
           gap=0.981;
 
@@ -15882,6 +15884,9 @@
       var tscale0;
       var tcolor;
       var initscale=0.1
+
+      var frix=0.2
+      var elas=0
       if(tx==999){
         rnk+=1;
       }
@@ -15906,27 +15911,27 @@
               break;
           case 3:
               tcolor=0x00FFFF
-              tscale0=1.6+initscale
+              tscale0=1.5+initscale
               break;
           case 4:
               tcolor=0xFF0000
-              tscale0=2.1+initscale
+              tscale0=1.8+initscale
               break;
           case 5:
               tcolor=0xFF00FF
-              tscale0=2.2+initscale
+              tscale0=2+initscale
               break;
           case 6:
               tcolor=0xFFFF00
-              tscale0=2.2+initscale
+              tscale0=2.1+initscale
               break;
           case 7:
               tcolor=0xFFFFFF
-              tscale0=2.7+initscale
+              tscale0=2.5+initscale
               break;
           case 8:
               tcolor=0xFC950C
-              tscale0=3.2+initscale
+              tscale0=2.7+initscale
               break;
           case 9:
               tcolor=0xFC950C
@@ -15963,7 +15968,7 @@
         // mesh.add(half[1].clone())
         // mesh.add(half[2].clone())
 
-        var temp0=3.1
+        var temp0=3
 
         mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
         // mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
@@ -15990,8 +15995,8 @@
 
 
         var customMaterial = new CANNON.Material('customMaterial');
-        customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
-        customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
+        customMaterial.friction = 0.1 // Friction coefficient, range: 0-1
+        customMaterial.restitution = 0.8; // Restitution (elasticity), range: 0-1
 
 
         var groundBody = new CANNON.Body({
@@ -16059,8 +16064,8 @@
 
         mesh.rotation.x=deg
         var customMaterial = new CANNON.Material('customMaterial');
-        customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
-        customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
+        customMaterial.friction = frix; // Friction coefficient, range: 0-1
+        customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
 
         if(rnk==1||rnk==2){
           var t4=1
@@ -16082,6 +16087,9 @@
           groundBody.quaternion.copy(mesh.quaternion);
 
         }else if(rnk==3){
+          var customMaterial = new CANNON.Material('customMaterial');
+          customMaterial.friction = frix; // Friction coefficient, range: 0-1
+          customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
           var groundBody = new CANNON.Body({
             mass: 무게*3,
             allowSleep: true,
@@ -16167,8 +16175,8 @@
           mesh.rotation.x=deg
 
           var customMaterial = new CANNON.Material('customMaterial');
-          customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
-          customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
+          customMaterial.friction = frix; // Friction coefficient, range: 0-1
+          customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
 
 
           var groundBody = new CANNON.Body({
@@ -16257,8 +16265,8 @@
           mesh.rotation.x=deg
 
           var customMaterial = new CANNON.Material('customMaterial');
-          customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
-          customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
+          customMaterial.friction = frix; // Friction coefficient, range: 0-1
+          customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
 
 
           var groundBody = new CANNON.Body({
@@ -16353,8 +16361,8 @@
           mesh.rotation.x=deg
 
           var customMaterial = new CANNON.Material('customMaterial');
-          customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
-          customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
+          customMaterial.friction = frix; // Friction coefficient, range: 0-1
+          customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
 
 
           var groundBody = new CANNON.Body({
@@ -16428,8 +16436,8 @@
         mesh.rotation.x=-(Math.PI/2)
 
         var customMaterial = new CANNON.Material('customMaterial');
-        customMaterial.friction = 0.2 // Friction coefficient, range: 0-1
-        customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
+        customMaterial.friction = frix; // Friction coefficient, range: 0-1
+        customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
 
 
         var groundBody = new CANNON.Body({
@@ -16866,7 +16874,8 @@
 
           });
 
-          if((parseInt(elapsedTime*100%2)==0)){
+          // if((parseInt(elapsedTime*100%1)==0)){
+          if(true){
             for (var i = 과일.length-1; i >=0; i--) {
               for (var j = i-1; j >=0; j--) {
                 if (colide(과일[i].userData.body,과일[j].userData.body)&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
@@ -17097,15 +17106,15 @@
 
           balls.forEach((item, i) => {
             // if(item.c-item.nx<0.1&&item.d-item.ny<0.1){
-            if(elapsedTime-item.time>0.3){
+            if(elapsedTime-item.time>0.2){
               rmvballlst.push(i);
             }else{
-              item.nx=item.a+(item.now.position.z-item.a)*((elapsedTime-item.time)/0.3)
-              item.ny=item.b+(item.now.position.y-item.b)*((elapsedTime-item.time)/0.3)
+              item.nx=item.a+(item.now.position.z-item.a)*((elapsedTime-item.time)/0.2)
+              item.ny=item.b+(item.now.position.y-item.b)*((elapsedTime-item.time)/0.2)
 
               item.prev.position.z=item.nx
               item.prev.position.y=item.ny
-              item.prev.rotation.x=item.deg+(item.now.rotation.x-item.deg)*((elapsedTime-item.time)/0.3)
+              item.prev.rotation.x=item.deg+(item.now.rotation.x-item.deg)*((elapsedTime-item.time)/0.2)
             }
           });
 
@@ -18622,20 +18631,9 @@
 
                     쇠공.push(mesh);
                     scene.add(mesh);
-                    world.addBody(groundBody);
+                    // world.addBody(groundBody);
 
 
-                    //벽
-                    var mesh=wall[1].clone()
-                    mesh.receiveShadow = true;
-                    mesh.castShadow = true;
-
-                    mesh.position.set(-bh*0.3,bh*(9.2),0)
-                    mesh.rotation.y=Math.PI
-                    mesh.rotation.z=Math.PI/2
-                    mesh.rotation.x=-Math.PI/2
-                    mesh.scale.set(4.5,2,4.5)
-                    scene.add(mesh);
 
 
 
@@ -18681,7 +18679,7 @@
 
                     쇠공.push(mesh);
                     scene.add(mesh);
-                    world.addBody(groundBody);
+                    // world.addBody(groundBody);
 
 
 
@@ -18723,7 +18721,7 @@
 
                     쇠공.push(mesh);
                     scene.add(mesh);
-                    world.addBody(groundBody);
+                    // world.addBody(groundBody);
 
 
 
@@ -18765,14 +18763,14 @@
 
                     쇠공.push(mesh);
                     scene.add(mesh);
-                    world.addBody(groundBody);
+                    // world.addBody(groundBody);
 
                     //바닥
 
                     var geometry1 = new THREE.BoxGeometry(bh*0.3, bw, bw*4.1);
                     var material1 = new THREE.MeshLambertMaterial({
                         transparent:true,
-                        opacity:0.7,
+                        opacity:0.8,
                         visible: false,
                         color: 0xAC8300
                     });
@@ -18783,12 +18781,12 @@
 
                     var mesh=new THREE.Mesh(geometry1, material1);
 
-                    mesh.position.set(0,bh*(4),0)
+                    mesh.position.set(0,bh*(3.1),0)
 
 
                     var customMaterial = new CANNON.Material('customMaterial');
                     customMaterial.friction = 0.5 // Friction coefficient, range: 0-1
-                    customMaterial.restitution = 탄성[2]; // Restitution (elasticity), range: 0-1
+                    customMaterial.restitution = 0; // Restitution (elasticity), range: 0-1
 
 
                     var groundBody = new CANNON.Body({
@@ -18805,7 +18803,7 @@
                     groundBody.quaternion.copy(mesh.quaternion);
                     mesh.userData.body=groundBody;
 
-                    쇠공.push(mesh);
+                    배.push(mesh);
                     scene.add(mesh);
                     world.addBody(groundBody);
 
@@ -18845,7 +18843,7 @@
                     ctx.globalAlpha = 1;
                     canvas.width = 1525
                     canvas.height = 3157
-                    ctx.drawImage(unitimg["bg"], 0,0, 1500, 3100);
+                    ctx.drawImage(unitimg["bg"], 0,0, 1525, 3157);
                     // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
                     var img3 = new THREE.CanvasTexture(canvas);
 
@@ -18862,7 +18860,74 @@
 
 
 
-                    // world.addBody(groundBody);
+
+                    //벽(배)
+
+                    var geometry1 = new THREE.BoxGeometry(bh*0.3, bh*16, bw*너비);
+                    var material1 = new THREE.MeshLambertMaterial({
+                        transparent:true,
+                        opacity:0.1,
+                        visible: false,
+                        color: 0xAC8300
+                    });
+
+                    var mesh=new THREE.Mesh(geometry1, material1);
+                    mesh.receiveShadow = true;
+                    mesh.castShadow = true;
+
+
+                    var mesh1=wall[1].clone()
+
+
+                    mesh1.position.set(-bh*0.3,-bh*(3.3),0)
+                    mesh1.rotation.y=Math.PI
+                    mesh1.rotation.z=Math.PI/2
+                    mesh1.rotation.x=-Math.PI/2
+                    mesh1.scale.set(4.6,2,5)
+
+                    mesh.add(mesh1)
+
+
+
+                    var customMaterial = new CANNON.Material('customMaterial');
+                    customMaterial.friction = 0 // Friction coefficient, range: 0-1
+                    customMaterial.restitution = 탄성[2]; // Restitution (elasticity), range: 0-1
+
+
+                    var compoundBody = new CANNON.Body({ mass: 0,
+                      material: customMaterial,
+                      allowSleep: true,
+                      sleepSpeedLimit: 1000,
+                      sleepTimeLimit: 0
+                    });
+
+                    var 뒤 = new CANNON.Box(new CANNON.Vec3(bh*0.3/2.0, bh*16/2, bw*너비/2));
+                    var 앞 = new CANNON.Box(new CANNON.Vec3(bh*0.3/2.0, bh*16/2, bw*너비/2));
+                    var 왼 = new CANNON.Box(new CANNON.Vec3(bw/2, bh*16/2, bw/2));
+                    var 오 = new CANNON.Box(new CANNON.Vec3(bw/2, bh*16/2, bw/2));
+                    // var 바 = new CANNON.Box(new CANNON.Vec3(bw/2, bw/2, bw*4.1/2));
+
+                    compoundBody.addShape(뒤, new CANNON.Vec3(-bh*0.3, 0, 0));
+                    compoundBody.addShape(앞, new CANNON.Vec3(bh*0.3, 0, 0));
+                    compoundBody.addShape(왼, new CANNON.Vec3(0, 0, bw*(너비/2)+bw/2));
+                    compoundBody.addShape(오, new CANNON.Vec3(0, 0, -bw*(너비/2)-bw/2));
+                    // compoundBody.addShape(바, new CANNON.Vec3(0,-bh*(9),0));
+
+
+
+
+
+                    compoundBody.position.set(0, bh*12, 0);
+                    배.push(mesh);
+
+                    mesh.userData.body=compoundBody;
+                    // groundBody.position.copy(mesh.position);
+                    // groundBody.quaternion.copy(mesh.quaternion);
+                    // mesh.userData.body=groundBody;
+
+
+                    scene.add(mesh);
+                    world.addBody(compoundBody);
 
 
                     camera.position.y=bh*4
@@ -20437,6 +20502,7 @@
           var idx=itemlst.length-1;
           if(elapsedTime - temtime <= 1){
             var dur0=parseInt(elapsedTime*120)%72
+
 
             var newcl = hexToHSL(hexToHtmlColor(0x22EE22))
             // console.log(newcl)
@@ -22278,7 +22344,7 @@
 
 
 
-        if(startflag) world.step(1 / 60, deltaTime/450);
+        if(startflag) world.step(1 / 60, deltaTime/850);
 
         if(등장){
           if(gamemod!=2){
@@ -22299,10 +22365,32 @@
             });
           }
 
+          if(배.length>0){
+            배.forEach((item, i) => {
+              var dur0=parseInt(elapsedTime*10)%72
+              var dif=Math.cos(Math.PI/36*dur0)
+              // item.userData.body.position.y=bh*12+dif
+              // item.position.copy(item.userData.body.position);
+              // item.quaternion.copy(item.userData.body.quaternion);
+              if(i==1){
+                item.position.y=0.4*dif+bh*12
+              }else{
+                // item.userData.body.position.y=-0.5*dif+bh*(3.1)
+              }
+
+
+            });
+          }
+
           if(쇠공.length>0){
-            쇠공.forEach((item) => {
-              item.position.copy(item.userData.body.position);
-              item.quaternion.copy(item.userData.body.quaternion);
+            쇠공.forEach((item, i) => {
+              // var dur0=parseInt(elapsedTime*10)%72
+              // var dif=Math.cos(Math.PI/36*dur0)
+              // // item.userData.body.position.y=bh*12+dif
+              // // item.position.copy(item.userData.body.position);
+              // // item.quaternion.copy(item.userData.body.quaternion);
+              // osition.y=dif+bh*12
+
             });
           }
 
