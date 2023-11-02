@@ -7067,7 +7067,7 @@
     topViewCamera.position.set(0, bh * 20, 0);
     topViewCamera.lookAt(0, 0, 0);
     var renderer = new THREE.WebGLRenderer({
-        antialias: false,
+        antialias: true,
         alpha: true
     });
     // var shadowMapRenderer = new THREE.WebGLShadowMapRenderer(renderer);
@@ -15885,6 +15885,8 @@
       var tcolor;
       var initscale=0.1
 
+      var 그림자=false;
+
       var frix=0.2
       var elas=0
       if(tx==999){
@@ -16467,6 +16469,20 @@
         mesh.userData.id=ballidx
         ballidx++;
       }
+
+      if(!그림자){
+        mesh.receiveShadow = 그림자;
+        mesh.castShadow = 그림자;
+        mesh.children.forEach((item, i) => {
+          item.receiveShadow = 그림자;
+          item.castShadow = 그림자;
+        });
+
+
+      }
+
+
+
 
 
       mesh.userData.alive=true;
