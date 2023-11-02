@@ -3373,7 +3373,7 @@
 
     var 마찰=[0.2,0.3,0.17,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
-    var 중력=[-25,-25,-170,-7,-7]
+    var 중력=[-25,-25,-160,-7,-7]
 
     var resinit=0
     window.resinit=resinit
@@ -7067,7 +7067,7 @@
     topViewCamera.position.set(0, bh * 20, 0);
     topViewCamera.lookAt(0, 0, 0);
     var renderer = new THREE.WebGLRenderer({
-        antialias: true,
+        antialias: false,
         alpha: true
     });
     // var shadowMapRenderer = new THREE.WebGLShadowMapRenderer(renderer);
@@ -8845,7 +8845,7 @@
           forceAmount = bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 45;
+          world.solver.iterations = 35
           // world.solver.tolerance = 8
           gap=0.981;
 
@@ -16011,6 +16011,10 @@
 
 
         groundBody.position.copy(mesh.position);
+        console.log(groundBody.linearFactor)
+        groundBody.fixedRotation = true;
+
+
         // groundBody.quaternion.copy(mesh.quaternion);
         let qt = new CANNON.Quaternion();
         qt.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2);
@@ -18903,6 +18907,10 @@
 
                     var 뒤 = new CANNON.Box(new CANNON.Vec3(bh*0.3/2.0, bh*16/2, bw*너비/2));
                     var 앞 = new CANNON.Box(new CANNON.Vec3(bh*0.3/2.0, bh*16/2, bw*너비/2));
+
+                    // var 뒤 = new CANNON.Plane();
+                    // var 앞 = new CANNON.Plane();
+
                     var 왼 = new CANNON.Box(new CANNON.Vec3(bw/2, bh*16/2, bw/2));
                     var 오 = new CANNON.Box(new CANNON.Vec3(bw/2, bh*16/2, bw/2));
                     // var 바 = new CANNON.Box(new CANNON.Vec3(bw/2, bw/2, bw*4.1/2));
@@ -18928,6 +18936,11 @@
 
                     scene.add(mesh);
                     world.addBody(compoundBody);
+
+
+
+
+
 
 
                     camera.position.y=bh*4
@@ -22344,7 +22357,7 @@
 
 
 
-        if(startflag) world.step(1 / 60, deltaTime/850);
+        if(startflag) world.step(1 / 60, deltaTime/800);
 
         if(등장){
           if(gamemod!=2){
