@@ -3203,6 +3203,15 @@
     var next=0;
     var drop=-2;
 
+    let wave = {
+      y: 3157 / 2,
+      length: 0.01,
+      amplitude: 50,
+      frequency: 0.01
+    };
+
+    let increment = wave.frequency;
+
 
     var aniflag0=true;
 
@@ -3301,6 +3310,8 @@
     var itemuse2=false;
     var itemtime=0;
     var uselst=[];
+
+    var ship=[];
 
     var 무게=10;
     var 해머=0
@@ -9076,7 +9087,7 @@
         //       dl2.color=new THREE.Color(0xffffff);
         //       dl2.intensity=0.7
         //       dl2.castShadow = true;
-        //       dl2.shadow.mapSize = new THREE.Vector2(500, 500);
+        //       dl2.shadow.mapSize = new THREE.Vector2(900, 900);
         //       if(gamemod==2){
         //         dl2.intensity=0.7
         //
@@ -9342,8 +9353,8 @@
                       dl2.target.position.set(0, 0, 0);
                       //빛
                       if (shadowon) {
-                          dl2.shadow.camera.left = -bw * 1.3;
-                          dl2.shadow.camera.right = bw * 1.3 * 4;
+                          dl2.shadow.camera.left = -bw * 1.3*2.5;
+                          dl2.shadow.camera.right = bw * 1.3 * 2.5;
                           dl2.shadow.camera.top = bw * 1.3*4;
                           dl2.shadow.camera.bottom = -bw * 1.3 * 1;
                           dl2.shadow.camera.near = 0.01;
@@ -9353,22 +9364,22 @@
                           dl2.castShadow = true;
                           switch (resinit) {
                             case 0:
-                              dl2.shadow.mapSize = new THREE.Vector2(500, 500);
+                              dl2.shadow.mapSize = new THREE.Vector2(900, 900);
                               break;
                             case 1:
-                              dl2.shadow.mapSize = new THREE.Vector2(500, 500);
+                              dl2.shadow.mapSize = new THREE.Vector2(900, 900);
                               break;
                             case 2:
-                              dl2.shadow.mapSize = new THREE.Vector2(500, 500);
+                              dl2.shadow.mapSize = new THREE.Vector2(900, 900);
                               break;
                             case 3:
-                              dl2.shadow.mapSize = new THREE.Vector2(500, 500);
+                              dl2.shadow.mapSize = new THREE.Vector2(900, 900);
                               break;
                             case 4:
-                              dl2.shadow.mapSize = new THREE.Vector2(500, 500);
+                              dl2.shadow.mapSize = new THREE.Vector2(900, 900);
                               break;
                             case 5:
-                              dl2.shadow.mapSize = new THREE.Vector2(500, 500);
+                              dl2.shadow.mapSize = new THREE.Vector2(900, 900);
                               break;
                             default:
                               return;
@@ -13143,10 +13154,10 @@
 
         var loader = new OBJLoader();
         var mtlLoader = new MTLLoader();
-        mtlLoader.load(ur2+'src/ship.mtl', function(materials) {
+        mtlLoader.load(ur2+'src/ship-0.mtl', function(materials) {
             materials.preload();
             loader.setMaterials(materials);
-            loader.load(ur2+'src/ship.obj', (object) => {
+            loader.load(ur2+'src/ship-0.obj', (object) => {
               // object.children[0].rotation.y = Math.PI / 2
               object.children[0].position.set(0, 0, 0)
               object.children[0].scale.x = 3
@@ -13165,10 +13176,10 @@
               wall.push(object.children[0]);
               var loader = new OBJLoader();
               var mtlLoader = new MTLLoader();
-              mtlLoader.load(ur2+'src/ship.mtl', function(materials) {
+              mtlLoader.load(ur2+'src/ship-1.mtl', function(materials) {
                   materials.preload();
                   loader.setMaterials(materials);
-                  loader.load(ur2+'src/ship.obj', (object) => {
+                  loader.load(ur2+'src/ship-1.obj', (object) => {
                     // object.children[0].rotation.y = Math.PI / 2
                     object.children[0].position.set(0, 0, 0)
                     object.children[0].scale.x = 3
@@ -13185,6 +13196,30 @@
                     object.children[0].receiveShadow = true;
                     object.children[0].castShadow = true;
                     wall.push(object.children[0]);
+                    var loader = new OBJLoader();
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load(ur2+'src/ship-0.mtl', function(materials) {
+                        materials.preload();
+                        loader.setMaterials(materials);
+                        loader.load(ur2+'src/ship-0.obj', (object) => {
+                          // object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 3
+                          object.children[0].scale.z = 3
+                          object.children[0].scale.y = 3
+
+                          object.children[0].rotation.x = Math.PI / 2
+
+                          // object.children[0].position.z=0.2
+
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                          wall.push(object.children[0]);
+                        });
+                    });
                   });
               });
             });
@@ -16870,7 +16905,41 @@
           // axis[1].position.x=0.2
           // axis[1].position.z=-bw*1.6
           // axis[1].children[0].material.visible=true;
+          if(ship.length!=0&&false){
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            // const padding = 10;
+            ctx.globalAlpha = 1;
+            canvas.width = 1525
+            canvas.height = 3157
+            // ctx.drawImage(unitimg["bg"], 0,0, 1525, 3157);
 
+
+            ctx.beginPath();
+
+            let x = 0;
+            for (x = 0; x < 152; x++) {
+                const y = wave.y + Math.sin(x * 10*wave.length + increment) * wave.amplitude;
+                ctx.lineTo(x, y);
+            }
+
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+            // ctx.fill();
+
+            increment += wave.frequency;
+
+            var img3 = new THREE.CanvasTexture(canvas);
+
+            var geometry1 = new THREE.BoxGeometry(bh*0.1, bw*(너비)*1.5*(3157/1525), bw*(너비)*1.5);
+            var material1 = new THREE.MeshLambertMaterial({
+                map: img3,
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 1
+            });
+            ship[0].material=material1;
+          }
 
 
           sample.forEach((item, i) => {
@@ -18897,7 +18966,22 @@
                     canvas.width = 1525
                     canvas.height = 3157
                     ctx.drawImage(unitimg["bg"], 0,0, 1525, 3157);
-                    // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
+
+
+                    // ctx.beginPath();
+                    //
+                    // let x = 0;
+                    // for (x = 0; x < 152; x++) {
+                    //     const y = wave.y + Math.sin(10*x * wave.length + increment) * wave.amplitude;
+                    //     ctx.lineTo(x, y);
+                    // }
+                    //
+                    // ctx.strokeStyle = "blue";
+                    // ctx.stroke();
+                    // // ctx.fill();
+                    //
+                    // increment += wave.frequency;
+
                     var img3 = new THREE.CanvasTexture(canvas);
 
                     var geometry1 = new THREE.BoxGeometry(bh*0.1, bw*(너비)*1.5*(3157/1525), bw*(너비)*1.5);
@@ -18909,6 +18993,7 @@
                     });
                     var mesh=new THREE.Mesh(geometry1, material1);
                     mesh.position.set(-bh,bh*(7),0)
+                    ship.push(mesh)
                     scene.add(mesh);
 
 
@@ -18929,16 +19014,27 @@
                     mesh.castShadow = true;
 
 
-                    var mesh1=wall[1].clone()
+                    var mesh1=wall[2].clone()
+                    var mesh2=wall[1].clone()
 
 
-                    mesh1.position.set(-bh*0.3,-bh*(3.3),0)
+                    mesh1.position.set(0,-bh*(2.9),0)
                     mesh1.rotation.y=Math.PI
                     mesh1.rotation.z=Math.PI/2
                     mesh1.rotation.x=-Math.PI/2
-                    mesh1.scale.set(4.6,2,5)
+                    mesh1.scale.set(6,8,6)
+
+                    mesh2.position.set(0,-bh*(2.9),0)
+                    mesh2.rotation.y=Math.PI
+                    mesh2.rotation.z=Math.PI/2
+                    mesh2.rotation.x=-Math.PI/2
+                    mesh2.scale.set(6,7,6)
 
                     mesh.add(mesh1)
+                    mesh.add(mesh2)
+
+                    mesh.receiveShadow = true;
+                    mesh.castShadow = true;
 
 
 
@@ -21788,7 +21884,8 @@
               // item.position.copy(item.userData.body.position);
               // item.quaternion.copy(item.userData.body.quaternion);
               if(i==1){
-                item.position.y=0.4*dif+bh*12
+                item.children[0].position.y=0.4*dif+bh*9.2
+                item.children[1].position.y=0.25*dif+bh*9.2
               }else{
                 // item.userData.body.position.y=-0.5*dif+bh*(3.1)
               }
