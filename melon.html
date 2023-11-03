@@ -6989,7 +6989,7 @@
 
       }else if(ingame){
         if(ready&&!dragflag) {
-          if((elapsedTime-drop)<0.1) return;
+          if((elapsedTime-drop)<0.01) return;
           lastX = (event.clientX / window.innerWidth) * 2 - 1;
           lastY = -(event.clientY / window.innerHeight) * 2 + 1;
 
@@ -7511,8 +7511,9 @@
         }else if (event.code === 'KeyP') {
           for (var i = 과일.length-1; i >=0; i--) {
             for (var j = i-1; j >=0; j--) {
-              if (colide(과일[i].userData.body,과일[j].userData.body)&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
-                if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
+              if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
+                if (colide(과일[i].userData.body,과일[j].userData.body)&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
+                // if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
 
                   // if(Math.sqrt(과일[i].userData.body.velocity.z*과일[i].userData.body.velocity.z+과일[i].userData.body.velocity.y*과일[i].userData.body.velocity.y)>Math.sqrt(과일[j].userData.body.velocity.z*과일[j].userData.body.velocity.z+과일[j].userData.body.velocity.y*과일[j].userData.body.velocity.y)){
                   //   var prev=과일[i]
@@ -16870,7 +16871,7 @@
 
 
           sample.forEach((item, i) => {
-            if(elapsedTime-drop>0.4){
+            if(elapsedTime-drop>0.1){
               ready=true;
               if(i==next){
                 if(i==0){
@@ -16906,8 +16907,9 @@
           if(true){
             for (var i = 과일.length-1; i >=0; i--) {
               for (var j = i-1; j >=0; j--) {
-                if (colide(과일[i].userData.body,과일[j].userData.body)&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
-                  if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
+                if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
+                  if (colide(과일[i].userData.body,과일[j].userData.body)&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
+
 
                     if(과일[j].userData.body.position.y<과일[i].userData.body.position.y){
                       var prev=과일[i]
@@ -17121,11 +17123,11 @@
           }
           if(lasertime>0){
 
-            if(lasertime>3000){
-              // 오버=true;
-              fulltower=true;
-              console.log(lasertime)
-            }
+            // if(lasertime>3000){
+            //   // 오버=true;
+            //   fulltower=true;
+            //   console.log(lasertime)
+            // }
 
           }
 
@@ -26210,7 +26212,7 @@
 
 
           resinit=parseInt(nslst["data3"]["2"]);
-          resinit=0;
+          resinit=5;
 
           window.resinit=resinit;
 
