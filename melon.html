@@ -5992,7 +5992,7 @@
           let newo=newone(과일.length-1, next,0,-lastX*lx)
           axis[0].position.z=-lastX*lx
           next=nextpool[parseInt(Math.random()*nextpool.length)];
-          // next=9
+          // next=8
           scene.add(newo);
 
 
@@ -7512,6 +7512,9 @@
           for (var i = 과일.length-1; i >=0; i--) {
             for (var j = i-1; j >=0; j--) {
               if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
+                if(Math.abs(과일[i].position.y-과일[j].position.y)>bh*0.01||Math.abs(과일[i].position.z-과일[j].position.z)>bh*0.01){
+                  continue;
+                }
                 if (colide(과일[i].userData.body,과일[j].userData.body)&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
                 // if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
 
@@ -16908,6 +16911,24 @@
             for (var i = 과일.length-1; i >=0; i--) {
               for (var j = i-1; j >=0; j--) {
                 if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
+                  if(과일[i].userData.rank>6){
+                    if(Math.abs(과일[i].position.y-과일[j].position.y)>bh*3.3||Math.abs(과일[i].position.z-과일[j].position.z)>bh*3.3){
+                      continue;
+                    }
+                  }else if(과일[i].userData.rank<2){
+                    if(Math.abs(과일[i].position.y-과일[j].position.y)>bh||Math.abs(과일[i].position.z-과일[j].position.z)>bh){
+                      continue;
+                    }
+                  }else if(과일[i].userData.rank>3){
+                    if(Math.abs(과일[i].position.y-과일[j].position.y)>bh*2.8||Math.abs(과일[i].position.z-과일[j].position.z)>bh*2.8){
+                      continue;
+                    }
+                  }else{
+                    if(Math.abs(과일[i].position.y-과일[j].position.y)>bh*2||Math.abs(과일[i].position.z-과일[j].position.z)>bh*2){
+                      continue;
+                    }
+                  }
+
                   if (colide(과일[i].userData.body,과일[j].userData.body)&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
 
 
