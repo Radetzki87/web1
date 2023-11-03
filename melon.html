@@ -6989,7 +6989,7 @@
 
       }else if(ingame){
         if(ready&&!dragflag) {
-          if((elapsedTime-drop)<0.01) return;
+          if((elapsedTime-drop)<0.25) return;
           lastX = (event.clientX / window.innerWidth) * 2 - 1;
           lastY = -(event.clientY / window.innerHeight) * 2 + 1;
 
@@ -17144,11 +17144,11 @@
           }
           if(lasertime>0){
 
-            // if(lasertime>3000){
-            //   // 오버=true;
-            //   fulltower=true;
-            //   console.log(lasertime)
-            // }
+            if(lasertime>3500){
+              // 오버=true;
+              fulltower=true;
+              console.log(lasertime)
+            }
 
           }
 
