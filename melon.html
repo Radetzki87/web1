@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=0.65, maximum-scale=0.65, minimum-scale=0.65, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no">
     <title>2048 BRIX</title>
     <style>
         body {
@@ -241,7 +241,7 @@
         #ring{
           position: absolute;
           -webkit-background-color: transparent;
-          top:145vw;
+          top:140vw;
           width:42vmin;
           z-index: 2;
 
@@ -253,7 +253,7 @@
 
         #ring img{
           image-rendering: auto;
-          width:45vmin;
+          width:33vmin;
 
         }
 
@@ -2642,6 +2642,8 @@
         }
 
         .hammer {
+            display: flex;
+            flex-direction: column;
             position: absolute;
             /* background-color: rgba(250, 250, 250, 0.5); */
             border-radius: 2vmin;
@@ -2649,23 +2651,26 @@
             /* background-image: url("png/green_button09.png"); */
             /* background-size: 6vmax 4vmax; */
             /* top: 17.5vh; */
-            top: 55vh;
-            right: -14vh;
-            width: 14vh;
-            height: 12vh;
+            top: 5vh;
+            right: -13vh;
+            width: 8vh;
+            height: 8vh;
             z-index: 1;
             transition: right 0.4s;
-            text-align: center;
+            text-align: left;
+            opacity:0.9;
+            font-family: 'GG';
 
         }
 
         .hammer img{
             position: relative;
-            right:28%;
+            right:2%;
             bottom:0%;
             /* width: 5vmax; */
-            height: 7vh;
+            height: 5vh;
             z-index: 3;
+            margin-bottom: 1vh;
         }
 
         .hammer div{
@@ -3201,12 +3206,20 @@
     var stacktime;
     var dropflag=false;
     var next=0;
+    var nnext=0;
+    document.getElementById("hammer").children[0].src="png/u"+String(nnext)+".png"
     var drop=-2;
 
+    var finaldrop=0;
+    var dcombo=0;
+
+    var wavex=152*2
+    var wavey=315*2
+
     let wave = {
-      y: 3157 / 2,
+      y: wavey / 2,
       length: 0.01,
-      amplitude: 50,
+      amplitude: 6,
       frequency: 0.01
     };
 
@@ -3216,6 +3229,8 @@
     var aniflag0=true;
 
     var nextpool=[0,0,0,1,1,1,2,2,2,3,3,3,4,4]
+    var next=0;
+    var nnext=nextpool[parseInt(Math.random()*nextpool.length)];;
 
     var lx=26.8
 
@@ -3336,7 +3351,7 @@
     var 필=0;
 
     var itemleft="-6vh"
-    var itemleft1="-5vh"
+    var itemleft1="-2vh"
 
 
     var pshift=[1,1.1,1.2,1.25,1.3,1.325,1.35,1.325,1.3,1.275,1.25,1.225,1.2,1.15,1.1,1.075,1.05]
@@ -6002,7 +6017,11 @@
 
           let newo=newone(과일.length-1, next,0,-lastX*lx)
           axis[0].position.z=-lastX*lx
-          next=nextpool[parseInt(Math.random()*nextpool.length)];
+          next=nnext
+          nnext=nextpool[parseInt(Math.random()*nextpool.length)];
+          var cname=String(nnext)
+          document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+
           // next=8
           scene.add(newo);
 
@@ -7036,7 +7055,10 @@
 
           let newo=newone(과일.length-1, next,0,-lastX*lx)
           axis[0].position.z=-lastX*lx
-          next=nextpool[parseInt(Math.random()*nextpool.length)];
+          next=nnext
+          nnext=nextpool[parseInt(Math.random()*nextpool.length)];
+          var cname=String(nnext)
+          document.getElementById("hammer").children[0].src="png/u"+cname+".png"
           // next=9
           scene.add(newo);
           console.log("클릭")
@@ -8869,7 +8891,7 @@
           forceAmount = bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 30
+          world.solver.iterations = 20
           // world.solver.tolerance = 8
           gap=0.981;
 
@@ -9087,7 +9109,7 @@
         //       dl2.color=new THREE.Color(0xffffff);
         //       dl2.intensity=0.7
         //       dl2.castShadow = true;
-        //       dl2.shadow.mapSize = new THREE.Vector2(900, 900);
+        //       dl2.shadow.mapSize = new THREE.Vector2(650, 650);
         //       if(gamemod==2){
         //         dl2.intensity=0.7
         //
@@ -9364,22 +9386,22 @@
                           dl2.castShadow = true;
                           switch (resinit) {
                             case 0:
-                              dl2.shadow.mapSize = new THREE.Vector2(900, 900);
+                              dl2.shadow.mapSize = new THREE.Vector2(650, 650);
                               break;
                             case 1:
-                              dl2.shadow.mapSize = new THREE.Vector2(900, 900);
+                              dl2.shadow.mapSize = new THREE.Vector2(650, 650);
                               break;
                             case 2:
-                              dl2.shadow.mapSize = new THREE.Vector2(900, 900);
+                              dl2.shadow.mapSize = new THREE.Vector2(650, 650);
                               break;
                             case 3:
-                              dl2.shadow.mapSize = new THREE.Vector2(900, 900);
+                              dl2.shadow.mapSize = new THREE.Vector2(650, 650);
                               break;
                             case 4:
-                              dl2.shadow.mapSize = new THREE.Vector2(900, 900);
+                              dl2.shadow.mapSize = new THREE.Vector2(650, 650);
                               break;
                             case 5:
-                              dl2.shadow.mapSize = new THREE.Vector2(900, 900);
+                              dl2.shadow.mapSize = new THREE.Vector2(650, 650);
                               break;
                             default:
                               return;
@@ -16495,7 +16517,7 @@
 
 
         var groundBody = new CANNON.Body({
-            mass: 무게*3,
+            mass: 무게*6,
             // shape: new CANNON.Box(new CANNON.Vec3(bh*tscale0/2, bh/2, bh*tscale0/2)),
             shape: new CANNON.Cylinder(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 20),
             material: customMaterial,
@@ -16905,33 +16927,95 @@
           // axis[1].position.x=0.2
           // axis[1].position.z=-bw*1.6
           // axis[1].children[0].material.visible=true;
-          if(ship.length!=0&&false){
+          if(ship.length!=0){
+            // var canvas = document.createElement('canvas');
+            // var ctx = canvas.getContext('2d');
+            // // const padding = 10;
+            // ctx.globalAlpha = 1;
+            // canvas.width = 1525
+            // canvas.height = 3157
+            // ctx.drawImage(unitimg["bg"], 0,0, 1525, 3157);
+
             var canvas = document.createElement('canvas');
             var ctx = canvas.getContext('2d');
             // const padding = 10;
             ctx.globalAlpha = 1;
-            canvas.width = 1525
-            canvas.height = 3157
+            canvas.width = wavex
+            canvas.height = wavey
             // ctx.drawImage(unitimg["bg"], 0,0, 1525, 3157);
 
+            ctx.fillStyle = "#88caf6"
+            ctx.fillRect(0, 0, wavex, wavey);
 
+            ctx.fillStyle = "#4790d1"
+            // ctx.fillRect(0, 1100, 1525, 3157);
+
+            ctx.fillStyle = "#1881c7"
+            // ctx.fillRect(0, 1110, 1525, 3157);
+
+            ctx.lineWidth = 1;
             ctx.beginPath();
 
-            let x = 0;
-            for (x = 0; x < 152; x++) {
-                const y = wave.y + Math.sin(x * 10*wave.length + increment) * wave.amplitude;
+            ctx.lineTo(wavex, wavey);
+            ctx.lineTo(0, wavey);
+            ctx.lineTo(0, wave.y-8);
+            var x = 0;
+            for (x = 0; x < wavex; x++) {
+                var y = wave.y + Math.cos(Math.PI/4+x * wave.length + increment) * wave.amplitude*0.3-8;
                 ctx.lineTo(x, y);
             }
-
-            ctx.strokeStyle = "blue";
+            ctx.lineTo(wavex, wavey);
+            ctx.strokeStyle = "#4790d1";
+            ctx.fillStyle = "#1881d7"
             ctx.stroke();
-            // ctx.fill();
+            ctx.fill();
+
+
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+
+            ctx.lineTo(wavex, wavey);
+            ctx.lineTo(0, wavey);
+            ctx.lineTo(0, wave.y-5);
+            var x = 0;
+            for (x = 0; x < wavex; x++) {
+                var y = wave.y + Math.cos(x * 1*wave.length + increment) * wave.amplitude*0.5-5;
+                ctx.lineTo(x*1, y);
+            }
+            ctx.lineTo(wavex, wavey);
+            ctx.strokeStyle = "#4790d1";
+            ctx.fillStyle = "#1881d7"
+            ctx.stroke();
+            ctx.fill();
+
+
+
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+
+            ctx.lineTo(wavex, wavey);
+            ctx.lineTo(0, wavey);
+            ctx.lineTo(0, wave.y);
+            var x = 0;
+            for (x = 0; x < wavex; x++) {
+                var y = wave.y + Math.sin(x * 1*wave.length + increment) * wave.amplitude;
+                ctx.lineTo(x*1, y);
+            }
+
+            ctx.lineTo(wavex, wavey);
+
+            ctx.strokeStyle = "#57a0d1";
+            ctx.fillStyle = "#0561a7"
+            ctx.stroke();
+            ctx.fill();
 
             increment += wave.frequency;
 
+
+
             var img3 = new THREE.CanvasTexture(canvas);
 
-            var geometry1 = new THREE.BoxGeometry(bh*0.1, bw*(너비)*1.5*(3157/1525), bw*(너비)*1.5);
+            // var geometry1 = new THREE.BoxGeometry(bh*0.1, bw*(너비)*1.6*(3157/1525), bw*(너비)*1.6);
             var material1 = new THREE.MeshLambertMaterial({
                 map: img3,
                 side: THREE.DoubleSide,
@@ -17245,6 +17329,7 @@
           });
 
           while (rmvballlst.length > 0) {
+
               var nidx=rmvballlst.pop()
               let newo=newone(과일.length-1, balls[nidx].rank, balls[nidx].deg2)
               점수+=(balls[nidx].rank+1)*10
@@ -17266,6 +17351,33 @@
                   world.addBody(newo.userData.body);
               }, 0);
               scene.add(newo);
+
+              if(elapsedTime-finaldrop<0.5){
+                dcombo++
+              }else{
+                dcombo=0
+              }
+
+              var snum=dcombo+6
+              if(snum==9){
+                snum=11
+              }else if(snum==10){
+                snum=10
+              }else if(snum==11){
+                snum=1
+                dcombo=0
+              }else if(snum>11){
+                snum=1
+              }
+              if(!soundic[esound[snum]].isPlaying){
+                soundic[esound[snum]].play();
+              }else{
+                soundic[esound[snum]].stop();
+                soundic[esound[snum]].play();
+              }
+
+              finaldrop=elapsedTime
+
 
               과일.push(newo)
               balls.splice(nidx, 1);
@@ -18277,7 +18389,7 @@
 
 
             포인트.forEach((item) => {
-                item.material.visible = false;
+                item.material.visible = true;
             })
             시간.forEach((item) => {
                 item.material.visible = false;
@@ -18955,6 +19067,37 @@
                     scene.add(mesh);
                     laser.push(mesh)
 
+                    //링
+                    // var canvas = document.createElement('canvas');
+                    // var ctx = canvas.getContext('2d');
+                    // // const padding = 10;
+                    // ctx.globalAlpha = 1;
+                    // canvas.width = 310
+                    // canvas.height = 311
+                    //
+                    // let img0 = new Image();
+                    // img0.src = 'https://raw.githubusercontent.com/Radetzki87/web1/master/png/ring.png';
+                    //
+                    // img0.onload = function() {
+                    //     ctx.drawImage(img0, 0,0, 310, 310);
+                    //     let img4 = new THREE.CanvasTexture(canvas);
+                    //
+                    //     let geometry11 = new THREE.BoxGeometry(bh*0.1, bw*2, bw*2);
+                    //     let material11 = new THREE.MeshLambertMaterial({
+                    //         map: img4,
+                    //         side: THREE.DoubleSide,
+                    //         transparent: true,
+                    //         opacity: 1
+                    //     });
+                    //     let mesh11=new THREE.Mesh(geometry11, material11);
+                    //     mesh1.position.set(bh,bh*(7),0)
+                    //     scene.add(mesh);
+                    // }
+
+
+
+
+
 
 
                     //배경
@@ -18965,7 +19108,10 @@
                     ctx.globalAlpha = 1;
                     canvas.width = 1525
                     canvas.height = 3157
-                    ctx.drawImage(unitimg["bg"], 0,0, 1525, 3157);
+                    // ctx.drawImage(unitimg["bg"], 0,0, 1525, 3157);
+
+                    ctx.fillStyle = "#88caf6"
+                    ctx.fillRect(0, 0, 1525, 3157);
 
 
                     // ctx.beginPath();
@@ -18984,7 +19130,7 @@
 
                     var img3 = new THREE.CanvasTexture(canvas);
 
-                    var geometry1 = new THREE.BoxGeometry(bh*0.1, bw*(너비)*1.5*(3157/1525), bw*(너비)*1.5);
+                    var geometry1 = new THREE.BoxGeometry(bh*0.1, bw*(너비)*1.65*(3157/1525), bw*(너비)*1.65);
                     var material1 = new THREE.MeshLambertMaterial({
                         map: img3,
                         side: THREE.DoubleSide,
@@ -18995,6 +19141,8 @@
                     mesh.position.set(-bh,bh*(7),0)
                     ship.push(mesh)
                     scene.add(mesh);
+
+
 
 
 
@@ -19231,11 +19379,15 @@
 
 
                   console.log("콩")
-                  document.getElementById("hammer").style.display="none"
+                  document.getElementById("hammer").style.display=""
+                  document.getElementById('hammer').style.right=itemleft1
 
 
                   // document.getElementById("sub").style.display="none"
                   document.getElementById("song-info").style.display="none"
+
+                  document.getElementById('hammer').style.borderColor="orange"
+                  document.getElementById('hammer').style.backgroundColor="orange"
 
                   world.remove(cubes[4].body)
                   scene.remove(cubes[4].mesh)
@@ -19298,14 +19450,14 @@
                   // document.getElementById('bridge').style.border="0.3vmax inset"
                   // document.getElementById('ice').style.border="0.3vmax inset"
                   // document.getElementById('pin').style.border="0.3vmax inset"
-                  document.getElementById('hammer').style.border="0.3vmax inset"
+                  // document.getElementById('hammer').style.border="0.3vmax inset"
                   // document.getElementById('pung').style.border="0.3vmax inset"
                   //
                   // document.getElementById('bridge').style.borderColor=hexToHtmlColor(colorlst[colornum][3])
                   // document.getElementById('ice').style.borderColor=hexToHtmlColor(colorlst[colornum][3])
                   // document.getElementById('pin').style.borderColor=hexToHtmlColor(colorlst[colornum][3])
                   //
-                  document.getElementById('hammer').style.borderColor=hexToHtmlColor(colorlst[colornum][2])
+
                   // document.getElementById('pung').style.borderColor=hexToHtmlColor(colorlst[colornum][2])
 
                   if(fullcam){
@@ -22052,7 +22204,7 @@
             var temptxt;
             if (averageflag) {
                 포인트.forEach((item) => {
-                    item.position.x = avx - bw / 1.5;
+                    item.position.x = avx + bw / 1.5;
                     if(gamemod==2){
                       item.position.y = bh*3.1
                         temptxt=String(점수)
@@ -22313,7 +22465,7 @@
           포인트.forEach((item) => {
               // item.material.opacity = 0
               // item.material.transparent = true;
-              item.material.visible = false;
+              item.material.visible = true;
           })
           시간.forEach((item) => {
               // item.material.opacity = 0
@@ -26330,7 +26482,7 @@
 
 
           resinit=parseInt(nslst["data3"]["2"]);
-          resinit=3;
+          resinit=2;
 
           window.resinit=resinit;
 
@@ -26472,7 +26624,7 @@
 
         resinit=parseInt(nslst["data3"]["2"]);
 
-        resinit=3;
+        resinit=2;
         window.resinit=resinit;
         resol(resinit);
         // setlang(langnum);
@@ -28674,6 +28826,10 @@
     <img class="tut2" src="">
 </div>
 
+<div id="ring">
+  <img src="png/ring.png">
+</div>
+
 
 <div id="credit-info" class="hidden" onclick="goBack(5)">
     <button class="backbutton" onclick="goBack(5)">
@@ -28740,6 +28896,7 @@
 <button id="top" class="top-container" onclick="">
     <div class="cell" id="top0">
       <img class="" src="png/hammer.png">
+
     </div>
     <div class="cell" id="top1">
       <img class="" src="png/hammer.png">
@@ -28769,6 +28926,7 @@
 
 <button id="hammer" class="hammer" onclick="">
     <img class="" src="png/hammer.png">
+    NEXT
 
 </button>
 
@@ -29005,9 +29163,7 @@
         </div>
 
 
-<div id="ring">
-  <img src="png/ring.png">
-</div>
+
 
 
 
