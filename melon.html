@@ -3414,7 +3414,7 @@
 
     var 마찰=[0.2,0.3,0.17,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
-    var 중력=[-25,-25,-150,-7,-7]
+    var 중력=[-25,-25,-185,-7,-7]
 
     var resinit=0
     window.resinit=resinit
@@ -8891,7 +8891,7 @@
           forceAmount = bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 20
+          world.solver.iterations = 50
           // world.solver.tolerance = 8
           gap=0.981;
 
@@ -17069,7 +17069,7 @@
                       continue;
                     }
                   }else if(과일[i].userData.rank<2){
-                    if(Math.abs(과일[i].position.y-과일[j].position.y)>bh||Math.abs(과일[i].position.z-과일[j].position.z)>bh){
+                    if(Math.abs(과일[i].position.y-과일[j].position.y)>bh*1.2||Math.abs(과일[i].position.z-과일[j].position.z)>bh*1.2){
                       continue;
                     }
                   }else if(과일[i].userData.rank>3){
@@ -22007,7 +22007,7 @@
 
 
 
-        if(startflag) world.step(1 / 60, deltaTime/850);
+        if(startflag) world.step(1 / 60, deltaTime/700);
 
         if(등장){
           if(gamemod!=2){
