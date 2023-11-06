@@ -3414,7 +3414,7 @@
 
     var 마찰=[0.2,0.3,0.17,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
-    var 중력=[-25,-25,-185,-7,-7]
+    var 중력=[-25,-25,-165,-7,-7]
 
     var resinit=0
     window.resinit=resinit
@@ -13012,10 +13012,10 @@
                                             seal.push(object.children[0]);
                                             var loader = new OBJLoader();
                                             var mtlLoader = new MTLLoader();
-                                            mtlLoader.load(ur2+'src/seal-0.mtl', function(materials) {
+                                            mtlLoader.load(ur2+'src/seal-6.mtl', function(materials) {
                                                 materials.preload();
                                                 loader.setMaterials(materials);
-                                                loader.load(ur2+'src/seal-0.obj', (object) => {
+                                                loader.load(ur2+'src/seal-6.obj', (object) => {
                                                   // object.children[0].rotation.y = Math.PI / 2
                                                   object.children[0].position.set(tmx, tmy, tmz)
                                                   object.children[0].scale.x = 3
@@ -13032,6 +13032,54 @@
                                                   object.children[0].receiveShadow = true;
                                                   object.children[0].castShadow = true;
                                                   seal.push(object.children[0]);
+                                                  var loader = new OBJLoader();
+                                                  var mtlLoader = new MTLLoader();
+                                                  mtlLoader.load(ur2+'src/seal-7.mtl', function(materials) {
+                                                      materials.preload();
+                                                      loader.setMaterials(materials);
+                                                      loader.load(ur2+'src/seal-7.obj', (object) => {
+                                                        // object.children[0].rotation.y = Math.PI / 2
+                                                        object.children[0].position.set(tmx, tmy, tmz)
+                                                        object.children[0].scale.x = 3
+                                                        object.children[0].scale.z = 3
+                                                        object.children[0].scale.y = 3
+
+                                                        object.children[0].rotation.x = Math.PI / 2
+
+                                                        // object.children[0].position.z=0.2
+
+                                                        // object.children[0].scale.x=2.25;
+                                                        // object.children[0].scale.z=2.25;
+                                                        // object.children[0].scale.y=1.92;
+                                                        object.children[0].receiveShadow = true;
+                                                        object.children[0].castShadow = true;
+                                                        seal.push(object.children[0]);
+                                                        var loader = new OBJLoader();
+                                                        var mtlLoader = new MTLLoader();
+                                                        mtlLoader.load(ur2+'src/seal-0.mtl', function(materials) {
+                                                            materials.preload();
+                                                            loader.setMaterials(materials);
+                                                            loader.load(ur2+'src/seal-0.obj', (object) => {
+                                                              // object.children[0].rotation.y = Math.PI / 2
+                                                              object.children[0].position.set(tmx, tmy, tmz)
+                                                              object.children[0].scale.x = 3
+                                                              object.children[0].scale.z = 3
+                                                              object.children[0].scale.y = 3
+
+                                                              object.children[0].rotation.x = Math.PI / 2
+
+                                                              // object.children[0].position.z=0.2
+
+                                                              // object.children[0].scale.x=2.25;
+                                                              // object.children[0].scale.z=2.25;
+                                                              // object.children[0].scale.y=1.92;
+                                                              object.children[0].receiveShadow = true;
+                                                              object.children[0].castShadow = true;
+                                                              seal.push(object.children[0]);
+                                                            });
+                                                        });
+                                                      });
+                                                  });
                                                 });
                                             });
                                           });
@@ -16307,10 +16355,16 @@
 
           mesh.userData.wood=0;
           mesh.add(mesh2)
-          mesh.add(seal[6].clone())
+          mesh.add(seal[8].clone())
           mesh.add(seal[1].clone())
-          mesh.add(seal[2].clone())
+          if(rnk==6){
+            mesh.add(seal[7].clone())
+          }else{
+            mesh.add(seal[2].clone())
+          }
           mesh.add(seal[3].clone())
+
+
           var temp0=2.6
 
           mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
@@ -16326,7 +16380,9 @@
 
           if(rnk==6){
             mesh.add(seal[5].clone())
+            mesh.add(seal[6].clone())
             mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            mesh.children[6].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
           }
 
           if(tx!=999){
@@ -17059,8 +17115,8 @@
 
           });
 
-          if((parseInt(elapsedTime*100%2)==0)){
-          // if(true){
+          // if((parseInt(elapsedTime*100%2)==0)){
+          if(true){
             for (var i = 과일.length-1; i >=0; i--) {
               for (var j = i-1; j >=0; j--) {
                 if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
@@ -17228,6 +17284,10 @@
                   if(item.userData.rank>=6){
                     item.children[5].position.z=1.1-0.3*(pshift[dur]-1);
                     item.children[5].position.y=-0.2
+
+                    item.children[6].position.z=1.3-0.8*(pshift[dur]-1);
+                    item.children[6].position.y=0.2
+
                   }
                   // item.children[1].position.z=2*(pshift[dur]-1);
                   // item.children[3].position.z=1-0.2*(pshift[dur]-1);
