@@ -6014,7 +6014,7 @@
             }
           }
 
-
+          // next=7;
           let newo=newone(과일.length-1, next,0,-lastX*lx)
           axis[0].position.z=-lastX*lx
           next=nnext
@@ -13734,6 +13734,54 @@
                                             object.children[0].receiveShadow = true;
                                             object.children[0].castShadow = true;
                                             bear.push(object.children[0]);
+                                            var loader = new OBJLoader();
+                                            var mtlLoader = new MTLLoader();
+                                            mtlLoader.load(ur2+'src/bear-6.mtl', function(materials) {
+                                                materials.preload();
+                                                loader.setMaterials(materials);
+                                                loader.load(ur2+'src/bear-6.obj', (object) => {
+                                                  // object.children[0].rotation.y = Math.PI / 2
+                                                  object.children[0].position.set(tmx1, tmy1, tmz1)
+                                                  object.children[0].scale.x = 3
+                                                  object.children[0].scale.z = 3
+                                                  object.children[0].scale.y = 3
+
+                                                  object.children[0].rotation.x = Math.PI / 2
+
+                                                  // object.children[0].position.z=0.2
+
+                                                  // object.children[0].scale.x=2.25;
+                                                  // object.children[0].scale.z=2.25;
+                                                  // object.children[0].scale.y=1.92;
+                                                  object.children[0].receiveShadow = true;
+                                                  object.children[0].castShadow = true;
+                                                  bear.push(object.children[0]);
+                                                  var loader = new OBJLoader();
+                                                  var mtlLoader = new MTLLoader();
+                                                  mtlLoader.load(ur2+'src/bear-0.mtl', function(materials) {
+                                                      materials.preload();
+                                                      loader.setMaterials(materials);
+                                                      loader.load(ur2+'src/bear-0.obj', (object) => {
+                                                        // object.children[0].rotation.y = Math.PI / 2
+                                                        object.children[0].position.set(tmx1, tmy1, tmz1)
+                                                        object.children[0].scale.x = 3
+                                                        object.children[0].scale.z = 3
+                                                        object.children[0].scale.y = 3
+
+                                                        object.children[0].rotation.x = Math.PI / 2
+
+                                                        // object.children[0].position.z=0.2
+
+                                                        // object.children[0].scale.x=2.25;
+                                                        // object.children[0].scale.z=2.25;
+                                                        // object.children[0].scale.y=1.92;
+                                                        object.children[0].receiveShadow = true;
+                                                        object.children[0].castShadow = true;
+                                                        bear.push(object.children[0]);
+                                                      });
+                                                  });
+                                                });
+                                            });
                                           });
                                       });
                                     });
@@ -16456,7 +16504,7 @@
 
           mesh.userData.wood=0;
           // mesh.add(mesh2)
-          mesh.add(bear[0].clone())
+          mesh.add(bear[7].clone())
           mesh.add(bear[1].clone())
           mesh.add(bear[2].clone())
           mesh.add(bear[3].clone())
@@ -16470,7 +16518,9 @@
 
           if(rnk==8){
             mesh.add(bear[4].clone())
-            mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            mesh.children[4].scale.set(0.95*temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            mesh.add(bear[6].clone())
+            mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
           }
 
           // if(rnk==9){
@@ -17316,7 +17366,9 @@
                   item.children[2].position.z=0.3*(pshift[dur]-1);
                   item.children[1].material.visible=false;
                   if(item.userData.rank==8){
-                    item.children[4].position.z=-0.2*(pshift[dur]-1);
+                    item.children[4].position.x=-0.3
+                    item.children[4].position.z=-0.3*(pshift[dur]-1);
+                    item.children[5].position.z=-0.4*(pshift[dur]-1);
                   }
                   // item.children[3].position.z=1-0.2*(pshift[dur]-1);
                 }else if(item.userData.rank==9||item.userData.rank==10){
