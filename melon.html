@@ -15689,8 +15689,8 @@
           }else{
             mesh.add(bear[7].clone())
             mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-            mesh.children[4].material.opacity=0.9
-            mesh.children[4].material.transparent=true;
+            mesh.children[4].material.opacity=1
+            mesh.children[4].material.transparent=false;
           }
 
           // if(rnk==9){
@@ -16380,8 +16380,8 @@
 
           });
 
-          // if((parseInt(elapsedTime*100%2)==0)){
-          if(true){
+          if((parseInt(elapsedTime*100%2)==0)){
+          // if(true){
             for (var i = 과일.length-1; i >=0; i--) {
               for (var j = i-1; j >=0; j--) {
                 if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
@@ -16529,7 +16529,7 @@
 
                   item.children[3].material.visible=false;
                   item.children[3].position.z=-0.5*(pshift[dur]-1);
-                  item.children[3].position.y=0.5
+                  item.children[3].position.y=0.2
                   // item.children[3].position.x=20
 
                 }else if(item.userData.rank==2||item.userData.rank==3){
@@ -19127,6 +19127,12 @@
               itemmold[2].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
               itemmold[0].position.x=-bh*3;
               itemmold[1].position.x=-bh*3;
+              itemmold[3].position.x=-bh*3;
+              // itempointer.children[4].material.visible=true;
+
+              // itemmold[2].scale.x=(3+(pshift[dur]-1)*0.9)
+              // itemmold[2].scale.y=(3+(pshift[dur]-1)*0.9)
+
 
               itemmold[2].scale.x=(3+(pshift[dur]-1)*2.6)
               itemmold[2].scale.y=(3+(pshift[dur]-1)*2.6)
@@ -19134,6 +19140,8 @@
               itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
               itempointer.children[1].position.z=-0.5*(pshift[dur]-1);
               itempointer.children[2].position.z=0.3*(pshift[dur]-1);
+
+              bear[7].material.visible=true
 
 
             }else if(bridge){
