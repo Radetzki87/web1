@@ -3258,7 +3258,8 @@
 
     var nextpool=[0,0,0,1,1,1,2,2,2,3,3,3,4,4]
     var next=0;
-    var nnext=nextpool[parseInt(Math.random()*nextpool.length)];;
+    var nnext=nextpool[parseInt(Math.random()*nextpool.length)];
+    document.getElementById("hammer").children[0].src="png/u"+String(nnext)+".png"
 
     var lx=30.5
 
@@ -3284,6 +3285,9 @@
     var swhale=[];
     var bear=[];
     var fox=[];
+    var fox2=[];
+
+    var foxflag=true;
 
 
     var tflag=false;
@@ -12418,6 +12422,80 @@
         });
 
 
+        var loader = new OBJLoader();
+        var mtlLoader = new MTLLoader();
+        mtlLoader.load(ur2+'src/fox2-0.mtl', function(materials) {
+            materials.preload();
+            loader.setMaterials(materials);
+            loader.load(ur2+'src/fox2-0.obj', (object) => {
+              // object.children[0].rotation.y = Math.PI / 2
+              object.children[0].position.set(0, 0, 0)
+              object.children[0].scale.x = 3
+              object.children[0].scale.z = 3
+              object.children[0].scale.y = 3
+
+              object.children[0].rotation.x = Math.PI / 2
+
+              // object.children[0].position.z=0.2
+
+              // object.children[0].scale.x=2.25;
+              // object.children[0].scale.z=2.25;
+              // object.children[0].scale.y=1.92;
+              object.children[0].receiveShadow = true;
+              object.children[0].castShadow = true;
+              fox2.push(object.children[0]);
+              var loader = new OBJLoader();
+              var mtlLoader = new MTLLoader();
+              mtlLoader.load(ur2+'src/fox2-1.mtl', function(materials) {
+                  materials.preload();
+                  loader.setMaterials(materials);
+                  loader.load(ur2+'src/fox2-1.obj', (object) => {
+                    // object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 3
+                    object.children[0].scale.z = 3
+                    object.children[0].scale.y = 3
+
+                    object.children[0].rotation.x = Math.PI / 2
+
+                    // object.children[0].position.z=0.2
+
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].receiveShadow = true;
+                    object.children[0].castShadow = true;
+                    fox2.push(object.children[0]);
+                  });
+              });
+              var loader = new OBJLoader();
+              var mtlLoader = new MTLLoader();
+              mtlLoader.load(ur2+'src/fox2-0.mtl', function(materials) {
+                  materials.preload();
+                  loader.setMaterials(materials);
+                  loader.load(ur2+'src/fox2-0.obj', (object) => {
+                    // object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 3
+                    object.children[0].scale.z = 3
+                    object.children[0].scale.y = 3
+
+                    object.children[0].rotation.x = Math.PI / 2
+
+                    // object.children[0].position.z=0.2
+
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].receiveShadow = true;
+                    object.children[0].castShadow = true;
+                    fox2.push(object.children[0]);
+                  });
+              });
+            });
+        });
+
+
         var tmx2=0.1
         var tmy2=0
         var tmz2=1
@@ -15229,7 +15307,7 @@
               break;
           case 4:
               tcolor=0xFF0000
-              tscale0=1.8+initscale
+              tscale0=1.4+initscale
               break;
           case 5:
               tcolor=0xFF00FF
@@ -15309,8 +15387,8 @@
 
 
         var customMaterial = new CANNON.Material('customMaterial');
-        customMaterial.friction = 0.1 // Friction coefficient, range: 0-1
-        customMaterial.restitution = 0.8; // Restitution (elasticity), range: 0-1
+        customMaterial.friction = frix // Friction coefficient, range: 0-1
+        customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
 
 
         var groundBody = new CANNON.Body({
@@ -15442,88 +15520,162 @@
           groundBody.quaternion.copy(mesh.quaternion);
         }
       }else if(rnk==4){
-          var t1=1
-          var geometry1 = new THREE.BoxGeometry(0.4*bh*tscale0, 통, t1*0.68*bh*tscale0*1.239);
+          if(foxflag){
+            var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 32);
+            var material1 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: tcolor
+            });
 
-          // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+            var loader = new OBJLoader();
+            var mtlLoader = new MTLLoader();
 
-          var material1 = new THREE.MeshLambertMaterial({
-              transparent:true,
-              opacity:0,
-              color: tcolor
-          });
+            var mesh=new THREE.Mesh(geometry1, material1);
+            mesh.userData.wood=0;
+            mesh.userData.form=0;
+            mesh.add(fox2[2].clone())
+            mesh.add(fox2[1].clone())
+            // mesh.add(half[1].clone())
+            // mesh.add(half[2].clone())
 
+            var temp0=1.8
 
-          var mesh=new THREE.Mesh(geometry1, material1);
-          var geometry2 = new THREE.BoxGeometry(0.5, 1, 0.2);
-          // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
-          var material2 = new THREE.MeshLambertMaterial({
-              transparent:true,
-              opacity:0,
-              color: tcolor
-          });
-          var mesh2=new THREE.Mesh(geometry2, material2);
-          mesh2.position.x=3
+            mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            // mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            //
+            // mesh.children[2].material.visible=false;
 
-
-          mesh.userData.wood=0;
-          // mesh.add(mesh2)
-          mesh.add(fox[4].clone())
-          mesh.add(fox[1].clone())
-          mesh.add(fox[2].clone())
-          mesh.add(fox[3].clone())
-          var temp0=1.42
-
-          mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-          mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-          mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-          mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-          // mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            // mesh.add(propsmold[3].clone())
+            // mesh.add(propsmold[4].clone())
+            // mesh.add(propsmold[5].clone())
 
 
+            if(tx!=999){
+              deg=-(Math.PI/2)
+              mesh.position.set(0,bh*16.5,tx)
+            }else{
+              mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
+            }
 
-          // if(rnk==9){
-          //   mesh.add(bear[5].clone())
-          //   mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-          // }
 
-          if(tx!=999){
-            deg=-(Math.PI/2)
-            mesh.position.set(0,bh*16.5,tx)
+            mesh.rotation.z=(Math.PI/2)
+            mesh.rotation.y=-(Math.PI/2)
+
+
+
+            var customMaterial = new CANNON.Material('customMaterial');
+            customMaterial.friction = frix // Friction coefficient, range: 0-1
+            customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
+
+
+            var groundBody = new CANNON.Body({
+                mass: 무게*3,
+                // shape: new CANNON.Box(new CANNON.Vec3(bh*tscale0/2, bh/2, bh*tscale0/2)),
+                shape: new CANNON.Cylinder(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 20),
+                material: customMaterial,
+                allowSleep: true,
+                sleepSpeedLimit: 1000,
+                sleepTimeLimit: 0
+            });
+
+
+            groundBody.position.copy(mesh.position);
+            console.log(groundBody.linearFactor)
+            groundBody.fixedRotation = true;
+
+
+            // groundBody.quaternion.copy(mesh.quaternion);
+            let qt = new CANNON.Quaternion();
+            qt.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2);
+            groundBody.quaternion.copy(qt)
           }else{
-            mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
+            var t1=1
+            var geometry1 = new THREE.BoxGeometry(0.4*bh*tscale0, 통, t1*0.68*bh*tscale0*1.239);
+
+            // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+
+            var material1 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: tcolor
+            });
+
+
+            var mesh=new THREE.Mesh(geometry1, material1);
+            var geometry2 = new THREE.BoxGeometry(0.5, 1, 0.2);
+            // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+            var material2 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: tcolor
+            });
+            var mesh2=new THREE.Mesh(geometry2, material2);
+            mesh2.position.x=3
+
+
+            mesh.userData.wood=0;
+            mesh.userData.form=1;
+            // mesh.add(mesh2)
+            mesh.add(fox[4].clone())
+            mesh.add(fox[1].clone())
+            mesh.add(fox[2].clone())
+            mesh.add(fox[3].clone())
+            var temp0=1.42
+
+            mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            // mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+
+
+            // if(rnk==9){
+            //   mesh.add(bear[5].clone())
+            //   mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            // }
+
+            if(tx!=999){
+              deg=-(Math.PI/2)
+              mesh.position.set(0,bh*16.5,tx)
+            }else{
+              mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
+            }
+
+
+            mesh.rotation.z=(Math.PI/2)
+            // mesh.rotation.z=(Math.PI/2)
+
+
+            mesh.rotation.x=deg
+
+            var customMaterial = new CANNON.Material('customMaterial');
+            customMaterial.friction = frix; // Friction coefficient, range: 0-1
+            customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
+
+
+            var groundBody = new CANNON.Body({
+              mass: 무게*3,
+              allowSleep: true,
+              sleepSpeedLimit: 1000,
+              material: customMaterial,
+              sleepTimeLimit: 0
+            });
+
+            var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.4*bh*tscale0/2, 통/2, t1*1.239*0.68*bh*tscale0/2));
+
+            var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.703*0.4*bh*tscale0/2, 통/2, 0.171*t1*1.239*0.68*bh*tscale0/2));
+
+
+            groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.68*bh*tscale0/2+(t1-1)*1.239*0.68*bh*tscale0/2));
+            groundBody.addShape(boxShape1, new CANNON.Vec3(0.4*bh*tscale0/2+0.703*0.4*bh*tscale0/2, 0, -t1*1.239*0.68*bh*tscale0/2+0.171*t1*1.239*0.68*bh*tscale0/2));
+
+            groundBody.position.copy(mesh.position);
+            groundBody.quaternion.copy(mesh.quaternion);
           }
 
-
-          mesh.rotation.z=(Math.PI/2)
-          // mesh.rotation.z=(Math.PI/2)
-
-
-          mesh.rotation.x=deg
-
-          var customMaterial = new CANNON.Material('customMaterial');
-          customMaterial.friction = frix; // Friction coefficient, range: 0-1
-          customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
-
-
-          var groundBody = new CANNON.Body({
-            mass: 무게*3,
-            allowSleep: true,
-            sleepSpeedLimit: 1000,
-            material: customMaterial,
-            sleepTimeLimit: 0
-          });
-
-          var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.4*bh*tscale0/2, 통/2, t1*1.239*0.68*bh*tscale0/2));
-
-          var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.703*0.4*bh*tscale0/2, 통/2, 0.171*t1*1.239*0.68*bh*tscale0/2));
-
-
-          groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.68*bh*tscale0/2+(t1-1)*1.239*0.68*bh*tscale0/2));
-          groundBody.addShape(boxShape1, new CANNON.Vec3(0.4*bh*tscale0/2+0.703*0.4*bh*tscale0/2, 0, -t1*1.239*0.68*bh*tscale0/2+0.171*t1*1.239*0.68*bh*tscale0/2));
-
-          groundBody.position.copy(mesh.position);
-          groundBody.quaternion.copy(mesh.quaternion);
 
 
 
@@ -16506,13 +16658,20 @@
                   item.children[3].position.z=0.6-0.2*(pshift[dur]-1);
                 }
               }else if(item.userData.rank==4){
-                var tmx0=1.8
-                var tmy0=0
-                var tmz0=-1.1
-                item.children[0].position.z=tmz0-0.5*(pshift[dur]-1);
-                item.children[1].position.z=tmz0-0.3*(pshift[dur]-1);
-                item.children[3].position.z=tmz0+0.4*(pshift[dur]-1);
-                item.children[3].position.x=tmx0-0.2
+                if(item.userData.form==0){
+                  item.rotation.y=-0
+                  item.rotation.x=-Math.PI/2
+                  item.position.x=1
+                }else if(item.userData.form==1){
+                  var tmx0=1.8
+                  var tmy0=0
+                  var tmz0=-1.1
+                  item.children[0].position.z=tmz0-0.5*(pshift[dur]-1);
+                  item.children[1].position.z=tmz0-0.3*(pshift[dur]-1);
+                  item.children[3].position.z=tmz0+0.4*(pshift[dur]-1);
+                  item.children[3].position.x=tmx0-0.2
+                }
+
 
 
               }
@@ -16573,13 +16732,26 @@
                   // item.children[1].position.z=2*(pshift[dur]-1);
                   // item.children[3].position.z=1-0.2*(pshift[dur]-1);
                 }else if(item.userData.rank==4){
-                  var tmx0=1.8
-                  var tmy0=0
-                  var tmz0=-1.1
-                  item.children[0].position.z=tmz0-0.5*(pshift[dur]-1);
-                  item.children[1].position.z=tmz0-0.3*(pshift[dur]-1);
-                  item.children[3].position.z=tmz0+0.4*(pshift[dur]-1);
-                  item.children[3].position.x=tmx0-0.2
+                  if(item.userData.form==0){
+                    // var tmx0=1.8
+                    // var tmy0=0
+                    // var tmz0=-1.1
+                    // item.children[0].position.x=4
+                    // item.children[1].position.x=4
+                    // item.children[0].position.z=tmz0-0.5*(pshift[dur]-1);
+                    // item.children[1].position.z=tmz0-0.3*(pshift[dur]-1);
+                    // item.children[3].position.z=tmz0+0.4*(pshift[dur]-1);
+                    // item.children[3].position.x=tmx0-0.2
+                  }else if(item.userData.form==1){
+                    var tmx0=1.8
+                    var tmy0=0
+                    var tmz0=-1.1
+                    item.children[0].position.z=tmz0-0.5*(pshift[dur]-1);
+                    item.children[1].position.z=tmz0-0.3*(pshift[dur]-1);
+                    item.children[3].position.z=tmz0+0.4*(pshift[dur]-1);
+                    item.children[3].position.x=tmx0-0.2
+                  }
+
 
                   // item.children[0].position.x=0
                   // item.children[0].position.z=0.2-0.5*(pshift[dur]-1);
@@ -21449,7 +21621,7 @@
               if(item.userData.alive){
                 item.position.copy(item.userData.body.position);
                 item.quaternion.copy(item.userData.body.quaternion);
-                if(item.userData.rank>=9||item.userData.rank==0){
+                if(item.userData.rank>=9||item.userData.rank==0||(item.userData.rank==4&&item.userData.form==0)){
                   const adjustmentQuaternion = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), Math.PI / 2);
                   item.quaternion.multiply(adjustmentQuaternion);
                   item.rotation.x-=Math.PI;
