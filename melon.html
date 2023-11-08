@@ -3230,6 +3230,7 @@
     var itempointer;
 
     var stacktime;
+    var pen2=[]
     var dropflag=false;
     var next=0;
     var nnext=0;
@@ -3454,7 +3455,7 @@
 
     var 마찰=[0.2,0.3,0.17,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
-    var 중력=[-25,-25,-200,-7,-7]
+    var 중력=[-25,-25,-230,-7,-7]
 
     var resinit=2
     window.resinit=resinit
@@ -5170,7 +5171,7 @@
 
 
         if(lastX>0.75){
-          if(lastY<0.30&&lastY>0.14){
+          if(lastY<0.30&&lastY>0.11){
             console.log("뻥")
             if(뻥>0){
               pung=true;
@@ -5206,7 +5207,7 @@
             }
 
             return;
-          }else if(lastY<0.1&&lastY>-0.06){
+          }else if(lastY<0.1&&lastY>-0.09){
             console.log("얼음")
             if(얼음>0){
               pung=false;
@@ -5240,7 +5241,7 @@
               return;
             }
 
-          }else if(lastY<-0.1&&lastY>-0.26){
+          }else if(lastY<-0.1&&lastY>-0.29){
             console.log("핀")
             if(핀>0){
               pung=false;
@@ -5272,7 +5273,7 @@
               return;
             }
 
-          }else if(lastY<-0.3&&lastY>-0.46){
+          }else if(lastY<-0.3&&lastY>-0.49){
             console.log("다리")
             if(다리>0){
               pung=false;
@@ -5368,11 +5369,11 @@
                 lastX=0.555
               }
             }else if(next==4){
-              if(lastX<-0.60){
-                lastX=-0.60
+              if(lastX<-0.54){
+                lastX=-0.54
               }
-              if(lastX>0.50){
-                lastX=0.50
+              if(lastX>0.54){
+                lastX=0.54
               }
             }
             axis[0].position.z=-lastX*lx
@@ -5435,11 +5436,11 @@
                   lastX=0.555
                 }
               }else if(next==4){
-                if(lastX<-0.60){
-                  lastX=-0.60
+                if(lastX<-0.54){
+                  lastX=-0.54
                 }
-                if(lastX>0.50){
-                  lastX=0.50
+                if(lastX>0.54){
+                  lastX=0.54
                 }
               }
 
@@ -5788,11 +5789,11 @@
             lastX=0.555
           }
         }else if(next==4){
-          if(lastX<-0.60){
-            lastX=-0.60
+          if(lastX<-0.54){
+            lastX=-0.54
           }
-          if(lastX>0.50){
-            lastX=0.50
+          if(lastX>0.54){
+            lastX=0.54
           }
         }
 
@@ -6169,11 +6170,11 @@
               lastX=0.555
             }
           }else if(next==4){
-            if(lastX<-0.60){
-              lastX=-0.60
+            if(lastX<-0.54){
+              lastX=-0.54
             }
-            if(lastX>0.50){
-              lastX=0.50
+            if(lastX>0.54){
+              lastX=0.54
             }
           }
 
@@ -6548,11 +6549,11 @@
               lastX=0.555-보정
             }
           }else if(next==4){
-            if(lastX<-0.60+보정){
-              lastX=-0.60+보정
+            if(lastX<-0.54+보정){
+              lastX=-0.54+보정
             }
-            if(lastX>0.50-보정){
-              lastX=0.50-보정
+            if(lastX>0.54-보정){
+              lastX=0.54-보정
             }
           }
 
@@ -11859,6 +11860,131 @@
             });
         });
 
+        var loader = new OBJLoader();
+        var mtlLoader = new MTLLoader();
+        mtlLoader.load(ur2+'src/pen3-0.mtl', function(materials) {
+            materials.preload();
+            loader.setMaterials(materials);
+            loader.load(ur2+'src/pen3-0.obj', (object) => {
+              // object.children[0].rotation.y = Math.PI / 2
+              object.children[0].position.set(0, 0, 0)
+              object.children[0].scale.x = 3
+              object.children[0].scale.z = 3
+              object.children[0].scale.y = 3
+
+              object.children[0].rotation.x = Math.PI / 2
+
+              // object.children[0].position.z=0.2
+
+              // object.children[0].scale.x=2.25;
+              // object.children[0].scale.z=2.25;
+              // object.children[0].scale.y=1.92;
+              object.children[0].receiveShadow = true;
+              object.children[0].castShadow = true;
+              pen2.push(object.children[0]);
+              var loader = new OBJLoader();
+              var mtlLoader = new MTLLoader();
+              mtlLoader.load(ur2+'src/pen3-1.mtl', function(materials) {
+                  materials.preload();
+                  loader.setMaterials(materials);
+                  loader.load(ur2+'src/pen3-1.obj', (object) => {
+                    // object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 3
+                    object.children[0].scale.z = 3
+                    object.children[0].scale.y = 3
+
+                    object.children[0].rotation.x = Math.PI / 2
+
+                    // object.children[0].position.z=0.2
+
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].receiveShadow = true;
+                    object.children[0].castShadow = true;
+                    pen2.push(object.children[0]);
+                    var loader = new OBJLoader();
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load(ur2+'src/pen3-2.mtl', function(materials) {
+                        materials.preload();
+                        loader.setMaterials(materials);
+                        loader.load(ur2+'src/pen3-2.obj', (object) => {
+                          // object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 3
+                          object.children[0].scale.z = 3
+                          object.children[0].scale.y = 3
+
+                          object.children[0].rotation.x = Math.PI / 2
+
+                          // object.children[0].position.z=0.2
+
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                          pen2.push(object.children[0]);
+                        });
+                    });
+                    var loader = new OBJLoader();
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load(ur2+'src/pen3-3.mtl', function(materials) {
+                        materials.preload();
+                        loader.setMaterials(materials);
+                        loader.load(ur2+'src/pen3-3.obj', (object) => {
+                          // object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 3
+                          object.children[0].scale.z = 3
+                          object.children[0].scale.y = 3
+
+                          object.children[0].rotation.x = Math.PI / 2
+
+                          // object.children[0].position.z=0.2
+
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                          pen2.push(object.children[0]);
+                        });
+                    });
+                    var loader = new OBJLoader();
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load(ur2+'src/pen3-0.mtl', function(materials) {
+                        materials.preload();
+                        loader.setMaterials(materials);
+                        loader.load(ur2+'src/pen3-0.obj', (object) => {
+                          // object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 3
+                          object.children[0].scale.z = 3
+                          object.children[0].scale.y = 3
+
+                          object.children[0].rotation.x = Math.PI / 2
+
+                          // object.children[0].position.z=0.2
+
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                          pen2.push(object.children[0]);
+                        });
+                    });
+
+
+                  });
+              });
+            });
+        });
+
+
+
         var tmx=1.7
         var tmy=0
         var tmz=0.70
@@ -16466,7 +16592,7 @@
 
             if(배.length>0){
               배.forEach((item, i) => {
-                // var dur0=parseInt(elapsedTime*10)%72
+                var dur=parseInt(elapsedTime*30)%pshift.length
                 var dif=Math.sin((wavex/2) *wave.length + increment)*wave.amplitude*0.3
                 // item.userData.body.position.y=bh*12+dif
                 // item.position.copy(item.userData.body.position);
@@ -16478,6 +16604,18 @@
 
                   item.children[3].position.y=0.15*dif+bh*16.5
                   item.children[4].position.y=0.15*dif+bh*16.5
+
+                  item.children[7].position.y=0.2*dif+bh*16.5
+
+
+
+                  item.children[7].children[0].position.z=-0.1*(pshift[dur]-1);
+                  item.children[7].children[1].position.z=0.2*(pshift[dur]-1);
+                  item.children[7].children[2].position.y=0.2
+                  item.children[7].children[3].position.z=-0.08*(pshift[dur]-1);
+
+
+
                   // item.children[4].material.visible=false
                 }else{
                   // item.userData.body.position.y=-0.5*dif+bh*(3.1)
@@ -16537,8 +16675,8 @@
 
           });
 
-          if((parseInt(elapsedTime*100%2)==0)){
-          // if(true){
+          // if((parseInt(elapsedTime*100%2)==0)){
+          if(true){
             for (var i = 과일.length-1; i >=0; i--) {
               for (var j = i-1; j >=0; j--) {
                 if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=10){
@@ -18737,6 +18875,33 @@
 
                     var mesh6=wall[6].clone()
                     var mesh7=wall[7].clone()
+                    var tscale0 = 1
+                    var geometry2 = new THREE.BoxGeometry(0.54*bh*tscale0, 통, 0.73*bh*tscale0);
+                    var material2 = new THREE.MeshLambertMaterial({
+                        transparent:true,
+                        opacity:0.1,
+                        color: 0xFFFFFF
+                    });
+
+
+
+                    var mesh8=new THREE.Mesh(geometry2, material2);
+
+                    console.log(pen2)
+
+                    mesh8.add(pen2[4].clone())
+                    mesh8.add(pen2[1].clone())
+                    mesh8.add(pen2[2].clone())
+                    mesh8.add(pen2[3].clone())
+
+
+                    var temp0=1
+
+                    mesh8.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+                    mesh8.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+                    mesh8.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+                    mesh8.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
 
 
                     mesh1.position.set(0,-bh*(2.9),0)
@@ -18752,13 +18917,13 @@
                     mesh2.rotation.x=-Math.PI/2
                     mesh2.scale.set(6,7,6)
 
-                    mesh3.position.set(-0.3,+bh*(8.8),0)
+                    mesh3.position.set(-2,+bh*(8.8),0)
                     mesh3.rotation.y=Math.PI
                     mesh3.rotation.z=Math.PI/2
                     mesh3.rotation.x=-Math.PI/2
                     mesh3.scale.set(6,7,6)
 
-                    mesh4.position.set(-0.5,+bh*(16.7),0.7)
+                    mesh4.position.set(-2.5,+bh*(16.7),0.7)
                     mesh4.rotation.y=Math.PI
                     mesh4.rotation.z=Math.PI/2
                     mesh4.rotation.x=-Math.PI/2
@@ -18768,7 +18933,7 @@
                     // mesh4.userData["alive"]=true;
                     // mesh4.userData["target"]=false;
 
-                    mesh5.position.set(-0.5,+bh*(16.7),0.7)
+                    mesh5.position.set(-3.2,+bh*(16.7),0.7)
                     mesh5.rotation.y=Math.PI
                     mesh5.rotation.z=Math.PI/2
                     mesh5.rotation.x=-Math.PI/2
@@ -18782,7 +18947,7 @@
                     mesh5.material.transparent=true;
 
 
-                    mesh6.position.set(-0.5,+bh*(16.7),0.7)
+                    mesh6.position.set(-1.5,+bh*(16.7),0.7)
                     mesh6.rotation.y=Math.PI
                     mesh6.rotation.z=Math.PI/2
                     mesh6.rotation.x=-Math.PI/2
@@ -18795,7 +18960,7 @@
                     mesh6.material.opacity=0.4;
                     mesh6.material.transparent=true;
 
-                    mesh7.position.set(-0.5,+bh*(16.7),0.7)
+                    mesh7.position.set(-1.5,+bh*(16.7),0.7)
                     mesh7.rotation.y=Math.PI
                     mesh7.rotation.z=Math.PI/2
                     mesh7.rotation.x=-Math.PI/2
@@ -18807,6 +18972,20 @@
                     mesh7.userData["dir"]=2
                     mesh7.material.opacity=0.4;
                     mesh7.material.transparent=true;
+
+                    mesh8.position.set(-1.8,+bh*(16.5),-5.7)
+                    mesh8.rotation.y=Math.PI
+                    mesh8.rotation.z=-Math.PI/2
+                    mesh8.rotation.x=Math.PI/2
+                    mesh8.scale.set(6,5,6)
+
+                    mesh8.userData["rank"]=12;
+                    mesh8.userData["alive"]=true;
+                    mesh8.userData["target"]=false;
+                    mesh8.userData["dir"]=2
+                    mesh8.material.opacity=1;
+                    mesh8.material.visible=false;
+                    mesh8.material.transparent=true;
 
 
                     // mesh1.position.set(0,0,0)
@@ -18822,6 +19001,7 @@
                     mesh.add(mesh5)
                     mesh.add(mesh6)
                     mesh.add(mesh7)
+                    mesh.add(mesh8)
 
                     mesh.receiveShadow = true;
                     mesh.castShadow = true;
@@ -21553,6 +21733,7 @@
                 배[1].children[4].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
                 배[1].children[5].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
                 배[1].children[6].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
+                배[1].children[7].position.z=-5.7-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
 
 
                 배[1].userData.body.quaternion.copy(배[0].quaternion);
@@ -21602,6 +21783,7 @@
                 배[1].children[4].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
                 배[1].children[5].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
                 배[1].children[6].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
+                배[1].children[7].position.z=-5.7-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
 
 
                 배[1].userData.body.quaternion.copy(배[0].quaternion);
