@@ -3244,8 +3244,8 @@
     var finaldrop=0;
     var dcombo=0;
 
-    var wavex=152*3
-    var wavey=315*3
+    var wavex=152*2
+    var wavey=315*2
 
     let wave = {
       y: wavey / 2,
@@ -16517,10 +16517,10 @@
 
             ctx.lineTo(wavex, wavey);
             ctx.lineTo(0, wavey);
-            ctx.lineTo(0, wave.y-8-65.5);
+            ctx.lineTo(0, wave.y-(11+65.5)*0.666);
             var x = 0;
             for (x = 0; x < wavex; x++) {
-                var y = wave.y + Math.cos(Math.PI/4+x * wave.length + increment) * wave.amplitude*0.3-8-65.5;
+                var y = wave.y + Math.cos(Math.PI/4+x * wave.length + increment) * wave.amplitude*0.15-(11+65.5)*0.666;
                 ctx.lineTo(x, y);
             }
             ctx.lineTo(wavex, wavey);
@@ -16535,10 +16535,10 @@
 
             ctx.lineTo(wavex, wavey);
             ctx.lineTo(0, wavey);
-            ctx.lineTo(0, wave.y-5-60);
+            ctx.lineTo(0, wave.y-(5+60)*0.666);
             var x = 0;
             for (x = 0; x < wavex; x++) {
-                var y = wave.y + Math.cos(x * 1*wave.length + increment) * wave.amplitude*0.4-5-60;
+                var y = wave.y + Math.cos(x * 1*wave.length + increment) * wave.amplitude*0.4-(5+60)*0.666;
                 ctx.lineTo(x*1, y);
             }
             ctx.lineTo(wavex, wavey);
@@ -16554,10 +16554,10 @@
 
             ctx.lineTo(wavex, wavey);
             ctx.lineTo(0, wavey);
-            ctx.lineTo(0, wave.y-46);
+            ctx.lineTo(0, wave.y-46*0.666);
             var x = 0;
             for (x = 0; x < wavex; x++) {
-                var y = wave.y + Math.sin(x * 1*wave.length + increment) *0.5*wave.amplitude-46;
+                var y = wave.y + Math.sin(x * 1*wave.length + increment) *0.5*wave.amplitude-46*0.666;
                 ctx.lineTo(x*1, y);
             }
 
@@ -16590,7 +16590,7 @@
 
             increment += wave.frequency;
 
-            if(배.length>0){
+            if(배.length>1&&ingame){
               배.forEach((item, i) => {
                 var dur=parseInt(elapsedTime*30)%pshift.length
                 var dif=Math.sin((wavex/2) *wave.length + increment)*wave.amplitude*0.3
@@ -16603,9 +16603,12 @@
                   item.children[1].position.y=0.15*dif+bh*8.9
 
                   item.children[3].position.y=0.15*dif+bh*16.5
+                  item.children[3].position.x=-2
+                  // item.children[3].position.z=0.15*dif+bh*16.5
                   item.children[4].position.y=0.15*dif+bh*16.5
 
                   item.children[7].position.y=0.2*dif+bh*16.5
+                  item.children[7].position.x=-1
 
 
 
@@ -16826,7 +16829,9 @@
               if(item.userData.alive&&item.userData.id>0){
                 if(item.userData.rank==1){
                   item.children[0].position.z=-0.5*(pshift[dur]-1);
+                  item.children[0].position.y=-0.5
                   item.children[1].position.z=2*(pshift[dur]-1);
+                  item.children[1].position.y=-0.5
                   item.children[2].position.y=0.8
 
                   item.children[3].material.visible=false;
@@ -16838,15 +16843,19 @@
 
                   item.children[0].position.z=-0.5*(pshift[dur]-1);
                   item.children[1].position.z=2*(pshift[dur]-1);
+                  item.children[0].position.y=-0.5
+                  item.children[1].position.y=-0.5
 
 
                   item.children[3].position.z=1-0.2*(pshift[dur]-1);
+                  item.children[3].position.y=-0.6
                   if(item.userData.rank==2){
                     item.children[0].position.z=-0.4-0.5*(pshift[dur]-1);
                     item.children[1].position.z=-0.4+2*(pshift[dur]-1);
                     item.children[2].position.z=-0.5
 
                     item.children[3].position.z=0.6-0.2*(pshift[dur]-1);
+                    item.children[3].position.y=-0.6
                   }
                 }else if(item.userData.rank==5||item.userData.rank==6){
                   item.children[1].position.z=1.3-0.8*(pshift[dur]-1);
@@ -18754,7 +18763,7 @@
 
                     var mesh=new THREE.Mesh(geometry1, material1);
 
-                    mesh.position.set(0,bh*(ly),0)
+                    mesh.position.set(3,bh*(ly),0)
 
 
 
@@ -18982,7 +18991,7 @@
                     mesh8.userData["rank"]=12;
                     mesh8.userData["alive"]=true;
                     mesh8.userData["target"]=false;
-                    mesh8.userData["dir"]=2
+                    mesh8.userData["dir"]=1
                     mesh8.material.opacity=1;
                     mesh8.material.visible=false;
                     mesh8.material.transparent=true;
