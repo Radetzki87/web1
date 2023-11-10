@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85, maximum-scale=0.85, minimum-scale=0.85, user-scalable=no">
     <title>2048 BRIX</title>
     <style>
         body {
@@ -5200,9 +5200,14 @@
         }
 
 
-        console.log(lastY)
-        console.log(핑거.y)
-        console.log(핑거0.y)
+        // console.log(lastY)
+        // console.log(핑거.y)
+        // console.log(핑거0.y)
+        과일.forEach((item) => {
+          // console.log(item.userData.body.sleep())
+        });
+
+        console.log()
         if(lastX>0.75){
           if(lastY<0.5&&lastY>0.29){
             console.log("뻥")
@@ -5507,7 +5512,7 @@
             //       shape: new CANNON.Box(new CANNON.Vec3(0.54*bh*tscale0/2, bh*0.3/2, 0.7*bh*tscale0/2)),
             //       // shape: new CANNON.Cylinder(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 20),
             //       material: customMaterial,
-            //       allowSleep: true,
+            //       allowSleep: false,
             //       sleepSpeedLimit: 1000,
             //       sleepTimeLimit: 0
             //   });
@@ -5519,7 +5524,7 @@
             // }else if(trand0==1){
             //   var groundBody = new CANNON.Body({
             //     mass: 무게*3,
-            //     allowSleep: true,
+            //     allowSleep: false,
             //     sleepSpeedLimit: 1000,
             //     material: customMaterial,
             //     sleepTimeLimit: 0
@@ -7344,7 +7349,7 @@
     let groundmesh = new THREE.Mesh(groundgeometry, groundmaterial);
     groundmesh.position.set(0, -1, 0);
     if (shadowon) groundmesh.receiveShadow = true
-    scene.add(groundmesh);
+    // scene.add(groundmesh);
     let groundshape = new CANNON.Box(new CANNON.Vec3(50*bw/2, 2 / 2, 50*bw/2));
     let customMaterial = new CANNON.Material('customMaterial');
     customMaterial.friction = 마찰[2]; // Friction coefficient, range: 0-1
@@ -7356,7 +7361,7 @@
     });
     groundBody.position.set(0, -1, 0);
     // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -0.02);
-    world.addBody(groundBody);
+    // world.addBody(groundBody);
 
 
     // let groundBody1 = new CANNON.Body({
@@ -7403,7 +7408,7 @@
     // groundBody.position.y=boxh/2
     world.gravity.set(0, 0, 0);
     world.broadphase = new CANNON.NaiveBroadphase();
-    world.solver.iterations = 20;
+    world.solver.iterations = 10;
 
     document.addEventListener('keydown', (event) => {
         // if(inflag) return;
@@ -7844,7 +7849,7 @@
                 mass: 30,
                 shape: new CANNON.Box(new CANNON.Vec3(1.5*bw/2, bh/2, 1.5*bw/2)),
                 material: customMaterial,
-                allowSleep: true,
+                allowSleep: false,
                 sleepSpeedLimit: 1000,
                 sleepTimeLimit: 0
             });
@@ -7904,7 +7909,7 @@
                 mass: 무게,
                 shape: new CANNON.Box(new CANNON.Vec3(cubes[i].mesh.userData.combo*pinsize*bw/2, 0.99*bh/2, cubes[i].mesh.userData.combo*pinsize*bw/2)),
                 material: customMaterial,
-                allowSleep: true,
+                allowSleep: false,
                 sleepSpeedLimit: 1000,
                 sleepTimeLimit: 0
             });
@@ -7935,14 +7940,14 @@
             }
 
             var compoundBody = new CANNON.Body({ mass: 0.3,
-              allowSleep: true,
+              allowSleep: false,
               sleepSpeedLimit: 1000,
               sleepTimeLimit: 0
             });
 
             var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
             var boxBody0 = new CANNON.Body({ mass: 0.1,
-              allowSleep: true,
+              allowSleep: false,
               sleepSpeedLimit: 1000,
               sleepTimeLimit: 0
             });
@@ -8009,7 +8014,7 @@
               mass: 무게*4,
               shape: new CANNON.Box(new CANNON.Vec3(bw/4, bw/4, bw/4)),
               material: customMaterial,
-              allowSleep: true,
+              allowSleep: false,
               sleepSpeedLimit: 1000,
               sleepTimeLimit: 0
           });
@@ -8089,7 +8094,7 @@
                 mass: 0,
                 shape: new CANNON.Box(new CANNON.Vec3(bw/2, bh/2, bw/2)),
                 material: customMaterial,
-                allowSleep: true,
+                allowSleep: false,
                 sleepSpeedLimit: 1000,
                 sleepTimeLimit: 0
             });
@@ -8510,7 +8515,7 @@
           forceAmount = bw * bw * bh / 16.5;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 20;
+          world.solver.iterations = 10;
           // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
         }else if (gamemod==1){
           for (var i = 0; i < cubes.length; i++) {
@@ -8539,7 +8544,7 @@
 
         }
         groundBody.position.set(0, -1, 0);
-        world.addBody(groundBody);
+        // world.addBody(groundBody);
 
         // groundBody1.position.set(0, -3, 0);
         // world.addBody(groundBody1);
@@ -8588,7 +8593,7 @@
           remain=30;
           tbonus=30
         }
-        scene.add(groundmesh);
+        // scene.add(groundmesh);
 
 
 
@@ -8893,10 +8898,10 @@
         // 다리=1;
 
         해머=0;
-        뻥=1;
-        얼음=1;
-        핀=1;
-        다리=1;
+        뻥=0;
+        얼음=0;
+        핀=0;
+        다리=0;
 
 
 
@@ -11990,7 +11995,7 @@
             mass: 무게,
             shape: shape,
             material: customMaterial,
-            allowSleep: true,
+            allowSleep: false,
             sleepSpeedLimit: 1000,
             sleepTimeLimit: 0
         });
@@ -16122,6 +16127,11 @@
       var tcolor;
       var initscale=0.1
 
+      var sleep1=100;
+      var sleep2=0.1;
+
+
+
       var 그림자=true;
 
       var frix=0.2
@@ -16243,9 +16253,9 @@
             // shape: new CANNON.Box(new CANNON.Vec3(bh*tscale0/2, bh/2, bh*tscale0/2)),
             shape: new CANNON.Cylinder(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 20),
             material: customMaterial,
-            allowSleep: true,
-            sleepSpeedLimit: 1000,
-            sleepTimeLimit: 0
+            allowSleep: false,
+            sleepSpeedLimit: sleep1,
+            sleepTimeLimit: sleep2
         });
 
 
@@ -16329,9 +16339,9 @@
               shape: new CANNON.Box(new CANNON.Vec3(0.54*bh*tscale0/2, 통/2, t4*0.7*bh*tscale0/2)),
               // shape: new CANNON.Cylinder(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 20),
               material: customMaterial,
-              allowSleep: true,
-              sleepSpeedLimit: 1000,
-              sleepTimeLimit: 0
+              allowSleep: false,
+              sleepSpeedLimit: sleep1,
+              sleepTimeLimit: sleep2
           });
 
 
@@ -16344,7 +16354,7 @@
           customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
           var groundBody = new CANNON.Body({
             mass: 무게*3,
-            allowSleep: true,
+            allowSleep: false,
             sleepSpeedLimit: 1000,
             material: customMaterial,
             sleepTimeLimit: 0
@@ -16422,9 +16432,9 @@
                 // shape: new CANNON.Box(new CANNON.Vec3(bh*tscale0/2, bh/2, bh*tscale0/2)),
                 shape: new CANNON.Cylinder(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 20),
                 material: customMaterial,
-                allowSleep: true,
-                sleepSpeedLimit: 1000,
-                sleepTimeLimit: 0
+                allowSleep: false,
+                sleepSpeedLimit: sleep1,
+                sleepTimeLimit: sleep2
             });
 
 
@@ -16505,10 +16515,10 @@
 
             var groundBody = new CANNON.Body({
               mass: 무게*3,
-              allowSleep: true,
-              sleepSpeedLimit: 1000,
               material: customMaterial,
-              sleepTimeLimit: 0
+              allowSleep: false,
+              sleepSpeedLimit: sleep1,
+              sleepTimeLimit: sleep2
             });
 
             var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.4*bh*tscale0/2, 통/2, t1*1.239*0.68*bh*tscale0/2));
@@ -16612,10 +16622,12 @@
 
           var groundBody = new CANNON.Body({
             mass: 무게*3,
-            allowSleep: true,
-            sleepSpeedLimit: 1000,
+
             material: customMaterial,
-            sleepTimeLimit: 0
+
+            allowSleep: false,
+            sleepSpeedLimit: sleep1,
+            sleepTimeLimit: sleep2
           });
 
 
@@ -16718,10 +16730,13 @@
 
           var groundBody = new CANNON.Body({
             mass: 무게*3,
-            allowSleep: true,
-            sleepSpeedLimit: 1000,
+
+
             material: customMaterial,
-            sleepTimeLimit: 0
+
+            allowSleep: false,
+            sleepSpeedLimit: sleep1,
+            sleepTimeLimit: sleep2
           });
 
           var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*1.239*0.73*bh*tscale0/2));
@@ -16796,9 +16811,9 @@
             // shape: new CANNON.Box(new CANNON.Vec3(bh*tscale0/2, bh/2, bh*tscale0/2)),
             shape: new CANNON.Cylinder(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 20),
             material: customMaterial,
-            allowSleep: true,
-            sleepSpeedLimit: 1000,
-            sleepTimeLimit: 0
+            allowSleep: false,
+            sleepSpeedLimit: sleep1,
+            sleepTimeLimit: sleep2
         });
 
 
@@ -17187,6 +17202,7 @@
     // Animate the scene
     function animate(currentTime) {
 
+
         let deltaTime = currentTime - lastTime;
 
 
@@ -17322,7 +17338,7 @@
                 if(i==1){
                   item.children[0].position.y=0.2*dif+bh*8.9
                   item.children[2].position.y=0.2*dif+bh*8.9
-                  item.children[1].position.y=0.15*dif+bh*8.9
+                  item.children[1].position.y=0.15*dif+bh*8.95
 
                   item.children[3].position.y=0.15*dif+bh*16.5
                   item.children[3].position.x=-2.5
@@ -17369,7 +17385,7 @@
 
 
           sample.forEach((item, i) => {
-            if(elapsedTime-drop>0.3){
+            if(elapsedTime-drop>0.7){
               ready=true;
               if(i==next){
                 if(i==0){
@@ -17553,13 +17569,13 @@
           });
 
           if(aniflag0){
-            과일.forEach((item,i) => {
+            과일.forEach((item,i) => { //y 음수 돌출
               if(item.userData.alive&&item.userData.id>0){
                 if(item.userData.rank==1){
                   item.children[0].position.z=-0.5*(pshift[dur]-1);
                   item.children[0].position.y=-0.5
                   item.children[1].position.z=2*(pshift[dur]-1);
-                  item.children[1].position.y=-0.5
+                  item.children[1].position.y=-1.5
                   item.children[2].position.y=0.8
 
                   item.children[3].material.visible=false;
@@ -17572,7 +17588,7 @@
                   item.children[0].position.z=-0.5*(pshift[dur]-1);
                   item.children[1].position.z=2*(pshift[dur]-1);
                   item.children[0].position.y=-0.5
-                  item.children[1].position.y=-0.5
+                  item.children[1].position.y=-1.5
 
 
                   item.children[3].position.z=1-0.2*(pshift[dur]-1);
@@ -17616,8 +17632,8 @@
                     // var tmx0=1.8
                     // var tmy0=0
                     // var tmz0=-1.1
-                    // item.children[0].position.x=4
-                    // item.children[1].position.x=4
+                    item.children[0].position.y=-1.8
+                    item.children[1].position.y=-1.8
                     // item.children[0].position.z=tmz0-0.5*(pshift[dur]-1);
                     // item.children[1].position.z=tmz0-0.3*(pshift[dur]-1);
                     // item.children[3].position.z=tmz0+0.4*(pshift[dur]-1);
@@ -19285,7 +19301,7 @@
                         mass: 0,
                         shape: new CANNON.Box(new CANNON.Vec3(통/2, bh*60/2, bw*너비/2)),
                         material: customMaterial,
-                        allowSleep: true,
+                        allowSleep: false,
                         sleepSpeedLimit: 1000,
                         sleepTimeLimit: 0
                     });
@@ -19333,7 +19349,7 @@
                         mass: 0,
                         shape: new CANNON.Box(new CANNON.Vec3(통/2, bh*60/2, bw*너비/2)),
                         material: customMaterial,
-                        allowSleep: true,
+                        allowSleep: false,
                         sleepSpeedLimit: 1000,
                         sleepTimeLimit: 0
                     });
@@ -19375,7 +19391,7 @@
                         mass: 0,
                         shape: new CANNON.Box(new CANNON.Vec3(bw/2, bh*60/2, bw/2)),
                         material: customMaterial,
-                        allowSleep: true,
+                        allowSleep: false,
                         sleepSpeedLimit: 1000,
                         sleepTimeLimit: 0
                     });
@@ -19417,7 +19433,7 @@
                         mass: 0,
                         shape: new CANNON.Box(new CANNON.Vec3(bw/2, bh*60/2, bw/2)),
                         material: customMaterial,
-                        allowSleep: true,
+                        allowSleep: false,
                         sleepSpeedLimit: 1000,
                         sleepTimeLimit: 0
                     });
@@ -19648,11 +19664,11 @@
                     mesh1.rotation.x=-Math.PI/2
                     mesh1.scale.set(6,8,6)
 
-                    mesh2.position.set(0,-bh*(2.9),0)
+                    mesh2.position.set(-1,-bh*(2.9),0)
                     mesh2.rotation.y=Math.PI
                     mesh2.rotation.z=Math.PI/2
                     mesh2.rotation.x=-Math.PI/2
-                    mesh2.scale.set(6,7,6)
+                    mesh2.scale.set(6,6,6)
 
                     mesh3.position.set(-2,+bh*(8.8),0)
                     mesh3.rotation.y=Math.PI
@@ -19752,7 +19768,7 @@
 
                     var compoundBody = new CANNON.Body({ mass: 0,
                       material: customMaterial,
-                      allowSleep: true,
+                      allowSleep: false,
                       sleepSpeedLimit: 1000,
                       sleepTimeLimit: 0
                     });
@@ -24980,7 +24996,7 @@
           mass: 무게,
           shape: shape,
           material: customMaterial,
-          allowSleep: true,
+          allowSleep: false,
           sleepSpeedLimit: 1000,
           sleepTimeLimit: 0
       });
@@ -25505,7 +25521,7 @@
           meta.setAttribute('content', 'width=device-width, initial-scale=1.0 maximum-scale=1.0, minimum-scale=1.0, user-scalable=no');
           break;
         case 1:
-          meta.setAttribute('content', 'width=device-width, initial-scale=0.9, maximum-scale=0.9, minimum-scale=0.9, user-scalable=no');
+          meta.setAttribute('content', 'width=device-width, initial-scale=0.85, maximum-scale=0.85, minimum-scale=0.85, user-scalable=no');
           break;
         case 2:
           meta.setAttribute('content', 'width=device-width, initial-scale=0.75, maximum-scale=0.75, minimum-scale=0.75, user-scalable=no');
@@ -27116,7 +27132,7 @@
 
 
           resinit=parseInt(nslst["data3"]["2"]);
-          resinit=2;
+          resinit=1;
 
           window.resinit=resinit;
 
@@ -27258,7 +27274,7 @@
 
         resinit=parseInt(nslst["data3"]["2"]);
 
-        resinit=2;
+        resinit=1;
         window.resinit=resinit;
         resol(resinit);
         // setlang(langnum);
