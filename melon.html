@@ -1435,7 +1435,7 @@
             /* justify-content: center; */
             z-index: 3;
             text-align: center;
-            transition: opacity 2.8s, top 1.2s ease;
+            transition: opacity 2.8s, top 1.8s ease;
         }
 
         #logo{
@@ -3259,6 +3259,7 @@
     var itempointer;
 
     var stacktime;
+    var pen=[];
     var pen2=[]
     var dropflag=false;
     var next=0;
@@ -5004,9 +5005,11 @@
     var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
     function handleTouchStart(event) {
-        console.log(propsmold.length);
-        if(propsmold.length!=12) return;
         if(!터치) return
+        console.log(propsmold.length);
+        // if(propsmold.length!=6) return;
+        if(pen.length!=6||seal.length!=10||bear.length!=9||fox.length!=5||whale.length!=6||swhale.length!=6||wall.length!=8||pen2.length!=5) return;
+
         // if(originflag&&-isoAngle != camera.rotation.x) return;
 
         // if(restartflag) return;
@@ -5198,6 +5201,13 @@
 
 
         }
+        if(!ingame) return;
+        // console.log(seal.length)
+        // console.log(bear.length)
+        // console.log(fox.length)
+        // console.log(whale.length)
+
+
 
 
         // console.log(lastY)
@@ -5320,6 +5330,7 @@
 
         if(cat.length>=1){
           if(ready){
+            if(elapsedTime<1) return;
             dragflag=true
             ontouch=true;
 
@@ -6126,6 +6137,7 @@
         }
 
         if(dragflag){
+
           if(next<2){
             if(lastX<-0.61){
               lastX=-0.61
@@ -6759,7 +6771,10 @@
     });
 
     window.addEventListener('click', (event) => {
-      if(propsmold.length!=12) return;
+      if(!터치) return
+      // if(propsmold.length!=6) return;
+      if(pen.length!=6||seal.length!=10||bear.length!=9||fox.length!=5||whale.length!=6||swhale.length!=6||wall.length!=8||pen2.length!=5) return;
+
       if(!originflag){
         // topflag= true;
         msetting(function(object) {
@@ -6840,6 +6855,7 @@
           if(ontouch){
 
           }else{
+            if(elapsedTime<1) return;
             if((elapsedTime-drop)<0.4) return;
 
             if(window.innerWidth>window.innerHeight){
@@ -10086,87 +10102,7 @@
 
                       mesh.add(object.children[0]);
 
-                      var ntile = tilemold[10].clone();
-                      ntile.children[0].material = new THREE.MeshBasicMaterial({
-                          color: 0xffffff
-                      });
-                      ntile.children[0].position.y=bh/2.5;
-                      ntile.children[0].position.x=-bw/3.1;
-                      ntile.children[0].position.z=-bw/1.7;
-                      ntile.children[0].scale.set(1.1,1.3,1)
-                      // ntile.children[0].position.z=bh;
-                      ntile.children[0].userData["skin"] = "classic"
-                      // ntile.children[0].userData["skintype"] =0;
-                      if(idx==0){
-                        skinmold[ntile.children[0].userData["skin"]].push(ntile.children[0].clone())
-                      }
-                      mesh.add(ntile.children[0]);
 
-                      var ntile = tilemold[12].clone();
-                      ntile.material = new THREE.MeshBasicMaterial({
-                          color: 0xffffff
-                      });
-                      ntile.position.y=bh/2.5;
-                      ntile.position.x=bw/10;
-                      ntile.position.z=-bw/1.5;
-                      ntile.scale.set(0.3,0.3,1)
-                      // ntile.children[0].position.z=bh;
-                      ntile.userData["skin"] = "classic"
-                      // ntile.children[0].userData["skintype"] =0;
-                      if(idx==0){
-                        skinmold[ntile.userData["skin"]].push(ntile.clone())
-                      }
-                      mesh.add(ntile);
-
-                      var ntile = tilemold[13].clone();
-                      ntile.material = new THREE.MeshBasicMaterial({
-                          color: 0xffffff
-                      });
-                      ntile.position.y=bh/2.5;
-                      ntile.position.x=bw/2.8;
-                      ntile.position.z=-bw/1.5;
-                      ntile.scale.set(0.35,0.3,1)
-                      // ntile.children[0].position.z=bh;
-                      ntile.userData["skin"] = "classic"
-                      // ntile.children[0].userData["skintype"] =0;
-                      if(idx==0){
-                        skinmold[ntile.userData["skin"]].push(ntile.clone())
-                      }
-                      mesh.add(ntile);
-
-                      var ntile = tilemold[14].clone();
-                      ntile.material = new THREE.MeshBasicMaterial({
-                          color: 0xffffff
-                      });
-                      ntile.position.y=bh/2.5;
-                      ntile.position.x=bw/10;
-                      ntile.position.z=-bw/1.65;
-                      ntile.scale.set(0.3,0.3,1)
-                      // ntile.children[0].position.z=bh;
-                      ntile.userData["skin"] = "classic"
-                      ntile.userData["skintype"] = "score"
-                      // ntile.children[0].userData["skintype"] =0;
-                      if(idx==0){
-                        skinmold[ntile.userData["skin"]].push(ntile.clone())
-                      }
-                      mesh.add(ntile);
-
-                      var ntile = tilemold[15].clone();
-                      ntile.material = new THREE.MeshBasicMaterial({
-                          color: 0xffffff
-                      });
-                      ntile.position.y=bh/2.5;
-                      ntile.position.x=bw/2.8;
-                      ntile.position.z=-bw/1.65;
-                      ntile.scale.set(0.35,0.3,1)
-                      // ntile.children[0].position.z=bh;
-                      ntile.userData["skin"] = "classic"
-                      ntile.userData["skintype"] = "best"
-                      // ntile.children[0].userData["skintype"] =0;
-                      if(idx==0){
-                        skinmold[ntile.userData["skin"]].push(ntile.clone())
-                      }
-                      mesh.add(ntile);
                   });
 
 
@@ -12041,547 +11977,174 @@
             });
         }
 
-        createTextMesh("SCORE", bw / 8, (textMesh) => {
-            textMesh.position.y = +(th / 32)
-            textMesh.position.z += th / 2;
-            textMesh.rotation.order = 'YXZ';
-            textMesh.rotation.x = -Math.PI / 2;
-
-            textmold.push(textMesh);
-
-            // tile.userData["time"]=elapsedTime;
-            // tile.userData["merge"]=0;
-            // tile.add(textMesh);
-            tilemold.push(textMesh);
-        });
-
-        createTextMesh("BEST", bw / 8, (textMesh) => {
-            textMesh.position.y = +(th / 32)
-            textMesh.position.z += th / 2;
-            textMesh.rotation.order = 'YXZ';
-            textMesh.rotation.x = -Math.PI / 2;
-
-            textmold.push(textMesh);
-
-            // tile.userData["time"]=elapsedTime;
-            // tile.userData["merge"]=0;
-            // tile.add(textMesh);
-            tilemold.push(textMesh);
-        });
-
-
-        createTextMesh("2048", bw / 8, (textMesh) => {
-            textMesh.position.y = +(th / 32)
-            textMesh.position.z += th / 2;
-            textMesh.rotation.order = 'YXZ';
-            textMesh.rotation.x = -Math.PI / 2;
-
-            textmold.push(textMesh);
-
-            // tile.userData["time"]=elapsedTime;
-            // tile.userData["merge"]=0;
-            // tile.add(textMesh);
-            tilemold.push(textMesh);
-        });
-
-        createTextMesh(String(bestscore), bw / 8, (textMesh) => {
-            textMesh.position.y = +(th / 32)
-            textMesh.position.z += th / 2;
-            textMesh.rotation.order = 'YXZ';
-            textMesh.rotation.x = -Math.PI / 2;
-
-            textmold.push(textMesh);
-
-            // tile.userData["time"]=elapsedTime;
-            // tile.userData["merge"]=0;
-            // tile.add(textMesh);
-            tilemold.push(textMesh);
-        });
-
-
-        for (var i = 0; i < 13; i++) {
-          var w = bw / 20
-          w += Math.sqrt(Math.pow(2, i)) / 5
-          var vw=w
-          var vbw=bw
-
-          var geoms = [];
-
-          let originHelper = new THREE.Object3D();
-          originHelper.position.set(0, vbw / 2, 0)
-          originHelper.updateWorldMatrix(true, false);
-          var tg = new THREE.PlaneGeometry(vbw, vw);
-          tg.applyMatrix4(originHelper.matrixWorld);
-          geoms.push(tg)
-
-          originHelper.position.set(+vbw / 2 + vw * 0.6 / 2, -(vbw / 4) + vbw / 2 + vw / 2, 0)
-          originHelper.updateWorldMatrix(true, false);
-          var tg = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
-          tg.applyMatrix4(originHelper.matrixWorld);
-          geoms.push(tg)
-
-          originHelper.position.set(-vbw / 2 - vw * 0.6 / 2, -(vbw / 4) + vbw / 2 + vw / 2, 0)
-          originHelper.updateWorldMatrix(true, false);
-          var tg = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
-          tg.applyMatrix4(originHelper.matrixWorld);
-          geoms.push(tg)
-
-          var mgeo = new BufferGeometryUtils.mergeGeometries(geoms, false);
-
-          var mesh1 = new THREE.Mesh(mgeo, new THREE.MeshBasicMaterial({
-          	color: 0xffffff,
-            side: THREE.DoubleSide
-          }));
-          mesh1.rotation.order = 'YXZ';
-          mesh1.rotation.x = - Math.PI / 2;
-          mesh1.userData["skin"]="exc"
-
-
-          ㄷ.push(mesh1);
-
-          var vw=w
-          var vbw=bw
-
-          var geoms = [];
-          originHelper = new THREE.Object3D();
-          originHelper.position.set(0, vbw / 2+ vw/2, 0)
-          originHelper.updateWorldMatrix(true, false);
-          var tg = new THREE.PlaneGeometry(vbw, vw);
-          tg.applyMatrix4(originHelper.matrixWorld);
-          geoms.push(tg)
-
-          originHelper.position.set(+vbw / 2 + vw/2, 0, 0)
-          originHelper.updateWorldMatrix(true, false);
-          var tg = new THREE.PlaneGeometry(vw, vbw+vw+vw);
-          tg.applyMatrix4(originHelper.matrixWorld);
-          geoms.push(tg)
-
-          originHelper.position.set(-vbw / 2 - vw / 2, 0, 0)
-          originHelper.updateWorldMatrix(true, false);
-          var tg = new THREE.PlaneGeometry(vw, vbw+vw+vw);
-          tg.applyMatrix4(originHelper.matrixWorld);
-          geoms.push(tg)
-
-          originHelper.position.set(0, -vbw / 2- vw / 2, 0)
-          originHelper.updateWorldMatrix(true, false);
-          var tg = new THREE.PlaneGeometry(vbw, vw);
-          tg.applyMatrix4(originHelper.matrixWorld);
-          geoms.push(tg)
-
-          var mgeo = new BufferGeometryUtils.mergeGeometries(geoms, false);
-
-          var mesh1 = new THREE.Mesh(mgeo, new THREE.MeshBasicMaterial({
-          	color: 0xffffff,
-            side: THREE.DoubleSide
-          }));
-          mesh1.rotation.order = 'YXZ';
-          mesh1.rotation.x = - Math.PI / 2;
-          mesh1.userData["skin"]="exc"
-
-          ㄷ2.push(mesh1);
-
-
-        }
-
-        var geometry0 = new THREE.BoxGeometry(2*bw/2, 2*bh/2, 2*bw/2);
-        var material0 = new THREE.MeshLambertMaterial({
-            color: new THREE.Color(0xA7A3A9)
-        });
-        var mesh0 = new THREE.Mesh(geometry0, material0);
-
-        cubemold.push(mesh0)
-
-        var geometry0 = new THREE.BoxGeometry(2*bw/2, 4*bh/2, 2*bw/2);
-        var material0 = new THREE.MeshLambertMaterial({
-            color: new THREE.Color(0xA7A3A9)
-        });
-        var mesh0 = new THREE.Mesh(geometry0, material0);
-
-        cubemold.push(mesh0)
-
-
-        var geometry1 = new THREE.BoxGeometry(0.05*bw, 1.3*bh, 0.05*bw);
-        var material1 = new THREE.MeshLambertMaterial({
-            color: new THREE.Color(0xD7F3F9)
-        });
-        let mesh = new THREE.Mesh(geometry1, material1);
-
-
-        var geometry2 = new THREE.BoxGeometry(1*bh, 0.05*bw, 0.05*bw);
-        let mesh2 = new THREE.Mesh(geometry2, material1);
-        mesh2.position.x=-bh/2
-        mesh2.position.y=1.13*bh/2
-
-        var geometry3 = new THREE.BoxGeometry(1*bh, 0.05*bw, 0.05*bw);
-        let mesh3 = new THREE.Mesh(geometry3, material1);
-        mesh3.position.x=-bh/2
-        mesh3.position.y=-1.13*bh/2
-
-        mesh.add(mesh2)
-        mesh.add(mesh3)
-        legmold.push(mesh)
 
 
 
 
 
-        var geometry1 = new THREE.BoxGeometry(0.1*bw, 0.3*bw, 0.1*bw);
-        var material1 = new THREE.MeshLambertMaterial({
-            color: new THREE.Color(0xD7F3F9)
-        });
-        var mesh5 = new THREE.Mesh(geometry1, material1);
-
-
-        legmold.push(mesh5)
-
-
-        var geometry1 = new THREE.BoxGeometry(0.05*bw, 1.3*bh, 0.05*bw);
-        var material1 = new THREE.MeshLambertMaterial({
-            color: new THREE.Color(0xD7F3F9)
-        });
-        let nmesh = new THREE.Mesh(geometry1, material1);
-
-
-        var geometry2 = new THREE.BoxGeometry(0.05*bw, 0.05*bw, 1*bh);
-        let nmesh2 = new THREE.Mesh(geometry2, material1);
-        nmesh2.position.z=-bh/2
-        nmesh2.position.y=1.13*bh/2
-
-        var geometry3 = new THREE.BoxGeometry(0.05*bw, 0.05*bw, 1*bh);
-        let nmesh3 = new THREE.Mesh(geometry3, material1);
-        nmesh3.position.z=-bh/2
-        nmesh3.position.y=-1.13*bh/2
-
-        nmesh.add(nmesh2)
-        nmesh.add(nmesh3)
-        legmold.push(nmesh)
-
-
-
-        var geometry1 = new THREE.BoxGeometry(bw/2, bw/2, bw/2);
-        var material1 = new THREE.MeshLambertMaterial({
-            color: new THREE.Color(0x333333)
-        });
-        var tmesh = new THREE.Mesh(geometry1, material1);
-        testmold.push(tmesh);
 
 
 
 
+
+
+
+        var loader = new OBJLoader();
         var mtlLoader = new MTLLoader();
-        mtlLoader.load(ur2+'heart.mtl', function(materials) {
+        mtlLoader.load(ur2+'src/pen-0.mtl', function(materials) {
             materials.preload();
-            var loader = new OBJLoader();
-            // Load OBJ file
             loader.setMaterials(materials);
-            loader.load(ur2+'heart.obj', (object) => {
+            loader.load(ur2+'src/pen-0.obj', (object) => {
+              // object.children[0].rotation.y = Math.PI / 2
+              object.children[0].position.set(0, 0, 0)
+              object.children[0].scale.x = 3
+              object.children[0].scale.z = 3
+              object.children[0].scale.y = 3
 
-                object.children[0].rotation.y = Math.PI / 2
-                object.children[0].position.set(0, 0, 0)
-                object.children[0].scale.x = 1.25*2.57 / 2;
-                object.children[0].scale.z = 1.25*2.57 / 2;
-                object.children[0].scale.y = 1.25*2.57 / 2;
+              object.children[0].rotation.x = Math.PI / 2
 
 
-                if (shadowon) {
+              // object.children[0].position.z=0.2
+
+              // object.children[0].scale.x=2.25;
+              // object.children[0].scale.z=2.25;
+              // object.children[0].scale.y=1.92;
+              object.children[0].receiveShadow = true;
+              object.children[0].castShadow = true;
+
+
+              pen.push(object.children[0]);
+              var loader = new OBJLoader();
+              var mtlLoader = new MTLLoader();
+              mtlLoader.load(ur2+'src/pen-1.mtl', function(materials) {
+                  materials.preload();
+                  loader.setMaterials(materials);
+                  loader.load(ur2+'src/pen-1.obj', (object) => {
+                    // object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 3
+                    object.children[0].scale.z = 3
+                    object.children[0].scale.y = 3
+
+                    object.children[0].rotation.x = Math.PI / 2
+
+                    // object.children[0].position.z=0.2
+
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
                     object.children[0].receiveShadow = true;
                     object.children[0].castShadow = true;
-                }
-
-              propsmold.push(object.children[0]);
-              var loader = new OBJLoader();
-              loader.load(ur2+'gift.obj', (object) => {
-                  // object.children[0].rotation.y = Math.PI / 2
-                  object.children[0].position.set(0, 0, 0)
-                  object.children[0].scale.x = 1.25*2.57 / 2;
-                  object.children[0].scale.z = 1.25*2.57 / 2;
-                  object.children[0].scale.y = 1.25*2.57 / 2;
-
-                  object.children[0].position.z=0.2
-
-                  // object.children[0].scale.x=2.25;
-                  // object.children[0].scale.z=2.25;
-                  // object.children[0].scale.y=1.92;
-                  var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-                  var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] ) + '%, ' + String(newcl["l"] ) + '%)');
-                  object.children[0].material = new THREE.MeshLambertMaterial({
-                      color: tc
-                  });
-
-
-                  propsmold.push(object.children[0]);
-                  loader.load(ur2+'cloud.obj', (object) => {
-                      // object.children[0].rotation.y = Math.PI / 2
-                      object.children[0].position.set(0, 0, 0)
-                      object.children[0].scale.x = 7
-                      object.children[0].scale.z = 7
-                      object.children[0].scale.y = 7
-
-                      // object.children[0].position.z=0.2
 
-                      // object.children[0].scale.x=2.25;
-                      // object.children[0].scale.z=2.25;
-                      // object.children[0].scale.y=1.92;
-                      var newcl = hexToHSL(hexToHtmlColor(0xF2F2F2));
-                      var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] ) + '%, ' + String(newcl["l"] ) + '%)');
-                      object.children[0].material = new THREE.MeshLambertMaterial({
-                          color: tc
-                      });
-
-
-                      propsmold.push(object.children[0]);
-
-                        mtlLoader.load(ur2+'wood-0.mtl', function(materials) {
-                            materials.preload();
-                            loader.setMaterials(materials);
-                            loader.load(ur2+'wood-0.obj', (object) => {
-                              // object.children[0].rotation.y = Math.PI / 2
-                              object.children[0].position.set(0, 0, 0)
-                              object.children[0].scale.x = 1.25*2.57 / 1.2;
-                              object.children[0].scale.z = 1.25*2.57 / 1.2;
-                              object.children[0].scale.y = 1.25*2.57*보정 / 1.2;
-
-                              // object.children[0].position.z=0.2
-
-                              // object.children[0].scale.x=2.25;
-                              // object.children[0].scale.z=2.25;
-                              // object.children[0].scale.y=1.92;
-
-
-
-                              propsmold.push(object.children[0]);
-                              var loader = new OBJLoader();
-                              var mtlLoader = new MTLLoader();
-                              mtlLoader.load(ur2+'wood-1.mtl', function(materials) {
-                                  materials.preload();
-                                  loader.setMaterials(materials);
-                                  loader.load(ur2+'wood-1.obj', (object) => {
-                                    // object.children[0].rotation.y = Math.PI / 2
-                                    object.children[0].position.set(0, 0, 0)
-                                    object.children[0].scale.x = 1.25*2.57 / 1.2;
-                                    object.children[0].scale.z = 1.25*2.57 / 1.2;
-                                    object.children[0].scale.y = 1.25*2.57*보정 / 1.2;
-
-                                    // object.children[0].position.z=0.2
-
-                                    // object.children[0].scale.x=2.25;
-                                    // object.children[0].scale.z=2.25;
-                                    // object.children[0].scale.y=1.92;
-
-
-
-                                    propsmold.push(object.children[0]);
-                                    var loader = new OBJLoader();
-                                    var mtlLoader = new MTLLoader();
-                                    mtlLoader.load(ur2+'wood-2.mtl', function(materials) {
-                                        materials.preload();
-                                        loader.setMaterials(materials);
-                                        loader.load(ur2+'wood-2.obj', (object) => {
-                                          // object.children[0].rotation.y = Math.PI / 2
-                                          object.children[0].position.set(0, 0, 0)
-                                          object.children[0].scale.x = 1.25*2.57 /1.2;
-                                          object.children[0].scale.z = 1.25*2.57 /1.2;
-                                          object.children[0].scale.y = 1.25*2.57*보정 /1.2;
-
-                                          // object.children[0].position.z=0.2
-
-                                          // object.children[0].scale.x=2.25;
-                                          // object.children[0].scale.z=2.25;
-                                          // object.children[0].scale.y=1.92;
 
 
-
-                                          propsmold.push(object.children[0]);
-
-
-                                          var loader = new OBJLoader();
-                                          var mtlLoader = new MTLLoader();
-                                          mtlLoader.load(ur2+'src/pen-0.mtl', function(materials) {
-                                              materials.preload();
-                                              loader.setMaterials(materials);
-                                              loader.load(ur2+'src/pen-0.obj', (object) => {
-                                                // object.children[0].rotation.y = Math.PI / 2
-                                                object.children[0].position.set(0, 0, 0)
-                                                object.children[0].scale.x = 3
-                                                object.children[0].scale.z = 3
-                                                object.children[0].scale.y = 3
-
-                                                object.children[0].rotation.x = Math.PI / 2
-
-
-                                                // object.children[0].position.z=0.2
-
-                                                // object.children[0].scale.x=2.25;
-                                                // object.children[0].scale.z=2.25;
-                                                // object.children[0].scale.y=1.92;
-                                                object.children[0].receiveShadow = true;
-                                                object.children[0].castShadow = true;
-
-
-                                                propsmold.push(object.children[0]);
-                                                var loader = new OBJLoader();
-                                                var mtlLoader = new MTLLoader();
-                                                mtlLoader.load(ur2+'src/pen-1.mtl', function(materials) {
-                                                    materials.preload();
-                                                    loader.setMaterials(materials);
-                                                    loader.load(ur2+'src/pen-1.obj', (object) => {
-                                                      // object.children[0].rotation.y = Math.PI / 2
-                                                      object.children[0].position.set(0, 0, 0)
-                                                      object.children[0].scale.x = 3
-                                                      object.children[0].scale.z = 3
-                                                      object.children[0].scale.y = 3
-
-                                                      object.children[0].rotation.x = Math.PI / 2
-
-                                                      // object.children[0].position.z=0.2
-
-                                                      // object.children[0].scale.x=2.25;
-                                                      // object.children[0].scale.z=2.25;
-                                                      // object.children[0].scale.y=1.92;
-                                                      object.children[0].receiveShadow = true;
-                                                      object.children[0].castShadow = true;
-
-
-
-                                                      propsmold.push(object.children[0]);
-                                                      var loader = new OBJLoader();
-                                                      var mtlLoader = new MTLLoader();
-                                                      mtlLoader.load(ur2+'src/pen-2.mtl', function(materials) {
-                                                          materials.preload();
-                                                          loader.setMaterials(materials);
-                                                          loader.load(ur2+'src/pen-2.obj', (object) => {
-                                                            // object.children[0].rotation.y = Math.PI / 2
-                                                            object.children[0].position.set(0, 0, 0)
-                                                            object.children[0].scale.x = 3
-                                                            object.children[0].scale.z = 3
-                                                            object.children[0].scale.y = 3
-
-                                                            object.children[0].rotation.x = Math.PI / 2
-
-                                                            // object.children[0].position.z=0.2
-
-                                                            // object.children[0].scale.x=2.25;
-                                                            // object.children[0].scale.z=2.25;
-                                                            // object.children[0].scale.y=1.92;
-                                                            object.children[0].receiveShadow = true;
-                                                            object.children[0].castShadow = true;
-
-
-
-                                                            propsmold.push(object.children[0]);
-
-                                                            var loader = new OBJLoader();
-                                                            var mtlLoader = new MTLLoader();
-                                                            mtlLoader.load(ur2+'src/pen2-3.mtl', function(materials) {
-                                                                materials.preload();
-                                                                loader.setMaterials(materials);
-                                                                loader.load(ur2+'src/pen2-3.obj', (object) => {
-                                                                  // object.children[0].rotation.y = Math.PI / 2
-                                                                  object.children[0].position.set(0.15, 0, 1)
-                                                                  object.children[0].scale.x = 3
-                                                                  object.children[0].scale.z = 3
-                                                                  object.children[0].scale.y = 3
-
-                                                                  object.children[0].rotation.x = Math.PI / 2
-
-                                                                  // object.children[0].position.z=0.2
-
-                                                                  // object.children[0].scale.x=2.25;
-                                                                  // object.children[0].scale.z=2.25;
-                                                                  // object.children[0].scale.y=1.92;
-                                                                  object.children[0].receiveShadow = true;
-                                                                  object.children[0].castShadow = true;
-                                                                  propsmold.push(object.children[0]);
-                                                                  var loader = new OBJLoader();
-                                                                  var mtlLoader = new MTLLoader();
-                                                                  mtlLoader.load(ur2+'src/cap.mtl', function(materials) {
-                                                                      materials.preload();
-                                                                      loader.setMaterials(materials);
-                                                                      loader.load(ur2+'src/cap.obj', (object) => {
-                                                                        // object.children[0].rotation.y = Math.PI / 2
-                                                                        object.children[0].position.set(-0.15, -0.25, 1)
-                                                                        object.children[0].scale.x = 3
-                                                                        object.children[0].scale.z = 3
-                                                                        object.children[0].scale.y = 3
-
-                                                                        object.children[0].rotation.x = Math.PI / 2
-
-                                                                        // object.children[0].position.z=0.2
-
-                                                                        // object.children[0].scale.x=2.25;
-                                                                        // object.children[0].scale.z=2.25;
-                                                                        // object.children[0].scale.y=1.92;
-                                                                        object.children[0].receiveShadow = true;
-                                                                        object.children[0].castShadow = true;
-                                                                        propsmold.push(object.children[0]);
-                                                                        var loader = new OBJLoader();
-                                                                        var mtlLoader = new MTLLoader();
-                                                                        mtlLoader.load(ur2+'src/pen-3.mtl', function(materials) {
-                                                                            materials.preload();
-                                                                            loader.setMaterials(materials);
-                                                                            loader.load(ur2+'src/pen-3.obj', (object) => {
-                                                                              // object.children[0].rotation.y = Math.PI / 2
-                                                                              object.children[0].position.set(0, 0, 0)
-                                                                              object.children[0].scale.x = 3
-                                                                              object.children[0].scale.z = 3
-                                                                              object.children[0].scale.y = 3
-
-                                                                              object.children[0].rotation.x = Math.PI / 2
-
-                                                                              // object.children[0].position.z=0.2
-
-                                                                              // object.children[0].scale.x=2.25;
-                                                                              // object.children[0].scale.z=2.25;
-                                                                              // object.children[0].scale.y=1.92;
-                                                                              object.children[0].receiveShadow = true;
-                                                                              object.children[0].castShadow = true;
-                                                                              propsmold.push(object.children[0]);
-                                                                            });
-                                                                        });
-                                                                      });
-                                                                  });
-                                                                });
-                                                            });
-
-
-
-
-
-
-                                                          });
-                                                      });
-
-
-
-
-
-
-                                                    });
-                                                });
-
-
-
-
-
-
-                                              });
+                    pen.push(object.children[0]);
+                    var loader = new OBJLoader();
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load(ur2+'src/pen-2.mtl', function(materials) {
+                        materials.preload();
+                        loader.setMaterials(materials);
+                        loader.load(ur2+'src/pen-2.obj', (object) => {
+                          // object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 3
+                          object.children[0].scale.z = 3
+                          object.children[0].scale.y = 3
+
+                          object.children[0].rotation.x = Math.PI / 2
+
+                          // object.children[0].position.z=0.2
+
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+
+
+
+                          pen.push(object.children[0]);
+
+                          var loader = new OBJLoader();
+                          var mtlLoader = new MTLLoader();
+                          mtlLoader.load(ur2+'src/pen2-3.mtl', function(materials) {
+                              materials.preload();
+                              loader.setMaterials(materials);
+                              loader.load(ur2+'src/pen2-3.obj', (object) => {
+                                // object.children[0].rotation.y = Math.PI / 2
+                                object.children[0].position.set(0.15, 0, 1)
+                                object.children[0].scale.x = 3
+                                object.children[0].scale.z = 3
+                                object.children[0].scale.y = 3
+
+                                object.children[0].rotation.x = Math.PI / 2
+
+                                // object.children[0].position.z=0.2
+
+                                // object.children[0].scale.x=2.25;
+                                // object.children[0].scale.z=2.25;
+                                // object.children[0].scale.y=1.92;
+                                object.children[0].receiveShadow = true;
+                                object.children[0].castShadow = true;
+                                pen.push(object.children[0]);
+                                var loader = new OBJLoader();
+                                var mtlLoader = new MTLLoader();
+                                mtlLoader.load(ur2+'src/cap.mtl', function(materials) {
+                                    materials.preload();
+                                    loader.setMaterials(materials);
+                                    loader.load(ur2+'src/cap.obj', (object) => {
+                                      // object.children[0].rotation.y = Math.PI / 2
+                                      object.children[0].position.set(-0.15, -0.25, 1)
+                                      object.children[0].scale.x = 3
+                                      object.children[0].scale.z = 3
+                                      object.children[0].scale.y = 3
+
+                                      object.children[0].rotation.x = Math.PI / 2
+
+                                      // object.children[0].position.z=0.2
+
+                                      // object.children[0].scale.x=2.25;
+                                      // object.children[0].scale.z=2.25;
+                                      // object.children[0].scale.y=1.92;
+                                      object.children[0].receiveShadow = true;
+                                      object.children[0].castShadow = true;
+                                      pen.push(object.children[0]);
+                                      var loader = new OBJLoader();
+                                      var mtlLoader = new MTLLoader();
+                                      mtlLoader.load(ur2+'src/pen-3.mtl', function(materials) {
+                                          materials.preload();
+                                          loader.setMaterials(materials);
+                                          loader.load(ur2+'src/pen-3.obj', (object) => {
+                                            // object.children[0].rotation.y = Math.PI / 2
+                                            object.children[0].position.set(0, 0, 0)
+                                            object.children[0].scale.x = 3
+                                            object.children[0].scale.z = 3
+                                            object.children[0].scale.y = 3
+
+                                            object.children[0].rotation.x = Math.PI / 2
+
+                                            // object.children[0].position.z=0.2
+
+                                            // object.children[0].scale.x=2.25;
+                                            // object.children[0].scale.z=2.25;
+                                            // object.children[0].scale.y=1.92;
+                                            object.children[0].receiveShadow = true;
+                                            object.children[0].castShadow = true;
+                                            pen.push(object.children[0]);
                                           });
-
-
-
-
-
-
-                                        });
+                                      });
                                     });
-                                  });
+                                });
                               });
-                            });
                           });
-                      });
+                        });
+                    });
                   });
+              });
             });
         });
+
+
 
         var loader = new OBJLoader();
         var mtlLoader = new MTLLoader();
@@ -16122,6 +15685,7 @@
     }
 
     function newone(idx,rnk, deg=0, tx=999, flag=true){
+
       var mass=4
       var tscale0;
       var tcolor;
@@ -16286,9 +15850,9 @@
 
         var mesh=new THREE.Mesh(geometry1, material1);
         mesh.userData.wood=0;
-        mesh.add(propsmold[6].clone())
-        mesh.add(propsmold[7].clone())
-        mesh.add(propsmold[8].clone())
+        mesh.add(pen[0].clone())
+        mesh.add(pen[1].clone())
+        mesh.add(pen[2].clone())
 
 
         var temp0=2.6
@@ -16298,19 +15862,19 @@
         mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
 
         if(rnk==1){
-          mesh.add(propsmold[11].clone())
+          mesh.add(pen[5].clone())
           mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
           mesh.children[3].material.opacity=1;
           mesh.children[3].material.transparent=true;
         }
 
         if(rnk==2){
-          mesh.add(propsmold[10].clone())
+          mesh.add(pen[4].clone())
           mesh.children[3].scale.set(temp0*tscale0*1.1,temp0*tscale0,temp0*tscale0)
         }
 
         if(rnk==3){
-          mesh.add(propsmold[9].clone())
+          mesh.add(pen[3].clone())
           mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
         }
 
@@ -17222,7 +16786,7 @@
 
 
 
-          if(ship.length!=0){
+          if(ingame&&ship.length!=0){
             // var canvas = document.createElement('canvas');
             // var ctx = canvas.getContext('2d');
             // // const padding = 10;
@@ -17575,8 +17139,9 @@
                   item.children[0].position.z=-0.5*(pshift[dur]-1);
                   item.children[0].position.y=-0.5
                   item.children[1].position.z=2*(pshift[dur]-1);
-                  item.children[1].position.y=-1.5
-                  item.children[2].position.y=0.8
+                  item.children[1].position.y=0
+
+                  item.children[2].position.y=0.3
 
                   item.children[3].material.visible=false;
                   item.children[3].position.z=-0.5*(pshift[dur]-1);
@@ -17586,9 +17151,12 @@
                 }else if(item.userData.rank==2||item.userData.rank==3){
 
                   item.children[0].position.z=-0.5*(pshift[dur]-1);
+                  item.children[0].position.y=-0.5
                   item.children[1].position.z=2*(pshift[dur]-1);
                   item.children[0].position.y=-0.5
-                  item.children[1].position.y=-1.5
+                  item.children[1].position.y=-0.1
+
+                  item.children[2].position.y=0
 
 
                   item.children[3].position.z=1-0.2*(pshift[dur]-1);
@@ -17703,30 +17271,32 @@
 
 
 
-
-          if(과일.length<20){
-            laser[0].material.visible=false;
-          }else{
-            laser[0].material.visible=true;
-            if(lapflag){
-              // axis[1].children[0].material.color = new THREE.Color(0xF81108);
-              laser[0].material.color = new THREE.Color(0xF81108);
-              lasertime+=deltaTime
+          if(ingame){
+            if(과일.length<20){
+              laser[0].material.visible=false;
             }else{
-              lasertime=0;
-              // axis[1].children[0].material.color = new THREE.Color(0x000000);
-              laser[0].material.color = new THREE.Color(0x000000);
-            }
-            if(lasertime>0){
-
-              if(lasertime>3500){
-                // 오버=true;
-                fulltower=true;
-                console.log(lasertime)
+              laser[0].material.visible=true;
+              if(lapflag){
+                // axis[1].children[0].material.color = new THREE.Color(0xF81108);
+                laser[0].material.color = new THREE.Color(0xF81108);
+                lasertime+=deltaTime
+              }else{
+                lasertime=0;
+                // axis[1].children[0].material.color = new THREE.Color(0x000000);
+                laser[0].material.color = new THREE.Color(0x000000);
               }
+              if(lasertime>0){
 
+                if(lasertime>3500){
+                  // 오버=true;
+                  fulltower=true;
+                  console.log(lasertime)
+                }
+
+              }
             }
           }
+
 
 
 
@@ -17812,8 +17382,7 @@
 
 
 
-            cubemold[0].material.visible=false;
-            cubemold[1].material.visible=false;
+
             window.cubes=cubes
 
 
@@ -19250,7 +18819,7 @@
 
 
                   if(true){
-                    itemmold.push(propsmold[10].clone());
+                    itemmold.push(pen[4].clone());
                     itemmold.push(seal[5].clone());
                     itemmold.push(bear[4].clone());
                     itemmold.push(wall[4].clone());
@@ -20023,7 +19592,7 @@
                   setTimeout(function() {
                     터치=true
                     등장=true;
-                  }, 1500);
+                  }, 100);
 
                   // document.getElementById('hammer0').style.display="none"
                   // document.getElementById('pung0').style.display="none"
@@ -20094,12 +19663,13 @@
                 if(!m2flag) camera.position.y=2*(bh * ((5)*0.5+높이1))+(-isoAngle - camera.rotation.x)*30
               }
                 // camera.rotation.x -= Math.PI / 256
-                camera.rotation.x -= deltaTime / 1200
+                camera.rotation.x -= deltaTime / 100
+                // camera.rotation.x=-isoAngle-0.001;
                 // camera.position.y+=deltaTime / 26.666
                 if (-isoAngle - camera.rotation.x > 0) camera.rotation.x=-isoAngle-0.001;
                 // camera.position.y-=100000*(Math.PI/128)
-                groundmesh.material.opacity=땅투명+(-isoAngle - camera.rotation.x)
-                groundmesh.material.alphaTest=groundmesh.material.opacity;
+                // groundmesh.material.opacity=땅투명+(-isoAngle - camera.rotation.x)
+                // groundmesh.material.alphaTest=groundmesh.material.opacity;
             }
         }
         if (rotationflag) {
@@ -20260,7 +19830,7 @@
 
           if(itemtouch){
             if(pung){
-              propsmold[11].material.visible=true
+              pen[5].material.visible=true
               document.getElementById('top0').children[0].style.width=String(isize)+"vmin"
               itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
               itempointer.children[1].position.z=2*(pshift[dur]-1);
@@ -20309,7 +19879,7 @@
 
           }else{
             if(pung){
-              propsmold[11].material.visible=true
+              pen[5].material.visible=true
               document.getElementById('top0').children[0].style.width=String(isize)+"vmin"
 
             }else if(ice){
@@ -21656,8 +21226,7 @@
                 if(gamemod==2){
                   gameoverflag = true;
 
-                  cubemold[0].material.visible=false;
-                  cubemold[1].material.visible=false;
+
                   guide.forEach((item) => {
                     item.material.visible=false;
                   });
@@ -25020,34 +24589,16 @@
         const width = window.innerWidth;
         const height = window.innerHeight;
 
-        if ((window.innerWidth / window.innerHeight) < 4 / 7) {
-
-
-
-
-
-
-
+        if((window.innerWidth / window.innerHeight) > 0.74){
+          camera.left = -bw * (캠크기*1.2)
+          camera.right = bw * (캠크기*1.2) * 4
+          camera.top = bw * (캠크기*1.2)
+          camera.bottom = -bw * (캠크기*1.2) * 4
         }else{
-          if(fullcam){
-            fullon()
-          }
-          if(window.innerWidth > window.innerHeight){
-
-
-
-
-          }else{
-
-
-
-
-          }
-
-
-
-
-
+          camera.left = -bw * (캠크기*1.1)
+          camera.right = bw * (캠크기*1.1) * 4
+          camera.top = bw * (캠크기*1.1)
+          camera.bottom = -bw * (캠크기*1.1) * 4
         }
         renderer.setSize(width, height);
         camera.aspect = width / height;
