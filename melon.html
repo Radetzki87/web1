@@ -2427,7 +2427,7 @@
         }
 
         #top3 img{
-          transform: translate(-0.5vmin,0);
+          transform: translate(-0.3vmin,0);
           // right:50vmin;
           // width: 10vmin;
           /* height: 12vmin; */
@@ -8388,21 +8388,19 @@
         world = new CANNON.World();
 
         //카메라
-        if((window.innerWidth / window.innerHeight) > 4/7){
-          camera.left = -bw * 1.8
-          camera.right = bw * 1.8 * 4
-          camera.top = bw * 1.8
-          camera.bottom = -bw * 1.8 * 4
+
+
+        if((window.innerWidth / window.innerHeight) > 0.74){
+          camera.left = -bw * (캠크기*1.2)
+          camera.right = bw * (캠크기*1.2) * 4
+          camera.top = bw * (캠크기*1.2)
+          camera.bottom = -bw * (캠크기*1.2) * 4
         }else{
-          camera.left = -bw * 캠크기
-          camera.right = bw * 캠크기 * 4
-          camera.top = bw * 캠크기
-          camera.bottom = -bw * 캠크기 * 4
+          camera.left = -bw * (캠크기*1.1)
+          camera.right = bw * (캠크기*1.1) * 4
+          camera.top = bw * (캠크기*1.1)
+          camera.bottom = -bw * (캠크기*1.1) * 4
         }
-        camera.left = -bw * 캠크기
-        camera.right = bw * 캠크기 * 4
-        camera.top = bw * 캠크기
-        camera.bottom = -bw * 캠크기 * 4
         camera.near = 0.01;
         camera.far = 1000;
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -16292,7 +16290,7 @@
         if(rnk==1){
           mesh.add(propsmold[11].clone())
           mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-          mesh.children[3].material.opacity=0.9;
+          mesh.children[3].material.opacity=1;
           mesh.children[3].material.transparent=true;
         }
 
@@ -19566,7 +19564,7 @@
 
                     var img3 = new THREE.CanvasTexture(canvas);
 
-                    var geometry1 = new THREE.BoxGeometry(bh*0.1, bw*(너비)*1.85*(3157/1525), bw*(너비)*1.85);
+                    var geometry1 = new THREE.BoxGeometry(bh*0.1, bw*(너비)*2*(3157/1525), bw*(너비)*2);
                     var material1 = new THREE.MeshLambertMaterial({
                         map: img3,
                         side: THREE.DoubleSide,
@@ -19686,7 +19684,7 @@
                     mesh5.material.transparent=true;
 
 
-                    mesh6.position.set(-0.5,+bh*(16.7),0.7)
+                    mesh6.position.set(0.5,+bh*(16.7),0.7)
                     mesh6.rotation.y=Math.PI
                     mesh6.rotation.z=Math.PI/2
                     mesh6.rotation.x=-Math.PI/2
@@ -19696,10 +19694,10 @@
                     mesh6.userData["alive"]=true;
                     mesh6.userData["target"]=false;
                     mesh6.userData["dir"]=1
-                    mesh6.material.opacity=0.4;
+                    mesh6.material.opacity=0.6;
                     mesh6.material.transparent=true;
 
-                    mesh7.position.set(-0.5,+bh*(16.7),0.7)
+                    mesh7.position.set(0.5,+bh*(16.7),0.7)
                     mesh7.rotation.y=Math.PI
                     mesh7.rotation.z=Math.PI/2
                     mesh7.rotation.x=-Math.PI/2
@@ -19709,7 +19707,7 @@
                     mesh7.userData["alive"]=true;
                     mesh7.userData["target"]=false;
                     mesh7.userData["dir"]=2
-                    mesh7.material.opacity=0.4;
+                    mesh7.material.opacity=0.6;
                     mesh7.material.transparent=true;
 
                     mesh8.position.set(-1.8,+bh*(17.25),-20.7)
@@ -20179,7 +20177,6 @@
 
 
         if(itemflag){
-
           var dur0=parseInt(elapsedTime*20)%36
           var dur=parseInt(elapsedTime*35)%pshift.length
           var isize=12+5*(pshift[dur]-1)
@@ -20195,8 +20192,8 @@
               itemmold[2].position.x=-bh*3;
 
               if(itemtouch){
-                itemmold[0].scale.x=(3+(pshift[dur]-1)*4.6)
-                itemmold[0].scale.y=(3+(pshift[dur]-1)*4.6)
+                itemmold[0].scale.x=(4+(pshift[dur]-1)*4.6)
+                itemmold[0].scale.y=(4+(pshift[dur]-1)*4.6)
               }
 
             }else if(ice){
@@ -20207,8 +20204,8 @@
               itemmold[2].position.x=-bh*3;
 
               if(itemtouch){
-                itemmold[1].scale.x=(3+(pshift[dur]-1)*4.6)
-                itemmold[1].scale.y=(3+(pshift[dur]-1)*4.6)
+                itemmold[1].scale.x=(4+(pshift[dur]-1)*4.6)
+                itemmold[1].scale.y=(4+(pshift[dur]-1)*4.6)
               }
             }else if(pin){
               itemmold[2].material.visible=true
@@ -20218,8 +20215,8 @@
               itemmold[1].position.x=-bh*3;
               itemmold[3].position.x=-bh*3;
               if(itemtouch){
-                itemmold[2].scale.x=(3+(pshift[dur]-1)*4.6)
-                itemmold[2].scale.y=(3+(pshift[dur]-1)*4.6)
+                itemmold[2].scale.x=(4+(pshift[dur]-1)*4.6)
+                itemmold[2].scale.y=(4+(pshift[dur]-1)*4.6)
               }
             }else if(bridge){
               itemmold[3].material.visible=true
@@ -20229,12 +20226,19 @@
               itemmold[1].position.x=-bh*3;
               itemmold[2].position.x=-bh*3;
               if(itemtouch){
-              itemmold[3].scale.x=(3+(pshift[dur]-1)*4.6)
-              itemmold[3].scale.z=(3+(pshift[dur]-1)*4.6)
+              itemmold[3].scale.x=(4+(pshift[dur]-1)*4.6)
+              itemmold[3].scale.z=(4+(pshift[dur]-1)*4.6)
               }
             }
           }else{
-
+            itemmold[0].scale.x=4
+            itemmold[0].scale.y=4
+            itemmold[1].scale.x=4
+            itemmold[1].scale.y=4
+            itemmold[2].scale.x=4
+            itemmold[2].scale.y=4
+            itemmold[3].scale.x=4
+            itemmold[3].scale.z=4
           }
 
 
@@ -20277,13 +20281,13 @@
 
               if(itempointer.userData["dir"]==1){
                 배[1].children[5].material.opacity=0.8
-                배[1].children[6].material.opacity=0.4
+                배[1].children[6].material.opacity=0.6
               }else if(itempointer.userData["dir"]==2){
                 배[1].children[6].material.opacity=0.8
-                배[1].children[5].material.opacity=0.4
+                배[1].children[5].material.opacity=0.6
               }else if(itempointer.userData["dir"]==0){
-                배[1].children[6].material.opacity=0.4
-                배[1].children[5].material.opacity=0.4
+                배[1].children[6].material.opacity=0.6
+                배[1].children[5].material.opacity=0.6
               }
             }
 
@@ -20323,8 +20327,8 @@
               배[1].children[4].material.visible=true
               배[1].children[5].material.visible=true
               배[1].children[6].material.visible=true
-              배[1].children[5].material.opacity=0.4
-              배[1].children[6].material.opacity=0.4
+              배[1].children[5].material.opacity=0.6
+              배[1].children[6].material.opacity=0.6
 
 
 
@@ -22389,7 +22393,7 @@
 
 
 
-        if(startflag) world.step(1 / 60, deltaTime/1000);
+        if(startflag) world.step(1 / 60, deltaTime/950);
 
         if(등장){
           if(gamemod!=2){
@@ -22644,6 +22648,9 @@
                 renderer.render(scene, camera);
             }
         } else {
+          // if(window.innerWidth/window.innerHeight>0.74){
+          //
+          // }
 
             // if(fullcam){
             //   if(gamemod==2){
