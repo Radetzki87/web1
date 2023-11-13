@@ -28,12 +28,12 @@
 
 
         #exit{
-          background-color: rgba(210, 100, 100, 0.8);
+          background-color: rgba(210, 100, 100, 0.9);
         }
 
         #re{
           width:240%;
-          background-color: rgba(100, 210, 100, 0.8);
+          background-color: rgba(100, 210, 100, 0.9);
         }
 
         .sub {
@@ -2140,15 +2140,17 @@
         }
 
         #lang-back {
+            margin-top: 20vh;
+            left:7.5%;
             position: absolute;
-            width: 100%;
+            width: 90%;
             /* height: 100vmin; */
-            background-color: rgba(150, 150, 150, 0.75);
+            background-color: rgba(180, 180, 180, 0.5);
             z-index: 3;
             align-items: center;
             justify-content: center;
             border-radius: 3vw;
-            padding-bottom: 5vmin;
+            padding-bottom: 10vmin;
             padding-top:2vmin;
             padding-left:1vmin;
             padding-right:1vmin;
@@ -2159,7 +2161,7 @@
             /* position: absolute; */
             justify-content: center;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             top:3vmin;
             /* left:3%; */
             grid-gap: 2vmin;
@@ -2178,11 +2180,11 @@
           flex-direction: column;
           align-items: center;
           /*    margin: 10vw 0;*/
-          background-color: rgba(130, 130, 130, 0.8);
+          background-color: rgba(150, 180, 180, 0.8);
           /* background-color: transparent; */
           justify-content: center;
           font-family: 'GG';
-          height: 8vmin;
+          height: 10vmin;
         }
 
 
@@ -2190,7 +2192,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: rgba(100, 100, 100, 0.4);
+            background-color: rgba(100, 150, 150, 0.8);
             z-index: 2;
         }
 
@@ -2379,8 +2381,8 @@
 
         .left0 {
             position: absolute;
-
-            background-color: rgba(50, 50, 50, 0.8);
+            border:10vmax;
+            background-color: rgba(50, 150, 150, 0.8);
             border-radius: 8vmin;
             background-size: 12vmin 8vmin;
             top: 1vmax;
@@ -2409,7 +2411,7 @@
         .right0 {
             position: absolute;
             border: none;
-            background-color: rgba(50, 50, 50, 0.8);
+            background-color: rgba(50, 150, 150, 0.8);
             border-radius: 8vmin;
             background-size: 36vmin 8vmin;
             top: 1vmax;
@@ -2521,8 +2523,8 @@
 
         .center0 {
             position: absolute;
-
-            background-color: rgba(50, 50, 50, 0.8);
+            border:10vmax;
+            background-color: rgba(50, 150, 150, 0.8);
             border-radius: 8vmin;
             /* background-image: url("png/green_button09.png"); */
             background-size: 12vmin 8vmin;
@@ -3216,7 +3218,11 @@
 
     var 인트로=document.getElementById("intro")
 
-    var 예스노=
+    var 랭=document.getElementById("lang-back")
+
+    window.랭=랭
+
+
 
     window.옵션=옵션
     window.카테그=카테그
@@ -3237,7 +3243,7 @@
     window.튜트=튜트
     window.송=송
     window.인트로=인트로
-    window.예스노=예스노
+
 
     let themelst = ["wooden", "lofi", "retro","808", "hiphop"];
     var themelang=["BRICK", "LO-FI", "RETRO","BEAT", "HIPHOP"]
@@ -3630,7 +3636,7 @@
     // console.log(stacknum)
     var paidskin=[];
     window.paidskin=paidskin;
-    let langnum = 0;
+    let langnum = 1;
     window.langnum=langnum;
 
     var langset=["영어","한국어","일본어","독일어","불어","중문(간체)","중국어(번체)","러시아","포루투갈","스페인어","터키어","이태리어","힌디어","아랍어","베트남어","폴란드어","태국어","체코어","인도네시아어","핀란드어","라트비아","에스토니아","우르드어","스웨덴","헝가리","덴마크","루마니아","크로아티아어","네덜란드","페르시아어","버마어","그리스어","우크라이나어","말레이어","벵골어","노르웨이어","히브리어","포르투갈0","세르비아","필리핀어"]
@@ -9661,7 +9667,7 @@
 
 
         }
-        if(lastY>0.9) return;
+        if(lastY>0.8) return;
         if(!ingame) return;
         // console.log(seal.length)
         // console.log(bear.length)
@@ -11353,6 +11359,7 @@
 
             var 보정=0.005
             if(elapsedTime-터치보호<0.1) return;
+            if(lastY>0.8) return;
 
             console.log("커서클릭")
             console.log("dragflag=false")
@@ -30889,12 +30896,18 @@
         rotationend = Math.PI / 4
     }
     function exit0(n=0){
-      if(n==1){
+      if(n==2){
+        터치보호=elapsedTime
+        close(랭)
+      }else if(n==1){
         터치보호=elapsedTime
         close(크레딧)
       }else{
         터치보호=elapsedTime
+        if(document.getElementById("lang-back").classList.contains("show")) close(랭)
+        if(document.getElementById("credit-info").classList.contains("show")) close(크레딧)
         close(세팅)
+
 
 
       }
@@ -31722,7 +31735,7 @@
           // setlang(langnum)
 
 
-
+          langnum=1
 
           resinit=parseInt(nslst["data3"]["2"]);
           resinit=1;
@@ -31752,6 +31765,7 @@
           }
 
           // findlang();
+          langnum=1
           ptime0=parseInt(nslst["data3"]["8"]);
           ptime1=parseInt(nslst["data3"]["16"]);
           ptime2=parseInt(nslst["data3"]["32"]);
@@ -31863,6 +31877,7 @@
 
 
         langnum=parseInt(nslst["data3"]["4"]);
+        langnum=1
 
 
         resinit=parseInt(nslst["data3"]["2"]);
@@ -33915,6 +33930,9 @@
         case 인트로:
 
         	break;
+        case 랭:
+
+        	break;
 
         default:
           return;
@@ -34239,7 +34257,7 @@
 </div>
 
 <div id="setting-overlay" class="setting-overlay hidden">
-    <div id="setting-back"></div>
+    <div id="setting-back" onclick="exit0()"></div>
 
     <b id="resolution">RESOLUTION</b>
     <div class="option-RL2">
@@ -34284,9 +34302,6 @@
             <img src="png/information.png" >
             <b class="glabel">CREDIT</b>
         </button>
-
-
-
 
         <button class="setting" onclick="exit0()" id="exit">
             <img src="png/cross.png" >
@@ -34367,6 +34382,51 @@
                 <img src="png/return.png" >
             </button>
         </div>
+
+    </div>
+</div>
+
+<div id="lang-back" class="hidden" onclick="exit0(2)">
+    <div class="lang-grid">
+        <button class="lsetting" onclick="langclick(1)">
+            <img src="png/font1.png" >
+        </button>
+
+        <button class="lsetting" onclick="langclick(2)">
+            <img src="png/font2.png" >
+        </button>
+
+        <button class="lsetting" onclick="langclick(3)">
+            <img src="png/font3.png" >
+        </button>
+
+        <button class="lsetting" onclick="langclick(4)">
+            <img src="png/font4.png" >
+        </button>
+
+        <button class="lsetting" onclick="langclick(5)">
+            <img src="png/font5.png" >
+        </button>
+
+        <button class="lsetting" onclick="langclick(6)">
+            <img src="png/font6.png" >
+        </button>
+
+        <button class="lsetting" onclick="langclick(7)">
+            <img src="png/font7.png" >
+        </button>
+
+        <button class="lsetting" onclick="langclick(8)">
+            <img src="png/font8.png" >
+        </button>
+
+        <button class="lsetting" onclick="langclick(9)">
+            <img src="png/font9.png" >
+        </button>
+
+        <button class="lsetting" onclick="langclick(10)">
+            <img src="png/font10.png" >
+        </button>
 
     </div>
 </div>
