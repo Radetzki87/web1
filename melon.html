@@ -2368,33 +2368,68 @@
             height: 6vmin;
         }
 
-        .left {
+        .left0 {
             position: absolute;
             border: none;
-            background-color: transparent;
-
-            background-size: 6vmax 4vmax;
-            bottom: 1.5vmax;
+            background-color: rgba(50, 50, 50, 0.8);
+            border-radius: 6vmax;
+            background-size: 9vmax 6vmax;
+            top: 1vmax;
             left: 3%;
-            width: 6vmax;
-            height: 4vmax;
+            width: 9vmax;
+            height: 6vmax;
             z-index: 2;
         }
 
-        .left:active {
+        .left0:active {
 
-            transform: translate(0, 0.2vmax);
-            background-size: 6vmax 3.8vmax;
-            width: 6vmax;
-            height: 3.8vmax;
+            transform: translate(0, 0.3vmax);
+            background-size: 9vmax 5.7vmax;
+            width: 9vmax;
+            height: 5.7vmax;
             /*     margin-bottom: 1vw;*/
             /*font-size: 0;*/
         }
 
-        .left img {
-            width: 5vmax;
-            height: 5vmax;
+        .left0 img {
+            width: 6vmax;
+            height: 6vmax;
+            z-index: 3;
+        }
+
+        .right0 {
+            position: absolute;
+            border: none;
+            background-color: rgba(50, 50, 50, 0.8);
+            border-radius: 6vmax;
+            background-size: 27vmax 6vmax;
+            top: 1vmax;
+            left: 35%;
+            width: 27vmax;
+            height: 6vmax;
             z-index: 2;
+            font-family: 'mono';
+            text-align: center;
+
+
+            color:white;
+            font-size: 6vmin;
+        }
+
+        .right0:active {
+
+            transform: translate(0, 0.3vmax);
+            background-size: 27vmax 5.7vmax;
+            width: 27vmax;
+            height: 5.7vmax;
+            /*     margin-bottom: 1vw;*/
+            /*font-size: 0;*/
+        }
+
+        .right0 img {
+            width: 6vmax;
+            height: 6vmax;
+            z-index: 3;
         }
 
         .top-container{
@@ -2475,31 +2510,32 @@
 
 
 
-        .center {
+        .center0 {
             position: absolute;
             border: none;
-            background-color: transparent;
+            background-color: rgba(50, 50, 50, 0.8);
+            border-radius: 9vmax;
             /* background-image: url("png/green_button09.png"); */
-            background-size: 6vmax 4vmax;
-            bottom: 1.5vmax;
-            right: 45%;
+            background-size: 9vmax 6vmax;
+            top: 1vmax;
+            left: 20%;
+            width: 9vmax;
+            height: 6vmax;
+            z-index: 2;
+        }
+
+        .center0 img {
             width: 6vmax;
-            height: 4vmax;
+            height: 6vmax;
             z-index: 2;
         }
 
-        .center img {
-            width: 5vmax;
-            height: 5vmax;
-            z-index: 2;
-        }
-
-        .center:active {
+        .center0:active {
             /* background-image: url("png/green_button10.png"); */
-            transform: translate(0, 0.2vmax);
-            background-size: 6vmax 3.8vmax;
-            width: 6vmax;
-            height: 3.8vmax;
+            transform: translate(0, 0.3vmax);
+            background-size: 9vmax 5.7vmax;
+            width: 9vmax;
+            height: 5.7vmax;
         }
 
         .bridge {
@@ -3239,6 +3275,7 @@
 
     var onceflag0=true;
     var onceflag1=true;
+    var reflag=false;
 
 
 
@@ -9618,6 +9655,11 @@
         // console.log(fox.length)
         // console.log(whale.length)
 
+        console.log(배.length)
+        console.log(ingame)
+
+
+
 
 
 
@@ -12607,6 +12649,8 @@
           //   }else if(lookright){
           //   }
         } else if (event.code === 'KeyH') {
+            reflag=true
+            return restart();
             if (!rotationflag) {
                 rotationflag = true
                 restartflag = true
@@ -13272,12 +13316,12 @@
         }else{
 
         }
-        onceflag0=true;
-        onceflag1=true
+        onceflag1=true;
+
 
         if(greylst.indexOf(ncolornum)!=-1){
-          document.getElementById("left").classList.add("locked")
-          document.getElementById("center").classList.add("locked")
+
+
           document.getElementById("right").classList.add("locked")
 
           document.getElementById("opt0").classList.add("locked")
@@ -13287,8 +13331,8 @@
           document.getElementById("opt4").classList.add("locked")
           document.getElementById("opt5").classList.add("locked")
         }else{
-          document.getElementById("left").classList.remove("locked")
-          document.getElementById("center").classList.remove("locked")
+
+
           document.getElementById("right").classList.remove("locked")
 
           document.getElementById("opt0").classList.remove("locked")
@@ -13424,6 +13468,10 @@
         쇠공=[];
         구름=[];
         과일=[];
+        // sample=[];
+        axis=[];
+        balls=[];
+
         scene.background = new THREE.Color(0x69DDFF);
         window.esound=esound
         window.soundic=soundic;
@@ -21047,30 +21095,30 @@
               window.nslst = nslst;
             }
 
-            if(greylst.indexOf(colornum)!=-1){
-              document.getElementById("left").classList.add("locked")
-              document.getElementById("center").classList.add("locked")
-              document.getElementById("right").classList.add("locked")
-
-              document.getElementById("opt0").classList.add("locked")
-              document.getElementById("opt1").classList.add("locked")
-              document.getElementById("opt2").classList.add("locked")
-              document.getElementById("opt3").classList.add("locked")
-              document.getElementById("opt4").classList.add("locked")
-              document.getElementById("opt5").classList.add("locked")
-            }else{
-              document.getElementById("left").classList.remove("locked")
-              document.getElementById("center").classList.remove("locked")
-              document.getElementById("right").classList.remove("locked")
-
-              document.getElementById("opt0").classList.remove("locked")
-              document.getElementById("opt1").classList.remove("locked")
-              document.getElementById("opt2").classList.remove("locked")
-              document.getElementById("opt3").classList.remove("locked")
-              document.getElementById("opt4").classList.remove("locked")
-              document.getElementById("opt5").classList.remove("locked")
-
-            }
+            // if(greylst.indexOf(colornum)!=-1){
+            //
+            //
+            //   document.getElementById("right").classList.add("locked")
+            //
+            //   document.getElementById("opt0").classList.add("locked")
+            //   document.getElementById("opt1").classList.add("locked")
+            //   document.getElementById("opt2").classList.add("locked")
+            //   document.getElementById("opt3").classList.add("locked")
+            //   document.getElementById("opt4").classList.add("locked")
+            //   document.getElementById("opt5").classList.add("locked")
+            // }else{
+            //
+            //
+            //   document.getElementById("right").classList.remove("locked")
+            //
+            //   document.getElementById("opt0").classList.remove("locked")
+            //   document.getElementById("opt1").classList.remove("locked")
+            //   document.getElementById("opt2").classList.remove("locked")
+            //   document.getElementById("opt3").classList.remove("locked")
+            //   document.getElementById("opt4").classList.remove("locked")
+            //   document.getElementById("opt5").classList.remove("locked")
+            //
+            // }
 
 
 
@@ -21137,17 +21185,17 @@
             if (!document.getElementById("step1").classList.contains("hidden")) {
                 document.getElementById("options-overlay").classList.add("fade");
                 document.getElementById("options-overlay").classList.remove("show");
-                document.getElementById("center").classList.remove("fade");
-                document.getElementById("left").classList.remove("fade");
+
+
                 document.getElementById("right").classList.remove("fade");
                 setTimeout(function() {
                     document.getElementById("options-overlay").classList.add("hidden");
-                    document.getElementById("left").classList.add("show");
+
                     document.getElementById("right").classList.add("show");
-                    document.getElementById("left").classList.remove("hidden");
+
                     document.getElementById("right").classList.remove("hidden");
-                    document.getElementById("center").classList.add("show");
-                    document.getElementById("center").classList.remove("hidden");
+
+
 
                 }, 100);
             } else if (!document.getElementById("categ1").classList.contains("hidden")) {
@@ -21288,6 +21336,7 @@
 
 
           if(ingame&&ship.length!=0){
+
             // var canvas = document.createElement('canvas');
             // var ctx = canvas.getContext('2d');
             // // const padding = 10;
@@ -21454,7 +21503,7 @@
 
 
           sample.forEach((item, i) => {
-            if(elapsedTime-drop>0.6){
+            if(elapsedTime-drop>0.1){
               ready=true;
               if(i==next){
                 if(i==0){
@@ -21487,6 +21536,17 @@
           });
 
           if(ingame){
+            if(parseInt(Math.random()*4)==0){
+              var nowpoint=parseInt(document.getElementById("right0").innerText)
+              if(점수>nowpoint){
+                document.getElementById("right0").innerText=String(nowpoint+2)
+              }else{
+                document.getElementById("right0").innerText=String(점수)
+              }
+            }
+
+
+
             if(elapsedTime-finaldrop<1){
               emote[0].material.visible=true;
               var canvas = document.createElement('canvas');
@@ -22887,18 +22947,18 @@
               document.getElementById("coin-info").classList.add("fade");
               // document.getElementById("coin-info").style.opacity=0;
 
-              // document.getElementById("left").classList.remove("show");
-              // document.getElementById("left").classList.add("fade");
+              //
+              //
 
 
 
-              document.getElementById("center").classList.remove("show");
-              document.getElementById("center").classList.add("fade");
+
+
               setTimeout(function() {
                   document.getElementById("coin-info").classList.add("hidden");
-                  // document.getElementById("left").classList.add("hidden");
+                  //
 
-                  document.getElementById("center").classList.add("hidden");
+
 
               }, 100);
 
@@ -23455,10 +23515,150 @@
             }
             if (-isoAngle - camera.rotation.x > 0) {
 
+                if(reflag){
+                  camera.rotation.x=-isoAngle;
 
+                  sample.forEach((item, i) => {
+                    scene.add(item)
+                  });
+
+                  startflag=true;
+                  originflag=true;
+                  restartflag=false
+                  ingame=true;
+                  elapsedTime=0;
+                  world.gravity.set(0, 중력[gamemod], 0);
+
+                  scene.add(itemmold[0]);
+                  scene.add(itemmold[1]);
+                  scene.add(itemmold[2]);
+                  scene.add(itemmold[3]);
+
+                  var 너비=3.1;
+                  var geometry1 = new THREE.BoxGeometry(통, bh*60, bw*(너비));
+                  var material1 = new THREE.MeshLambertMaterial({
+                      transparent:true,
+                      opacity:0,
+                      color: 0xEEEEEE,
+                      visible: false
+                  });
+
+
+                  var loader = new OBJLoader();
+                  var mtlLoader = new MTLLoader();
+
+                  var mesh=new THREE.Mesh(geometry1, material1);
+
+                  mesh.position.set(통,bh*(34),0)
+
+
+                  var customMaterial = new CANNON.Material('customMaterial');
+                  customMaterial.friction = 0 // Friction coefficient, range: 0-1
+                  customMaterial.restitution = 탄성[2]; // Restitution (elasticity), range: 0-1
+
+
+                  var groundBody = new CANNON.Body({
+                      mass: 0,
+                      shape: new CANNON.Box(new CANNON.Vec3(통/2, bh*60/2, bw*너비/2)),
+                      material: customMaterial,
+                      allowSleep: false,
+                      sleepSpeedLimit: 1000,
+                      sleepTimeLimit: 0
+                  });
+
+                  mesh.userData.body=groundBody;
+                  groundBody.position.copy(mesh.position);
+                  groundBody.quaternion.copy(mesh.quaternion);
+                  mesh.userData.body=groundBody;
+
+                  쇠공.push(mesh);
+                  scene.add(mesh);
+
+                  //바닥
+
+                  var geometry1 = new THREE.BoxGeometry(통, bw, bw*4.1);
+                  var material1 = new THREE.MeshLambertMaterial({
+                      transparent:true,
+                      opacity:1,
+                      visible: false,
+                      color: 0xAC8300
+                  });
+
+
+                  var loader = new OBJLoader();
+                  var mtlLoader = new MTLLoader();
+
+                  var mesh=new THREE.Mesh(geometry1, material1);
+
+                  mesh.position.set(0,bh*(3.1),0)
+
+
+                  var customMaterial = new CANNON.Material('customMaterial');
+                  customMaterial.friction = 0.8; // Friction coefficient, range: 0-1
+                  customMaterial.restitution = 0.1; // Restitution (elasticity), range: 0-1
+
+
+                  var groundBody = new CANNON.Body({
+                      mass: 0,
+                      shape: new CANNON.Box(new CANNON.Vec3(bw/2, bw/2, bw*4.1/2)),
+                      material: customMaterial,
+                      allowSleep: false,
+                      sleepSpeedLimit: 1000,
+                      sleepTimeLimit: 0
+                  });
+
+                  mesh.userData.body=groundBody;
+                  groundBody.position.copy(mesh.position);
+                  groundBody.quaternion.copy(mesh.quaternion);
+                  mesh.userData.body=groundBody;
+
+
+                  scene.add(배[0]);
+                  world.addBody(배[0].userData.body);
+
+
+                  //레이저
+                  // 쇠공.push(mesh);
+                  scene.add(laser[0]);
+
+                  scene.add(ship[0]);
+
+                  scene.add(배경[0]);
+
+
+                  scene.add(배[1]);
+                  world.addBody(배[1].userData.body);
+
+
+
+
+
+
+
+                  camera.position.y=카메라높이;
+                  camera.position.z=0
+                  camera.rotation.x=0
+
+                  camera.lookAt(0, 카메라높이, 0);
+                  tflag=true;
+
+
+
+
+
+
+
+
+
+                }
                 if(onceflag0){
                   camera.rotation.x=-isoAngle;
                   console.log("빵")
+
+                  // document.getElementById("left0").style.display=""
+                  // document.getElementById("center0").style.display=""
+                  // document.getElementById("left0").style.opacity=1
+                  // document.getElementById("center0").style.opacity=1
                   document.getElementById("song-info").style.display="none"
 
                   for (var i = 0; i < 10; i++) {
@@ -23790,26 +23990,6 @@
                     canvas.width = (1525/2)
                     canvas.height = (3157/2)
                     ctx.drawImage(unitimg["bg"], 0,355/2, (1525/2), (1525/2)*(659/1024));
-
-                    // ctx.drawImage(unitimg["bg"], 0,355, 1525, 1525*(659/1024));
-
-
-
-
-
-                    // ctx.beginPath();
-                    //
-                    // let x = 0;
-                    // for (x = 0; x < 152; x++) {
-                    //     const y = wave.y + Math.sin(10*x * wave.length + increment) * wave.amplitude;
-                    //     ctx.lineTo(x, y);
-                    // }
-                    //
-                    // ctx.strokeStyle = "blue";
-                    // ctx.stroke();
-                    // // ctx.fill();
-                    //
-                    // increment += wave.frequency;
 
                     var img3 = new THREE.CanvasTexture(canvas);
 
@@ -24147,13 +24327,13 @@
 
 
                   // camera.rotation.x=-isoAngle;
-                  document.getElementById("left").classList.remove("hidden");
-                  document.getElementById("left").classList.remove("fade");
-                  document.getElementById("left").classList.add("show");
 
-                  document.getElementById("center").classList.remove("hidden");
-                  document.getElementById("center").classList.remove("fade");
-                  document.getElementById("center").classList.add("show");
+
+
+
+
+
+
 
 
 
@@ -24228,6 +24408,9 @@
                   document.getElementById("bridge").style.display="none"
 
                   document.getElementById('bridge').style.opacity=1;
+
+
+
 
                   //
                   // if(뻥>0){
@@ -24707,7 +24890,8 @@
         document.getElementById('fps').style.display=""
 
 
-        document.getElementById('fps2').innerText=String(과일.length);
+        // document.getElementById('fps2').innerText=String(과일.length);
+        document.getElementById('fps2').innerText=""
 
 
 
@@ -24730,8 +24914,7 @@
           // document.getElementById('fps').innerText=""
           document.getElementById('coin-info').style.display="none"
           document.getElementById('right').style.display="none"
-          document.getElementById('left').style.display="none"
-          document.getElementById('center').style.display="none"
+
 
         }
 
@@ -25560,7 +25743,6 @@
           if(elapsedTime - temtime <= 1){
             var dur0=parseInt(elapsedTime*150)%72
 
-
             var newcl = hexToHSL(hexToHtmlColor(0xEE2222))
 
             // document.getElementById("top3").style.borderColor=hslToHex(newcl.h, newcl.s, newcl.l+10+20*Math.cos(Math.PI/36*dur0))
@@ -25585,7 +25767,6 @@
             // document.getElementById("top1").children[0].style.height=String(7)+"vmin"
             // document.getElementById("top0").children[0].style.height=String(7)+"vmin"
             itemfull=false;
-
           }
         }
 
@@ -31898,7 +32079,7 @@
 
 
         reBtn.addEventListener('click', function() {
-
+          // return restart();
           return window.location.reload();
           if(restartflag) return;
           if(gamemod>=2){
@@ -32296,13 +32477,13 @@
     function skinon() {
         document.querySelector(".container").style.overflowY="scroll"
         document.getElementById("tut-info").style.display="none"
-        document.getElementById("left").classList.add("fade");
-        document.getElementById("left").classList.remove("show");
+
+
 
         document.getElementById("right").classList.add("fade");
         document.getElementById("right").classList.remove("show");
-        document.getElementById("center").classList.add("fade");
-        document.getElementById("center").classList.remove("show");
+
+
         document.getElementById("optionlst").classList.add("fade");
         document.getElementById("optionlst").classList.remove("show");
         document.getElementById("right").children[1].classList.add("hidden");
@@ -32312,10 +32493,10 @@
         document.getElementById("options-overlay").classList.add("show");
 
         setTimeout(function() {
-            document.getElementById("left").classList.add("hidden");
+
 
             document.getElementById("right").classList.add("hidden");
-            document.getElementById("center").classList.add("hidden");
+
             document.getElementById("optionlst").classList.add("hidden");
             document.getElementById("step1").classList.remove("hidden");
             document.getElementById("step1").classList.add("show");
@@ -32457,11 +32638,11 @@
           document.getElementById("tutorial").classList.add("hidden");
         }, 100);
       }
-        document.getElementById("left").classList.add("fade");
-        document.getElementById("left").classList.remove("show");
 
-        document.getElementById("center").classList.add("fade");
-        document.getElementById("center").classList.remove("show");
+
+
+
+
         document.getElementById("right").classList.add("fade");
         document.getElementById("right").classList.remove("show");
         document.getElementById("optionlst").classList.add("fade");
@@ -32469,10 +32650,10 @@
         document.getElementById("setting-overlay").classList.remove("hidden");
         document.getElementById("setting-overlay").classList.add("show");
         setTimeout(function() {
-            document.getElementById("left").classList.add("hidden");
+
 
             document.getElementById("right").classList.add("hidden");
-            document.getElementById("center").classList.add("hidden");
+
             document.getElementById("optionlst").classList.add("hidden");
             document.getElementById("step1").classList.remove("hidden");
             document.getElementById("step1").classList.add("show");
@@ -32508,22 +32689,22 @@
             document.getElementById("tutorial").classList.add("hidden");
           }, 100);
         }
-        document.getElementById("left").classList.add("fade");
-        document.getElementById("left").classList.remove("show");
+
+
 
         document.getElementById("right").classList.add("fade");
         document.getElementById("right").classList.remove("show");
-        // document.getElementById("center").classList.add("fade");
-        // document.getElementById("center").classList.remove("show");
+        //
+        //
         document.getElementById("optionlst").classList.add("fade");
         document.getElementById("optionlst").classList.remove("show");
 
 
         setTimeout(function() {
-            document.getElementById("left").classList.add("hidden");
+
 
             document.getElementById("right").classList.add("hidden");
-            // document.getElementById("center").classList.add("hidden");
+            //
             document.getElementById("optionlst").classList.add("hidden");
             document.getElementById("step1").classList.remove("hidden");
             document.getElementById("step1").classList.add("show");
@@ -33137,11 +33318,11 @@
           // document.getElementById("coin-info").classList.remove("show");
           // document.getElementById("coin-info").classList.add("fade");
           //
-          // document.getElementById("center").classList.remove("show");
-          // document.getElementById("center").classList.add("fade");
           //
-          // document.getElementById("left").classList.remove("show");
-          // document.getElementById("left").classList.add("fade");
+          //
+          //
+          //
+          //
 
 
           setTimeout(function() {
@@ -33150,8 +33331,8 @@
               document.getElementById("setting-overlay").classList.add("hidden");
 
               // document.getElementById("coin-info").classList.add("hidden");
-              // document.getElementById("center").classList.add("hidden");
-              // document.getElementById("left").classList.add("hidden");
+              //
+              //
 
 
           }, 100);
@@ -33167,30 +33348,30 @@
           document.getElementById("credit-info").classList.remove("show");
           document.getElementById("credit-info").classList.add("fade");
 
-          if(document.getElementById("center").classList.contains("hidden")){
+          if(false){
             document.getElementById("coin-info").classList.remove("show");
             document.getElementById("coin-info").classList.add("fade");
           }
 
           //
-          // document.getElementById("center").classList.remove("show");
-          // document.getElementById("center").classList.add("fade");
           //
-          // document.getElementById("left").classList.remove("show");
-          // document.getElementById("left").classList.add("fade");
+          //
+          //
+          //
+          //
 
 
           setTimeout(function() {
 
               document.getElementById("credit-info").classList.add("hidden");
               document.getElementById("setting-overlay").classList.add("hidden");
-              if(document.getElementById("center").classList.contains("hidden")){
+              if(false){
                 document.getElementById("coin-info").classList.add("hidden");
               }
 
 
-              // document.getElementById("center").classList.add("hidden");
-              // document.getElementById("left").classList.add("hidden");
+              //
+              //
 
 
           }, 100);
@@ -33258,17 +33439,17 @@
             document.getElementById("right").classList.remove("fade");
 
             if(n==1){
-              document.getElementById("center").classList.remove("fade");
-              document.getElementById("left").classList.remove("fade");
+
+
             }else if(n==5){
               if(!document.getElementById("coin-info").classList.contains("hidden")){
-                document.getElementById("center").classList.remove("fade");
-                document.getElementById("left").classList.remove("fade");
+
+
 
               }
-            }else if(!document.getElementById("center").classList.contains("hidden")){
-              document.getElementById("center").classList.remove("fade");
-              document.getElementById("left").classList.remove("fade");
+            }else if(false){
+
+
 
             }
 
@@ -33277,28 +33458,25 @@
                 document.getElementById("right").classList.add("show");
                 document.getElementById("right").classList.remove("hidden");
                 if(n==1){
-                  document.getElementById("left").classList.add("show");
 
-                  document.getElementById("left").classList.remove("hidden");
 
-                  document.getElementById("center").classList.add("show");
-                  document.getElementById("center").classList.remove("hidden");
+
+
+
+
                 }else if(n==5){
                   if(!document.getElementById("coin-info").classList.contains("hidden")){
-                    document.getElementById("left").classList.add("show");
 
-                    document.getElementById("left").classList.remove("hidden");
 
-                    document.getElementById("center").classList.add("show");
-                    document.getElementById("center").classList.remove("hidden");
+
+
+
+
                   }
-                }else if(!document.getElementById("center").classList.contains("hidden")){
-                  document.getElementById("left").classList.add("show");
+                }else if(false){
 
-                  document.getElementById("left").classList.remove("hidden");
 
-                  document.getElementById("center").classList.add("show");
-                  document.getElementById("center").classList.remove("hidden");
+
                 }
 
 
@@ -33872,12 +34050,16 @@
 
 
 
-<button id="left" class="left" onclick="drawon()">
-    <img class="" src="png/topcam.png">
+<button id="left0" class="left0" onclick="">
+    <img class="" src="png/gear.png">
 </button>
 
-<button id="center" class="center" onclick="stageon()">
-    <img class="" src="png/gamepad.png">
+<button id="center0" class="center0" onclick="">
+    <img class="" src="png/leaderboardsComplex.png">
+</button>
+
+<button id="right0" class="right0" onclick="">
+    0
 </button>
 
 <button id="right" class="right" onclick="optionon()">
