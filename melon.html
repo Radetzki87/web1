@@ -18286,21 +18286,12 @@
 
 
 
-
-
-
-
-
-
-
-
         if (callback) {
             callback();
         }
     }
 
     function msetting(callback) {
-
         if (callback) {
             callback();
         }
@@ -21656,9 +21647,11 @@
               if(dropnum==0){
                 var fr = motion("emote", 1);
                 var dur=12+parseInt((elapsedTime*5)%3);
+
               }else if(dropnum==1){
                 var fr = motion("emote", 11);
                 var dur=6+parseInt((elapsedTime*5)%3);
+
               }else if(dropnum==2){
                 var fr = motion("emote", 11);
                 var dur=9+parseInt((elapsedTime*5)%3);
@@ -21671,18 +21664,22 @@
               }else if(dropnum==5){
                 var fr = motion("emote", 8);
                 var dur=18+parseInt((elapsedTime*5)%3);
+
               }else if(dropnum==6){
                 var fr = motion("emote", 8);
                 var dur=27+parseInt((elapsedTime*5)%3);
               }else if(dropnum==9){
                 var fr = motion("emote", 1);
                 var dur=24+parseInt((elapsedTime*5)%3);
+                배[1].children[7].rotation.x=Math.PI/2+Math.sin((elapsedTime-finaldrop)*3.14*3)*0.15
               }else if(dropnum==10){
                 var fr = motion("emote", 8);
                 var dur=27+parseInt((elapsedTime*5)%3);
+                배[1].children[7].rotation.x=Math.PI/2+Math.sin((elapsedTime-finaldrop)*3.14*3)*0.15
               }else{
                 var fr = motion("emote", 1);
                 var dur=12+parseInt((elapsedTime*5)%3);
+                배[1].children[7].rotation.x=Math.PI/2+Math.sin((elapsedTime-finaldrop)*3.14*3)*0.15
               }
 
               ctx.drawImage(unitimg["emote"], fr[dur][0], fr[dur][1], fr[dur][2], fr[dur][3],0, 0,  150, 150);
@@ -21760,7 +21757,11 @@
               //     opacity: 1
               // });
               // emote[0].material=material1;
+              배[1].children[7].rotation.x=Math.PI/2
               emote[0].material.visible=false;
+            }
+            if(득템){
+              배[1].children[7].rotation.x=Math.PI/2+Math.sin((elapsedTime-finaldrop)*3.14*3)*0.15
             }
           }
 
@@ -25779,7 +25780,7 @@
 
         if(득템){
           var idx=temnum-1
-          if(elapsedTime - temtime <= 1.4){
+          if(elapsedTime - temtime <= 1){
             var dur0=parseInt(elapsedTime*120)%72
 
 
@@ -27074,6 +27075,9 @@
                 배[1].children[5].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
                 배[1].children[6].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
                 배[1].children[7].position.z=-20.7-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
+                배[1].children[7].rotation.x=Math.PI/2+Math.sin(Math.sin(elapsedTime - itemtime)*roll)
+
+
                 배[1].children[8].position.z=-20.7-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
                 // emote[0].position.x=-20.7-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
 
@@ -27131,6 +27135,9 @@
                 배[1].children[5].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
                 배[1].children[6].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
                 배[1].children[7].position.z=-20.7-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
+                배[1].children[7].rotation.x=Math.PI/2+Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
+
+
                 배[1].children[8].position.z=-20.7-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
                 // emote[0].position.x=-20.7-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
 
