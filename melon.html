@@ -4102,7 +4102,7 @@
 
     ]
     var colornum0;
-    var 카메라높이=bh*12.8;
+    var 카메라높이=bh*13;
 
     do{
       colornum0 = parseInt(Math.random() * colorlst0.length);
@@ -21416,6 +21416,7 @@
                   //
                   //
                   //
+                  item.children[7].children[2].position.y=+0.2
                   item.children[7].children[0].position.z=-0.1*(pshift[dur]-1);
                   item.children[7].children[1].position.z=0.2*(pshift[dur]-1);
 
@@ -23822,8 +23823,8 @@
                     var mesh=new THREE.Mesh(geometry1, material1);
 
                     var mesh2=new THREE.Mesh(geometry1, material1);
-                    mesh.position.set(-bh*0.9,bh*(8),0)
-                    mesh2.position.set(-bh-0.2,bh*(8),0)
+                    mesh.position.set(-bh*0.9,bh*(8.2),0)
+                    mesh2.position.set(-bh-0.2,bh*(8.2),0)
 
                     ship.push(mesh)
 
@@ -24450,6 +24451,19 @@
           var dur0=parseInt(elapsedTime*20)%36
           var dur=parseInt(elapsedTime*35)%pshift.length
           var isize=12+5*(pshift[dur]-1)
+          if(pung){
+            document.getElementById('top0').style.backgroundColor="rgba(150, 150, 200, 0.6)"
+          }else if(ice){
+            document.getElementById('top1').style.backgroundColor="rgba(150, 150, 200, 0.6)"
+          }else if(pin){
+            document.getElementById('top2').style.backgroundColor="rgba(150, 150, 200, 0.6)"
+          }else if(bridge){
+            document.getElementById('top3').style.backgroundColor="rgba(150, 210, 150, 0.6)"
+          }
+
+
+
+
 
 
           if(itemdrag){
