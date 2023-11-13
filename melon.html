@@ -20223,7 +20223,7 @@
       var mass=4
       var tscale0;
       var tcolor;
-      var initscale=0.1
+      var initscale=0.2
 
       var sleep1=100;
       var sleep2=0.1;
@@ -20319,7 +20319,7 @@
         // mesh.add(half[1].clone())
         // mesh.add(half[2].clone())
 
-        var temp0=2.9
+        var temp0=2.85
 
         mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
         // mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
@@ -20373,7 +20373,7 @@
 
       }else if(rnk==1||rnk==2||rnk==3){
         var tscale=1+Math.random()
-        var geometry1 = new THREE.BoxGeometry(0.54*bh*tscale0, 통, 0.73*bh*tscale0);
+        var geometry1 = new THREE.BoxGeometry(0.54*bh*tscale0, 통, 0.7*bh*tscale0);
 
         // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
 
@@ -20424,6 +20424,8 @@
         }
 
 
+
+
         mesh.rotation.z=(Math.PI/2)
 
         mesh.rotation.x=deg
@@ -20451,6 +20453,42 @@
           groundBody.quaternion.copy(mesh.quaternion);
 
         }else if(rnk==3){
+
+          var geometry2 = new THREE.BoxGeometry(1.43*0.54*bh*tscale0, 통, 0.2*0.7*bh*tscale0);
+          var material2 = new THREE.MeshLambertMaterial({
+              transparent:true,
+              opacity:0,
+              color: tcolor
+          });
+          var mesh02=new THREE.Mesh(geometry2, material2);
+
+          var geometry3 = new THREE.BoxGeometry(0.9*0.54*bh*tscale0, 통, 0.3*0.7*bh*tscale0);
+          var material3 = new THREE.MeshLambertMaterial({
+              transparent:true,
+              opacity:0,
+              color: tcolor
+          });
+          var mesh03=new THREE.Mesh(geometry3, material3);
+
+          var geometry4 = new THREE.BoxGeometry(0.45*0.54*bh*tscale0, 통, 0.28*0.7*bh*tscale0);
+          var material4 = new THREE.MeshLambertMaterial({
+              transparent:true,
+              opacity:0,
+              color: tcolor
+          });
+          var mesh04=new THREE.Mesh(geometry4, material4);
+
+          mesh02.position.z=0.5*0.7*bh*tscale0-(0.21*0.7*bh*tscale0/2)
+          mesh03.position.z=0.5*0.7*bh*tscale0
+          mesh04.position.z=0.5*0.7*bh*tscale0+0.28*0.7*bh*tscale0
+
+          // mesh.add(mesh02)
+          // mesh.add(mesh03)
+          // mesh.add(mesh04)
+
+
+
+
           var customMaterial = new CANNON.Material('customMaterial');
           customMaterial.friction = frix; // Friction coefficient, range: 0-1
           customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
@@ -20468,12 +20506,12 @@
 
           var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.9*0.54*bh*tscale0/2, 통/2, 0.3*0.7*bh*tscale0/2));
 
-          var boxShape3 = new CANNON.Box(new CANNON.Vec3(0.4*0.54*bh*tscale0/2, 통/2, 0.25*0.7*bh*tscale0/2));
+          var boxShape3 = new CANNON.Box(new CANNON.Vec3(0.45*0.54*bh*tscale0/2, 통/2, 0.28*0.7*bh*tscale0/2));
 
           groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
-          groundBody.addShape(boxShape1, new CANNON.Vec3(0, 0, 0.5*0.7*bh*tscale0/2-(0.5*0.15*0.7*bh*tscale0/2)));
-          groundBody.addShape(boxShape2, new CANNON.Vec3(0, 0, 0.5*0.7*bh*tscale0/2+2))
-          groundBody.addShape(boxShape3, new CANNON.Vec3(0, 0, 0.5*0.7*bh*tscale0/2+4))
+          groundBody.addShape(boxShape1, new CANNON.Vec3(0, 0, 0.5*0.7*bh*tscale0-(0.21*0.7*bh*tscale0/2)));
+          groundBody.addShape(boxShape2, new CANNON.Vec3(0, 0, 0.5*0.7*bh*tscale0))
+          groundBody.addShape(boxShape3, new CANNON.Vec3(0, 0, 0.5*0.7*bh*tscale0+0.28*0.7*bh*tscale0))
 
           groundBody.position.copy(mesh.position);
           groundBody.quaternion.copy(mesh.quaternion);
@@ -20717,6 +20755,36 @@
           mesh.rotation.z=(Math.PI/2)
           mesh.rotation.x=deg
 
+
+          var geometry2 = new THREE.BoxGeometry(1.35*0.54*bh*tscale0, 통/2, 0.2*0.7*bh*tscale0);
+          var material2 = new THREE.MeshLambertMaterial({
+              transparent:true,
+              opacity:0,
+              color: tcolor
+          });
+          var mesh02=new THREE.Mesh(geometry2, material2);
+
+          var geometry3 = new THREE.BoxGeometry(0.14*0.7*bh*tscale0, 통/2, 0.2*0.7*bh*tscale0);
+          var material3 = new THREE.MeshLambertMaterial({
+              transparent:true,
+              opacity:0,
+              color: tcolor
+          });
+          var mesh03=new THREE.Mesh(geometry3, material3);
+
+
+
+          mesh02.position.z=-0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0)
+          mesh02.position.x=1.35*0.54*bh*tscale0/4
+
+          mesh03.position.z=-0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0*1.5)
+          mesh03.position.x=0.2*0.7*bh*tscale0*3
+
+          // mesh.add(mesh02)
+          // mesh.add(mesh03)
+
+
+
           var customMaterial = new CANNON.Material('customMaterial');
           customMaterial.friction = frix; // Friction coefficient, range: 0-1
           customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
@@ -20735,12 +20803,14 @@
 
 
           var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*0.75*bh*tscale0/2));
-          var boxShape1 = new CANNON.Box(new CANNON.Vec3(1.43*0.54*bh*tscale0/2, 통/2, t1*0.15*0.7*bh*tscale0/2));
+          var boxShape1 = new CANNON.Box(new CANNON.Vec3(1.35*0.54*bh*tscale0/2, 통/2, 0.2*0.7*bh*tscale0/2));
+          var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.14*0.7*bh*tscale0/2, 통/2, 0.2*0.7*bh*tscale0/2));
 
 
 
           groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, (t1-1)*0.75*bh*tscale0/2));
-          groundBody.addShape(boxShape1, new CANNON.Vec3(1, 0, -0.5*0.7*bh*tscale0/2+(0.5*0.15*0.7*bh*tscale0/2)));
+          groundBody.addShape(boxShape1, new CANNON.Vec3(1.35*0.54*bh*tscale0/4, 0, -0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0)));
+          groundBody.addShape(boxShape2, new CANNON.Vec3(0.2*0.7*bh*tscale0*3, 0, -0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0*1.5)));
           groundBody.position.copy(mesh.position);
           groundBody.quaternion.copy(mesh.quaternion);
 
