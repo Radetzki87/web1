@@ -25,6 +25,17 @@
             overscroll-behavior-x: none;
         }
 
+
+
+        #exit{
+          background-color: rgba(210, 100, 100, 0.8);
+        }
+
+        #re{
+          width:240%;
+          background-color: rgba(100, 210, 100, 0.8);
+        }
+
         .sub {
           font-family: 'GG';
           font-size: 8vmin;
@@ -154,7 +165,6 @@
 
         .panel-title {
           font-family: 'GG';
-
           border-radius: 2vmin;
           border:1vmin outset rgba(50, 50, 50, 0.8);
           width: 25vmin;
@@ -171,7 +181,6 @@
         .panel-title.set{
             background-color: rgba(70, 150, 170, 0.7);
             border: 1vmin inset rgba(70, 150, 170, 0.5);
-
         }
 
         .panel-title img{
@@ -562,7 +571,7 @@
             /* position: absolute; */
             /* background-color: rgba(0, 0, 0, 0.7); */
             border-radius: 2vw;
-            width: 95vmin;
+            width: 70vmin;
             /* height: 60%; */
             z-index: 1;
             /* background-color: rgba(0, 0, 0, 0.8); */
@@ -2191,7 +2200,7 @@
             justify-content: center;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-gap: 9vmin;
+            grid-gap: 7vmin;
             align-items: center;
             /*background-color: rgba(50, 100, 250, 0.3);*/
         }
@@ -2214,7 +2223,7 @@
 
         .setting-grid b {
             margin: 3vmin 0vmin;
-            font-size: 2.7vmin;
+            font-size: 3vmin;
         }
 
         #vinfo{
@@ -3440,6 +3449,8 @@
     var 득템=false;
     var temtime=0;
     var temnum=0;
+
+    var 터치보호;
 
 
 
@@ -9453,6 +9464,7 @@
     var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
     function handleTouchStart(event) {
+        if(document.getElementById("setting-overlay").classList.contains("hide")) return;
         if(!터치) return
         console.log(propsmold.length);
         // if(propsmold.length!=6) return;
@@ -9597,32 +9609,32 @@
         var topflag;
         var seflag;
 
-        if (lastY >= 0.8) {
-            if (lastX < -0.8) {
-              if (!aniflag0) {
-                  aniflag0 = true
-
-              }else{
-                aniflag0 = false
-              }
-
-
-
-            } else if (lastX > 0.8) {
-                if (!startflag) {
-                    startflag = true
-
-                }
-                // if (!webflag) {
-                //     Android.showToast("??");
-                //     initdb();
-                //
-                //     loaddb()
-                // }
-                // return;
-
-            }
-        }
+        // if (lastY >= 0.8) {
+        //     if (lastX < -0.8) {
+        //       if (!aniflag0) {
+        //           aniflag0 = true
+        //
+        //       }else{
+        //         aniflag0 = false
+        //       }
+        //
+        //
+        //
+        //     } else if (lastX > 0.8) {
+        //         if (!startflag) {
+        //             startflag = true
+        //
+        //         }
+        //         // if (!webflag) {
+        //         //     Android.showToast("??");
+        //         //     initdb();
+        //         //
+        //         //     loaddb()
+        //         // }
+        //         // return;
+        //
+        //     }
+        // }
 
 
 
@@ -9649,6 +9661,7 @@
 
 
         }
+        if(lastY>0.9) return;
         if(!ingame) return;
         // console.log(seal.length)
         // console.log(bear.length)
@@ -11233,6 +11246,8 @@
     });
 
     window.addEventListener('click', (event) => {
+
+      if(document.getElementById("setting-overlay").classList.contains("show")) return;
       if(!터치) return
       // if(propsmold.length!=6) return;
       if(pen.length!=7||seal.length!=10||bear.length!=9||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=8||pen2.length!=5) return;
@@ -11313,6 +11328,8 @@
         return;
 
       }else if(ingame){
+        if(document.getElementById("setting-overlay").classList.contains("hide")) return;
+
         if(ready&&!dragflag&&!itemflag) {
           if(ontouch){
 
@@ -11335,6 +11352,7 @@
 
 
             var 보정=0.005
+            if(elapsedTime-터치보호<0.1) return;
 
             console.log("커서클릭")
             console.log("dragflag=false")
@@ -13471,6 +13489,10 @@
         // sample=[];
         axis=[];
         balls=[];
+        drop=0
+        터치보호=0
+        finaldrop=-10
+
 
         scene.background = new THREE.Color(0x69DDFF);
         window.esound=esound
@@ -23048,7 +23070,7 @@
                     }
                 }
                 if (!soundic[sdic[activeFloor][0]]?.isPlaying) {
-                    soundic[sdic[activeFloor][0]].play();
+                    soundic[sdic[activeFloor][0]]?.play();
                     songTitleElement.innerText = sdic[activeFloor]["title"];
                     if(langnum==13||langnum==22||langnum==29||langnum==36){
                       document.getElementById("playing").style.left=String(2+1.1*songTitleElement.innerText.length)+"vmax"
@@ -30866,8 +30888,26 @@
         nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
         rotationend = Math.PI / 4
     }
+    function exit0(n=0){
+      if(n==1){
+        터치보호=elapsedTime
+        close(크레딧)
+      }else{
+        터치보호=elapsedTime
+        close(세팅)
+
+
+      }
+      return;
+
+    }
+    window.exit0=exit0
 
     function retry(n=0,ch="",st="") {
+      reflag=true
+      터치보호=elapsedTime
+      close(세팅)
+      return restart();
       // coin=parseInt(nslst["data"]["0"]);
       // coin+=pluscoin;
 
@@ -32136,13 +32176,13 @@
 
 
 
-        sidebtn.addEventListener('click', function() {
-            if(sidecam){
-              sidecam=false;
-            }else{
-              sidecam=true;
-            }
-        })
+        // sidebtn.addEventListener('click', function() {
+        //     if(sidecam){
+        //       sidecam=false;
+        //     }else{
+        //       sidecam=true;
+        //     }
+        // })
 
 
 
@@ -32245,56 +32285,56 @@
         //     }
         // })
 
-        reBtn3.addEventListener('click', function() {
-
-          if(restartflag) return;
-
-          if(gamemod>=2){
-            if(coin>=mod2비용){
-              contract(mod2비용,[], function(){
-                showpop("",String(mod2비용)+" ★",textdic[88][langset[langnum]],0)
-              })
-
-            }else{
-
-                showpop("","★",textdic[89][langset[langnum]],15)
-
-              // Android.showToast("★가 부족합니다");
-              return;
-            }
-          }
-
-          close(모드)
-          close(세팅)
-          close(게임오버)
-          close(튜토리얼)
-          close(라이트)
-          close(예스노)
-
-          if(parseInt(Math.random()*5)>=3){
-            if(freead){
-              elapsedTime=0;
-              retry()
-            }else{
-              var sdickeys = Object.keys(soundic);
-
-              sdickeys.forEach((item) => {
-                soundic[item]?.stop();
-              });
-              if(webflag){
-                retry()
-              }else{
-                Android.showAd();
-              }
-
-            }
-
-          }else{
-
-            retry()
-          }
-
-        })
+        // reBtn3.addEventListener('click', function() {
+        //
+        //   if(restartflag) return;
+        //
+        //   if(gamemod>=2){
+        //     if(coin>=mod2비용){
+        //       contract(mod2비용,[], function(){
+        //         showpop("",String(mod2비용)+" ★",textdic[88][langset[langnum]],0)
+        //       })
+        //
+        //     }else{
+        //
+        //         showpop("","★",textdic[89][langset[langnum]],15)
+        //
+        //       // Android.showToast("★가 부족합니다");
+        //       return;
+        //     }
+        //   }
+        //
+        //   close(모드)
+        //   close(세팅)
+        //   close(게임오버)
+        //   close(튜토리얼)
+        //   close(라이트)
+        //   close(예스노)
+        //
+        //   if(parseInt(Math.random()*5)>=3){
+        //     if(freead){
+        //       elapsedTime=0;
+        //       retry()
+        //     }else{
+        //       var sdickeys = Object.keys(soundic);
+        //
+        //       sdickeys.forEach((item) => {
+        //         soundic[item]?.stop();
+        //       });
+        //       if(webflag){
+        //         retry()
+        //       }else{
+        //         Android.showAd();
+        //       }
+        //
+        //     }
+        //
+        //   }else{
+        //
+        //     retry()
+        //   }
+        //
+        // })
 
         reBtn4.addEventListener('click', function() {
           if(restartflag) return;
@@ -32722,14 +32762,14 @@
         setTimeout(function() {
 
 
-            document.getElementById("right").classList.add("hidden");
+            // document.getElementById("right").classList.add("hidden");
 
             document.getElementById("optionlst").classList.add("hidden");
             document.getElementById("step1").classList.remove("hidden");
             document.getElementById("step1").classList.add("show");
-            document.getElementById("right").children[1].classList.add("hidden");
-            document.getElementById("right").children[0].classList.remove("hidden");
-            document.getElementById("right").children[0].style.display = ""
+            // document.getElementById("right").children[1].classList.add("hidden");
+            // document.getElementById("right").children[0].classList.remove("hidden");
+            // document.getElementById("right").children[0].style.display = ""
         }, 10);
     }
 
@@ -32773,14 +32813,14 @@
         setTimeout(function() {
 
 
-            document.getElementById("right").classList.add("hidden");
+            // document.getElementById("right").classList.add("hidden");
             //
             document.getElementById("optionlst").classList.add("hidden");
             document.getElementById("step1").classList.remove("hidden");
             document.getElementById("step1").classList.add("show");
-            document.getElementById("right").children[1].classList.add("hidden");
-            document.getElementById("right").children[0].classList.remove("hidden");
-            document.getElementById("right").children[0].style.display = ""
+            // document.getElementById("right").children[1].classList.add("hidden");
+            // document.getElementById("right").children[0].classList.remove("hidden");
+            // document.getElementById("right").children[0].style.display = ""
         }, 100);
     }
 
@@ -33299,6 +33339,7 @@
           close(세팅)
           close(라이트)
           close(크레딧)
+          터치보호=elapsedTime
           if(게임오버.classList.contains("hidden")&&!코인.classList.contains("hidden")){
             open(레프트)
             open(센터)
@@ -33580,8 +33621,8 @@
       document.getElementById("credit-info").classList.remove("fade");
       document.getElementById("credit-info").classList.remove("hidden");
       document.getElementById("credit-info").classList.add("show");
-      document.getElementById("setting-overlay").classList.remove("show");
-      document.getElementById("setting-overlay").classList.add("fade");
+      // document.getElementById("setting-overlay").classList.remove("show");
+      // document.getElementById("setting-overlay").classList.add("fade");
 
 
       // document.getElementById("credit-info").classList.add("show");
@@ -34031,8 +34072,8 @@
 </div>
 
 
-<div id="credit-info" class="hidden" onclick="goBack(5)">
-    <button class="backbutton" onclick="goBack(5)">
+<div id="credit-info" class="hidden" onclick="exit0(1)">
+    <button class="backbutton" onclick="exit0(1)">
         <img class="" src="png/left.png">
     </button>
     <img id="credits" src="png/credits_en.png">
@@ -34120,7 +34161,7 @@
 
 
 
-<button id="left0" class="left0" onclick="">
+<button id="left0" class="left0" onclick="showsetting()">
     <img class="" src="png/gear.png">
 </button>
 
@@ -34184,9 +34225,11 @@
     <button onclick="lboard(9)">
         <img src="png/medal2.png" id="opt2">
     </button>
-    <button class="restartbtn3" onclick="">
-        <img src="png/retry.png" id="opt3">
+    <button onclick="lboard(9)">
+        <img src="png/medal2.png" id="opt3">
     </button>
+
+
     <button onclick="showmod()">
         <img src="png/gamepad.png" id="opt4">
     </button>
@@ -34197,6 +34240,7 @@
 
 <div id="setting-overlay" class="setting-overlay hidden">
     <div id="setting-back"></div>
+
     <b id="resolution">RESOLUTION</b>
     <div class="option-RL2">
         <button id="skin-left2" onclick="resshift(0)">◀</button>
@@ -34205,6 +34249,8 @@
         </label>
         <button id="skin-right2" onclick="resshift(1)">▶</button>
     </div>
+
+
     <div class="setting-grid">
         <button id="bgm" class="setting" onclick="soundmute()">
             <img src="png/musicOn.png" >
@@ -34218,14 +34264,20 @@
             <b class="glabel">AUDIO</b>
         </button>
 
+        <button class="setting" onclick="showlang()">
+            <img src="png/font1.png" id="langimg">
+            <b class="glabel">language</b>
+        </button>
+
+
+        <button  class="setting" onclick="loadp1()">
+            <img src="png/star.png" >
+            <b class="glabel">광고 제거</b>
+        </button>
+
         <button class="setting" onclick="check()">
             <img src="png/save.png" >
             <b class="glabel">restore purchase</b>
-        </button>
-
-        <button id="sidec" class="setting" onclick="">
-            <img src="png/sidecam.png" >
-            <b class="glabel">sidecam</b>
         </button>
 
         <button  class="setting" onclick="showcredit()">
@@ -34233,31 +34285,22 @@
             <b class="glabel">CREDIT</b>
         </button>
 
-        <button class="setting" onclick="fullon()">
-            <img src="png/share1.png" >
-            <b class="glabel">share1</b>
-        </button>
 
-        <button  class="setting" onclick="loadp1()">
-            <img src="png/star.png" >
-            <b class="glabel">RATE</b>
-        </button>
 
-        <button class="setting" onclick="goBack(5)">
+
+        <button class="setting" onclick="exit0()" id="exit">
             <img src="png/cross.png" >
             <b class="glabel">exit</b>
         </button>
 
-        <button class="setting" onclick="showlang()">
-            <img src="png/font1.png" id="langimg">
-            <b class="glabel">language</b>
+        <button class="setting" onclick="retry()" id="re">
+            <img src="png/retry.png">
+            <b class="glabel">재시작</b>
         </button>
+
         <label id="vinfo">1.0</label>
         <label id="mailinfo">📬:brix2048@raekgames.com</label>
     </div>
-
-
-
 
 </div>
 <div id="gameover-overlay" class="gameover-overlay hidden">
@@ -34317,9 +34360,6 @@
             </button>
 
         </div>
-
-
-
 
         <div class="gameover">
             <label class="glabel0">Back to Normal</label>
@@ -34396,13 +34436,6 @@
 
             </div>
         </div>
-
-
-
-
-
-
-
 
 </body>
 
