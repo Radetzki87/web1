@@ -9691,14 +9691,14 @@
         console.log(ingame)
         window.과일=과일
 
-        과일.forEach((item) => {
-          if(item.userData.alive&&(item.userData.rank==0||item.userData.rank==4)&&Math.abs(item.rotation.y)>1){
-            console.log("뒤집")
-            var qt = new CANNON.Quaternion();
-            qt.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2);
-            item.userData.body.quaternion.copy(qt)
-          }
-        });
+        // 과일.forEach((item) => {
+        //   if(item.userData.alive&&(item.userData.rank==0||item.userData.rank==4)&&Math.abs(item.rotation.y)>1){
+        //     console.log("뒤집")
+        //     var qt = new CANNON.Quaternion();
+        //     qt.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2);
+        //     item.userData.body.quaternion.copy(qt)
+        //   }
+        // });
 
         // 과일.forEach((item) => {
         //   if(item.userData.alive&&item.userData.rank==0){
@@ -20632,7 +20632,7 @@
 
 
             var groundBody = new CANNON.Body({
-                mass: 무게*3,
+                mass: 무게*4,
                 // shape: new CANNON.Box(new CANNON.Vec3(bh*tscale0/2, bh/2, bh*tscale0/2)),
                 shape: new CANNON.Cylinder(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 20),
                 material: customMaterial,
@@ -26865,6 +26865,17 @@
               }
 
               if(item.userData.alive){
+                if(item.userData.rank>=9||item.userData.rank==0||(item.userData.rank==4&&item.userData.form==0)){
+                  if(Math.abs(item.rotation.y)>1.4){
+                    console.log("뒤집")
+                    console.log(item.userData.rank)
+
+                    var qt = new CANNON.Quaternion();
+                    qt.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2);
+                    item.userData.body.quaternion.copy(qt)
+                  }
+                }
+
                 item.position.copy(item.userData.body.position);
                 item.quaternion.copy(item.userData.body.quaternion);
                 if(item.userData.rank>=9||item.userData.rank==0||(item.userData.rank==4&&item.userData.form==0)){
