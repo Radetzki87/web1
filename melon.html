@@ -12414,7 +12414,7 @@
 
 
 
-          for (var i = 3; i < cubes.length; i++) {
+          for (var i = 3; i < 0; i++) {
             var clone={};
             var pinsize=1;
             if(cubes[i].mesh.userData.pin){
@@ -12720,7 +12720,7 @@
                 // coin += pluscoin;
                 restartloc=[];
                 restartrot=[];
-                for (var i = 0; i < cubes.length; i++) {
+                for (var i = 0; i < 0; i++) {
                     restartloc.push(cubes[i].mesh.position);
                     restartrot.push(cubes[i].mesh.rotation);
                 }
@@ -12791,7 +12791,7 @@
 
           // dl2.shadow.mapSize = new THREE.Vector2(700, 700);
         } else if (event.code === 'KeyC') {
-            for (var i = 0; i < cubes.length-1; i++) {
+            for (var i = 0; i < 0-1; i++) {
               let force2 = new CANNON.Vec3();
               force2.set(300*(avx - cubes[i].body.position.x)+300*(cubes[i+1].body.position.x - cubes[i].body.position.x),0,300*(avz - cubes[i].body.position.z)+300*(cubes[i+1].body.position.z - cubes[i].body.position.z));
               cubes[i].body.applyForce(force2, cubes[i].body.position);
@@ -12898,7 +12898,7 @@
             //   item.body.applyForce(force, item.body.position);
             // })
         } else {
-            for (var i = 0; i < cubes.length; i++) {
+            for (var i = 0; i < 0; i++) {
                 if (i == activeFloor) {
                     if (!cubes[i].mesh.userData.game2048.boardChanged && !aniflag) {
                         const game2048 = cubes[i].mesh.userData.game2048;
@@ -13060,7 +13060,7 @@
         groundBody.material.friction=마찰[gamemod];
         groundBody.material.restitution=탄성[gamemod];
         if (gamemod==0){
-          for (var i = 0; i < cubes.length; i++) {
+          for (var i = 0; i < 0; i++) {
             cubes[i].body.material.friction = 마찰[0];
             cubes[i].body.material.restitution = 탄성[0];
           }
@@ -13072,7 +13072,7 @@
           world.solver.iterations = 10;
           // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
         }else if (gamemod==1){
-          for (var i = 0; i < cubes.length; i++) {
+          for (var i = 0; i < 0; i++) {
             cubes[i].body.material.friction = 마찰[1];
             cubes[i].body.material.restitution = 탄성[1];
           }
@@ -13084,10 +13084,10 @@
           world.solver.iterations = 1;
 
         }else if (gamemod==2){
-          for (var i = 0; i < cubes.length; i++) {
-            cubes[i].body.material.friction = 마찰[2];
-            cubes[i].body.material.restitution = 탄성[2];
-          }
+          // for (var i = 0; i < 0; i++) {
+          //   cubes[i].body.material.friction = 마찰[2];
+          //   cubes[i].body.material.restitution = 탄성[2];
+          // }
           stack=3;
           forceAmount = bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
@@ -13683,7 +13683,7 @@
                     if(coin>100000){
                       sboard("CgkI3OzStdEUEAIQEQ")
                     }
-                    addring();
+                    // addring();
                     document.getElementById("intro").children[2].style.display=""
 
 
@@ -18652,7 +18652,7 @@
         var tmesh = new THREE.Mesh(geometry12, material);
 
         if(gamemod==2){
-          tmesh.position.y = cubes[0].body.position.y+9
+          // tmesh.position.y = cubes[0].body.position.y+9
         }else{
           tmesh.position.y = cubes[0].body.position.y + 12
         }
@@ -18968,7 +18968,7 @@
         });
         var tmesh = new THREE.Mesh(geometry12, material);
         if(gamemod==2){
-          tmesh.position.y = cubes[0].body.position.y+9
+          // tmesh.position.y = cubes[0].body.position.y+9
         }else{
           tmesh.position.y = cubes[0].body.position.y + 12
         }
@@ -19056,7 +19056,7 @@
         });
         var tmesh = new THREE.Mesh(geometry12, material);
         if(gamemod==2){
-          tmesh.position.y = cubes[0].body.position.y+9
+          // tmesh.position.y = cubes[0].body.position.y+9
         }else{
           tmesh.position.y = cubes[0].body.position.y + 12
         }
@@ -19139,7 +19139,7 @@
         });
         var tmesh = new THREE.Mesh(geometry12, material);
         if(gamemod==2){
-          tmesh.position.y = cubes[0].body.position.y+9
+          // tmesh.position.y = cubes[0].body.position.y+9
         }else{
           tmesh.position.y = cubes[0].body.position.y + 12
         }
@@ -19229,7 +19229,7 @@
         });
         var tmesh = new THREE.Mesh(geometry12, material);
         if(gamemod==2){
-          tmesh.position.y = cubes[0].body.position.y+9
+          // tmesh.position.y = cubes[0].body.position.y+9
         }else{
           tmesh.position.y = cubes[0].body.position.y + 12
         }
@@ -19312,7 +19312,7 @@
         });
         var tmesh = new THREE.Mesh(geometry12, material);
         if(gamemod==2){
-          tmesh.position.y = cubes[0].body.position.y+9
+          // tmesh.position.y = cubes[0].body.position.y+9
         }else{
           tmesh.position.y = cubes[0].body.position.y + 12
         }
@@ -19549,7 +19549,7 @@
                 }
             });
         })
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 0; i++) {
             for (var j = cubes[i].mesh.children.length - 1; j >= 0; j--) {
                 if (cubes[i].mesh.children[j].userData["skin"] == "tile") {
                     cubes[i].mesh.remove(cubes[i].mesh.children[j]);
@@ -19796,7 +19796,7 @@
                 //   item.body.applyForce(force, item.body.position);
                 // })
             } else {
-                for (var i = 0; i < cubes.length; i++) {
+                for (var i = 0; i < 0; i++) {
                     if (i == activeFloor) {
                         if (!cubes[i].mesh.userData.game2048.boardChanged && !aniflag) {
                             const game2048 = cubes[i].mesh.userData.game2048;
@@ -19816,7 +19816,7 @@
                 //   item.body.applyForce(force, item.body.position);
                 // })
             } else {
-                for (var i = 0; i < cubes.length; i++) {
+                for (var i = 0; i < 0; i++) {
                     if (i == activeFloor) {
                         if (!cubes[i].mesh.userData.game2048.boardChanged && !aniflag) {
                             const game2048 = cubes[i].mesh.userData.game2048;
@@ -19835,7 +19835,7 @@
                 //   item.body.applyForce(force, item.body.position);
                 // })
             } else {
-                for (var i = 0; i < cubes.length; i++) {
+                for (var i = 0; i < 0; i++) {
                     if (i == activeFloor) {
                         if (!cubes[i].mesh.userData.game2048.boardChanged && !aniflag) {
                             const game2048 = cubes[i].mesh.userData.game2048;
@@ -19854,7 +19854,7 @@
                 //   item.body.applyForce(force, item.body.position);
                 // })
             } else {
-                for (var i = 0; i < cubes.length; i++) {
+                for (var i = 0; i < 0; i++) {
                     if (i == activeFloor) {
                         if (!cubes[i].mesh.userData.game2048.boardChanged && !aniflag) {
                             const game2048 = cubes[i].mesh.userData.game2048;
@@ -21294,7 +21294,7 @@
                     pluscoin = parseInt(점수 / 10)
                     restartloc=[];
                     restartrot=[];
-                    for (var i = 0; i < cubes.length; i++) {
+                    for (var i = 0; i < 0; i++) {
                         restartloc.push(cubes[i].mesh.position);
                         restartrot.push(cubes[i].mesh.rotation);
                     }
@@ -21372,10 +21372,70 @@
 
 
             // if(!webflag) initdb()
+            var sdickeys = Object.keys(soundic);
+            for (let j = 0; j < esound.length; j++) {
+                if (sdickeys.indexOf(esound[j]) == -1) {
+                    // var listener = new THREE.AudioListener();
+                    // var audioLoader = new THREE.AudioLoader();
+                    audioLoader.load(ur1+ esound[j], function(buffer) {
+                        var sound = new THREE.Audio(listener);
+                        sound.setBuffer(buffer);
+                        sound.setVolume(0.3);
+
+
+                        soundic[esound[j]] = sound;
+
+
+                    });
+                }
+            }
             tsetting(function(object) {
+              time0 = performance.now();
+              fps = 0;
+              if(!webflag){
+                if(ptime0==0){
+
+                  // findlang();
+                }
+                setdb([["data3", "8", String(ptime0+1)]]);
+              }else{
+
+                // findlang();
+                if(스샷) document.getElementById("intro").children[2].style.display="none"
+              }
+              ncolornum=colornum
+              ncolornum0=colornum0
+              clickflag=true;
+              setsdic(1);
+              setTimeout(function() {
+                  document.getElementById("intro").children[2].style.display="none"
+                  document.getElementById("intro").children[2].style.opacity="0.8";
+                  goahead=true;
+
+                  // console.log(skinmold)
+
+                  document.getElementById("coin2").innerText=String(coin);
+                  bf=999;
+
+
+                  // window.setInterval(animate, 100);
+                  // animate();
+                  window.sdic=sdic;
+                  // console.log(sdic)
+
+                  setTimeout(function() {
+
+                    ncolornum=colornum
+                    ncolornum0=colornum0
+                    restart()
+                    animate();
+                  }, 1000  );
+
+              }, 500  );
+              return
             setting(0, function(object) { //시작0
               setting(1, function(object) {
-                  addring();
+                  // addring();
                       cubes.forEach((item) => {
 
                           // item.mesh.userData.game2048.spawnTile("up",64);
@@ -21433,7 +21493,7 @@
                                       // animate();
                                       window.sdic=sdic;
                                       // console.log(sdic)
-                                      clickflag=true;
+
                                       setTimeout(function() {
 
                                         ncolornum=colornum
@@ -23421,7 +23481,7 @@
               document.getElementById('song-info').classList.remove("show1");
               document.getElementById('song-info').classList.add("hidden");
 
-              for (var i = 0; i < cubes.length; i++) {
+              for (var i = 0; i < 0; i++) {
                   cubes[i].mesh.children.forEach((item) => {
                     if (item.userData["skin"]=="tile") {
                       item.material.visible=false;
@@ -23555,7 +23615,7 @@
                     transparent: true,
                     opacity: 1
                 });
-                for (var i = 0; i < cubes.length; i++) {
+                for (var i = 0; i < 0; i++) {
                     cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) +(restartloc[i].y) * 1.49 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].y * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     if(skinset[skinnum]=="classic"){
@@ -23698,7 +23758,7 @@
                     transparent: true,
                     opacity: 1
                 });
-                for (var i = 0; i < cubes.length; i++) {
+                for (var i = 0; i < 0; i++) {
                       cubes[i].mesh.position.set(re3loc[i].x+restartloc[i].x * 1.39 * Math.abs(diff), ((i) * bh + bh / 2) + (20*(i+1)+100) * 2.39 * Math.abs(diff), re3loc[i].z+restartloc[i].z * 1.39 * Math.abs(diff))
                       cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(diff), restartrot[i].y * 1.39 * Math.abs(diff), restartrot[i].z * 1.39 * Math.abs(diff))
 
@@ -23726,7 +23786,7 @@
             // console.log(camera.position.y)
             if(!restartonce2){
               restartloc = [];
-              for (var i = 0; i < cubes.length; i++) {
+              for (var i = 0; i < 0; i++) {
                 if(skinset[skinnum]=="classic"){
 
                 }else{
@@ -24520,7 +24580,7 @@
                   }
 
 
-                  for (var i = 0; i < 3; i++) {
+                  for (var i = 0; i < 0; i++) {
                     cubes[i].body.sleep();
                   }
                   if(오토) tcheck[0]=elapsedTime;
@@ -24641,16 +24701,7 @@
               if(onceflag1){
                   onceflag1=false;
 
-                  for (var i = 0; i < cubes.length; i++) {
-                      cubes[i].mesh.children.forEach((item) => {
-                        if (item.userData["skin"]=="tile") {
-                          item.material.visible=false;
-                          item.children.forEach((text) => {
-                            text.material.visible=false;
-                          })
-                        }
-                      });
-                  }
+
 
 
                   console.log("콩")
@@ -24709,16 +24760,16 @@
                   document.getElementById('hammer').style.borderColor="orange"
                   document.getElementById('hammer').style.backgroundColor="orange"
 
-                  world.remove(cubes[4].body)
-                  scene.remove(cubes[4].mesh)
-                  world.remove(cubes[3].body)
-                  scene.remove(cubes[3].mesh)
-                  world.remove(cubes[2].body)
-                  scene.remove(cubes[2].mesh)
-                  world.remove(cubes[1].body)
-                  scene.remove(cubes[1].mesh)
-                  world.remove(cubes[0].body)
-                  scene.remove(cubes[0].mesh)
+                  // world.remove(cubes[4].body)
+                  // scene.remove(cubes[4].mesh)
+                  // world.remove(cubes[3].body)
+                  // scene.remove(cubes[3].mesh)
+                  // world.remove(cubes[2].body)
+                  // scene.remove(cubes[2].mesh)
+                  // world.remove(cubes[1].body)
+                  // scene.remove(cubes[1].mesh)
+                  // world.remove(cubes[0].body)
+                  // scene.remove(cubes[0].mesh)
 
 
                   setTimeout(function() {
@@ -24854,7 +24905,7 @@
           avx = 0;
           avz = 0;
           var templength=0
-            for (var i = 0; i < cubes.length; i++) {
+            for (var i = 0; i < 0; i++) {
 
                 cubes[i].mesh.children.forEach((item) => {
                   if (item.userData["skin"]==skinset[skinnum]) {
@@ -24876,7 +24927,7 @@
                 templength++;
             }
             var overcount=0;
-            for (var i = 3; i < cubes.length; i++) {
+            for (var i = 3; i < 0; i++) {
               if(!cubes[i].mesh.userData.bye){
                 overcount++;
               }
@@ -25125,7 +25176,7 @@
             // temp0[1].children[1].style.backgroundImage = 'url("png/red_button08.png")'
           }
 
-          for (var i = 0; i < cubes.length; i++) {
+          for (var i = 0; i < 0; i++) {
               cubes[i].mesh.children.forEach((item) => {
                 if(item.userData["skintype"] == 9){
                   item.material.visible = false;
@@ -25224,7 +25275,7 @@
           // txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
 
 
-          for (var i = 0; i < cubes.length; i++) {
+          for (var i = 0; i < 0; i++) {
             if(gamemod==2&&i==0){
               i=3
             }
@@ -25469,12 +25520,12 @@
                                   const game2048 = new Game2048(칸, cubes.length);
 
                                   var overcount=0;
-                                  for (var i = 3; i < cubes.length; i++) {
-                                    if(!cubes[i].mesh.userData.bye){
-                                      overcount++;
-                                    }
-
-                                  }
+                                  // for (var i = 3; i < 0; i++) {
+                                  //   if(!cubes[i].mesh.userData.bye){
+                                  //     overcount++;
+                                  //   }
+                                  //
+                                  // }
                                   cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (overcount) * bh+bh, cubes[cubes.length-1].mesh.position.z, bw, bh, bw, game2048, cubes.length, true));
                                   cubes[activeFloor+1].mesh.quaternion.copy(cubes[activeFloor].mesh.quaternion);
                                   cubes[activeFloor+1].body.quaternion.copy(cubes[activeFloor].body.quaternion);
@@ -25711,7 +25762,7 @@
         // }
 
         if(gamemod==1){
-          for (var i = 1; i < cubes.length; i++) {
+          for (var i = 1; i < 0; i++) {
             let force0 = new CANNON.Vec3();
             // force0.set(1.1*(-cubes[i - 1].body.position.x + cubes[i].body.position.x), 0, 1.1*(-cubes[i - 1].body.position.z + cubes[i].body.position.z));
             force0.set(1*(-avx + cubes[i].body.position.x)+1*(-cubes[i - 1].body.position.x + cubes[i].body.position.x), 0, 1*(-avz + cubes[i].body.position.z)+1*(-cubes[i - 1].body.position.z + cubes[i].body.position.z));
@@ -25848,7 +25899,7 @@
         if(gamemod<2&&!gameoverflag){
           var tempflag=true;
 
-          for (var i = 0; i < cubes.length; i++) {
+          for (var i = 0; i < 0; i++) {
             if (Math.abs(cubes[i].mesh.rotation.x) > 0.07 || Math.abs(cubes[i].mesh.rotation.z) > 0.07){
                 tempflag=false;
                 if(!swing){
@@ -26373,26 +26424,26 @@
 
         if (!gameoverflag&&startflag) {
           var 오버=false;
-          if (Math.abs(cubes[cubes.length-1].mesh.rotation.x) > Math.PI/3 || Math.abs(cubes[cubes.length-1].mesh.rotation.z) > Math.PI/3) {
-            오버=true;
-          }
+          // if (Math.abs(cubes[cubes.length-1].mesh.rotation.x) > Math.PI/3 || Math.abs(cubes[cubes.length-1].mesh.rotation.z) > Math.PI/3) {
+          //   오버=true;
+          // }
           var overcount=0;
-          for (var i = 3; i < cubes.length; i++) {
-            if(!cubes[i].mesh.userData.bye){
-              overcount++;
-            }
-
-          }
+          // for (var i = 3; i < 0; i++) {
+          //   if(!cubes[i].mesh.userData.bye){
+          //     overcount++;
+          //   }
+          //
+          // }
           // console.log(overcount);
-          if(cubes.length>=6){
-            if (cubes[cubes.length-1].mesh.position.y<=bh*(overcount-3)) {
-              오버=true;
-            }
-          }else{
-            if (cubes[cubes.length-1].mesh.position.y<=bh*1.1) {
-              오버=true;
-            }
-          }
+          // if(cubes.length>=6){
+          //   if (cubes[cubes.length-1].mesh.position.y<=bh*(overcount-3)) {
+          //     오버=true;
+          //   }
+          // }else{
+          //   if (cubes[cubes.length-1].mesh.position.y<=bh*1.1) {
+          //     오버=true;
+          //   }
+          // }
 
 
           if ((fulltower)) { //오버조건
@@ -26630,7 +26681,7 @@
         }
 
         if(gameoverflag){
-          for (var i = 0; i < 5; i++) {
+          for (var i = 0; i < 0; i++) {
             if(skinset[skinnum]=="classic"){
 
             }else{
@@ -27003,7 +27054,7 @@
             if(re3flag){
               avx = 0;
               avz = 0;
-              for (var i = 0; i < cubes.length; i++) {
+              for (var i = 0; i < 0; i++) {
                   avx += cubes[i].mesh.position.x;
                   avz += cubes[i].mesh.position.z;
               }
@@ -27467,7 +27518,7 @@
           }
 
           var overcount=0;
-          for (var i = 3; i < cubes.length; i++) {
+          for (var i = 3; i < 0; i++) {
             if(!cubes[i].mesh.userData.bye){
               overcount++;
             }
@@ -30460,7 +30511,7 @@
         // coin += pluscoin;
         restartloc=[];
         restartrot=[];
-        for (var i = 0; i < cubes.length; i++) {
+        for (var i = 0; i < 0; i++) {
             restartloc.push(cubes[i].mesh.position);
             restartrot.push(cubes[i].mesh.rotation);
         }
@@ -30555,7 +30606,7 @@
         // coin += pluscoin;
         restartloc=[];
         restartrot=[];
-        for (var i = 0; i < cubes.length; i++) {
+        for (var i = 0; i < 0; i++) {
             restartloc.push(cubes[i].mesh.position);
             restartrot.push(cubes[i].mesh.rotation);
         }
@@ -30593,7 +30644,7 @@
         restartflag = true
         pluscoin = 2 * parseInt(점수 / 10)
         // coin += pluscoin;
-        for (var i = 0; i < cubes.length; i++) {
+        for (var i = 0; i < 0; i++) {
             restartloc.push(cubes[i].mesh.position);
             restartrot.push(cubes[i].mesh.rotation);
         }
@@ -30721,7 +30772,7 @@
           // cubes.length=5;
           restartloc=[];
           restartrot=[];
-          for (var i = 0; i < cubes.length; i++) {
+          for (var i = 0; i < 0; i++) {
               restartloc.push(cubes[i].mesh.position);
               restartrot.push(cubes[i].mesh.rotation);
           }
@@ -31996,7 +32047,7 @@
         //             // coin += pluscoin;
         //             restartloc=[];
         //             restartrot=[];
-        //             for (var i = 0; i < cubes.length; i++) {
+        //             for (var i = 0; i < 0; i++) {
         //                 restartloc.push(cubes[i].mesh.position);
         //                 restartrot.push(cubes[i].mesh.rotation);
         //             }
@@ -32151,7 +32202,7 @@
               // coin += pluscoin;
               restartloc=[];
               restartrot=[];
-              for (var i = 0; i < cubes.length; i++) {
+              for (var i = 0; i < 0; i++) {
                   restartloc.push(cubes[i].mesh.position);
                   restartrot.push(cubes[i].mesh.rotation);
               }
@@ -33255,7 +33306,7 @@
                 // coin += pluscoin;
                 restartloc=[];
                 restartrot=[];
-                for (var i = 0; i < cubes.length; i++) {
+                for (var i = 0; i < 0; i++) {
                     restartloc.push(cubes[i].mesh.position);
                     restartrot.push(cubes[i].mesh.rotation);
                 }
