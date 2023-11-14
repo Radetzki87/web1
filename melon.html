@@ -2785,10 +2785,10 @@
             /* background-image: url("png/green_button09.png"); */
             /* background-size: 6vmax 4vmax; */
             /* top: 17.5vh; */
-            top: 5vh;
-            right: 0vh;
+            top: 35vw;
+            left: 1vh;
             width: 13vmin;
-            height: 15vmin;
+            height: 14vmin;
             z-index: 1;
             transition: right 0.4s;
             text-align: center;
@@ -2800,12 +2800,12 @@
         }
 
         .hammer img{
-          transform: translate(0,-5vmin);
+          transform: translate(0,-6vmin);
             position: relative;
             right:0%;
             bottom:0%;
             /* width: 5vmax; */
-            height: 16vmin;
+            height: 15vmin;
             z-index: 3;
             margin-bottom: -4vmin;
         }
@@ -3406,6 +3406,7 @@
     var ingame=false;
 
     var sample=[];
+    var sample2=[];
     var wall=[];
 
     var seal=[];
@@ -9828,11 +9829,11 @@
                 lastX=0.54
               }
             }else if(next==4){
-              if(lastX<-0.53){
-                lastX=-0.53
+              if(lastX<-0.52){
+                lastX=-0.52
               }
-              if(lastX>0.53){
-                lastX=0.53
+              if(lastX>0.52){
+                lastX=0.52
               }
             }
             axis[0].position.z=-lastX*lx
@@ -9895,11 +9896,11 @@
                   lastX=0.54
                 }
               }else if(next==4){
-                if(lastX<-0.53){
-                  lastX=-0.53
+                if(lastX<-0.52){
+                  lastX=-0.52
                 }
-                if(lastX>0.53){
-                  lastX=0.53
+                if(lastX>0.52){
+                  lastX=0.52
                 }
               }
 
@@ -10248,11 +10249,11 @@
             lastX=0.54
           }
         }else if(next==4){
-          if(lastX<-0.53){
-            lastX=-0.53
+          if(lastX<-0.52){
+            lastX=-0.52
           }
-          if(lastX>0.53){
-            lastX=0.53
+          if(lastX>0.52){
+            lastX=0.52
           }
         }
 
@@ -10632,11 +10633,11 @@
               lastX=0.54
             }
           }else if(next==4){
-            if(lastX<-0.53){
-              lastX=-0.53
+            if(lastX<-0.52){
+              lastX=-0.52
             }
-            if(lastX>0.53){
-              lastX=0.53
+            if(lastX>0.52){
+              lastX=0.52
             }
           }
 
@@ -11386,11 +11387,11 @@
                 lastX=0.54
               }
             }else if(next==4){
-              if(lastX<-0.53){
-                lastX=-0.53
+              if(lastX<-0.52){
+                lastX=-0.52
               }
-              if(lastX>0.53){
-                lastX=0.53
+              if(lastX>0.52){
+                lastX=0.52
               }
             }
 
@@ -20243,7 +20244,7 @@
       var mass=4
       var tscale0;
       var tcolor;
-      var initscale=0.2
+      var initscale=0.3
 
       var sleep1=100;
       var sleep2=0.1;
@@ -20840,7 +20841,7 @@
           var t1=1
 
           if(rnk==8){
-            t1=1.208;
+            t1=1.2;
           }
 
 
@@ -20851,7 +20852,7 @@
           var material1 = new THREE.MeshLambertMaterial({
               transparent:true,
               opacity:0,
-              color: tcolor
+              color: 0xAA4444
           });
 
 
@@ -20860,7 +20861,7 @@
           // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
           var material2 = new THREE.MeshLambertMaterial({
               transparent:true,
-              opacity:0,
+              opacity:1,
               color: tcolor
           });
           var mesh2=new THREE.Mesh(geometry2, material2);
@@ -20930,13 +20931,23 @@
             sleepSpeedLimit: sleep1,
             sleepTimeLimit: sleep2
           });
+          // if(rnk==7){
+          //   var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*0.73*bh*tscale0*1.239/2));
+          //   groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+          //
+          // }else{
+          //
+          // }
 
           var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*1.239*0.73*bh*tscale0/2));
-
-          var boxShape1 = new CANNON.Box(new CANNON.Vec3(1.43*0.54*bh*tscale0/2, 통/2, 0.15*0.7*bh*tscale0/2));
-
-
           groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.73*bh*tscale0/2+(t1-1)*1.239*0.73*bh*tscale0/2));
+
+
+
+          // var boxShape1 = new CANNON.Box(new CANNON.Vec3(1.43*0.54*bh*tscale0/2, 통/2, 0.15*0.7*bh*tscale0/2));
+
+
+          // groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.73*bh*tscale0/2+(t1-1)*1.239*0.73*bh*tscale0/2));
           // groundBody.addShape(boxShape1, new CANNON.Vec3(1, 0, -0.5*0.7*bh*tscale0/2+(0.5*0.15*0.7*bh*tscale0/2)));
 
           groundBody.position.copy(mesh.position);
@@ -21564,6 +21575,11 @@
 
                   emote[0].position.y=0.2*dif+bh*18.2
 
+                  sample2.forEach((item) => {
+                    item.position.y=bh*16.1+0.2*dif
+                  });
+
+
 
 
                   // item.children[4].material.visible=false
@@ -21593,7 +21609,7 @@
 
 
           sample.forEach((item, i) => {
-            if(elapsedTime-drop>0.6){
+            if(elapsedTime-drop>0.7){
               ready=true;
               if(i==next){
                 if(i==0){
@@ -21617,10 +21633,67 @@
                 item.position.y=-400
               }
             }else{
+
+              if(i==next){
+                if(i==0){
+                  item.rotation.y=0
+                  item.rotation.x=-Math.PI/2
+                }
+                item.position.x=0
+                item.position.y=bh*16
+                item.position.z=26-(26)*(elapsedTime-drop)*(10/7)
+
+              }else{
+                item.position.x=-40
+                item.position.y=-400
+              }
               ready=false;
               axis[0].children[0].material.visible=false;
-              item.position.x=-40
-              item.position.y=-400
+
+            }
+
+          });
+
+          sample2.forEach((item, i) => {
+            if(ready){
+              if(i==nnext){
+                item.position.x=-1.5
+                if(i==1){
+                  item.children[3].position.y=10
+                }
+                if(i==0){
+                  item.rotation.y=0
+                  item.rotation.x=-Math.PI/2
+                }
+                if(i==4){
+                  item.position.x=-1.2
+                  item.rotation.y=0
+                  item.rotation.x=-Math.PI/2
+                }
+              }else{
+                item.position.x=-40
+              }
+            }else{
+              if(i==nnext){
+                item.position.x=-1.5
+                if(i==0){
+                  item.rotation.y=0
+                  item.rotation.x=-Math.PI/2
+                }
+                if(i==4){
+                  item.position.x=-1.2
+                  item.rotation.y=0
+                  item.rotation.x=-Math.PI/2
+                }
+                item.position.z=35-(8)*(elapsedTime-drop)*(10/7)
+                // item.position.z=26-(26-axis[0].position.z)*(elapsedTime-drop)*(10/7)
+
+
+
+              }else{
+                item.position.x=-40
+
+              }
             }
 
           });
@@ -21694,6 +21767,7 @@
                   opacity: 1
               });
               emote[0].material=material1;
+
             }else if(itemuse1||itemuse2){
               emote[0].material.visible=true;
               var canvas = document.createElement('canvas');
@@ -21757,12 +21831,15 @@
               //     opacity: 1
               // });
               // emote[0].material=material1;
-              배[1].children[7].rotation.x=Math.PI/2
+              if(득템){
+                배[1].children[7].rotation.x=Math.PI/2+Math.sin((elapsedTime-finaldrop)*3.14*3)*0.1
+              }else{
+                배[1].children[7].rotation.x=Math.PI/2
+              }
+
               emote[0].material.visible=false;
             }
-            if(득템){
-              배[1].children[7].rotation.x=Math.PI/2+Math.sin((elapsedTime-finaldrop)*3.14*3)*0.15
-            }
+
           }
 
 
@@ -21772,7 +21849,7 @@
               for (var j = i-1; j >=0; j--) {
                 if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=11){
                   if(과일[i].userData.rank>6){
-                    if(Math.abs(과일[i].position.y-과일[j].position.y)>bh*4||Math.abs(과일[i].position.z-과일[j].position.z)>bh*4){
+                    if(Math.abs(과일[i].position.y-과일[j].position.y)>bh*4.5||Math.abs(과일[i].position.z-과일[j].position.z)>bh*4.5){
                       continue;
                     }
                   }else if(과일[i].userData.rank<2){
@@ -21873,6 +21950,7 @@
 
 
           var lapflag=false;
+
 
           sample.forEach((item) => {
               if(item.userData.rank==1){
@@ -23622,6 +23700,13 @@
                     scene.add(item)
                   });
 
+                  sample2.forEach((item, i) => {
+                    // item.position.y=bh*16.5;
+                    item.position.z=26
+                    item.position.x=-1.5
+                    scene.add(item)
+                  });
+
                   startflag=true;
                   originflag=true;
                   restartflag=false
@@ -23761,11 +23846,22 @@
                   // document.getElementById("center0").style.opacity=1
                   document.getElementById("song-info").style.display="none"
 
-                  for (var i = 0; i < 10; i++) {
+                  for (var i = 0; i < 11; i++) {
                     sample.push(newone(과일.length-1, i,0,1, false))
                   }
 
+                  for (var i = 0; i < 5; i++) {
+                    sample2.push(newone(과일.length-1, i,0,1, false))
+                  }
+
                   sample.forEach((item, i) => {
+                    scene.add(item)
+                  });
+
+                  sample2.forEach((item, i) => {
+                    // item.position.y=bh*16.5;
+                    item.position.z=26
+                    item.position.x=-1.5
                     scene.add(item)
                   });
 
