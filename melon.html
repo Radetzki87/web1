@@ -10084,6 +10084,28 @@
         if (event.code === 'KeyT') {
           fulltower=true;
 
+        }else if(event.code === 'KeyH') {
+          var tr=parseInt(Math.random()*5)
+          var tx=Math.random()-0.5;
+          let newo=newone(과일.length-1, tr,0,-tx*lx)
+          axis[0].position.z=-tx*lx
+          next=nnext
+          nnext=nextpool[parseInt(Math.random()*nextpool.length)];
+          var cname=String(nnext+1)
+          document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+
+          // next=7
+          scene.add(newo);
+
+
+          newo.userData.body.position.copy(newo.position);
+          world.addBody(newo.userData.body);
+
+
+          과일.push(newo)
+          dragflag = false;
+          drop=elapsedTime;
+
         }
 
     });
@@ -17455,7 +17477,7 @@
             });
           }
 
-          var roll=Math.PI/8
+          var roll=Math.PI/7
           if(itemuse1){
             if(elapsedTime - itemtime <= Math.PI){
                console.log("a")
@@ -17470,7 +17492,7 @@
                 }else if(elapsedTime - itemtime<Math.PI/1.8){
                   배[0].userData.body.velocity.z=0
                 }else{
-                  배[0].userData.body.velocity.z=7*Math.cos(Math.sin(elapsedTime - itemtime))
+                  배[0].userData.body.velocity.z=15*Math.cos(Math.sin(elapsedTime - itemtime))
                   // 과일.forEach((item) => {
                   //   if(item.userData.alive){
                   //     item.userData.body.position.z=item.userData.ipos-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
@@ -17482,7 +17504,7 @@
 
 
 
-                console.log(배[0].userData.body.velocity)
+                console.log(배[0].userData.body.velocity.z)
 
 
                 배[0].position.y=bh*(3.1)+(bh*21-bh*21*Math.cos(Math.sin(elapsedTime - itemtime)*roll))
@@ -17553,7 +17575,7 @@
                 }else if(elapsedTime - itemtime<Math.PI/1.8){
                   배[0].userData.body.velocity.z=0
                 }else{
-                  배[0].userData.body.velocity.z=-7*Math.cos(Math.sin(elapsedTime - itemtime))
+                  배[0].userData.body.velocity.z=-15*Math.cos(Math.sin(elapsedTime - itemtime))
                   // 과일.forEach((item) => {
                   //   if(item.userData.alive){
                   //     item.userData.body.position.z=item.userData.ipos-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
@@ -17562,7 +17584,7 @@
                 }
 
 
-                console.log(배[0].userData.body.velocity)
+                console.log(배[0].userData.body.velocity.z)
 
 
                 배[0].position.y=bh*(3.1)+(bh*21-bh*21*Math.cos(Math.sin(elapsedTime - itemtime)*roll))
@@ -18021,6 +18043,52 @@
     // Start the animation loop
     // if(!gameoverflag) animate();
     // Handle window resizing
+    function spawn(){
+
+      var tr=parseInt(Math.random()*5)
+      var tx=Math.random()-0.5;
+      var newo=newone(과일.length-1, tr,0,-tx*lx)
+      axis[0].position.z=-tx*lx
+      next=nnext
+      nnext=nextpool[parseInt(Math.random()*nextpool.length)];
+      var cname=String(nnext+1)
+      document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+
+      // next=7
+      scene.add(newo);
+
+
+      newo.userData.body.position.copy(newo.position);
+      world.addBody(newo.userData.body);
+
+
+      과일.push(newo)
+      dragflag = false;
+      drop=elapsedTime;
+
+      var tr=parseInt(Math.random()*5)
+      var tx=Math.random()-0.5;
+      var newo=newone(과일.length-1, tr,0,-tx*lx)
+      axis[0].position.z=-tx*lx
+      next=nnext
+      nnext=nextpool[parseInt(Math.random()*nextpool.length)];
+      var cname=String(nnext+1)
+      document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+
+      // next=7
+      scene.add(newo);
+
+
+      newo.userData.body.position.copy(newo.position);
+      world.addBody(newo.userData.body);
+
+
+      과일.push(newo)
+      dragflag = false;
+      drop=elapsedTime;
+    }
+
+    window.spawn=spawn;
 
     function getitem0(n=0){
       if(n==0){
@@ -21969,7 +22037,7 @@
     <img class="" src="png/leaderboardsComplex.png">
 </button>
 
-<button id="right0" class="right0" onclick="">
+<button id="right0" class="right0" onclick="spawn()">
     0
 </button>
 
