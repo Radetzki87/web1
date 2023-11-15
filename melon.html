@@ -47,6 +47,27 @@
             font-style: normal;
         }
 
+        #mySlider1{
+          display:none;
+        }
+        #mySlider2{
+          display:none;
+        }
+        #mySlider3{
+          display:none;
+        }
+
+        #sliderValue1{
+          display:none;
+        }
+        #sliderValue2{
+          display:none;
+        }
+        #sliderValue3{
+          display:none;
+        }
+
+
         #yesno{
             position: absolute;
             left:15%;
@@ -2800,6 +2821,49 @@
     var nnext=0;
     document.getElementById("hammer").children[0].src="png/u"+String(nnext+1)+".png"
     var drop=-2;
+
+    var tsub=10;
+    var titer=15;
+    var tdelta=1000;
+
+    const slider1 = document.getElementById('mySlider1');
+    const output1 = document.getElementById('sliderValue1');
+
+    // 초기값 설정
+    output1.children[0].innerHTML = slider1.value;
+
+    // 슬라이더의 값이 변경될 때마다 실행될 함수
+    slider1.oninput = function() {
+        output1.children[0].innerHTML = this.value;
+        tsub=this.value
+    }
+
+    const slider2 = document.getElementById('mySlider2');
+    const output2 = document.getElementById('sliderValue2');
+
+    // 초기값 설정
+    output2.children[0].innerHTML = slider2.value;
+
+    // 슬라이더의 값이 변경될 때마다 실행될 함수
+    slider2.oninput = function() {
+        output2.children[0].innerHTML = this.value;
+        tdelta=this.value
+
+    }
+
+    const slider3 = document.getElementById('mySlider3');
+    const output3 = document.getElementById('sliderValue3');
+
+    // 초기값 설정
+    output3.children[0].innerHTML = slider3.value;
+
+    // 슬라이더의 값이 변경될 때마다 실행될 함수
+    slider3.oninput = function() {
+        output3.children[0].innerHTML = this.value;
+        titer=this.value
+        world.solver.iterations = titer
+    }
+
 
 
 
@@ -10194,7 +10258,7 @@
           forceAmount = bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations = 15
+          world.solver.iterations = titer
           // world.solver.tolerance = 8
           gap=0.981;
 
@@ -17450,7 +17514,7 @@
 
 
 
-        if(startflag) world.step(1 / 60, deltaTime/1000);
+        if(startflag) world.step(1 / 60, deltaTime/tdelta, tsub);
 
 
         camera.position.y=카메라높이
@@ -18043,6 +18107,29 @@
     // Start the animation loop
     // if(!gameoverflag) animate();
     // Handle window resizing
+    function toggle(){
+      if(document.getElementById("mySlider1").style.display=="none"){
+        document.getElementById("ring").children[0].style.display="none"
+        document.getElementById("mySlider1").style.display="block"
+        document.getElementById("mySlider2").style.display="block"
+        document.getElementById("mySlider3").style.display="block"
+        document.getElementById("sliderValue1").style.display="block"
+        document.getElementById("sliderValue2").style.display="block"
+        document.getElementById("sliderValue3").style.display="block"
+
+      }else{
+        document.getElementById("ring").children[0].style.display=""
+        document.getElementById("mySlider1").style.display="none"
+        document.getElementById("mySlider2").style.display="none"
+        document.getElementById("mySlider3").style.display="none"
+        document.getElementById("sliderValue1").style.display="none"
+        document.getElementById("sliderValue2").style.display="none"
+        document.getElementById("sliderValue3").style.display="none"
+      }
+
+    }
+    window.toggle=toggle;
+
     function spawn(){
 
       var tr=parseInt(Math.random()*5)
@@ -21937,10 +22024,22 @@
 
 <div id="ring">
   <img src="png/newring.png">
+  <input type="range" id="mySlider1" min="1" max="10" value="10">
+
+  <p id="sliderValue1">substep: <span >50</span></p>
+
+  <input type="range" id="mySlider2" min="400" max="2000" value="1000">
+
+  <p id="sliderValue2">deltatime: <span >50</span></p>
+
+  <input type="range" id="mySlider3" min="1" max="80" value="15">
+
+  <p id="sliderValue3">iteration: <span >50</span></p>
 </div>
 
 
 <div id="credit-info" class="hidden" onclick="exit0(1)">
+
     <button class="backbutton" onclick="exit0(1)">
         <img class="" src="png/left.png">
     </button>
@@ -22033,7 +22132,7 @@
     <img class="" src="png/gear.png">
 </button>
 
-<button id="center0" class="center0" onclick="">
+<button id="center0" class="center0" onclick="toggle()">
     <img class="" src="png/leaderboardsComplex.png">
 </button>
 
@@ -22077,6 +22176,8 @@
 
 <div id="setting-overlay" class="setting-overlay hidden">
     <div id="setting-back" onclick="exit0()"></div>
+
+
 
     <b id="resolution">RESOLUTION</b>
     <div class="option-RL2">
@@ -22134,6 +22235,8 @@
         <label id="vinfo">1.0</label>
         <label id="mailinfo">📬:brix2048@raekgames.com</label>
     </div>
+
+
 
 </div>
 <div id="gameover-overlay" class="gameover-overlay hidden">
