@@ -22285,16 +22285,17 @@
 
 
                 lasertime+=deltaTime
-                var tcl0=0xFFAA00
+                var tcl0=0xFF0000
                 var tcl1=255*(1-(lasertime/3500));
-                laser[0].material.color = new THREE.Color(tcl0+tcl1);
+
+                laser[0].material.color = new THREE.Color(tcl0+tcl1+(tcl1*256));
                 laser[0].material.opacity=0.5+(0.5*lasertime/3500)
 
 
               }else{
                 lasertime=0;
                 // axis[1].children[0].material.color = new THREE.Color(0x000000);
-                laser[0].material.color = new THREE.Color(0xFFAAFF);
+                laser[0].material.color = new THREE.Color(0xFFFFFF);
                 laser[0].material.opacity=0.5
               }
               if(lasertime>0){
