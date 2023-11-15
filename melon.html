@@ -2791,6 +2791,7 @@
     var itempointer;
     let unitmotion = {};
 
+    let even=true;
     var stacktime;
     var pen=[];
     var pen2=[]
@@ -14877,10 +14878,11 @@
           }
 
 
-          // if((parseInt(elapsedTime*100%2)==0)){
-          if(true){
+          if(even){
+            even=false;
             for (var i = 과일.length-1; i >=0; i--) {
               for (var j = i-1; j >=0; j--) {
+                if(!과일[i].userData.alive||!과일[j].userData.alive||과일[i].userData.target||과일[j].userData.target) continue;
                 if(과일[i].userData.rank==과일[j].userData.rank&&과일[i].userData.rank!=11){
                   if(과일[i].userData.rank>6){
                     if(Math.abs(과일[i].position.y-과일[j].position.y)>bh*4.5||Math.abs(과일[i].position.z-과일[j].position.z)>bh*4.5){
@@ -14902,8 +14904,6 @@
 
                   if (colide(과일[i].userData.body,과일[j].userData.body)&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
                   // if (false&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
-
-
                     if(과일[j].userData.body.position.y<과일[i].userData.body.position.y){
                       var prev=과일[i]
                       var now=과일[j]
@@ -14921,49 +14921,6 @@
                     prev.userData.alive=false;
                     now.userData.target=true;
                     world.remove(prev.userData.body)
-
-                    // world.remove(과일[j].userData.body)
-                    // 과일.splice(i, 1);
-                    // 과일.splice(j, 1);
-
-                    console.log(balls)
-
-                    //
-                    //
-                    // let newo=newone(i, 과일[i].userData.rank)
-                    //
-                    // newo.position.copy(과일[i].position)
-                    // // newo.quaternion.copy(과일[i].quaternion)
-                    // newo.userData.body.position.copy(newo.position);
-                    // // newo.userData.body.quaternion.copy(newo.quaternion);
-                    //
-                    //
-                    //
-                    // world.remove(과일[i].userData.body)
-                    // scene.remove(과일[i])
-                    //
-                    //
-                    // 과일.splice(i, 1, newo);
-                    //
-                    //
-                    //
-                    // setTimeout(() => {
-                    //   // 쇠공.push(newo);
-                    //   scene.add(newo);
-                    //   world.addBody(newo.userData.body);
-                    // }, 200);
-                    //
-                    //
-                    //
-                    // world.remove(과일[j].userData.body)
-                    // scene.remove(과일[j])
-                    // 과일.splice(j, 1);
-
-
-
-
-
-
                     break;
 
                   }
@@ -14973,19 +14930,12 @@
               }
             }
 
+          }else{
+            even=true;
           }
 
-
-
-
           var dur=parseInt(elapsedTime*25)%pshift.length
-
-
-
-
           var lapflag=false;
-
-
           sample.forEach((item) => {
               if(item.userData.rank==1){
                 item.children[0].position.z=-0.5*(pshift[dur]-1);
@@ -15196,17 +15146,12 @@
 
               if(lapflag){
                 // axis[1].children[0].material.color = new THREE.Color(0xF81108);
-
-
-
                 lasertime+=deltaTime
                 var tcl0=0xFF0000
                 var tcl1=255*(1-(lasertime/3500));
 
                 laser[0].material.color = new THREE.Color(tcl0+tcl1+(tcl1*256));
                 laser[0].material.opacity=0.5+(0.5*lasertime/3500)
-
-
               }else{
                 lasertime=0;
                 // axis[1].children[0].material.color = new THREE.Color(0x000000);
@@ -15224,10 +15169,6 @@
               }
 
           }
-
-
-
-
 
           var rmvballlst=[];
 
@@ -15250,7 +15191,6 @@
           });
 
           while (rmvballlst.length > 0) {
-
 
               var nidx=rmvballlst.pop()
               let newo=newone(과일.length-1, balls[nidx].rank, balls[nidx].deg2)
