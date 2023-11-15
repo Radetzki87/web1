@@ -22251,13 +22251,13 @@
                     }
 
                 }
-
-
-                if(i!=과일.length-1){
-                  if(item.position.y>(ly)*bh){
-                    lapflag=true;
-                  }
+                if(item.position.y>(ly)*bh){
+                  lapflag=true;
                 }
+
+                // if(i!=과일.length-1){
+                //
+                // }
 
 
 
@@ -22268,21 +22268,34 @@
             });
           }
 
-
+          // if(과일.length<20){
+          //   laser[0].material.visible=true;
+          //   laser[0].material.opacity=0.3
+          //
+          // }
 
           if(ingame){
-            if(과일.length<20){
-              laser[0].material.visible=false;
-            }else{
+
               laser[0].material.visible=true;
+              laser[0].material.opacity=0.5
+
               if(lapflag){
                 // axis[1].children[0].material.color = new THREE.Color(0xF81108);
-                laser[0].material.color = new THREE.Color(0xF81108);
+
+
+
                 lasertime+=deltaTime
+                var tcl0=0xFFAA00
+                var tcl1=255*(1-(lasertime/3500));
+                laser[0].material.color = new THREE.Color(tcl0+tcl1);
+                laser[0].material.opacity=0.5+(0.5*lasertime/3500)
+
+
               }else{
                 lasertime=0;
                 // axis[1].children[0].material.color = new THREE.Color(0x000000);
-                laser[0].material.color = new THREE.Color(0x000000);
+                laser[0].material.color = new THREE.Color(0xFFAAFF);
+                laser[0].material.opacity=0.5
               }
               if(lasertime>0){
 
@@ -22293,7 +22306,7 @@
                 }
 
               }
-            }
+
           }
 
 
@@ -24234,29 +24247,7 @@
 
 
 
-                    //레이저
 
-                    var geometry1 = new THREE.BoxGeometry(통/2, bh*0.1, bw*(너비));
-                    var material1 = new THREE.MeshLambertMaterial({
-                        transparent:true,
-                        opacity:0.7,
-                        visible: true,
-                        color: 0x000000
-                    });
-
-
-                    var loader = new OBJLoader();
-                    var mtlLoader = new MTLLoader();
-
-                    var mesh=new THREE.Mesh(geometry1, material1);
-
-                    mesh.position.set(3,bh*(ly),0)
-
-
-
-                    // 쇠공.push(mesh);
-                    scene.add(mesh);
-                    laser.push(mesh)
 
                     //링
                     // var canvas = document.createElement('canvas');
@@ -24511,6 +24502,22 @@
 
 
                     });
+
+                    //레이저
+
+                    var geometry1 = new THREE.BoxGeometry(통/2, bh*0.1, bw*(너비));
+                    var material1 = new THREE.MeshLambertMaterial({
+                        transparent:true,
+                        opacity:0.7,
+                        visible: true,
+                        color: 0x000000
+                    });
+
+                    var mesh10=new THREE.Mesh(geometry1, material1);
+
+                    mesh10.position.set(3,bh*(ly),0)
+                    mesh.add(mesh10)
+                    laser.push(mesh10)
 
 
                     emote.push(mesh9)
@@ -26808,6 +26815,9 @@
                 배[1].children[12].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
                 배[1].children[13].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
 
+
+                laser[0].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
+
                 // if(elapsedTime-drop<0.7){
                 //   sample.forEach((item) => {
                 //     item.position.z=(27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll))*(1-(elapsedTime-drop)*(10/7))
@@ -26883,6 +26893,7 @@
                 배[1].children[12].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
                 배[1].children[13].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
                 // emote[0].position.x=-20.7-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
+                laser[0].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
 
 
                 배[1].userData.body.quaternion.copy(배[0].quaternion);
