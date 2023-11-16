@@ -2822,9 +2822,15 @@
     document.getElementById("hammer").children[0].src="png/u"+String(nnext+1)+".png"
     var drop=-2;
 
-    var tsub=10;
+    var tsub=1;
     var titer=15;
-    var tdelta=1000;
+    var tgrav=320;
+    var tdelta=1250;
+
+    window.tsub=tsub
+    window.tgrav=tgrav
+    window.tdelta=tdelta
+
 
     const slider1 = document.getElementById('mySlider1');
     const output1 = document.getElementById('sliderValue1');
@@ -2836,6 +2842,9 @@
     slider1.oninput = function() {
         output1.children[0].innerHTML = this.value;
         tsub=this.value
+        window.tsub=tsub
+        window.tgrav=tgrav
+        window.tdelta=tdelta
     }
 
     const slider2 = document.getElementById('mySlider2');
@@ -2848,6 +2857,9 @@
     slider2.oninput = function() {
         output2.children[0].innerHTML = this.value;
         tdelta=this.value
+        window.tsub=tsub
+        window.tgrav=tgrav
+        window.tdelta=tdelta
 
     }
 
@@ -2860,8 +2872,11 @@
     // 슬라이더의 값이 변경될 때마다 실행될 함수
     slider3.oninput = function() {
         output3.children[0].innerHTML = this.value;
-        titer=this.value
-        world.solver.iterations = titer
+        tgrav=this.value
+        world.gravity.set(0, -tgrav, 0);
+        window.tsub=tsub
+        window.tgrav=tgrav
+        window.tdelta=tdelta
     }
 
 
@@ -3091,7 +3106,7 @@
 
     var 마찰=[0.2,0.3,0.17,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
-    var 중력=[-25,-25,-280,-7,-7]
+    var 중력=[-25,-25,-tgrav,-7,-7]
 
     var resinit=1
     window.resinit=resinit
@@ -10257,7 +10272,7 @@
           stack=3;
           forceAmount = bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
-          world.gravity.set(0, 0, 0);
+          world.gravity.set(0, -tgrav, 0);
           world.solver.iterations = titer
           // world.solver.tolerance = 8
           gap=0.981;
@@ -14964,8 +14979,10 @@
           }
 
 
-          if(even){
-            even=false;
+          // if(even){
+          //   even=false;
+          // if(true){
+          if(parseInt(Math.random()*tsub)==0){
             for (var i = 과일.length-1; i >=0; i--) {
               for (var j = i-1; j >=0; j--) {
                 if(!과일[i].userData.alive||!과일[j].userData.alive||과일[i].userData.target||과일[j].userData.target) continue;
@@ -15017,8 +15034,11 @@
             }
 
           }else{
-            even=true;
+            console.log("even")
           }
+          // else{
+          //   even=true;
+          // }
 
           var dur=parseInt(elapsedTime*25)%pshift.length
           var lapflag=false;
@@ -17514,7 +17534,7 @@
 
 
 
-        if(startflag) world.step(1 / 60, deltaTime/tdelta, tsub);
+        if(startflag) world.step(1 / 60, deltaTime/tdelta);
 
 
         camera.position.y=카메라높이
@@ -17710,7 +17730,7 @@
 
               if(item.userData.alive){
                 if(item.userData.rank>=9||item.userData.rank==0||(item.userData.rank==4&&item.userData.form==0)){
-                  if(Math.abs(item.rotation.y)>1.4){
+                  if(Math.abs(item.rotation.y)>1){
                     console.log("뒤집")
                     console.log(item.userData.rank)
 
@@ -18132,47 +18152,32 @@
 
     function spawn(){
 
-      var tr=parseInt(Math.random()*5)
-      var tx=Math.random()-0.5;
-      var newo=newone(과일.length-1, tr,0,-tx*lx)
-      axis[0].position.z=-tx*lx
-      next=nnext
-      nnext=nextpool[parseInt(Math.random()*nextpool.length)];
-      var cname=String(nnext+1)
-      document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+      for (var i = 0; i < 4; i++) {
+        var tr=parseInt(Math.random()*5)
+        var tx=Math.random()-0.5;
+        var newo=newone(과일.length-1, tr,0,-tx*lx)
+        axis[0].position.z=-tx*lx
+        next=nnext
+        nnext=nextpool[parseInt(Math.random()*nextpool.length)];
+        var cname=String(nnext+1)
+        document.getElementById("hammer").children[0].src="png/u"+cname+".png"
 
-      // next=7
-      scene.add(newo);
-
-
-      newo.userData.body.position.copy(newo.position);
-      world.addBody(newo.userData.body);
+        // next=7
+        scene.add(newo);
 
 
-      과일.push(newo)
-      dragflag = false;
-      drop=elapsedTime;
-
-      var tr=parseInt(Math.random()*5)
-      var tx=Math.random()-0.5;
-      var newo=newone(과일.length-1, tr,0,-tx*lx)
-      axis[0].position.z=-tx*lx
-      next=nnext
-      nnext=nextpool[parseInt(Math.random()*nextpool.length)];
-      var cname=String(nnext+1)
-      document.getElementById("hammer").children[0].src="png/u"+cname+".png"
-
-      // next=7
-      scene.add(newo);
+        newo.userData.body.position.copy(newo.position);
+        world.addBody(newo.userData.body);
 
 
-      newo.userData.body.position.copy(newo.position);
-      world.addBody(newo.userData.body);
+        과일.push(newo)
+        dragflag = false;
+        drop=elapsedTime;
+      }
 
 
-      과일.push(newo)
-      dragflag = false;
-      drop=elapsedTime;
+
+
     }
 
     window.spawn=spawn;
@@ -22024,17 +22029,17 @@
 
 <div id="ring">
   <img src="png/newring.png">
-  <input type="range" id="mySlider1" min="1" max="10" value="10">
+  <input type="range" id="mySlider1" min="1" max="10" value="1">
 
-  <p id="sliderValue1">substep: <span >50</span></p>
+  <p id="sliderValue1">colide: <span >50</span></p>
 
-  <input type="range" id="mySlider2" min="400" max="2000" value="1000">
+  <input type="range" id="mySlider2" min="400" max="2000" value="1250">
 
   <p id="sliderValue2">deltatime: <span >50</span></p>
 
-  <input type="range" id="mySlider3" min="1" max="80" value="15">
+  <input type="range" id="mySlider3" min="200" max="600" value="320">
 
-  <p id="sliderValue3">iteration: <span >50</span></p>
+  <p id="sliderValue3">gravity: <span >50</span></p>
 </div>
 
 
