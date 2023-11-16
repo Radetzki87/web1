@@ -14689,53 +14689,53 @@
             ctx.lineTo(wavex, wavey);
 
             ctx.strokeStyle = "#B7B0E1";
-            ctx.fillStyle = "#001244"
+            ctx.fillStyle = "#0541a7"
             ctx.stroke();
-            ctx.globalAlpha = 0.2;
+            // ctx.globalAlpha = 0.2;
             ctx.fill();
             ctx.globalAlpha = 1;
 
 
 
-            var posy=[];
-            // var dur=parseInt(elapsedTime*25)%pshift.length
-
-
-            posy.push(wavey-elapsedTime*25-100)
-            posy.push(wavey-elapsedTime*20-100)
-            posy.push(wavey-elapsedTime*15-150)
-            posy.push(wavey-elapsedTime*10-110)
-            posy.push(wavey-elapsedTime*10-250)
-            posy.push(wavey-elapsedTime*15-100)
-            posy.push(wavey-elapsedTime*15-200)
-
-
-            for (var i = 0; i < posy.length; i++) {
-              if(posy[i]<wave.y){
-                posy[i]+=(1+parseInt((wave.y-posy[i])/wave.y))*(wave.y)
-              }
-
-            }
-
-            // console.log(posy[0])
-
-
-            ctx.globalAlpha = 0.5;
-
-            ctx.drawImage(unitimg["bubble1"], wavex/2+3*Math.sin(elapsedTime*2),posy[0], wavex/40, wavex/40);
-            ctx.drawImage(unitimg["bubble2"], wavex/3+3*Math.sin(elapsedTime*2),posy[1], wavex/45, wavex/45);
-            ctx.drawImage(unitimg["bubble3"], wavex/5+3*Math.sin(elapsedTime*2),posy[2], wavex/50, wavex/50);
-            ctx.drawImage(unitimg["bubble1"], -10+wavex+3*Math.sin(elapsedTime*2),posy[3], wavex/55, wavex/55);
-            ctx.drawImage(unitimg["bubble2"], -100+wavex+3*Math.sin(elapsedTime*2),posy[4], wavex/55, wavex/55);
-            ctx.drawImage(unitimg["bubble3"], -200+wavex+3*Math.sin(elapsedTime*2),posy[5], wavex/50, wavex/50);
-            ctx.drawImage(unitimg["bubble1"], -150+wavex+3*Math.sin(elapsedTime*2),posy[6], wavex/50, wavex/50);
-            ctx.globalAlpha = 1;
-
-
+            // var posy=[];
+            // // var dur=parseInt(elapsedTime*25)%pshift.length
+            //
+            //
+            // posy.push(wavey-elapsedTime*25-100)
+            // posy.push(wavey-elapsedTime*20-100)
+            // posy.push(wavey-elapsedTime*15-150)
+            // posy.push(wavey-elapsedTime*10-110)
+            // posy.push(wavey-elapsedTime*10-250)
+            // posy.push(wavey-elapsedTime*15-100)
+            // posy.push(wavey-elapsedTime*15-200)
+            //
+            //
+            // for (var i = 0; i < posy.length; i++) {
+            //   if(posy[i]<wave.y){
+            //     posy[i]+=(1+parseInt((wave.y-posy[i])/wave.y))*(wave.y)
+            //   }
+            //
+            // }
+            //
+            // // console.log(posy[0])
+            //
+            //
+            // ctx.globalAlpha = 0.5;
+            //
+            // ctx.drawImage(unitimg["bubble1"], wavex/2+3*Math.sin(elapsedTime*2),posy[0], wavex/40, wavex/40);
+            // ctx.drawImage(unitimg["bubble2"], wavex/3+3*Math.sin(elapsedTime*2),posy[1], wavex/45, wavex/45);
+            // ctx.drawImage(unitimg["bubble3"], wavex/5+3*Math.sin(elapsedTime*2),posy[2], wavex/50, wavex/50);
+            // ctx.drawImage(unitimg["bubble1"], -10+wavex+3*Math.sin(elapsedTime*2),posy[3], wavex/55, wavex/55);
+            // ctx.drawImage(unitimg["bubble2"], -100+wavex+3*Math.sin(elapsedTime*2),posy[4], wavex/55, wavex/55);
+            // ctx.drawImage(unitimg["bubble3"], -200+wavex+3*Math.sin(elapsedTime*2),posy[5], wavex/50, wavex/50);
+            // ctx.drawImage(unitimg["bubble1"], -150+wavex+3*Math.sin(elapsedTime*2),posy[6], wavex/50, wavex/50);
+            // ctx.globalAlpha = 1;
+            //
+            //
             increment += wave.frequency;
-            var dur2=parseInt(elapsedTime*10)%pshift.length
-            배경[1].position.z=-0.25+0.5*Math.sin(elapsedTime/2)
-            배경[1].scale.set(1,1+0.01*(1-pshift[dur2]),1+0.01*(1-pshift[dur2]))
+            // var dur2=parseInt(elapsedTime*10)%pshift.length
+            // 배경[1].position.z=-0.25+0.5*Math.sin(elapsedTime/2)
+            // 배경[1].scale.set(1,1+0.01*(1-pshift[dur2]),1+0.01*(1-pshift[dur2]))
 
 
 
@@ -16137,7 +16137,7 @@
                   scene.add(laser[0]);
 
                   scene.add(ship[0]);
-                  scene.add(배경[1]);
+                  // scene.add(배경[1]);
                   scene.add(배경[0]);
 
 
@@ -16491,7 +16491,7 @@
                     canvas.height = (3157/2)
                     ctx.drawImage(unitimg["bg"], 0,355/2, (1525/2), (1525/2)*(659/1024));
 
-                    ctx.drawImage(unitimg["bga"], 0,30+canvas.height/2, canvas.width, canvas.width*(869/1024));
+                    // ctx.drawImage(unitimg["bga"], 0,30+canvas.height/2, canvas.width, canvas.width*(869/1024));
 
                     var img3 = new THREE.CanvasTexture(canvas);
 
@@ -16519,29 +16519,29 @@
 
 
 
-                    var canvas = document.createElement('canvas');
-                    var ctx = canvas.getContext('2d');
-                    // const padding = 10;
-                    ctx.globalAlpha = 1;
-                    canvas.width = (1525/2)
-                    canvas.height = (3157/2)
-
-                    ctx.drawImage(unitimg["bgb"], 0,30+canvas.height/2, canvas.width, canvas.width*(869/1024));
-
-                    var img4 = new THREE.CanvasTexture(canvas);
-
-                    var geometry4 = new THREE.BoxGeometry(0.1, bw*(너비)*2*(3157/1525), bw*(너비)*2);
-                    var material4 = new THREE.MeshLambertMaterial({
-                        map: img4,
-                        side: THREE.DoubleSide,
-                        transparent: true,
-                        opacity: 1
-                    });
-                    var mesh3=new THREE.Mesh(geometry4, material4);
-                    mesh3.position.set(-bh*2,bh*(8.2),0)
-
-                    배경.push(mesh3)
-                    scene.add(mesh3);
+                    // var canvas = document.createElement('canvas');
+                    // var ctx = canvas.getContext('2d');
+                    // // const padding = 10;
+                    // ctx.globalAlpha = 1;
+                    // canvas.width = (1525/2)
+                    // canvas.height = (3157/2)
+                    //
+                    // ctx.drawImage(unitimg["bgb"], 0,30+canvas.height/2, canvas.width, canvas.width*(869/1024));
+                    //
+                    // var img4 = new THREE.CanvasTexture(canvas);
+                    //
+                    // var geometry4 = new THREE.BoxGeometry(0.1, bw*(너비)*2*(3157/1525), bw*(너비)*2);
+                    // var material4 = new THREE.MeshLambertMaterial({
+                    //     map: img4,
+                    //     side: THREE.DoubleSide,
+                    //     transparent: true,
+                    //     opacity: 1
+                    // });
+                    // var mesh3=new THREE.Mesh(geometry4, material4);
+                    // mesh3.position.set(-bh*2,bh*(8.2),0)
+                    //
+                    // 배경.push(mesh3)
+                    // scene.add(mesh3);
 
 
 
@@ -17730,8 +17730,8 @@
                 배[0].userData.body.position.copy(배[0].position);
                 배[0].userData.body.quaternion.copy(배[0].quaternion);
 
-                배경[0].position.z-=deltaTime/2900
-                배경[1].position.z-=deltaTime/900
+                배경[0].position.z-=deltaTime/1200
+                // 배경[1].position.z-=deltaTime/900
             }else{
               itemuse1=false;
               itemuse2=false;
@@ -17798,8 +17798,8 @@
 
                 배[0].userData.body.position.copy(배[0].position);
                 배[0].userData.body.quaternion.copy(배[0].quaternion);
-                배경[0].position.z+=deltaTime/2900
-                배경[1].position.z+=deltaTime/900
+                배경[0].position.z+=deltaTime/1200
+                // 배경[1].position.z+=deltaTime/900
             }else{
               itemuse1=false;
               itemuse2=false;
