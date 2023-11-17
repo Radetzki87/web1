@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=0.85, maximum-scale=0.85, minimum-scale=0.85, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <title>2048 BRIX</title>
     <style>
         body {
@@ -12,8 +12,7 @@
             width:100%;
             height: 100%;
             margin: 0;
-            overscroll-behavior-x: none;
-            overscroll-behavior-y: none;
+
         }
 
         canvas {
@@ -21,8 +20,7 @@
             overflow-y: hidden;
             position: absolute;
             display: block;
-            overscroll-behavior-y: none;
-            overscroll-behavior-x: none;
+
         }
 
         #exit{
@@ -2614,27 +2612,19 @@
 
 <script type="module">
     import * as THREE from 'three';
-    import {
-        GLTFLoader
-    } from 'three/addons/loaders/GLTFLoader.js';
-    import {
-        FontLoader
-    } from 'three/addons/loaders/FontLoader.js';
-    // import { TextureLoader } from 'three/addons/loaders/TextureLoader.js';
+
     import {
         MTLLoader
     } from 'three/addons/loaders/MTLLoader.js';
     import {
         OBJLoader
     } from 'three/addons/loaders/OBJLoader.js';
-    import {
-        TextGeometry
-    } from 'three/addons/geometries/TextGeometry.js';
-    import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
-    import Stats from 'three/addons/libs/stats.module.js';
 
-    document.body.style.overscrollBehaviorY = 'none';
-    document.body.style.overscrollBehaviorX = 'none';
+    import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
+
+
+    //document.body.style.overscrollBehaviorY = 'none';
+    //document.body.style.overscrollBehaviorX = 'none';
     // document.getElementById('game-over-panel').style.display="none";
 
     const gameOverPanel = document.getElementById('game-over-panel');
@@ -3108,7 +3098,7 @@
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
     var 중력=[-25,-25,-tgrav,-7,-7]
 
-    var resinit=1
+    var resinit=0
     window.resinit=resinit
     var 등장=false;
 
@@ -13577,7 +13567,7 @@
         mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
         mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
 
-        if(rnk==1){
+        if(rnk==1&&flag){
           mesh.add(pen[5].clone())
           mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
           mesh.children[3].material.opacity=1;
@@ -14861,9 +14851,7 @@
             if(ready){
               if(i==nnext){
                 item.position.x=-1.5
-                if(i==1){
-                  item.children[3].position.y=10
-                }
+
                 if(i==0){
                   item.rotation.y=0
                   item.rotation.x=-Math.PI/2
@@ -15109,7 +15097,7 @@
                 item.children[0].position.z=-0.5*(pshift[dur]-1);
                 item.children[1].position.z=2*(pshift[dur]-1);
                 item.children[2].position.y=-0.8
-                item.children[3].position.y=10
+
                 // item.children[3].position.z=-0.5*(pshift[dur]-1);
 
               }else if(item.userData.rank==2||item.userData.rank==3){
@@ -20276,7 +20264,7 @@
           langnum=1
 
           resinit=parseInt(nslst["data3"]["2"]);
-          resinit=1;
+          resinit=0;
 
           window.resinit=resinit;
 
@@ -20420,7 +20408,7 @@
 
         resinit=parseInt(nslst["data3"]["2"]);
 
-        resinit=1;
+        resinit=0;
         window.resinit=resinit;
         resol(resinit);
         // setlang(langnum);
