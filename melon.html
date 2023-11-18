@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <title>PENGUIN MELON</title>
+    <title>PengSoo</title>
     <style>
         body {
             text-align: center;
@@ -166,7 +166,7 @@
           left:0%;
           font-family: 'GG';
           color: rgba(210,210,210,0.5);
-          font-size: 1.4vmin;
+          font-size: 1vmin;
           z-index: 4;
           background-color: rgba(0,0,0,0);
           position: absolute;
@@ -9212,8 +9212,7 @@
             document.getElementById('top2').children[1].innerText=String(핀)
             document.getElementById('top3').children[1].innerText=String(다리)
         }else if(itemflag){
-          ontouch=false;
-          return
+
 
           if(window.innerWidth>window.innerHeight){
             핑거0.x = 0.01+(event.touches[0].clientX / window.innerHeight)* 0.8 - 1;
@@ -9647,7 +9646,7 @@
         })
         return;
 
-      }else if(!itemflag&&ingame){
+      }else if(ingame){
         if(document.getElementById("setting-overlay").classList.contains("hide")) return;
 
         if(ready&&!dragflag&&!itemflag) {
@@ -9732,7 +9731,8 @@
             dropflag=true;
           }
 
-        }else{
+        }else if(!ontouch){
+          
           if(window.innerWidth>window.innerHeight){
             핑거0.x = (event.clientX / window.innerHeight)* 0.8 - 1;
             핑거0.y = -(event.clientY / window.innerHeight)*0.8 + 1;
