@@ -66,25 +66,7 @@
         }
 
 
-        #yesno{
-            position: absolute;
-            left:15%;
-            top:30%;
-            background-color: rgba(100, 100, 100, 0.5);
-            font-family: 'GG';
-            width: 70vmin;
-            height: 38vmin;
-            border-radius: 4vmin;
-            display: flex;
-            flex-direction: column;
-            align-items: flex;
-            border: 0px solid #000;
-            justify-content: center;
-            align-items: center;
-            /* z-index:1; */
-            font-family: 'mono';
-            font-size: 4vmin;
-        }
+
 
         #ring{
           position: absolute;
@@ -107,6 +89,26 @@
 
         }
 
+        #yesno{
+            position: absolute;
+            left:15%;
+            top:30%;
+            background-color: rgba(50, 150, 150, 1);
+            font-family: 'GG';
+            width: 70vmin;
+            height: 50vmin;
+            border-radius: 4vmin;
+            display: flex;
+            flex-direction: column;
+            align-items: flex;
+            border: 0px solid #000;
+            justify-content: center;
+            align-items: center;
+            z-index:3;
+            font-family: 'mono';
+            font-size: 3vmin;
+        }
+
 
         #yesno b{
           margin-top: 2vmin;
@@ -114,19 +116,50 @@
 
         }
 
-        #yestxt{
-          position: relative;
-          right:55%;
+        #yesno img{
+          width: 12vmin;
+
         }
 
-        #notxt{
-          position: absolute;
-          left:55%;
+
+
+        #yesno2{
+            position: absolute;
+            left:15%;
+            top:30%;
+            background-color: rgba(50, 150, 150, 1);
+            font-family: 'GG';
+            width: 70vmin;
+            height: 38vmin;
+            border-radius: 4vmin;
+            display: flex;
+            flex-direction: column;
+            align-items: flex;
+            border: 0px solid #000;
+            justify-content: center;
+            align-items: center;
+            z-index:3;
+            font-family: 'mono';
+            font-size: 4vmin;
+        }
+
+
+        #yesno2 b{
+          margin-top: 2vmin;
+          color: white;
+
+        }
+
+        #yesno2 img{
+          width: 12vmin;
+
         }
 
 
         .yesno-container{
-            display: inline-flex;
+            display: flex;
+            flex-direction: column;
+
         }
 
         .yesno-container button{
@@ -2126,7 +2159,7 @@
           opacity: 1;
           top: 25vh;
           right: 0%;
-          width: 12 vmin;
+          width: 13 vmin;
           height:80 vmin;
           z-index: 2;
         }
@@ -2139,8 +2172,8 @@
           align-items: baseline;
           border: 0.8vmin solid #FFF;
           border-radius: 12vmin;
-          width: 12vmin;
-          height: 9vh;
+          width: 13vmin;
+          height:10vh;
 
           justify-content: center;
         }
@@ -2149,7 +2182,7 @@
 
         .cell img{
           position: absolute;
-          right:1.8vmin;
+          right:1.9vmin;
           // margin-top:1vh;
           width: 10vmin;
           /* height: 12vmin; */
@@ -2181,7 +2214,7 @@
         }
 
         #top3 img{
-          transform: translate(-0.2vmin,0.2vmin);
+          transform: translate(-0.6vmin,0.2vmin);
           // right:50vmin;
           // width: 10vmin;
           /* height: 12vmin; */
@@ -8287,6 +8320,7 @@
 
 
         }
+
         if(lastY>0.8) return;
         if(!ingame) return;
         // console.log(seal.length)
@@ -8329,7 +8363,7 @@
         });
 
         if(gameoverflag) return;
-        if(lastX>0.75){
+        if(lastX>0.8){
           if(lastY<0.5&&lastY>0.29){
             console.log("뻥")
             if(뻥>0){
@@ -10168,24 +10202,34 @@
           fulltower=true;
 
         }else if(event.code === 'KeyH') {
-          var tr=parseInt(Math.random()*5)
-          var tx=Math.random()-0.5;
-          let newo=newone(과일.length-1, tr,0,-tx*lx)
-          axis[0].position.z=-tx*lx
-          next=nnext
-          nnext=nextpool[parseInt(Math.random()*nextpool.length)];
-          var cname=String(nnext+1)
-          document.getElementById("hammer").children[0].src="png/u"+cname+".png"
 
-          // next=7
-          scene.add(newo);
+          for (var i = 0; i < 5; i++) {
+            for (var j = 0; j < 5; j++) {
+              var tr=parseInt(Math.random()*4)
+              var tx=-0.65+0.27*i;
+
+              let newo=newone(과일.length-1, tr,0,-tx*lx)
+              // axis[0].position.z=-tx*lx
+              next=nnext
+              nnext=nextpool[parseInt(Math.random()*nextpool.length)];
+
+              var cname=String(nnext+1)
+              document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+
+              // next=7
+              newo.position.y+=bh*(4+j)+(bh/2)*i
+              scene.add(newo);
 
 
-          newo.userData.body.position.copy(newo.position);
-          world.addBody(newo.userData.body);
+              newo.userData.body.position.copy(newo.position);
+              world.addBody(newo.userData.body);
 
 
-          과일.push(newo)
+              과일.push(newo)
+            }
+          }
+
+
           dragflag = false;
           drop=elapsedTime;
 
@@ -16743,14 +16787,14 @@
                       sleepTimeLimit: 0
                     });
 
-                    var 뒤 = new CANNON.Box(new CANNON.Vec3(통/2.0, bh*16/2, bw*너비/2));
-                    var 앞 = new CANNON.Box(new CANNON.Vec3(통/2.0, bh*16/2, bw*너비/2));
+                    var 뒤 = new CANNON.Box(new CANNON.Vec3(통/2.0, bh*26/2, bw*너비/2));
+                    var 앞 = new CANNON.Box(new CANNON.Vec3(통/2.0, bh*26/2, bw*너비/2));
 
                     // var 뒤 = new CANNON.Plane();
                     // var 앞 = new CANNON.Plane();
 
-                    var 왼 = new CANNON.Box(new CANNON.Vec3(bw/2, bh*16/2, bw/2));
-                    var 오 = new CANNON.Box(new CANNON.Vec3(bw/2, bh*16/2, bw/2));
+                    var 왼 = new CANNON.Box(new CANNON.Vec3(bw/2, bh*26/2, bw/2));
+                    var 오 = new CANNON.Box(new CANNON.Vec3(bw/2, bh*26/2, bw/2));
                     // var 바 = new CANNON.Box(new CANNON.Vec3(bw/2, bw/2, bw*4.1/2));
 
                     compoundBody.addShape(뒤, new CANNON.Vec3(-통, 0, 0));
@@ -17302,8 +17346,8 @@
         document.getElementById('fps').style.display=""
 
 
-        document.getElementById('fps2').innerText="ontouch: "+String(ontouch)+"\n"+"itemdrag: "+String(itemdrag)+"\n"+"dragflag: "+String(dragflag)+"\n"+"itemflag: "+String(itemflag)+"\n"+"object: "+String(과일.length)+"\n"
-        // document.getElementById('fps2').innerText=""
+        // document.getElementById('fps2').innerText="ontouch: "+String(ontouch)+"\n"+"itemdrag: "+String(itemdrag)+"\n"+"dragflag: "+String(dragflag)+"\n"+"itemflag: "+String(itemflag)+"\n"+"object: "+String(과일.length)+"\n"
+        document.getElementById('fps2').innerText=""
 
 
 
@@ -18592,6 +18636,8 @@
     }
 
     function pick(n){
+      // if(ontouch) return;
+      console.log("ㅋㅋ")
       if(gameoverflag) return;
 
       if(!itemflag){
@@ -19359,6 +19405,23 @@
         }
         // Fetch the CSV data from the URL
     }
+
+    function showyes(n=0){
+
+      if(n==1){
+        document.getElementById("yesno2").classList.remove("hidden");
+        document.getElementById("yesno2").classList.add("show");
+        document.getElementById("yesno2").style.display="flex"
+      }else{
+        document.getElementById("yesno").classList.remove("hidden");
+        document.getElementById("yesno").classList.add("show");
+        document.getElementById("yesno").style.display="flex"
+      }
+
+    }
+    window.showyes=showyes
+
+
     function skinpay() {
         const button1 = document.getElementById('button1');
         const button2 = document.getElementById('button2');
@@ -22435,6 +22498,32 @@
             <img src="png/font10.png" >
         </button>
 
+    </div>
+</div>
+
+<div id="yesno" class="hidden">
+    <img class="" src="png/item1.png">
+    <b>광고를 보고 무작위 아이템 2개를 획득하세요!</b>
+    <div class="yesno-container">
+        <button id="yestxt">
+            YES
+        </button>
+        <button id="notxt">
+            NO
+        </button>
+    </div>
+</div>
+
+<div id="yesno2" class="hidden">
+    <img class="" src="png/item1.png">
+    <b>광고를 보고 무료 단체 손님을 맞이하세요!</b>
+    <div class="yesno-container">
+        <button id="yestxt2">
+            YES
+        </button>
+        <button id="notxt2">
+            NO
+        </button>
     </div>
 </div>
 
