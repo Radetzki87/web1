@@ -2846,6 +2846,8 @@
     document.getElementById("hammer").children[0].src="png/u"+String(nnext+1)+".png"
     var drop=-2;
 
+    var posture;
+
     var tsub=1;
     var titer=15;
     var tgrav=320;
@@ -8454,8 +8456,10 @@
 
         if (intersects.length > 0) {
           intersects.forEach((item, i) => {
-            if(item.object.userData.wood==0){
+            if(item.object.userData.wood==1){
               cat.push(item.object);
+              console.log(item.object.userData.body.quaternion)
+              console.log(item.object.rotation)
 
               if(cat.length==1) return;
 
@@ -10199,7 +10203,7 @@
         }else if(event.code === 'KeyH') {
 
           for (var i = 0; i < 5; i++) {
-            for (var j = 0; j < 5; j++) {
+            for (var j = 0; j < 6; j++) {
               var tr=parseInt(Math.random()*4)
               var tx=-0.65+0.27*i;
 
@@ -13567,6 +13571,8 @@
         });
 
 
+
+
         groundBody.position.copy(mesh.position);
         console.log(groundBody.linearFactor)
         groundBody.fixedRotation = true;
@@ -13653,6 +13659,10 @@
               sleepSpeedLimit: sleep1,
               sleepTimeLimit: sleep2
           });
+
+          if(!flag){
+            posture=mesh.quaternion.clone()
+          }
 
 
           groundBody.position.copy(mesh.position);
@@ -13886,7 +13896,7 @@
           var t1=1
           var t2=0.5
           if(rnk==6){
-            t1=1.338
+            t1=1.31
           }
           var geometry1 = new THREE.BoxGeometry(0.5*bh*tscale0, 통, t1*0.73*bh*tscale0);
 
@@ -14026,7 +14036,7 @@
           var t1=1
 
           if(rnk==8){
-            t1=1.2;
+            t1=1.17;
           }
 
 
@@ -15355,9 +15365,9 @@
               if(lasertime>0){
 
                 if(lasertime>3500){
-                  // 오버=true;
+                  오버=true;
                   fulltower=true;
-                  console.log(lasertime)
+                  // console.log(lasertime)
                 }
 
               }
@@ -17839,6 +17849,9 @@
           if(과일.length>0){
 
             과일.forEach((item) => {
+              if(Math.abs(item.rotation.y)>1){
+                console.log("rank: "+String(item.userData.rank))
+              }
               if (elapsedTime - item.userData.time > 0 && elapsedTime - item.userData.time < 0.1) {
                   item.scale.y = 0.4 + 7 * (elapsedTime - item.userData.time);
                   item.scale.z = 0.4 + 7 * (elapsedTime - item.userData.time);
@@ -17850,13 +17863,21 @@
 
               if(item.userData.alive){
                 if(item.userData.rank>=9||item.userData.rank==0||(item.userData.rank==4&&item.userData.form==0)){
-                  if(Math.abs(item.rotation.y)>1){
+
+                  if(Math.abs(item.rotation.z)<0.1||Math.abs(item.rotation.z)>3){
                     console.log("뒤집")
                     console.log(item.userData.rank)
 
                     var qt = new CANNON.Quaternion();
                     qt.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2);
                     item.userData.body.quaternion.copy(qt)
+                  }
+                }else{
+                  if(Math.abs(item.rotation.z)<0.1||Math.abs(item.rotation.z)>3){
+
+
+                    item.userData.body.quaternion.copy(posture)
+                    console.log("뒤집2")
                   }
                 }
 
@@ -18272,28 +18293,57 @@
 
     function spawn(){
 
-      for (var i = 0; i < 4; i++) {
-        var tr=parseInt(Math.random()*5)
-        var tx=Math.random()-0.5;
-        var newo=newone(과일.length-1, tr,0,-tx*lx)
-        axis[0].position.z=-tx*lx
-        next=nnext
-        nnext=nextpool[parseInt(Math.random()*nextpool.length)];
-        var cname=String(nnext+1)
-        document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+      // for (var i = 0; i < 4; i++) {
+      //   var tr=parseInt(Math.random()*5)
+      //   var tx=Math.random()-0.5;
+      //   var newo=newone(과일.length-1, tr,0,-tx*lx)
+      //   axis[0].position.z=-tx*lx
+      //   next=nnext
+      //   nnext=nextpool[parseInt(Math.random()*nextpool.length)];
+      //   var cname=String(nnext+1)
+      //   document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+      //
+      //   // next=7
+      //   scene.add(newo);
+      //
+      //
+      //   newo.userData.body.position.copy(newo.position);
+      //   world.addBody(newo.userData.body);
+      //
+      //
+      //   과일.push(newo)
+      //   dragflag = false;
+      //   drop=elapsedTime;
+      // }
+      for (var i = 0; i < 5; i++) {
+        for (var j = 0; j < 6; j++) {
+          var tr=parseInt(Math.random()*4)
+          var tx=-0.65+0.27*i;
 
-        // next=7
-        scene.add(newo);
+          let newo=newone(과일.length-1, tr,0,-tx*lx)
+          // axis[0].position.z=-tx*lx
+          next=nnext
+          nnext=nextpool[parseInt(Math.random()*nextpool.length)];
+
+          var cname=String(nnext+1)
+          document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+
+          // next=7
+          newo.position.y+=bh*(4+j)+(bh/2)*i
+          scene.add(newo);
 
 
-        newo.userData.body.position.copy(newo.position);
-        world.addBody(newo.userData.body);
+          newo.userData.body.position.copy(newo.position);
+          world.addBody(newo.userData.body);
 
 
-        과일.push(newo)
-        dragflag = false;
-        drop=elapsedTime;
+          과일.push(newo)
+        }
       }
+
+
+      dragflag = false;
+      drop=elapsedTime;
 
 
 
@@ -18638,6 +18688,7 @@
       if(!itemflag){
         switch (n) {
           case 1:
+            if(pung) return;
             if(뻥>0){
               pung=true;
               ice=false;
@@ -18652,6 +18703,7 @@
             }
           break;
           case 2:
+            if(ice) return;
             if(얼음>0){
               pung=false;
               ice=true;
@@ -18666,6 +18718,7 @@
             }
             break;
           case 3:
+            if(pin) return;
             if(핀>0){
               pung=false;
               ice=false;
@@ -18680,6 +18733,7 @@
             }
             break;
           case 4:
+            if(bridge) return;
             if(다리>0){
               pung=false;
               ice=false;
