@@ -23,6 +23,57 @@
 
         }
 
+
+
+        #table{
+          overflow-y: scroll;
+
+          font-size: 4vmin;
+          position: absolute;
+          font-family: 'mono';
+          left:10vmin;
+          top:40vmin;
+          width:82vmin;
+          height: 80vmin;
+          display:none;
+        }
+
+        .neumorphism {
+            background: #e0e0e0;
+            border-radius: 1vmin;
+            box-shadow: 0.5vmin 0.5vmin 1vmin #bebebe, -0.5vmin -0.5vmin 1vmin #ffffff;
+            z-index: 3;
+        }
+
+        #table button{
+            font-family: 'mono';
+            font-size: 3vmin;
+            /* font-size: 1vmin; */
+            margin: 0.5vmin;
+            /* height: 10vmin; */
+            padding: 2vmin 2vmin;
+            border: none;
+            border-radius: 2vmin;
+        }
+
+        .filter img{
+          height: 10vmin;
+        }
+
+        #table table {
+            width:79vmin;
+
+        }
+        #table td {
+            padding: 2vmin;
+            text-align: center;
+        }
+        #table td img{
+            height: 8vmin;
+        }
+
+
+
         #exit{
           background-color: rgba(210, 100, 100, 0.9);
         }
@@ -2271,6 +2322,35 @@
             height: 100%;
         }
 
+        .backbutton3 {
+            position: fixed;
+            background-color: transparent;
+            background-color: rgba(150, 50, 50, 0.6);
+            border-radius: 3vw;
+            background-size: 15vmin 10vmin;
+            top: 28vmin;
+            left: 6%;
+            width: 15vmin;
+            height: 10vmin;
+            z-index: 2;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .backbutton3:active {
+            /* background-image: url("png/red_button10.png"); */
+            transform: translate(0, 0.4vmin);
+            background-size: 15vmin 9.6vmin;
+            width: 15vmin;
+            height: 9.6vmin;
+        }
+
+        .backbutton3 img{
+            width: 6vmin;
+            height: 6vmin;
+        }
+
+
 
         .backbutton {
             position: fixed;
@@ -3507,6 +3587,15 @@
 
     let 점수 = 0
     let bestscore=0;
+
+    var scores = [
+        { character: 'seal1', score: 200 },
+        { character: 'pen2', score: 150 },
+        { character: 'pen2', score: 300 },
+        { character: 'pen1', score: 180 },
+        { character: 'pen2', score: 220 },
+        // 추가 데이터...
+    ];
 
     var 통=bh*0.9
     window.bestscore = bestscore;
@@ -19922,6 +20011,43 @@
         nbhsl4 = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
         rotationend = Math.PI / 4
     }
+
+    function filter(character) {
+        // 해당 캐릭터로 필터링
+        let filteredScores;
+        if(character=="all"){
+          filteredScores = scores.filter(item => item.character!="");
+        }else{
+          filteredScores = scores.filter(item => item.character === character);
+        }
+
+
+
+        // 점수로 내림차순 정렬
+        filteredScores.sort((a, b) => b.score - a.score);
+
+        // 테이블 업데이트
+        let table = document.getElementById('scoreTable');
+        table.innerHTML = '<tr><td>캐릭터</td><td>점수</td></tr>'; // 헤더 초기화
+
+        // 정렬된 점수를 테이블에 추가
+        filteredScores.forEach(item => {
+            let row = table.insertRow();
+            if(item.character=="pen1"){
+              row.insertCell(0).innerHTML = '<img src="png/hero1.png" >'
+            }else if(item.character=="pen2"){
+              row.insertCell(0).innerHTML = '<img src="png/hero2.png" >'
+            }else if(item.character=="bear1"){
+              row.insertCell(0).innerHTML = '<img src="png/hero3.png" >'
+            }else if(item.character=="seal1"){
+              row.insertCell(0).innerHTML = '<img src="png/hero4.png" >'
+            }
+
+            row.insertCell(1).innerHTML = item.score;
+        });
+    }
+    window.filter=filter
+
     function exit0(n=0){
       if(n==2){
         터치보호=elapsedTime
@@ -19964,7 +20090,16 @@
         }, 1000);
 
       }else if(n==9){
+        if(document.getElementById("table").style.display=="block"){
+          document.getElementById("table").style.display="none"
+        }else{
+          document.getElementById("table").style.display="block";
+        }
+
+
         if(skinchange){
+
+
           skinchange=false;
           document.getElementById("hero").style.right="30vmin"
           document.getElementById("skill").style.opacity=0;
@@ -21525,6 +21660,7 @@
 
     function play(){
       document.getElementById("yesno").style.display="none"
+      document.getElementById("table").style.display="none"
 
       if(skinnum0==0){
         document.getElementById("top").style.display="none"
@@ -23338,6 +23474,33 @@
             아니오
         </button>
     </div>
+</div>
+
+<div id="table" class="neumorphism">
+    <!-- 캐릭터 필터링 버튼 -->
+    <button class="filter" id="filter1" onclick="filter('all')">ALL</button>
+    <button class="filter" id="filter2" onclick="filter('pen1')">
+    <img src="png/hero1.png" >
+    </button>
+    <button class="filter" id="filter3" onclick="filter('pen2')">
+    <img src="png/hero2.png" >
+    </button>
+    <button class="filter" id="filter4" onclick="filter('bear1')">
+    <img src="png/hero3.png" >
+    </button>
+    <button class="filter" id="filter5" onclick="filter('seal1')">
+    <img src="png/hero4.png" >
+    </button>
+
+
+    <table id="scoreTable" class="neumorphism">
+        <tr><td>캐릭터</td><td>점수</td></tr>
+        <!-- 순위 데이터가 여기에 들어갑니다 -->
+    </table>
+
+    <button class="backbutton3" id="fback" onclick="exit0(9)">
+        <img class="" src="png/left.png">
+    </button>
 </div>
 
 
