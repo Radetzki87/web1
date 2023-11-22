@@ -650,11 +650,11 @@
         }
 
         #skill {
-            transform: translate(10vmin, 0);
+            transform: translate(20vmin, 0);
             opacity: 0;
             position: absolute;
             top:65vh;
-            width:30vmin;
+            width:45vmin;
             transition: opacity 1s;
         }
 
@@ -677,14 +677,14 @@
         #set0{
           opacity: 0;
           position: absolute;
-          left:12vmin;
+          left:8vmin;
           top:83vh;
           position: absolute;
           border: 1vmin outset rgba(70, 150, 170, 0.5);
           background-color: rgba(50, 150, 150, 0.8);
           border-radius: 2vmin;
-          background-size: 20vmin 8vmin;
-          width: 20vmin;
+          background-size: 30vmin 8vmin;
+          width: 30vmin;
           height: 8vmin;
           z-index: 2;
           font-family: 'mono';
@@ -695,11 +695,21 @@
         }
 
         #set0.set{
-          background-color: rgba(50, 150, 150, 0.8);
+          background-color: rgba(230, 150, 150, 0.8);
           border: 1vmin inset rgba(70, 150, 170, 0.5);
           background-image: url("png/set.png");
           background-size: contain;
           background-repeat: no-repeat;
+          color:black;
+        }
+
+        #set0.lock{
+          background-color: rgba(150, 50, 150, 0.8);
+          border: 1vmin inset rgba(70, 150, 170, 0.5);
+          background-image: url("png/locked.png");
+          background-size: contain;
+          background-repeat: no-repeat;
+          color:yellowgreen;
         }
 
 
@@ -1370,7 +1380,7 @@
 
         #logo{
           position:absolute;
-          top:70vh;
+          top:74vh;
           // left:-0%;
           width:40vh;
           height:40vh;
@@ -1393,7 +1403,7 @@
         }
 
         #intro label{
-          top:93.6vh;
+          top:97.6vh;
           position:absolute;
           opacity:1;
           position: relative;
@@ -2798,7 +2808,6 @@
         }
 
         .locked{
-
             filter: brightness(70%);
         }
 
@@ -3019,6 +3028,8 @@
     var overtime;
 
     var paidlst=[true, true, false, false, false, false]
+
+    var hero=[];
 
     let even=true;
     var stacktime;
@@ -14960,61 +14971,7 @@
 
 
 
-            if(배.length>1&&ingame&&배[1].children.length>12){
-              var dur=parseInt(elapsedTime*25)%pshift.length
-              배.forEach((item, i) => {
 
-                var dif=Math.sin((wavex/2) *wave.length + increment)*wave.amplitude*0.3
-                // item.userData.body.position.y=bh*12+dif
-                // item.position.copy(item.userData.body.position);
-                // item.quaternion.copy(item.userData.body.quaternion);
-                if(i==1){
-                  item.children[0].position.y=0.2*dif+bh*8.9
-                  item.children[2].position.y=0.2*dif+bh*8.9
-                  item.children[1].position.y=0.15*dif+bh*8.95
-
-                  item.children[3].position.y=0.15*dif+bh*16.5
-                  item.children[3].position.x=-2.5
-                  // item.children[3].position.z=0.15*dif+bh*16.5
-                  item.children[4].position.y=0.15*dif+bh*16.5
-
-                  //
-                  item.children[7].position.y=0.2*dif+bh*17.17
-
-                  sample2.forEach((item, i) => {
-                    // item.position.y=
-                    item.position.y=0.2*dif+bh*16.1;
-                  });
-
-                  // item.children[7].position.x=-1.8
-                  //
-                  //
-                  //
-                  item.children[7].children[2].position.y=0.2
-                  item.children[7].children[0].position.z=-0.1*(pshift[dur]-1);
-                  // item.children[7].children[1].position.z=0.2*(pshift[dur]-1);
-
-                  // item.children[7].children[2].position.y=0.2
-                  item.children[7].children[3].position.z=-0.1*(pshift[dur]-1);
-
-
-                  emote[0].position.y=0.2*dif+bh*18.2
-
-
-
-
-
-
-                  // item.children[4].material.visible=false
-                }else{
-                  // item.userData.body.position.y=-0.5*dif+bh*(3.1)
-                }
-
-
-
-
-              });
-            }
 
 
 
@@ -15028,6 +14985,82 @@
                 opacity: 1
             });
             ship[0].material=material1;
+          }
+
+          if(ingame&&배.length>1&&ingame&&배[1].children.length>12){
+            var dur=parseInt(elapsedTime*25)%pshift.length
+            배.forEach((item, i) => {
+
+              var dif=Math.sin((wavex/2) *wave.length + increment)*wave.amplitude*0.3
+              // item.userData.body.position.y=bh*12+dif
+              // item.position.copy(item.userData.body.position);
+              // item.quaternion.copy(item.userData.body.quaternion);
+              if(i==1){
+                item.children[0].position.y=0.2*dif+bh*8.9
+                item.children[2].position.y=0.2*dif+bh*8.9
+                item.children[1].position.y=0.15*dif+bh*8.95
+
+                item.children[3].position.y=0.15*dif+bh*16.5
+                item.children[3].position.x=-2.5
+                // item.children[3].position.z=0.15*dif+bh*16.5
+                item.children[4].position.y=0.15*dif+bh*16.5
+
+                //
+                item.children[7].position.y=0.2*dif+bh*17.17
+
+                sample2.forEach((item, i) => {
+                  // item.position.y=
+                  item.position.y=0.2*dif+bh*16.1;
+                });
+
+                // item.children[7].position.x=-1.8
+                //
+                //
+                //
+                item.children[7].children[2].position.y=0.2
+                item.children[7].children[0].position.z=-0.1*(pshift[dur]-1);
+
+
+                // item.children[7].children[2].position.y=0.2
+
+
+
+                if(skinnum0==0){
+                  item.children[7].children[4].position.y=0
+                  item.children[7].children[1].position.y=20
+                  item.children[7].children[3].position.y=20
+                  item.children[7].children[5].position.y=0
+                  item.children[7].children[5].position.z=-0.2+0.2*(pshift[dur]-1);
+                  item.children[7].children[4].position.z=-0.05-0.1*(pshift[dur]-1);
+                  // item.children[7].children[1].position.y=20
+
+                }else if(skinnum0==1){
+                  item.children[7].children[1].position.z=0.2*(pshift[dur]-1);
+                  item.children[7].children[3].position.z=-0.1*(pshift[dur]-1);
+                  item.children[7].children[1].position.y=0
+                  item.children[7].children[5].position.y=20
+                  item.children[7].children[4].position.y=20
+                  item.children[7].children[3].position.y=0
+
+                }
+
+
+                emote[0].position.y=0.2*dif+bh*18.2
+
+
+
+
+
+
+                // item.children[4].material.visible=false
+              }else{
+                // item.userData.body.position.y=-0.5*dif+bh*(3.1)
+              }
+
+
+
+
+            });
           }
 
 
@@ -16708,6 +16741,8 @@
                     canvas.width = (1525/2)
                     canvas.height = (3157/2)
                     ctx.drawImage(unitimg["bg"], 0,355/2, (1525/2), (1525/2)*(659/1024));
+                    ctx.fillStyle="white"
+                    // ctx.fillRect(0,0, canvas.width, canvas.height);
 
                     // ctx.drawImage(unitimg["bga"], 0,30+canvas.height/2, canvas.width, canvas.width*(869/1024));
 
@@ -16811,10 +16846,15 @@
 
                     console.log(pen2)
 
-                    mesh8.add(pen2[4].clone())
-                    mesh8.add(pen2[1].clone())
-                    mesh8.add(pen2[2].clone())
-                    mesh8.add(pen2[3].clone())
+
+                      mesh8.add(pen2[4].clone())
+                      mesh8.add(pen2[1].clone())
+                      mesh8.add(pen2[2].clone())
+                      mesh8.add(pen2[3].clone())
+                      mesh8.add(seal[4].clone())
+                      mesh8.add(pen[1].clone())
+
+
 
 
                     var temp0=0.6
@@ -16823,6 +16863,21 @@
                     mesh8.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
                     mesh8.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
                     mesh8.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+                    mesh8.children[4].scale.set(temp0*tscale0*1.1,temp0*tscale0,temp0*tscale0)
+                    mesh8.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+                    mesh8.children[4].position.x=0.18
+                    mesh8.children[4].position.y=-0.2
+                    mesh8.children[4].position.z=0
+
+                    mesh8.children[5].position.x=-0.02
+
+                    mesh8.children[0].material.depthWrite=true;
+                    mesh8.children[1].material.depthWrite=true;
+                    mesh8.children[2].material.depthWrite=true;
+                    mesh8.children[3].material.depthWrite=true;
+                    mesh8.children[4].material.depthWrite=true;
+                    mesh8.children[5].material.depthWrite=true;
 
 
 
@@ -16926,6 +16981,7 @@
                     mesh.add(mesh6)
                     mesh.add(mesh7)
                     mesh.add(mesh8)
+
 
 
                     mesh.add(mesh9)
@@ -19771,7 +19827,9 @@
         ingame=false
         터치=false
         setTimeout(function() {
+            elapsedTime=-10
             retry();
+
 
         }, 1000);
 
@@ -19781,6 +19839,29 @@
           document.getElementById("hero").style.right="30vmin"
           document.getElementById("skill").style.opacity=0;
           document.getElementById("set0").style.opacity=0;
+
+          document.getElementById("skin-middle0").children[0].src="png/hero"+String(1+skinnum0)+".png"
+          document.getElementById("skill").src="png/card"+String(skinnum0)+".png"
+          document.getElementById("set0").classList.remove("lock");
+          document.getElementById("set0").classList.add("set");
+          document.getElementById("set0").innerText="선택됨"
+
+          switch (skinnum0) {
+            case 0:
+              document.getElementById("skin-middle0").children[1].innerText="Base"
+              break;
+            case 1:
+              document.getElementById("skin-middle0").children[1].innerText="Captain"
+              break;
+            case 2:
+              document.getElementById("skin-middle0").children[1].innerText="Plumber"
+              break;
+            case 3:
+              document.getElementById("skin-middle0").children[1].innerText="Sheriff"
+              break;
+            default:
+              return;
+          }
           // document.getElementById("buy0").style.opacity=0;
 
 
@@ -21170,6 +21251,15 @@
         document.getElementById("set0").style.opacity=1;
         // document.getElementById("buy0").style.opacity=1;
 
+        skinnum=skinnum0;
+
+        document.getElementById("skin-middle0").children[0].src="png/hero"+String(1+skinnum0)+".png"
+        document.getElementById("skill").src="png/card"+String(skinnum0)+".png"
+        document.getElementById("set0").classList.remove("lock");
+        document.getElementById("set0").classList.add("set");
+        document.getElementById("set0").innerText="선택됨"
+
+
 
 
 
@@ -21181,6 +21271,25 @@
           // document.getElementById("skill").classList.add("show1");
         },100);
 
+        switch (skinnum0) {
+          case 0:
+            document.getElementById("skin-middle0").children[1].innerText="Base"
+            break;
+          case 1:
+            document.getElementById("skin-middle0").children[1].innerText="Captain"
+            break;
+          case 2:
+            document.getElementById("skin-middle0").children[1].innerText="Plumber"
+            break;
+          case 3:
+            document.getElementById("skin-middle0").children[1].innerText="Sheriff"
+            break;
+          default:
+            return;
+        }
+
+        return;
+
       }
       if(n==0){
         skinnum--
@@ -21188,19 +21297,22 @@
 
         if(paidlst[skinnum]){
           if(skinnum==skinnum0){
+            document.getElementById("set0").classList.remove("lock");
             document.getElementById("set0").classList.add("set");
             document.getElementById("set0").innerText="선택됨"
           }else{
+            document.getElementById("set0").classList.remove("lock");
             document.getElementById("set0").classList.remove("set");
             document.getElementById("set0").innerText="선택"
           }
         }else{
           if(skinnum==skinnum0){
-            document.getElementById("set0").classList.add("set");
+            document.getElementById("set0").classList.add("lock");
             document.getElementById("set0").innerText="선택됨"
           }else{
             document.getElementById("set0").classList.remove("set");
-            document.getElementById("set0").innerText="구매"
+            document.getElementById("set0").classList.add("lock");
+            document.getElementById("set0").innerText="잠김"
           }
         }
 
@@ -21211,19 +21323,22 @@
         if(skinnum>3) skinnum=0
         if(paidlst[skinnum]){
           if(skinnum==skinnum0){
+            document.getElementById("set0").classList.remove("lock");
             document.getElementById("set0").classList.add("set");
             document.getElementById("set0").innerText="선택됨"
           }else{
+            document.getElementById("set0").classList.remove("lock");
             document.getElementById("set0").classList.remove("set");
             document.getElementById("set0").innerText="선택"
           }
         }else{
           if(skinnum==skinnum0){
-            document.getElementById("set0").classList.add("set");
+            document.getElementById("set0").classList.add("lock");
             document.getElementById("set0").innerText="선택됨"
           }else{
             document.getElementById("set0").classList.remove("set");
-            document.getElementById("set0").innerText="구매"
+            document.getElementById("set0").classList.add("lock");
+            document.getElementById("set0").innerText="잠김"
           }
         }
       }else if(n==3){
@@ -21233,6 +21348,8 @@
           document.getElementById("set0").classList.add("set");
           document.getElementById("set0").innerText="선택됨"
           skinnum0=skinnum;
+        }else{
+
         }
 
 
@@ -21241,6 +21358,7 @@
       }
 
       document.getElementById("skin-middle0").children[0].src="png/hero"+String(1+skinnum)+".png"
+      document.getElementById("skill").src="png/card"+String(skinnum)+".png"
 
       switch (skinnum) {
         case 0:
@@ -21268,6 +21386,29 @@
       document.getElementById("hero").style.right="30vmin"
       document.getElementById("skill").style.opacity=0;
       document.getElementById("set0").style.opacity=0;
+
+      document.getElementById("skin-middle0").children[0].src="png/hero"+String(1+skinnum0)+".png"
+      document.getElementById("skill").src="png/card"+String(skinnum0)+".png"
+      document.getElementById("set0").classList.remove("lock");
+      document.getElementById("set0").classList.add("set");
+      document.getElementById("set0").innerText="선택됨"
+
+      switch (skinnum0) {
+        case 0:
+          document.getElementById("skin-middle0").children[1].innerText="Base"
+          break;
+        case 1:
+          document.getElementById("skin-middle0").children[1].innerText="Captain"
+          break;
+        case 2:
+          document.getElementById("skin-middle0").children[1].innerText="Plumber"
+          break;
+        case 3:
+          document.getElementById("skin-middle0").children[1].innerText="Sheriff"
+          break;
+        default:
+          return;
+      }
       msetting(function(object) {
         // document.getElementById("intro").classList.add("fade");
         document.getElementById("intro").style.top="-120%";
@@ -22729,7 +22870,7 @@
     <div class="option-RL0 hidden" id="hero">
         <button id="skin-left0" onclick="skinshift0(0)"></button>
         <div id="skin-middle0">
-            <img src="png/hero2.png" alt="Character 2">
+            <img src="png/hero2.png" alt="Character 2" onclick="skinshift0(2)">
             <div>Captain</div>
         </div>
         <button id="skin-right0" onclick="skinshift0(1)"></button>
