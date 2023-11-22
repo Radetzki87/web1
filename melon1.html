@@ -96,7 +96,7 @@
             background-color: rgba(50, 150, 150, 1);
             font-family: 'mono';
             width: 50vmin;
-            height: 30vmin;
+            height: 35vmin;
             border-radius: 4vmin;
             display: flex;
             flex-direction: column;
@@ -163,10 +163,10 @@
             color: white;
             font-family: 'mono';
             font-size: 3vmin;
-            width:20vmin;
-            height:5vmin;
+            width:30vmin;
+            height:8vmin;
             /* position: absolute; */
-            border-radius: 5vmin;
+            border-radius: 10vmin;
             align-items: center;
             background-color: rgba(150,150,150,0.5);
 
@@ -8556,6 +8556,8 @@
         }
 
         if(lastY>0.8) return;
+
+
         if(!ingame) return;
         // console.log(seal.length)
         // console.log(bear.length)
@@ -8597,7 +8599,7 @@
         });
 
         if(gameoverflag) return;
-        if(lastX>0.8){
+        if(lastX>0.8&&skinnum0>0){
           if(lastY<0.5&&lastY>0.29){
             console.log("뻥")
             if(뻥>0){
@@ -9184,6 +9186,8 @@
         if(!인게임){
           return;
         }
+
+
         if(restartflag) return;
         if (gameoverflag) return;
         if (document.getElementById("setting-overlay").classList.contains("show") || !document.getElementById("gameover-overlay").classList.contains("hidden") || document.getElementById("options-overlay").classList.contains("show") || document.getElementById("optionlst").classList.contains("show")) {
@@ -9194,6 +9198,7 @@
         }
 
         if(dragflag&&ingame){
+          if(lastY>0.7) return;
 
           if(next<2){
             if(lastX<-0.59){
@@ -10819,7 +10824,7 @@
         뻥=0;
         얼음=0;
         핀=0;
-        다리=1;
+        다리=0;
         필=0;
         바=300;
         superflag=false;
@@ -18685,7 +18690,7 @@
       //   drop=elapsedTime;
       // }
       for (var i = 0; i < 5; i++) {
-        for (var j = 0; j < 6; j++) {
+        for (var j = 0; j < 7; j++) {
           var tr=parseInt(Math.random()*4)
           var tx=-0.65+0.27*i;
 
