@@ -91,12 +91,12 @@
 
         #yesno{
             position: absolute;
-            left:15%;
+            left:25%;
             top:30%;
             background-color: rgba(50, 150, 150, 1);
-            font-family: 'GG';
-            width: 70vmin;
-            height: 50vmin;
+            font-family: 'mono';
+            width: 50vmin;
+            height: 30vmin;
             border-radius: 4vmin;
             display: flex;
             flex-direction: column;
@@ -104,8 +104,8 @@
             border: 0px solid #000;
             justify-content: center;
             align-items: center;
-            z-index:3;
-            font-family: 'mono';
+            z-index:2;
+
             font-size: 3vmin;
         }
 
@@ -116,10 +116,7 @@
 
         }
 
-        #yesno img{
-          width: 12vmin;
 
-        }
 
 
 
@@ -167,12 +164,23 @@
             font-family: 'mono';
             font-size: 3vmin;
             width:20vmin;
-            height:12vmin;
+            height:5vmin;
             /* position: absolute; */
-            border-radius: 3vmin;
+            border-radius: 5vmin;
             align-items: center;
             background-color: rgba(150,150,150,0.5);
-            margin: 4vmin 4vmin;
+
+        }
+        #yesnoimg{
+          width:20vmin;
+        }
+        #yestxt{
+          margin-top: 2vmin;
+        }
+
+        #notxt{
+          background-color: transparent;
+          border: none;
         }
 
         #langimg{
@@ -650,6 +658,7 @@
         }
 
         #skill {
+            /* opacity:0.9; */
             transform: translate(20vmin, 0);
             opacity: 0;
             position: absolute;
@@ -662,29 +671,27 @@
 
             position: absolute;
             right:30vmin;
-            top:70vh;
+            top:67vh;
             display: flex;
             flex-direction: row;
-            align-items: center;
+            align-items: baseline;
             /* transform: translate(-25vmin, 0); */
             transition: right 0.5s ease;
 
         }
 
 
-
-
         #set0{
           opacity: 0;
           position: absolute;
-          left:8vmin;
+          left:6vmin;
           top:83vh;
           position: absolute;
           border: 1vmin outset rgba(70, 150, 170, 0.5);
           background-color: rgba(50, 150, 150, 0.8);
           border-radius: 2vmin;
-          background-size: 30vmin 8vmin;
-          width: 30vmin;
+          background-size: 34vmin 8vmin;
+          width: 34vmin;
           height: 8vmin;
           z-index: 2;
           font-family: 'mono';
@@ -735,7 +742,7 @@
         }
 
         .option-RL0 img{
-            height:8vh;
+            width:16vmin;
         }
 
 
@@ -760,7 +767,7 @@
         }
 
         #skin-left0 {
-            left: 15vmin;
+            right: 30vmin;
             font-family: 'GG';
             /*margin-left: 1vw;*/
             font-size: 3vmin;
@@ -790,6 +797,26 @@
             cursor: pointer;
             margin: 0 2vmin;
             z-index: 3;
+        }
+
+        #skin-middle0 {
+            font-family: 'GG';
+            font-size: 3vmin;
+
+
+        }
+
+        #lcond {
+            font-family: 'mono';
+            font-size: 2vmin;
+            color:white;
+
+
+        }
+        #skin-middle0 img{
+            width: 15vmin;
+
+
         }
 
         #skin-left2 {
@@ -2354,6 +2381,54 @@
           z-index: 2;
         }
 
+        #topp{
+          top: 8vh;
+        }
+
+        #topp0{
+          background-color: rgba(250, 150, 150, 0.6);
+          /* align-items: baseline; */
+          border: none;
+          border-radius: 12vmin;
+          width: 13vmin;
+          height:13vmin;
+
+        }
+
+        #topp0 img{
+          transform: translate(0,2vmin);
+          position: absolute;
+          right:2.7vmin;
+           /* margin-top:1vh; */
+          width: 10vmin;
+
+        }
+
+        #topp0 div{
+          font-family: 'mono';
+          transform: translate(-2vmin,8vmin);
+          /* left:3vmin; */
+          font-size: 2.5vmin;
+        }
+
+        #topp1{
+          background-color: rgba(50, 150, 150, 0.6);
+          /* align-items: baseline; */
+          border: none;
+          border-radius: 9vmin;
+          width: 12vmin;
+          height:12vmin;
+
+
+        }
+
+        #topp1 div{
+          font-family: 'mono';
+          transform: translate(-2vmin,8vmin);
+          /* left:3vmin; */
+          font-size: 2.5vmin;
+        }
+
 
 
         .cell{
@@ -2373,7 +2448,7 @@
         .cell img{
           position: absolute;
           right:1.9vmin;
-          // margin-top:1vh;
+           /* margin-top:1vh; */
           width: 10vmin;
           /* height: 12vmin; */
 
@@ -3030,7 +3105,7 @@
     var paidlst=[true, true, false, false, false, false]
 
     var hero=[];
-
+    var ticket=3;
     let even=true;
     var stacktime;
     var pen=[];
@@ -3142,6 +3217,7 @@
 
     var ballidx=0;
     var ingame=false;
+    var 인게임=false;
 
     var sample=[];
     var sample2=[];
@@ -8322,7 +8398,14 @@
     var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
     function handleTouchStart(event) {
-        // if(document.getElementById("setting-overlay").classList.contains("hide")) return;
+
+      if(!인게임){
+
+        return;
+      }
+      if(document.getElementById("yesno").classList.contains("show")) return;
+
+        if(document.getElementById("setting-overlay").classList.contains("hide")) return;
         if(!터치) return
 
         console.log(propsmold.length);
@@ -9098,6 +9181,9 @@
     }
 
     function handleTouchEnd(event) {
+        if(!인게임){
+          return;
+        }
         if(restartflag) return;
         if (gameoverflag) return;
         if (document.getElementById("setting-overlay").classList.contains("show") || !document.getElementById("gameover-overlay").classList.contains("hidden") || document.getElementById("options-overlay").classList.contains("show") || document.getElementById("optionlst").classList.contains("show")) {
@@ -9752,7 +9838,10 @@
     });
 
     window.addEventListener('click', (event) => {
-
+      if(document.getElementById("yesno").classList.contains("show")) return;
+      if(!인게임){
+        return;
+      }
       if(document.getElementById("setting-overlay").classList.contains("show")) return;
       if(!터치) return
       // if(propsmold.length!=6) return;
@@ -10806,6 +10895,7 @@
         drop=0
         터치보호=0
         finaldrop=-10
+        document.getElementById('fps').innerText="🎫: "+String(ticket);
 
 
         scene.background = new THREE.Color(0x69DDFF);
@@ -14500,6 +14590,7 @@
     window.bhsl4=bhsl4
     window.nbhsl4=nbhsl4
     window.rotationend=rotationend
+    document.getElementById('fps').innerText="🎫: "+String(ticket);
     fetchCSV(csvUrl)
         .then(dictionaries => {
             var tlst=dictionaries;
@@ -14804,11 +14895,29 @@
           }
         }
 
+        if(!인게임&&skinchange){
+          if(parseInt(elapsedTime*2)%2==0){
+            document.getElementById("skill").style.opacity=0.7
+          }else{
+            document.getElementById("skill").style.opacity=0.9
+          }
+
+        }
+
 
 
 
         if (startflag&&!gameoverflag) { //스타트
 
+          if(ingame&&elapsedTime>0&&elapsedTime<10&&ticket>=3){
+            // var dur=parseInt((elapsedTime*25)%10);
+            document.getElementById("topp").style.display="flex"
+            document.getElementById("topp").style.opacity=0.6+0.4*Math.sin(elapsedTime*6);
+            document.getElementById("topp0").style.border=String(0.5+0.3*Math.sin(elapsedTime*6))+"vmax inset rgba(200, 150, 170, 1)"
+          }else{
+            document.getElementById("topp").style.display="none"
+            document.getElementById("topp").style.opacity="1";
+          }
           // axis[1].position.y=bh*15.5
           // axis[1].position.x=0.2
           // axis[1].position.z=-bw*1.6
@@ -17030,14 +17139,14 @@
                       sleepTimeLimit: 0
                     });
 
-                    var 뒤 = new CANNON.Box(new CANNON.Vec3(통/2.0, bh*26/2, bw*너비/2));
-                    var 앞 = new CANNON.Box(new CANNON.Vec3(통/2.0, bh*26/2, bw*너비/2));
+                    var 뒤 = new CANNON.Box(new CANNON.Vec3(통/2.0, bh*36/2, bw*너비/2));
+                    var 앞 = new CANNON.Box(new CANNON.Vec3(통/2.0, bh*36/2, bw*너비/2));
 
                     // var 뒤 = new CANNON.Plane();
                     // var 앞 = new CANNON.Plane();
 
-                    var 왼 = new CANNON.Box(new CANNON.Vec3(bw/2, bh*26/2, bw/2));
-                    var 오 = new CANNON.Box(new CANNON.Vec3(bw/2, bh*26/2, bw/2));
+                    var 왼 = new CANNON.Box(new CANNON.Vec3(bw/2, bh*36/2, bw/2));
+                    var 오 = new CANNON.Box(new CANNON.Vec3(bw/2, bh*36/2, bw/2));
                     // var 바 = new CANNON.Box(new CANNON.Vec3(bw/2, bw/2, bw*4.1/2));
 
                     compoundBody.addShape(뒤, new CANNON.Vec3(-통, 0, 0));
@@ -17581,7 +17690,7 @@
           });
 
           // document.getElementById('fps').innerText=String(parseInt(fsum/fpslst.length));
-          document.getElementById('fps').innerText="🎫: 0"
+          document.getElementById('fps').innerText="🎫: "+String(ticket)
 
 
           fpslst=[];
@@ -19813,21 +19922,35 @@
       }else if(n==1){
         터치보호=elapsedTime
         close(크레딧)
+      }else if(n==5){
+        터치보호=elapsedTime
+        document.getElementById("yesno").style.display="none"
+        document.getElementById("yesno").classList.remove("show");
+        spawn();
+        ticket-=3;
+        document.getElementById('fps').innerText="🎫: "+String(ticket);
+      }else if(n==6){
+        document.getElementById("yesno").style.display="none"
+        document.getElementById("yesno").classList.remove("show");
+        터치보호=elapsedTime
+
       }else if(n==8){
+        인게임=false;
         터치보호=elapsedTime
         if(document.getElementById("lang-back").classList.contains("show")) close(랭)
         if(document.getElementById("credit-info").classList.contains("show")) close(크레딧)
         close(세팅)
         document.getElementById("intro").style.top="0";
         document.getElementById("intro").style.opacity="1";
-        reflag=true
+        reflag=true;
         // 터치보호=elapsedTime
         close(게임오버)
         // startflag=false
         ingame=false
         터치=false
         setTimeout(function() {
-            elapsedTime=-10
+            elapsedTime=-9999
+            drop=1;
             retry();
 
 
@@ -19848,16 +19971,20 @@
 
           switch (skinnum0) {
             case 0:
-              document.getElementById("skin-middle0").children[1].innerText="Base"
+              document.getElementById("skin-middle0").children[1].innerText="Sailor"
+              document.getElementById("skin-middle0").children[2].innerText=""
               break;
             case 1:
               document.getElementById("skin-middle0").children[1].innerText="Captain"
+              document.getElementById("skin-middle0").children[2].innerText="고래 완성 시 해금"
               break;
             case 2:
               document.getElementById("skin-middle0").children[1].innerText="Plumber"
+              document.getElementById("skin-middle0").children[2].innerText="수박고래 완성 시 해금"
               break;
             case 3:
               document.getElementById("skin-middle0").children[1].innerText="Sheriff"
+              document.getElementById("skin-middle0").children[2].innerText="? 완성 시 해금"
               break;
             default:
               return;
@@ -21271,18 +21398,22 @@
           // document.getElementById("skill").classList.add("show1");
         },100);
 
-        switch (skinnum0) {
+        switch (skinnum) {
           case 0:
-            document.getElementById("skin-middle0").children[1].innerText="Base"
+            document.getElementById("skin-middle0").children[1].innerText="Sailor"
+            document.getElementById("skin-middle0").children[2].innerText=""
             break;
           case 1:
             document.getElementById("skin-middle0").children[1].innerText="Captain"
+            document.getElementById("skin-middle0").children[2].innerText="고래 완성 시 해금"
             break;
           case 2:
             document.getElementById("skin-middle0").children[1].innerText="Plumber"
+            document.getElementById("skin-middle0").children[2].innerText="수박고래 완성 시 해금"
             break;
           case 3:
             document.getElementById("skin-middle0").children[1].innerText="Sheriff"
+            document.getElementById("skin-middle0").children[2].innerText="? 완성 시 해금"
             break;
           default:
             return;
@@ -21362,16 +21493,20 @@
 
       switch (skinnum) {
         case 0:
-          document.getElementById("skin-middle0").children[1].innerText="Base"
+          document.getElementById("skin-middle0").children[1].innerText="Sailor"
+          document.getElementById("skin-middle0").children[2].innerText=""
           break;
         case 1:
           document.getElementById("skin-middle0").children[1].innerText="Captain"
+          document.getElementById("skin-middle0").children[2].innerText="고래 완성 시 해금"
           break;
         case 2:
           document.getElementById("skin-middle0").children[1].innerText="Plumber"
+          document.getElementById("skin-middle0").children[2].innerText="수박고래 완성 시 해금"
           break;
         case 3:
           document.getElementById("skin-middle0").children[1].innerText="Sheriff"
+          document.getElementById("skin-middle0").children[2].innerText="? 완성 시 해금"
           break;
         default:
           return;
@@ -21382,6 +21517,14 @@
     window.skinshift0=skinshift0;
 
     function play(){
+      document.getElementById("yesno").style.display="none"
+
+      if(skinnum0==0){
+        document.getElementById("top").style.display="none"
+      }else{
+        document.getElementById("top").style.display="flex"
+      }
+      인게임=true;
       skinchange=false;
       document.getElementById("hero").style.right="30vmin"
       document.getElementById("skill").style.opacity=0;
@@ -21395,16 +21538,20 @@
 
       switch (skinnum0) {
         case 0:
-          document.getElementById("skin-middle0").children[1].innerText="Base"
+          document.getElementById("skin-middle0").children[1].innerText="Sailor"
+          document.getElementById("skin-middle0").children[2].innerText=""
           break;
         case 1:
           document.getElementById("skin-middle0").children[1].innerText="Captain"
+          document.getElementById("skin-middle0").children[2].innerText="고래 완성 시 해금"
           break;
         case 2:
           document.getElementById("skin-middle0").children[1].innerText="Plumber"
+          document.getElementById("skin-middle0").children[2].innerText="수박고래 완성 시 해금"
           break;
         case 3:
           document.getElementById("skin-middle0").children[1].innerText="Sheriff"
+          document.getElementById("skin-middle0").children[2].innerText="? 완성 시 해금"
           break;
         default:
           return;
@@ -22872,6 +23019,7 @@
         <div id="skin-middle0">
             <img src="png/hero2.png" alt="Character 2" onclick="skinshift0(2)">
             <div>Captain</div>
+            <div id="lcond"></div>
         </div>
         <button id="skin-right0" onclick="skinshift0(1)"></button>
     </div>
@@ -22910,12 +23058,22 @@
 
 
 
+
+
 <div class="pgr-container">
     <div class="pgr">
         <div class="pgr-bar" style="width: 30%" id="pgr1"></div>
     </div>
     <span class="pgr-count" id="pgr2">3/10</span>
 </div>
+
+<button id="topp" class="top-container">
+    <div class="cell" id="topp0" onclick="showyes()">
+      <img class="" src="png/package.png">
+      <div>🎫X3</div>
+    </div>
+
+</button>
 
 <button id="top" class="top-container">
     <div class="cell" id="top0" onclick="pick(1)">
@@ -23159,6 +23317,19 @@
             <img src="png/font10.png" >
         </button>
 
+    </div>
+</div>
+
+<div id="yesno" class="hidden">
+    <b>단체 손님을 초대할까요? (비용: 🎫X3)</b>
+    <img id="yesnoimg" src="png/package.png">
+    <div class="yesno-container">
+        <button id="yestxt" onclick=exit0(5)>
+            예
+        </button>
+        <button id="notxt" onclick=exit0(6)>
+            아니오
+        </button>
     </div>
 </div>
 
