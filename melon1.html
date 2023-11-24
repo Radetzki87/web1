@@ -2491,15 +2491,15 @@
           /* align-items: baseline; */
           border: none;
           border-radius: 12vmin;
-          width: 13vmin;
-          height:13vmin;
+          width: 15vmin;
+          height:15vmin;
 
         }
 
         #topp0 img{
-          transform: translate(0,2vmin);
+          transform: translate(0,3vmin);
           position: absolute;
-          right:2.7vmin;
+          right:3vmin;
            /* margin-top:1vh; */
           width: 10vmin;
 
@@ -15091,7 +15091,7 @@
             ctx.fillStyle = "#4790d1"
             // ctx.fillRect(0, 1100, 1525, 3157);
 
-            ctx.fillStyle = "#1881c7"
+            ctx.fillStyle = "#18a1c7"
             // ctx.fillRect(0, 1110, 1525, 3157);
 
             ctx.lineWidth = 1;
@@ -15107,8 +15107,8 @@
             }
             ctx.lineTo(wavex, wavey);
             ctx.strokeStyle = "#4790d1";
-            ctx.fillStyle = "#1881d7"
-            ctx.stroke();
+            ctx.fillStyle = "#1899e7"
+            // ctx.stroke();
             ctx.fill();
 
 
@@ -15125,7 +15125,7 @@
             }
             ctx.lineTo(wavex, wavey);
             ctx.strokeStyle = "#4790d1";
-            ctx.fillStyle = "#1881d7"
+            ctx.fillStyle = "#1899d7"
             ctx.stroke();
             ctx.fill();
 
@@ -15146,7 +15146,7 @@
             ctx.lineTo(wavex, wavey);
 
             ctx.strokeStyle = "#57a0d1";
-            ctx.fillStyle = "#1571D7"
+            ctx.fillStyle = "#1581D7"
             ctx.stroke();
             ctx.fill();
 
@@ -15168,7 +15168,7 @@
             ctx.lineTo(wavex, wavey);
 
             ctx.strokeStyle = "#B7B0E1";
-            ctx.fillStyle = "#0541a7"
+            ctx.fillStyle = "#0551a7"
             ctx.stroke();
             // ctx.globalAlpha = 0.2;
             ctx.fill();
@@ -20139,51 +20139,56 @@
         }, 1000);
 
       }else if(n==9){
-        if(document.getElementById("table").style.display=="block"){
-          document.getElementById("table").style.display="none"
-        }else{
-          document.getElementById("table").style.display="block";
-        }
 
-
-        if(skinchange){
-
-
-          skinchange=false;
-          document.getElementById("hero").style.right="30vmin"
-          document.getElementById("skill").style.opacity=0;
-          document.getElementById("set0").style.opacity=0;
-
-          document.getElementById("skin-middle0").children[0].src="png/hero"+String(1+skinnum0)+".png"
-          document.getElementById("skill").src="png/card"+String(skinnum0)+".png"
-          document.getElementById("set0").classList.remove("lock");
-          document.getElementById("set0").classList.add("set");
-          document.getElementById("set0").innerText="선택됨"
-
-          switch (skinnum0) {
-            case 0:
-              document.getElementById("skin-middle0").children[1].innerText="Sailor"
-              document.getElementById("skin-middle0").children[2].innerText=""
-              break;
-            case 1:
-              document.getElementById("skin-middle0").children[1].innerText="Captain"
-              document.getElementById("skin-middle0").children[2].innerText="고래 완성 시 해금"
-              break;
-            case 2:
-              document.getElementById("skin-middle0").children[1].innerText="Plumber"
-              document.getElementById("skin-middle0").children[2].innerText="수박고래 완성 시 해금"
-              break;
-            case 3:
-              document.getElementById("skin-middle0").children[1].innerText="Sheriff"
-              document.getElementById("skin-middle0").children[2].innerText="? 완성 시 해금"
-              break;
-            default:
-              return;
+          if(document.getElementById("table").style.display=="block"){
+            document.getElementById("table").style.display="none"
+          }else{
+            document.getElementById("table").style.display="block";
           }
-          // document.getElementById("buy0").style.opacity=0;
 
+        if(!인게임){
+          if(skinchange){
+            skinchange=false;
+            document.getElementById("hero").style.right="30vmin"
+            document.getElementById("skill").style.opacity=0;
+            document.getElementById("set0").style.opacity=0;
+
+            document.getElementById("skin-middle0").children[0].src="png/hero"+String(1+skinnum0)+".png"
+            document.getElementById("skill").src="png/card"+String(skinnum0)+".png"
+            document.getElementById("set0").classList.remove("lock");
+            document.getElementById("set0").classList.add("set");
+            document.getElementById("set0").innerText="선택됨"
+
+            switch (skinnum0) {
+              case 0:
+                document.getElementById("skin-middle0").children[1].innerText="Sailor"
+                document.getElementById("skin-middle0").children[2].innerText=""
+                break;
+              case 1:
+                document.getElementById("skin-middle0").children[1].innerText="Captain"
+                document.getElementById("skin-middle0").children[2].innerText="고래 완성 시 해금"
+                break;
+              case 2:
+                document.getElementById("skin-middle0").children[1].innerText="Plumber"
+                document.getElementById("skin-middle0").children[2].innerText="수박고래 완성 시 해금"
+                break;
+              case 3:
+                document.getElementById("skin-middle0").children[1].innerText="Sheriff"
+                document.getElementById("skin-middle0").children[2].innerText="? 완성 시 해금"
+                break;
+              default:
+                return;
+            }
+            // document.getElementById("buy0").style.opacity=0;
+
+
+          }
 
         }
+
+
+
+
       }else{
         터치보호=elapsedTime
         if(document.getElementById("lang-back").classList.contains("show")) close(랭)
@@ -23374,24 +23379,28 @@
             <b class="glabel">language</b>
         </button>
 
-        <button  class="setting" onclick="loadp1()">
-            <img src="png/star.png" >
-            <b class="glabel">광고 제거</b>
-        </button>
 
-        <button class="setting" onclick="check()">
-            <img src="png/save.png" >
-            <b class="glabel">restore purchase</b>
-        </button>
+
+
 
         <button  class="setting" onclick="showcredit()">
             <img src="png/information.png" >
             <b class="glabel">CREDIT</b>
         </button>
 
-        <button class="setting" onclick="exit0(8)" id="exit">
+        <button  class="setting" onclick="exit0(9)">
+            <img src="png/leaderboardsComplex.png" >
+            <b class="glabel">점수 보기</b>
+        </button>
+
+        <button  class="setting" onclick="exit0()">
             <img src="png/cross.png" >
-            <b class="glabel">exit</b>
+            <b class="glabel">닫기</b>
+        </button>
+
+        <button class="setting" onclick="exit0(8)" id="exit">
+            <img src="png/exit.png" >
+            <b class="glabel">메인 화면</b>
         </button>
 
         <button class="setting" onclick="retry()" id="re">
