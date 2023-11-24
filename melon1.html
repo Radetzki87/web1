@@ -11063,7 +11063,7 @@
                       // const dL=new THREE.DirectionalLight(0xffffff,0.7);
                       // dL.position.set(13,30,18);
                       // scene.add(dL);
-                      var dl2 = new THREE.DirectionalLight(0xFFFFFF, 0.9);
+                      var dl2 = new THREE.DirectionalLight(0xFFFFFF, 0.7);
                       dl2.position.set(50, 100, 40);
 
                       // dl2.position.set(10, 50, 40);
@@ -15176,41 +15176,41 @@
 
 
 
-            // var posy=[];
-            // // var dur=parseInt(elapsedTime*25)%pshift.length
-            //
-            //
-            // posy.push(wavey-elapsedTime*25-100)
-            // posy.push(wavey-elapsedTime*20-100)
-            // posy.push(wavey-elapsedTime*15-150)
-            // posy.push(wavey-elapsedTime*10-110)
-            // posy.push(wavey-elapsedTime*10-250)
-            // posy.push(wavey-elapsedTime*15-100)
-            // posy.push(wavey-elapsedTime*15-200)
-            //
-            //
-            // for (var i = 0; i < posy.length; i++) {
-            //   if(posy[i]<wave.y){
-            //     posy[i]+=(1+parseInt((wave.y-posy[i])/wave.y))*(wave.y)
-            //   }
-            //
-            // }
-            //
-            // // console.log(posy[0])
-            //
-            //
-            // ctx.globalAlpha = 0.5;
-            //
-            // ctx.drawImage(unitimg["bubble1"], wavex/2+3*Math.sin(elapsedTime*2),posy[0], wavex/40, wavex/40);
-            // ctx.drawImage(unitimg["bubble2"], wavex/3+3*Math.sin(elapsedTime*2),posy[1], wavex/45, wavex/45);
-            // ctx.drawImage(unitimg["bubble3"], wavex/5+3*Math.sin(elapsedTime*2),posy[2], wavex/50, wavex/50);
-            // ctx.drawImage(unitimg["bubble1"], -10+wavex+3*Math.sin(elapsedTime*2),posy[3], wavex/55, wavex/55);
-            // ctx.drawImage(unitimg["bubble2"], -100+wavex+3*Math.sin(elapsedTime*2),posy[4], wavex/55, wavex/55);
-            // ctx.drawImage(unitimg["bubble3"], -200+wavex+3*Math.sin(elapsedTime*2),posy[5], wavex/50, wavex/50);
-            // ctx.drawImage(unitimg["bubble1"], -150+wavex+3*Math.sin(elapsedTime*2),posy[6], wavex/50, wavex/50);
-            // ctx.globalAlpha = 1;
-            //
-            //
+            var posy=[];
+            // var dur=parseInt(elapsedTime*25)%pshift.length
+
+
+            posy.push(wavey-elapsedTime*25-100)
+            posy.push(wavey-elapsedTime*20-100)
+            posy.push(wavey-elapsedTime*15-150)
+            posy.push(wavey-elapsedTime*10-110)
+            posy.push(wavey-elapsedTime*10-250)
+            posy.push(wavey-elapsedTime*15-100)
+            posy.push(wavey-elapsedTime*15-200)
+
+
+            for (var i = 0; i < posy.length; i++) {
+              if(posy[i]<wave.y){
+                posy[i]+=(1+parseInt((wave.y-posy[i])/wave.y))*(wave.y)
+              }
+
+            }
+
+            // console.log(posy[0])
+
+
+            ctx.globalAlpha = 0.5;
+
+            ctx.drawImage(unitimg["bubble1"], wavex/2+3*Math.sin(elapsedTime*2),posy[0], wavex/40, wavex/40);
+            ctx.drawImage(unitimg["bubble2"], wavex/3+3*Math.sin(elapsedTime*2),posy[1], wavex/45, wavex/45);
+            ctx.drawImage(unitimg["bubble3"], wavex/5+3*Math.sin(elapsedTime*2),posy[2], wavex/50, wavex/50);
+            ctx.drawImage(unitimg["bubble1"], -10+wavex+3*Math.sin(elapsedTime*2),posy[3], wavex/55, wavex/55);
+            ctx.drawImage(unitimg["bubble2"], -100+wavex+3*Math.sin(elapsedTime*2),posy[4], wavex/55, wavex/55);
+            ctx.drawImage(unitimg["bubble3"], -200+wavex+3*Math.sin(elapsedTime*2),posy[5], wavex/50, wavex/50);
+            ctx.drawImage(unitimg["bubble1"], -150+wavex+3*Math.sin(elapsedTime*2),posy[6], wavex/50, wavex/50);
+            ctx.globalAlpha = 1;
+
+
             increment += wave.frequency;
             // var dur2=parseInt(elapsedTime*10)%pshift.length
             // 배경[1].position.z=-0.25+0.5*Math.sin(elapsedTime/2)
@@ -20112,6 +20112,12 @@
 
       }else if(n==8){
         인게임=false;
+        var sdickeys = Object.keys(soundic);
+
+        sdickeys.forEach((item) => {
+          soundic[item]?.stop();
+        });
+
         터치보호=elapsedTime
         if(document.getElementById("lang-back").classList.contains("show")) close(랭)
         if(document.getElementById("credit-info").classList.contains("show")) close(크레딧)
@@ -20193,6 +20199,7 @@
     window.exit0=exit0
 
     function retry(n=0,ch="",st="") {
+
       reflag=true
       터치보호=elapsedTime
       close(세팅)
