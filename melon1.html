@@ -2505,8 +2505,9 @@
           transform: translate(0,3vmin);
           position: absolute;
           right:3vmin;
+          height: 4vh;
            /* margin-top:1vh; */
-          width: 10vmin;
+          /* width: 10vmin; */
 
         }
 
@@ -2555,7 +2556,7 @@
           position: absolute;
           right:1.9vmin;
            /* margin-top:1vh; */
-          width: 10vmin;
+          height: 6vh;
           /* height: 12vmin; */
 
         }
@@ -2786,7 +2787,7 @@
             position: absolute;
             background-color: transparent;
             border-radius: 3vmin;
-            border:0.8vmin outset rgba(50, 50, 50, 1);
+            border:0.6vmin outset rgba(50, 50, 50, 1);
             /* background-image: url("png/green_button09.png"); */
             /* background-size: 6vmax 4vmax; */
             /* top: 17.5vh; */
@@ -2797,7 +2798,7 @@
             z-index: 1;
             transition: right 0.4s;
             text-align: center;
-            opacity:1;
+            opacity:0.6;
             font-family: 'GG';
             align-items: center;
             font-size: 5vmin;
@@ -3215,7 +3216,7 @@
     var paidlst=[true, true, true, true, false, false]
 
     var 옵셋=5;
-    var 템크기="12vmin"
+    var 템크기="6vh"
 
     var dirt=[];
     var 더트=[];
@@ -3224,6 +3225,8 @@
     var ticket=30;
     let even=true;
     var stacktime;
+
+    var itemset=[];
     var pen=[];
     var pen2=[]
     var dropflag=false;
@@ -3602,7 +3605,7 @@
     // var bh = 5 / 1.3
     var bh = 6/ 1
 
-    var 캠크기=2.3
+    var 캠크기=2.2
 
     var 높이1=5
     var 높이0=2;
@@ -8833,10 +8836,10 @@
 
         if (intersects.length > 0) {
           intersects.forEach((item, i) => {
-            if(item.object.userData.wood==1){
+            if(item.object.userData.rank!=null){
               cat.push(item.object);
-              console.log(item.object.userData.body.quaternion)
-              console.log(item.object.rotation)
+              console.log(item.object.userData.body)
+              // console.log(item.object.rotation)
 
               if(cat.length==1) return;
 
@@ -9077,56 +9080,109 @@
           }
 
           if(cat.length>=1){
+            if(skinnum0==1){
+              if(pung){
+                if(cat[0].userData["rank"]==1){
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("pung가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else if(ice){
+                if(cat[0].userData["rank"]==5){
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("i가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else if(pin){
+                if(cat[0].userData["rank"]==7){
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("pin가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else if(bridge){
+                if(cat[0].userData["rank"]==12){
 
-            if(pung){
-              if(cat[0].userData["rank"]==1){
-                itemtouch=true
-                itempointer=cat[0]
-                itemuse=true;
-                console.log("pung가능")
-                return;
+
+                  itemtouch=true
+
+
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("bridge가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
               }else{
+                itempointer=null;
+                itemuse=false;
                 itemtouch=false
               }
-            }else if(ice){
-              if(cat[0].userData["rank"]==5){
-                itemtouch=true
-                itempointer=cat[0]
-                itemuse=true;
-                console.log("i가능")
-                return;
+            }else if(skinnum0==2){
+              if(pung){
+                if(cat[0].userData["rank"]==1||cat[0].userData["rank"]==5||cat[0].userData["rank"]==7){
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("pung가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else if(ice){
+                if(cat[0].userData["rank"]>=0&&cat[0].userData["rank"]<9){
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("i가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else if(pin){
+                if(cat[0].userData["rank"]==7){
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("pin가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else if(bridge){
+                if(cat[0].userData["rank"]==12){
+
+
+                  itemtouch=true
+
+
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("bridge가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
               }else{
+                itempointer=null;
+                itemuse=false;
                 itemtouch=false
               }
-            }else if(pin){
-              if(cat[0].userData["rank"]==7){
-                itemtouch=true
-                itempointer=cat[0]
-                itemuse=true;
-                console.log("pin가능")
-                return;
-              }else{
-                itemtouch=false
-              }
-            }else if(bridge){
-              if(cat[0].userData["rank"]==12){
 
-
-                itemtouch=true
-
-
-                itempointer=cat[0]
-                itemuse=true;
-                console.log("bridge가능")
-                return;
-              }else{
-                itemtouch=false
-              }
-            }else{
-              itempointer=null;
-              itemuse=false;
-              itemtouch=false
             }
+
 
 
 
@@ -9401,39 +9457,67 @@
             // }
             if(itemuse){
                 if(pung){
-                  console.log("펑 사용")
-                  itemdrag=false
-                  itemtouch=false;
-                  itemflag=false;
+                  if(skinnum0==2){
 
-                  pung=false;
-                  ice=false
-                  pin=false
+                    var force = new CANNON.Vec3();
+                    force.set(0, 800000, 0);
 
-                  itemuse=false;
+                    var quaternion = new CANNON.Quaternion();
+                    quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), itempointer.rotation.x+Math.PI/2);
+                    var rotatedVec = force.clone();
+                    // rotatedVec.applyQuaternion(quaternion);
+                    rotatedVec=quaternion.vmult(force);
+
+                      // var a=cubes[this.index].body.position
+                      // cubes[activeFloor].body.applyForce(force, cubes[activeFloor].body.position.clone().vadd(offset));
+                    itempointer.userData.body.applyForce(rotatedVec, itempointer.userData.body.position);
+                    console.log("힘")
+                    itemdrag=false
+                    itemtouch=false;
+                    itemflag=false;
+
+                    pung=false;
+                    ice=false
+                    pin=false
+
+                    itemuse=false;
+
+                  }else if(skinnum0==1){
+                    console.log("펑 사용")
+                    itemdrag=false
+                    itemtouch=false;
+                    itemflag=false;
+
+                    pung=false;
+                    ice=false
+                    pin=false
+
+                    itemuse=false;
 
 
-                  console.log(itempointer)
-                  var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
-                  // 점수+=(itempointer.rank+1)*10
-                  // console.log(점수)
-                  newo.position.copy(itempointer.position)
+                    console.log(itempointer)
+                    var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
+                    // 점수+=(itempointer.rank+1)*10
+                    // console.log(점수)
+                    newo.position.copy(itempointer.position)
 
-                  newo.userData.body.position.copy(newo.position);
-                  scene.remove(itempointer);
+                    newo.userData.body.position.copy(newo.position);
+                    scene.remove(itempointer);
 
 
-                  itempointer.userData.alive=false
+                    itempointer.userData.alive=false
 
-                  world.remove(itempointer.userData.body)
-                  newo.userData.body.position.copy(newo.position);
-                  world.addBody(newo.userData.body);
-                  과일.push(newo)
+                    world.remove(itempointer.userData.body)
+                    newo.userData.body.position.copy(newo.position);
+                    world.addBody(newo.userData.body);
+                    과일.push(newo)
 
-                  // setTimeout(function() {
-                  //
-                  // }, 0);
-                  scene.add(newo);
+                    // setTimeout(function() {
+                    //
+                    // }, 0);
+                    scene.add(newo);
+                  }
+
 
                   if(뻥==0){
                     document.getElementById('top0').style.backgroundColor="rgba(150, 100, 100, 0.9)"
@@ -9442,7 +9526,7 @@
                   }
 
 
-                  document.getElementById('top0').children[0].style.width="10vmin"
+                  document.getElementById('top0').children[0].style.height=템크기
 
 
 
@@ -9450,40 +9534,57 @@
 
 
                 }else if(ice){
-                  console.log("ice 사용")
-                  itemdrag=false
-                  itemtouch=false;
-                  itemflag=false;
+                  if(skinnum0==2){
+                    itempointer.userData.body.position.y=bh*18;
 
-                  pung=false;
-                  ice=false
-                  pin=false
+                    itemdrag=false
+                    itemtouch=false;
+                    itemflag=false;
 
-                  itemuse=false;
+                    pung=false;
+                    ice=false
+                    pin=false
 
-                  console.log(itempointer)
-                  var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
-                  // 점수+=(itempointer.rank+1)*10
-                  // console.log(점수)
-                  newo.position.copy(itempointer.position)
+                    itemuse=false;
 
-                  newo.userData.body.position.copy(newo.position);
-                  scene.remove(itempointer);
+                  }else if(skinnum0==1){
+                    console.log("ice 사용")
+                    itemdrag=false
+                    itemtouch=false;
+                    itemflag=false;
+
+                    pung=false;
+                    ice=false
+                    pin=false
+
+                    itemuse=false;
+
+                    console.log(itempointer)
+                    var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
+                    // 점수+=(itempointer.rank+1)*10
+                    // console.log(점수)
+                    newo.position.copy(itempointer.position)
+
+                    newo.userData.body.position.copy(newo.position);
+                    scene.remove(itempointer);
 
 
-                  itempointer.userData.alive=false
+                    itempointer.userData.alive=false
 
-                  world.remove(itempointer.userData.body)
-                  newo.userData.body.position.copy(newo.position);
-                  world.addBody(newo.userData.body);
-                  과일.push(newo)
+                    world.remove(itempointer.userData.body)
+                    newo.userData.body.position.copy(newo.position);
+                    world.addBody(newo.userData.body);
+                    과일.push(newo)
 
-                  // setTimeout(function() {
-                  //
-                  // }, 0);
-                  scene.add(newo);
+                    // setTimeout(function() {
+                    //
+                    // }, 0);
+                    scene.add(newo);
+                  }
 
-                  document.getElementById('top1').children[0].style.width="10vmin"
+
+
+                  document.getElementById('top1').children[0].style.height=템크기
 
 
                   if(얼음==0){
@@ -9532,7 +9633,7 @@
                   }
 
 
-                  document.getElementById('top2').children[0].style.width="10vmin"
+                  document.getElementById('top2').children[0].style.height=템크기
 
                 }else if(bridge){
 
@@ -9581,7 +9682,7 @@
 
                   console.log(itempointer)
 
-                  document.getElementById('top3').children[0].style.width="10vmin"
+                  document.getElementById('top3').children[0].style.height=템크기
 
 
 
@@ -9701,7 +9802,7 @@
                 //
                 // }, 0);
                 scene.add(newo);
-                document.getElementById('top0').children[0].style.width="10vmin"
+                document.getElementById('top0').children[0].style.height=템크기
                 document.getElementById('top0').children[1].innerText=String(뻥)
 
 
@@ -9755,7 +9856,7 @@
                 // }, 0);
                 scene.add(newo);
 
-                document.getElementById('top1').children[0].style.width="10vmin"
+                document.getElementById('top1').children[0].style.height=템크기
 
                 document.getElementById('top1').children[1].innerText=String(얼음)
 
@@ -9809,7 +9910,7 @@
                 // }, 0);
                 scene.add(newo);
 
-                document.getElementById('top2').children[0].style.width="10vmin"
+                document.getElementById('top2').children[0].style.height=템크기
 
                 document.getElementById('top2').children[1].innerText=String(핀)
 
@@ -9872,7 +9973,7 @@
                 bridge=false
                 itemuse=false;
 
-                document.getElementById('top3').children[0].style.width="10vmin"
+                document.getElementById('top3').children[0].style.height=템크기
 
                 document.getElementById('top3').children[1].innerText=String(다리)
 
@@ -9952,10 +10053,10 @@
               document.getElementById('top3').style.backgroundColor="rgba(150, 150, 150, 0.3)"
             }
 
-            document.getElementById('top0').children[0].style.width="10vmin"
-            document.getElementById('top1').children[0].style.width="10vmin"
-            document.getElementById('top2').children[0].style.width="10vmin"
-            document.getElementById('top3').children[0].style.width="10vmin"
+            document.getElementById('top0').children[0].style.height=템크기
+            document.getElementById('top1').children[0].style.height=템크기
+            document.getElementById('top2').children[0].style.height=템크기
+            document.getElementById('top3').children[0].style.height=템크기
 
             return;
           }
@@ -10226,7 +10327,7 @@
                 //
                 // }, 0);
                 scene.add(newo);
-                document.getElementById('top0').children[0].style.width="10vmin"
+                document.getElementById('top0').children[0].style.height=템크기
 
                 document.getElementById('top0').children[1].innerText=String(뻥)
 
@@ -10288,7 +10389,7 @@
                 // }, 0);
                 scene.add(newo);
 
-                document.getElementById('top1').children[0].style.width="10vmin"
+                document.getElementById('top1').children[0].style.height=템크기
 
 
                 document.getElementById('top1').children[1].innerText=String(얼음)
@@ -10352,7 +10453,7 @@
                 // }, 0);
                 scene.add(newo);
 
-                document.getElementById('top2').children[0].style.width="10vmin"
+                document.getElementById('top2').children[0].style.height=템크기
 
                 document.getElementById('top2').children[1].innerText=String(핀)
 
@@ -10413,7 +10514,7 @@
                 bridge=false
                 itemuse=false;
 
-                document.getElementById('top3').children[0].style.width="10vmin"
+                document.getElementById('top3').children[0].style.height=템크기
 
 
                 document.getElementById('top3').children[1].innerText=String(다리)
@@ -10502,10 +10603,10 @@
               document.getElementById('top3').style.backgroundColor="rgba(150, 150, 150, 0.3)"
             }
 
-            document.getElementById('top0').children[0].style.width="10vmin"
-            document.getElementById('top1').children[0].style.width="10vmin"
-            document.getElementById('top2').children[0].style.width="10vmin"
-            document.getElementById('top3').children[0].style.width="10vmin"
+            document.getElementById('top0').children[0].style.height=템크기
+            document.getElementById('top1').children[0].style.height=템크기
+            document.getElementById('top2').children[0].style.height=템크기
+            document.getElementById('top3').children[0].style.height=템크기
 
             return;
           }
@@ -12849,185 +12950,127 @@
             });
         });
 
-
-
-
-
-
         var loader = new OBJLoader();
-        loader.load(ur2+'step.obj', (object) => {
-            // object.children[0].rotation.y = Math.PI / 2
-            object.children[0].position.set(0, 0, 0)
-            object.children[0].scale.x = 1.25*2.57 / 2;
-            object.children[0].scale.z = 1.25*2.57 / 2;
-            object.children[0].scale.y = 1.25*2.57 / 2;
+        var mtlLoader = new MTLLoader();
+        mtlLoader.load(ur2+'src/pung-0.mtl', function(materials) {
+            materials.preload();
+            loader.setMaterials(materials);
+            loader.load(ur2+'src/pung-0.obj', (object) => {
+              // object.children[0].rotation.y = Math.PI / 2
+              object.children[0].position.set(0,0,0)
+              object.children[0].scale.x = 1
+              object.children[0].scale.z = 1
+              object.children[0].scale.y = 1
 
-            object.children[0].position.z=0.2
+              object.children[0].rotation.x = Math.PI
 
-            // object.children[0].scale.x=2.25;
-            // object.children[0].scale.z=2.25;
-            // object.children[0].scale.y=1.92;
-            var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
-            var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] ) + '%, ' + String(newcl["l"] ) + '%)');
-            object.children[0].material = new THREE.MeshLambertMaterial({
-                color: tc
-            });
+              // object.children[0].position.z=0.2
 
-
-            stepmold.push(object.children[0]);
-
-            //망치
-            var loader1 = new OBJLoader();
-            loader1.load(ur2+'pung-0.obj', (object) => {
-                // object.children[0].rotation.y = Math.PI / 2
-                object.children[0].position.set(0, 0, 0)
-                object.children[0].scale.x = 1*0.7*3.57 / 2;
-                object.children[0].scale.z = 1*0.7*3.57 / 2;
-                object.children[0].scale.y = 1*0.9*3.57 / 2;
-
-
-
-                // object.children[0].scale.x=2.25;
-                // object.children[0].scale.z=2.25;
-                // object.children[0].scale.y=1.92;
-
-                var tc = new THREE.Color(0xB9800F);
-                object.children[0].material = new THREE.MeshLambertMaterial({
-                    color: tc
-                });
-                object.children[0].userData["game2048"] = "p";
-
-
-                stepmold.push(object.children[0]);
-                var loader2 = new OBJLoader();
-                loader2.load(ur2+'pung-1.obj', (object) => {
+              // object.children[0].scale.x=2.25;
+              // object.children[0].scale.z=2.25;
+              // object.children[0].scale.y=1.92;
+              object.children[0].receiveShadow = true;
+              object.children[0].castShadow = true;
+              itemset.push(object.children[0])
+              var loader = new OBJLoader();
+              var mtlLoader = new MTLLoader();
+              mtlLoader.load(ur2+'src/pung-1.mtl', function(materials) {
+                  materials.preload();
+                  loader.setMaterials(materials);
+                  loader.load(ur2+'src/pung-1.obj', (object) => {
                     // object.children[0].rotation.y = Math.PI / 2
-                    object.children[0].position.set(0, 0, 0)
-                    object.children[0].scale.x = 1*0.7*3.57 / 2;
-                    object.children[0].scale.z = 1*0.7*3.57 / 2;
-                    object.children[0].scale.y = 1*0.9*3.57 / 2;
+                    object.children[0].position.set(0,0,0)
+                    object.children[0].scale.x = 1
+                    object.children[0].scale.z = 1
+                    object.children[0].scale.y = 1
 
+                    object.children[0].rotation.x = Math.PI
 
+                    // object.children[0].position.z=0.2
 
                     // object.children[0].scale.x=2.25;
                     // object.children[0].scale.z=2.25;
                     // object.children[0].scale.y=1.92;
-                    var tc = new THREE.Color(0xFB5240);
-                    object.children[0].material = new THREE.MeshLambertMaterial({
-                        color: tc
-                    });
-                    object.children[0].userData["game2048"] = "p";
+                    object.children[0].receiveShadow = true;
+                    object.children[0].castShadow = true;
+                    itemset.push(object.children[0])
+                    var loader = new OBJLoader();
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load(ur2+'src/hammer-0.mtl', function(materials) {
+                        materials.preload();
+                        loader.setMaterials(materials);
+                        loader.load(ur2+'src/hammer-0.obj', (object) => {
+                          // object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0,0,0)
+                          object.children[0].scale.x = 1
+                          object.children[0].scale.z = 1
+                          object.children[0].scale.y = 1
 
+                          object.children[0].rotation.x = Math.PI
 
-                    stepmold[1].add(object.children[0])
+                          // object.children[0].position.z=0.2
 
-
-                    var loader3 = new OBJLoader();
-                    loader3.load(ur2+'hammer-0.obj', (object) => {
-                        // object.children[0].rotation.y = Math.PI / 2
-                        object.children[0].position.set(0, 0, 0)
-                        object.children[0].scale.x = 1.3*0.8*3.57 / 2;
-                        object.children[0].scale.z = 1.3*0.8*3.57 / 2;
-                        object.children[0].scale.y = 1.3*0.8*3.57 / 2;
-
-
-
-                        // object.children[0].scale.x=2.25;
-                        // object.children[0].scale.z=2.25;
-                        // object.children[0].scale.y=1.92;
-
-                        var tc = new THREE.Color(0xBA7433);
-                        object.children[0].material = new THREE.MeshLambertMaterial({
-                            color: tc
-                        });
-                        object.children[0].userData["game2048"] = "h";
-
-                        stepmold.push(object.children[0]);
-                        var loader4 = new OBJLoader();
-                        loader4.load(ur2+'hammer-1.obj', (object) => {
-                            // object.children[0].rotation.y = Math.PI / 2
-                            object.children[0].position.set(0, 0, 0)
-                            object.children[0].scale.x = 1.3*0.8*3.57 / 2;
-                            object.children[0].scale.z = 1.3*0.8*3.57 / 2;
-                            object.children[0].scale.y = 1.3*0.8*3.57 / 2;
-
-
-
-                            // object.children[0].scale.x=2.25;
-                            // object.children[0].scale.z=2.25;
-                            // object.children[0].scale.y=1.92;
-
-                            var tc = new THREE.Color(0x6A6A6A);
-                            object.children[0].material = new THREE.MeshLambertMaterial({
-                                color: tc
-                            });
-                            object.children[0].userData["game2048"] = "h";
-
-
-                            stepmold[2].add(object.children[0])
-
-                            stepmold.push(stepmold[1].clone())
-                            stepmold.push(stepmold[2].clone())
-
-                            var geometry1 = new THREE.BoxGeometry(bh/1.3, bh/1.3, bh/1.3);
-                            var material1 = new THREE.MeshLambertMaterial({
-                                color: new THREE.Color(0xD7F3F9)
-                            });
-                            let mesh = new THREE.Mesh(geometry1, material1);
-                            stepmold.push(mesh)
-
-                            var loader5 = new OBJLoader();
-                            loader5.load(ur2+'pin.obj', (object) => {
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                          itemset.push(object.children[0])
+                          var loader = new OBJLoader();
+                          var mtlLoader = new MTLLoader();
+                          mtlLoader.load(ur2+'src/hammer-1.mtl', function(materials) {
+                              materials.preload();
+                              loader.setMaterials(materials);
+                              loader.load(ur2+'src/hammer-1.obj', (object) => {
                                 // object.children[0].rotation.y = Math.PI / 2
-                                object.children[0].position.set(0, 0, 0)
-                                object.children[0].scale.x = 1.5*3.57 / 2;
-                                object.children[0].scale.z = 1.5*3.57 / 2;
-                                object.children[0].scale.y = 1.5*3.57 / 2;
+                                object.children[0].position.set(0,0,0)
+                                object.children[0].scale.x = 1
+                                object.children[0].scale.z = 1
+                                object.children[0].scale.y = 1
 
+                                object.children[0].rotation.x = Math.PI
+
+                                // object.children[0].position.z=0.2
 
                                 // object.children[0].scale.x=2.25;
                                 // object.children[0].scale.z=2.25;
                                 // object.children[0].scale.y=1.92;
+                                object.children[0].receiveShadow = true;
+                                object.children[0].castShadow = true;
+                                itemset.push(object.children[0])
+                                var loader = new OBJLoader();
+                                var mtlLoader = new MTLLoader();
+                                mtlLoader.load(ur2+'src/bridge.mtl', function(materials) {
+                                    materials.preload();
+                                    loader.setMaterials(materials);
+                                    loader.load(ur2+'src/bridge.obj', (object) => {
+                                      // object.children[0].rotation.y = Math.PI / 2
+                                      object.children[0].position.set(0,0,0)
+                                      object.children[0].scale.x = 1
+                                      object.children[0].scale.z = 1
+                                      object.children[0].scale.y = 1
 
-                                var tc = new THREE.Color(0xBA7433);
-                                object.children[0].material = new THREE.MeshLambertMaterial({
-                                    color: tc
-                                });
-                                object.children[0].userData["game2048"] = "h";
+                                      object.children[0].rotation.x = Math.PI
 
-                                stepmold.push(object.children[0]);
+                                      // object.children[0].position.z=0.2
 
-                                var loader6 = new OBJLoader();
-                                loader6.load(ur2+'bridge.obj', (object) => {
-                                    // object.children[0].rotation.y = Math.PI / 2
-                                    object.children[0].position.set(0, 0, 0)
-                                    object.children[0].scale.x = 0.8*3.57 / 2;
-                                    object.children[0].scale.z = 0.8*3.57 / 2;
-                                    object.children[0].scale.y = 0.8*3.57 / 2;
-
-
-                                    // object.children[0].scale.x=2.25;
-                                    // object.children[0].scale.z=2.25;
-                                    // object.children[0].scale.y=1.92;
-
-                                    var tc = new THREE.Color(0xBA7433);
-                                    object.children[0].material = new THREE.MeshLambertMaterial({
-                                        color: tc
+                                      // object.children[0].scale.x=2.25;
+                                      // object.children[0].scale.z=2.25;
+                                      // object.children[0].scale.y=1.92;
+                                      object.children[0].receiveShadow = true;
+                                      object.children[0].castShadow = true;
+                                      itemset.push(object.children[0])
                                     });
-                                    object.children[0].userData["game2048"] = "h";
-
-                                    // stepmold.push(object.children[0]);
-
-                                    stepmold.push(legmold[0]);
-
-
-                                })
-                            })
+                                });
+                              });
+                          });
                         });
                     });
-                });
+                  });
+              });
             });
         });
+
 
 
 
@@ -16729,6 +16772,10 @@
                   scene.add(itemmold[1]);
                   scene.add(itemmold[2]);
                   scene.add(itemmold[3]);
+                  scene.add(itemmold[4]);
+                  scene.add(itemmold[5]);
+                  scene.add(itemmold[6]);
+                  scene.add(itemmold[7]);
 
                   scene.add(더트[0]);
 
@@ -16895,6 +16942,24 @@
                     itemmold.push(bear[4].clone());
                     itemmold.push(wall[4].clone());
 
+                    var geometry1 = new THREE.BoxGeometry(1, 통, 1);
+                    var material1 = new THREE.MeshLambertMaterial({
+                        transparent:true,
+                        opacity:0,
+                        color: 0xFFFFFF
+                    });
+
+                    var mesh=new THREE.Mesh(geometry1, material1);
+                    mesh.add(itemset[0].clone())
+                    mesh.add(itemset[1].clone())
+                    itemmold.push(mesh);
+
+
+                    itemmold.push(itemset[4].clone());
+                    itemmold.push(itemset[2].clone());
+                    itemmold[6].add(itemset[3].clone())
+                    itemmold.push(itemset[4].clone());
+
                     itemmold[0].rotation.z=-Math.PI/2
                     itemmold[0].rotation.y=Math.PI/2
                     itemmold[1].rotation.z=-Math.PI/2
@@ -16906,10 +16971,28 @@
                     itemmold[3].rotation.z=Math.PI/2
                     itemmold[3].rotation.y=Math.PI
 
+                    itemmold[6].rotation.y=Math.PI/2
+
+
+                    itemmold[4].scale.set(2,2,2)
+
+
+
+
+
+
                     scene.add(itemmold[0]);
                     scene.add(itemmold[1]);
                     scene.add(itemmold[2]);
                     scene.add(itemmold[3]);
+
+
+
+
+                    scene.add(itemmold[4]);
+                    scene.add(itemmold[5]);
+                    scene.add(itemmold[6]);
+                    scene.add(itemmold[7]);
 
 
 
@@ -17816,7 +17899,7 @@
         if(itemflag){
           var dur0=parseInt(elapsedTime*20)%36
           var dur=parseInt(elapsedTime*35)%pshift.length
-          var isize=12+5*(pshift[dur]-1)
+          var isize=6+5*(pshift[dur]-1)
           if(pung){
             document.getElementById('top0').style.backgroundColor="rgba(150, 150, 200, 0.6)"
           }else if(ice){
@@ -17829,173 +17912,322 @@
 
 
 
+          if(skinnum0==1){
+            if(itemdrag){
+              if(pung){
+                itemmold[0].material.visible=true
+                // itemmold[0].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+
+                itemmold[0].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[1].position.x=-bh*3;
+                itemmold[2].position.x=-bh*3;
+
+                if(itemtouch){
+                  itemmold[0].scale.x=(4+(pshift[dur]-1)*4.6)
+                  itemmold[0].scale.y=(4+(pshift[dur]-1)*4.6)
+                }
+
+              }else if(ice){
+                itemmold[1].material.visible=true
+                // itemmold[1].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+                itemmold[1].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[0].position.x=-bh*3;
+                itemmold[2].position.x=-bh*3;
+
+                if(itemtouch){
+                  itemmold[1].scale.x=(4+(pshift[dur]-1)*4.6)
+                  itemmold[1].scale.y=(4+(pshift[dur]-1)*4.6)
+                }
+              }else if(pin){
+                itemmold[2].material.visible=true
+                // itemmold[2].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+                itemmold[2].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[0].position.x=-bh*3;
+                itemmold[1].position.x=-bh*3;
+                itemmold[3].position.x=-bh*3;
+                if(itemtouch){
+                  itemmold[2].scale.x=(4+(pshift[dur]-1)*4.6)
+                  itemmold[2].scale.y=(4+(pshift[dur]-1)*4.6)
+                }
+              }else if(bridge){
+                itemmold[3].material.visible=true
+                // itemmold[3].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+                itemmold[3].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[0].position.x=-bh*3;
+                itemmold[1].position.x=-bh*3;
+                itemmold[2].position.x=-bh*3;
+                if(itemtouch){
+                itemmold[3].scale.x=(4+(pshift[dur]-1)*4.6)
+                itemmold[3].scale.z=(4+(pshift[dur]-1)*4.6)
+                }
+              }
+            }else{
+              itemmold[0].scale.x=4
+              itemmold[0].scale.y=4
+              itemmold[1].scale.x=4
+              itemmold[1].scale.y=4
+              itemmold[2].scale.x=4
+              itemmold[2].scale.y=4
+              itemmold[3].scale.x=4
+              itemmold[3].scale.z=4
+            }
 
 
+            if(itemtouch){
+              if(pung){
+                pen[5].material.visible=true
+                document.getElementById('top0').children[0].style.height=String(isize)+"vh"
+                itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
+                itempointer.children[1].position.z=2*(pshift[dur]-1);
+                itempointer.children[2].position.y=0.8
+                itempointer.children[3].material.visible=true;
 
-          if(itemdrag){
-            if(pung){
-              itemmold[0].material.visible=true
-              // itemmold[0].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+              }else if(ice){
+                document.getElementById('top1').children[0].style.height=String(isize)+"vh"
+                seal[8].material.visible=true
 
-              itemmold[0].position.set(bh*0.5,ih+bh/2,-lastX*lx)
-              itemmold[1].position.x=-bh*3;
-              itemmold[2].position.x=-bh*3;
+                itempointer.children[1].position.z=1.3-0.8*(pshift[dur]-1);
+                itempointer.children[2].position.z=1.3
+                itempointer.children[3].position.z=1.4
+                itempointer.children[4].position.z=1.3-0.3*(pshift[dur]-1);
+                itempointer.children[4].position.x=0.9-0.4*(pshift[dur]-1);
+                itempointer.children[2].position.y=0.2
+                itempointer.children[4].position.y=0.2
+                itempointer.children[5].material.visible=true;
 
-              if(itemtouch){
-                itemmold[0].scale.x=(4+(pshift[dur]-1)*4.6)
-                itemmold[0].scale.y=(4+(pshift[dur]-1)*4.6)
+              }else if(pin){
+                document.getElementById('top2').children[0].style.height=String(isize)+"vh"
+
+                itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
+                itempointer.children[1].position.z=-0.5*(pshift[dur]-1);
+                itempointer.children[2].position.z=0.3*(pshift[dur]-1);
+
+                bear[7].material.visible=true
+              }else if(bridge){
+                document.getElementById('top3').children[0].style.height=String(isize)+"vh"
+
+                배[1].children[4].material.visible=true
+                배[1].children[5].material.visible=true
+                배[1].children[6].material.visible=true
+
+                if(itempointer.userData["dir"]==1){
+                  배[1].children[5].material.opacity=0.8
+                  배[1].children[6].material.opacity=0.6
+                }else if(itempointer.userData["dir"]==2){
+                  배[1].children[6].material.opacity=0.8
+                  배[1].children[5].material.opacity=0.6
+                }else if(itempointer.userData["dir"]==0){
+                  배[1].children[6].material.opacity=0.6
+                  배[1].children[5].material.opacity=0.6
+                }
               }
 
-            }else if(ice){
-              itemmold[1].material.visible=true
-              // itemmold[1].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
-              itemmold[1].position.set(bh*0.5,ih+bh/2,-lastX*lx)
-              itemmold[0].position.x=-bh*3;
-              itemmold[2].position.x=-bh*3;
+            }else{
+              if(pung){
+                pen[5].material.visible=true
+                document.getElementById('top0').children[0].style.height=String(isize)+"vh"
 
-              if(itemtouch){
-                itemmold[1].scale.x=(4+(pshift[dur]-1)*4.6)
-                itemmold[1].scale.y=(4+(pshift[dur]-1)*4.6)
+              }else if(ice){
+                document.getElementById('top1').children[0].style.height=String(isize)+"vh"
+
+                // itemmold[1].scale.x=(3+(pshift[dur]-1)*0.9)
+                // itemmold[1].scale.y=(3+(pshift[dur]-1)*0.9)
+                // itempointer.children[5].material.visible=true;
+                seal[8].material.visible=true
+              }else if(pin){
+                document.getElementById('top2').children[0].style.height=String(isize)+"vh"
+
+                // itempointer.children[4].material.visible=true;
+
+                // itemmold[2].scale.x=(3+(pshift[dur]-1)*0.9)
+                // itemmold[2].scale.y=(3+(pshift[dur]-1)*0.9)
+                bear[7].material.visible=true
+
+
+              }else if(bridge){
+                document.getElementById('top3').children[0].style.height=String(isize)+"vh"
+                // itemmold[2].material.visible=true
+                // itemmold[2].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+
+                // itempointer.children[4].material.visible=true;
+
+                // itemmold[2].scale.x=(3+(pshift[dur]-1)*0.9)
+                // itemmold[2].scale.y=(3+(pshift[dur]-1)*0.9)
+
+
+                배[1].children[4].material.visible=true
+                배[1].children[5].material.visible=true
+                배[1].children[6].material.visible=true
+                배[1].children[5].material.opacity=0.6
+                배[1].children[6].material.opacity=0.6
+
+
+
               }
-            }else if(pin){
-              itemmold[2].material.visible=true
-              // itemmold[2].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
-              itemmold[2].position.set(bh*0.5,ih+bh/2,-lastX*lx)
-              itemmold[0].position.x=-bh*3;
-              itemmold[1].position.x=-bh*3;
-              itemmold[3].position.x=-bh*3;
-              if(itemtouch){
-                itemmold[2].scale.x=(4+(pshift[dur]-1)*4.6)
-                itemmold[2].scale.y=(4+(pshift[dur]-1)*4.6)
+
+            }
+          }else if(skinnum0==2){
+            if(itemdrag){
+              pen[5].material.visible=true
+              seal[8].material.visible=true
+              bear[7].material.visible=true
+              if(pung){
+                document.getElementById('top0').children[0].style.height=String(isize)+"vh"
+
+                itemmold[4].material.visible=true
+                // itemmold[4].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+
+                itemmold[4].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[5].position.x=-bh*3;
+                itemmold[6].position.x=-bh*3;
+
+                if(itemtouch){
+                  // itemmold[4].scale.x=(4+(pshift[dur]-1)*4.6)
+                  // itemmold[4].scale.y=(4+(pshift[dur]-1)*4.6)
+
+
+                  if(itempointer.userData.rank==1){
+                    pen[5].material.visible=true
+                    seal[8].material.visible=false
+                    bear[7].material.visible=false
+
+                    // itemmold[4].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                    itemmold[4].rotation.x=itempointer.rotation.x+Math.PI/2+Math.PI;
+                    itemmold[4].position.y=itempointer.position.y
+                    itemmold[4].position.z=itempointer.position.z
+
+                    itemmold[4].children[0].position.y=-3;
+                    itemmold[4].children[1].position.y=-3;
+
+
+
+
+
+
+                    itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
+                    itempointer.children[1].position.z=2*(pshift[dur]-1);
+                    itempointer.children[2].position.y=0.8
+                    itempointer.children[3].material.visible=true;
+                  }else if(itempointer.userData.rank==5){
+                    pen[5].material.visible=false
+                    seal[8].material.visible=true
+                    bear[7].material.visible=false
+
+                    itemmold[4].rotation.x=itempointer.rotation.x+Math.PI/2+Math.PI;
+                    itemmold[4].position.y=itempointer.position.y
+                    itemmold[4].position.z=itempointer.position.z
+
+                    itemmold[4].children[0].position.y=-4;
+                    itemmold[4].children[1].position.y=-4;
+
+                    itempointer.children[1].position.z=1.3-0.8*(pshift[dur]-1);
+                    itempointer.children[2].position.z=1.3
+                    itempointer.children[3].position.z=1.4
+                    itempointer.children[4].position.z=1.3-0.3*(pshift[dur]-1);
+                    itempointer.children[4].position.x=0.9-0.4*(pshift[dur]-1);
+                    itempointer.children[2].position.y=0.2
+                    itempointer.children[4].position.y=0.2
+                    itempointer.children[5].material.visible=true;
+                  }else if(itempointer.userData.rank==7){
+                    pen[5].material.visible=false
+                    seal[8].material.visible=false
+                    bear[7].material.visible=true
+
+                    itemmold[4].rotation.x=itempointer.rotation.x+Math.PI/2+Math.PI;
+                    itemmold[4].position.y=itempointer.position.y
+                    itemmold[4].position.z=itempointer.position.z
+
+                    itemmold[4].children[0].position.y=-4;
+                    itemmold[4].children[1].position.y=-4;
+
+                    itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
+                    itempointer.children[1].position.z=-0.5*(pshift[dur]-1);
+                    itempointer.children[2].position.z=0.3*(pshift[dur]-1);
+
+                  }
+
+
+                }
+
+              }else if(ice){
+                itemmold[5].material.visible=true
+                // itemmold[5].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+                itemmold[5].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[4].position.x=-bh*3;
+                itemmold[6].position.x=-bh*3;
+
+                if(itemtouch){
+                  itemmold[5].scale.x=(4+(pshift[dur]-1)*4.6)
+                  itemmold[5].scale.y=(4+(pshift[dur]-1)*4.6)
+                }
+              }else if(pin){
+                itemmold[6].material.visible=true
+                // itemmold[6].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+                itemmold[6].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[4].position.x=-bh*3;
+                itemmold[5].position.x=-bh*3;
+                itemmold[7].position.x=-bh*3;
+                if(itemtouch){
+                  itemmold[6].scale.x=(4+(pshift[dur]-1)*4.6)
+                  itemmold[6].scale.y=(4+(pshift[dur]-1)*4.6)
+                }
+              }else if(bridge){
+                itemmold[7].material.visible=true
+                // itemmold[7].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+                itemmold[7].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[4].position.x=-bh*3;
+                itemmold[5].position.x=-bh*3;
+                itemmold[6].position.x=-bh*3;
+                if(itemtouch){
+                itemmold[7].scale.x=(4+(pshift[dur]-1)*4.6)
+                itemmold[7].scale.z=(4+(pshift[dur]-1)*4.6)
+                }
               }
-            }else if(bridge){
-              itemmold[3].material.visible=true
-              // itemmold[3].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
-              itemmold[3].position.set(bh*0.5,ih+bh/2,-lastX*lx)
-              itemmold[0].position.x=-bh*3;
-              itemmold[1].position.x=-bh*3;
-              itemmold[2].position.x=-bh*3;
-              if(itemtouch){
-              itemmold[3].scale.x=(4+(pshift[dur]-1)*4.6)
-              itemmold[3].scale.z=(4+(pshift[dur]-1)*4.6)
+            }else{
+              // itemmold[4].scale.x=4
+              // itemmold[4].scale.y=4
+              // itemmold[5].scale.x=4
+              // itemmold[5].scale.y=4
+              // itemmold[6].scale.x=4
+              // itemmold[6].scale.y=4
+              // itemmold[7].scale.x=4
+              // itemmold[7].scale.z=4
+            }
+
+            if(itemtouch){
+              if(pung){
+                // pen[5].material.visible=true
+
+
+
+
               }
             }
-          }else{
-            itemmold[0].scale.x=4
-            itemmold[0].scale.y=4
-            itemmold[1].scale.x=4
-            itemmold[1].scale.y=4
-            itemmold[2].scale.x=4
-            itemmold[2].scale.y=4
-            itemmold[3].scale.x=4
-            itemmold[3].scale.z=4
+
+          }else if(skinnum0==3){
+
           }
 
 
-          if(itemtouch){
-            if(pung){
-              pen[5].material.visible=true
-              document.getElementById('top0').children[0].style.width=String(isize)+"vmin"
-              itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
-              itempointer.children[1].position.z=2*(pshift[dur]-1);
-              itempointer.children[2].position.y=0.8
-              itempointer.children[3].material.visible=true;
 
-            }else if(ice){
-              document.getElementById('top1').children[0].style.width=String(isize)+"vmin"
-              seal[8].material.visible=true
-
-              itempointer.children[1].position.z=1.3-0.8*(pshift[dur]-1);
-              itempointer.children[2].position.z=1.3
-              itempointer.children[3].position.z=1.4
-              itempointer.children[4].position.z=1.3-0.3*(pshift[dur]-1);
-              itempointer.children[4].position.x=0.9-0.4*(pshift[dur]-1);
-              itempointer.children[2].position.y=0.2
-              itempointer.children[4].position.y=0.2
-              itempointer.children[5].material.visible=true;
-
-            }else if(pin){
-              document.getElementById('top2').children[0].style.width=String(isize)+"vmin"
-
-              itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
-              itempointer.children[1].position.z=-0.5*(pshift[dur]-1);
-              itempointer.children[2].position.z=0.3*(pshift[dur]-1);
-
-              bear[7].material.visible=true
-            }else if(bridge){
-              document.getElementById('top3').children[0].style.width=String(isize)+"vmin"
-
-              배[1].children[4].material.visible=true
-              배[1].children[5].material.visible=true
-              배[1].children[6].material.visible=true
-
-              if(itempointer.userData["dir"]==1){
-                배[1].children[5].material.opacity=0.8
-                배[1].children[6].material.opacity=0.6
-              }else if(itempointer.userData["dir"]==2){
-                배[1].children[6].material.opacity=0.8
-                배[1].children[5].material.opacity=0.6
-              }else if(itempointer.userData["dir"]==0){
-                배[1].children[6].material.opacity=0.6
-                배[1].children[5].material.opacity=0.6
-              }
-            }
-
-          }else{
-            if(pung){
-              pen[5].material.visible=true
-              document.getElementById('top0').children[0].style.width=String(isize)+"vmin"
-
-            }else if(ice){
-              document.getElementById('top1').children[0].style.width=String(isize)+"vmin"
-
-              // itemmold[1].scale.x=(3+(pshift[dur]-1)*0.9)
-              // itemmold[1].scale.y=(3+(pshift[dur]-1)*0.9)
-              // itempointer.children[5].material.visible=true;
-              seal[8].material.visible=true
-            }else if(pin){
-              document.getElementById('top2').children[0].style.width=String(isize)+"vmin"
-
-              // itempointer.children[4].material.visible=true;
-
-              // itemmold[2].scale.x=(3+(pshift[dur]-1)*0.9)
-              // itemmold[2].scale.y=(3+(pshift[dur]-1)*0.9)
-              bear[7].material.visible=true
-
-
-            }else if(bridge){
-              document.getElementById('top3').children[0].style.width=String(isize)+"vmin"
-              // itemmold[2].material.visible=true
-              // itemmold[2].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
-
-              // itempointer.children[4].material.visible=true;
-
-              // itemmold[2].scale.x=(3+(pshift[dur]-1)*0.9)
-              // itemmold[2].scale.y=(3+(pshift[dur]-1)*0.9)
-
-
-              배[1].children[4].material.visible=true
-              배[1].children[5].material.visible=true
-              배[1].children[6].material.visible=true
-              배[1].children[5].material.opacity=0.6
-              배[1].children[6].material.opacity=0.6
-
-
-
-            }
-
-          }
 
 
         }else{
           if(itemmold.length>2){
-            itemmold[0].position.x=-bh*3;
-            itemmold[1].position.x=-bh*3;
-            itemmold[2].position.x=-bh*3;
-            itemmold[3].position.x=-bh*3;
+            itemmold.forEach((item, i) => {
+              item.position.x=-bh*3;
+            });
+
+            // itemmold[0].position.x=-bh*3;
+            // itemmold[1].position.x=-bh*3;
+            // itemmold[2].position.x=-bh*3;
+            // itemmold[3].position.x=-bh*3;
             배[1].children[4].material.visible=false
             배[1].children[5].material.visible=false
             배[1].children[6].material.visible=false
+            배[1].children[7].material.visible=false
+
+
             // 배[1].children[5].material.opacity=0.4
             // 배[1].children[6].material.opacity=0.4
 
@@ -20320,6 +20552,34 @@
     }
     window.filter=filter
 
+    function 템셋(){
+      if(skinnum0==0) return;
+      switch (skinnum0) {
+        case 1:
+          document.getElementById('top0').children[0].src="png/item1.png"
+          document.getElementById('top1').children[0].src="png/item2.png"
+          document.getElementById('top2').children[0].src="png/item3.png"
+          document.getElementById('top3').children[0].src="png/item4.png"
+          break;
+        case 2:
+          document.getElementById('top0').children[0].src="png/pung.png"
+          document.getElementById('top1').children[0].src="png/bridge.png"
+          document.getElementById('top2').children[0].src="png/hammer.png"
+          document.getElementById('top3').children[0].src="png/staple.png"
+          break;
+        case 3:
+          document.getElementById('top0').children[0].src="png/freeze.png"
+          document.getElementById('top1').children[0].src="png/wood.png"
+          document.getElementById('top2').children[0].src="png/retry.png"
+          document.getElementById('top3').children[0].src="png/ice.png"
+          break;
+        default:
+          return;
+      }
+
+    }
+    window.템셋=템셋
+
     function exit0(n=0){
       if(n==2){
         터치보호=elapsedTime
@@ -21976,6 +22236,7 @@
       }else{
         document.getElementById("top").style.display="flex"
       }
+      템셋()
       인게임=true;
       skinchange=false;
       document.getElementById("hero").style.right="30vmin"
