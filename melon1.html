@@ -15386,6 +15386,7 @@
 
 
                 if(skinnum0==0){
+                  item.children[7].children[0].position.y=0
                   item.children[7].children[4].position.y=0
                   item.children[7].children[1].position.y=200
                   item.children[7].children[3].position.y=200
@@ -15401,6 +15402,7 @@
                   // item.children[7].children[1].position.y=20
 
                 }else if(skinnum0==1){
+                  item.children[7].children[0].position.y=0
                   item.children[7].children[1].position.z=0.2*(pshift[dur]-1);
                   item.children[7].children[3].position.z=-0.1*(pshift[dur]-1);
                   item.children[7].children[1].position.y=0
@@ -15420,10 +15422,10 @@
                   item.children[7].children[8].position.y=0
                   item.children[7].children[9].position.y=0
 
-                  item.children[7].children[6].position.z=-0.1*(pshift[dur]-1);
-                  // item.children[7].children[7].position.z=-0.1*(pshift[dur]-1);
-                  item.children[7].children[9].position.z=0.1*(pshift[dur]-1);
-                  item.children[7].children[8].position.z=-0.08*(pshift[dur]-1);
+                  item.children[7].children[6].position.z=0.26-0.1*(pshift[dur]-1);
+                  item.children[7].children[7].position.z=0.26
+                  item.children[7].children[9].position.z=0.26+0.1*(pshift[dur]-1);
+                  item.children[7].children[8].position.z=0.26-0.08*(pshift[dur]-1);
 
                   for (var i = 10; i < 15; i++) {
                     item.children[7].children[i].position.y=200
@@ -15468,8 +15470,12 @@
 
                 }
 
+                if(skinnum0==2){
+                  emote[0].position.y=3+0.2*dif+bh*18.2
+                }else{
+                  emote[0].position.y=0.2*dif+bh*18.2
+                }
 
-                emote[0].position.y=0.2*dif+bh*18.2
 
 
 
@@ -17324,11 +17330,13 @@
                     mesh8.children[4].scale.set(temp0*tscale0*1.1,temp0*tscale0,temp0*tscale0)
                     mesh8.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
 
+                    var temp0=0.8
                     mesh8.children[6].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
                     mesh8.children[7].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
                     mesh8.children[8].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
                     mesh8.children[9].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
 
+                    var temp0=0.6
                     mesh8.children[10].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
                     mesh8.children[11].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
                     mesh8.children[12].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
@@ -21912,7 +21920,7 @@
           document.getElementById("set0").classList.add("set");
           document.getElementById("set0").innerText="선택됨"
           skinnum0=skinnum;
-          
+
           document.getElementById("skin-middle0").children[0].src="png/hero"+String(skinnum0+1)+".gif"
 
         }else{
