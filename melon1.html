@@ -12,7 +12,6 @@
             width:100%;
             height: 100%;
             margin: 0;
-
         }
 
         canvas {
@@ -3349,10 +3348,12 @@
     var whale=[];
     var swhale=[];
     var bear=[];
+    var bear2=[];
     var fox=[];
     var fox2=[];
 
     var foxflag=true;
+    var bearflag=false;
 
 
     var tflag=false;
@@ -3435,7 +3436,7 @@
 
     var ship=[];
 
-    var 무게=13;
+    var 무게=5;
     var 해머=0
     var 뻥=3
 
@@ -8539,7 +8540,7 @@
     var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
     function handleTouchStart(event) {
-
+      console.log(bear2.length)
       if(!인게임){
 
         return;
@@ -8551,7 +8552,7 @@
 
         console.log(propsmold.length);
         // if(propsmold.length!=6) return;
-        if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=8||pen2.length!=5||dirt.length!=1) return;
+        if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=8||pen2.length!=5||dirt.length!=1||bear2.length!=9) return;
 
         if(!originflag){
           return;
@@ -9132,7 +9133,7 @@
               }
             }else if(skinnum0==2){
               if(pung){
-                if(cat[0].userData["rank"]==1||cat[0].userData["rank"]==5||cat[0].userData["rank"]==7){
+                if(cat[0].userData["rank"]==4||cat[0].userData["rank"]==0||cat[0].userData["rank"]==1||cat[0].userData["rank"]==5||cat[0].userData["rank"]==7){
                   itemtouch=true
                   itempointer=cat[0]
                   itemuse=true;
@@ -9152,7 +9153,7 @@
                   itemtouch=false
                 }
               }else if(pin){
-                if(cat[0].userData["rank"]==7){
+                if((cat[0].userData["rank"]==7||cat[0].userData["rank"]==8)&&cat[0].userData.form==0){
                   itemtouch=true
                   itempointer=cat[0]
                   itemuse=true;
@@ -9460,7 +9461,7 @@
                   if(skinnum0==2){
 
                     var force = new CANNON.Vec3();
-                    force.set(0, 800000, 0);
+                    force.set(0, 400000, 0);
 
                     var quaternion = new CANNON.Quaternion();
                     quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), itempointer.rotation.x+Math.PI/2);
@@ -9605,7 +9606,11 @@
                   itemuse=false;
 
                   console.log(itempointer)
-                  var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
+                  if(skinnum0==2){
+                    var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x, 12, true, true)
+                  }else if(skinnum0==1){
+                    var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
+                  }
                   // 점수+=(itempointer.rank+1)*10
                   // console.log(점수)
                   newo.position.copy(itempointer.position)
@@ -10091,7 +10096,7 @@
       if(document.getElementById("setting-overlay").classList.contains("show")) return;
       if(!터치) return
       // if(propsmold.length!=6) return;
-      if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=8||pen2.length!=5||dirt.length!=1) return;
+      if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=8||pen2.length!=5||dirt.length!=1||bear2.length!=9) return;
 
       if(!originflag){
         return;
@@ -10693,6 +10698,7 @@
           fulltower=true;
 
         }else if(event.code === 'KeyH') {
+          return spawn(1)
 
           for (var i = 0; i < 5; i++) {
             for (var j = 0; j < 6; j++) {
@@ -12218,32 +12224,57 @@
                     object.children[0].receiveShadow = true;
                     object.children[0].castShadow = true;
                     fox2.push(object.children[0]);
+                    var loader = new OBJLoader();
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load(ur2+'src/fox2-2.mtl', function(materials) {
+                        materials.preload();
+                        loader.setMaterials(materials);
+                        loader.load(ur2+'src/fox2-2.obj', (object) => {
+                          // object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0, 0, 0)
+                          object.children[0].scale.x = 3
+                          object.children[0].scale.z = 3
+                          object.children[0].scale.y = 3
+
+                          object.children[0].rotation.x = Math.PI / 2
+
+                          // object.children[0].position.z=0.2
+
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                          fox2.push(object.children[0]);
+                          var loader = new OBJLoader();
+                          var mtlLoader = new MTLLoader();
+                          mtlLoader.load(ur2+'src/fox2-0.mtl', function(materials) {
+                              materials.preload();
+                              loader.setMaterials(materials);
+                              loader.load(ur2+'src/fox2-0.obj', (object) => {
+                                // object.children[0].rotation.y = Math.PI / 2
+                                object.children[0].position.set(0, 0, 0)
+                                object.children[0].scale.x = 3
+                                object.children[0].scale.z = 3
+                                object.children[0].scale.y = 3
+
+                                object.children[0].rotation.x = Math.PI / 2
+
+                                // object.children[0].position.z=0.2
+
+                                // object.children[0].scale.x=2.25;
+                                // object.children[0].scale.z=2.25;
+                                // object.children[0].scale.y=1.92;
+                                object.children[0].receiveShadow = true;
+                                object.children[0].castShadow = true;
+                                fox2.push(object.children[0]);
+                              });
+                          });
+                        });
+                    });
                   });
               });
-              var loader = new OBJLoader();
-              var mtlLoader = new MTLLoader();
-              mtlLoader.load(ur2+'src/fox2-0.mtl', function(materials) {
-                  materials.preload();
-                  loader.setMaterials(materials);
-                  loader.load(ur2+'src/fox2-0.obj', (object) => {
-                    // object.children[0].rotation.y = Math.PI / 2
-                    object.children[0].position.set(0, 0, 0)
-                    object.children[0].scale.x = 3
-                    object.children[0].scale.z = 3
-                    object.children[0].scale.y = 3
 
-                    object.children[0].rotation.x = Math.PI / 2
-
-                    // object.children[0].position.z=0.2
-
-                    // object.children[0].scale.x=2.25;
-                    // object.children[0].scale.z=2.25;
-                    // object.children[0].scale.y=1.92;
-                    object.children[0].receiveShadow = true;
-                    object.children[0].castShadow = true;
-                    fox2.push(object.children[0]);
-                  });
-              });
             });
         });
 
@@ -12844,6 +12875,229 @@
             });
         });
 
+        var tmx1=0
+        var tmy1=0
+        var tmz1=0
+
+        var loader = new OBJLoader();
+        var mtlLoader = new MTLLoader();
+        mtlLoader.load(ur2+'src/bear2-0.mtl', function(materials) {
+            materials.preload();
+            loader.setMaterials(materials);
+            loader.load(ur2+'src/bear2-0.obj', (object) => {
+              // object.children[0].rotation.y = Math.PI / 2
+              object.children[0].position.set(tmx1, tmy1, tmz1)
+              object.children[0].scale.x = 3
+              object.children[0].scale.z = 3
+              object.children[0].scale.y = 3
+
+              object.children[0].rotation.x = Math.PI / 2
+
+              // object.children[0].position.z=0.2
+
+              // object.children[0].scale.x=2.25;
+              // object.children[0].scale.z=2.25;
+              // object.children[0].scale.y=1.92;
+              object.children[0].receiveShadow = true;
+              object.children[0].castShadow = true;
+              bear2.push(object.children[0]);
+              var loader = new OBJLoader();
+              var mtlLoader = new MTLLoader();
+              mtlLoader.load(ur2+'src/bear2-1.mtl', function(materials) {
+                  materials.preload();
+                  loader.setMaterials(materials);
+                  loader.load(ur2+'src/bear2-1.obj', (object) => {
+                    // object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(tmx1, tmy1, tmz1)
+                    object.children[0].scale.x = 3
+                    object.children[0].scale.z = 3
+                    object.children[0].scale.y = 3
+
+                    object.children[0].rotation.x = Math.PI / 2
+
+                    // object.children[0].position.z=0.2
+
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].receiveShadow = true;
+                    object.children[0].castShadow = true;
+                    bear2.push(object.children[0]);
+                    var loader = new OBJLoader();
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load(ur2+'src/bear2-2.mtl', function(materials) {
+                        materials.preload();
+                        loader.setMaterials(materials);
+                        loader.load(ur2+'src/bear2-2.obj', (object) => {
+                          // object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(tmx1, tmy1, tmz1)
+                          object.children[0].scale.x = 3
+                          object.children[0].scale.z = 3
+                          object.children[0].scale.y = 3
+
+                          object.children[0].rotation.x = Math.PI / 2
+
+                          // object.children[0].position.z=0.2
+
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                          bear2.push(object.children[0]);
+                          var loader = new OBJLoader();
+                          var mtlLoader = new MTLLoader();
+                          mtlLoader.load(ur2+'src/bear2-3.mtl', function(materials) {
+                              materials.preload();
+                              loader.setMaterials(materials);
+                              loader.load(ur2+'src/bear2-3.obj', (object) => {
+                                // object.children[0].rotation.y = Math.PI / 2
+                                object.children[0].position.set(tmx1, tmy1, tmz1)
+                                object.children[0].scale.x = 3
+                                object.children[0].scale.z = 3
+                                object.children[0].scale.y = 3
+
+                                object.children[0].rotation.x = Math.PI / 2
+
+                                // object.children[0].position.z=0.2
+
+                                // object.children[0].scale.x=2.25;
+                                // object.children[0].scale.z=2.25;
+                                // object.children[0].scale.y=1.92;
+                                object.children[0].receiveShadow = true;
+                                object.children[0].castShadow = true;
+                                bear2.push(object.children[0]);
+                                var loader = new OBJLoader();
+                                var mtlLoader = new MTLLoader();
+                                mtlLoader.load(ur2+'src/bear2-4.mtl', function(materials) {
+                                    materials.preload();
+                                    loader.setMaterials(materials);
+                                    loader.load(ur2+'src/bear2-4.obj', (object) => {
+                                      // object.children[0].rotation.y = Math.PI / 2
+                                      object.children[0].position.set(tmx1, tmy1, tmz1)
+                                      object.children[0].scale.x = 3
+                                      object.children[0].scale.z = 3
+                                      object.children[0].scale.y = 3
+
+                                      object.children[0].rotation.x = Math.PI / 2
+
+                                      // object.children[0].position.z=0.2
+
+                                      // object.children[0].scale.x=2.25;
+                                      // object.children[0].scale.z=2.25;
+                                      // object.children[0].scale.y=1.92;
+                                      object.children[0].receiveShadow = true;
+                                      object.children[0].castShadow = true;
+                                      bear2.push(object.children[0]);
+                                      var loader = new OBJLoader();
+                                      var mtlLoader = new MTLLoader();
+                                      mtlLoader.load(ur2+'src/bear2-5.mtl', function(materials) {
+                                          materials.preload();
+                                          loader.setMaterials(materials);
+                                          loader.load(ur2+'src/bear2-5.obj', (object) => {
+                                            // object.children[0].rotation.y = Math.PI / 2
+                                            object.children[0].position.set(tmx1, tmy1, tmz1)
+                                            object.children[0].scale.x = 3
+                                            object.children[0].scale.z = 3
+                                            object.children[0].scale.y = 3
+
+                                            object.children[0].rotation.x = Math.PI / 2
+
+                                            // object.children[0].position.z=0.2
+
+                                            // object.children[0].scale.x=2.25;
+                                            // object.children[0].scale.z=2.25;
+                                            // object.children[0].scale.y=1.92;
+                                            object.children[0].receiveShadow = true;
+                                            object.children[0].castShadow = true;
+                                            bear2.push(object.children[0]);
+                                            var loader = new OBJLoader();
+                                            var mtlLoader = new MTLLoader();
+                                            mtlLoader.load(ur2+'src/bear2-6.mtl', function(materials) {
+                                                materials.preload();
+                                                loader.setMaterials(materials);
+                                                loader.load(ur2+'src/bear2-6.obj', (object) => {
+                                                  // object.children[0].rotation.y = Math.PI / 2
+                                                  object.children[0].position.set(tmx1, tmy1, tmz1)
+                                                  object.children[0].scale.x = 3
+                                                  object.children[0].scale.z = 3
+                                                  object.children[0].scale.y = 3
+
+                                                  object.children[0].rotation.x = Math.PI / 2
+
+                                                  // object.children[0].position.z=0.2
+
+                                                  // object.children[0].scale.x=2.25;
+                                                  // object.children[0].scale.z=2.25;
+                                                  // object.children[0].scale.y=1.92;
+                                                  object.children[0].receiveShadow = true;
+                                                  object.children[0].castShadow = true;
+                                                  bear2.push(object.children[0]);
+                                                  var loader = new OBJLoader();
+                                                  var mtlLoader = new MTLLoader();
+                                                  mtlLoader.load(ur2+'src/bear2-7.mtl', function(materials) {
+                                                      materials.preload();
+                                                      loader.setMaterials(materials);
+                                                      loader.load(ur2+'src/bear2-7.obj', (object) => {
+                                                        // object.children[0].rotation.y = Math.PI / 2
+                                                        object.children[0].position.set(tmx1, tmy1, tmz1)
+                                                        object.children[0].scale.x = 3
+                                                        object.children[0].scale.z = 3
+                                                        object.children[0].scale.y = 3
+
+                                                        object.children[0].rotation.x = Math.PI / 2
+
+                                                        // object.children[0].position.z=0.2
+
+                                                        // object.children[0].scale.x=2.25;
+                                                        // object.children[0].scale.z=2.25;
+                                                        // object.children[0].scale.y=1.92;
+                                                        object.children[0].receiveShadow = true;
+                                                        object.children[0].castShadow = true;
+                                                        bear2.push(object.children[0]);
+                                                        var loader = new OBJLoader();
+                                                        var mtlLoader = new MTLLoader();
+                                                        mtlLoader.load(ur2+'src/bear2-0.mtl', function(materials) {
+                                                            materials.preload();
+                                                            loader.setMaterials(materials);
+                                                            loader.load(ur2+'src/bear2-0.obj', (object) => {
+                                                              // object.children[0].rotation.y = Math.PI / 2
+                                                              object.children[0].position.set(tmx1, tmy1, tmz1)
+                                                              object.children[0].scale.x = 3
+                                                              object.children[0].scale.z = 3
+                                                              object.children[0].scale.y = 3
+
+                                                              object.children[0].rotation.x = Math.PI / 2
+
+                                                              // object.children[0].position.z=0.2
+
+                                                              // object.children[0].scale.x=2.25;
+                                                              // object.children[0].scale.z=2.25;
+                                                              // object.children[0].scale.y=1.92;
+                                                              object.children[0].receiveShadow = true;
+                                                              object.children[0].castShadow = true;
+                                                              bear2.push(object.children[0]);
+
+
+                                                            });
+                                                        });
+                                                      });
+                                                  });
+                                                });
+                                            });
+                                          });
+                                      });
+                                    });
+                                });
+                              });
+                          });
+                        });
+                    });
+                  });
+              });
+            });
+        });
+
 
 
         var loader = new OBJLoader();
@@ -12927,10 +13181,10 @@
 
         var loader = new OBJLoader();
         var mtlLoader = new MTLLoader();
-        mtlLoader.load(ur2+'src/halp.mtl', function(materials) {
+        mtlLoader.load(ur2+'src/halp-0.mtl', function(materials) {
             materials.preload();
             loader.setMaterials(materials);
-            loader.load(ur2+'src/halp.obj', (object) => {
+            loader.load(ur2+'src/halp-0.obj', (object) => {
               // object.children[0].rotation.y = Math.PI / 2
               object.children[0].position.set(0,0,0)
               object.children[0].scale.x = 6
@@ -12947,6 +13201,30 @@
               object.children[0].receiveShadow = true;
               object.children[0].castShadow = true;
               halp.push(object.children[0]);
+              var loader = new OBJLoader();
+              var mtlLoader = new MTLLoader();
+              mtlLoader.load(ur2+'src/halp-1.mtl', function(materials) {
+                  materials.preload();
+                  loader.setMaterials(materials);
+                  loader.load(ur2+'src/halp-1.obj', (object) => {
+                    // object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0,0,0)
+                    object.children[0].scale.x = 6
+                    object.children[0].scale.z = 6
+                    object.children[0].scale.y = 6
+
+                    object.children[0].rotation.x = Math.PI
+
+                    // object.children[0].position.z=0.2
+
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].receiveShadow = true;
+                    object.children[0].castShadow = true;
+                    halp.push(object.children[0]);
+                  });
+              });
             });
         });
 
@@ -13964,7 +14242,7 @@
       return false;
     }
 
-    function newone(idx,rnk, deg=0, tx=999, flag=true){
+    function newone(idx,rnk, deg=0, tx=999, flag=true, bearform=false){
 
       var mass=4
       var tscale0;
@@ -14062,12 +14340,22 @@
         var mesh=new THREE.Mesh(geometry1, material1);
         mesh.userData.wood=0;
         mesh.add(halp[0].clone())
+
+
         // mesh.add(half[1].clone())
         // mesh.add(half[2].clone())
 
         var temp0=2.85
 
         mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+
+        if(flag){
+          mesh.add(halp[1].clone())
+          mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+        }
+
+        // mesh.children[1].position.x=-100
         // mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
         // mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
         //
@@ -14283,8 +14571,9 @@
             var mesh=new THREE.Mesh(geometry1, material1);
             mesh.userData.wood=0;
             mesh.userData.form=0;
-            mesh.add(fox2[2].clone())
+            mesh.add(fox2[3].clone())
             mesh.add(fox2[1].clone())
+
             // mesh.add(half[1].clone())
             // mesh.add(half[2].clone())
 
@@ -14292,7 +14581,13 @@
 
             mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
             mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-            // mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+            if(flag){
+              mesh.add(fox2[2].clone())
+              mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+              // mesh.children[2].material.visible=false;
+            }
+
             //
             // mesh.children[2].material.visible=false;
 
@@ -14569,120 +14864,244 @@
 
 
       }else if(rnk==7||rnk==8){
-          var t1=1
 
-          if(rnk==8){
-            t1=1.17;
-          }
+          if(bearform){
+            var t1=1*1.1
 
-
-          var geometry1 = new THREE.BoxGeometry(0.5*bh*tscale0, 통, t1*0.73*bh*tscale0*1.239);
-
-          // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
-
-          var material1 = new THREE.MeshLambertMaterial({
-              transparent:true,
-              opacity:0,
-              color: 0xAA4444
-          });
+            if(rnk==8){
+              t1=1.17*1.1
+            }
 
 
-          var mesh=new THREE.Mesh(geometry1, material1);
-          var geometry2 = new THREE.BoxGeometry(0.5, 1, 0.2);
-          // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
-          var material2 = new THREE.MeshLambertMaterial({
-              transparent:true,
-              opacity:1,
-              color: tcolor
-          });
-          var mesh2=new THREE.Mesh(geometry2, material2);
-          mesh2.position.x=3
+            var geometry1 = new THREE.BoxGeometry(0.5*bh*tscale0, 통, t1*0.73*bh*tscale0*1.239);
+
+            // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+
+            var material1 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: 0xAA4444
+            });
 
 
-          mesh.userData.wood=0;
-          // mesh.add(mesh2)
-          mesh.add(bear[10].clone())
-          mesh.add(bear[1].clone())
-          mesh.add(bear[2].clone())
-          mesh.add(bear[3].clone())
+            var mesh=new THREE.Mesh(geometry1, material1);
+            var geometry2 = new THREE.BoxGeometry(0.5, 1, 0.2);
+            // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+            var material2 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:1,
+                color: tcolor
+            });
+            var mesh2=new THREE.Mesh(geometry2, material2);
+            mesh2.position.x=3
 
 
-          var temp0=2.6
+            mesh.userData.wood=0;
+            mesh.userData.form=1;
+            // mesh.add(mesh2)
+            mesh.add(bear2[8].clone())
+            mesh.add(bear2[1].clone())
+            mesh.add(bear2[2].clone())
+            mesh.add(bear2[3].clone())
 
-          mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-          mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-          mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-          mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
 
-          // mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            var temp0=2.6
 
-          if(rnk==8){
-            mesh.add(bear[4].clone())
-            mesh.children[4].scale.set(0.95*temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-            mesh.add(bear[6].clone())
-            mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            mesh.children[1].scale.set(1.03*temp0*tscale0,1.03*temp0*tscale0,temp0*tscale0*0.5)
+            mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+
+            // mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+            if(rnk==8){
+              mesh.add(bear2[4].clone())
+              mesh.children[4].scale.set(0.95*temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+              mesh.add(bear2[5].clone())
+              mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            }else{
+
+            }
+
+            // if(rnk==9){
+            //   mesh.add(bear[5].clone())
+            //   mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            // }
+
+            if(tx!=999){
+              deg=-(Math.PI/2)
+              mesh.position.set(0,bh*16.5,tx)
+            }else{
+              mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
+            }
+
+
+            mesh.rotation.z=(Math.PI/2)
+            // mesh.rotation.z=(Math.PI/2)
+
+
+            mesh.rotation.x=deg
+
+            var customMaterial = new CANNON.Material('customMaterial');
+            customMaterial.friction = frix; // Friction coefficient, range: 0-1
+            customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
+
+
+            var groundBody = new CANNON.Body({
+              mass: 무게*3,
+
+
+              material: customMaterial,
+
+              allowSleep: false,
+              sleepSpeedLimit: sleep1,
+              sleepTimeLimit: sleep2
+            });
+            // if(rnk==7){
+            //   var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*0.73*bh*tscale0*1.239/2));
+            //   groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+            //
+            // }else{
+            //
+            // }
+
+            var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*1.239*0.73*bh*tscale0/2));
+            groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.73*bh*tscale0/2+(t1-1)*1.239*0.73*bh*tscale0/2));
+
+
+
+            var boxShape1 = new CANNON.Box(new CANNON.Vec3(1.19*0.5*bh*tscale0/2, 통/2, 0.5*t1*1.239*0.73*bh*tscale0/2));
+            groundBody.addShape(boxShape1, new CANNON.Vec3(0, 0, -0.5*t1*1.239*0.73*bh*tscale0/2));
+
+
+            // groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.73*bh*tscale0/2+(t1-1)*1.239*0.73*bh*tscale0/2));
+            // groundBody.addShape(boxShape1, new CANNON.Vec3(1, 0, -0.5*0.7*bh*tscale0/2+(0.5*0.15*0.7*bh*tscale0/2)));
+
+            groundBody.position.copy(mesh.position);
+            groundBody.quaternion.copy(mesh.quaternion);
           }else{
-            mesh.add(bear[7].clone())
-            mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-            mesh.children[4].material.opacity=1
-            mesh.children[4].material.transparent=false;
+            var t1=1
+
+            if(rnk==8){
+              t1=1.17;
+            }
+
+
+            var geometry1 = new THREE.BoxGeometry(0.5*bh*tscale0, 통, t1*0.73*bh*tscale0*1.239);
+
+            // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+
+            var material1 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: 0xAA4444
+            });
+
+
+            var mesh=new THREE.Mesh(geometry1, material1);
+            var geometry2 = new THREE.BoxGeometry(0.5, 1, 0.2);
+            // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+            var material2 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:1,
+                color: tcolor
+            });
+            var mesh2=new THREE.Mesh(geometry2, material2);
+            mesh2.position.x=3
+
+
+            mesh.userData.wood=0;
+            mesh.userData.form=0;
+            // mesh.add(mesh2)
+            mesh.add(bear[10].clone())
+            mesh.add(bear[1].clone())
+            mesh.add(bear[2].clone())
+            mesh.add(bear[3].clone())
+
+
+            var temp0=2.6
+
+            mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+
+            // mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+            if(rnk==8){
+              mesh.add(bear[4].clone())
+              mesh.children[4].scale.set(0.95*temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+              mesh.add(bear[6].clone())
+              mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+
+              mesh.add(bear[7].clone())
+              mesh.children[6].scale.set(0.95*temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+              mesh.children[6].position.y=100;
+            }else{
+              mesh.add(bear[7].clone())
+              mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+              mesh.children[4].material.opacity=1
+              mesh.children[4].material.transparent=false;
+
+            }
+
+            // if(rnk==9){
+            //   mesh.add(bear[5].clone())
+            //   mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            // }
+
+            if(tx!=999){
+              deg=-(Math.PI/2)
+              mesh.position.set(0,bh*16.5,tx)
+            }else{
+              mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
+            }
+
+
+            mesh.rotation.z=(Math.PI/2)
+            // mesh.rotation.z=(Math.PI/2)
+
+
+            mesh.rotation.x=deg
+
+            var customMaterial = new CANNON.Material('customMaterial');
+            customMaterial.friction = frix; // Friction coefficient, range: 0-1
+            customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
+
+
+            var groundBody = new CANNON.Body({
+              mass: 무게*3,
+
+
+              material: customMaterial,
+
+              allowSleep: false,
+              sleepSpeedLimit: sleep1,
+              sleepTimeLimit: sleep2
+            });
+            // if(rnk==7){
+            //   var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*0.73*bh*tscale0*1.239/2));
+            //   groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+            //
+            // }else{
+            //
+            // }
+
+            var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*1.239*0.73*bh*tscale0/2));
+            groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.73*bh*tscale0/2+(t1-1)*1.239*0.73*bh*tscale0/2));
+
+
+
+            // var boxShape1 = new CANNON.Box(new CANNON.Vec3(1.43*0.54*bh*tscale0/2, 통/2, 0.15*0.7*bh*tscale0/2));
+
+
+            // groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.73*bh*tscale0/2+(t1-1)*1.239*0.73*bh*tscale0/2));
+            // groundBody.addShape(boxShape1, new CANNON.Vec3(1, 0, -0.5*0.7*bh*tscale0/2+(0.5*0.15*0.7*bh*tscale0/2)));
+
+            groundBody.position.copy(mesh.position);
+            groundBody.quaternion.copy(mesh.quaternion);
           }
 
-          // if(rnk==9){
-          //   mesh.add(bear[5].clone())
-          //   mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-          // }
-
-          if(tx!=999){
-            deg=-(Math.PI/2)
-            mesh.position.set(0,bh*16.5,tx)
-          }else{
-            mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
-          }
-
-
-          mesh.rotation.z=(Math.PI/2)
-          // mesh.rotation.z=(Math.PI/2)
-
-
-          mesh.rotation.x=deg
-
-          var customMaterial = new CANNON.Material('customMaterial');
-          customMaterial.friction = frix; // Friction coefficient, range: 0-1
-          customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
-
-
-          var groundBody = new CANNON.Body({
-            mass: 무게*3,
-
-
-            material: customMaterial,
-
-            allowSleep: false,
-            sleepSpeedLimit: sleep1,
-            sleepTimeLimit: sleep2
-          });
-          // if(rnk==7){
-          //   var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*0.73*bh*tscale0*1.239/2));
-          //   groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
-          //
-          // }else{
-          //
-          // }
-
-          var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*1.239*0.73*bh*tscale0/2));
-          groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.73*bh*tscale0/2+(t1-1)*1.239*0.73*bh*tscale0/2));
-
-
-
-          // var boxShape1 = new CANNON.Box(new CANNON.Vec3(1.43*0.54*bh*tscale0/2, 통/2, 0.15*0.7*bh*tscale0/2));
-
-
-          // groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, -0.24*0.73*bh*tscale0/2+(t1-1)*1.239*0.73*bh*tscale0/2));
-          // groundBody.addShape(boxShape1, new CANNON.Vec3(1, 0, -0.5*0.7*bh*tscale0/2+(0.5*0.15*0.7*bh*tscale0/2)));
-
-          groundBody.position.copy(mesh.position);
-          groundBody.quaternion.copy(mesh.quaternion);
 
 
 
@@ -15149,7 +15568,7 @@
         let deltaTime2= elapsedTime - lastTime2;
 
         if(!startflag){
-          if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=8||pen2.length!=5||dirt.length!=1){
+          if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=8||pen2.length!=5||dirt.length!=1||bear2.length!=9){
 
           }else{
             document.getElementById("tts").style.display="none"
@@ -15420,98 +15839,122 @@
                 //
                 //
                 //
-                item.children[7].children[2].position.y=0.2
-                item.children[7].children[0].position.z=-0.1*(pshift[dur]-1);
+
 
 
                 // item.children[7].children[2].position.y=0.2
 
 
+                if(true){
+                  if(skinnum0==0){
+                    item.children[7].children[0].position.y=0
+                    item.children[7].children[4].position.y=0
+                    item.children[7].children[1].position.y=200
+                    item.children[7].children[3].position.y=200
+                    item.children[7].children[5].position.y=0
+                    //
+                    // item.children[7].children[5].position.z=-0.2+0.2*(pshift[dur]-1);
+                    // item.children[7].children[4].position.z=-0.05-0.1*(pshift[dur]-1);
+                    item.children[7].children[5].position.z=-0.2
+                    item.children[7].children[4].position.z=-0.05
 
-                if(skinnum0==0){
-                  item.children[7].children[0].position.y=0
-                  item.children[7].children[4].position.y=0
-                  item.children[7].children[1].position.y=200
-                  item.children[7].children[3].position.y=200
-                  item.children[7].children[5].position.y=0
-                  item.children[7].children[5].position.z=-0.2+0.2*(pshift[dur]-1);
-                  item.children[7].children[4].position.z=-0.05-0.1*(pshift[dur]-1);
+                    for (var i = 6; i < 15; i++) {
+                      item.children[7].children[i].position.y=200
+                    }
 
-                  for (var i = 6; i < 15; i++) {
-                    item.children[7].children[i].position.y=200
+
+                    // item.children[7].children[1].position.y=20
+
+                  }else if(skinnum0==1){
+                    item.children[7].children[0].position.y=0
+                    item.children[7].children[2].position.y=0.2
+
+
+
+
+                    // item.children[7].children[1].position.z=0.2*(pshift[dur]-1);
+                    // item.children[7].children[3].position.z=-0.1*(pshift[dur]-1);
+                    // item.children[7].children[0].position.z=-0.1*(pshift[dur]-1);
+                    item.children[7].children[0].position.z=0
+                    item.children[7].children[1].position.z=0
+                    item.children[7].children[3].position.z=0
+
+                    item.children[7].children[1].position.y=0
+                    item.children[7].children[5].position.y=200
+                    item.children[7].children[4].position.y=200
+                    item.children[7].children[3].position.y=0
+                    for (var i = 6; i < 15; i++) {
+                      item.children[7].children[i].position.y=200
+                    }
+
+                  }else if(skinnum0==2){
+                    for (var i = 0; i < 6; i++) {
+                      item.children[7].children[i].position.y=200
+                    }
+                    item.children[7].children[6].position.y=0
+                    item.children[7].children[7].position.y=0
+                    item.children[7].children[8].position.y=0
+                    item.children[7].children[9].position.y=0
+
+                    item.children[7].children[7].position.z=0.26
+
+                    // item.children[7].children[6].position.z=0.26-0.1*(pshift[dur]-1);
+                    // item.children[7].children[9].position.z=0.26+0.1*(pshift[dur]-1);
+                    // item.children[7].children[8].position.z=0.26-0.08*(pshift[dur]-1);
+                    item.children[7].children[6].position.z=0.26
+                    item.children[7].children[9].position.z=0.26
+                    item.children[7].children[8].position.z=0.26
+
+
+                    for (var i = 10; i < 15; i++) {
+                      item.children[7].children[i].position.y=200
+                    }
+
+
+
+
+
+                  }else if(skinnum0==3){
+                    for (var i = 0; i < 10; i++) {
+                      item.children[7].children[i].position.y=200
+                    }
+
+
+                    item.children[7].children[10].position.y=0
+                    item.children[7].children[11].position.y=0
+                    item.children[7].children[12].position.y=0
+                    item.children[7].children[13].position.y=0
+                    item.children[7].children[14].position.y=0
+
+                    item.children[7].children[10].position.x=0
+                    item.children[7].children[11].position.x=0
+                    item.children[7].children[12].position.x=0
+                    item.children[7].children[13].position.x=0
+                    item.children[7].children[14].position.x=0
+
+
+
+                    item.children[7].children[11].position.z=-0.1
+                    item.children[7].children[12].position.z=-0.05
+
+                    // item.children[7].children[10].position.z=-0.13+0.1*(pshift[dur]-1);
+                    // item.children[7].children[13].position.z=-0.1+0.05*(pshift[dur]-1);
+                    // item.children[7].children[13].position.x=0-0.07*(pshift[dur]-1);
+                    // item.children[7].children[14].position.z=-0.13+0.07*(pshift[dur]-1);
+                    item.children[7].children[10].position.z=-0.13
+                    item.children[7].children[13].position.z=-0.1
+                    item.children[7].children[13].position.x=0
+                    item.children[7].children[14].position.z=-0.13
+
+
+
+
+
+
+
                   }
-
-
-                  // item.children[7].children[1].position.y=20
-
-                }else if(skinnum0==1){
-                  item.children[7].children[0].position.y=0
-                  item.children[7].children[1].position.z=0.2*(pshift[dur]-1);
-                  item.children[7].children[3].position.z=-0.1*(pshift[dur]-1);
-                  item.children[7].children[1].position.y=0
-                  item.children[7].children[5].position.y=200
-                  item.children[7].children[4].position.y=200
-                  item.children[7].children[3].position.y=0
-                  for (var i = 6; i < 15; i++) {
-                    item.children[7].children[i].position.y=200
-                  }
-
-                }else if(skinnum0==2){
-                  for (var i = 0; i < 6; i++) {
-                    item.children[7].children[i].position.y=200
-                  }
-                  item.children[7].children[6].position.y=0
-                  item.children[7].children[7].position.y=0
-                  item.children[7].children[8].position.y=0
-                  item.children[7].children[9].position.y=0
-
-                  item.children[7].children[6].position.z=0.26-0.1*(pshift[dur]-1);
-                  item.children[7].children[7].position.z=0.26
-                  item.children[7].children[9].position.z=0.26+0.1*(pshift[dur]-1);
-                  item.children[7].children[8].position.z=0.26-0.08*(pshift[dur]-1);
-
-                  for (var i = 10; i < 15; i++) {
-                    item.children[7].children[i].position.y=200
-                  }
-
-
-
-
-
-                }else if(skinnum0==3){
-                  for (var i = 0; i < 10; i++) {
-                    item.children[7].children[i].position.y=200
-                  }
-
-
-                  item.children[7].children[10].position.y=0
-                  item.children[7].children[11].position.y=0
-                  item.children[7].children[12].position.y=0
-                  item.children[7].children[13].position.y=0
-                  item.children[7].children[14].position.y=0
-
-                  item.children[7].children[10].position.x=0
-                  item.children[7].children[11].position.x=0
-                  item.children[7].children[12].position.x=0
-                  item.children[7].children[13].position.x=0
-                  item.children[7].children[14].position.x=0
-
-
-                  item.children[7].children[10].position.z=-0.13+0.1*(pshift[dur]-1);
-                  item.children[7].children[11].position.z=-0.1
-                  item.children[7].children[12].position.z=-0.05
-                  item.children[7].children[13].position.z=-0.1+0.05*(pshift[dur]-1);
-                  item.children[7].children[13].position.x=0-0.07*(pshift[dur]-1);
-
-                  item.children[7].children[14].position.z=-0.13+0.07*(pshift[dur]-1);
-
-
-
-
-
-
-
                 }
+
 
                 if(skinnum0==2){
                   emote[0].position.y=3+0.2*dif+bh*18.2
@@ -15666,8 +16109,8 @@
                 var fr = motion("emote", 11);
                 var dur=9+parseInt((elapsedTime*5)%3);
               }else if(dropnum==3){
-                var fr = motion("emote", 1);
-                var dur=18+parseInt((elapsedTime*5)%3);
+                var fr = motion("emote", 11);
+                var dur=12+parseInt((elapsedTime*5)%3);
               }else if(dropnum==4){
                 var fr = motion("emote", 11);
                 var dur=15+parseInt((elapsedTime*5)%3);
@@ -15752,16 +16195,13 @@
               });
               emote[0].material=material1;
             }else{
-
               if(득템){
                 배[1].children[7].rotation.x=Math.PI/2+Math.sin((elapsedTime-finaldrop)*3.14*3)*0.1
               }else{
                 배[1].children[7].rotation.x=Math.PI/2
               }
-
               emote[0].material.visible=false;
             }
-
           }
 
 
@@ -15813,12 +16253,9 @@
                     break;
 
                   }
-
                 }
-
               }
             }
-
           }else{
             console.log("even")
           }
@@ -15873,9 +16310,15 @@
 
           if(aniflag0){
             과일.forEach((item,i) => { //y 음수 돌출
-              if(item.userData.alive&&item.userData.id>0){
+              if(item.userData.alive&&item.userData.id>=0){
                 if(item.userData.rank==0){
-                  item.children[0].position.y=-0.3
+                  item.children[0].position.y=0
+
+                  if((skinnum0==2&&pung)||(skinnum0==2&&ice)){
+                    item.children[1].position.y=0
+                  }else{
+                    item.children[1].position.y=100
+                  }
                 }else if(item.userData.rank==1){
                   item.children[0].position.z=-0.5*(pshift[dur]-1);
                   item.children[0].position.y=-0.5
@@ -15911,6 +16354,7 @@
                     item.children[3].position.y=-0.8
                   }
                 }else if(item.userData.rank==5||item.userData.rank==6){
+                  item.children[1].position.y=0
                   item.children[1].position.z=1.3-0.8*(pshift[dur]-1);
 
                   item.children[2].position.z=1.3
@@ -15948,11 +16392,19 @@
                     // var tmz0=-1.1
                     item.children[0].position.y=-1.2
                     item.children[1].position.y=-1.2
+
+                    if((skinnum0==2&&pung)||(skinnum0==2&&ice)){
+                      item.children[2].position.y=0
+                    }else{
+                      item.children[2].position.y=100
+                    }
                     // item.children[0].position.z=tmz0-0.5*(pshift[dur]-1);
                     // item.children[1].position.z=tmz0-0.3*(pshift[dur]-1);
                     // item.children[3].position.z=tmz0+0.4*(pshift[dur]-1);
                     // item.children[3].position.x=tmx0-0.2
                   }else if(item.userData.form==1){
+
+
                     var tmx0=1.8
                     var tmy0=0
                     var tmz0=-1.1
@@ -15974,20 +16426,54 @@
                   // }
                   // item.children[3].position.z=1-0.2*(pshift[dur]-1);
                 }else if(item.userData.rank==7||item.userData.rank==8){
-                  item.children[0].position.z=-0.5*(pshift[dur]-1);
-                  item.children[1].position.z=-0.5*(pshift[dur]-1);
-                  item.children[2].position.z=0.3*(pshift[dur]-1);
-                  item.children[1].material.visible=false;
+
+                  if(item.userData.form==1){
+                    // item.children[0].position.x=0
+                    // item.children[1].position.x=0
+                    item.children[1].position.z=0.1-0.5*(pshift[dur]-1);
+                    // item.children[1].position.z=-0.5*(pshift[dur]-1);
+                    // item.children[2].position.y=0
+                    // item.children[2].position.x=0
+                    // item.children[2].position.z=0
+                    //
+                    // item.children[3].position.y=0
+                    // item.children[3].position.x=0
+                    item.children[3].position.z=0.3*(pshift[dur]-1);
+
+                    if(item.userData.rank==8){
+                      item.children[4].position.z=-0.3*(pshift[dur]-1);
+
+                    }
+
+                  }else{
+
+                    item.children[0].position.y=0;
 
 
-                  if(item.userData.rank==7){
-                    item.children[4].material.visible=false;
-                    item.children[4].position.z=-0.5*(pshift[dur]-1);
-                  }else if(item.userData.rank==8){
-                    item.children[4].position.x=-0.3
-                    item.children[4].position.z=-0.3*(pshift[dur]-1);
-                    item.children[5].position.z=-0.4*(pshift[dur]-1);
+                    item.children[0].position.z=-0.5*(pshift[dur]-1);
+                    item.children[1].position.z=-0.5*(pshift[dur]-1);
+                    item.children[2].position.z=0.3*(pshift[dur]-1);
+                    item.children[1].material.visible=false;
+                    if(item.userData.rank==7){
+                      item.children[4].material.visible=false;
+                      item.children[4].position.z=-0.5*(pshift[dur]-1);
+                    }else if(item.userData.rank==8){
+                      item.children[4].position.x=-0.3
+                      item.children[4].position.z=-0.3*(pshift[dur]-1);
+                      item.children[5].position.z=-0.4*(pshift[dur]-1);
+
+                        if(skinnum0==2&&pin){
+                          item.children[6].position.y=0
+                        }else{
+                          item.children[6].position.y=100
+                        }
+                    }
                   }
+
+
+
+
+
                   // item.children[3].position.z=1-0.2*(pshift[dur]-1);
                 }else if(item.userData.rank==9||item.userData.rank==10||item.userData.rank==11){
                     item.children[0].position.z=1-0.4*(pshift[dur]-1);
@@ -18071,6 +18557,9 @@
               pen[5].material.visible=true
               seal[8].material.visible=true
               bear[7].material.visible=true
+
+
+
               if(pung){
                 document.getElementById('top0').children[0].style.height=String(isize)+"vh"
 
@@ -18143,6 +18632,34 @@
                     itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
                     itempointer.children[1].position.z=-0.5*(pshift[dur]-1);
                     itempointer.children[2].position.z=0.3*(pshift[dur]-1);
+
+                  }else if(itempointer.userData.rank==0){
+                    pen[5].material.visible=false
+                    seal[8].material.visible=false
+                    bear[7].material.visible=false
+
+                    itemmold[4].rotation.x=itempointer.rotation.x+Math.PI/2+Math.PI;
+                    itemmold[4].position.y=itempointer.position.y
+                    itemmold[4].position.z=itempointer.position.z
+
+                    itemmold[4].children[0].position.y=-2;
+                    itemmold[4].children[1].position.y=-2;
+
+
+
+                  }else if(itempointer.userData.rank==4){
+                    pen[5].material.visible=false
+                    seal[8].material.visible=false
+                    bear[7].material.visible=false
+
+                    itemmold[4].rotation.x=itempointer.rotation.x+Math.PI/2+Math.PI;
+                    itemmold[4].position.y=itempointer.position.y
+                    itemmold[4].position.z=itempointer.position.z
+
+                    itemmold[4].children[0].position.y=-3;
+                    itemmold[4].children[1].position.y=-3;
+
+
 
                   }
 
@@ -18831,6 +19348,14 @@
                       item.userData.body.quaternion.copy(posture)
                       console.log("뒤집2")
                     }
+
+                    if((item.userData.rank==7||item.userData.rank==8)&&item.userData.form==1){
+                      console.log("풍선")
+                      var force = new CANNON.Vec3();
+
+                      force.set(0, (bh*18-item.position.y)*200, 0);
+                      item.userData.body.applyForce(force, item.userData.body.position);
+                    }
                   }
 
                   item.position.copy(item.userData.body.position);
@@ -19260,7 +19785,7 @@
     }
     window.toggle=toggle;
 
-    function spawn(){
+    function spawn(n=0){
 
       // for (var i = 0; i < 4; i++) {
       //   var tr=parseInt(Math.random()*5)
@@ -19284,35 +19809,67 @@
       //   dragflag = false;
       //   drop=elapsedTime;
       // }
-      for (var i = 0; i < 5; i++) {
-        for (var j = 0; j < 7; j++) {
-          var tr=parseInt(Math.random()*4)
-          var tx=-0.65+0.27*i;
+      if(n==0){
+        for (var i = 0; i < 5; i++) {
+          for (var j = 0; j < 7; j++) {
+            var tr=parseInt(Math.random()*4)
+            var tx=-0.65+0.27*i;
 
-          let newo=newone(과일.length-1, tr,0,-tx*lx)
-          // axis[0].position.z=-tx*lx
-          next=nnext
-          nnext=nextpool[parseInt(Math.random()*nextpool.length)];
+            let newo=newone(과일.length-1, tr,0,-tx*lx)
+            // axis[0].position.z=-tx*lx
+            next=nnext
+            nnext=nextpool[parseInt(Math.random()*nextpool.length)];
 
-          var cname=String(nnext+1)
-          document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+            var cname=String(nnext+1)
+            document.getElementById("hammer").children[0].src="png/u"+cname+".png"
 
-          // next=7
-          newo.position.y+=bh*(4+j)+(bh/2)*i
-          scene.add(newo);
-
-
-          newo.userData.body.position.copy(newo.position);
-          world.addBody(newo.userData.body);
+            // next=7
+            newo.position.y+=bh*(4+j)+(bh/2)*i
+            scene.add(newo);
 
 
-          과일.push(newo)
+            newo.userData.body.position.copy(newo.position);
+            world.addBody(newo.userData.body);
+
+
+            과일.push(newo)
+          }
         }
-      }
 
+
+        dragflag = false;
+        drop=elapsedTime;
+    }else{
+      for (var j = 0; j < 7; j++) {
+        // var tr=parseInt(Math.random()*4)
+        var tr=1
+        var tx=0
+
+        let newo=newone(과일.length-1, tr,0,-tx*lx)
+        // axis[0].position.z=-tx*lx
+        next=nnext
+        nnext=nextpool[parseInt(Math.random()*nextpool.length)];
+
+        var cname=String(nnext+1)
+        document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+
+        // next=7
+        newo.position.y+=1.2*bh*(4+j)
+        scene.add(newo);
+
+
+        newo.userData.body.position.copy(newo.position);
+        world.addBody(newo.userData.body);
+
+
+        과일.push(newo)
+      }
 
       dragflag = false;
       drop=elapsedTime;
+
+    }
+
 
 
 
