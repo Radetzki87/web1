@@ -9133,7 +9133,7 @@
               }
             }else if(skinnum0==2){
               if(pung){
-                if(cat[0].userData["rank"]==4||cat[0].userData["rank"]==0||cat[0].userData["rank"]==1||cat[0].userData["rank"]==5||cat[0].userData["rank"]==7){
+                if(cat[0].userData["rank"]>=0&&cat[0].userData["rank"]<=8){
                   itemtouch=true
                   itempointer=cat[0]
                   itemuse=true;
@@ -15618,12 +15618,6 @@
           }else{
             document.getElementById("skill").style.opacity=1
           }
-
-
-
-
-
-
         }
 
 
@@ -15744,7 +15738,7 @@
             ctx.lineTo(0, wave.y+15);
             var x = 0;
             for (x = 0; x < wavex; x++) {
-                var y = wave.y+15 + Math.sin(x * 1*wave.length + increment) *1*wave.amplitude;
+                var y = wave.y+15 + Math.sin(x * 1.2*wave.length + increment) *1*wave.amplitude;
                 ctx.lineTo(x*1, y);
             }
 
@@ -15823,9 +15817,6 @@
             배.forEach((item, i) => {
 
               var dif=Math.sin((wavex/2) *wave.length + increment)*wave.amplitude*0.3
-              // item.userData.body.position.y=bh*12+dif
-              // item.position.copy(item.userData.body.position);
-              // item.quaternion.copy(item.userData.body.quaternion);
               if(i==1){
                 item.children[0].position.y=0.2*dif+bh*8.9
                 item.children[2].position.y=0.2*dif+bh*8.9
@@ -15843,15 +15834,6 @@
                   // item.position.y=
                   item.position.y=0.2*dif+bh*16.1;
                 });
-
-                // item.children[7].position.x=-1.8
-                //
-                //
-                //
-
-
-
-                // item.children[7].children[2].position.y=0.2
 
 
                 if(true){
@@ -16339,11 +16321,7 @@
 
                     // item.children[3].material.visible=false;
                     item.children[3].position.z=-0.5*(pshift[dur]-1)+0.2; //테두리
-                    if(!itemflag){
-                      item.children[3].position.y=100
-                    }else{
-                      item.children[3].position.y=0.2
-                    }
+
 
                     // item.children[3].position.x=20
                     if(item.userData.rank==2){ //모자
@@ -16352,6 +16330,30 @@
                     }else if(item.userData.rank==3){
                       item.children[4].position.z=1-0.2*(pshift[dur]-1);
                       item.children[4].position.y=-1
+                    }
+
+                    if(!itemflag){
+                      item.children[3].position.y=100
+                    }else{
+                      if(item.userData.rank==1){
+                        if((skinnum0==1&&pung)||(skinnum0==2&&pung)||(skinnum0==2&&ice)){
+                          item.children[3].position.y=0.2
+                        }else{
+                          item.children[3].position.y=100
+                        }
+                      }else if(item.userData.rank==2){
+                        if((skinnum0==2&&pung)||(skinnum0==2&&ice)){
+                          item.children[3].position.y=0.2
+                        }else{
+                          item.children[3].position.y=100
+                        }
+                      }else if(item.userData.rank==3){
+                        if((skinnum0==2&&pung)||(skinnum0==2&&ice)){
+                          item.children[3].position.y=0.2
+                        }else{
+                          item.children[3].position.y=100
+                        }
+                      }
                     }
 
                 }else if(item.userData.rank==4){
@@ -16392,11 +16394,7 @@
                     item.children[4].position.x=0.9-0.4*(pshift[dur]-1);
                     item.children[4].position.y=0.4
 
-                    if(!itemflag){
-                      item.children[5].position.y=100
-                    }else{
-                      item.children[5].position.y=0
-                    }
+
 
                     item.children[5].position.z=1.3-0.8*(pshift[dur]-1); //테두리
 
@@ -16405,8 +16403,27 @@
                       item.children[6].position.y=0
                       item.children[7].position.z=1.3-0.8*(pshift[dur]-1);
                       item.children[7].position.y=0.2
-
                     }
+
+                    if(!itemflag){
+                      item.children[5].position.y=100
+                    }else{
+                      if(item.userData.rank==5){
+                        if((skinnum0==1&&ice)||(skinnum0==2&&pung)||(skinnum0==2&&ice)){
+                          item.children[5].position.y=0.2
+                        }else{
+                          item.children[5].position.y=100
+                        }
+                      }else if(item.userData.rank==6){
+                        if((skinnum0==2&&pung)||(skinnum0==2&&ice)){
+                          item.children[5].position.y=0.2
+                        }else{
+                          item.children[5].position.y=100
+                        }
+                      }
+                    }
+
+
                 }else if(item.userData.rank==7||item.userData.rank==8){
 
                   if(item.userData.form==1){
@@ -16423,11 +16440,7 @@
                     item.children[1].position.z=0.3*(pshift[dur]-1);
 
 
-                    if(!itemflag){
-                      item.children[3].position.y=100
-                    }else{
-                      item.children[3].position.y=0
-                    }
+
 
                     item.children[3].position.z=-0.5*(pshift[dur]-1); //테두리
 
@@ -16435,11 +16448,24 @@
                       item.children[4].position.x=-0.3
                       item.children[4].position.z=-0.3*(pshift[dur]-1);
                       item.children[5].position.z=-0.4*(pshift[dur]-1);
-                        if(skinnum0==2&&pin){
-                          item.children[3].position.y=0
+                    }
+
+                    if(!itemflag){
+                      item.children[3].position.y=100
+                    }else{
+                      if(item.userData.rank==7){
+                        if((skinnum0==1&&pin)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==2&&pin)){
+                          item.children[3].position.y=0.2
                         }else{
                           item.children[3].position.y=100
                         }
+                      }else if(item.userData.rank==8){
+                        if((skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==2&&pin)){
+                          item.children[3].position.y=0.2
+                        }else{
+                          item.children[3].position.y=100
+                        }
+                      }
                     }
                   }
                 }else if(item.userData.rank==9||item.userData.rank==10||item.userData.rank==11){
@@ -18007,7 +18033,7 @@
 
                     var mesh10=new THREE.Mesh(geometry1, material1);
 
-                    mesh10.position.set(3,bh*(ly),0)
+                    mesh10.position.set(3,2+bh*(ly),0)
                     mesh.add(mesh10)
                     laser.push(mesh10)
 
@@ -18526,14 +18552,8 @@
                 itemmold[6].position.x=-bh*3;
 
                 if(itemtouch){
-                  // itemmold[4].scale.x=(4+(pshift[dur]-1)*4.6)
-                  // itemmold[4].scale.y=(4+(pshift[dur]-1)*4.6)
+                  if(itempointer.userData.rank==1||itempointer.userData.rank==2||itempointer.userData.rank==3){
 
-
-                  if(itempointer.userData.rank==1){
-                    pen[5].material.visible=true
-                    seal[8].material.visible=false
-                    bear[7].material.visible=false
 
                     // itemmold[4].position.set(bh*0.5,ih+bh/2,-lastX*lx)
                     itemmold[4].rotation.x=itempointer.rotation.x+Math.PI/2+Math.PI;
@@ -18542,20 +18562,20 @@
 
                     itemmold[4].children[0].position.y=-3;
                     itemmold[4].children[1].position.y=-3;
-
-
-
-
-
+                    if(itempointer.userData.rank==2){
+                      itemmold[4].children[0].position.y=-3.3;
+                      itemmold[4].children[1].position.y=-3.3;
+                    }else if(itempointer.userData.rank==3){
+                      itemmold[4].children[0].position.y=-4.2;
+                      itemmold[4].children[1].position.y=-4.2;
+                    }
 
                     itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
                     itempointer.children[1].position.z=2*(pshift[dur]-1);
                     itempointer.children[2].position.y=0.8
                     itempointer.children[3].material.visible=true;
-                  }else if(itempointer.userData.rank==5){
-                    pen[5].material.visible=false
-                    seal[8].material.visible=true
-                    bear[7].material.visible=false
+                  }else if(itempointer.userData.rank==5||itempointer.userData.rank==6){
+
 
                     itemmold[4].rotation.x=itempointer.rotation.x+Math.PI/2+Math.PI;
                     itemmold[4].position.y=itempointer.position.y
@@ -18563,6 +18583,10 @@
 
                     itemmold[4].children[0].position.y=-4;
                     itemmold[4].children[1].position.y=-4;
+                    if(itempointer.userData.rank==6){
+                      itemmold[4].children[0].position.y=-5.2;
+                      itemmold[4].children[1].position.y=-5.2;
+                    }
 
                     itempointer.children[1].position.z=1.3-0.8*(pshift[dur]-1);
                     itempointer.children[2].position.z=1.3
@@ -18571,11 +18595,9 @@
                     itempointer.children[4].position.x=0.9-0.4*(pshift[dur]-1);
                     itempointer.children[2].position.y=0.2
                     itempointer.children[4].position.y=0.2
-                    itempointer.children[5].material.visible=true;
-                  }else if(itempointer.userData.rank==7){
-                    pen[5].material.visible=false
-                    seal[8].material.visible=false
-                    bear[7].material.visible=true
+                    // itempointer.children[5].material.visible=true;
+                  }else if(itempointer.userData.rank==7||itempointer.userData.rank==8){
+
 
                     itemmold[4].rotation.x=itempointer.rotation.x+Math.PI/2+Math.PI;
                     itemmold[4].position.y=itempointer.position.y
@@ -18583,15 +18605,17 @@
 
                     itemmold[4].children[0].position.y=-4;
                     itemmold[4].children[1].position.y=-4;
+                    if(itempointer.userData.rank==8){
+                      itemmold[4].children[0].position.y=-6;
+                      itemmold[4].children[1].position.y=-6;
+                    }
 
                     itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
                     itempointer.children[1].position.z=-0.5*(pshift[dur]-1);
                     itempointer.children[2].position.z=0.3*(pshift[dur]-1);
 
                   }else if(itempointer.userData.rank==0){
-                    pen[5].material.visible=false
-                    seal[8].material.visible=false
-                    bear[7].material.visible=false
+
 
                     itemmold[4].rotation.x=itempointer.rotation.x+Math.PI/2+Math.PI;
                     itemmold[4].position.y=itempointer.position.y
@@ -18603,9 +18627,7 @@
 
 
                   }else if(itempointer.userData.rank==4){
-                    pen[5].material.visible=false
-                    seal[8].material.visible=false
-                    bear[7].material.visible=false
+
 
                     itemmold[4].rotation.x=itempointer.rotation.x+Math.PI/2+Math.PI;
                     itemmold[4].position.y=itempointer.position.y
@@ -18761,8 +18783,8 @@
             fsum+=item;
           });
 
-          // document.getElementById('fps').innerText=String(parseInt(fsum/fpslst.length));
-          document.getElementById('fps').innerText="🎫: "+String(ticket)
+          document.getElementById('fps').innerText=String(parseInt(fsum/fpslst.length));
+          // document.getElementById('fps').innerText="🎫: "+String(ticket)
 
 
           fpslst=[];
