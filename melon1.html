@@ -137,8 +137,6 @@
         }
 
 
-
-
         #ring{
           position: absolute;
           -webkit-background-color: transparent;
@@ -176,7 +174,6 @@
             justify-content: center;
             align-items: center;
             z-index:2;
-
             font-size: 3vmin;
         }
 
@@ -186,10 +183,6 @@
           color: white;
 
         }
-
-
-
-
 
         #yesno2{
             position: absolute;
@@ -2538,24 +2531,25 @@
 
 
         .cell{
+          display:flex;
+          flex-direction: column;
           margin-bottom:2.5vh;
           background-color: rgba(150, 150, 150, 0.6);
-          align-items: baseline;
+          align-items: center;
           border: 0.8vmin solid #FFF;
           border-radius: 12vmin;
           width: 12vmin;
           height:9vh;
-
           justify-content: center;
         }
 
 
 
         .cell img{
-          position: absolute;
-          right:1.9vmin;
+
+
            /* margin-top:1vh; */
-          height: 6vh;
+          height: 5vh;
           /* height: 12vmin; */
 
         }
@@ -2563,10 +2557,8 @@
 
 
         .cell div{
-          position: absolute;
-          transform: translate(0,10vmin);
 
-          left:5.8vmin;
+
 
           font-family: 'GG';
           font-size: 3.5vmin;
@@ -3215,7 +3207,7 @@
     var paidlst=[true, true, true, true, false, false]
 
     var 옵셋=5;
-    var 템크기="6vh"
+    var 템크기="5vh"
 
     var dirt=[];
     var 더트=[];
@@ -8552,7 +8544,7 @@
 
         console.log(propsmold.length);
         // if(propsmold.length!=6) return;
-        if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=8||pen2.length!=5||dirt.length!=1||bear2.length!=9) return;
+        if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=10||pen2.length!=5||dirt.length!=1||bear2.length!=9) return;
 
         if(!originflag){
           return;
@@ -9163,7 +9155,7 @@
                   itemtouch=false
                 }
               }else if(bridge){
-                if(cat[0].userData["rank"]==12){
+                if(cat[0].userData["rank"]==13){
 
 
                   itemtouch=true
@@ -9461,7 +9453,7 @@
                   if(skinnum0==2){
 
                     var force = new CANNON.Vec3();
-                    force.set(0, 400000, 0);
+                    force.set(0, 300000, 0);
 
                     var quaternion = new CANNON.Quaternion();
                     quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), itempointer.rotation.x+Math.PI/2);
@@ -9536,7 +9528,7 @@
 
                 }else if(ice){
                   if(skinnum0==2){
-                    itempointer.userData.body.position.y=bh*18;
+                    itempointer.userData.body.position.y=bh*17;
 
                     itemdrag=false
                     itemtouch=false;
@@ -9643,28 +9635,40 @@
                 }else if(bridge){
 
                   console.log("bridge 사용")
-
-
-
-                  if(itempointer.userData["dir"]==0){
-                    if(parseInt(Math.random()*2)==0){
-                      itemuse1=true;
-                      itemuse2=false;
-                    }else{
+                  if(skinnum0==1){
+                    if(itempointer.userData["dir"]==0){
+                      if(parseInt(Math.random()*2)==0){
+                        itemuse1=true;
+                        itemuse2=false;
+                      }else{
+                        itemuse2=true;
+                        itemuse1=false;
+                      }
+                    }else if(itempointer.userData["dir"]==1){
                       itemuse2=true;
                       itemuse1=false;
-                    }
-                  }else if(itempointer.userData["dir"]==1){
-                    itemuse2=true;
-                    itemuse1=false;
-                  }else if(itempointer.userData["dir"]==2){
-                    itemuse1=true;
-                    itemuse2=false;
+                    }else if(itempointer.userData["dir"]==2){
+                      itemuse1=true;
+                      itemuse2=false;
 
+                    }
+                    과일.forEach((item) => {
+                      item.userData.ipos=item.userData.body.position.z
+                    });
+                  }else if(skinnum0==2){
+                    if(itempointer.userData["dir"]==1){
+                      itemuse2=true;
+                      itemuse1=false;
+                    }else if(itempointer.userData["dir"]==0){
+                      itemuse1=true;
+                      itemuse2=false;
+
+                    }
                   }
-                  과일.forEach((item) => {
-                    item.userData.ipos=item.userData.body.position.z
-                  });
+
+
+
+
 
 
 
@@ -10096,7 +10100,7 @@
       if(document.getElementById("setting-overlay").classList.contains("show")) return;
       if(!터치) return
       // if(propsmold.length!=6) return;
-      if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=8||pen2.length!=5||dirt.length!=1||bear2.length!=9) return;
+      if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=10||pen2.length!=5||dirt.length!=1||bear2.length!=9) return;
 
       if(!originflag){
         return;
@@ -12162,6 +12166,54 @@
                                                               object.children[0].receiveShadow = true;
                                                               object.children[0].castShadow = true;
                                                               dirt.push(object.children[0]);
+                                                              var loader = new OBJLoader();
+                                                              var mtlLoader = new MTLLoader();
+                                                              mtlLoader.load(ur2+'src/cabin-5.mtl', function(materials) {
+                                                                  materials.preload();
+                                                                  loader.setMaterials(materials);
+                                                                  loader.load(ur2+'src/cabin-5.obj', (object) => {
+                                                                    // object.children[0].rotation.y = Math.PI / 2
+                                                                    object.children[0].position.set(0, 0, 0)
+                                                                    object.children[0].scale.x = 3
+                                                                    object.children[0].scale.z = 3
+                                                                    object.children[0].scale.y = 3
+
+                                                                    object.children[0].rotation.x = Math.PI / 2
+
+                                                                    // object.children[0].position.z=0.2
+
+                                                                    // object.children[0].scale.x=2.25;
+                                                                    // object.children[0].scale.z=2.25;
+                                                                    // object.children[0].scale.y=1.92;
+                                                                    object.children[0].receiveShadow = true;
+                                                                    object.children[0].castShadow = true;
+                                                                    wall.push(object.children[0]);
+                                                                    var loader = new OBJLoader();
+                                                                    var mtlLoader = new MTLLoader();
+                                                                    mtlLoader.load(ur2+'src/cabin-6.mtl', function(materials) {
+                                                                        materials.preload();
+                                                                        loader.setMaterials(materials);
+                                                                        loader.load(ur2+'src/cabin-6.obj', (object) => {
+                                                                          // object.children[0].rotation.y = Math.PI / 2
+                                                                          object.children[0].position.set(0, 0, 0)
+                                                                          object.children[0].scale.x = 3
+                                                                          object.children[0].scale.z = 3
+                                                                          object.children[0].scale.y = 3
+
+                                                                          object.children[0].rotation.x = Math.PI / 2
+
+                                                                          // object.children[0].position.z=0.2
+
+                                                                          // object.children[0].scale.x=2.25;
+                                                                          // object.children[0].scale.z=2.25;
+                                                                          // object.children[0].scale.y=1.92;
+                                                                          object.children[0].receiveShadow = true;
+                                                                          object.children[0].castShadow = true;
+                                                                          wall.push(object.children[0]);
+                                                                        });
+                                                                    });
+                                                                  });
+                                                              });
                                                             });
                                                         });
                                                       });
@@ -13274,6 +13326,13 @@
                     // object.children[0].scale.y=1.92;
                     object.children[0].receiveShadow = true;
                     object.children[0].castShadow = true;
+
+                    // var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
+                    // var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.85) + '%, ' + String(newcl["l"] - 10) + '%)');
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: new THREE.Color(0xB5370F)
+                    });
+
                     itemset.push(object.children[0])
                     var loader = new OBJLoader();
                     var mtlLoader = new MTLLoader();
@@ -13290,7 +13349,6 @@
                           object.children[0].rotation.x = Math.PI
 
                           // object.children[0].position.z=0.2
-
                           // object.children[0].scale.x=2.25;
                           // object.children[0].scale.z=2.25;
                           // object.children[0].scale.y=1.92;
@@ -13330,17 +13388,37 @@
                                       object.children[0].scale.x = 1
                                       object.children[0].scale.z = 1
                                       object.children[0].scale.y = 1
-
                                       object.children[0].rotation.x = Math.PI
 
                                       // object.children[0].position.z=0.2
-
                                       // object.children[0].scale.x=2.25;
                                       // object.children[0].scale.z=2.25;
                                       // object.children[0].scale.y=1.92;
                                       object.children[0].receiveShadow = true;
                                       object.children[0].castShadow = true;
                                       itemset.push(object.children[0])
+                                      var loader = new OBJLoader();
+                                      var mtlLoader = new MTLLoader();
+                                      mtlLoader.load(ur2+'src/cola.mtl', function(materials) {
+                                          materials.preload();
+                                          loader.setMaterials(materials);
+                                          loader.load(ur2+'src/cola.obj', (object) => {
+                                            // object.children[0].rotation.y = Math.PI / 2
+                                            object.children[0].position.set(0,0,0)
+                                            object.children[0].scale.x = 1
+                                            object.children[0].scale.z = 1
+                                            object.children[0].scale.y = 1
+                                            object.children[0].rotation.x = Math.PI
+
+                                            // object.children[0].position.z=0.2
+                                            // object.children[0].scale.x=2.25;
+                                            // object.children[0].scale.z=2.25;
+                                            // object.children[0].scale.y=1.92;
+                                            object.children[0].receiveShadow = true;
+                                            object.children[0].castShadow = true;
+                                            itemset.push(object.children[0])
+                                          });
+                                      });
                                     });
                                 });
                               });
@@ -15577,7 +15655,7 @@
         let deltaTime2= elapsedTime - lastTime2;
 
         if(!startflag){
-          if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=8||pen2.length!=5||dirt.length!=1||bear2.length!=9){
+          if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=10||pen2.length!=5||dirt.length!=1||bear2.length!=9){
 
           }else{
             document.getElementById("tts").style.display="none"
@@ -16036,10 +16114,10 @@
               }
               if(itemuse1){
                 var roll=Math.PI/8
-                item.rotation.x=-Math.PI/2+Math.sin(elapsedTime - itemtime)*roll
+                item.rotation.x=-Math.PI/2+Math.sin(2*(elapsedTime - itemtime))*roll
               }else if(itemuse2){
                 var roll=Math.PI/8
-                item.rotation.x=-Math.PI/2+Math.sin(elapsedTime - itemtime)*-roll
+                item.rotation.x=-Math.PI/2+Math.sin(2*(elapsedTime - itemtime))*-roll
               }else{
                 item.rotation.x=-Math.PI/2
               }
@@ -17422,10 +17500,12 @@
                     itemmold.push(mesh);
 
 
-                    itemmold.push(itemset[4].clone());
-                    itemmold.push(itemset[2].clone());
-                    itemmold[6].add(itemset[3].clone())
-                    itemmold.push(itemset[4].clone());
+                    itemmold.push(itemset[4].clone()); //사다리
+
+                    itemmold.push(itemset[5].clone()); //콜라
+
+                    itemmold.push(itemset[2].clone()); //망치
+                    itemmold[7].add(itemset[3].clone())
 
                     itemmold[0].rotation.z=-Math.PI/2
                     itemmold[0].rotation.y=Math.PI/2
@@ -17441,7 +17521,23 @@
                     itemmold[6].rotation.y=Math.PI/2
 
 
-                    itemmold[4].scale.set(2,2,2)
+                    itemmold[4].scale.set(2.5,2.5,2.5)
+
+
+                    itemmold[5].scale.set(2,2,2)
+                    itemmold[5].rotation.y=Math.PI/2
+
+                    itemmold[6].scale.set(2,2.5,2)
+                    itemmold[6].rotation.y=Math.PI/2
+                    itemmold[6].rotation.z=Math.PI
+
+                    itemmold[6].receiveShadow = true;
+                    itemmold[6].castShadow = true;
+
+                    itemmold[7].scale.set(3,3,3)
+                    itemmold[7].rotation.y=0
+
+
 
 
 
@@ -18013,6 +18109,43 @@
 
                     mesh.add(mesh9)
 
+                    var mesh10=wall[8].clone()
+
+                    mesh10.position.set(1.5,bh*(8.9),0)
+                    mesh10.rotation.y=Math.PI
+                    mesh10.rotation.z=Math.PI/2
+                    mesh10.rotation.x=-Math.PI/2
+                    mesh10.scale.set(6,6,6)
+
+                    mesh10.userData["rank"]=13;
+                    mesh10.userData["alive"]=true;
+                    mesh10.userData["target"]=false;
+                    mesh10.userData["dir"]=1;
+                    mesh10.material.opacity=0;
+                    mesh10.material.transparent=true;
+
+                    mesh.add(mesh10)
+
+                    var mesh11=wall[9].clone()
+
+                    mesh11.position.set(1.5,bh*(8.9),0)
+                    mesh11.rotation.y=Math.PI
+                    mesh11.rotation.z=Math.PI/2
+                    mesh11.rotation.x=-Math.PI/2
+                    mesh11.scale.set(6,6,6)
+
+                    mesh11.userData["rank"]=13;
+                    mesh11.userData["alive"]=true;
+                    mesh11.userData["target"]=false;
+                    mesh11.userData["dir"]=0;
+                    mesh11.material.opacity=0;
+                    mesh11.material.transparent=true;
+
+                    mesh.add(mesh11)
+
+                    console.log(mesh.children)
+
+
                     sample2.forEach((item, i) => {
                       // item.position.y=bh*16.5;
                       mesh.add(item)
@@ -18437,6 +18570,15 @@
               itemmold[2].scale.y=4
               itemmold[3].scale.x=4
               itemmold[3].scale.z=4
+
+              itemmold[4].scale.y=2.5
+
+              itemmold[5].scale.set(2,2,2)
+
+
+
+
+
             }
 
 
@@ -18552,6 +18694,10 @@
                 itemmold[6].position.x=-bh*3;
 
                 if(itemtouch){
+                  console.log("그랩")
+                  // itemmold[4].scale.x=2
+                  itemmold[4].scale.y=(2.5+(pshift[dur]-1)*0.9)
+
                   if(itempointer.userData.rank==1||itempointer.userData.rank==2||itempointer.userData.rank==3){
 
 
@@ -18560,14 +18706,14 @@
                     itemmold[4].position.y=itempointer.position.y
                     itemmold[4].position.z=itempointer.position.z
 
-                    itemmold[4].children[0].position.y=-3;
-                    itemmold[4].children[1].position.y=-3;
+                    itemmold[4].children[0].position.y=-2.3;
+                    itemmold[4].children[1].position.y=-2.3;
                     if(itempointer.userData.rank==2){
-                      itemmold[4].children[0].position.y=-3.3;
-                      itemmold[4].children[1].position.y=-3.3;
+                      itemmold[4].children[0].position.y=-2.6;
+                      itemmold[4].children[1].position.y=-2.6;
                     }else if(itempointer.userData.rank==3){
-                      itemmold[4].children[0].position.y=-4.2;
-                      itemmold[4].children[1].position.y=-4.2;
+                      itemmold[4].children[0].position.y=-3.4;
+                      itemmold[4].children[1].position.y=-3.4;
                     }
 
                     itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
@@ -18581,11 +18727,11 @@
                     itemmold[4].position.y=itempointer.position.y
                     itemmold[4].position.z=itempointer.position.z
 
-                    itemmold[4].children[0].position.y=-4;
-                    itemmold[4].children[1].position.y=-4;
+                    itemmold[4].children[0].position.y=-3.3;
+                    itemmold[4].children[1].position.y=-3.3;
                     if(itempointer.userData.rank==6){
-                      itemmold[4].children[0].position.y=-5.2;
-                      itemmold[4].children[1].position.y=-5.2;
+                      itemmold[4].children[0].position.y=-4.2;
+                      itemmold[4].children[1].position.y=-4.2;
                     }
 
                     itempointer.children[1].position.z=1.3-0.8*(pshift[dur]-1);
@@ -18603,11 +18749,11 @@
                     itemmold[4].position.y=itempointer.position.y
                     itemmold[4].position.z=itempointer.position.z
 
-                    itemmold[4].children[0].position.y=-4;
-                    itemmold[4].children[1].position.y=-4;
+                    itemmold[4].children[0].position.y=-3.5;
+                    itemmold[4].children[1].position.y=-3.5;
                     if(itempointer.userData.rank==8){
-                      itemmold[4].children[0].position.y=-6;
-                      itemmold[4].children[1].position.y=-6;
+                      itemmold[4].children[0].position.y=-5;
+                      itemmold[4].children[1].position.y=-5;
                     }
 
                     itempointer.children[0].position.z=-0.5*(pshift[dur]-1);
@@ -18646,7 +18792,7 @@
               }else if(ice){
                 itemmold[5].material.visible=true
                 // itemmold[5].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
-                itemmold[5].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[5].position.set(bh*0.5,ih+bh*3,-lastX*lx)
                 itemmold[4].position.x=-bh*3;
                 itemmold[6].position.x=-bh*3;
 
@@ -18662,19 +18808,35 @@
                 itemmold[5].position.x=-bh*3;
                 itemmold[7].position.x=-bh*3;
                 if(itemtouch){
-                  itemmold[6].scale.x=(4+(pshift[dur]-1)*4.6)
-                  itemmold[6].scale.y=(4+(pshift[dur]-1)*4.6)
+                  itemmold[6].scale.x=(2+(pshift[dur]-1)*1.6)
+                  itemmold[6].scale.y=(2.5+(pshift[dur]-1)*1.6)
                 }
               }else if(bridge){
+                배[1].children[9].material.visible=true
+                배[1].children[10].material.visible=true
+
+                배[1].children[9].position.x=2
+                배[1].children[10].position.x=2
+
+                배[1].children[9].material.opacity=0.3
+                배[1].children[10].material.opacity=0.3
+
                 itemmold[7].material.visible=true
                 // itemmold[7].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
-                itemmold[7].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[7].position.set(bh*2,ih+bh/2,-lastX*lx)
                 itemmold[4].position.x=-bh*3;
                 itemmold[5].position.x=-bh*3;
                 itemmold[6].position.x=-bh*3;
                 if(itemtouch){
-                itemmold[7].scale.x=(4+(pshift[dur]-1)*4.6)
-                itemmold[7].scale.z=(4+(pshift[dur]-1)*4.6)
+                  if(itempointer.userData.dir==1){
+                    배[1].children[9].material.opacity=0.6
+                    배[1].children[10].material.opacity=0.3
+                  }else if(itempointer.userData.dir==0){
+                    배[1].children[9].material.opacity=0.3
+                    배[1].children[10].material.opacity=0.6
+                  }
+                  itemmold[7].scale.z=(3+(pshift[dur]-1)*1.6)
+                  itemmold[7].scale.y=(3+(pshift[dur]-1)*1.6)
                 }
               }
             }else{
@@ -18684,8 +18846,28 @@
               // itemmold[5].scale.y=4
               // itemmold[6].scale.x=4
               // itemmold[6].scale.y=4
-              // itemmold[7].scale.x=4
-              // itemmold[7].scale.z=4
+              itemmold[7].scale.x=3
+              itemmold[7].scale.z=3
+
+
+
+              itemmold[4].scale.y=2.5
+              itemmold[5].scale.set(4,4,4)
+
+              itemmold[6].scale.x=(2)
+              itemmold[6].scale.y=(2.5)
+
+            }
+
+            if(!itemtouch&&bridge){
+              배[1].children[9].material.visible=true
+              배[1].children[10].material.visible=true
+
+              배[1].children[9].position.x=2
+              배[1].children[10].position.x=2
+
+              배[1].children[9].material.opacity=0.3
+              배[1].children[10].material.opacity=0.3
             }
 
             if(itemtouch){
@@ -18720,6 +18902,15 @@
             배[1].children[5].material.visible=false
             배[1].children[6].material.visible=false
             배[1].children[7].material.visible=false
+
+            배[1].children[9].material.visible=false
+            배[1].children[10].material.visible=false
+
+            배[1].children[9].position.x=-100
+            배[1].children[10].position.x=-100
+
+            배[1].children[9].material.opacity=0.6
+            배[1].children[10].material.opacity=0.3
 
 
             // 배[1].children[5].material.opacity=0.4
@@ -19135,157 +19326,211 @@
           }
 
           var roll=Math.PI/10
-          if(itemuse1){
-            if(elapsedTime - itemtime <= Math.PI){
-               console.log("a")
+          if(skinnum0==1){
+            if(itemuse1){
+              if((elapsedTime - itemtime) <= Math.PI/2){
+                 console.log("a")
 
 
-                // 배[0].position.y=-1*Math.sin(Math.sin(elapsedTime - itemtime)*Math.PI/30)
+                  // 배[0].position.y=-1*Math.sin(Math.sin(2*(elapsedTime - itemtime))*Math.PI/30)
 
-                배[0].position.z=-bh*8.5*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
+                  배[0].position.z=-bh*8.5*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
-                if(elapsedTime - itemtime<Math.PI/2.7){
-                  배[0].userData.body.velocity.z=0.2*배[0].position.z/(elapsedTime - itemtime)
-                }else if(elapsedTime - itemtime<Math.PI/1.8){
-                  배[0].userData.body.velocity.z=0
-                }else{
-                  배[0].userData.body.velocity.z=15*Math.cos(Math.sin(elapsedTime - itemtime))
-                  // 과일.forEach((item) => {
-                  //   if(item.userData.alive){
-                  //     item.userData.body.position.z=item.userData.ipos-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                  //   }
-                  // });
-                }
-
-
-
-
-
-                console.log(배[0].userData.body.velocity.z)
-
-
-                배[0].position.y=bh*(3.1)+(bh*21-bh*21*Math.cos(Math.sin(elapsedTime - itemtime)*roll))
+                  if(2*(elapsedTime - itemtime)<Math.PI/2.7){
+                    배[0].userData.body.velocity.z=0.2*배[0].position.z/(2*(elapsedTime - itemtime))
+                  }else if(2*(elapsedTime - itemtime)<Math.PI/1.8){
+                    배[0].userData.body.velocity.z=0
+                  }else{
+                    배[0].userData.body.velocity.z=15*Math.cos(Math.sin(2*(elapsedTime - itemtime)))
+                    // 과일.forEach((item) => {
+                    //   if(item.userData.alive){
+                    //     item.userData.body.position.z=item.userData.ipos-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                    //   }
+                    // });
+                  }
 
 
 
-                배[0].rotation.x=Math.sin(elapsedTime - itemtime)*roll
 
 
-                배[1].quaternion.copy(배[0].quaternion);
-
-                배[1].children[0].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                배[1].children[1].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                배[1].children[2].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                배[1].children[3].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                배[1].children[4].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                배[1].children[5].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                배[1].children[6].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                배[1].children[7].position.z=-20.7-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                배[1].children[7].rotation.x=Math.PI/2+Math.sin(Math.sin(elapsedTime - itemtime)*roll)
+                  console.log(배[0].userData.body.velocity.z)
 
 
-                배[1].children[8].position.z=-20.7-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-
-                배[1].children[9].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                배[1].children[10].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                배[1].children[11].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                배[1].children[12].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                배[1].children[13].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-
-
-                laser[0].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-
-                // if(elapsedTime-drop<0.7){
-                //   sample.forEach((item) => {
-                //     item.position.z=(27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*roll))*(1-(elapsedTime-drop)*(10/7))
-                //   });
-                // }
+                  배[0].position.y=bh*(3.1)+(bh*21-bh*21*Math.cos(Math.sin(2*(elapsedTime - itemtime))*roll))
 
 
 
-                // emote[0].position.x=-20.7-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-
-                배[1].userData.body.quaternion.copy(배[0].quaternion);
+                  배[0].rotation.x=Math.sin(2*(elapsedTime - itemtime))*roll
 
 
-                배[0].userData.body.position.copy(배[0].position);
-                배[0].userData.body.quaternion.copy(배[0].quaternion);
+                  배[1].quaternion.copy(배[0].quaternion);
 
-                배경[0].position.z-=deltaTime/1200
-                // 배경[1].position.z-=deltaTime/900
-            }else{
-              itemuse1=false;
-              itemuse2=false;
-              // 배[0].userData.body.velocity.z=0
+                  배[1].children[0].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[1].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[2].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[3].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[4].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[5].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[6].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[7].position.z=-20.7-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[7].rotation.x=Math.PI/2+Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+
+
+                  배[1].children[8].position.z=-20.7-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+
+                  배[1].children[9].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[10].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[11].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[12].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[13].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+
+
+                  laser[0].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+
+                  // if(elapsedTime-drop<0.7){
+                  //   sample.forEach((item) => {
+                  //     item.position.z=(27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll))*(1-(elapsedTime-drop)*(10/7))
+                  //   });
+                  // }
+
+
+
+                  // emote[0].position.x=-20.7-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+
+                  배[1].userData.body.quaternion.copy(배[0].quaternion);
+
+
+                  배[0].userData.body.position.copy(배[0].position);
+                  배[0].userData.body.quaternion.copy(배[0].quaternion);
+
+                  배경[0].position.z-=deltaTime/1200
+                  // 배경[1].position.z-=deltaTime/900
+              }else{
+                itemuse1=false;
+                itemuse2=false;
+                // 배[0].userData.body.velocity.z=0
+              }
             }
-          }
 
-          if(itemuse2){
-            if(elapsedTime - itemtime <= Math.PI){
-
+            if(itemuse2){
+              if((elapsedTime - itemtime) <= Math.PI/2){
 
 
-                // 배[0].position.y=-bh*1*Math.sin(Math.sin(elapsedTime - itemtime)*-Math.PI/30)
-                배[0].position.z=-bh*8.5*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
 
-                if(elapsedTime - itemtime<Math.PI/2.7){
-                  배[0].userData.body.velocity.z=0.2*배[0].position.z/(elapsedTime - itemtime)
-                }else if(elapsedTime - itemtime<Math.PI/1.8){
-                  배[0].userData.body.velocity.z=0
-                }else{
-                  배[0].userData.body.velocity.z=-15*Math.cos(Math.sin(elapsedTime - itemtime))
-                  // 과일.forEach((item) => {
-                  //   if(item.userData.alive){
-                  //     item.userData.body.position.z=item.userData.ipos-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*roll)
-                  //   }
-                  // });
-                }
+                  // 배[0].position.y=-bh*1*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-Math.PI/30)
+                  배[0].position.z=-bh*8.5*Math.sin(Math.sin((2*(elapsedTime - itemtime)))*-roll)
 
-
-                console.log(배[0].userData.body.velocity.z)
+                  if(2*(elapsedTime - itemtime)<Math.PI/2.7){
+                    배[0].userData.body.velocity.z=0.2*배[0].position.z/(2*(elapsedTime - itemtime))
+                  }else if(2*(elapsedTime - itemtime)<Math.PI/1.8){
+                    배[0].userData.body.velocity.z=0
+                  }else{
+                    배[0].userData.body.velocity.z=-15*Math.cos(Math.sin(2*(elapsedTime - itemtime)))
+                    // 과일.forEach((item) => {
+                    //   if(item.userData.alive){
+                    //     item.userData.body.position.z=item.userData.ipos-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                    //   }
+                    // });
+                  }
 
 
-                배[0].position.y=bh*(3.1)+(bh*21-bh*21*Math.cos(Math.sin(elapsedTime - itemtime)*roll))
-
-                배[0].rotation.x=Math.sin(elapsedTime - itemtime)*-roll
-
-                배[1].quaternion.copy(배[0].quaternion);
+                  console.log(배[0].userData.body.velocity.z)
 
 
-                배[1].children[0].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                배[1].children[1].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                배[1].children[2].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                배[1].children[3].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                배[1].children[4].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                배[1].children[5].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                배[1].children[6].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                배[1].children[7].position.z=-20.7-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                배[1].children[7].rotation.x=Math.PI/2+Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
+                  배[0].position.y=bh*(3.1)+(bh*21-bh*21*Math.cos(Math.sin(2*(elapsedTime - itemtime))*roll))
+
+                  배[0].rotation.x=Math.sin(2*(elapsedTime - itemtime))*-roll
+
+                  배[1].quaternion.copy(배[0].quaternion);
 
 
-                배[1].children[8].position.z=-20.7-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-
-                배[1].children[9].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                배[1].children[10].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                배[1].children[11].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                배[1].children[12].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                배[1].children[13].position.z=27-bh*10*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                // emote[0].position.x=-20.7-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-                laser[0].position.z=-bh*12*Math.sin(Math.sin(elapsedTime - itemtime)*-roll)
-
-
-                배[1].userData.body.quaternion.copy(배[0].quaternion);
+                  배[1].children[0].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[1].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[2].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[3].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[4].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[5].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[6].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[7].position.z=-20.7-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[7].rotation.x=Math.PI/2+Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
 
-                배[0].userData.body.position.copy(배[0].position);
-                배[0].userData.body.quaternion.copy(배[0].quaternion);
-                배경[0].position.z+=deltaTime/1200
-                // 배경[1].position.z+=deltaTime/900
-            }else{
-              itemuse1=false;
-              itemuse2=false;
-              // 배[0].userData.body.velocity.z=0
+                  배[1].children[8].position.z=-20.7-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+
+                  배[1].children[9].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[10].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[11].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[12].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[13].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  // emote[0].position.x=-20.7-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  laser[0].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+
+
+                  배[1].userData.body.quaternion.copy(배[0].quaternion);
+
+
+                  배[0].userData.body.position.copy(배[0].position);
+                  배[0].userData.body.quaternion.copy(배[0].quaternion);
+                  배경[0].position.z+=deltaTime/1200
+                  // 배경[1].position.z+=deltaTime/900
+              }else{
+                itemuse1=false;
+                itemuse2=false;
+                // 배[0].userData.body.velocity.z=0
+              }
             }
+
+
+          }else if(skinnum0==2){
+            if(itemuse1){
+              if(elapsedTime - itemtime <= Math.PI/6){
+                 console.log("b")
+
+
+                 // 배[0].userData.body.position.z=Math.sin(4*(elapsedTime - itemtime))*roll*100
+                 배[1].userData.body.position.z=Math.sin(6*(elapsedTime - itemtime))*roll*20
+                 // 배[1].quaternion.copy(배[0].quaternion.clone());
+                  배[1].position.z=배[1].userData.body.position.z
+                 // 배[1].userData.body.quaternion.copy(배[0].quaternion);
+
+
+
+                  // 배경[0].position.z-=deltaTime/1200
+                  // 배경[1].position.z-=deltaTime/900
+              }else{
+                itemuse1=false;
+                itemuse2=false;
+                // 배[0].userData.body.velocity.z=0
+              }
+            }
+
+            if(itemuse2){
+              if(elapsedTime - itemtime <= Math.PI/6){
+
+
+
+                  // 배[0].position.y=-bh*1*Math.sin(Math.sin(elapsedTime - itemtime)*-Math.PI/30)
+
+
+                  // 배[0].userData.body.position.z=Math.sin(4*(elapsedTime - itemtime))*-roll*100
+                  배[1].userData.body.position.z=Math.sin(6*(elapsedTime - itemtime))*-roll*20
+                  배[1].position.z=배[1].userData.body.position.z
+                  // 배[1].quaternion.copy(배[0].quaternion.clone());
+                  // 배[1].position.copy(배[0].position.clone());
+                  // 배[1].userData.body.quaternion.copy(배[0].quaternion);
+
+
+
+                  // 배경[0].position.z+=deltaTime/1200
+                  // 배경[1].position.z+=deltaTime/900
+              }else{
+                itemuse1=false;
+                itemuse2=false;
+                // 배[0].userData.body.velocity.z=0
+              }
+            }
+
+
           }
 
           if(!itemuse1&&!itemuse2&&배.length!=0) 배[0].userData.body.velocity.z=0
@@ -21098,8 +21343,8 @@
         case 2:
           document.getElementById('top0').children[0].src="png/pung.png"
           document.getElementById('top1').children[0].src="png/bridge.png"
-          document.getElementById('top2').children[0].src="png/hammer.png"
-          document.getElementById('top3').children[0].src="png/staple.png"
+          document.getElementById('top2').children[0].src="png/cola.png"
+          document.getElementById('top3').children[0].src="png/hammer.png"
           break;
         case 3:
           document.getElementById('top0').children[0].src="png/freeze.png"
