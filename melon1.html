@@ -3334,6 +3334,7 @@
     var wall=[];
 
     var seal=[];
+    var seal2=[];
     var half=[];
     var halp=[];
 
@@ -8544,7 +8545,7 @@
 
         console.log(propsmold.length);
         // if(propsmold.length!=6) return;
-        if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=10||pen2.length!=5||dirt.length!=1||bear2.length!=9) return;
+        if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=10||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10) return;
 
         if(!originflag){
           return;
@@ -8725,15 +8726,16 @@
 
 
 
-        // console.log(lastY)
+        console.log(lastX)
         // console.log(핑거.y)
         // console.log(핑거0.y)
         과일.forEach((item) => {
           // console.log(item.userData.body.sleep())
         });
 
+
         if(gameoverflag) return;
-        if(lastX>0.8&&skinnum0>0){
+        if(lastX>0.75&&skinnum0>0){
           if(lastY<0.5&&lastY>0.29){
             console.log("뻥")
             if(뻥>0){
@@ -9174,6 +9176,55 @@
                 itemtouch=false
               }
 
+            }else if(skinnum0==3){
+              if(pung){
+                if(true){
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("pung가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else if(ice){
+                if(cat[0].userData["rank"]==4&&cat[0].userData.form==0){
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("i가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else if(pin){
+                if(cat[0].userData["rank"]==12||cat[0].userData["rank"]==5||cat[0].userData["rank"]==6){
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("pin가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else if(bridge){
+                if(cat[0].userData["rank"]==1||cat[0].userData["rank"]==5||cat[0].userData["rank"]==7){
+
+
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("bridge가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else{
+                itempointer=null;
+                itemuse=false;
+                itemtouch=false
+              }
+
             }
 
 
@@ -9450,7 +9501,21 @@
             // }
             if(itemuse){
                 if(pung){
-                  if(skinnum0==2){
+                  if(skinnum0==3){
+
+                    spawn(1, lastX)
+                    console.log("힘")
+                    itemdrag=false
+                    itemtouch=false;
+                    itemflag=false;
+
+                    pung=false;
+                    ice=false
+                    pin=false
+
+                    itemuse=false;
+
+                  }else if(skinnum0==2){
 
                     var force = new CANNON.Vec3();
                     force.set(0, 300000, 0);
@@ -9527,7 +9592,42 @@
 
 
                 }else if(ice){
-                  if(skinnum0==2){
+                  if(skinnum0==3){
+
+                    itemdrag=false
+                    itemtouch=false;
+                    itemflag=false;
+
+                    pung=false;
+                    ice=false
+                    pin=false
+
+                    itemuse=false;
+
+
+                    var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x, 12, true, true)
+
+                    // 점수+=(itempointer.rank+1)*10
+                    // console.log(점수)
+                    newo.position.copy(itempointer.position)
+
+                    newo.userData.body.position.copy(newo.position);
+                    scene.remove(itempointer);
+
+
+                    itempointer.userData.alive=false
+
+                    world.remove(itempointer.userData.body)
+                    newo.userData.body.position.copy(newo.position);
+                    world.addBody(newo.userData.body);
+                    과일.push(newo)
+
+                    // setTimeout(function() {
+                    //
+                    // }, 0);
+                    scene.add(newo);
+
+                  }else if(skinnum0==2){
                     itempointer.userData.body.position.y=bh*17;
 
                     itemdrag=false
@@ -9596,32 +9696,69 @@
                   pin=false
 
                   itemuse=false;
+                  if(skinnum0==3&&itempointer.userData.rank==12){
+                    과일.forEach((item) => {
+                      if(item.userData.alive&&(item.userData.rank==5||item.userData.rank==6)){
+                        if(item.userData.form==0){
+                          var newo=newone(과일.length-1, item.userData.rank-1, item.rotation.x, 999, true, true)
+                        }else{
+                          var newo=newone(과일.length-1, item.userData.rank-1, item.rotation.x, 999, true, false)
+                        }
 
-                  console.log(itempointer)
-                  if(skinnum0==2){
-                    var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x, 12, true, true)
-                  }else if(skinnum0==1){
-                    var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
+                        newo.position.copy(item.position)
+
+                        newo.userData.body.position.copy(newo.position);
+                        scene.remove(item);
+
+
+                        item.userData.alive=false
+
+                        world.remove(item.userData.body)
+                        newo.userData.body.position.copy(newo.position);
+                        world.addBody(newo.userData.body);
+                        과일.push(newo)
+
+                        // setTimeout(function() {
+                        //
+                        // }, 0);
+                        scene.add(newo);
+                      }
+                    });
+
+                  }else{
+                    if(skinnum0==3){
+                      if(itempointer.userData.form==0){
+                        var newo=newone(과일.length-1, itempointer.userData.rank-1, itempointer.rotation.x, 999, true, true)
+                      }else{
+                        var newo=newone(과일.length-1, itempointer.userData.rank-1, itempointer.rotation.x, 999, true, false)
+                      }
+                    }else if(skinnum0==2){
+                      var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x, 12, true, true)
+                    }else if(skinnum0==1){
+                      var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
+                    }
+                    // 점수+=(itempointer.rank+1)*10
+                    // console.log(점수)
+                    newo.position.copy(itempointer.position)
+
+                    newo.userData.body.position.copy(newo.position);
+                    scene.remove(itempointer);
+
+
+                    itempointer.userData.alive=false
+
+                    world.remove(itempointer.userData.body)
+                    newo.userData.body.position.copy(newo.position);
+                    world.addBody(newo.userData.body);
+                    과일.push(newo)
+
+                    // setTimeout(function() {
+                    //
+                    // }, 0);
+                    scene.add(newo);
                   }
-                  // 점수+=(itempointer.rank+1)*10
-                  // console.log(점수)
-                  newo.position.copy(itempointer.position)
+                  console.log(itempointer)
 
-                  newo.userData.body.position.copy(newo.position);
-                  scene.remove(itempointer);
-
-
-                  itempointer.userData.alive=false
-
-                  world.remove(itempointer.userData.body)
-                  newo.userData.body.position.copy(newo.position);
-                  world.addBody(newo.userData.body);
-                  과일.push(newo)
-
-                  // setTimeout(function() {
-                  //
-                  // }, 0);
-                  scene.add(newo);
 
                   if(핀==0){
                     document.getElementById('top2').style.backgroundColor="rgba(150, 100, 100, 0.9)"
@@ -9635,7 +9772,28 @@
                 }else if(bridge){
 
                   console.log("bridge 사용")
-                  if(skinnum0==1){
+
+                  if(skinnum0==3){
+                    var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
+                    newo.position.copy(itempointer.position)
+
+                    newo.userData.body.position.copy(newo.position);
+                    scene.remove(itempointer);
+
+
+                    itempointer.userData.alive=false
+
+                    world.remove(itempointer.userData.body)
+                    newo.userData.body.position.copy(newo.position);
+                    world.addBody(newo.userData.body);
+                    과일.push(newo)
+
+                    // setTimeout(function() {
+                    //
+                    // }, 0);
+                    scene.add(newo);
+
+                  }else if(skinnum0==1){
                     if(itempointer.userData["dir"]==0){
                       if(parseInt(Math.random()*2)==0){
                         itemuse1=true;
@@ -9655,6 +9813,7 @@
                     과일.forEach((item) => {
                       item.userData.ipos=item.userData.body.position.z
                     });
+                    itemtime=elapsedTime;
                   }else if(skinnum0==2){
                     if(itempointer.userData["dir"]==1){
                       itemuse2=true;
@@ -9664,6 +9823,7 @@
                       itemuse2=false;
 
                     }
+                    itemtime=elapsedTime;
                   }
 
 
@@ -9675,7 +9835,7 @@
 
 
 
-                  itemtime=elapsedTime;
+
 
 
 
@@ -10100,7 +10260,7 @@
       if(document.getElementById("setting-overlay").classList.contains("show")) return;
       if(!터치) return
       // if(propsmold.length!=6) return;
-      if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=10||pen2.length!=5||dirt.length!=1||bear2.length!=9) return;
+      if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=10||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10) return;
 
       if(!originflag){
         return;
@@ -10200,7 +10360,7 @@
               lastY = -(event.clientY / window.innerHeight) * 2 + 1;
             }
             console.log(lastX)
-            if(  lastX>0.8 ) return;
+            if(  lastX>0.75 ) return;
             if(gameoverflag) return;
 
 
@@ -11841,6 +12001,253 @@
             });
         });
 
+
+
+
+
+        var loader = new OBJLoader();
+        var mtlLoader = new MTLLoader();
+        mtlLoader.load(ur2+'src/seal2-0.mtl', function(materials) {
+            materials.preload();
+            loader.setMaterials(materials);
+            loader.load(ur2+'src/seal2-0.obj', (object) => {
+              // object.children[0].rotation.y = Math.PI / 2
+              object.children[0].position.set(-tmx, tmy, tmz)
+              object.children[0].scale.x = 3
+              object.children[0].scale.z = 3
+              object.children[0].scale.y = 3
+
+              object.children[0].rotation.x = Math.PI / 2
+
+              // object.children[0].position.z=0.2
+
+              // object.children[0].scale.x=2.25;
+              // object.children[0].scale.z=2.25;
+              // object.children[0].scale.y=1.92;
+              object.children[0].receiveShadow = true;
+              object.children[0].castShadow = true;
+              seal2.push(object.children[0]);
+              var loader = new OBJLoader();
+              var mtlLoader = new MTLLoader();
+              mtlLoader.load(ur2+'src/seal2-1.mtl', function(materials) {
+                  materials.preload();
+                  loader.setMaterials(materials);
+                  loader.load(ur2+'src/seal2-1.obj', (object) => {
+                    // object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(-tmx, tmy, tmz)
+                    object.children[0].scale.x = 3
+                    object.children[0].scale.z = 3
+                    object.children[0].scale.y = 3
+
+                    object.children[0].rotation.x = Math.PI / 2
+
+                    // object.children[0].position.z=0.2
+
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].receiveShadow = true;
+                    object.children[0].castShadow = true;
+                    seal2.push(object.children[0]);
+                    var loader = new OBJLoader();
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load(ur2+'src/seal2-2.mtl', function(materials) {
+                        materials.preload();
+                        loader.setMaterials(materials);
+                        loader.load(ur2+'src/seal2-2.obj', (object) => {
+                          // object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(-tmx-0.15, tmy, tmz)
+                          object.children[0].scale.x = 3
+                          object.children[0].scale.z = 3
+                          object.children[0].scale.y = 3
+
+                          object.children[0].rotation.x = Math.PI / 2
+
+                          // object.children[0].position.z=0.2
+
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                          seal2.push(object.children[0]);
+                          var loader = new OBJLoader();
+                          var mtlLoader = new MTLLoader();
+                          mtlLoader.load(ur2+'src/seal2-3.mtl', function(materials) {
+                              materials.preload();
+                              loader.setMaterials(materials);
+                              loader.load(ur2+'src/seal2-3.obj', (object) => {
+                                // object.children[0].rotation.y = Math.PI / 2
+                                object.children[0].position.set(-tmx, tmy, tmz)
+                                object.children[0].scale.x = 3
+                                object.children[0].scale.z = 3
+                                object.children[0].scale.y = 3
+
+                                object.children[0].rotation.x = Math.PI / 2
+
+                                // object.children[0].position.z=0.2
+
+                                // object.children[0].scale.x=2.25;
+                                // object.children[0].scale.z=2.25;
+                                // object.children[0].scale.y=1.92;
+                                object.children[0].receiveShadow = true;
+                                object.children[0].castShadow = true;
+                                seal2.push(object.children[0]);
+                                var loader = new OBJLoader();
+                                var mtlLoader = new MTLLoader();
+                                mtlLoader.load(ur2+'src/seal2-4.mtl', function(materials) {
+                                    materials.preload();
+                                    loader.setMaterials(materials);
+                                    loader.load(ur2+'src/seal2-4.obj', (object) => {
+                                      // object.children[0].rotation.y = Math.PI / 2
+                                      object.children[0].position.set(-tmx, tmy, tmz)
+                                      object.children[0].scale.x = 3
+                                      object.children[0].scale.z = 3
+                                      object.children[0].scale.y = 3
+
+                                      object.children[0].rotation.x = Math.PI / 2
+
+                                      // object.children[0].position.z=0.2
+
+                                      // object.children[0].scale.x=2.25;
+                                      // object.children[0].scale.z=2.25;
+                                      // object.children[0].scale.y=1.92;
+                                      object.children[0].receiveShadow = true;
+                                      object.children[0].castShadow = true;
+                                      seal2.push(object.children[0]);
+                                      var loader = new OBJLoader();
+                                      var mtlLoader = new MTLLoader();
+                                      mtlLoader.load(ur2+'src/seal2-5.mtl', function(materials) {
+                                          materials.preload();
+                                          loader.setMaterials(materials);
+                                          loader.load(ur2+'src/seal2-5.obj', (object) => {
+                                            // object.children[0].rotation.y = Math.PI / 2
+                                            object.children[0].position.set(-tmx, tmy, tmz)
+                                            object.children[0].scale.x = 3
+                                            object.children[0].scale.z = 3
+                                            object.children[0].scale.y = 3
+
+                                            object.children[0].rotation.x = Math.PI / 2
+
+                                            // object.children[0].position.z=0.2
+
+                                            // object.children[0].scale.x=2.25;
+                                            // object.children[0].scale.z=2.25;
+                                            // object.children[0].scale.y=1.92;
+                                            object.children[0].receiveShadow = true;
+                                            object.children[0].castShadow = true;
+                                            seal2.push(object.children[0]);
+                                            var loader = new OBJLoader();
+                                            var mtlLoader = new MTLLoader();
+                                            mtlLoader.load(ur2+'src/seal2-6.mtl', function(materials) {
+                                                materials.preload();
+                                                loader.setMaterials(materials);
+                                                loader.load(ur2+'src/seal2-6.obj', (object) => {
+                                                  // object.children[0].rotation.y = Math.PI / 2
+                                                  object.children[0].position.set(-tmx, tmy, tmz)
+                                                  object.children[0].scale.x = 3
+                                                  object.children[0].scale.z = 3
+                                                  object.children[0].scale.y = 3
+
+                                                  object.children[0].rotation.x = Math.PI / 2
+
+                                                  // object.children[0].position.z=0.2
+
+                                                  // object.children[0].scale.x=2.25;
+                                                  // object.children[0].scale.z=2.25;
+                                                  // object.children[0].scale.y=1.92;
+                                                  object.children[0].receiveShadow = true;
+                                                  object.children[0].castShadow = true;
+                                                  seal2.push(object.children[0]);
+                                                  var loader = new OBJLoader();
+                                                  var mtlLoader = new MTLLoader();
+                                                  mtlLoader.load(ur2+'src/seal2-7.mtl', function(materials) {
+                                                      materials.preload();
+                                                      loader.setMaterials(materials);
+                                                      loader.load(ur2+'src/seal2-7.obj', (object) => {
+                                                        // object.children[0].rotation.y = Math.PI / 2
+                                                        object.children[0].position.set(-tmx, tmy, tmz)
+                                                        object.children[0].scale.x = 3
+                                                        object.children[0].scale.z = 3
+                                                        object.children[0].scale.y = 3
+
+                                                        object.children[0].rotation.x = Math.PI / 2
+
+                                                        // object.children[0].position.z=0.2
+
+                                                        // object.children[0].scale.x=2.25;
+                                                        // object.children[0].scale.z=2.25;
+                                                        // object.children[0].scale.y=1.92;
+                                                        object.children[0].receiveShadow = true;
+                                                        object.children[0].castShadow = true;
+                                                        seal2.push(object.children[0]);
+                                                        var loader = new OBJLoader();
+                                                        var mtlLoader = new MTLLoader();
+                                                        mtlLoader.load(ur2+'src/seal2-8.mtl', function(materials) {
+                                                            materials.preload();
+                                                            loader.setMaterials(materials);
+                                                            loader.load(ur2+'src/seal2-8.obj', (object) => {
+                                                              // object.children[0].rotation.y = Math.PI / 2
+                                                              object.children[0].position.set(-tmx, tmy, tmz)
+                                                              object.children[0].scale.x = 3
+                                                              object.children[0].scale.z = 3
+                                                              object.children[0].scale.y = 3
+
+                                                              object.children[0].rotation.x = Math.PI / 2
+
+                                                              // object.children[0].position.z=0.2
+
+                                                              // object.children[0].scale.x=2.25;
+                                                              // object.children[0].scale.z=2.25;
+                                                              // object.children[0].scale.y=1.92;
+                                                              object.children[0].receiveShadow = true;
+                                                              object.children[0].castShadow = true;
+                                                              seal2.push(object.children[0]);
+                                                              var loader = new OBJLoader();
+                                                              var mtlLoader = new MTLLoader();
+                                                              mtlLoader.load(ur2+'src/seal2-0.mtl', function(materials) {
+                                                                  materials.preload();
+                                                                  loader.setMaterials(materials);
+                                                                  loader.load(ur2+'src/seal2-0.obj', (object) => {
+                                                                    // object.children[0].rotation.y = Math.PI / 2
+                                                                    object.children[0].position.set(-tmx, tmy, tmz)
+                                                                    object.children[0].scale.x = 3
+                                                                    object.children[0].scale.z = 3
+                                                                    object.children[0].scale.y = 3
+
+                                                                    object.children[0].rotation.x = Math.PI / 2
+
+                                                                    // object.children[0].position.z=0.2
+
+                                                                    // object.children[0].scale.x=2.25;
+                                                                    // object.children[0].scale.z=2.25;
+                                                                    // object.children[0].scale.y=1.92;
+                                                                    object.children[0].receiveShadow = true;
+                                                                    object.children[0].castShadow = true;
+                                                                    seal2.push(object.children[0]);
+
+                                                                  });
+                                                              });
+                                                            });
+                                                        });
+                                                      });
+                                                  });
+                                                });
+                                            });
+                                          });
+                                      });
+                                    });
+                                });
+                              });
+                          });
+                        });
+                    });
+                  });
+              });
+            });
+        });
+
+
         var tmx0=1.8
         var tmy0=0
         var tmz0=-1.1
@@ -13417,6 +13824,106 @@
                                             object.children[0].receiveShadow = true;
                                             object.children[0].castShadow = true;
                                             itemset.push(object.children[0])
+                                            var loader = new OBJLoader();
+                                            var mtlLoader = new MTLLoader();
+                                            mtlLoader.load(ur2+'src/arrow.mtl', function(materials) {
+                                                materials.preload();
+                                                loader.setMaterials(materials);
+                                                loader.load(ur2+'src/arrow.obj', (object) => {
+                                                  // object.children[0].rotation.y = Math.PI / 2
+                                                  object.children[0].position.set(0,0,0)
+                                                  object.children[0].scale.x = 1
+                                                  object.children[0].scale.z = 1
+                                                  object.children[0].scale.y = 1
+
+                                                  object.children[0].rotation.y =Math.PI/2
+
+                                                  // object.children[0].position.z=0.2
+                                                  // object.children[0].scale.x=2.25;
+                                                  // object.children[0].scale.z=2.25;
+                                                  // object.children[0].scale.y=1.92;
+                                                  object.children[0].receiveShadow = true;
+                                                  object.children[0].castShadow = true;
+                                                  itemset.push(object.children[0])
+                                                  var loader = new OBJLoader();
+                                                  var mtlLoader = new MTLLoader();
+                                                  mtlLoader.load(ur2+'src/bugle.mtl', function(materials) {
+                                                      materials.preload();
+                                                      loader.setMaterials(materials);
+                                                      loader.load(ur2+'src/bugle.obj', (object) => {
+                                                        // object.children[0].rotation.y = Math.PI / 2
+                                                        object.children[0].position.set(0,0,0)
+                                                        object.children[0].scale.x = 1
+                                                        object.children[0].scale.z = 1
+                                                        object.children[0].scale.y = 1
+
+                                                        object.children[0].rotation.y =Math.PI/2-Math.PI/6
+
+                                                        object.children[0].rotation.x=-Math.PI/4
+                                                        object.children[0].rotation.z=Math.PI/4
+
+                                                        // object.children[0].position.z=0.2
+                                                        // object.children[0].scale.x=2.25;
+                                                        // object.children[0].scale.z=2.25;
+                                                        // object.children[0].scale.y=1.92;
+                                                        object.children[0].receiveShadow = true;
+                                                        object.children[0].castShadow = true;
+                                                        itemset.push(object.children[0])
+                                                        var loader = new OBJLoader();
+                                                        var mtlLoader = new MTLLoader();
+                                                        mtlLoader.load(ur2+'src/whistle.mtl', function(materials) {
+                                                            materials.preload();
+                                                            loader.setMaterials(materials);
+                                                            loader.load(ur2+'src/whistle.obj', (object) => {
+                                                              // object.children[0].rotation.y = Math.PI / 2
+                                                              object.children[0].position.set(0,0,0)
+                                                              object.children[0].scale.x = 1
+                                                              object.children[0].scale.z = 1
+                                                              object.children[0].scale.y = 1
+
+                                                              object.children[0].rotation.y=Math.PI/2+Math.PI/3
+                                                              object.children[0].rotation.x=-Math.PI/6
+                                                              object.children[0].rotation.z=+Math.PI/6
+
+
+                                                              // object.children[0].position.z=0.2
+                                                              // object.children[0].scale.x=2.25;
+                                                              // object.children[0].scale.z=2.25;
+                                                              // object.children[0].scale.y=1.92;
+                                                              object.children[0].receiveShadow = true;
+                                                              object.children[0].castShadow = true;
+                                                              itemset.push(object.children[0])
+                                                              var loader = new OBJLoader();
+                                                              var mtlLoader = new MTLLoader();
+                                                              mtlLoader.load(ur2+'src/badge.mtl', function(materials) {
+                                                                  materials.preload();
+                                                                  loader.setMaterials(materials);
+                                                                  loader.load(ur2+'src/badge.obj', (object) => {
+                                                                    // object.children[0].rotation.y = Math.PI / 2
+                                                                    object.children[0].position.set(0,0,0)
+                                                                    object.children[0].scale.x = 1
+                                                                    object.children[0].scale.z = 1
+                                                                    object.children[0].scale.y = 1
+
+                                                                    object.children[0].rotation.x=Math.PI
+
+                                                                    object.children[0].rotation.z =-Math.PI/2
+
+                                                                    // object.children[0].position.z=0.2
+                                                                    // object.children[0].scale.x=2.25;
+                                                                    // object.children[0].scale.z=2.25;
+                                                                    // object.children[0].scale.y=1.92;
+                                                                    object.children[0].receiveShadow = true;
+                                                                    object.children[0].castShadow = true;
+                                                                    itemset.push(object.children[0])
+                                                                  });
+                                                              });
+                                                            });
+                                                        });
+                                                      });
+                                                  });
+                                                });
+                                            });
                                           });
                                       });
                                     });
@@ -14433,7 +14940,7 @@
 
         if(flag){
           mesh.add(halp[1].clone())
-          mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+          mesh.children[1].scale.set(1.1*temp0*tscale0,1.1*temp0*tscale0,temp0*tscale0)
         }
 
         // mesh.children[1].position.x=-100
@@ -14518,7 +15025,7 @@
 
         if(flag){
           mesh.add(pen[5].clone())
-          mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+          mesh.children[3].scale.set(1.05*temp0*tscale0,1.05*temp0*tscale0,temp0*tscale0)
           mesh.children[3].material.opacity=1;
           mesh.children[3].material.transparent=true;
           if(rnk==2){
@@ -14649,7 +15156,7 @@
           groundBody.quaternion.copy(mesh.quaternion);
         }
       }else if(rnk==4){
-          if(foxflag){
+          if(!bearform){
             var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 32);
             var material1 = new THREE.MeshLambertMaterial({
                 transparent:true,
@@ -14676,7 +15183,7 @@
 
             if(flag){
               mesh.add(fox2[2].clone())
-              mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+              mesh.children[2].scale.set(1*temp0*tscale0,1*temp0*tscale0,temp0*tscale0)
               // mesh.children[2].material.visible=false;
             }
 
@@ -14728,6 +15235,7 @@
             groundBody.quaternion.copy(qt)
           }else{
             var t1=1
+            tscale0*=1.4;
             var geometry1 = new THREE.BoxGeometry(0.4*bh*tscale0, 통, t1*0.68*bh*tscale0*1.239);
 
             // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
@@ -14763,7 +15271,7 @@
             mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
             mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
             mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-            mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+            mesh.children[3].scale.set(1.1*temp0*tscale0,1.1*temp0*tscale0,temp0*tscale0*0.5)
             // mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
 
 
@@ -14815,144 +15323,282 @@
 
 
 
-      }else if(rnk==5||rnk==6){
+      }else if(rnk==5||rnk==6){ //물개
           var t1=1
           var t2=0.5
           if(rnk==6){
             t1=1.31
           }
-          var geometry1 = new THREE.BoxGeometry(0.5*bh*tscale0, 통, t1*0.73*bh*tscale0);
+          if(!bearform){
+            var geometry1 = new THREE.BoxGeometry(0.5*bh*tscale0, 통, t1*0.73*bh*tscale0);
 
-          // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+            // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
 
-          var material1 = new THREE.MeshLambertMaterial({
-              transparent:true,
-              opacity:0,
-              color: tcolor
-          });
-
-
-          var mesh=new THREE.Mesh(geometry1, material1);
-          var geometry2 = new THREE.BoxGeometry(0.5, 1, 0.2);
-          // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
-          var material2 = new THREE.MeshLambertMaterial({
-              transparent:true,
-              opacity:0,
-              color: tcolor
-          });
-          var mesh2=new THREE.Mesh(geometry2, material2);
-          mesh2.position.x=3
+            var material1 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: tcolor
+            });
 
 
-          mesh.userData.wood=0;
-          mesh.add(mesh2)
-          mesh.add(seal[10].clone())
-          mesh.add(seal[1].clone())
-          if(rnk==6){
-            mesh.add(seal[7].clone())
+            var mesh=new THREE.Mesh(geometry1, material1);
+            var geometry2 = new THREE.BoxGeometry(0.5, 1, 0.2);
+            // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+            var material2 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: tcolor
+            });
+            var mesh2=new THREE.Mesh(geometry2, material2);
+            mesh2.position.x=3
+            mesh.userData.form=0;
+
+
+            mesh.userData.wood=0;
+            mesh.add(mesh2)
+            mesh.add(seal[10].clone())
+            mesh.add(seal[1].clone())
+            if(rnk==6){
+              mesh.add(seal[7].clone())
+            }else{
+              mesh.add(seal[2].clone())
+            }
+            mesh.add(seal[3].clone())
+
+
+
+            var temp0=2.6
+
+            mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+
+            // if(rnk==5){
+            //   mesh.add(seal[4].clone())
+            //   mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            // }
+
+            if(rnk==6){
+              mesh.add(seal[8].clone())
+              mesh.add(seal[5].clone())
+              mesh.add(seal[6].clone())
+              mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+              mesh.children[6].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+              mesh.children[7].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            }else{
+              mesh.add(seal[8].clone())
+              mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+            }
+
+            if(tx!=999){
+              deg=-(Math.PI/2)
+              mesh.position.set(0,bh*16.5,tx)
+            }else{
+              mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
+            }
+
+
+            mesh.rotation.z=(Math.PI/2)
+            mesh.rotation.x=deg
+
+
+            var geometry2 = new THREE.BoxGeometry(1.35*0.54*bh*tscale0, 통/2, 0.2*0.7*bh*tscale0);
+            var material2 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: tcolor
+            });
+            var mesh02=new THREE.Mesh(geometry2, material2);
+
+            var geometry3 = new THREE.BoxGeometry(0.14*0.7*bh*tscale0, 통/2, 0.2*0.7*bh*tscale0);
+            var material3 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: tcolor
+            });
+            var mesh03=new THREE.Mesh(geometry3, material3);
+
+
+
+            mesh02.position.z=-0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0)
+            mesh02.position.x=1.35*0.54*bh*tscale0/4
+
+            mesh03.position.z=-0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0*1.5)
+            mesh03.position.x=0.2*0.7*bh*tscale0*3
+
+            // mesh.add(mesh02)
+            // mesh.add(mesh03)
+
+
+
+            var customMaterial = new CANNON.Material('customMaterial');
+            customMaterial.friction = frix; // Friction coefficient, range: 0-1
+            customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
+
+
+            var groundBody = new CANNON.Body({
+              mass: 무게*3,
+
+              material: customMaterial,
+
+              allowSleep: false,
+              sleepSpeedLimit: sleep1,
+              sleepTimeLimit: sleep2
+            });
+
+
+
+            var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*0.75*bh*tscale0/2));
+            var boxShape1 = new CANNON.Box(new CANNON.Vec3(1.35*0.54*bh*tscale0/2, 통/2, 0.2*0.7*bh*tscale0/2));
+            var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.14*0.7*bh*tscale0/2, 통/2, 0.2*0.7*bh*tscale0/2));
+
+
+
+            groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, (t1-1)*0.75*bh*tscale0/2));
+            groundBody.addShape(boxShape1, new CANNON.Vec3(1.35*0.54*bh*tscale0/4, 0, -0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0)));
+            groundBody.addShape(boxShape2, new CANNON.Vec3(0.2*0.7*bh*tscale0*3, 0, -0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0*1.5)));
+            groundBody.position.copy(mesh.position);
+            groundBody.quaternion.copy(mesh.quaternion);
           }else{
-            mesh.add(seal[2].clone())
+            var geometry1 = new THREE.BoxGeometry(0.5*bh*tscale0, 통, t1*0.73*bh*tscale0);
+
+            // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+
+            var material1 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: tcolor
+            });
+
+
+            var mesh=new THREE.Mesh(geometry1, material1);
+            var geometry2 = new THREE.BoxGeometry(0.5, 1, 0.2);
+            // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, bh*0.3, 32);
+            var material2 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: tcolor
+            });
+            var mesh2=new THREE.Mesh(geometry2, material2);
+            mesh2.position.x=3
+
+
+            mesh.userData.wood=0;
+            mesh.userData.form=1;
+            mesh.add(mesh2)
+            mesh.add(seal2[9].clone())
+            mesh.add(seal2[1].clone())
+            if(rnk==6){
+              mesh.add(seal2[7].clone())
+            }else{
+              mesh.add(seal2[2].clone())
+            }
+            mesh.add(seal2[3].clone())
+
+
+
+            var temp0=2.6
+
+            mesh.children[0].scale.set(-temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            mesh.children[1].scale.set(-temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            mesh.children[2].scale.set(-temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            mesh.children[3].scale.set(-temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            mesh.children[4].scale.set(-temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+
+            // if(rnk==5){
+            //   mesh.add(seal[4].clone())
+            //   mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            // }
+
+            if(rnk==6){
+              mesh.add(seal2[8].clone())
+              mesh.add(seal2[5].clone())
+              mesh.add(seal2[6].clone())
+              mesh.children[5].scale.set(-temp0*tscale0,temp0*tscale0,temp0*tscale0)
+              mesh.children[6].scale.set(-temp0*tscale0,temp0*tscale0,temp0*tscale0)
+              mesh.children[7].scale.set(-temp0*tscale0,temp0*tscale0,temp0*tscale0)
+            }else{
+              mesh.add(seal2[8].clone())
+              mesh.children[5].scale.set(-temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+            }
+
+            if(tx!=999){
+              deg=-(Math.PI/2)
+              mesh.position.set(0,bh*16.5,tx)
+            }else{
+              mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
+            }
+
+
+            mesh.rotation.z=(Math.PI/2)
+            mesh.rotation.x=deg
+
+
+            var geometry2 = new THREE.BoxGeometry(1.35*0.54*bh*tscale0, 통/2, 0.2*0.7*bh*tscale0);
+            var material2 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: tcolor
+            });
+            var mesh02=new THREE.Mesh(geometry2, material2);
+
+            var geometry3 = new THREE.BoxGeometry(0.14*0.7*bh*tscale0, 통/2, 0.2*0.7*bh*tscale0);
+            var material3 = new THREE.MeshLambertMaterial({
+                transparent:true,
+                opacity:0,
+                color: tcolor
+            });
+            var mesh03=new THREE.Mesh(geometry3, material3);
+
+
+
+            mesh02.position.z=-0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0)
+            mesh02.position.x=1.35*0.54*bh*tscale0/4
+
+            mesh03.position.z=-0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0*1.5)
+            mesh03.position.x=0.2*0.7*bh*tscale0*3
+
+            // mesh.add(mesh02)
+            // mesh.add(mesh03)
+
+
+
+            var customMaterial = new CANNON.Material('customMaterial');
+            customMaterial.friction = frix; // Friction coefficient, range: 0-1
+            customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
+
+
+            var groundBody = new CANNON.Body({
+              mass: 무게*3,
+
+              material: customMaterial,
+
+              allowSleep: false,
+              sleepSpeedLimit: sleep1,
+              sleepTimeLimit: sleep2
+            });
+
+
+
+            var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*0.75*bh*tscale0/2));
+            var boxShape1 = new CANNON.Box(new CANNON.Vec3(1.35*0.54*bh*tscale0/2, 통/2, 0.2*0.7*bh*tscale0/2));
+            var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.14*0.7*bh*tscale0/2, 통/2, 0.2*0.7*bh*tscale0/2));
+
+
+
+            groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, (t1-1)*0.75*bh*tscale0/2));
+            groundBody.addShape(boxShape1, new CANNON.Vec3(-1.35*0.54*bh*tscale0/4, 0, -0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0)));
+            groundBody.addShape(boxShape2, new CANNON.Vec3(-0.2*0.7*bh*tscale0*3, 0, -0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0*1.5)));
+            groundBody.position.copy(mesh.position);
+            groundBody.quaternion.copy(mesh.quaternion);
           }
-          mesh.add(seal[3].clone())
 
-
-
-          var temp0=2.6
-
-          mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-          mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-          mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-          mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-          mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-
-
-          // if(rnk==5){
-          //   mesh.add(seal[4].clone())
-          //   mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-          // }
-
-          if(rnk==6){
-            mesh.add(seal[8].clone())
-            mesh.add(seal[5].clone())
-            mesh.add(seal[6].clone())
-            mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-            mesh.children[6].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-            mesh.children[7].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-          }else{
-            mesh.add(seal[8].clone())
-            mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-
-          }
-
-          if(tx!=999){
-            deg=-(Math.PI/2)
-            mesh.position.set(0,bh*16.5,tx)
-          }else{
-            mesh.position.set(0,bh*16.5,-bw*1.7+Math.random()*(bw*3.4))
-          }
-
-
-          mesh.rotation.z=(Math.PI/2)
-          mesh.rotation.x=deg
-
-
-          var geometry2 = new THREE.BoxGeometry(1.35*0.54*bh*tscale0, 통/2, 0.2*0.7*bh*tscale0);
-          var material2 = new THREE.MeshLambertMaterial({
-              transparent:true,
-              opacity:0,
-              color: tcolor
-          });
-          var mesh02=new THREE.Mesh(geometry2, material2);
-
-          var geometry3 = new THREE.BoxGeometry(0.14*0.7*bh*tscale0, 통/2, 0.2*0.7*bh*tscale0);
-          var material3 = new THREE.MeshLambertMaterial({
-              transparent:true,
-              opacity:0,
-              color: tcolor
-          });
-          var mesh03=new THREE.Mesh(geometry3, material3);
-
-
-
-          mesh02.position.z=-0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0)
-          mesh02.position.x=1.35*0.54*bh*tscale0/4
-
-          mesh03.position.z=-0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0*1.5)
-          mesh03.position.x=0.2*0.7*bh*tscale0*3
-
-          // mesh.add(mesh02)
-          // mesh.add(mesh03)
-
-
-
-          var customMaterial = new CANNON.Material('customMaterial');
-          customMaterial.friction = frix; // Friction coefficient, range: 0-1
-          customMaterial.restitution = elas; // Restitution (elasticity), range: 0-1
-
-
-          var groundBody = new CANNON.Body({
-            mass: 무게*3,
-
-            material: customMaterial,
-
-            allowSleep: false,
-            sleepSpeedLimit: sleep1,
-            sleepTimeLimit: sleep2
-          });
-
-
-
-          var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.5*bh*tscale0/2, 통/2, t1*0.75*bh*tscale0/2));
-          var boxShape1 = new CANNON.Box(new CANNON.Vec3(1.35*0.54*bh*tscale0/2, 통/2, 0.2*0.7*bh*tscale0/2));
-          var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.14*0.7*bh*tscale0/2, 통/2, 0.2*0.7*bh*tscale0/2));
-
-
-
-          groundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, (t1-1)*0.75*bh*tscale0/2));
-          groundBody.addShape(boxShape1, new CANNON.Vec3(1.35*0.54*bh*tscale0/4, 0, -0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0)));
-          groundBody.addShape(boxShape2, new CANNON.Vec3(0.2*0.7*bh*tscale0*3, 0, -0.5*0.7*bh*tscale0+(0.2*0.7*bh*tscale0*1.5)));
-          groundBody.position.copy(mesh.position);
-          groundBody.quaternion.copy(mesh.quaternion);
 
 
 
@@ -15655,7 +16301,7 @@
         let deltaTime2= elapsedTime - lastTime2;
 
         if(!startflag){
-          if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=10||pen2.length!=5||dirt.length!=1||bear2.length!=9){
+          if(pen.length!=7||seal.length!=11||bear.length!=11||fox.length!=5||whale.length!=7||swhale.length!=6||wall.length!=10||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10){
 
           }else{
             document.getElementById("tts").style.display="none"
@@ -15917,17 +16563,18 @@
                 if(true){
                   if(skinnum0==0){
                     item.children[7].children[0].position.y=0
-                    item.children[7].children[4].position.y=0
+                    item.children[7].children[4].position.y=-1
                     item.children[7].children[1].position.y=200
                     item.children[7].children[3].position.y=200
                     item.children[7].children[5].position.y=0
-                    //
-                    item.children[7].children[5].position.z=-0.2+0.2*(pshift[dur]-1);
-                    item.children[7].children[4].position.z=-0.05-0.1*(pshift[dur]-1);
+
+                    item.children[7].children[0].position.z=-0.05+0.2*(pshift[dur]-1);
+                    item.children[7].children[5].position.z=-0.05-0.1*(pshift[dur]-1);
+                    item.children[7].children[4].position.z=-0.05+0.2*(pshift[dur]-1);
                     // item.children[7].children[5].position.z=-0.2
                     // item.children[7].children[4].position.z=-0.05
 
-                    for (var i = 6; i < 15; i++) {
+                    for (var i = 6; i < 16; i++) {
                       item.children[7].children[i].position.y=200
                     }
 
@@ -15952,7 +16599,7 @@
                     item.children[7].children[5].position.y=200
                     item.children[7].children[4].position.y=200
                     item.children[7].children[3].position.y=0
-                    for (var i = 6; i < 15; i++) {
+                    for (var i = 6; i < 16; i++) {
                       item.children[7].children[i].position.y=200
                     }
 
@@ -15975,7 +16622,7 @@
                     // item.children[7].children[8].position.z=0.26
 
 
-                    for (var i = 10; i < 15; i++) {
+                    for (var i = 10; i < 16; i++) {
                       item.children[7].children[i].position.y=200
                     }
 
@@ -15995,6 +16642,7 @@
                     item.children[7].children[13].position.y=0
                     item.children[7].children[14].position.y=0
 
+
                     item.children[7].children[10].position.x=0
                     item.children[7].children[11].position.x=0
                     item.children[7].children[12].position.x=0
@@ -16003,17 +16651,22 @@
 
 
 
-                    item.children[7].children[11].position.z=-0.1
-                    item.children[7].children[12].position.z=-0.05
 
-                    // item.children[7].children[10].position.z=-0.13+0.1*(pshift[dur]-1);
-                    // item.children[7].children[13].position.z=-0.1+0.05*(pshift[dur]-1);
-                    // item.children[7].children[13].position.x=0-0.07*(pshift[dur]-1);
-                    // item.children[7].children[14].position.z=-0.13+0.07*(pshift[dur]-1);
-                    item.children[7].children[10].position.z=-0.13
-                    item.children[7].children[13].position.z=-0.1
-                    item.children[7].children[13].position.x=0
-                    item.children[7].children[14].position.z=-0.13
+                    item.children[7].children[11].position.z=-0.1
+                    item.children[7].children[12].position.z=-0.02
+
+                    item.children[7].children[10].position.z=-0.05+0.1*(pshift[dur]-1);
+                    item.children[7].children[13].position.z=-0.05+0.05*(pshift[dur]-1);
+                    item.children[7].children[13].position.x=0-0.07*(pshift[dur]-1);
+                    item.children[7].children[14].position.z=-0.05+0.07*(pshift[dur]-1);
+                    // item.children[7].children[10].position.z=-0.13
+                    // item.children[7].children[13].position.z=-0.1
+                    // item.children[7].children[13].position.x=0
+                    // item.children[7].children[14].position.z=-0.13
+
+                    item.children[7].children[15].position.y=0
+                    item.children[7].children[15].position.x=-100
+                    item.children[7].children[15].position.z=-0.05
 
 
 
@@ -16112,10 +16765,10 @@
               }else{
                 item.position.x=-40
               }
-              if(itemuse1){
+              if(itemuse1&&skinnum0==1){
                 var roll=Math.PI/8
                 item.rotation.x=-Math.PI/2+Math.sin(2*(elapsedTime - itemtime))*roll
-              }else if(itemuse2){
+              }else if(itemuse2&&skinnum0==1){
                 var roll=Math.PI/8
                 item.rotation.x=-Math.PI/2+Math.sin(2*(elapsedTime - itemtime))*-roll
               }else{
@@ -16414,7 +17067,7 @@
                       item.children[3].position.y=100
                     }else{
                       if(item.userData.rank==1){
-                        if((skinnum0==1&&pung)||(skinnum0==2&&pung)||(skinnum0==2&&ice)){
+                        if((skinnum0==1&&pung)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==3&&bridge)){
                           item.children[3].position.y=0.2
                         }else{
                           item.children[3].position.y=100
@@ -16440,7 +17093,7 @@
                         item.children[0].position.y=-1.2
                         item.children[1].position.y=-1.2
 
-                        if((skinnum0==2&&pung)||(skinnum0==2&&ice)){
+                        if((skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==3&&ice)){
                           item.children[2].position.y=0
                         }else{
                           item.children[2].position.y=100
@@ -16469,7 +17122,12 @@
                     item.children[3].position.y=0.1
 
                     item.children[4].position.z=1.3-0.3*(pshift[dur]-1);
-                    item.children[4].position.x=0.9-0.4*(pshift[dur]-1);
+                    if(item.userData.form==0){
+                      item.children[4].position.x=0.9-0.4*(pshift[dur]-1);
+                    }else{
+                      item.children[4].position.x=-0.9+0.4*(pshift[dur]-1);
+                    }
+
                     item.children[4].position.y=0.4
 
 
@@ -16487,13 +17145,13 @@
                       item.children[5].position.y=100
                     }else{
                       if(item.userData.rank==5){
-                        if((skinnum0==1&&ice)||(skinnum0==2&&pung)||(skinnum0==2&&ice)){
+                        if((skinnum0==1&&ice)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==3&&bridge)||(skinnum0==3&&pin)){
                           item.children[5].position.y=0.2
                         }else{
                           item.children[5].position.y=100
                         }
                       }else if(item.userData.rank==6){
-                        if((skinnum0==2&&pung)||(skinnum0==2&&ice)){
+                        if((skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==3&&pin)){
                           item.children[5].position.y=0.2
                         }else{
                           item.children[5].position.y=100
@@ -16532,7 +17190,7 @@
                       item.children[3].position.y=100
                     }else{
                       if(item.userData.rank==7){
-                        if((skinnum0==1&&pin)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==2&&pin)){
+                        if((skinnum0==1&&pin)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==2&&pin)||(skinnum0==3&&bridge)){
                           item.children[3].position.y=0.2
                         }else{
                           item.children[3].position.y=100
@@ -17322,6 +17980,11 @@
                   scene.add(itemmold[6]);
                   scene.add(itemmold[7]);
 
+                  scene.add(itemmold[8]);
+                  scene.add(itemmold[9]);
+                  scene.add(itemmold[10]);
+                  scene.add(itemmold[11]);
+
                   scene.add(더트[0]);
 
                   var 너비=3.1;
@@ -17538,6 +18201,18 @@
                     itemmold[7].rotation.y=0
 
 
+                    itemmold.push(itemset[6].clone()); //화살표
+                    itemmold.push(itemset[7].clone()); //나팔
+                    itemmold.push(itemset[8].clone()); //휘슬
+                    itemmold.push(itemset[9].clone()); //뱃지
+
+                    itemmold[8].scale.set(2,2,2);
+                    itemmold[9].scale.set(2,2,2);
+                    itemmold[10].scale.set(2,2,2);
+                    itemmold[11].scale.set(2,2,2);
+
+
+
 
 
 
@@ -17556,6 +18231,11 @@
                     scene.add(itemmold[5]);
                     scene.add(itemmold[6]);
                     scene.add(itemmold[7]);
+
+                    scene.add(itemmold[8]);
+                    scene.add(itemmold[9]);
+                    scene.add(itemmold[10]);
+                    scene.add(itemmold[11]);
 
 
 
@@ -17963,6 +18643,8 @@
                       mesh8.add(seal[2].clone())
                       mesh8.add(seal[3].clone())
                       mesh8.add(seal[9].clone())
+                      mesh8.add(seal[8].clone())
+
 
 
 
@@ -17982,18 +18664,20 @@
                     mesh8.children[8].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
                     mesh8.children[9].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
 
-                    var temp0=0.6
+                    var temp0=0.7
                     mesh8.children[10].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
                     mesh8.children[11].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
                     mesh8.children[12].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
                     mesh8.children[13].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
                     mesh8.children[14].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+                    mesh8.children[15].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
 
                     mesh8.children[4].position.x=0.18
                     mesh8.children[4].position.y=-0.2
                     mesh8.children[4].position.z=0
 
                     mesh8.children[5].position.x=-0.02
+                    mesh8.children[15].position.x=100
 
                     // mesh8.children[0].material.depthWrite=true;
                     // mesh8.children[1].material.depthWrite=true;
@@ -18073,7 +18757,7 @@
                     mesh7.material.opacity=0.6;
                     mesh7.material.transparent=true;
 
-                    mesh8.position.set(-1.8,+bh*(17.25),-20.7)
+                    mesh8.position.set(-1.8,+bh*(17.25),-19.7)
                     mesh8.rotation.y=Math.PI
                     mesh8.rotation.z=-Math.PI/2
                     mesh8.rotation.x=Math.PI/2
@@ -18094,7 +18778,7 @@
                         opacity: 1
                     });
                     var mesh9=new THREE.Mesh(geometry3, material3);
-                    mesh9.position.set(bh*2,bh*(18),-20.7)
+                    mesh9.position.set(bh*2,bh*(18),-19.7)
 
                     mesh.add(mesh1)
                     mesh.add(mesh2)
@@ -18881,7 +19565,125 @@
             }
 
           }else if(skinnum0==3){
+            if(itemdrag){
+              pen[5].material.visible=true
+              seal[8].material.visible=true
+              bear[7].material.visible=true
 
+
+
+              if(pung){
+                document.getElementById('top0').children[0].style.height=String(isize)+"vh"
+
+                itemmold[8].material.visible=true
+                // itemmold[4].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+
+                itemmold[8].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[9].position.x=-bh*3;
+                itemmold[10].position.x=-bh*3;
+                itemmold[11].position.x=-bh*3;
+
+                if(itemtouch){
+                  console.log("그랩")
+                  // itemmold[4].scale.x=2
+
+                  itemmold[8].scale.y=(3+(pshift[dur]-1)*0.9)
+
+
+
+                }
+
+              }else if(ice){
+                itemmold[9].material.visible=true
+                // itemmold[4].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+
+                itemmold[9].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[8].position.x=-bh*3;
+                itemmold[10].position.x=-bh*3;
+                itemmold[11].position.x=-bh*3;
+
+                if(itemtouch){
+                  itemmold[9].scale.x=(3+(pshift[dur]-1)*4.6)
+                  itemmold[9].scale.y=(3+(pshift[dur]-1)*4.6)
+                }
+              }else if(pin){
+                배[1].children[7].children[15].position.x=0
+                itemmold[10].material.visible=true
+                // itemmold[4].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+
+                itemmold[10].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[8].position.x=-bh*3;
+                itemmold[9].position.x=-bh*3;
+                itemmold[11].position.x=-bh*3;
+                if(itemtouch){
+                  itemmold[10].scale.x=(4+(pshift[dur]-1)*1.6)
+                  itemmold[10].scale.y=(4+(pshift[dur]-1)*1.6)
+                  itemmold[10].scale.z=(4+(pshift[dur]-1)*1.6)
+                }
+              }else if(bridge){
+
+
+                itemmold[11].material.visible=true
+                // itemmold[4].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+
+                itemmold[11].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[8].position.x=-bh*3;
+                itemmold[9].position.x=-bh*3;
+                itemmold[10].position.x=-bh*3;
+                if(itemtouch){
+                  itemmold[11].scale.x=(2+(pshift[dur]-1)*1.6)
+                  itemmold[11].scale.y=(2+(pshift[dur]-1)*1.6)
+                  itemmold[11].scale.z=(2+(pshift[dur]-1)*1.6)
+                }
+              }
+            }else{
+              // itemmold[4].scale.x=4
+              // itemmold[4].scale.y=4
+              // itemmold[5].scale.x=4
+              // itemmold[5].scale.y=4
+              // itemmold[6].scale.x=4
+              // itemmold[6].scale.y=4
+              itemmold[7].scale.x=3
+              itemmold[7].scale.z=3
+
+
+
+              itemmold[4].scale.y=2.5
+              itemmold[5].scale.set(4,4,4)
+
+              itemmold[6].scale.x=(2)
+              itemmold[6].scale.y=(2.5)
+
+              itemmold[8].scale.x=3
+              itemmold[8].scale.y=3
+              itemmold[9].scale.x=3
+              itemmold[9].scale.y=3
+
+              itemmold[10].scale.x=4
+              itemmold[10].scale.y=4
+              itemmold[10].scale.z=4
+
+              itemmold[11].scale.x=2
+              itemmold[11].scale.y=2
+              itemmold[11].scale.z=2
+
+              배[1].children[7].children[15].position.x=-100
+
+
+
+            }
+
+
+
+            if(itemtouch){
+              if(pung){
+                // pen[5].material.visible=true
+
+
+
+
+              }
+            }
           }
 
 
@@ -19329,7 +20131,7 @@
           if(skinnum0==1){
             if(itemuse1){
               if((elapsedTime - itemtime) <= Math.PI/2){
-                 console.log("a")
+                 console.log(배[1].children)
 
 
                   // 배[0].position.y=-1*Math.sin(Math.sin(2*(elapsedTime - itemtime))*Math.PI/30)
@@ -19372,17 +20174,20 @@
                   배[1].children[4].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[5].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[6].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
-                  배[1].children[7].position.z=-20.7-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[7].position.z=-19.7-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[7].rotation.x=Math.PI/2+Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
 
-                  배[1].children[8].position.z=-20.7-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[8].position.z=-19.7-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
-                  배[1].children[9].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
-                  배[1].children[10].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  //샘플2
                   배[1].children[11].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[12].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[13].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[14].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[15].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+
+
 
 
                   laser[0].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
@@ -19395,7 +20200,7 @@
 
 
 
-                  // emote[0].position.x=-20.7-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  // emote[0].position.x=-19.7-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
                   배[1].userData.body.quaternion.copy(배[0].quaternion);
 
@@ -19451,18 +20256,21 @@
                   배[1].children[4].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[5].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[6].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
-                  배[1].children[7].position.z=-20.7-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[7].position.z=-19.7-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[7].rotation.x=Math.PI/2+Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
 
-                  배[1].children[8].position.z=-20.7-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[8].position.z=-19.7-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
-                  배[1].children[9].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
-                  배[1].children[10].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  //샘플2
                   배[1].children[11].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[12].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[13].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
-                  // emote[0].position.x=-20.7-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[14].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[15].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  // emote[0].position.x=-19.7-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+
+
                   laser[0].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
 
@@ -20007,7 +20815,7 @@
     }
     window.toggle=toggle;
 
-    function spawn(n=0){
+    function spawn(n=0, px=0){
 
       // for (var i = 0; i < 4; i++) {
       //   var tr=parseInt(Math.random()*5)
@@ -20065,7 +20873,7 @@
       for (var j = 0; j < 7; j++) {
         // var tr=parseInt(Math.random()*4)
         var tr=1
-        var tx=0
+        var tx=px
 
         let newo=newone(과일.length-1, tr,0,-tx*lx)
         // axis[0].position.z=-tx*lx
@@ -20076,7 +20884,7 @@
         document.getElementById("hammer").children[0].src="png/u"+cname+".png"
 
         // next=7
-        newo.position.y+=1.2*bh*(4+j)
+        newo.position.y+=1.3*bh*(4+j)
         scene.add(newo);
 
 
@@ -21347,10 +22155,10 @@
           document.getElementById('top3').children[0].src="png/hammer.png"
           break;
         case 3:
-          document.getElementById('top0').children[0].src="png/freeze.png"
-          document.getElementById('top1').children[0].src="png/wood.png"
-          document.getElementById('top2').children[0].src="png/retry.png"
-          document.getElementById('top3').children[0].src="png/ice.png"
+          document.getElementById('top0').children[0].src="png/sitem1.png"
+          document.getElementById('top1').children[0].src="png/sitem2.png"
+          document.getElementById('top2').children[0].src="png/sitem3.png"
+          document.getElementById('top3').children[0].src="png/sitem4.png"
           break;
         default:
           return;
