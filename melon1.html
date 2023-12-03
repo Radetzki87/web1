@@ -160,6 +160,7 @@
                     background-color: #4caf50;
                     border-radius: 5px;
                     height: 100%;
+                    transition: width 0.05s;
                 }
 
 
@@ -3306,6 +3307,8 @@
     var ticket=30;
     let even=true;
     var stacktime;
+
+    var qre=false;
 
     var ffwd=false;
 
@@ -9464,7 +9467,7 @@
 
                     }
 
-                    if (!soundic[sdic[thisnum][0]].isPlaying) {
+                    if (!soundic[sdic[thisnum][0]].isPlaying&&!reflag) {
                         fullguide=0
                         soundic[sdic[thisnum][0]].play();
 
@@ -11506,6 +11509,8 @@
         window.esound=esound
         window.soundic=soundic;
 
+
+
         resetting(stack, function(object) { //재시작
             msetting1(function(object) {
                 if(gamemod!=2){
@@ -11584,6 +11589,12 @@
 
                     time0 = performance.now();
                     fps = 0;
+                    if(qre){
+                      setTimeout(function() {
+                          soundic[sdic[0][0]]?.play();
+                      }, 200);
+                      qre=false
+                    }
 
                     activeFloor = cubes.length;
                     gameoverflag = false;
@@ -14738,7 +14749,7 @@
                       soundic[sdic[i][0]].stop();
                   }
               }
-              if (!soundic[sdic[thisnum][0]].isPlaying) {
+              if (!soundic[sdic[thisnum][0]].isPlaying&&!reflag) {
 
                   songfade=elapsedTime;
                   // console.log(songfade);
@@ -14896,7 +14907,7 @@
                     soundic[sdic[i][0]].stop();
                 }
             }
-            if (!soundic[sdic[thisnum][0]].isPlaying) {
+            if (!soundic[sdic[thisnum][0]].isPlaying&&!reflag) {
 
                 songfade=elapsedTime;
                 // console.log(songfade);
@@ -17698,7 +17709,7 @@
           //
           // }
 
-          if(ingame){
+          if(ingame&&!gameoverflag){
               laser[0].material.visible=true;
               laser[0].material.opacity=0.5
 
@@ -17707,13 +17718,15 @@
                 lasertime+=deltaTime
                 var tcl0=0xFF0000
                 var tcl1=255*(1-(lasertime/3500));
+                var tl = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                var newtl = hslToHex0(tl["h"], tl["s"]*((lasertime/3500)),tl["l"])
 
-                laser[0].material.color = new THREE.Color(tcl0+tcl1+(tcl1*256));
+                laser[0].material.color = new THREE.Color(parseInt(newtl, 16));
                 laser[0].material.opacity=0.5+(0.5*lasertime/3500)
               }else{
                 lasertime=0;
                 // axis[1].children[0].material.color = new THREE.Color(0x000000);
-                laser[0].material.color = new THREE.Color(0xFFFFFF);
+                laser[0].material.color = new THREE.Color(0xBABABA);
                 laser[0].material.opacity=0.5
               }
               if(lasertime>0){
@@ -17877,7 +17890,7 @@
                         soundic[sdic[i][0]]?.stop();
                     }
                 }
-                if (!soundic[sdic[activeFloor][0]]?.isPlaying) {
+                if (!soundic[sdic[activeFloor][0]]?.isPlaying&&!reflag) {
                     soundic[sdic[activeFloor][0]]?.play();
                     songTitleElement.innerText = sdic[activeFloor]["title"];
                     if(langnum==13||langnum==22||langnum==29||langnum==36){
@@ -18535,7 +18548,7 @@
 
                   //레이저
                   // 쇠공.push(mesh);
-                  scene.add(laser[0]);
+                  // scene.add(laser[0]);
 
                   scene.add(ship[0]);
                   // scene.add(배경[1]);
@@ -19406,10 +19419,7 @@
                   console.log(tcheck[0])
 
 
-                  if(!tutorialflag){
-                        // document.getElementById("t0").classList.remove("hidden");
 
-                    }
                   if(!스샷){
                     setTimeout(function() {
 
@@ -20424,7 +20434,7 @@
                   document.getElementById("obt2").style.backgroundColor="rgba(221,223,230,0.8)"
 
                   document.getElementById("gameinfo1").style.color=hexToHtmlColor(colorlst[colornum][0]);
-                  document.getElementById("gameinfo").style.color=hexToHtmlColor(colorlst[colornum][0]);
+                  // document.getElementById("gameinfo").style.color=hexToHtmlColor(colorlst[colornum][0]);
 
                   // document.getElementById("gameinfo").style.backgroundColor="rgba(241, 64, 75,0.7)"
 
@@ -20736,9 +20746,11 @@
                   배[1].children[16].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
 
+                  배[1].children[17].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
 
-                  laser[0].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+
+                  // laser[0].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
                   // if(elapsedTime-drop<0.7){
                   //   sample.forEach((item) => {
@@ -20821,7 +20833,9 @@
                   // emote[0].position.x=-19.7-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
 
-                  laser[0].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[17].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+
+                  // laser[0].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
 
                   배[1].userData.body.quaternion.copy(배[0].quaternion);
@@ -22726,11 +22740,17 @@
       });
 
       reflag=true
+      qre=true;
       터치보호=elapsedTime
       close(세팅)
       close(게임오버)
       axis[0].children[0].material.visible=false;
       laser[0].material.visible=false;
+
+
+
+
+
       return restart();
       // coin=parseInt(nslst["data"]["0"]);
       // coin+=pluscoin;
@@ -24279,6 +24299,10 @@
         document.getElementById("top").style.display="none"
       }else{
         document.getElementById("top").style.display="flex"
+      }
+
+      if(reflag){
+        soundic[sdic[0][0]]?.play();
       }
       템셋()
       인게임=true;
