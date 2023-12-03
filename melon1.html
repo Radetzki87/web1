@@ -48,7 +48,13 @@
         }
 
         #ptable {
+          margin-top: 2vmin;
+          /* border: 0.2vmin solid rgba(37,44,65,1); */
+          background-color: rgba(231,99,107,0.5);
+          border-radius: 3vmin;
           width:70vmin;
+          padding-right: 4vmin;
+          transform: translate(6vmin, 0);
         }
 
         #ptable tr {
@@ -63,8 +69,8 @@
 
         #ptable td img{
             position: absolute;
-            width:15vmin;
-            transform: translate(-3vmin, -10vmin);
+            width:14vmin;
+            transform: translate(-5vmin, -10vmin);
 
         }
 
@@ -9284,7 +9290,7 @@
                   itemtouch=false
                 }
               }else if(ice){
-                if(cat[0].userData["rank"]==4&&cat[0].userData.form==0){
+                if(cat[0].userData["rank"]==4&&cat[0].userData.form==0||cat[0].userData["rank"]==12){
                   itemtouch=true
                   itempointer=cat[0]
                   itemuse=true;
@@ -9705,28 +9711,53 @@
 
                     itemuse=false;
 
+                    if(itempointer.userData.rank==12){
+                      과일.forEach((item) => {
+                        if(item.userData.alive&&(item.userData.rank==4&&item.userData.form==0)){
+                          var newo=newone(과일.length-1, item.userData.rank-1, item.rotation.x, 999, true, true)
+                          newo.position.copy(item.position)
 
-                    var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x, 12, true, true)
+                          newo.userData.body.position.copy(newo.position);
+                          scene.remove(item);
 
-                    // 점수+=(itempointer.rank+1)*10
-                    // console.log(점수)
-                    newo.position.copy(itempointer.position)
+                          item.userData.alive=false
 
-                    newo.userData.body.position.copy(newo.position);
-                    scene.remove(itempointer);
+                          world.remove(item.userData.body)
+                          newo.userData.body.position.copy(newo.position);
+                          world.addBody(newo.userData.body);
+                          과일.push(newo)
+                          scene.add(newo);
+                        }
+                      });
+
+                    }else{
+                      var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x, 12, true, true)
+
+                      // 점수+=(itempointer.rank+1)*10
+                      // console.log(점수)
+                      newo.position.copy(itempointer.position)
+
+                      newo.userData.body.position.copy(newo.position);
+                      scene.remove(itempointer);
 
 
-                    itempointer.userData.alive=false
+                      itempointer.userData.alive=false
 
-                    world.remove(itempointer.userData.body)
-                    newo.userData.body.position.copy(newo.position);
-                    world.addBody(newo.userData.body);
-                    과일.push(newo)
+                      world.remove(itempointer.userData.body)
+                      newo.userData.body.position.copy(newo.position);
+                      world.addBody(newo.userData.body);
+                      과일.push(newo)
 
-                    // setTimeout(function() {
-                    //
-                    // }, 0);
-                    scene.add(newo);
+                      // setTimeout(function() {
+                      //
+                      // }, 0);
+                      scene.add(newo);
+                    }
+
+
+
+
+
 
                   }else if(skinnum0==2){
                     itempointer.userData.body.position.y=bh*17;
@@ -11455,11 +11486,12 @@
         rwd=false;
         과일2=[];
         누적=0;
-        for (var i = 0; i < 4; i++) {
-          for (var j = 0; j < 20; j++) {
-            document.getElementById('ptable').children[0].children[i].children[j].innerHTML=""
-          }
-        }
+
+        // for (var i = 0; i < 4; i++) {
+        //   for (var j = 0; j < 20; j++) {
+        //     document.getElementById('ptable').children[0].children[i].children[j].innerHTML=""
+        //   }
+        // }
 
         document.getElementById('fps').innerText="🎫: "+String(ticket);
 
@@ -15042,7 +15074,7 @@
       var mass=4
       var tscale0;
       var tcolor;
-      var initscale=0.23
+      var initscale=0.22
 
       var sleep1=100;
       var sleep2=0.1;
@@ -20038,6 +20070,7 @@
                 }
 
               }else if(ice){
+                배[1].children[7].children[15].position.x=0
                 itemmold[9].material.visible=true
                 // itemmold[4].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
 
@@ -20360,6 +20393,17 @@
 
                   console.log(과일2)
 
+                  if(과일2.length<=20){
+                    document.getElementById('ptable').children[0].innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
+                  }else if(과일2.length<=40){
+                    document.getElementById('ptable').children[0].innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
+                  }else if(과일2.length<=60){
+                    document.getElementById('ptable').children[0].innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
+                  }else if(과일2.length<=80){
+                    document.getElementById('ptable').children[0].innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
+                  }else if(과일2.length<=100){
+                    document.getElementById('ptable').children[0].innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
+                  }
                   console.log(colorlst[colornum][3])
                   document.getElementById("npoint").innerText="point: "+String(점수)
 
@@ -20367,12 +20411,28 @@
 
 
 
-                  document.getElementById("gameinfo1").style.backgroundColor="rgba(37,44,65,0.7)"
 
-                  document.getElementById("gameinfo").style.backgroundColor="rgba(37,44,65,0.7)"
+                  document.getElementById("gameinfo1").style.backgroundColor="rgba(37,44,65,0.85)"
+                  document.getElementById("gameinfo").style.backgroundColor="rgba(37,44,65,0.85)"
 
-                  document.getElementById("obt1").style.backgroundColor="rgba(37,44,65,0.7)"
-                  document.getElementById("obt2").style.backgroundColor="rgba(37,44,65,0.7)"
+                    // document.getElementById("gameinfo").style.backgroundColor=hexToHtmlColor(colorlst[colornum][3]);
+
+                  // document.getElementById("obt1").style.backgroundColor="rgba(37,44,65,0.7)"
+                  // document.getElementById("obt2").style.backgroundColor="rgba(37,44,65,0.7)"
+
+                  document.getElementById("obt1").style.backgroundColor="rgba(244,244,250,0.8)"
+                  document.getElementById("obt2").style.backgroundColor="rgba(221,223,230,0.8)"
+
+                  document.getElementById("gameinfo1").style.color=hexToHtmlColor(colorlst[colornum][0]);
+                  document.getElementById("gameinfo").style.color=hexToHtmlColor(colorlst[colornum][0]);
+
+                  // document.getElementById("gameinfo").style.backgroundColor="rgba(241, 64, 75,0.7)"
+
+                  document.getElementById("obt1").style.color=hexToHtmlColor(colorlst[colornum][0]);
+                  document.getElementById("obt2").style.color=hexToHtmlColor(colorlst[colornum][0]);
+
+                  document.getElementById("obt1").style.opacity=0.8
+                  document.getElementById("obt2").style.opacity=0.8
 
 
 
@@ -25960,7 +26020,6 @@
                 <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 </tr>
-
             </table>
 
         </div>
