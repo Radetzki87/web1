@@ -9539,7 +9539,7 @@
 
                     if (!soundic[sdic[thisnum][0]].isPlaying&&!reflag) {
                         fullguide=0
-                        soundic[sdic[thisnum][0]].play();
+                        soundic[sdic[0]].play();
 
                         songfade=elapsedTime;
 
@@ -11264,20 +11264,20 @@
         var ranlst=[];
         sdic=[];
         templst.sort(() => Math.random() - 0.5);
-        if(gamemod<2){
-          // setsdic(1);
-          if(스트리머){
-                if(playcode[0]=="1"){
-                    setsdic(9);
-                }else{
-                    setsdic(1);
-                }
-
-            }else{
-                setsdic(1);
-            }
-        }
-        sdic=[];
+        // if(gamemod<2){
+        //   // setsdic(1);
+        //   if(스트리머){
+        //         if(playcode[0]=="1"){
+        //             setsdic(9);
+        //         }else{
+        //             setsdic(1);
+        //         }
+        //
+        //     }else{
+        //         setsdic(1);
+        //     }
+        // }
+        // sdic=[];
 
         var tsong=["High End Party.mp3","Catwalk.mp3","Beach House.mp3"]
         tsong.sort(() => Math.random() - 0.5);
@@ -11287,20 +11287,22 @@
         sdic.push(tsong[2])
         window.soundic=soundic;
 
-        console.log(sdic)
+        // console.log(sdic)
+        //
+        // for (var i = 0; i < 3; i++) {
+        //   var sdickeys = Object.keys(soundic);
+        //   if (sdickeys.indexOf(sdic[i]) == -1) {
+        //       audioLoader.load(ur1 +sdic[i] , function(buffer) {
+        //           var sound = new THREE.Audio(listener);
+        //           sound.setBuffer(buffer);
+        //           sound.setVolume(0.4);
+        //           sound.setLoop(true);
+        //           soundic[sdic[i]] = sound;
+        //       });
+        //   }
+        // }
 
-        for (var i = 0; i < 3; i++) {
-          var sdickeys = Object.keys(soundic);
-          if (sdickeys.indexOf(sdic[i]) == -1) {
-              audioLoader.load(ur1 +sdic[i] , function(buffer) {
-                  var sound = new THREE.Audio(listener);
-                  sound.setBuffer(buffer);
-                  sound.setVolume(0.4);
-                  sound.setLoop(true);
-                  soundic[sdic[i]] = sound;
-              });
-          }
-        }
+
 
 
         arrows.forEach((item) => {
@@ -16473,6 +16475,56 @@
                     });
                 }
             }
+
+            sdic=[];
+
+            var tsong=["High End Party.mp3","Catwalk.mp3","Beach House.mp3"]
+            // tsong.sort(() => Math.random() - 0.5);
+            // // var tsnum=tsong[parseInt(Math.random()*tsong.length)]
+            // sdic.push(tsong[0])
+            // sdic.push(tsong[1])
+            // sdic.push(tsong[2])
+            // window.soundic=soundic;
+            //
+            //
+            //
+            // for (var i = 0; i < 3; i++) {
+            //   var sdickeys = Object.keys(soundic);
+            //   if (sdickeys.indexOf(sdic[i]) == -1) {
+            //
+            //       audioLoader.load(ur1 +sdic[i] , function(buffer) {
+            //           var sound = new THREE.Audio(listener);
+            //           sound.setBuffer(buffer);
+            //           sound.setVolume(0.4);
+            //           sound.setLoop(true);
+            //           soundic[sdic[i]] = sound;
+            //       });
+            //   }
+            // }
+            audioLoader.load(ur1 +"High End Party.mp3" , function(buffer) {
+                var sound = new THREE.Audio(listener);
+                sound.setBuffer(buffer);
+                sound.setVolume(0.4);
+                sound.setLoop(true);
+                soundic["High End Party.mp3"] = sound;
+                audioLoader.load(ur1 +"Catwalk.mp3" , function(buffer) {
+                    var sound = new THREE.Audio(listener);
+                    sound.setBuffer(buffer);
+                    sound.setVolume(0.4);
+                    sound.setLoop(true);
+                    soundic["Catwalk.mp3"] = sound;
+                    audioLoader.load(ur1 +"Beach House.mp3" , function(buffer) {
+                        var sound = new THREE.Audio(listener);
+                        sound.setBuffer(buffer);
+                        sound.setVolume(0.4);
+                        sound.setLoop(true);
+                        soundic["Beach House.mp3"] = sound;
+                    });
+                });
+            });
+
+
+
             tsetting(function(object) {
               time0 = performance.now();
               fps = 0;
@@ -18217,7 +18269,7 @@
               sdickeys.forEach((item) => {
                 soundic[item]?.stop();
               });
-              soundic[sdic[5][0]].play();
+              soundic[sdic[0]].play();
               restartonce1=true;
 
             }
@@ -24472,6 +24524,7 @@
     window.skinshift0=skinshift0;
 
     function play(){
+      console.log(soundic)
       document.getElementById("yesno").style.display="none"
       document.getElementById("table").style.display="none"
 
@@ -24481,9 +24534,10 @@
         document.getElementById("top").style.display="flex"
       }
 
-      if(reflag){
+      // if(reflag){
+        console.log(soundic[sdic[0]])
         soundic[sdic[0]]?.play();
-      }
+      // }
       템셋()
       인게임=true;
       skinchange=false;
