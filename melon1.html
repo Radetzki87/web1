@@ -1675,7 +1675,7 @@
           font-size: 5vh;
         }
 
-        #intro label{
+        #co{
           display:none;
           top:97.6vh;
           position:absolute;
@@ -3150,8 +3150,6 @@
     var 송백="rgba(100,100,100,0.65)"
     var 옵션=document.getElementById("options-overlay")
     var 카테그=document.getElementById("categ1")
-    var 스텝1=document.getElementById("step1")
-    var 스텝3=document.getElementById("step3")
     var 샵=document.getElementById("shop")
 
     var 레프트=document.getElementById("left")
@@ -3190,8 +3188,7 @@
 
     window.옵션=옵션
     window.카테그=카테그
-    window.스텝1=스텝1
-    window.스텝3=스텝3
+
     window.샵=샵
     window.레프트=레프트
 
@@ -8788,7 +8785,7 @@
 
         }
         if (gameoverflag) return;
-        if (document.getElementById("setting-overlay").classList.contains("show") || !document.getElementById("gameover-overlay").classList.contains("hidden") || document.getElementById("options-overlay").classList.contains("show") || document.getElementById("optionlst").classList.contains("show")) {
+        if (document.getElementById("setting-overlay").classList.contains("show") || !document.getElementById("gameover-overlay").classList.contains("hidden") ) {
             return;
         } else {
 
@@ -9607,7 +9604,7 @@
 
         if(restartflag) return;
         if (gameoverflag) return;
-        if (document.getElementById("setting-overlay").classList.contains("show") || !document.getElementById("gameover-overlay").classList.contains("hidden") || document.getElementById("options-overlay").classList.contains("show") || document.getElementById("optionlst").classList.contains("show")) {
+        if (document.getElementById("setting-overlay").classList.contains("show") || !document.getElementById("gameover-overlay").classList.contains("hidden") ) {
             return;
         } else {
             // event.preventDefault();
@@ -16445,39 +16442,7 @@
                     rotationend = Math.PI / 4
                 }
             }
-            if (!document.getElementById("step1").classList.contains("hidden")) {
-                document.getElementById("options-overlay").classList.add("fade");
-                document.getElementById("options-overlay").classList.remove("show");
 
-
-                document.getElementById("right").classList.remove("fade");
-                setTimeout(function() {
-                    document.getElementById("options-overlay").classList.add("hidden");
-
-                    document.getElementById("right").classList.add("show");
-
-                    document.getElementById("right").classList.remove("hidden");
-
-
-
-                }, 100);
-            } else if (!document.getElementById("categ1").classList.contains("hidden")) {
-                document.getElementById("categ1").classList.remove("show");
-                document.getElementById("categ1").classList.add("fade");
-                setTimeout(function() {
-                    document.getElementById("categ1").classList.add("hidden");
-                    document.getElementById("step1").classList.remove("hidden");
-                    document.getElementById("step1").classList.add("show");
-                }, 100);
-            } else {
-                document.getElementById("step3").classList.remove("show");
-                document.getElementById("step3").classList.add("fade");
-                setTimeout(function() {
-                    document.getElementById("step3").classList.add("hidden");
-                    document.getElementById("categ1").classList.remove("hidden");
-                    document.getElementById("categ1").classList.add("show");
-                }, 100);
-            }
             점수=0;
             maxnum=0;
             listener= new THREE.AudioListener();
@@ -23277,12 +23242,7 @@
         tt.forEach((item) => {
           item.style.fontSize="3.8vmin";
         });
-        if(langnum==1){
-          document.getElementById("y0").style.fontSize="7vmin";
-          document.getElementById("y1").style.fontSize="5vmin";
-          document.getElementById("name").style.fontSize="10vmin";
 
-        }
       }else if(langnum==19){
         tt.forEach((item) => {
           item.style.fontSize="2.5vmin";
@@ -23291,6 +23251,22 @@
         tt.forEach((item) => {
           item.style.fontSize="3vmin";
         });
+      }
+
+      if(langnum==1){
+        document.getElementById("y0").style.fontSize="7vmin";
+        document.getElementById("y1").style.fontSize="5vmin";
+        document.getElementById("name").style.fontSize="10vmin";
+
+      }if(langnum==0){
+        document.getElementById("y0").style.fontSize="4vmin";
+        document.getElementById("y1").style.fontSize="3vmin";
+        document.getElementById("name").style.fontSize="9vmin";
+
+      }else{
+        document.getElementById("y0").style.fontSize="4vmin";
+        document.getElementById("y1").style.fontSize="3vmin";
+        document.getElementById("name").style.fontSize="7vmin";
       }
 
       document.getElementById("fps").fontFamily="ns"
@@ -24887,8 +24863,7 @@
             // document.getElementById("right").classList.add("hidden");
 
             document.getElementById("optionlst").classList.add("hidden");
-            document.getElementById("step1").classList.remove("hidden");
-            document.getElementById("step1").classList.add("show");
+
             // document.getElementById("right").children[1].classList.add("hidden");
             // document.getElementById("right").children[0].classList.remove("hidden");
             // document.getElementById("right").children[0].style.display = ""
@@ -25704,12 +25679,7 @@
         case 카테그:
 
         	break;
-        case 스텝1:
 
-        	break;
-        case 스텝3:
-
-        	break;
         case 샵:
 
         	break;
@@ -25911,14 +25881,14 @@
 
 <div id="pop-info" class="hidden">
     <span id="popline1" class="">
-        <label class="p1">층 잠금: </label>
-        <label class="p2"></label>
-        <label class="p3">+500pt</label>
+        <div class="p1">층 잠금: </div>
+        <div class="p2"></div>
+        <div class="p3">+500pt</div>
     </span>
     <span id="popline2" class="">
-        <label class="p1"></label>
-        <label class="p2"></label>
-        <label class="p3"></label>
+        <div class="p1"></div>
+        <div class="p2"></div>
+        <div class="p3"></div>
     </span>
 </div>
 
@@ -25950,7 +25920,7 @@
     <div id="logo">
         <b>랙</b>
     </div>
-    <label>RAEK GAMES</label>
+    <b id="co">RAEK GAMES</b>
     <div id="tts">로딩 중..</div>
     <img id="title" src="png/title.png">
     <img id="title1" src="png/apen.gif">
@@ -25974,36 +25944,14 @@
     <button id="set0" onclick="skinshift0(3)">
     선택
     </button>
-
-
-
-
     <img id="skill" src="png/card1.png">
-
-
-
-
-
-
-
     <button class="btn hidden" id="btn1" onclick="play(1)">
     게임 시작하기
     </button>
     <button class="btn hidden" id="btn2" onclick="exit0(9)">
     나의 점수
     </button>
-
-
-
-
-
-
     <div id="name2"></div>
-
-
-
-
-
 </div>
 
 
@@ -26095,9 +26043,9 @@
     <b id="resolution">RESOLUTION</b>
     <div class="option-RL2">
         <button id="skin-left2" onclick="resshift(0)"></button>
-        <label id="skin-middle2">
+        <div id="skin-middle2">
             <div>90%</div>
-        </label>
+        </div>
         <button id="skin-right2" onclick="resshift(1)"></button>
     </div>
 
@@ -26149,8 +26097,8 @@
             <b class="glabel">재시작</b>
         </button>
 
-        <label id="vinfo"></label>
-        <label id="mailinfo"></label>
+        <div id="vinfo"></div>
+        <div id="mailinfo"></div>
     </div>
 
 
@@ -26159,16 +26107,16 @@
 <div id="gameover-overlay" class="gameover-overlay hidden">
     <div class="gameover-container">
         <div class="gameinfo1" id="gameinfo1">
-            <label class="a" id="만선">만선!!</label>
-            <label class="b"></label>
-            <label class="c"></label>
-            <label class="d"></label>
+            <div class="a" id="만선">만선!!</div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
         </div>
 
         <div class="gameinfo0" id="gameinfo0">
-            <label> </label>
-            <label> </label>
-            <label id="nrec"></label>
+            <div> </div>
+            <div> </div>
+            <div id="nrec"></div>
         </div>
 
         <div class="gameinfo" onclick="fwd()" id="gameinfo">
@@ -26182,11 +26130,6 @@
                 </div>
                 <span class="pgr-count" id="pgr3">3/10</span>
                 <span class="pgr-count" id="pgr2">3/10</span>
-
-
-
-
-
             </div>
 
             <table id="ptable">
@@ -26206,7 +26149,7 @@
 
         </div>
         <div class="gameover" id="obt1">
-            <label class="glabel0"></label>
+            <div class="glabel0"></div>
             <button id="restartbtn" class="gameoverbt">
                 <div id="reprice" class="hidden"></div>
                 <img src="png/return.png" >
@@ -26215,7 +26158,7 @@
         </div>
 
         <div class="gameover" id="obt2">
-            <label class="glabel0"></label>
+            <div class="glabel0"></div>
             <button id="restartbtn4" class="gameoverbt" onclick="exit0(8)">
                 <img src="png/exit.png" >
             </button>
@@ -26371,79 +26314,6 @@
     </button>
 </div>
 
-
-<div id="options-overlay" class="options-overlay hidden">
-    <div class="container">
-        <div id="step1">
-            <button class="backbutton" onclick="goBack(1)">
-                <img class="" src="png/left.png">
-            </button>
-            <div class="button-column">
-                <h1 class="title" id="ads0">NO ADS</h1>
-                <button class="ad-button" onclick="adfree()" id="ads1">
-                    <b id="ads2">GET AD-FREE</b>
-                </button>
-
-                <h1 class="title" id="skin0">SKIN</h1>
-                <button class="ap-button" onclick="showshop()">
-                    <b id="skin1">skin shop</b>
-
-                </button>
-                <div class="option-RL">
-                    <button id="skin-left" onclick="skinshift(0)">◀</button>
-                    <label id="skin-middle">
-                        <img src="png/base.png" alt="Character 2">
-                        <div>base</div>
-                    </label>
-                    <button id="skin-right" onclick="skinshift(1)">▶</button>
-                </div>
-
-                <h1 class="title" id="theme0">THEME</h1>
-                <button class="cat-button" onclick="showGrid(0)">
-                    <img src="png/0.png" alt="Mute" >
-                    <lable>BRIX (DEFAULT)</lable>
-                    <div class="color4"></div>
-
-                </button>
-
-                <button class="cat-button" onclick="showGrid(1)">
-                    <img src="png/1.png" alt="Mute" >
-                    <lable>LO-FI</lable>
-                    <div class="color4"></div>
-
-                </button>
-
-
-                <button class="cat-button unpaid" onclick="showGrid(3)">
-                    <img src="png/3.png" alt="Mute" >
-                    <lable>808</lable>
-                    <div class="color4"></div>
-
-                </button>
-                <button class="cat-button unpaid" onclick="showGrid(4)">
-                    <img src="png/7.png" alt="Mute">
-                    <lable>hiphop</lable>
-                    <div class="color4"></div>
-                </button>
-
-                <button class="cat-button unpaid" onclick="showGrid(2)">
-                    <img src="png/2.png" alt="Mute" >
-                    <lable>RETRO</lable>
-                    <div class="color4"></div>
-
-                </button>
-
-                <button class="cat-button" onclick="">comming soon!
-                </button>
-
-
-
-
-
-
-
-            </div>
-        </div>
 
 </body>
 
