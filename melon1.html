@@ -609,32 +609,6 @@
         }
 
 
-
-        #coin-info {
-            font-family: 'GG';
-            color: white;
-            font-size: 2vh;
-            position: absolute;
-            top: -1%;
-            right: 6%;
-            /* left: 4vw; */
-            display: inline-flex;
-            z-index: 1;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            /*opacity: 1;*/
-            /*transition: opacity 0.15s ease-in-out;*/
-        }
-
-        #coin1{
-          font-family: 'mono';
-        }
-
-        #coin3{
-          font-family: 'mono';
-        }
-
         #song-info {
             font-family: 'GG';
             color: white;
@@ -1967,12 +1941,6 @@
             left:78%;
         }
 
-        #코인{
-          position: relative;
-          font-size: 6vmin;
-          right:5%;
-          color:white;
-        }
 
         .gameover {
             font-size: 4vmin;
@@ -3168,7 +3136,6 @@
 
     var 게임오버=document.getElementById("gameover-overlay")
 
-    var 코인=document.getElementById("coin-info")
 
     var 모드=document.getElementById("mod-overlay")
 
@@ -3198,7 +3165,7 @@
     window.세팅=세팅
     window.튜토리얼=튜토리얼
     window.게임오버=게임오버
-    window.코인=코인
+
     window.모드=모드
     window.크레딧=크레딧
     window.튜트=튜트
@@ -3736,7 +3703,7 @@
     var avz=0;
     var skinmold={};
 
-    var cointxt = document.getElementById('coin');
+
     let isMuted = false;
     let isside = false;
     let isparticle = false;
@@ -11616,13 +11583,7 @@
                     activeFloor = cubes.length;
                     gameoverflag = false;
 
-                    document.getElementById("coin-info").classList.remove("hidden");
-                    document.getElementById("coin-info").classList.remove("fade");
-                    document.getElementById("coin-info").classList.add("show");
-                    document.getElementById("coin2").innerText=String(coin);
-                    if(coin>100000){
-                      sboard("CgkI3OzStdEUEAIQEQ")
-                    }
+
                     // addring();
                     document.getElementById("intro").children[2].style.display=""
 
@@ -16056,7 +16017,7 @@
               ncolornum=colornum
               ncolornum0=colornum0
               clickflag=true;
-              setsdic(1);
+
               setTimeout(function() {
                   document.getElementById("intro").children[2].style.display="none"
                   document.getElementById("intro").children[2].style.opacity="0.8";
@@ -16064,7 +16025,7 @@
 
                   // console.log(skinmold)
 
-                  document.getElementById("coin2").innerText=String(coin);
+
                   bf=999;
 
 
@@ -16118,7 +16079,7 @@
                               skinsetting(function(object) {
                                 if(freead){
                                   Android.logIn("0")
-                                  // document.getElementById("coin2").innerText=String(freead);
+
                                 }
                                   setTimeout(function() {
                                       document.getElementById("intro").children[2].style.display="none"
@@ -16133,7 +16094,7 @@
                                           }
                                         })
                                       }
-                                      document.getElementById("coin2").innerText=String(coin);
+
                                       bf=999;
 
 
@@ -17398,29 +17359,6 @@
               });
 
 
-
-              if(gamemod==2){
-                ptime2=2;
-
-              }
-              document.getElementById("coin-info").classList.remove("show");
-              document.getElementById("coin-info").classList.add("fade");
-              // document.getElementById("coin-info").style.opacity=0;
-
-              //
-              //
-
-
-
-
-
-              setTimeout(function() {
-                  document.getElementById("coin-info").classList.add("hidden");
-                  //
-
-
-
-              }, 100);
 
 
               textscene.forEach((item, index) => {
@@ -19681,14 +19619,14 @@
 
         }else{
           // document.getElementById('fps').innerText=""
-          document.getElementById('coin-info').style.display="none"
+
           document.getElementById('right').style.display="none"
 
 
         }
         document.getElementById('fps').innerText="🎫: "+String(ticket)
         if(스트리머){
-          document.getElementById('coin-info').style.display="none"
+
         }
 
         if(득템){
@@ -19978,29 +19916,7 @@
                   }
 
 
-                  // document.getElementById("총획득").classList.remove("show");
-                  // document.getElementById("코인").classList.remove("show");
-                  // document.getElementById("기본").classList.remove("show");
-                  // document.getElementById("full").classList.remove("show");
-                  // document.getElementById("max").classList.remove("show");
-                  // document.getElementById("시간").classList.remove("show");
-                  // document.getElementById("총획득").classList.add("hidden");
-                  // document.getElementById("코인").classList.add("hidden");
-                  // document.getElementById("기본").classList.add("hidden");
-                  // document.getElementById("full").classList.add("hidden");
-                  // document.getElementById("max").classList.add("hidden");
-                  // document.getElementById("시간").classList.add("hidden");
 
-                  // document.getElementById("기본").children[1].style.color=hexToHtmlColor(colorlst[colornum][2]);
-                  // document.getElementById("시간").children[1].style.color=hexToHtmlColor(colorlst[colornum][2]);
-                  // document.getElementById("max").children[1].style.color=hexToHtmlColor(colorlst[colornum][2]);
-                  // document.getElementById("full").children[1].style.color=hexToHtmlColor(colorlst[colornum][2]);
-
-                  // document.getElementById("기본").children[1].style.color="lightyellow"
-                  // document.getElementById("시간").children[1].style.color="lightyellow"
-                  // document.getElementById("max").children[1].style.color="lightyellow"
-                  // document.getElementById("full").children[1].style.color="lightyellow"
-                  // document.getElementById("코인").children[1].style.color=hexToHtmlColor(colorlst[colornum][0]);
 
                   if(gamemod==2){
                     if(langnum==13||langnum==22||langnum==29||langnum==36){
@@ -21818,9 +21734,7 @@
 
       if(n>=2){
         // pluscoin=0;
-        document.getElementById("coin-info").classList.remove("fade");
-        document.getElementById("coin-info").classList.add("show");
-        // document.getElementById("coin-info").opacity=1;
+
 
 
 
@@ -22754,8 +22668,7 @@
         document.querySelector(".gameinfo0").style.textAlign="right"
         document.querySelector(".gameinfo0").children[2].style.right="70vmin"
 
-        document.getElementById("coin1").style.display="none";
-        document.getElementById("coin3").style.display="";
+
 
       }else{
         document.getElementById("mailinfo").innerText="📬: brix2048@raekgames.com"
@@ -22813,8 +22726,7 @@
         }
 
 
-        document.getElementById("coin1").style.display="";
-        document.getElementById("coin3").style.display="none";
+
 
       }
 
@@ -22952,7 +22864,7 @@
       // retrytxt[1].innerText=textdic[51][langset[langnum]];
       retrytxt[1].innerText=textdic[52][langset[langnum]];
       // catbtn[0].children[1].innerText=textdic[64][langset[langnum]];
-      document.getElementById("코인").innerText="★ "+textdic[44][langset[langnum]];
+
 
       document.getElementById("ads2").innerText=textdic[54][langset[langnum]];
       document.getElementById("ads2").style.fontSize="5vmin";
@@ -23523,7 +23435,7 @@
      }
 
      function setcoin(text){
-        document.getElementById("coin2").innerText=String(text);
+
      }
 
      function contract(n, context,callback){
@@ -23561,7 +23473,7 @@
            }
 
            setTimeout(function() {
-             document.getElementById("coin2").innerText=String(coin);
+
              if (callback) {
                  callback();
              }
@@ -23668,7 +23580,7 @@
               document.getElementById("gameover-overlay").classList.add("hidden");
           }, 100);
           coin+=parseInt(parseInt(elapsedTime)/10)+parseInt(점수/10);
-          document.getElementById("coin2").innerText=String(coin);
+
           if (!rotationflag) {
               rotationflag = true
               restartflag = true
@@ -24063,7 +23975,7 @@
 <script>
 
     function cons(text){
-      document.getElementById("coin2").innerText=String(text);
+
     }
 
 
@@ -24294,17 +24206,7 @@
     function showmod() {
       if(!document.getElementById("gameover-overlay").classList.contains("hidden")) return;
 
-      if(document.getElementById("coin-info").classList.contains("hidden")){
-        document.getElementById("coin-info").classList.remove("hidden");
-        document.getElementById("coin-info").classList.remove("fade");
-        setTimeout(function() {
-          document.getElementById("coin-info").classList.add("show");
-        }, 100);
 
-      }
-
-
-        // document.getElementById("coin-info").style.opacity=1;
         // document.getElementById("m0best").innerText="BEST : "+String(bestscore)
         // document.getElementById("m1best").innerText="BEST : "+String(bestscore1)
         // document.getElementById("m2best").innerText="BEST : "+String(bestscore2)
@@ -24709,14 +24611,7 @@
           document.getElementById("credit-info").classList.add("fade");
 
 
-          // document.getElementById("coin-info").classList.remove("show");
-          // document.getElementById("coin-info").classList.add("fade");
-          //
-          //
-          //
-          //
-          //
-          //
+
 
 
           setTimeout(function() {
@@ -24724,9 +24619,6 @@
               document.getElementById("credit-info").classList.add("hidden");
               document.getElementById("setting-overlay").classList.add("hidden");
 
-              // document.getElementById("coin-info").classList.add("hidden");
-              //
-              //
 
 
           }, 100);
@@ -24823,11 +24715,7 @@
 
 
             }else if(n==5){
-              if(!document.getElementById("coin-info").classList.contains("hidden")){
 
-
-
-              }
             }
 
             setTimeout(function() {
@@ -24842,14 +24730,7 @@
 
 
                 }else if(n==5){
-                  if(!document.getElementById("coin-info").classList.contains("hidden")){
 
-
-
-
-
-
-                  }
                 }
 
             }, 100);
@@ -25140,9 +25021,6 @@
         case 게임오버:
 
         	break;
-        case 코인:
-
-        	break;
         case 모드:
 
         	break;
@@ -25229,9 +25107,6 @@
         case 게임오버:
 
         	break;
-        case 코인:
-
-        	break;
         case 모드:
 
         	break;
@@ -25311,12 +25186,6 @@
         <div class="p2"></div>
         <div class="p3"></div>
     </span>
-</div>
-
-<div id="coin-info" class="">
-    <h2 id="coin1">★:</h2>
-    <h2 id="coin2">11</h2>
-    <h2 id="coin3">:★</h2>
 </div>
 
 
