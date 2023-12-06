@@ -343,36 +343,50 @@
           color: black;
         }
 
-        #yesno2{
-            position: absolute;
-            left:15%;
-            top:30%;
-            background-color: rgba(50, 150, 150, 1);
-            font-family: 'GG';
-            width: 70vmin;
-            height: 38vmin;
-            border-radius: 4vmin;
-            display: flex;
-            flex-direction: column;
-            align-items: flex;
-            border: 0px solid #000;
-            justify-content: center;
-            align-items: center;
-            z-index:3;
-            font-family: 'mono';
-            font-size: 4vmin;
-        }
-
-
-        #yesno2 b{
+        #y2{
           margin-top: 2vmin;
           color: white;
 
         }
 
-        #yesno2 img{
-          width: 12vmin;
+        #y3{
+          margin-top: 1vmin;
+          font-size: 3vmin;
+          color: black;
+        }
 
+        #yesno2{
+          position: absolute;
+          left:15vmin;
+          top:30%;
+          background-color: rgba(220, 100, 100, 0.95);
+          font-family: 'mono';
+          width: 70vmin;
+          height: 70vmin;
+          border-radius: 4vmin;
+          display: none;
+          flex-direction: column;
+          align-items: flex;
+          border: 0px solid #000;
+          justify-content: center;
+          align-items: center;
+          z-index:4;
+          font-size: 4vmin;
+
+        }
+
+
+        #yesnoimg2{
+          margin-top: 5vmin;
+          width:20vmin;
+        }
+        #yestxt2{
+          margin-top: 10vmin;
+        }
+
+        #notxt2{
+          background-color: transparent;
+          border: none;
         }
 
 
@@ -912,7 +926,7 @@
         #set0.lock{
           background-color: rgba(150, 50, 150, 0.9);
           border: 1vmin inset rgba(70, 150, 170, 0.5);
-          background-image: url("png/locked.png");
+          background-image: url("png/lock.png");
           background-size: contain;
           background-repeat: no-repeat;
           color:yellowgreen;
@@ -940,9 +954,6 @@
           transition: opacity 1s;
         }
 
-        .option-RL0 img{
-            width:16vmin;
-        }
 
 
         .option-RL {
@@ -1002,7 +1013,7 @@
         #skin-middle0 {
             text-align: center;
             width: 15vmin;
-            font-family: 'GG';
+            /* font-family: 'GG'; */
             font-size: 4vmin;
             color:black;
 
@@ -1010,7 +1021,7 @@
         }
 
         #jcond {
-          font-family: 'mono';
+          /* font-family: 'mono'; */
           padding-left: 1vmin;
           padding-right: 1vmin;
            border-radius: 3vmin;
@@ -21897,9 +21908,9 @@
     function showyes(n=0){
 
       if(n==1){
-        document.getElementById("yesno2").classList.remove("hidden");
-        document.getElementById("yesno2").classList.add("show");
-        document.getElementById("yesno2").style.display="flex"
+        document.getElementById("yesno").classList.remove("hidden");
+        document.getElementById("yesno").classList.add("show");
+        document.getElementById("yesno").style.display="flex"
       }else{
         document.getElementById("yesno").classList.remove("hidden");
         document.getElementById("yesno").classList.add("show");
@@ -21908,6 +21919,23 @@
 
     }
     window.showyes=showyes
+
+    function showyes2(n=0){
+
+      if(n==1){
+        document.getElementById("yesno2").classList.remove("hidden");
+        document.getElementById("yesno2").classList.add("show");
+        document.getElementById("yesno2").style.display="flex"
+
+      }else{
+        document.getElementById("yesno2").classList.remove("hidden");
+        document.getElementById("yesno2").classList.add("show");
+        document.getElementById("yesno2").style.display="flex"
+      }
+
+    }
+    window.showyes2=showyes2
+
 
 
     function skinpay() {
@@ -22010,10 +22038,10 @@
           if(i>=scorelimit) return;
           scores.push({ character: 'seal1', score: item })
         });
-        // scoret5.forEach((item,i) => {
-        //   if(i>=scorelimit) return;
-        //   scores.push({ character: 'seal2', score: item })
-        // });
+        scoret5.forEach((item,i) => {
+          if(i>=scorelimit) return;
+          scores.push({ character: 'seal2', score: item })
+        });
 
 
 
@@ -22029,7 +22057,7 @@
           document.getElementById('filter3').style.backgroundColor="#eeeeee"
           document.getElementById('filter4').style.backgroundColor="#eeeeee"
           document.getElementById('filter5').style.backgroundColor="#eeeeee"
-          // document.getElementById('filter6').style.backgroundColor="#eeeeee"
+          document.getElementById('filter6').style.backgroundColor="#eeeeee"
         if(character=="all"){
           document.getElementById('filter1').style.backgroundColor="#C0C0C0"
 
@@ -22042,7 +22070,7 @@
         }else if(character=="seal1"){
           document.getElementById('filter5').style.backgroundColor="#C0C0C0"
         }else if(character=="seal2"){
-          // document.getElementById('filter6').style.backgroundColor="#C0C0C0"
+          document.getElementById('filter6').style.backgroundColor="#C0C0C0"
         }
 
         // 점수로 내림차순 정렬
@@ -22115,7 +22143,22 @@
       }else if(n==1){
         터치보호=elapsedTime
         close(크레딧)
-      }else if(n==5){
+      }else if(n==4){ //산타구입
+        ticketonce=true
+        터치보호=elapsedTime
+        document.getElementById("yesno2").style.display="none"
+        document.getElementById("yesno2").classList.remove("show");
+
+        document.getElementById("set0").classList.remove("lock");
+        document.getElementById("set0").classList.remove("set");
+        document.getElementById("set0").innerText=textdic[51][langset[langnum]]
+        ticket-=10;
+        setdb([["data1", "0", String(ticket)]]);
+        setdb([["data1", "7", String(1)]]);
+        paidlst[4]=true;
+        document.getElementById('fps').innerText="🎫: "+String(ticket);
+        document.getElementById("skin-middle0").children[0].classList.remove("locked");
+      }else if(n==5){ //스폰
         ticketonce=true
         터치보호=elapsedTime
         document.getElementById("yesno").style.display="none"
@@ -22124,10 +22167,13 @@
         ticket-=3;
         if(!webflag) setdb([["data1", "0", String(ticket)]]);
         document.getElementById('fps').innerText="🎫: "+String(ticket);
-      }else if(n==6){
+      }else if(n==6){ //아니요
         document.getElementById("yesno").style.display="none"
         document.getElementById("yesno").classList.remove("show");
         터치보호=elapsedTime
+
+        document.getElementById("yesno2").style.display="none"
+        document.getElementById("yesno2").classList.remove("show");
 
       }else if(n==7){
         qre=true;
@@ -22185,7 +22231,7 @@
 
         }, 1500);
 
-      }else if(n==9){
+      }else if(n==9){ //점수보기
 
           if(document.getElementById("table").style.display=="block"){
             document.getElementById("table").style.display="none"
@@ -22198,6 +22244,8 @@
         if(!인게임){
           if(skinchange){
             skinchange=false;
+            skinnum=skinnum0;
+            document.getElementById("skin-middle0").children[0].classList.remove("locked");
             document.getElementById("hero").style.right="30vmin"
             document.getElementById("skill").style.opacity=0;
             document.getElementById("set0").style.opacity=0;
@@ -22597,8 +22645,14 @@
       document.getElementById("y0").innerText=textdic[59][langset[n]]
       document.getElementById("y1").innerText=textdic[60][langset[n]]
 
+      document.getElementById("y2").innerText=textdic[66][langset[n]]
+      // document.getElementById("y3").innerText=textdic[60][langset[n]]
+
       document.getElementById("yestxt").innerText=textdic[28][langset[n]]
       document.getElementById("notxt").innerText=textdic[29][langset[n]]
+
+      document.getElementById("yestxt2").innerText=textdic[28][langset[n]]
+      document.getElementById("notxt2").innerText=textdic[29][langset[n]]
 
       var tfont;
 
@@ -22652,13 +22706,21 @@
       document.getElementById("y0").style.fontFamily=tfont
       document.getElementById("y1").style.fontFamily=tfont
 
+      document.getElementById("y2").style.fontFamily=tfont
+      document.getElementById("y3").style.fontFamily=tfont
+
       document.getElementById("yestxt").style.fontFamily=tfont
       document.getElementById("notxt").style.fontFamily=tfont
 
-      document.getElementById("skin-middle0").children[1].fontFamily=tfont
-      document.getElementById("skin-middle0").children[2].fontFamily=tfont
-      document.getElementById("set0").fontFamily=tfont
-      document.getElementById("jcond").fontFamily=tfont
+      document.getElementById("yestxt2").style.fontFamily=tfont
+      document.getElementById("notxt2").style.fontFamily=tfont
+
+      // document.getElementById("skin-middle0").children[1].fontFamily=tfont
+      // document.getElementById("skin-middle0").children[2].fontFamily=tfont
+      document.getElementById("set0").style.fontFamily=tfont
+
+      document.getElementById("jcond").style.fontFamily=tfont
+      document.getElementById("lcond").style.fontFamily=tfont
 
       var tt=document.querySelectorAll(".glabel");
       if(langnum==0||langnum==1||langnum==3){
@@ -22679,16 +22741,19 @@
       if(langnum==1){
         document.getElementById("y0").style.fontSize="7vmin";
         document.getElementById("y1").style.fontSize="5vmin";
+        document.getElementById("y2").style.fontSize="7vmin";
         document.getElementById("name").style.fontSize="10vmin";
 
       }else if(langnum==0){
         document.getElementById("y0").style.fontSize="4vmin";
         document.getElementById("y1").style.fontSize="3vmin";
+        document.getElementById("y2").style.fontSize="4vmin";
         document.getElementById("name").style.fontSize="9vmin";
 
       }else{
         document.getElementById("y0").style.fontSize="4vmin";
         document.getElementById("y1").style.fontSize="3vmin";
+        document.getElementById("y2").style.fontSize="4vmin";
         document.getElementById("name").style.fontSize="7vmin";
       }
 
@@ -23215,7 +23280,7 @@
           var 산타해금=parseInt(nslst["data1"][7]);
 
           // document.getElementById("fps").style.display=""
-
+          // ticket=9;
           resinit=0;
           window.resinit=resinit;
           resol(resinit);
@@ -23287,11 +23352,11 @@
               scoret4.push(parseInt(nslst["rank4"][i]))
             }
           }
-          // for (var i = 0; i < scorelimit; i++) {
-          //   if(parseInt(nslst["rank5"][i])!=0){
-          //     scoret5.push(parseInt(nslst["rank5"][i]))
-          //   }
-          // }
+          for (var i = 0; i < scorelimit; i++) {
+            if(parseInt(nslst["rank5"][i])!=0){
+              scoret5.push(parseInt(nslst["rank5"][i]))
+            }
+          }
 
           console.log(scoret1)
           console.log(scoret2)
@@ -23398,11 +23463,11 @@
             scoret4.push(parseInt(nslst["rank4"][i]))
           }
         }
-        // for (var i = 0; i < scorelimit; i++) {
-        //   if(parseInt(nslst["rank5"][i])!=0){
-        //     scoret5.push(parseInt(nslst["rank5"][i]))
-        //   }
-        // }
+        for (var i = 0; i < scorelimit; i++) {
+          if(parseInt(nslst["rank5"][i])!=0){
+            scoret5.push(parseInt(nslst["rank5"][i]))
+          }
+        }
      }
 
      function savedb(text){
@@ -23761,6 +23826,7 @@
 
     function skinshift0(n){
 
+      // document.getElementById("set0").style.fontSize="4vmin";
 
       if(!skinchange&&n!=3){
         skinchange=true;
@@ -23829,14 +23895,16 @@
       }
       if(n==0){
         skinnum--
-        if(skinnum<0) skinnum=3
+        if(skinnum<0) skinnum=4
 
         if(paidlst[skinnum]){
           if(skinnum==skinnum0){
+            document.getElementById("skin-middle0").children[0].classList.remove("locked");
             document.getElementById("set0").classList.remove("lock");
             document.getElementById("set0").classList.add("set");
             document.getElementById("set0").innerText=textdic[52][langset[langnum]]
           }else{
+            document.getElementById("skin-middle0").children[0].classList.remove("locked");
             document.getElementById("set0").classList.remove("lock");
             document.getElementById("set0").classList.remove("set");
             document.getElementById("set0").innerText=textdic[51][langset[langnum]]
@@ -23846,10 +23914,12 @@
             document.getElementById("set0").classList.add("lock");
             document.getElementById("set0").innerText=textdic[52][langset[langnum]]
           }else{
+            document.getElementById("skin-middle0").children[0].classList.add("locked");
             if(ticket>=10&&skinnum==4){
               document.getElementById("set0").classList.remove("set");
               document.getElementById("set0").classList.add("lock");
               document.getElementById("set0").innerText=textdic[66][langset[langnum]]
+              // document.getElementById("set0").style.fontSize="3vmin";
             }else{
               document.getElementById("set0").classList.remove("set");
               document.getElementById("set0").classList.add("lock");
@@ -23862,13 +23932,15 @@
 
       }else if(n==1){
         skinnum++
-        if(skinnum>3) skinnum=0
+        if(skinnum>4) skinnum=0
         if(paidlst[skinnum]){
           if(skinnum==skinnum0){
+            document.getElementById("skin-middle0").children[0].classList.remove("locked");
             document.getElementById("set0").classList.remove("lock");
             document.getElementById("set0").classList.add("set");
             document.getElementById("set0").innerText=textdic[52][langset[langnum]]
           }else{
+            document.getElementById("skin-middle0").children[0].classList.remove("locked");
             document.getElementById("set0").classList.remove("lock");
             document.getElementById("set0").classList.remove("set");
             document.getElementById("set0").innerText=textdic[51][langset[langnum]]
@@ -23878,7 +23950,9 @@
             document.getElementById("set0").classList.add("lock");
             document.getElementById("set0").innerText=textdic[52][langset[langnum]]
           }else{
+            document.getElementById("skin-middle0").children[0].classList.add("locked");
             if(ticket>=10&&skinnum==4){
+              // document.getElementById("set0").style.fontSize="3vmin";
               document.getElementById("set0").classList.remove("set");
               document.getElementById("set0").classList.add("lock");
               document.getElementById("set0").innerText=textdic[66][langset[langnum]]
@@ -23891,8 +23965,9 @@
         }
       }else if(n==3){
         if(document.getElementById("set0").classList.contains("set")){
-
+          document.getElementById("skin-middle0").children[0].classList.remove("locked");
         }else if(paidlst[skinnum]){
+          document.getElementById("skin-middle0").children[0].classList.remove("locked");
           document.getElementById("set0").classList.add("set");
           document.getElementById("set0").innerText=textdic[52][langset[langnum]]
           skinnum0=skinnum;
@@ -23902,13 +23977,8 @@
           setdb([["data1", "4", String(skinnum0)]]);
 
         }else if(skinnum==4&&ticket>=10){
-          document.getElementById("set0").classList.remove("lock");
-          document.getElementById("set0").classList.remove("set");
-          document.getElementById("set0").innerText=textdic[51][langset[langnum]]
-          ticket-=10;
-          setdb([["data1", "0", String(ticket)]]);
-          setdb([["data1", "7", String(1)]]);
-          paidlst[4]=true;
+          showyes2(0)
+
 
         }else
 
@@ -23957,6 +24027,7 @@
     window.skinshift0=skinshift0;
 
     function play(){
+
       console.log(soundic)
       document.getElementById("yesno").style.display="none"
       document.getElementById("table").style.display="none"
@@ -23984,6 +24055,7 @@
       }else{
         document.getElementById("skin-middle0").children[0].src="png/hero"+String(skinnum0+1)+".png"
       }
+      document.getElementById("skin-middle0").children[0].classList.remove("locked");
       document.getElementById("skill").src="png/skill"+String(skinnum0)+".png"
       document.getElementById("set0").classList.remove("lock");
       document.getElementById("set0").classList.add("set");
@@ -25380,7 +25452,7 @@
     <img id="배경2" src="png/BBQ.png">
     <img id="배경3" src="png/AA.png">
 
-    <div class="option-RL0 hidden" id="hero">
+    <div class="hidden" id="hero">
         <button id="skin-left0" onclick="skinshift0(0)"></button>
         <div id="skin-middle0">
             <img src="png/hero2.png" alt="Character 2" onclick="skinshift0(2)">
@@ -25733,6 +25805,22 @@
     </div>
 </div>
 
+<div id="yesno2" class="hidden">
+    <b id="y2">단체 손님을 태울까요?</b>
+    <b id="y3"></b>
+    <img id="yesnoimg2" src="png/hero5.gif">
+    <div class="yesno-container">
+        <button id="yestxt2" onclick=exit0(4)>
+            예
+        </button>
+        <button id="notxt2" onclick=exit0(6)>
+            아니오
+        </button>
+    </div>
+</div>
+
+
+
 <div id="table" class="neumorphism">
     <!-- 캐릭터 필터링 버튼 -->
     <button class="filter" id="filter1" onclick="filter('all')">
@@ -25749,6 +25837,9 @@
     </button>
     <button class="filter" id="filter5" onclick="filter('seal1')">
     <img src="png/hero4.png" >
+    </button>
+    <button class="filter" id="filter6" onclick="filter('seal2')">
+    <img src="png/hero5.png" >
     </button>
 
 
