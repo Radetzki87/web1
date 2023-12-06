@@ -70,9 +70,7 @@
             position: absolute;
             width:14vmin;
             transform: translate(-5vmin, -10vmin);
-
         }
-
 
 
         #pgr3{
@@ -120,8 +118,6 @@
         #pgr5.pop0{
           transition: opacity 0.8s, bottom 0.8s;
         }
-
-
 
 
                 .pgr-container {
@@ -9308,8 +9304,7 @@
                   itemtouch=false
                 }
               }else if(bridge){
-                if(cat[0].userData["rank"]==1||cat[0].userData["rank"]==5||cat[0].userData["rank"]==7){
-
+                if(cat[0].userData["rank"]==12){
 
                   itemtouch=true
                   itempointer=cat[0]
@@ -9954,24 +9949,36 @@
                   console.log("bridge 사용")
 
                   if(skinnum0==3){
-                    var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
-                    newo.position.copy(itempointer.position)
+                    과일.forEach((item) => {
+                      if(item.userData.alive&&item.userData.rank<9){
+                        if(item.userData.rank==0||(item.userData.rank==4&&item.userData.form==0)){
 
-                    newo.userData.body.position.copy(newo.position);
-                    scene.remove(itempointer);
+                        }else{
+                          item.rotation.x=-(Math.PI/2)
+                          item.userData.body.position.copy(item.position);
+                          item.userData.body.quaternion.copy(item.quaternion);
+                        }
+
+                      }
+                    });
 
 
-                    itempointer.userData.alive=false
-
-                    world.remove(itempointer.userData.body)
-                    newo.userData.body.position.copy(newo.position);
-                    world.addBody(newo.userData.body);
-                    과일.push(newo)
-
-                    // setTimeout(function() {
+                    // var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
+                    // newo.position.copy(itempointer.position)
                     //
-                    // }, 0);
-                    scene.add(newo);
+                    // newo.userData.body.position.copy(newo.position);
+                    // scene.remove(itempointer);
+                    //
+                    //
+                    // itempointer.userData.alive=false
+                    //
+                    // world.remove(itempointer.userData.body)
+                    // newo.userData.body.position.copy(newo.position);
+                    // world.addBody(newo.userData.body);
+                    // 과일.push(newo)
+                    //
+                    //
+                    // scene.add(newo);
 
                   }else if(skinnum0==1){
                     if(itempointer.userData["dir"]==0){
@@ -14118,19 +14125,20 @@
                                                               itemset.push(object.children[0])
                                                               var loader = new OBJLoader();
                                                               var mtlLoader = new MTLLoader();
-                                                              mtlLoader.load(ur2+'src/badge.mtl', function(materials) {
+                                                              mtlLoader.load(ur2+'src/mega.mtl', function(materials) {
                                                                   materials.preload();
                                                                   loader.setMaterials(materials);
-                                                                  loader.load(ur2+'src/badge.obj', (object) => {
+                                                                  loader.load(ur2+'src/mega.obj', (object) => {
                                                                     // object.children[0].rotation.y = Math.PI / 2
                                                                     object.children[0].position.set(0,0,0)
                                                                     object.children[0].scale.x = 1
                                                                     object.children[0].scale.z = 1
                                                                     object.children[0].scale.y = 1
 
-                                                                    object.children[0].rotation.x=Math.PI
+                                                                    object.children[0].rotation.y =Math.PI/2-Math.PI/6
 
-                                                                    object.children[0].rotation.z =-Math.PI/2
+                                                                    object.children[0].rotation.x=-Math.PI/4
+                                                                    object.children[0].rotation.z=Math.PI/4
 
                                                                     // object.children[0].position.z=0.2
                                                                     // object.children[0].scale.x=2.25;
@@ -14796,6 +14804,9 @@
 
           groundBody.position.copy(mesh.position);
           groundBody.quaternion.copy(mesh.quaternion);
+
+
+
 
         }else if(rnk==3){
 
@@ -16408,10 +16419,10 @@
                     item.children[7].children[3].position.y=200
                     item.children[7].children[5].position.y=0
 
-                    item.children[7].children[0].position.z=-0.05+pgap+0.2*(pshift[dur]-1);
+                    item.children[7].children[0].position.z=-0.07+pgap+0.15*(pshift[dur]-1);
                     // item.children[7].children[0].position.z=0.15
-                    item.children[7].children[5].position.z=-0.15+pgap-0.1*(pshift[dur]-1);
-                    item.children[7].children[4].position.z=-0.1+pgap+0.2*(pshift[dur]-1);
+                    item.children[7].children[5].position.z=-0.17+pgap-0.1*(pshift[dur]-1);
+                    item.children[7].children[4].position.z=-0.1+pgap+0.15*(pshift[dur]-1);
                     item.children[7].children[2].position.z=pgap
                     // item.children[7].children[5].position.z=-0.2
                     // item.children[7].children[4].position.z=-0.05
@@ -16585,7 +16596,7 @@
                 }else{
                   emote[0].position.y=0.2*dif+bh*18.5
                 }
-
+                emote[0].position.x=-1
 
 
 
@@ -17013,7 +17024,7 @@
                       item.children[3].position.y=100
                     }else{
                       if(item.userData.rank==1){
-                        if((skinnum0==1&&pung)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==3&&bridge)){
+                        if((skinnum0==1&&pung)||(skinnum0==2&&pung)||(skinnum0==2&&ice)){
                           item.children[3].position.y=0.2
                         }else{
                           item.children[3].position.y=100
@@ -17132,7 +17143,7 @@
                       item.children[5].position.y=100
                     }else{
                       if(item.userData.rank==5){
-                        if((skinnum0==1&&ice)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==3&&bridge)||(skinnum0==3&&pin)){
+                        if((skinnum0==1&&ice)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==3&&pin)){
                           item.children[5].position.y=0.2
                         }else{
                           item.children[5].position.y=100
@@ -17208,7 +17219,7 @@
                       item.children[3].position.y=100
                     }else{
                       if(item.userData.rank==7){
-                        if((skinnum0==1&&pin)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==2&&pin)||(skinnum0==3&&bridge)){
+                        if((skinnum0==1&&pin)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==2&&pin)){
                           item.children[3].position.y=0.2
                         }else{
                           item.children[3].position.y=100
@@ -19475,7 +19486,7 @@
                   itemmold[10].scale.z=(4+(pshift[dur]-1)*1.6)
                 }
               }else if(bridge){
-
+                  배[1].children[7].children[15].position.x=0
 
                 itemmold[11].material.visible=true
                 // itemmold[4].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
@@ -19485,9 +19496,9 @@
                 itemmold[9].position.x=-bh*3;
                 itemmold[10].position.x=-bh*3;
                 if(itemtouch){
-                  itemmold[11].scale.x=(2+(pshift[dur]-1)*1.6)
-                  itemmold[11].scale.y=(2+(pshift[dur]-1)*1.6)
-                  itemmold[11].scale.z=(2+(pshift[dur]-1)*1.6)
+                  itemmold[11].scale.x=(3+(pshift[dur]-1)*1.6)
+                  itemmold[11].scale.y=(3+(pshift[dur]-1)*1.6)
+                  itemmold[11].scale.z=(3+(pshift[dur]-1)*1.6)
                 }
               }
             }else{
@@ -19517,9 +19528,9 @@
               itemmold[10].scale.y=4
               itemmold[10].scale.z=4
 
-              itemmold[11].scale.x=2
-              itemmold[11].scale.y=2
-              itemmold[11].scale.z=2
+              itemmold[11].scale.x=3
+              itemmold[11].scale.y=3
+              itemmold[11].scale.z=3
 
               배[1].children[7].children[15].position.x=-100
 
@@ -21999,10 +22010,10 @@
           if(i>=scorelimit) return;
           scores.push({ character: 'seal1', score: item })
         });
-        scoret5.forEach((item,i) => {
-          if(i>=scorelimit) return;
-          scores.push({ character: 'seal2', score: item })
-        });
+        // scoret5.forEach((item,i) => {
+        //   if(i>=scorelimit) return;
+        //   scores.push({ character: 'seal2', score: item })
+        // });
 
 
 
@@ -22018,7 +22029,7 @@
           document.getElementById('filter3').style.backgroundColor="#eeeeee"
           document.getElementById('filter4').style.backgroundColor="#eeeeee"
           document.getElementById('filter5').style.backgroundColor="#eeeeee"
-          document.getElementById('filter6').style.backgroundColor="#eeeeee"
+          // document.getElementById('filter6').style.backgroundColor="#eeeeee"
         if(character=="all"){
           document.getElementById('filter1').style.backgroundColor="#C0C0C0"
 
@@ -22031,7 +22042,7 @@
         }else if(character=="seal1"){
           document.getElementById('filter5').style.backgroundColor="#C0C0C0"
         }else if(character=="seal2"){
-          document.getElementById('filter6').style.backgroundColor="#C0C0C0"
+          // document.getElementById('filter6').style.backgroundColor="#C0C0C0"
         }
 
         // 점수로 내림차순 정렬
@@ -22082,7 +22093,7 @@
           document.getElementById('top0').children[0].src="png/sitem1.png"
           document.getElementById('top1').children[0].src="png/sitem2.png"
           document.getElementById('top2').children[0].src="png/sitem3.png"
-          document.getElementById('top3').children[0].src="png/sitem4.png"
+          document.getElementById('top3').children[0].src="png/sitem5.png"
           break;
         default:
           return;
@@ -22111,6 +22122,7 @@
         document.getElementById("yesno").classList.remove("show");
         spawn();
         ticket-=3;
+        if(!webflag) setdb([["data1", "0", String(ticket)]]);
         document.getElementById('fps').innerText="🎫: "+String(ticket);
       }else if(n==6){
         document.getElementById("yesno").style.display="none"
@@ -22196,7 +22208,7 @@
             }else{
               document.getElementById("skin-middle0").children[0].src="png/hero"+String(skinnum+1)+".png"
             }
-            document.getElementById("skill").src="png/card"+String(skinnum0)+".png"
+            document.getElementById("skill").src="png/skill"+String(skinnum0)+".png"
             document.getElementById("set0").classList.remove("lock");
             document.getElementById("set0").classList.add("set");
             document.getElementById("set0").innerText=textdic[52][langset[langnum]]
@@ -23200,6 +23212,7 @@
           resinit=parseInt(nslst["data1"][3]);
           skinnum0=parseInt(nslst["data1"][4]);
           langnum=parseInt(nslst["data1"][5]);
+          var 산타해금=parseInt(nslst["data1"][7]);
 
           // document.getElementById("fps").style.display=""
 
@@ -23235,7 +23248,7 @@
               return;
           }
 
-          해금=3;
+          해금=2;
 
           if(해금==0){
             paidlst=[true, true, false, false, false, false]
@@ -23243,8 +23256,10 @@
             paidlst=[true, true, true, false, false, false]
           }else if(해금==2){
             paidlst=[true, true, true, true, false, false]
-          }else if(해금==3){
-            paidlst=[true, true, true, true, true, false]
+          }
+
+          if(산타해금==1){
+            paidlst[4]=true;
           }
 
           scoret1=[];
@@ -23272,11 +23287,11 @@
               scoret4.push(parseInt(nslst["rank4"][i]))
             }
           }
-          for (var i = 0; i < scorelimit; i++) {
-            if(parseInt(nslst["rank5"][i])!=0){
-              scoret5.push(parseInt(nslst["rank5"][i]))
-            }
-          }
+          // for (var i = 0; i < scorelimit; i++) {
+          //   if(parseInt(nslst["rank5"][i])!=0){
+          //     scoret5.push(parseInt(nslst["rank5"][i]))
+          //   }
+          // }
 
           console.log(scoret1)
           console.log(scoret2)
@@ -23312,6 +23327,7 @@
         resinit=parseInt(nslst["data1"][3]);
         skinnum0=parseInt(nslst["data1"][4]);
         langnum=parseInt(nslst["data1"][5]);
+        var 산타해금=parseInt(nslst["data1"][7]);
 
         window.resinit=resinit;
         resol(resinit);
@@ -23351,8 +23367,9 @@
           paidlst=[true, true, true, false, false, false]
         }else if(해금==2){
           paidlst=[true, true, true, true, false, false]
-        }else if(해금==3){
-          paidlst=[true, true, true, true, true, false]
+        }
+        if(산타해금==1){
+          paidlst[4]=true;
         }
 
         scoret1=[];
@@ -23381,11 +23398,11 @@
             scoret4.push(parseInt(nslst["rank4"][i]))
           }
         }
-        for (var i = 0; i < scorelimit; i++) {
-          if(parseInt(nslst["rank5"][i])!=0){
-            scoret5.push(parseInt(nslst["rank5"][i]))
-          }
-        }
+        // for (var i = 0; i < scorelimit; i++) {
+        //   if(parseInt(nslst["rank5"][i])!=0){
+        //     scoret5.push(parseInt(nslst["rank5"][i]))
+        //   }
+        // }
      }
 
      function savedb(text){
@@ -23756,7 +23773,7 @@
 
 
 
-        document.getElementById("skill").src="png/card"+String(skinnum0)+".png"
+        document.getElementById("skill").src="png/skill"+String(skinnum0)+".png"
 
           if(skinnum==skinnum0){
             document.getElementById("skin-middle0").children[0].src="png/hero"+String(skinnum+1)+".gif"
@@ -23812,7 +23829,7 @@
       }
       if(n==0){
         skinnum--
-        if(skinnum<0) skinnum=4
+        if(skinnum<0) skinnum=3
 
         if(paidlst[skinnum]){
           if(skinnum==skinnum0){
@@ -23829,9 +23846,15 @@
             document.getElementById("set0").classList.add("lock");
             document.getElementById("set0").innerText=textdic[52][langset[langnum]]
           }else{
-            document.getElementById("set0").classList.remove("set");
-            document.getElementById("set0").classList.add("lock");
-            document.getElementById("set0").innerText=textdic[50][langset[langnum]]
+            if(ticket>=10&&skinnum==4){
+              document.getElementById("set0").classList.remove("set");
+              document.getElementById("set0").classList.add("lock");
+              document.getElementById("set0").innerText=textdic[66][langset[langnum]]
+            }else{
+              document.getElementById("set0").classList.remove("set");
+              document.getElementById("set0").classList.add("lock");
+              document.getElementById("set0").innerText=textdic[50][langset[langnum]]
+            }
           }
         }
 
@@ -23839,7 +23862,7 @@
 
       }else if(n==1){
         skinnum++
-        if(skinnum>4) skinnum=0
+        if(skinnum>3) skinnum=0
         if(paidlst[skinnum]){
           if(skinnum==skinnum0){
             document.getElementById("set0").classList.remove("lock");
@@ -23855,9 +23878,15 @@
             document.getElementById("set0").classList.add("lock");
             document.getElementById("set0").innerText=textdic[52][langset[langnum]]
           }else{
-            document.getElementById("set0").classList.remove("set");
-            document.getElementById("set0").classList.add("lock");
-            document.getElementById("set0").innerText=textdic[50][langset[langnum]]
+            if(ticket>=10&&skinnum==4){
+              document.getElementById("set0").classList.remove("set");
+              document.getElementById("set0").classList.add("lock");
+              document.getElementById("set0").innerText=textdic[66][langset[langnum]]
+            }else{
+              document.getElementById("set0").classList.remove("set");
+              document.getElementById("set0").classList.add("lock");
+              document.getElementById("set0").innerText=textdic[50][langset[langnum]]
+            }
           }
         }
       }else if(n==3){
@@ -23872,9 +23901,16 @@
           console.log("스킨결정")
           setdb([["data1", "4", String(skinnum0)]]);
 
-        }else{
+        }else if(skinnum==4&&ticket>=10){
+          document.getElementById("set0").classList.remove("lock");
+          document.getElementById("set0").classList.remove("set");
+          document.getElementById("set0").innerText=textdic[51][langset[langnum]]
+          ticket-=10;
+          setdb([["data1", "0", String(ticket)]]);
+          setdb([["data1", "7", String(1)]]);
+          paidlst[4]=true;
 
-        }
+        }else
 
 
 
@@ -23889,7 +23925,7 @@
           document.getElementById("skin-middle0").children[0].src="png/hero"+String(skinnum+1)+".png"
         }
 
-      document.getElementById("skill").src="png/card"+String(skinnum)+".png"
+      document.getElementById("skill").src="png/skill"+String(skinnum)+".png"
 
       switch (skinnum) {
         case 0:
@@ -23948,7 +23984,7 @@
       }else{
         document.getElementById("skin-middle0").children[0].src="png/hero"+String(skinnum0+1)+".png"
       }
-      document.getElementById("skill").src="png/card"+String(skinnum0)+".png"
+      document.getElementById("skill").src="png/skill"+String(skinnum0)+".png"
       document.getElementById("set0").classList.remove("lock");
       document.getElementById("set0").classList.add("set");
       document.getElementById("set0").innerText=textdic[52][langset[langnum]]
@@ -25356,7 +25392,7 @@
     <button id="set0" onclick="skinshift0(3)">
     선택
     </button>
-    <img id="skill" src="png/card1.png">
+    <img id="skill" src="png/skill1.png">
     <button class="btn hidden" id="btn1" onclick="play(1)">
     게임 시작하기
     </button>
@@ -25713,9 +25749,6 @@
     </button>
     <button class="filter" id="filter5" onclick="filter('seal1')">
     <img src="png/hero4.png" >
-    </button>
-    <button class="filter" id="filter6" onclick="filter('seal2')">
-    <img src="png/hero5.png" >
     </button>
 
 
