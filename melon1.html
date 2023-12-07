@@ -3423,6 +3423,8 @@
 
     var sample=[];
     var sample2=[];
+    var sample3=[];
+
     var wall=[];
 
     var seal=[];
@@ -8646,7 +8648,7 @@
 
         console.log(propsmold.length);
         // if(propsmold.length!=6) return;
-        if(pen.length!=7||seal.length!=12||bear.length!=11||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10) return;
+        if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10) return;
 
         if(!originflag){
           return;
@@ -9331,6 +9333,54 @@
                 itemtouch=false
               }
 
+            }else if(skinnum0==4){
+              if(pung){
+                if(true){
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("pung가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else if(ice){
+                if(cat[0].userData["rank"]==1||cat[0].userData["rank"]==5||cat[0].userData["rank"]==7){
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("i가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else if(pin){
+                if(cat[0].userData["rank"]==4&&!cat[0].userData.stform){
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("pin가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else if(bridge){
+                if(cat[0].userData["rank"]==13){
+
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("bridge가능")
+                  return;
+                }else{
+                  itemtouch=false
+                }
+              }else{
+                itempointer=null;
+                itemuse=false;
+                itemtouch=false
+              }
+
             }
 
 
@@ -9341,6 +9391,18 @@
             itemtouch=false;
             itemuse=false
             if(skinnum0==3){
+              if(pung){
+
+                  itemtouch=true
+                  itempointer=cat[0]
+                  itemuse=true;
+                  console.log("pung가능")
+                  return;
+
+              }
+            }
+
+            if(skinnum0==4){
               if(pung){
 
                   itemtouch=true
@@ -9620,10 +9682,24 @@
             // }
             if(itemuse){
                 if(pung){
-                  if(skinnum0==3){
+                  if(skinnum0==4){
+
+                    spawn(2)
+                    // console.log("힘")
+                    itemdrag=false
+                    itemtouch=false;
+                    itemflag=false;
+
+                    pung=false;
+                    ice=false
+                    pin=false
+
+                    itemuse=false;
+
+                  }else if(skinnum0==3){
 
                     spawn(1, lastX)
-                    console.log("힘")
+                    // console.log("힘")
                     itemdrag=false
                     itemtouch=false;
                     itemflag=false;
@@ -9718,7 +9794,36 @@
 
 
                 }else if(ice){
-                  if(skinnum0==3){
+                  if(skinnum0==4){
+
+                    var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x,999,true,false,true,true)
+                    newo.position.copy(itempointer.position)
+
+                    newo.userData.body.position.copy(newo.position);
+                    scene.remove(itempointer);
+
+
+                    itempointer.userData.alive=false
+
+                    world.remove(itempointer.userData.body)
+                    newo.userData.body.position.copy(newo.position);
+                    world.addBody(newo.userData.body);
+                    과일.push(newo)
+
+
+                    scene.add(newo);
+                    // console.log("힘")
+                    itemdrag=false
+                    itemtouch=false;
+                    itemflag=false;
+
+                    pung=false;
+                    ice=false
+                    pin=false
+
+                    itemuse=false;
+
+                  }else if(skinnum0==3){
 
                     itemdrag=false
                     itemtouch=false;
@@ -9847,7 +9952,28 @@
                   pin=false
 
                   itemuse=false;
-                  if(skinnum0==3&&itempointer.userData.rank==12){
+                  if(skinnum0==4){
+                    if(itempointer.userData.alive&&(itempointer.userData.rank==4&&itempointer.userData.form==0&&!itempointer.userData?.stform)){
+                      var newo=newone(과일.length-1, itempointer.userData.rank-1, 0, 999, true, false, true,true)
+                      newo.position.copy(itempointer.position)
+                      newo.position.y+=bh*0.9;
+                      newo.userData.body.position.copy(newo.position);
+                      // scene.remove(item);
+
+                      // item.userData.alive=false
+
+                      // world.remove(item.userData.body)
+
+                      world.addBody(newo.userData.body);
+                      과일.push(newo)
+                      scene.add(newo);
+                      // var constraint1 = new CANNON.LockConstraint(newo.userData.body, item.userData.body);
+                      // world.addConstraint(constraint1);
+                    }
+                    // console.log("힘")
+
+
+                  }else if(skinnum0==3&&itempointer.userData.rank==12){
                     과일.forEach((item) => {
                       if(item.userData.alive&&(item.userData.rank==5||item.userData.rank==6)){
                         if(item.userData.form==0){
@@ -9959,7 +10085,10 @@
 
                   console.log("bridge 사용")
 
-                  if(skinnum0==3){
+                  if(skinnum0==4){
+                    itemtime=elapsedTime;
+                    itemuse1=true;
+                  }else if(skinnum0==3){
                     과일.forEach((item) => {
                       if(item.userData.alive&&item.userData.rank<9){
                         if(item.userData.rank==0||(item.userData.rank==4&&item.userData.form==0)){
@@ -10459,7 +10588,7 @@
       if(document.getElementById("setting-overlay").classList.contains("show")) return;
       if(!터치) return
       // if(propsmold.length!=6) return;
-      if(pen.length!=7||seal.length!=12||bear.length!=11||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10) return;
+      if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10) return;
 
       if(!originflag){
         return;
@@ -11039,8 +11168,56 @@
         }else if (event.code === 'KeyT') {
           fulltower=true;
 
+        }else if (event.code === 'KeyQ') {
+          scene.remove(ship[0])
+          scene.remove(배경[0])
+          scene.remove(배[1])
+          document.getElementById("top").style.display="none"
+          sample.forEach((item, i) => {
+            scene.remove(item)
+          });
+
+          for (var i = 0; i < 3; i++) {
+            for (var j = 0; j <6 ; j++) {
+              if(sample3[i+j*3]!=null){
+
+                sample3[i+j*3].position.z=22-i*bh*3.4
+                sample3[i+j*3].position.y=bh*2+j*bh*3
+                if(sample3[i+j*3].userData.rank==4||sample3[i+j*3].userData.rank==0){
+                  sample3[i+j*3].rotation.y=0
+                  sample3[i+j*3].rotation.x=-Math.PI/2
+                }
+                scene.add(sample3[i+j*3]);
+
+              }
+
+
+            }
+          }
+
+        }else if (event.code === 'KeyA') {
+          과일.forEach((item) => {
+            if(item.userData.alive&&(item.userData.rank==4&&item.userData.form==0&&!item.userData?.stform)){
+              var newo=newone(과일.length-1, item.userData.rank-1, 0, 999, true, false, true,true)
+              newo.position.copy(item.position)
+              newo.position.y+=bh*1;
+              newo.userData.body.position.copy(newo.position);
+              // scene.remove(item);
+
+              // item.userData.alive=false
+
+              // world.remove(item.userData.body)
+
+              world.addBody(newo.userData.body);
+              과일.push(newo)
+              scene.add(newo);
+              // var constraint1 = new CANNON.LockConstraint(newo.userData.body, item.userData.body);
+              // world.addConstraint(constraint1);
+            }
+          });
+
         }else if(event.code === 'KeyH') {
-          return spawn(1)
+          return spawn(2)
 
           for (var i = 0; i < 5; i++) {
             for (var j = 0; j < 6; j++) {
@@ -11538,22 +11715,22 @@
                           dl2.castShadow = true;
                           switch (resinit) {
                             case 0:
-                              dl2.shadow.mapSize = new THREE.Vector2(650, 650);
+                              dl2.shadow.mapSize = new THREE.Vector2(1650, 1650);
                               break;
                             case 1:
-                              dl2.shadow.mapSize = new THREE.Vector2(650, 650);
+                              dl2.shadow.mapSize = new THREE.Vector2(1650, 1650);
                               break;
                             case 2:
-                              dl2.shadow.mapSize = new THREE.Vector2(650, 650);
+                              dl2.shadow.mapSize = new THREE.Vector2(1650, 1650);
                               break;
                             case 3:
-                              dl2.shadow.mapSize = new THREE.Vector2(650, 650);
+                              dl2.shadow.mapSize = new THREE.Vector2(1650, 1650);
                               break;
                             case 4:
-                              dl2.shadow.mapSize = new THREE.Vector2(650, 650);
+                              dl2.shadow.mapSize = new THREE.Vector2(1650, 1650);
                               break;
                             case 5:
-                              dl2.shadow.mapSize = new THREE.Vector2(650, 650);
+                              dl2.shadow.mapSize = new THREE.Vector2(1650, 1650);
                               break;
                             default:
                               return;
@@ -11756,6 +11933,30 @@
                                                   object.children[0].receiveShadow = true;
                                                   object.children[0].castShadow = true;
                                                   pen.push(object.children[0]);
+                                                  var loader = new OBJLoader();
+                                                  var mtlLoader = new MTLLoader();
+                                                  mtlLoader.load(ur2+'src/pen-4.mtl', function(materials) {
+                                                      materials.preload();
+                                                      loader.setMaterials(materials);
+                                                      loader.load(ur2+'src/pen-4.obj', (object) => {
+                                                        // object.children[0].rotation.y = Math.PI / 2
+                                                        object.children[0].position.set(0, 0, 0)
+                                                        object.children[0].scale.x = 3
+                                                        object.children[0].scale.z = 3
+                                                        object.children[0].scale.y = 3
+
+                                                        object.children[0].rotation.x = Math.PI / 2
+
+                                                        // object.children[0].position.z=0.2
+
+                                                        // object.children[0].scale.x=2.25;
+                                                        // object.children[0].scale.z=2.25;
+                                                        // object.children[0].scale.y=1.92;
+                                                        object.children[0].receiveShadow = true;
+                                                        object.children[0].castShadow = true;
+                                                        pen.push(object.children[0]);
+                                                      });
+                                                  });
                                                 });
                                             });
                                           });
@@ -12168,6 +12369,30 @@
                                                                                 object.children[0].receiveShadow = true;
                                                                                 object.children[0].castShadow = true;
                                                                                 seal.push(object.children[0]);
+                                                                                var loader = new OBJLoader();
+                                                                                var mtlLoader = new MTLLoader();
+                                                                                mtlLoader.load(ur2+'src/seal-11.mtl', function(materials) {
+                                                                                    materials.preload();
+                                                                                    loader.setMaterials(materials);
+                                                                                    loader.load(ur2+'src/seal-11.obj', (object) => {
+                                                                                      // object.children[0].rotation.y = Math.PI / 2
+                                                                                      object.children[0].position.set(tmx, tmy, tmz)
+                                                                                      object.children[0].scale.x = 3
+                                                                                      object.children[0].scale.z = 3
+                                                                                      object.children[0].scale.y = 3
+
+                                                                                      object.children[0].rotation.x = Math.PI / 2
+
+                                                                                      // object.children[0].position.z=0.2
+
+                                                                                      // object.children[0].scale.x=2.25;
+                                                                                      // object.children[0].scale.z=2.25;
+                                                                                      // object.children[0].scale.y=1.92;
+                                                                                      object.children[0].receiveShadow = true;
+                                                                                      object.children[0].castShadow = true;
+                                                                                      seal.push(object.children[0]);
+                                                                                    });
+                                                                                });
                                                                               });
                                                                           });
                                                                         });
@@ -12970,6 +13195,30 @@
                                 object.children[0].receiveShadow = true;
                                 object.children[0].castShadow = true;
                                 fox2.push(object.children[0]);
+                                var loader = new OBJLoader();
+                                var mtlLoader = new MTLLoader();
+                                mtlLoader.load(ur2+'src/fox2-3.mtl', function(materials) {
+                                    materials.preload();
+                                    loader.setMaterials(materials);
+                                    loader.load(ur2+'src/fox2-3.obj', (object) => {
+                                      // object.children[0].rotation.y = Math.PI / 2
+                                      object.children[0].position.set(0, 0, 0)
+                                      object.children[0].scale.x = 3
+                                      object.children[0].scale.z = 3
+                                      object.children[0].scale.y = 3
+
+                                      object.children[0].rotation.x = Math.PI / 2
+
+                                      // object.children[0].position.z=0.2
+
+                                      // object.children[0].scale.x=2.25;
+                                      // object.children[0].scale.z=2.25;
+                                      // object.children[0].scale.y=1.92;
+                                      object.children[0].receiveShadow = true;
+                                      object.children[0].castShadow = true;
+                                      fox2.push(object.children[0]);
+                                    });
+                                });
                               });
                           });
                         });
@@ -13554,6 +13803,30 @@
                                                                           object.children[0].receiveShadow = true;
                                                                           object.children[0].castShadow = true;
                                                                           bear.push(object.children[0]);
+                                                                          var loader = new OBJLoader();
+                                                                          var mtlLoader = new MTLLoader();
+                                                                          mtlLoader.load(ur2+'src/bear-10.mtl', function(materials) {
+                                                                              materials.preload();
+                                                                              loader.setMaterials(materials);
+                                                                              loader.load(ur2+'src/bear-10.obj', (object) => {
+                                                                                // object.children[0].rotation.y = Math.PI / 2
+                                                                                object.children[0].position.set(tmx1, tmy1, tmz1)
+                                                                                object.children[0].scale.x = 3
+                                                                                object.children[0].scale.z = 3
+                                                                                object.children[0].scale.y = 3
+
+                                                                                object.children[0].rotation.x = Math.PI / 2
+
+                                                                                // object.children[0].position.z=0.2
+
+                                                                                // object.children[0].scale.x=2.25;
+                                                                                // object.children[0].scale.z=2.25;
+                                                                                // object.children[0].scale.y=1.92;
+                                                                                object.children[0].receiveShadow = true;
+                                                                                object.children[0].castShadow = true;
+                                                                                bear.push(object.children[0]);
+                                                                              });
+                                                                          });
                                                                         });
                                                                     });
                                                                   });
@@ -13926,6 +14199,30 @@
                     object.children[0].receiveShadow = true;
                     object.children[0].castShadow = true;
                     halp.push(object.children[0]);
+                    var loader = new OBJLoader();
+                    var mtlLoader = new MTLLoader();
+                    mtlLoader.load(ur2+'src/halp-2.mtl', function(materials) {
+                        materials.preload();
+                        loader.setMaterials(materials);
+                        loader.load(ur2+'src/halp-2.obj', (object) => {
+                          // object.children[0].rotation.y = Math.PI / 2
+                          object.children[0].position.set(0,0,0)
+                          object.children[0].scale.x = 6
+                          object.children[0].scale.z = 6
+                          object.children[0].scale.y = 6
+
+                          object.children[0].rotation.x = Math.PI
+
+                          // object.children[0].position.z=0.2
+
+                          // object.children[0].scale.x=2.25;
+                          // object.children[0].scale.z=2.25;
+                          // object.children[0].scale.y=1.92;
+                          object.children[0].receiveShadow = true;
+                          object.children[0].castShadow = true;
+                          halp.push(object.children[0]);
+                        });
+                    });
                   });
               });
             });
@@ -14158,6 +14455,84 @@
                                                                     object.children[0].receiveShadow = true;
                                                                     object.children[0].castShadow = true;
                                                                     itemset.push(object.children[0])
+                                                                    var loader = new OBJLoader();
+                                                                    var mtlLoader = new MTLLoader();
+                                                                    mtlLoader.load(ur2+'src/jingle.mtl', function(materials) {
+                                                                        materials.preload();
+                                                                        loader.setMaterials(materials);
+                                                                        loader.load(ur2+'src/jingle.obj', (object) => {
+                                                                          // object.children[0].rotation.y = Math.PI / 2
+                                                                          object.children[0].position.set(0,0,0)
+                                                                          object.children[0].scale.x = 1
+                                                                          object.children[0].scale.z = 1
+                                                                          object.children[0].scale.y = 1
+
+                                                                          object.children[0].rotation.y =Math.PI/2-Math.PI/6
+
+                                                                          object.children[0].rotation.x=-Math.PI/4
+                                                                          object.children[0].rotation.z=Math.PI/4
+
+                                                                          // object.children[0].position.z=0.2
+                                                                          // object.children[0].scale.x=2.25;
+                                                                          // object.children[0].scale.z=2.25;
+                                                                          // object.children[0].scale.y=1.92;
+                                                                          object.children[0].receiveShadow = true;
+                                                                          object.children[0].castShadow = true;
+                                                                          itemset.push(object.children[0])
+                                                                          var loader = new OBJLoader();
+                                                                          var mtlLoader = new MTLLoader();
+                                                                          mtlLoader.load(ur2+'src/bell.mtl', function(materials) {
+                                                                              materials.preload();
+                                                                              loader.setMaterials(materials);
+                                                                              loader.load(ur2+'src/bell.obj', (object) => {
+                                                                                // object.children[0].rotation.y = Math.PI / 2
+                                                                                object.children[0].position.set(0,0,0)
+                                                                                object.children[0].scale.x = 1
+                                                                                object.children[0].scale.z = 1
+                                                                                object.children[0].scale.y = 1
+
+                                                                                object.children[0].rotation.y =Math.PI/2-Math.PI/6
+
+                                                                                object.children[0].rotation.x=-Math.PI/4
+                                                                                object.children[0].rotation.z=Math.PI/4
+
+                                                                                // object.children[0].position.z=0.2
+                                                                                // object.children[0].scale.x=2.25;
+                                                                                // object.children[0].scale.z=2.25;
+                                                                                // object.children[0].scale.y=1.92;
+                                                                                object.children[0].receiveShadow = true;
+                                                                                object.children[0].castShadow = true;
+                                                                                itemset.push(object.children[0])
+                                                                                var loader = new OBJLoader();
+                                                                                var mtlLoader = new MTLLoader();
+                                                                                mtlLoader.load(ur2+'src/gift.mtl', function(materials) {
+                                                                                    materials.preload();
+                                                                                    loader.setMaterials(materials);
+                                                                                    loader.load(ur2+'src/gift.obj', (object) => {
+                                                                                      // object.children[0].rotation.y = Math.PI / 2
+                                                                                      object.children[0].position.set(0,0,0)
+                                                                                      object.children[0].scale.x = 1
+                                                                                      object.children[0].scale.z = 1
+                                                                                      object.children[0].scale.y = 1
+
+                                                                                      object.children[0].rotation.y =Math.PI/2-Math.PI/6
+
+                                                                                      object.children[0].rotation.x=-Math.PI/4
+                                                                                      object.children[0].rotation.z=Math.PI/4
+
+                                                                                      // object.children[0].position.z=0.2
+                                                                                      // object.children[0].scale.x=2.25;
+                                                                                      // object.children[0].scale.z=2.25;
+                                                                                      // object.children[0].scale.y=1.92;
+                                                                                      object.children[0].receiveShadow = true;
+                                                                                      object.children[0].castShadow = true;
+                                                                                      itemset.push(object.children[0])
+                                                                                    });
+                                                                                });
+                                                                              });
+                                                                          });
+                                                                        });
+                                                                    });
                                                                   });
                                                               });
                                                             });
@@ -14553,7 +14928,7 @@
       return false;
     }
 
-    function newone(idx,rnk, deg=0, tx=999, flag=true, bearform=false, foxform=true){
+    function newone(idx,rnk, deg=0, tx=999, flag=true, bearform=false, foxform=true, santaform=false){
 
       var mass=4
       var tscale0;
@@ -14634,6 +15009,9 @@
           default:
               return;
       }
+      if(idx==9999){
+        tscale0*=0.7
+      }
 
       var tscale=1+Math.random()
 
@@ -14652,6 +15030,7 @@
         mesh.userData.wood=0;
         mesh.userData.birth=elapsedTime;
         mesh.add(halp[0].clone())
+        mesh.userData.stform=santaform;
 
 
         // mesh.add(half[1].clone())
@@ -14665,7 +15044,16 @@
         if(flag){
           mesh.add(halp[1].clone())
           mesh.children[1].scale.set(1.1*temp0*tscale0,1.1*temp0*tscale0,temp0*tscale0)
+          if(idx==9999){
+            mesh.children[1].position.y=1000
+          }
+          if(santaform){
+            mesh.add(halp[2].clone())
+            mesh.children[2].scale.set(1.1*temp0*tscale0,1.1*temp0*tscale0,temp0*tscale0)
+          }
         }
+
+
 
         // mesh.children[1].position.x=-100
         // mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
@@ -14737,6 +15125,7 @@
         var mesh=new THREE.Mesh(geometry1, material1);
         mesh.userData.wood=0;
         mesh.userData.birth=elapsedTime;
+        mesh.userData.stform=santaform;
         mesh.add(pen[6].clone())
         mesh.add(pen[1].clone())
         mesh.add(pen[2].clone())
@@ -14747,15 +15136,31 @@
         mesh.children[0].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
         mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
         mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+        mesh.userData.stform=santaform;
 
         if(flag){
           mesh.add(pen[5].clone())
           mesh.children[3].scale.set(1.05*temp0*tscale0,1.05*temp0*tscale0,temp0*tscale0)
           mesh.children[3].material.opacity=1;
           mesh.children[3].material.transparent=true;
+
           if(rnk==2){
-            mesh.add(pen[4].clone())
-            mesh.children[4].scale.set(temp0*tscale0*1.1,temp0*tscale0,temp0*tscale0)
+            if(santaform){
+              mesh.add(pen[7].clone())
+              mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+              if(idx==9999){
+                mesh.children[3].position.y=1000
+                mesh.children[4].position.z+=0.9
+              }
+            }else{
+              mesh.add(pen[4].clone())
+              mesh.children[4].scale.set(temp0*tscale0*1.1,temp0*tscale0,temp0*tscale0)
+              if(idx==9999){
+                mesh.children[3].position.y=1000
+                mesh.children[4].position.x+=4.4;
+              }
+            }
+
           }
 
           if(rnk==3){
@@ -14766,6 +15171,10 @@
           if(rnk==2){
             mesh.add(pen[4].clone())
             mesh.children[3].scale.set(temp0*tscale0*1.1,temp0*tscale0,temp0*tscale0)
+            if(idx==9999){
+
+              mesh.children[3].position.x+=0.1;
+            }
           }
 
           if(rnk==3){
@@ -14885,6 +15294,9 @@
         }
       }else if(rnk==4){ //여우
           if(!bearform){
+            if(santaform){
+              tscale0*=0.9
+            }
             var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 32);
             var material1 = new THREE.MeshLambertMaterial({
                 transparent:true,
@@ -14899,6 +15311,8 @@
             mesh.userData.wood=0;
             mesh.userData.form=0;
             mesh.userData.birth=elapsedTime;
+            mesh.userData.stform=santaform;
+
             mesh.add(fox2[3].clone())
             mesh.add(fox2[1].clone())
 
@@ -14911,8 +15325,17 @@
             mesh.children[1].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
 
             if(flag){
+              console.log("여기0")
               mesh.add(fox2[2].clone())
               mesh.children[2].scale.set(1*temp0*tscale0,1*temp0*tscale0,temp0*tscale0)
+              if(idx==9999){
+                mesh.children[2].position.y=1000
+              }
+              if(santaform){
+                console.log("여기")
+                mesh.add(fox2[4].clone())
+                mesh.children[3].scale.set(1*temp0*tscale0,1*temp0*tscale0,temp0*tscale0)
+              }
               // mesh.children[2].material.visible=false;
             }
 
@@ -15007,6 +15430,10 @@
               mesh.children[2].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
               mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
               mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+
+              if(idx==9999){
+                mesh.children[4].position.y=1000
+              }
 
               // mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
 
@@ -15192,12 +15619,13 @@
             mesh2.position.x=3
             mesh.userData.form=0;
             mesh.userData.birth=elapsedTime;
+            mesh.userData.stform=santaform;
 
             mesh.userData.wood=0;
             mesh.add(mesh2)
             mesh.add(seal[11].clone())
             mesh.add(seal[1].clone())
-            if(rnk==6){
+            if(rnk==6&&!santaform){
               mesh.add(seal[7].clone())
             }else{
               mesh.add(seal[2].clone())
@@ -15221,16 +15649,39 @@
             // }
 
             if(rnk==6){
-              mesh.add(seal[8].clone())
-              mesh.add(seal[5].clone())
-              mesh.add(seal[6].clone())
-              mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-              mesh.children[6].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
-              mesh.children[7].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+              if(flag){
+                mesh.add(seal[8].clone())
+              }else{
+                mesh.add(seal[0].clone())
+              }
+
+
+              if(santaform){
+                // mesh.add(seal[5].clone())
+                mesh.add(seal[12].clone())
+                mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+                mesh.children[6].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+
+              }else{
+                mesh.add(seal[5].clone())
+                mesh.add(seal[6].clone())
+                mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+                mesh.children[6].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+                mesh.children[7].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
+              }
+
             }else{
-              mesh.add(seal[8].clone())
+              if(flag){
+                mesh.add(seal[8].clone())
+              }else{
+                mesh.add(seal[0].clone())
+              }
               mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
 
+            }
+
+            if(idx==9999){
+              mesh.children[5].position.y=1000
             }
 
             if(tx!=999){
@@ -15355,6 +15806,7 @@
             // }
 
             if(rnk==6){
+
               mesh.add(seal2[8].clone())
               mesh.add(seal2[5].clone())
               mesh.add(seal2[6].clone())
@@ -15476,6 +15928,7 @@
             mesh.userData.birth=elapsedTime;
             mesh.userData.wood=0;
             mesh.userData.form=1;
+
             // mesh.add(mesh2)
             mesh.add(bear2[8].clone())
             mesh.add(bear2[1].clone())
@@ -15582,6 +16035,7 @@
             mesh.userData.birth=elapsedTime;
             mesh.userData.wood=0;
             mesh.userData.form=0;
+            mesh.userData.stform=santaform;
             // mesh.add(mesh2)
             mesh.add(bear[10].clone())
             // mesh.add(bear[1].clone())
@@ -15599,23 +16053,58 @@
             // mesh.children[4].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0)
 
             if(rnk==8){
-              mesh.add(bear[7].clone())
+
+              if(flag){
+                mesh.add(bear[7].clone())
+              }else{
+                mesh.add(bear[2].clone())
+              }
+
               mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
 
 
+              if(santaform){
+                mesh.add(bear[11].clone())
+                mesh.children[4].scale.set(0.95*temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
 
-              mesh.add(bear[4].clone())
-              mesh.children[4].scale.set(0.95*temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
-              mesh.add(bear[6].clone())
-              mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+              }else{
+                mesh.add(bear[4].clone())
+                mesh.children[4].scale.set(0.95*temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+                mesh.add(bear[6].clone())
+                mesh.children[5].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
+              }
+
+              if(idx==9999){
+                if(santaform){
+                  mesh.children[4].position.x-=0.2
+                  mesh.children[4].position.z+=0.8
+                  mesh.children[3].position.y=1000
+
+                }else{
+                  // mesh.children[4].position.x-=0.2
+                  // mesh.children[4].position.x-=0.2
+                  mesh.children[3].position.y=1000
+                  mesh.children[4].position.x-=0.2
+                }
+
+
+              }
+
+
 
 
             }else{
-              mesh.add(bear[7].clone())
+              if(flag){
+                mesh.add(bear[7].clone())
+              }else{
+                mesh.add(bear[2].clone())
+              }
               mesh.children[3].scale.set(temp0*tscale0,temp0*tscale0,temp0*tscale0*0.5)
 
 
             }
+
+
 
             // if(rnk==9){
             //   mesh.add(bear[5].clone())
@@ -16157,7 +16646,7 @@
         let deltaTime2= elapsedTime - lastTime2;
 
         if(!startflag){
-          if(pen.length!=7||seal.length!=12||bear.length!=11||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10){
+          if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10){
 
           }else{
             document.getElementById("tts").style.display="none"
@@ -16881,9 +17370,22 @@
                       continue;
                     }
                   }
+                  if(과일[i].userData.rank==4&&과일[i].userData.stform){
+                    if(elapsedTime-과일[i].userData.birth<0.8){
+                      continue;
+                    }
+                  }
+
+                  if(과일[j].userData.rank==4&&과일[j].userData.stform){
+                    if(elapsedTime-과일[j].userData.birth<0.8){
+                      continue;
+                    }
+                  }
 
                   if (colide(과일[i].userData.body,과일[j].userData.body)&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
                   // if (false&&과일[i].userData.alive&&과일[j].userData.alive&&!과일[j].userData.target&&!과일[i].userData.target) {
+
+
                     if(과일[j].userData.body.position.y<과일[i].userData.body.position.y){
                       var prev=과일[i]
                       var now=과일[j]
@@ -16966,7 +17468,7 @@
 
                 if(elapsedTime-item.userData.birth>1&&!gameoverflag){
                   if(item.position.y>bh*19){
-                    console.log("힘줘")
+
                     item.userData.body.force.set(0,0,0)
                     item.userData.body.torque.set(0,0,0)
                     item.userData.body.velocity.set(0, 0, 0);
@@ -16979,12 +17481,12 @@
 
 
                 // if(skinnum0==2&&item.userData?.pung){
-                //   console.log("줘힘")
+
                 //   if(item.userData.itemtime0-elapsedTime>1.3){
                 //     item.userData.pung=false;
                 //   }else{
                 //     if(item.position.y>bh*18){
-                //       console.log("힘줘")
+
                 //       item.userData.body.force.set(0,0,0)
                 //       item.userData.body.torque.set(0,0,0)
                 //       item.userData.body.velocity.set(0, 0, 0);
@@ -17006,6 +17508,9 @@
                     }else{
                       item.children[1].position.y=100
                     }
+                    if(item.userData.stform){
+                      item.children[2].position.y=0.3
+                    }
                 }else if(item.userData.rank<=3){
                     var gap2=0
                     if(item.userData.rank==2) gap2=-0.1
@@ -17024,8 +17529,14 @@
 
                     // item.children[3].position.x=20
                     if(item.userData.rank==2){ //모자
-                      item.children[4].position.z=gap2+0.6-0.2*(pshift[dur]-1);
-                      item.children[4].position.y=-0.8
+                      if(item.userData.stform){
+                        item.children[4].position.z=gap2+1-0.3*(pshift[dur]-1);
+                        item.children[4].position.y=-0.7
+                      }else{
+                        item.children[4].position.z=gap2+0.6-0.2*(pshift[dur]-1);
+                        item.children[4].position.y=-0.8
+                      }
+
                     }else if(item.userData.rank==3){
                       item.children[4].position.z=1-0.2*(pshift[dur]-1);
                       item.children[4].position.y=-1
@@ -17035,7 +17546,7 @@
                       item.children[3].position.y=100
                     }else{
                       if(item.userData.rank==1){
-                        if((skinnum0==1&&pung)||(skinnum0==2&&pung)||(skinnum0==2&&ice)){
+                        if((skinnum0==1&&pung)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==4&&ice)){
                           item.children[3].position.y=0.2
                         }else{
                           item.children[3].position.y=100
@@ -17061,7 +17572,11 @@
                         item.children[0].position.y=-1.2
                         item.children[1].position.y=-1.2
 
-                        if((skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==3&&ice)){
+                        if(item.userData.stform){
+                          item.children[3].position.y=-1.2
+                        }
+
+                        if((skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==3&&ice)||(skinnum0==4&&pin&&!item.userData.stform)){
                           item.children[2].position.y=0
                         }else{
                           item.children[2].position.y=100
@@ -17146,15 +17661,18 @@
                     if(item.userData.rank==6){
                       item.children[6].position.z=1.1-0.3*(pshift[dur]-1);
                       item.children[6].position.y=0 //빵모자
-                      item.children[7].position.z=1.3-0.8*(pshift[dur]-1);
-                      item.children[7].position.y=0.2
+                      if(!item.userData.stform){
+                        item.children[7].position.z=1.3-0.8*(pshift[dur]-1);
+                        item.children[7].position.y=0.2
+                      }
+
                     }
 
                     if(!itemflag){
                       item.children[5].position.y=100
                     }else{
                       if(item.userData.rank==5){
-                        if((skinnum0==1&&ice)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==3&&pin)){
+                        if((skinnum0==1&&ice)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==3&&pin)||(skinnum0==4&&ice)){
                           item.children[5].position.y=0.2
                         }else{
                           item.children[5].position.y=100
@@ -17221,16 +17739,25 @@
 
 
                     if(item.userData.rank==8){
-                      item.children[4].position.x=-0.3
-                      item.children[4].position.z=-0.3*(pshift[dur]-1);
-                      item.children[5].position.z=-0.4*(pshift[dur]-1);
+                      if(item.userData.stform){
+                        item.children[4].position.y=0.3
+                        item.children[4].position.x=-0.3
+                        item.children[4].position.z=1-0.4*(pshift[dur]-1);
+                        // item.children[5].position.z=-0.4*(pshift[dur]-1);
+                      }else{ //안전모
+                        item.children[4].position.y=0
+                        item.children[4].position.x=-0.3
+                        item.children[4].position.z=-0.3*(pshift[dur]-1);
+                        item.children[5].position.z=-0.4*(pshift[dur]-1);
+                      }
+
                     }
 
                     if(!itemflag){
                       item.children[3].position.y=100
                     }else{
                       if(item.userData.rank==7){
-                        if((skinnum0==1&&pin)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==2&&pin)){
+                        if((skinnum0==1&&pin)||(skinnum0==2&&pung)||(skinnum0==2&&ice)||(skinnum0==2&&pin)||(skinnum0==4&&ice)){
                           item.children[3].position.y=0.2
                         }else{
                           item.children[3].position.y=100
@@ -17330,7 +17857,9 @@
           while (rmvballlst.length > 0) {
 
               var nidx=rmvballlst.pop()
-              let newo=newone(과일.length-1, balls[nidx].rank, balls[nidx].deg2)
+              var stform=false;
+              // if(skinnum0==4) stform=true;
+              let newo=newone(과일.length-1, balls[nidx].rank, balls[nidx].deg2,999,true,false,true,stform)
               var trank=balls[nidx].rank+1
               console.log(trank)
               if(해금==0){
@@ -17853,6 +18382,10 @@
                   scene.add(itemmold[10]);
                   scene.add(itemmold[11]);
 
+                  scene.add(itemmold[12]);
+                  scene.add(itemmold[13]);
+                  scene.add(itemmold[14]);
+
                   scene.add(더트[0]);
 
                   var 너비=3.1;
@@ -17992,6 +18525,21 @@
                   for (var i = 0; i < 5; i++) {
                     sample2.push(newone(과일.length-1, i,0,1, false))
                   }
+                  //
+                  // for (var i = 0; i < 12; i++) {
+                  //   sample3.push(newone(9999, i,0,1, false))
+                  // }
+                  //
+                  // sample3.push(newone(9999, 0,0,1, true, false, true, true))
+                  // sample3.push(newone(9999, 2,0,1, true, false, true, true))
+                  // sample3.push(newone(9999, 4,0,1, true, false, true, true))
+                  // sample3.push(newone(9999, 6,0,1, true, false, true, true))
+                  // sample3.push(newone(9999, 8,0,1, true, false, true, true))
+                  // sample3.push(newone(9999, 4,0,1, true, true, true, false))
+                  // //
+                  //
+                  //
+                  // console.log(sample3)
 
                   sample.forEach((item, i) => {
                     scene.add(item)
@@ -18082,6 +18630,19 @@
 
 
 
+                    itemmold.push(itemset[10].clone()); //화살표
+                    itemmold.push(itemset[11].clone()); //나팔
+                    itemmold.push(itemset[12].clone()); //휘슬
+
+
+                    itemmold[12].scale.set(2,2,2);
+                    itemmold[13].scale.set(2,2,2);
+                    itemmold[14].scale.set(2,2,2);
+
+
+
+
+
 
 
 
@@ -18104,6 +18665,11 @@
                     scene.add(itemmold[9]);
                     scene.add(itemmold[10]);
                     scene.add(itemmold[11]);
+
+                    scene.add(itemmold[12]);
+                    scene.add(itemmold[13]);
+                    scene.add(itemmold[14]);
+
 
 
 
@@ -20329,7 +20895,31 @@
             }
 
 
+          }else if(skinnum0==4){
+            if(itemuse1){
+              if(elapsedTime - itemtime <= Math.PI/6){
+                 console.log("b")
+
+                 배[0].userData.body.position.y=bh*(3.1)+Math.sin(6*(elapsedTime - itemtime))*roll*60
+
+                 // 배[0].userData.body.position.z=Math.sin(4*(elapsedTime - itemtime))*roll*100
+                 // 배[1].userData.body.position.z=Math.sin(6*(elapsedTime - itemtime))*roll*20
+                 // // 배[1].quaternion.copy(배[0].quaternion.clone());
+                 //  배[1].position.z=배[1].userData.body.position.z
+                 // 배[1].userData.body.quaternion.copy(배[0].quaternion);
+
+
+
+                  // 배경[0].position.z-=deltaTime/1200
+                  // 배경[1].position.z-=deltaTime/900
+              }else{
+                itemuse1=false;
+
+                // 배[0].userData.body.velocity.z=0
+              }
+            }
           }
+
 
           if(!itemuse1&&!itemuse2&&배.length!=0) 배[0].userData.body.velocity.z=0
 
@@ -20965,12 +21555,14 @@
       //   drop=elapsedTime;
       // }
       if(n==0){
+        var temf=false;
+        if(skinnum0==4) temf=true;
         for (var i = 0; i < 5; i++) {
           for (var j = 0; j < 7; j++) {
             var tr=parseInt(Math.random()*4)
             var tx=-0.65+0.27*i;
 
-            let newo=newone(과일.length-1, tr,0,-tx*lx)
+            let newo=newone(과일.length-1, tr,0,-tx*lx,true,false,true,temf)
             // axis[0].position.z=-tx*lx
 
             // document.getElementById("hammer").children[0].src="png/u"+cname+".png"
@@ -20991,13 +21583,80 @@
 
         dragflag = false;
         // drop=elapsedTime;
-    }else{
+    }else if(n==2){
+      var tmlst=[0,2,6,4]
+      tmlst.sort(() => Math.random() - 0.5);
+      for (var i = 0; i < 4; i++) {
+        // for (var j = 0; j < 7; j++) {
+          // var tr=parseInt(Math.random()*4)
+          var tr=tmlst[i]
+          var tx=-0.65+0.35*i;
+
+          var newo=newone(과일.length-1, tr,0,-tx*lx,true,false,true,true)
+          // axis[0].position.z=-tx*lx
+
+          // document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+
+          // next=7
+          newo.position.y+=bh*(4)+(bh/2)*i
+          scene.add(newo);
+
+
+          newo.userData.body.position.copy(newo.position);
+          world.addBody(newo.userData.body);
+
+
+          과일.push(newo)
+        // }
+      }
+      var tr=0
+      var tx=-0.65+0.27*3;
+
+      var newo=newone(과일.length-1, tr,0,-tx*lx,true,false,true,true)
+      // axis[0].position.z=-tx*lx
+
+      // document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+
+      // next=7
+      newo.position.y+=bh*(4)+(bh/2)*6
+      scene.add(newo);
+
+
+      newo.userData.body.position.copy(newo.position);
+      world.addBody(newo.userData.body);
+
+
+      과일.push(newo)
+
+      var tr=2
+      var tx=-0.65+0.27*4;
+
+      var newo=newone(과일.length-1, tr,0,-tx*lx,true,false,true,true)
+      // axis[0].position.z=-tx*lx
+
+      // document.getElementById("hammer").children[0].src="png/u"+cname+".png"
+
+      // next=7
+      newo.position.y+=bh*(4)+(bh/2)*6
+      scene.add(newo);
+
+
+      newo.userData.body.position.copy(newo.position);
+      world.addBody(newo.userData.body);
+
+
+      과일.push(newo)
+
+
+      dragflag = false;
+    }else if(n==1){
+
       for (var j = 0; j < 7; j++) {
         // var tr=parseInt(Math.random()*4)
         var tr=1
         var tx=px
 
-        let newo=newone(과일.length-1, tr,0,-tx*lx)
+        let newo=newone(과일.length-1, tr,0,-tx*lx,true,false,true,false)
         // axis[0].position.z=-tx*lx
         // next=nnext
         // nnext=nextpool[parseInt(Math.random()*nextpool.length)];
@@ -22103,7 +22762,7 @@
     window.filter=filter
 
     function 템셋(){
-      if(skinnum0==0||skinnum0==4) return;
+      if(skinnum0==0) return;
       switch (skinnum0) {
         case 1:
           document.getElementById('top0').children[0].src="png/item1.png"
@@ -22118,6 +22777,12 @@
           document.getElementById('top3').children[0].src="png/hammer.png"
           break;
         case 3:
+          document.getElementById('top0').children[0].src="png/sitem1.png"
+          document.getElementById('top1').children[0].src="png/sitem2.png"
+          document.getElementById('top2').children[0].src="png/sitem3.png"
+          document.getElementById('top3').children[0].src="png/sitem5.png"
+          break;
+        case 4:
           document.getElementById('top0').children[0].src="png/sitem1.png"
           document.getElementById('top1').children[0].src="png/sitem2.png"
           document.getElementById('top2').children[0].src="png/sitem3.png"
@@ -23705,7 +24370,7 @@
           document.getElementById("yesno").style.display="none"
           document.getElementById("table").style.display="none"
 
-          if(skinnum0==0||skinnum0==4){
+          if(skinnum0==0){
             document.getElementById("top").style.display="none"
           }else{
             document.getElementById("top").style.display="flex"
@@ -24032,7 +24697,7 @@
       document.getElementById("yesno").style.display="none"
       document.getElementById("table").style.display="none"
 
-      if(skinnum0==0||skinnum0==4){
+      if(skinnum0==0){
         document.getElementById("top").style.display="none"
       }else{
         document.getElementById("top").style.display="flex"
