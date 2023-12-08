@@ -8648,7 +8648,7 @@
 
         console.log(propsmold.length);
         // if(propsmold.length!=6) return;
-        if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14) return;
+        if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=12||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14) return;
 
         if(!originflag){
           return;
@@ -10590,7 +10590,7 @@
       if(document.getElementById("setting-overlay").classList.contains("show")) return;
       if(!터치) return
       // if(propsmold.length!=6) return;
-      if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14) return;
+      if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=12||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14) return;
 
       if(!originflag){
         return;
@@ -13112,6 +13112,30 @@
                                                                                 object.children[0].receiveShadow = true;
                                                                                 object.children[0].castShadow = true;
                                                                                 wall.push(object.children[0]);
+                                                                                var loader = new OBJLoader();
+                                                                                var mtlLoader = new MTLLoader();
+                                                                                mtlLoader.load(ur2+'src/cabin-7.mtl', function(materials) {
+                                                                                    materials.preload();
+                                                                                    loader.setMaterials(materials);
+                                                                                    loader.load(ur2+'src/cabin-7.obj', (object) => {
+                                                                                      // object.children[0].rotation.y = Math.PI / 2
+                                                                                      object.children[0].position.set(0, 0, 0)
+                                                                                      object.children[0].scale.x = 1
+                                                                                      object.children[0].scale.z = 1
+                                                                                      object.children[0].scale.y = 1
+
+                                                                                      object.children[0].rotation.x = Math.PI / 2
+
+                                                                                      // object.children[0].position.z=0.2
+
+                                                                                      // object.children[0].scale.x=2.25;
+                                                                                      // object.children[0].scale.z=2.25;
+                                                                                      // object.children[0].scale.y=1.92;
+                                                                                      object.children[0].receiveShadow = true;
+                                                                                      object.children[0].castShadow = true;
+                                                                                      wall.push(object.children[0]);
+                                                                                    });
+                                                                                });
                                                                               });
                                                                           });
                                                                         });
@@ -16702,7 +16726,7 @@
         let deltaTime2= elapsedTime - lastTime2;
 
         if(!startflag){
-          if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14){
+          if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=12||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14){
 
           }else{
             document.getElementById("tts").style.display="none"
@@ -16956,6 +16980,7 @@
                 item.children[7].position.y=0.2*dif+bh*17.17
 
                 item.children[11].position.y=0.2*dif+bh*17
+                item.children[12].position.y=0.15*dif+bh*8.95
 
                 sample2.forEach((item, i) => {
                   // item.position.y=
@@ -19334,7 +19359,7 @@
 
 
 
-
+                    //싸인
                     var mesh12=wall[10].clone()
 
                     mesh12.position.set(-3.5,bh*(17),24)
@@ -19344,6 +19369,18 @@
                     mesh12.scale.set(2.4,2.4,2.4)
 
                     mesh.add(mesh12)
+
+                    var mesh13=wall[11].clone()
+
+                    //장식
+                    mesh13.position.set(-10,-bh*(2.9),0)
+                    mesh13.rotation.y=Math.PI
+                    mesh13.rotation.z=Math.PI/2
+                    mesh13.rotation.x=-Math.PI/2
+                    mesh13.scale.set(6,6,6)
+
+
+                    mesh.add(mesh13)
 
                     console.log(mesh.children)
 
@@ -20896,16 +20933,18 @@
 
                   //sign
                   배[1].children[11].position.z=24-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  //장식
+                  배[1].children[12].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
                   //샘플2
-                  배[1].children[12].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[13].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[14].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[15].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[16].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[17].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
 
-                  배[1].children[17].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[18].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
 
 
@@ -20982,17 +21021,19 @@
                   배[1].children[8].position.z=herox-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
                   배[1].children[11].position.z=24-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  //장식
+                  배[1].children[12].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
                   //샘플2
-                  배[1].children[12].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[13].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[14].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[15].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[16].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[17].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   // emote[0].position.x=-19.7-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
 
-                  배[1].children[17].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[18].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
                   // laser[0].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
@@ -24135,7 +24176,7 @@
           var 산타해금=parseInt(nslst["data1"][7]);
 
           // document.getElementById("fps").style.display=""
-          ticket=13;
+          // ticket=9;
           resinit=0;
           window.resinit=resinit;
           resol(resinit);
