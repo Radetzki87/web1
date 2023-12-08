@@ -8648,7 +8648,7 @@
 
         console.log(propsmold.length);
         // if(propsmold.length!=6) return;
-        if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10) return;
+        if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14) return;
 
         if(!originflag){
           return;
@@ -10089,6 +10089,8 @@
                     itemtime=elapsedTime;
                     itemuse1=true;
                   }else if(skinnum0==3){
+                    itemtime=elapsedTime;
+                    itemuse1=true;
                     과일.forEach((item) => {
                       if(item.userData.alive&&item.userData.rank<9){
                         if(item.userData.rank==0||(item.userData.rank==4&&item.userData.form==0)){
@@ -10588,7 +10590,7 @@
       if(document.getElementById("setting-overlay").classList.contains("show")) return;
       if(!터치) return
       // if(propsmold.length!=6) return;
-      if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10) return;
+      if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14) return;
 
       if(!originflag){
         return;
@@ -11168,6 +11170,34 @@
         }else if (event.code === 'KeyT') {
           fulltower=true;
 
+        }else if (event.code === 'KeyW') {
+          scene.remove(ship[0])
+          scene.remove(배경[0])
+          scene.remove(배[1])
+          document.getElementById("top").style.display="none"
+          sample.forEach((item, i) => {
+            scene.remove(item)
+          });
+          scene.background = new THREE.Color(0x69DDFF);
+          for (var i = 0; i < 3; i++) {
+            for (var j = 0; j <6 ; j++) {
+              if(itemmold[i+j*3]!=null){
+
+                itemmold[i+j*3].position.z=22-i*bh*3.4
+                itemmold[i+j*3].position.y=bh*1+j*bh*3.2
+                itemmold[i+j*3].scale.set(3.8,3.8,3.8)
+                // if(i+j*3==5){
+                //   sample3[i+j*3].position.y+=0.5
+                // }
+
+                scene.add(itemmold[i+j*3]);
+
+              }
+
+
+            }
+          }
+
         }else if (event.code === 'KeyQ') {
           scene.remove(ship[0])
           scene.remove(배경[0])
@@ -11183,6 +11213,7 @@
 
                 sample3[i+j*3].position.z=22-i*bh*3.4
                 sample3[i+j*3].position.y=bh*2+j*bh*3
+
                 if(sample3[i+j*3].userData.rank==4||sample3[i+j*3].userData.rank==0){
                   sample3[i+j*3].rotation.y=0
                   sample3[i+j*3].rotation.x=-Math.PI/2
@@ -14467,10 +14498,10 @@
                                                                           object.children[0].scale.z = 1
                                                                           object.children[0].scale.y = 1
 
-                                                                          object.children[0].rotation.y =Math.PI/2-Math.PI/6
+                                                                          object.children[0].rotation.y =Math.PI/2+Math.PI/6
 
-                                                                          object.children[0].rotation.x=-Math.PI/4
-                                                                          object.children[0].rotation.z=Math.PI/4
+                                                                          object.children[0].rotation.x=+Math.PI/4
+                                                                          object.children[0].rotation.z=-Math.PI/4
 
                                                                           // object.children[0].position.z=0.2
                                                                           // object.children[0].scale.x=2.25;
@@ -14491,10 +14522,10 @@
                                                                                 object.children[0].scale.z = 1
                                                                                 object.children[0].scale.y = 1
 
-                                                                                object.children[0].rotation.y =Math.PI/2-Math.PI/6
+                                                                                object.children[0].rotation.y =Math.PI/2-Math.PI/4
 
-                                                                                object.children[0].rotation.x=-Math.PI/4
-                                                                                object.children[0].rotation.z=Math.PI/4
+                                                                                object.children[0].rotation.x=+Math.PI/6
+                                                                                object.children[0].rotation.z=-Math.PI/4
 
                                                                                 // object.children[0].position.z=0.2
                                                                                 // object.children[0].scale.x=2.25;
@@ -14515,10 +14546,10 @@
                                                                                       object.children[0].scale.z = 1
                                                                                       object.children[0].scale.y = 1
 
-                                                                                      object.children[0].rotation.y =Math.PI/2-Math.PI/6
+                                                                                      object.children[0].rotation.y =Math.PI/2-Math.PI/4
 
-                                                                                      object.children[0].rotation.x=-Math.PI/4
-                                                                                      object.children[0].rotation.z=Math.PI/4
+                                                                                      object.children[0].rotation.x=Math.PI/8
+                                                                                      object.children[0].rotation.z=-Math.PI/6
 
                                                                                       // object.children[0].position.z=0.2
                                                                                       // object.children[0].scale.x=2.25;
@@ -14527,6 +14558,31 @@
                                                                                       object.children[0].receiveShadow = true;
                                                                                       object.children[0].castShadow = true;
                                                                                       itemset.push(object.children[0])
+                                                                                      var loader = new OBJLoader();
+                                                                                      var mtlLoader = new MTLLoader();
+                                                                                      mtlLoader.load(ur2+'src/itemfox.mtl', function(materials) {
+                                                                                          materials.preload();
+                                                                                          loader.setMaterials(materials);
+                                                                                          loader.load(ur2+'src/itemfox.obj', (object) => {
+                                                                                            // object.children[0].rotation.y = Math.PI / 2
+                                                                                            object.children[0].position.set(0,0,0)
+                                                                                            object.children[0].scale.x = 3
+                                                                                            object.children[0].scale.z = 3
+                                                                                            object.children[0].scale.y = 3
+
+                                                                                            object.children[0].rotation.y =Math.PI/2
+
+
+                                                                                            // object.children[0].rotation.z =Math.PI/2
+                                                                                            // object.children[0].position.z=0.2
+                                                                                            // object.children[0].scale.x=2.25;
+                                                                                            // object.children[0].scale.z=2.25;
+                                                                                            // object.children[0].scale.y=1.92;
+                                                                                            object.children[0].receiveShadow = true;
+                                                                                            object.children[0].castShadow = true;
+                                                                                            itemset.push(object.children[0])
+                                                                                          });
+                                                                                      });
                                                                                     });
                                                                                 });
                                                                               });
@@ -16646,7 +16702,7 @@
         let deltaTime2= elapsedTime - lastTime2;
 
         if(!startflag){
-          if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10){
+          if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=11||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14){
 
           }else{
             document.getElementById("tts").style.display="none"
@@ -18385,6 +18441,7 @@
                   scene.add(itemmold[12]);
                   scene.add(itemmold[13]);
                   scene.add(itemmold[14]);
+                  scene.add(itemmold[15]);
 
                   scene.add(더트[0]);
 
@@ -18525,6 +18582,8 @@
                   for (var i = 0; i < 5; i++) {
                     sample2.push(newone(과일.length-1, i,0,1, false))
                   }
+
+
                   //
                   // for (var i = 0; i < 12; i++) {
                   //   sample3.push(newone(9999, i,0,1, false))
@@ -18536,10 +18595,14 @@
                   // sample3.push(newone(9999, 6,0,1, true, false, true, true))
                   // sample3.push(newone(9999, 8,0,1, true, false, true, true))
                   // sample3.push(newone(9999, 4,0,1, true, true, true, false))
-                  // //
+                  //
                   //
                   //
                   // console.log(sample3)
+
+                  // for (var i = 0; i < 14; i++) {
+                  //   itemmold.push(itemset[i])
+                  // }
 
                   sample.forEach((item, i) => {
                     scene.add(item)
@@ -18630,14 +18693,16 @@
 
 
 
-                    itemmold.push(itemset[10].clone()); //화살표
-                    itemmold.push(itemset[11].clone()); //나팔
-                    itemmold.push(itemset[12].clone()); //휘슬
+                    itemmold.push(itemset[10].clone()); //징글
+                    itemmold.push(itemset[11].clone()); //벨
+                    itemmold.push(itemset[12].clone()); //선물
+                    itemmold.push(itemset[13].clone()); //눈사람
 
 
                     itemmold[12].scale.set(2,2,2);
                     itemmold[13].scale.set(2,2,2);
                     itemmold[14].scale.set(2,2,2);
+                    itemmold[15].scale.set(2,2,2);
 
 
 
@@ -18669,6 +18734,7 @@
                     scene.add(itemmold[12]);
                     scene.add(itemmold[13]);
                     scene.add(itemmold[14]);
+                    scene.add(itemmold[15]);
 
 
 
@@ -19637,7 +19703,108 @@
 
 
 
-          if(skinnum0==1){
+          if(skinnum0==4){
+            if(itemdrag){
+              pen[5].material.visible=true
+              seal[8].material.visible=true
+              bear[7].material.visible=true
+              if(pung){
+                document.getElementById('top0').children[0].style.height=String(isize)+"vh"
+
+                itemmold[13].material.visible=true
+                // itemmold[4].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+
+                itemmold[13].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[12].position.x=-bh*3;
+                itemmold[14].position.x=-bh*3;
+                itemmold[15].position.x=-bh*3;
+
+                if(itemtouch){
+                  console.log("그랩")
+                  // itemmold[4].scale.x=2
+
+                  itemmold[13].scale.y=(3+(pshift[dur]-1)*0.9)
+
+
+
+                }
+
+              }else if(ice){
+                // 배[1].children[7].children[15].position.x=0
+                itemmold[14].material.visible=true
+                // itemmold[4].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+
+                itemmold[14].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[12].position.x=-bh*3;
+                itemmold[13].position.x=-bh*3;
+                itemmold[15].position.x=-bh*3;
+
+                if(itemtouch){
+                  itemmold[14].scale.x=(2+(pshift[dur]-1)*4.6)
+                  itemmold[14].scale.y=(2+(pshift[dur]-1)*4.6)
+                }
+              }else if(pin){
+                // 배[1].children[7].children[15].position.x=0
+                itemmold[15].material.visible=true
+                // itemmold[4].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+
+                itemmold[15].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[12].position.x=-bh*3;
+                itemmold[13].position.x=-bh*3;
+                itemmold[14].position.x=-bh*3;
+                if(itemtouch){
+                  itemmold[15].scale.x=(2+(pshift[dur]-1)*1.6)
+                  itemmold[15].scale.y=(2+(pshift[dur]-1)*1.6)
+                  itemmold[15].scale.z=(2+(pshift[dur]-1)*1.6)
+                }
+              }else if(bridge){
+                  // 배[1].children[7].children[15].position.x=0
+
+                itemmold[11].material.visible=true
+                // itemmold[4].position.set(bh*0.5,bh*9+lastY*lx*(window.innerHeight/window.innerWidth),-lastX*lx)
+
+                itemmold[12].position.set(bh*0.5,ih+bh/2,-lastX*lx)
+                itemmold[13].position.x=-bh*3;
+                itemmold[14].position.x=-bh*3;
+                itemmold[15].position.x=-bh*3;
+                if(itemtouch){
+                  itemmold[12].scale.x=(3+(pshift[dur]-1)*1.6)
+                  itemmold[12].scale.y=(3+(pshift[dur]-1)*1.6)
+                  itemmold[12].scale.z=(3+(pshift[dur]-1)*1.6)
+                }
+              }
+
+
+
+            }else{
+              itemmold[12].scale.set(3,3,3);
+              itemmold[13].scale.set(3,3,3);
+              itemmold[14].scale.set(2,2,2);
+              itemmold[15].scale.set(2,2,2);
+
+            }
+
+            if(!itemtouch&&bridge){
+              // 배[1].children[9].material.visible=true
+              // 배[1].children[10].material.visible=true
+              //
+              // 배[1].children[9].position.x=2
+              // 배[1].children[10].position.x=2
+              //
+              // 배[1].children[9].material.opacity=0.3
+              // 배[1].children[10].material.opacity=0.3
+            }
+
+            if(itemtouch){
+              if(pung){
+                // pen[5].material.visible=true
+
+
+
+
+              }
+            }
+          }else if(skinnum0==1){
             if(itemdrag){
               if(pung){
                 itemmold[0].material.visible=true
@@ -20901,6 +21068,29 @@
                  console.log("b")
 
                  배[0].userData.body.position.y=bh*(3.1)+Math.sin(6*(elapsedTime - itemtime))*roll*60
+
+                 // 배[0].userData.body.position.z=Math.sin(4*(elapsedTime - itemtime))*roll*100
+                 // 배[1].userData.body.position.z=Math.sin(6*(elapsedTime - itemtime))*roll*20
+                 // // 배[1].quaternion.copy(배[0].quaternion.clone());
+                 //  배[1].position.z=배[1].userData.body.position.z
+                 // 배[1].userData.body.quaternion.copy(배[0].quaternion);
+
+
+
+                  // 배경[0].position.z-=deltaTime/1200
+                  // 배경[1].position.z-=deltaTime/900
+              }else{
+                itemuse1=false;
+
+                // 배[0].userData.body.velocity.z=0
+              }
+            }
+          }else if(skinnum0==3){
+            if(itemuse1){
+              if(elapsedTime - itemtime <= Math.PI/6){
+                 console.log("b")
+
+                 배[0].userData.body.position.y=bh*(3.1)+Math.sin(6*(elapsedTime - itemtime))*roll*15
 
                  // 배[0].userData.body.position.z=Math.sin(4*(elapsedTime - itemtime))*roll*100
                  // 배[1].userData.body.position.z=Math.sin(6*(elapsedTime - itemtime))*roll*20
@@ -22783,10 +22973,10 @@
           document.getElementById('top3').children[0].src="png/sitem5.png"
           break;
         case 4:
-          document.getElementById('top0').children[0].src="png/sitem1.png"
-          document.getElementById('top1').children[0].src="png/sitem2.png"
-          document.getElementById('top2').children[0].src="png/sitem3.png"
-          document.getElementById('top3').children[0].src="png/sitem5.png"
+          document.getElementById('top0').children[0].src="png/ssitem1.png"
+          document.getElementById('top1').children[0].src="png/ssitem2.png"
+          document.getElementById('top2').children[0].src="png/ssitem3.png"
+          document.getElementById('top3').children[0].src="png/ssitem4.png"
           break;
         default:
           return;
@@ -23945,7 +24135,7 @@
           var 산타해금=parseInt(nslst["data1"][7]);
 
           // document.getElementById("fps").style.display=""
-          // ticket=9;
+          ticket=13;
           resinit=0;
           window.resinit=resinit;
           resol(resinit);
