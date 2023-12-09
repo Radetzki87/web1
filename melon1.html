@@ -14359,7 +14359,7 @@
               // object.children[0].scale.z=2.25;
               // object.children[0].scale.y=1.92;
               object.children[0].receiveShadow = true;
-              object.children[0].castShadow = true;
+              object.children[0].castShadow = false;
               itemset.push(object.children[0])
               var loader = new OBJLoader();
               var mtlLoader = new MTLLoader();
@@ -23235,7 +23235,9 @@
       }else if(n==7){
         qre=true;
         retry();
-      }else if(n==8){
+      }else if(n==8){ //타이틀로
+
+        skinnum=skinnum0
         인게임=false;
         var sdickeys = Object.keys(soundic);
 
@@ -23313,7 +23315,7 @@
             }else{
               document.getElementById("skin-middle0").children[0].src="png/hero"+String(skinnum+1)+".png"
             }
-            document.getElementById("skill").src="png/skill"+String(skinnum0)+".png"
+            document.getElementById("skill").src="png/card"+String(skinnum0)+".png"
             document.getElementById("set0").classList.remove("lock");
             document.getElementById("set0").classList.add("set");
             document.getElementById("set0").innerText=textdic[52][langset[langnum]]
@@ -24896,7 +24898,7 @@
 
 
 
-        document.getElementById("skill").src="png/skill"+String(skinnum0)+".png"
+        document.getElementById("skill").src="png/card"+String(skinnum0)+".png"
 
           if(skinnum==skinnum0){
             document.getElementById("skin-middle0").children[0].src="png/hero"+String(skinnum+1)+".gif"
@@ -25052,7 +25054,7 @@
           document.getElementById("skin-middle0").children[0].src="png/hero"+String(skinnum+1)+".png"
         }
 
-      document.getElementById("skill").src="png/skill"+String(skinnum)+".png"
+      document.getElementById("skill").src="png/card"+String(skinnum)+".png"
 
       switch (skinnum) {
         case 0:
@@ -25123,7 +25125,7 @@
         document.getElementById("skin-middle0").children[0].src="png/hero"+String(skinnum0+1)+".png"
       }
       document.getElementById("skin-middle0").children[0].classList.remove("locked");
-      document.getElementById("skill").src="png/skill"+String(skinnum0)+".png"
+      document.getElementById("skill").src="png/card"+String(skinnum0)+".png"
       document.getElementById("set0").classList.remove("lock");
       document.getElementById("set0").classList.add("set");
       document.getElementById("set0").innerText=textdic[52][langset[langnum]]
@@ -26533,7 +26535,7 @@
     <button id="set0" onclick="skinshift0(3)">
     선택
     </button>
-    <img id="skill" src="png/skill1.png">
+    <img id="skill" src="png/card1.png">
     <button class="btn hidden" id="btn1" onclick="play(1)">
     게임 시작하기
     </button>
