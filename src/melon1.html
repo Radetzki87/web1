@@ -875,7 +875,7 @@
             opacity: 0;
             position: absolute;
             top:55vh;
-            width:45vmin;
+            width:55vmin;
             transition: opacity 1s;
         }
 
@@ -1618,7 +1618,7 @@
           font-family: 'mono';
           position:absolute;
           top:23vh;
-          font-size: 7vw;
+          font-size: 10vmin;
 
         }
 
@@ -3518,7 +3518,10 @@
     var itemuse0=false;
 
     var itemuse1=false;
-    var itemuse2=false;
+    var itemuse2=false
+    var itemuse3=false;
+
+    var itempos=0;
 
     var itemtime=0;
     var uselst=[];
@@ -3675,7 +3678,9 @@
 
     var greylst=[27,26,4,1,3,30,40,46,20,39,16,38,23,84,86,98,85,96,78,62,83,53,80,62,53,50,92, 52, 64,65,67,70,5,97]
 
-    var esound=["ESM_Atmospheric_Upgrade_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Atmospheric_Upgrade_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Atmospheric_Upgrade_3_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Atmospheric_Upgrade_4_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Plucky_Level_Complete_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Simple_Menu_Select_3_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.mp3","ESM_Sequence_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Sequence_Pickup_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Sequence_Pickup_4_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_80s_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Clangy_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Mallets_Objective_Complete_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Mallets_Happy_Flurry_3_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Bell_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Low_Subtle_Power_Up_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3", "ESM_Atmospheric_Downgrade_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Mallets_Mission_Accomplished_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3", "ESM_Mallets_Objective_Complete_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3", "ESM_Mallets_Mission_Accomplished_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Mallets_Objective_Complete_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Mallets_Bonus_Complete_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Mallets_Bonus_Complete_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3"]
+    var esound=["ESM_Atmospheric_Upgrade_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Atmospheric_Upgrade_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Atmospheric_Upgrade_3_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Atmospheric_Upgrade_4_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Plucky_Level_Complete_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Simple_Menu_Select_3_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.mp3","ESM_Sequence_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Sequence_Pickup_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Sequence_Pickup_4_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_80s_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Clangy_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Mallets_Objective_Complete_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Mallets_Happy_Flurry_3_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Bell_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Low_Subtle_Power_Up_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3", "ESM_Atmospheric_Downgrade_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Mallets_Mission_Accomplished_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3", "ESM_Mallets_Objective_Complete_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3", "ESM_Mallets_Mission_Accomplished_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Mallets_Objective_Complete_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Mallets_Bonus_Complete_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Mallets_Bonus_Complete_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","dingdong.mp3","ticket.mp3","coin.mp3","dingdong2.mp3","bell.mp3","cola.mp3","hammer.mp3","jingle.mp3","pung.mp3","wheel.mp3","drum.mp3"]
+
+    console.log(esound)
 
     var avx=0;
     var avz=0;
@@ -8648,7 +8653,7 @@
 
         console.log(propsmold.length);
         // if(propsmold.length!=6) return;
-        if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=12||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14) return;
+        if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=13||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14) return;
 
         if(!originflag){
           return;
@@ -9317,7 +9322,7 @@
                   itemtouch=false
                 }
               }else if(bridge){
-                if(cat[0].userData["rank"]==12){
+                if(cat[0].userData["rank"]==12||cat[0].userData["rank"]==14){
 
                   itemtouch=true
                   itempointer=cat[0]
@@ -9365,7 +9370,7 @@
                   itemtouch=false
                 }
               }else if(bridge){
-                if(cat[0].userData["rank"]==13){
+                if(cat[0].userData["rank"]==14){
 
                   itemtouch=true
                   itempointer=cat[0]
@@ -9696,6 +9701,8 @@
 
                     itemuse=false;
 
+                    eplay(26)
+
                   }else if(skinnum0==3){
 
                     spawn(1, lastX)
@@ -9709,6 +9716,8 @@
                     pin=false
 
                     itemuse=false;
+                    eplay()
+                    eplay(32)
 
                   }else if(skinnum0==2){
 
@@ -9739,6 +9748,8 @@
                     pin=false
 
                     itemuse=false;
+                    eplay()
+                    eplay(30)
 
                   }else if(skinnum0==1){
                     console.log("펑 사용")
@@ -9751,6 +9762,7 @@
                     pin=false
 
                     itemuse=false;
+                    eplay()
 
 
                     console.log(itempointer)
@@ -9822,6 +9834,7 @@
                     pin=false
 
                     itemuse=false;
+                    eplay()
 
                   }else if(skinnum0==3){
 
@@ -9877,6 +9890,7 @@
                       // }, 0);
                       scene.add(newo);
                     }
+                    eplay()
 
 
 
@@ -9884,8 +9898,8 @@
 
 
                   }else if(skinnum0==2){
-                    itempointer.userData.body.position.y=bh*17;
-
+                    itemtime=elapsedTime
+                    itemuse3=true;
                     itemdrag=false
                     itemtouch=false;
                     itemflag=false;
@@ -9895,6 +9909,8 @@
                     pin=false
 
                     itemuse=false;
+                    itempos=itempointer.position.y
+                    eplay()
 
                   }else if(skinnum0==1){
                     console.log("ice 사용")
@@ -9907,6 +9923,7 @@
                     pin=false
 
                     itemuse=false;
+                    eplay()
 
                     console.log(itempointer)
                     var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
@@ -9952,6 +9969,7 @@
                   pin=false
 
                   itemuse=false;
+
                   if(skinnum0==4){
                     if(itempointer.userData.alive&&(itempointer.userData.rank==4&&itempointer.userData.form==0&&!itempointer.userData?.stform)){
                       var newo=newone(과일.length-1, itempointer.userData.rank-1, 0, 999, true, false, true,true)
@@ -9970,10 +9988,12 @@
                       // var constraint1 = new CANNON.LockConstraint(newo.userData.body, item.userData.body);
                       // world.addConstraint(constraint1);
                     }
+                    eplay()
                     // console.log("힘")
 
 
                   }else if(skinnum0==3&&itempointer.userData.rank==12){
+                    eplay()
                     과일.forEach((item) => {
                       if(item.userData.alive&&(item.userData.rank==5||item.userData.rank==6)){
                         if(item.userData.form==0){
@@ -10041,13 +10061,17 @@
                           var newo=newone(과일.length-1, itempointer.userData.rank-1, itempointer.rotation.x, 999, true, true)
                         }
                       }
+                      eplay()
 
                     }else if(skinnum0==2){ // 콜라
                       var newo=newone(과일.length-1, itempointer.userData.rank-1, itempointer.rotation.x, 999, true, true)
                       newo.userData.itemtime=elapsedTime;
+                      eplay()
+                      eplay(27)
 
                     }else if(skinnum0==1){
                       var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
+                      eplay()
                     }
                     // 점수+=(itempointer.rank+1)*10
                     // console.log(점수)
@@ -10088,6 +10112,7 @@
                   if(skinnum0==4){
                     itemtime=elapsedTime;
                     itemuse1=true;
+                    eplay(29)
                   }else if(skinnum0==3){
                     itemtime=elapsedTime;
                     itemuse1=true;
@@ -10103,6 +10128,8 @@
 
                       }
                     });
+                    eplay()
+                    eplay(32)
 
 
                     // var newo=newone(과일.length-1, itempointer.userData.rank, itempointer.rotation.x)
@@ -10131,6 +10158,7 @@
                         itemuse2=true;
                         itemuse1=false;
                       }
+
                     }else if(itempointer.userData["dir"]==1){
                       itemuse2=true;
                       itemuse1=false;
@@ -10139,6 +10167,8 @@
                       itemuse2=false;
 
                     }
+                    eplay()
+                    eplay(31)
                     과일.forEach((item) => {
                       item.userData.ipos=item.userData.body.position.z
                     });
@@ -10152,6 +10182,8 @@
                       itemuse2=false;
 
                     }
+                    eplay()
+                    eplay(28)
                     itemtime=elapsedTime;
                   }
 
@@ -10590,7 +10622,7 @@
       if(document.getElementById("setting-overlay").classList.contains("show")) return;
       if(!터치) return
       // if(propsmold.length!=6) return;
-      if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=12||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14) return;
+      if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=13||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14) return;
 
       if(!originflag){
         return;
@@ -13134,6 +13166,30 @@
                                                                                       object.children[0].receiveShadow = true;
                                                                                       object.children[0].castShadow = true;
                                                                                       wall.push(object.children[0]);
+                                                                                      var loader = new OBJLoader();
+                                                                                      var mtlLoader = new MTLLoader();
+                                                                                      mtlLoader.load(ur2+'src/cabin-8.mtl', function(materials) {
+                                                                                          materials.preload();
+                                                                                          loader.setMaterials(materials);
+                                                                                          loader.load(ur2+'src/cabin-8.obj', (object) => {
+                                                                                            // object.children[0].rotation.y = Math.PI / 2
+                                                                                            object.children[0].position.set(0, 0, 0)
+                                                                                            object.children[0].scale.x = 1
+                                                                                            object.children[0].scale.z = 1
+                                                                                            object.children[0].scale.y = 1
+
+                                                                                            object.children[0].rotation.x = Math.PI / 2
+
+                                                                                            // object.children[0].position.z=0.2
+
+                                                                                            // object.children[0].scale.x=2.25;
+                                                                                            // object.children[0].scale.z=2.25;
+                                                                                            // object.children[0].scale.y=1.92;
+                                                                                            object.children[0].receiveShadow = true;
+                                                                                            object.children[0].castShadow = true;
+                                                                                            wall.push(object.children[0]);
+                                                                                          });
+                                                                                      });
                                                                                     });
                                                                                 });
                                                                               });
@@ -14303,7 +14359,7 @@
               // object.children[0].scale.z=2.25;
               // object.children[0].scale.y=1.92;
               object.children[0].receiveShadow = true;
-              object.children[0].castShadow = true;
+              object.children[0].castShadow = false;
               itemset.push(object.children[0])
               var loader = new OBJLoader();
               var mtlLoader = new MTLLoader();
@@ -16726,7 +16782,7 @@
         let deltaTime2= elapsedTime - lastTime2;
 
         if(!startflag){
-          if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=12||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14){
+          if(pen.length!=8||seal.length!=13||bear.length!=12||fox.length!=6||whale.length!=7||swhale.length!=6||wall.length!=13||pen2.length!=5||dirt.length!=1||bear2.length!=9||seal2.length!=10||itemset.length!=14){
 
           }else{
             document.getElementById("tts").style.display="none"
@@ -16902,39 +16958,39 @@
 
 
 
-            // var posy=[];
-            // // var dur=parseInt(elapsedTime*25)%pshift.length
-            //
-            //
-            // posy.push(wavey-elapsedTime*25-100)
-            // posy.push(wavey-elapsedTime*20-100)
-            // posy.push(wavey-elapsedTime*15-150)
-            // posy.push(wavey-elapsedTime*10-110)
-            // posy.push(wavey-elapsedTime*10-250)
-            // posy.push(wavey-elapsedTime*15-100)
-            // posy.push(wavey-elapsedTime*15-200)
-            //
-            //
-            // for (var i = 0; i < posy.length; i++) {
-            //   if(posy[i]<wave.y){
-            //     posy[i]+=(1+parseInt((wave.y-posy[i])/wave.y))*(wave.y)
-            //   }
-            //
-            // }
-            //
-            // // console.log(posy[0])
-            //
-            //
-            // ctx.globalAlpha = 0.5;
-            //
-            // ctx.drawImage(unitimg["bubble1"], wavex/2+3*Math.sin(elapsedTime*2),posy[0], wavex/40, wavex/40);
-            // ctx.drawImage(unitimg["bubble2"], wavex/3+3*Math.sin(elapsedTime*2),posy[1], wavex/45, wavex/45);
-            // ctx.drawImage(unitimg["bubble3"], wavex/5+3*Math.sin(elapsedTime*2),posy[2], wavex/50, wavex/50);
-            // ctx.drawImage(unitimg["bubble1"], -10+wavex+3*Math.sin(elapsedTime*2),posy[3], wavex/55, wavex/55);
-            // ctx.drawImage(unitimg["bubble2"], -100+wavex+3*Math.sin(elapsedTime*2),posy[4], wavex/55, wavex/55);
-            // ctx.drawImage(unitimg["bubble3"], -200+wavex+3*Math.sin(elapsedTime*2),posy[5], wavex/50, wavex/50);
-            // ctx.drawImage(unitimg["bubble1"], -150+wavex+3*Math.sin(elapsedTime*2),posy[6], wavex/50, wavex/50);
-            // ctx.globalAlpha = 1;
+            var posy=[];
+            // var dur=parseInt(elapsedTime*25)%pshift.length
+
+
+            posy.push(wavey-elapsedTime*25-100)
+            posy.push(wavey-elapsedTime*20-100)
+            posy.push(wavey-elapsedTime*15-150)
+            posy.push(wavey-elapsedTime*10-110)
+            posy.push(wavey-elapsedTime*10-250)
+            posy.push(wavey-elapsedTime*15-100)
+            posy.push(wavey-elapsedTime*15-200)
+
+
+            for (var i = 0; i < posy.length; i++) {
+              if(posy[i]<wave.y){
+                posy[i]+=(1+parseInt((wave.y-posy[i])/wave.y))*(wave.y)
+              }
+
+            }
+
+            // console.log(posy[0])
+
+
+            ctx.globalAlpha = 0.5;
+
+            ctx.drawImage(unitimg["bubble1"], 40+wavex/3+3*Math.sin(elapsedTime*2),posy[0], wavex/40, wavex/40);
+            ctx.drawImage(unitimg["bubble2"], 35+wavex/4+3*Math.sin(elapsedTime*2),posy[1], wavex/45, wavex/45);
+            ctx.drawImage(unitimg["bubble3"], 20+wavex/6+3*Math.sin(elapsedTime*2),posy[2], wavex/50, wavex/50);
+            ctx.drawImage(unitimg["bubble1"], -10+wavex+3*Math.sin(elapsedTime*2),posy[3], wavex/55, wavex/55);
+            ctx.drawImage(unitimg["bubble2"], -50+wavex+3*Math.sin(elapsedTime*2),posy[4], wavex/55, wavex/55);
+            ctx.drawImage(unitimg["bubble3"], -100+wavex+3*Math.sin(elapsedTime*2),posy[5], wavex/50, wavex/50);
+            ctx.drawImage(unitimg["bubble1"], -130+wavex+3*Math.sin(elapsedTime*2),posy[6], wavex/50, wavex/50);
+            ctx.globalAlpha = 1;
 
 
             increment += wave.frequency;
@@ -16995,16 +17051,18 @@
                   if(skinnum0==0){
 
                     item.children[7].children[0].position.y=0
-                    item.children[7].children[4].position.y=-1
+                    item.children[7].children[4].position.y=-0.1 //두건
                     item.children[7].children[1].position.y=200
                     item.children[7].children[3].position.y=200
                     item.children[7].children[5].position.y=0
+                    item.children[7].children[2].position.y=0
+
 
                     item.children[7].children[0].position.z=-0.07+pgap+0.15*(pshift[dur]-1);
                     // item.children[7].children[0].position.z=0.15
                     item.children[7].children[5].position.z=-0.17+pgap-0.1*(pshift[dur]-1);
-                    item.children[7].children[4].position.z=-0.1+pgap+0.15*(pshift[dur]-1);
-                    item.children[7].children[2].position.z=pgap
+                    item.children[7].children[4].position.z=-0.15+pgap+0.15*(pshift[dur]-1); //두건
+                    item.children[7].children[2].position.z=pgap-0.02 //다리
                     // item.children[7].children[5].position.z=-0.2
                     // item.children[7].children[4].position.z=-0.05
 
@@ -18573,9 +18631,11 @@
 
 
                   if(skinnum0==4){
-                    배[1].children[12].position.x=-1;
+                    배[1].children[12].position.x=-2;
+                    배[1].children[12].material.visible=true;
                   }else{
                     배[1].children[12].position.x=-100;
+                    배[1].children[12].material.visible=false;
                   }
 
                   camera.position.y=카메라높이;
@@ -19376,15 +19436,33 @@
 
                     var mesh13=wall[11].clone()
 
+
+
                     //장식
-                    mesh13.position.set(-10,-bh*(2.9),0)
-                    mesh13.rotation.y=Math.PI
+                    mesh13.position.set(-10,-bh*(3.9),0)
+                    mesh13.rotation.y=Math.PI/2
                     mesh13.rotation.z=Math.PI/2
                     mesh13.rotation.x=-Math.PI/2
-                    mesh13.scale.set(6,6,6)
+                    mesh13.scale.set(2.4,2.4,1)
 
 
                     mesh.add(mesh13)
+
+                    var mesh14=wall[12].clone();
+                    mesh14.position.set(1.5,bh*(8.9),0)
+                    mesh14.rotation.y=Math.PI
+                    mesh14.rotation.z=Math.PI/2
+                    mesh14.rotation.x=-Math.PI/2
+                    mesh14.scale.set(6,6,6)
+
+                    mesh14.userData["rank"]=14;
+                    mesh14.userData["alive"]=true;
+                    mesh14.userData["target"]=false;
+                    mesh14.userData["dir"]=0;
+                    mesh14.material.opacity=0;
+                    mesh14.material.transparent=true;
+
+                    mesh.add(mesh14)
 
                     console.log(mesh.children)
 
@@ -19470,9 +19548,11 @@
 
 
                     if(skinnum0==4){
-                      배[1].children[12].position.x=-1;
+                      배[1].children[12].position.x=-2;
+                      배[1].children[12].material.visible=true;
                     }else{
                       배[1].children[12].position.x=-100;
+                      배[1].children[12].material.visible=false;
                     }
 
 
@@ -19803,6 +19883,10 @@
                   itemmold[15].scale.z=(2+(pshift[dur]-1)*1.6)
                 }
               }else if(bridge){
+                배[1].children[13].material.visible=true
+                배[1].children[13].position.x=2
+                배[1].children[13].material.opacity=0.3
+
                   // 배[1].children[7].children[15].position.x=0
 
                 itemmold[11].material.visible=true
@@ -19830,14 +19914,10 @@
             }
 
             if(!itemtouch&&bridge){
-              // 배[1].children[9].material.visible=true
-              // 배[1].children[10].material.visible=true
-              //
-              // 배[1].children[9].position.x=2
-              // 배[1].children[10].position.x=2
-              //
-              // 배[1].children[9].material.opacity=0.3
-              // 배[1].children[10].material.opacity=0.3
+              배[1].children[13].material.visible=true
+              배[1].children[13].position.x=2
+              배[1].children[13].material.opacity=0.3
+
             }
 
             if(itemtouch){
@@ -20275,6 +20355,10 @@
                   itemmold[10].scale.z=(4+(pshift[dur]-1)*1.6)
                 }
               }else if(bridge){
+                배[1].children[13].material.visible=true
+                배[1].children[13].position.x=2
+                배[1].children[13].material.opacity=0.3
+
                   배[1].children[7].children[15].position.x=0
 
                 itemmold[11].material.visible=true
@@ -20328,6 +20412,16 @@
             }
 
 
+            if(!itemtouch&&bridge){
+              배[1].children[13].material.visible=true
+
+
+              배[1].children[13].position.x=2
+
+
+              배[1].children[13].material.opacity=0.3
+
+            }
 
             if(itemtouch){
               if(pung){
@@ -20374,6 +20468,8 @@
 
             배[1].children[9].material.opacity=0.6
             배[1].children[10].material.opacity=0.3
+
+            배[1].children[13].position.x=-100
 
 
             // 배[1].children[5].material.opacity=0.4
@@ -20945,14 +21041,14 @@
                   배[1].children[12].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
                   //샘플2
-                  배[1].children[13].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[14].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[15].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[16].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
                   배[1].children[17].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[18].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
 
-                  배[1].children[18].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
+                  배[1].children[19].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*roll)
 
 
 
@@ -21033,15 +21129,15 @@
                   배[1].children[12].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
                   //샘플2
-                  배[1].children[13].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[14].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[15].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[16].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   배[1].children[17].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[18].position.z=27-bh*10*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
                   // emote[0].position.x=-19.7-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
 
-                  배[1].children[18].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
+                  배[1].children[19].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
                   // laser[0].position.z=-bh*12*Math.sin(Math.sin(2*(elapsedTime - itemtime))*-roll)
 
@@ -21109,6 +21205,42 @@
                 // 배[0].userData.body.velocity.z=0
               }
             }
+
+            if(itemuse3){
+              if(elapsedTime - itemtime <= 1){
+
+
+                  itemmold[5].position.x=8
+                  itemmold[5].position.y=itempos+bh*7;
+                  itemmold[5].scale.y=10
+                  itempointer.userData.body.position.y=itempos+(bh*16-itempos)*((elapsedTime - itemtime))
+                  itempointer.userData.body.position.x=10
+                  // 배[0].position.y=-bh*1*Math.sin(Math.sin(elapsedTime - itemtime)*-Math.PI/30)
+
+                  // 배[0].userData.body.position.z=Math.sin(4*(elapsedTime - itemtime))*-roll*100
+
+                  // 배[1].quaternion.copy(배[0].quaternion.clone());
+                  // 배[1].position.copy(배[0].position.clone());
+                  // 배[1].userData.body.quaternion.copy(배[0].quaternion);
+
+                  // 배경[0].position.z+=deltaTime/1200
+                  // 배경[1].position.z+=deltaTime/900
+              }else{
+                // itemuse1=false;
+                // itemuse2=false;
+                itempointer.userData.body.position.y=bh*16;
+                itempointer.userData.body.position.x=0
+                itempointer.userData.body.force.set(0,0,0)
+                itempointer.userData.body.torque.set(0,0,0)
+                itempointer.userData.body.velocity.set(0, 0, 0);
+                itempointer.userData.body.angularVelocity.set(0, 0, 0);
+                itemuse3=false;
+
+                // 배[0].userData.body.velocity.z=0
+              }
+            }
+
+
 
 
           }else if(skinnum0==4){
@@ -21256,10 +21388,12 @@
                     document.getElementById("ptable").children[0].children[pi].children[pj].innerHTML= '<img src="png/u'+String(pot+1)+'.png" >'
 
                     필+=(pot+1)*(pot+1)
+                    eplay(22)
                     if(필>=바){
                       ticket++;
                       누적++;
                       필-=500;
+                      eplay(23)
 
                       document.getElementById('pgr5').innerText="+🎫"
                       for (var i = 0; i < 누적-1; i++) {
@@ -21270,6 +21404,8 @@
                       document.getElementById('pgr5').classList.add("pop0");
                       document.getElementById('pgr5').style.bottom="6.9vmin"
                       document.getElementById('pgr5').style.opacity=1
+                    }else{
+
                     }
                     document.getElementById('pgr3').innerText="+ "+String((pot+1)*(pot+1))
                     document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
@@ -21310,10 +21446,12 @@
                     document.getElementById("ptable").children[0].children[pi].children[pj].innerHTML= '<img src="png/u'+String(pot+1)+'.png" >'
 
                     필+=(pot+1)*(pot+1)
+                    eplay(22)
                     if(필>=바){
                       ticket++;
                       누적++;
                       필-=500;
+                      eplay(23)
 
                       document.getElementById('pgr5').innerText="+🎫"
                       for (var i = 0; i < 누적-1; i++) {
@@ -21323,6 +21461,8 @@
                       document.getElementById('pgr5').classList.add("pop0");
                       document.getElementById('pgr5').style.bottom="6.9vmin"
                       document.getElementById('pgr5').style.opacity=1
+                    }else{
+
                     }
                     document.getElementById('pgr3').innerText="+ "+String((pot+1)*(pot+1))
                     document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
@@ -23022,7 +23162,7 @@
           document.getElementById('top3').children[0].src="png/sitem5.png"
           break;
         case 4:
-          document.getElementById('top0').children[0].src="png/ssitem1.png"
+          document.getElementById('top0').children[0].src="png/bell2.png"
           document.getElementById('top1').children[0].src="png/ssitem2.png"
           document.getElementById('top2').children[0].src="png/ssitem3.png"
           document.getElementById('top3').children[0].src="png/ssitem4.png"
@@ -23039,6 +23179,19 @@
     }
 
     window.fwd=fwd
+
+    function eplay(n=25){
+      if(!soundic[esound[n]].isPlaying){
+        soundic[esound[n]].play();
+      }else{
+        soundic[esound[n]].stop();
+        soundic[esound[n]].play();
+      }
+    }
+
+    window.eplay=eplay
+
+
 
     function exit0(n=0){
       if(n==2){
@@ -24944,9 +25097,11 @@
 
       if(reflag){
         if(skinnum0==4){
-          배[1].children[12].position.x=-1;
+          배[1].children[12].position.x=-2;
+          배[1].children[12].material.visible=true;
         }else{
           배[1].children[12].position.x=-100;
+          배[1].children[12].material.visible=false;
         }
       }
 
