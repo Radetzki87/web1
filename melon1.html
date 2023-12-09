@@ -16902,39 +16902,39 @@
 
 
 
-            // var posy=[];
-            // // var dur=parseInt(elapsedTime*25)%pshift.length
-            //
-            //
-            // posy.push(wavey-elapsedTime*25-100)
-            // posy.push(wavey-elapsedTime*20-100)
-            // posy.push(wavey-elapsedTime*15-150)
-            // posy.push(wavey-elapsedTime*10-110)
-            // posy.push(wavey-elapsedTime*10-250)
-            // posy.push(wavey-elapsedTime*15-100)
-            // posy.push(wavey-elapsedTime*15-200)
-            //
-            //
-            // for (var i = 0; i < posy.length; i++) {
-            //   if(posy[i]<wave.y){
-            //     posy[i]+=(1+parseInt((wave.y-posy[i])/wave.y))*(wave.y)
-            //   }
-            //
-            // }
-            //
-            // // console.log(posy[0])
-            //
-            //
-            // ctx.globalAlpha = 0.5;
-            //
-            // ctx.drawImage(unitimg["bubble1"], wavex/2+3*Math.sin(elapsedTime*2),posy[0], wavex/40, wavex/40);
-            // ctx.drawImage(unitimg["bubble2"], wavex/3+3*Math.sin(elapsedTime*2),posy[1], wavex/45, wavex/45);
-            // ctx.drawImage(unitimg["bubble3"], wavex/5+3*Math.sin(elapsedTime*2),posy[2], wavex/50, wavex/50);
-            // ctx.drawImage(unitimg["bubble1"], -10+wavex+3*Math.sin(elapsedTime*2),posy[3], wavex/55, wavex/55);
-            // ctx.drawImage(unitimg["bubble2"], -100+wavex+3*Math.sin(elapsedTime*2),posy[4], wavex/55, wavex/55);
-            // ctx.drawImage(unitimg["bubble3"], -200+wavex+3*Math.sin(elapsedTime*2),posy[5], wavex/50, wavex/50);
-            // ctx.drawImage(unitimg["bubble1"], -150+wavex+3*Math.sin(elapsedTime*2),posy[6], wavex/50, wavex/50);
-            // ctx.globalAlpha = 1;
+            var posy=[];
+            // var dur=parseInt(elapsedTime*25)%pshift.length
+
+
+            posy.push(wavey-elapsedTime*25-100)
+            posy.push(wavey-elapsedTime*20-100)
+            posy.push(wavey-elapsedTime*15-150)
+            posy.push(wavey-elapsedTime*10-110)
+            posy.push(wavey-elapsedTime*10-250)
+            posy.push(wavey-elapsedTime*15-100)
+            posy.push(wavey-elapsedTime*15-200)
+
+
+            for (var i = 0; i < posy.length; i++) {
+              if(posy[i]<wave.y){
+                posy[i]+=(1+parseInt((wave.y-posy[i])/wave.y))*(wave.y)
+              }
+
+            }
+
+            // console.log(posy[0])
+
+
+            ctx.globalAlpha = 0.5;
+
+            ctx.drawImage(unitimg["bubble1"], 40+wavex/3+3*Math.sin(elapsedTime*2),posy[0], wavex/40, wavex/40);
+            ctx.drawImage(unitimg["bubble2"], 35+wavex/4+3*Math.sin(elapsedTime*2),posy[1], wavex/45, wavex/45);
+            ctx.drawImage(unitimg["bubble3"], 20+wavex/6+3*Math.sin(elapsedTime*2),posy[2], wavex/50, wavex/50);
+            ctx.drawImage(unitimg["bubble1"], -10+wavex+3*Math.sin(elapsedTime*2),posy[3], wavex/55, wavex/55);
+            ctx.drawImage(unitimg["bubble2"], -50+wavex+3*Math.sin(elapsedTime*2),posy[4], wavex/55, wavex/55);
+            ctx.drawImage(unitimg["bubble3"], -100+wavex+3*Math.sin(elapsedTime*2),posy[5], wavex/50, wavex/50);
+            ctx.drawImage(unitimg["bubble1"], -130+wavex+3*Math.sin(elapsedTime*2),posy[6], wavex/50, wavex/50);
+            ctx.globalAlpha = 1;
 
 
             increment += wave.frequency;
@@ -16995,7 +16995,7 @@
                   if(skinnum0==0){
 
                     item.children[7].children[0].position.y=0
-                    item.children[7].children[4].position.y=-1
+                    item.children[7].children[4].position.y=-0.1 //두건
                     item.children[7].children[1].position.y=200
                     item.children[7].children[3].position.y=200
                     item.children[7].children[5].position.y=0
@@ -17003,8 +17003,8 @@
                     item.children[7].children[0].position.z=-0.07+pgap+0.15*(pshift[dur]-1);
                     // item.children[7].children[0].position.z=0.15
                     item.children[7].children[5].position.z=-0.17+pgap-0.1*(pshift[dur]-1);
-                    item.children[7].children[4].position.z=-0.1+pgap+0.15*(pshift[dur]-1);
-                    item.children[7].children[2].position.z=pgap
+                    item.children[7].children[4].position.z=-0.15+pgap+0.15*(pshift[dur]-1); //두건
+                    item.children[7].children[2].position.z=pgap-0.02 //다리
                     // item.children[7].children[5].position.z=-0.2
                     // item.children[7].children[4].position.z=-0.05
 
@@ -18574,8 +18574,10 @@
 
                   if(skinnum0==4){
                     배[1].children[12].position.x=-2;
+                    배[1].children[12].material.visible=true;
                   }else{
                     배[1].children[12].position.x=-100;
+                    배[1].children[12].material.visible=false;
                   }
 
                   camera.position.y=카메라높이;
@@ -19381,7 +19383,7 @@
                     mesh13.rotation.y=Math.PI/2
                     mesh13.rotation.z=Math.PI/2
                     mesh13.rotation.x=-Math.PI/2
-                    mesh13.scale.set(2,2,2)
+                    mesh13.scale.set(2.4,2.4,1)
 
 
                     mesh.add(mesh13)
@@ -19471,8 +19473,10 @@
 
                     if(skinnum0==4){
                       배[1].children[12].position.x=-2;
+                      배[1].children[12].material.visible=true;
                     }else{
                       배[1].children[12].position.x=-100;
+                      배[1].children[12].material.visible=false;
                     }
 
 
@@ -24945,8 +24949,10 @@
       if(reflag){
         if(skinnum0==4){
           배[1].children[12].position.x=-2;
+          배[1].children[12].material.visible=true;
         }else{
           배[1].children[12].position.x=-100;
+          배[1].children[12].material.visible=false;
         }
       }
 
