@@ -46,31 +46,7 @@
           font-size: 13vmin;
         }
 
-        #ptable {
-          margin-top: 2vmin;
-          /* border: 0.2vmin solid rgba(37,44,65,1); */
-          background-color: rgba(231,99,107,0.5);
-          border-radius: 3vmin;
-          width:70vmin;
-          padding-right: 4vmin;
-          transform: translate(6vmin, 0);
-        }
 
-        #ptable tr {
-            margin-bottom: 10vmin;
-        }
-
-        #ptable td {
-            width:3.5vmin;
-            height:10vmin;
-            text-align: center;
-        }
-
-        #ptable td img{
-            position: absolute;
-            width:14vmin;
-            transform: translate(-5vmin, -10vmin);
-        }
 
 
         #pgr3{
@@ -290,7 +266,7 @@
 
 
         #ring{
-          display:none;
+          /* display:none; */
           position: absolute;
           -webkit-background-color: transparent;
           bottom:0vmin;
@@ -1519,34 +1495,34 @@
             /* justify-content: center; */
             z-index: 3;
             text-align: center;
-            transition: opacity 1.5s, top 1.5s ease;
+            transition: opacity 1s, top 1s ease;
         }
 
         #title {
           position:absolute;
-          top:4vh;
+          top:8vh;
           width: 20vh;
         }
 
         #title1 {
           transform: translate(-4.5vh,0);
           position:absolute;
-          // left:35vw;
-          top:4vh;
+
+          top:8vh;
           width: 7vh;
         }
 
         #title2 {
           position:absolute;
-          top:4vh;
+          top:8vh;
           width: 7vh;
         }
 
         #title3 {
           transform: translate(4.5vh,0);
           position:absolute;
-          // right:35vw;
-          top:4vh;
+
+          top:8vh;
           width: 7vh;
         }
 
@@ -1617,7 +1593,7 @@
         #name {
           font-family: 'mono';
           position:absolute;
-          top:23vh;
+          top:30vh;
           font-size: 10vmin;
 
         }
@@ -1634,8 +1610,8 @@
         #logo{
           display:none;
           position:absolute;
-          top:74vh;
-          // left:-0%;
+          top:73vh;
+
           width:40vh;
           height:40vh;
           display: flex;
@@ -1657,15 +1633,15 @@
         }
 
         #co{
-          display:none;
-          top:97.6vh;
+          /* display:none; */
+          bottom:1vh;
           position:absolute;
           opacity:1;
-          position: relative;
-          left:1.4vh;
-          // top:-9vh;
+          /* position: relative; */
+          left:39%;
+          /* top:-9vh; */
           color:black;
-          font-size: 1.8vh;
+          font-size: 3.8vmin;
         }
 
         #tts{
@@ -1674,7 +1650,7 @@
           opacity:0;
           position: relative;
           left:2vw;
-          top:60%;
+          top:70%;
           color:white;
           font-size: 6vmin;
           transition: opacity 1s;
@@ -1778,22 +1754,22 @@
 
         .gameinfo1 {
             font-family: 'mono';
-            top:12vmin;
+            top:20vmin;
             position: absolute;
             font-size: 14vmin;
             color:white;
             display: inline-flex;
-            z-index: 2;
+            z-index: 2;z
             /* flex-direction: column; */
             background-color: rgba(50, 150, 150, 0.8);
             border-radius: 4vmin;
             border: 0px solid #000;
             width: 65vmin;
-            height: 15vmin;
+            height: 25vmin;
             justify-content: center;
             align-items:center;
             text-align: center;
-            margin-bottom: 14vmin;
+            margin-bottom: 4vmin;
             padding-left: 4vmin;
             padding-bottom: 2vmin;
             /* padding-bottom: 23vmin; */
@@ -1856,7 +1832,7 @@
             justify-content:flex-start;
             align-items: left;
             margin-bottom: 0vmin;
-            margin-top: 12vmin;
+            margin-top: 1vmin;
             padding-left: 2vmin;
             padding-bottom: 5vmin;
 
@@ -3278,7 +3254,7 @@
     var 옵셋=3;
     var 템크기="5vh"
     var 템배경0="rgba(150, 100, 100, 0.9)"
-    var 템배경1="rgba(150, 150, 150, 0.9)"
+    var 템배경1="rgba(150, 150, 150, 0.5)"
     var 템배경2="rgba(110, 210, 200, 0.9)"
 
     var dirt=[];
@@ -11322,9 +11298,11 @@
           setlang0(langnum)
 
         }else if (event.code === 'KeyT') {
+
           fulltower=true;
 
         }else if (event.code === 'KeyW') {
+          return
           scene.remove(ship[0])
           scene.remove(배경[0])
           scene.remove(배[1])
@@ -11353,6 +11331,7 @@
           }
 
         }else if (event.code === 'KeyQ') {
+          return
           scene.remove(ship[0])
           scene.remove(배경[0])
           scene.remove(배[1])
@@ -11381,6 +11360,7 @@
           }
 
         }else if (event.code === 'KeyA') {
+          return
           과일.forEach((item) => {
             if(item.userData.alive&&(item.userData.rank==4&&item.userData.form==0&&!item.userData?.stform)){
               var newo=newone(과일.length-1, item.userData.rank-1, 0, 999, true, false, true,true)
@@ -11402,6 +11382,7 @@
           });
 
         }else if(event.code === 'KeyH') {
+          return
           return spawn(1)
 
           for (var i = 0; i < 5; i++) {
@@ -11743,13 +11724,7 @@
         uselst=[]
         skinnum=1;
 
-        document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
-        document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
 
-        document.querySelector(".pgr").style.borderColor=hexToHtmlColor(colorlst[colornum][2]);
-        document.querySelector(".pgr").style.backgroundColor=hexToHtmlColor(colorlst[colornum][2]);
-        document.getElementById('pgr1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][0]);
-        document.getElementById('pgr2').style.color=hexToHtmlColor(colorlst[colornum][2]);
 
 
         // document.getElementById('hammer').children[1].innerText=String(해머)
@@ -11831,9 +11806,7 @@
 
 
 
-        document.getElementById('pgr5').classList.remove("pop0");
-        document.getElementById('pgr5').style.opacity=0
-        document.getElementById('pgr5').style.bottom="6.6vmin";
+
 
 
 
@@ -15335,6 +15308,8 @@
           }else{
           if(웹){
             document.getElementById("tts").innerText=textdic[1][langset[langnum]]
+            document.getElementById("tts").style.fontSize="8vmin"
+            document.getElementById("tts").style.color=hexToHtmlColor(colorlst[colornum][3]);
 
           }else{
             document.getElementById("tts").style.display="none"
@@ -15593,7 +15568,7 @@
                 item.children[12].position.y=0.15*dif+bh*8.95
 
                 sample2.forEach((item, i) => {
-                  // item.position.y=
+
                   item.position.y=0.2*dif+bh*16.1;
                 });
 
@@ -16206,7 +16181,7 @@
                     }
                 }else if(item.userData.rank<=3){
                     var gap2=0
-                    if(item.userData.rank==2) gap2=-0.1
+                    if(item.userData.rank==2) gap2=-0.2
 
                     item.children[0].position.z=gap2-0.5*(pshift[dur]-1);
                     item.children[0].position.y=-0.5
@@ -16222,6 +16197,8 @@
 
                     // item.children[3].position.x=20
                     if(item.userData.rank==2){ //모자
+
+                      item.children[2].position.z=gap2
                       if(item.userData.stform){
                         item.children[4].position.z=gap2+1-0.3*(pshift[dur]-1);
                         item.children[4].position.y=-0.7
@@ -17170,8 +17147,8 @@
                     배[1].children[12].position.x=-2;
                     배[1].children[12].material.visible=true;
                   }else{
-                    배[1].children[12].position.x=-100;
-                    배[1].children[12].material.visible=false;
+                    // 배[1].children[12].position.x=-100;
+                    // 배[1].children[12].material.visible=false;
                   }
 
                   camera.position.y=카메라높이;
@@ -17967,8 +17944,8 @@
                       배[1].children[12].position.x=-2;
                       배[1].children[12].material.visible=true;
                     }else{
-                      배[1].children[12].position.x=-100;
-                      배[1].children[12].material.visible=false;
+                      // 배[1].children[12].position.x=-100;
+                      // 배[1].children[12].material.visible=false;
                     }
 
 
@@ -19101,7 +19078,7 @@
                 if(gamemod==2){
                   var context=[];
 
-                  if(점수>0){
+                  if(!웹){
                     var scoreset=[scoret1, scoret2,scoret3,scoret4,scoret5];
 
                     if(scoreset[skinnum0].length>=scorelimit){
@@ -19139,7 +19116,7 @@
                   }
 
 
-                  console.log(scoreset)
+
 
                   gameoverflag = true;
 
@@ -19151,7 +19128,7 @@
 
 
                   if(웹){
-                    document.getElementById('gameinfo').style.display="none"
+                    // document.getElementById('gameinfo').style.display="none"
                   }else{
                     과일.sort(function(a, b) {
                       return b.userData.rank - a.userData.rank;
@@ -19161,33 +19138,20 @@
                       과일2.push(과일[i].userData.rank);
                     }
 
-                    console.log(과일2)
-
-                    if(과일2.length<=20){
-                      document.getElementById('ptable').children[0].innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
-                    }else if(과일2.length<=40){
-                      document.getElementById('ptable').children[0].innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
-                    }else if(과일2.length<=60){
-                      document.getElementById('ptable').children[0].innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
-                    }else if(과일2.length<=80){
-                      document.getElementById('ptable').children[0].innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
-                    }else if(과일2.length<=100){
-                      document.getElementById('ptable').children[0].innerHTML='<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>'
-                    }
-                    console.log(colorlst[colornum][3])
 
 
-                    document.getElementById("pgr4").src="png/hero"+String(skinnum0+1)+".gif"
 
 
-                    document.getElementById("gameinfo").style.backgroundColor="rgba(37,44,65,0.85)"
+
+
+                    document.getElementById("gameinfo").style.backgroundColor="rgba(37,44,65,0.45)"
                   }
-                  document.getElementById("gameinfo1").style.backgroundColor="rgba(37,44,65,0.85)"
-
+                  document.getElementById("gameinfo1").style.backgroundColor="rgba(37,44,65,0.45)"
+                  document.getElementById("gameinfo").style.backgroundColor="rgba(37,44,65,0.45)"
 
                     // document.getElementById("gameinfo").style.backgroundColor=hexToHtmlColor(colorlst[colornum][3]);
 
-                  document.getElementById("obt1").style.backgroundColor="rgba(37,44,65,0.7)"
+                  document.getElementById("obt1").style.backgroundColor="rgba(37,44,65,0.5)"
                   if(!웹){
                     document.getElementById("obt2").style.backgroundColor="rgba(37,44,65,0.7)"
                   }else{
@@ -21764,7 +21728,7 @@
             retry();
 
 
-        }, 1500);
+        }, 2000);
 
       }else if(n==9){ //점수보기
 
@@ -21975,174 +21939,170 @@
       if(lcode2==null) monoflag=true;
       switch (lcode1) {
         case "en":
-            setlang(0)
+            setlang0(0)
             break;
         case "ko":
-            setlang(1)
+            setlang0(1)
             break;
         case "ja":
-            setlang(2)
+            setlang0(2)
             break;
         case "de":
-            setlang(3)
+            setlang0(3)
             break;
         case "fr":
-            setlang(4)
+            setlang0(4)
             break;
         case "zh":
-            if(lcode2=="TW"){
-              setlang(6)
-            }else{
-              setlang(5)
-            }
+            setlang0(5)
             break;
         case "ru":
-            setlang(7)
+            setlang0(6)
             break;
         case "pt":
             if(lcode2=="PT"){
-              setlang(8)
+              setlang0(7)
             }else{
-              setlang(37)
+              setlang0(7)
             }
             break;
         case "es":
-            setlang(9)
+            setlang0(8)
             break;
         case "tr":
-            setlang(10)
+            setlang0(9)
             break;
         case "it":
-            setlang(11)
+            setlang0(10)
             break;
         case "hi":
-            setlang(12)
+            setlang0(0)
             break;
         case "ar":
-            setlang(13)
+            setlang0(0)
             break;
         case "vi":
-            setlang(14)
+            setlang0(0)
             break;
         case "pl":
-            setlang(15)
+            setlang0(0)
             break;
         case "th":
-            setlang(16)
+            setlang0(0)
             break;
         case "cs":
-            setlang(17)
+            setlang0(0)
             break;
         case "id":
-            setlang(18)
+            setlang0(0)
             break;
         case "fi":
-            setlang(19)
+            setlang0(0)
             break;
         case "lv":
-            setlang(20)
+            setlang0(0)
             break;
         case "et":
-            setlang(21)
+            setlang0(0)
             break;
         case "ur":
-            setlang(22)
+            setlang0(0)
             break;
         case "sv":
-            setlang(23)
+            setlang0(0)
             break;
         case "hu":
-            setlang(24)
+            setlang0(0)
             break;
         case "da":
-            setlang(25)
+            setlang0(0)
             break;
         case "ro":
-            setlang(26)
+            setlang0(0)
             break;
         case "hr":
-            setlang(27)
+            setlang0(0)
             break;
         case "nl":
-            setlang(28)
+            setlang0(0)
             break;
         case "fa":
-            setlang(29)
+            setlang0(0)
             break;
         case "my":
-            setlang(30)
+            setlang0(0)
             break;
         case "el":
-            setlang(31)
+            setlang0(0)
             break;
         case "uk":
-            setlang(32)
+            setlang0(0)
             break;
         case "ms":
-            setlang(33)
+            setlang0(0)
             break;
         case "bn":
-            setlang(34)
+            setlang0(0)
             break;
         case "nb":
-            setlang(35)
+            setlang0(0)
             break;
         case "he":
-            setlang(36)
+            setlang0(0)
             break;
         case "sr":
-            setlang(38)
+            setlang0(0)
             break;
         case "tl":
-            setlang(39)
+            setlang0(0)
             break;
         case "lb":
-            setlang(3)
+            setlang0(0)
             break;
         case "bs":
-            setlang(38)
+            setlang0(0)
             break;
         case "sk":
-            setlang(17)
+            setlang0(0)
             break;
         case "sq":
-            setlang(31)
+            setlang0(0)
             break;
         case "py":
-            setlang(9)
+            setlang0(0)
             break;
         case "bm":
-            setlang(4)
+            setlang0(0)
             break;
         case "bg":
-            setlang(7)
+            setlang0(0)
             break;
         case "be":
-            setlang(7)
+            setlang0(0)
             break;
         case "hy":
-            setlang(7)
+            setlang0(0)
             break;
         case "uz":
-            setlang(7)
+            setlang0(0)
             break;
         case "kk":
-            setlang(7)
+            setlang0(0)
             break;
         case "ky":
-            setlang(7)
+            setlang0(0)
             break;
         case "tg":
-            setlang(7)
+            setlang0(0)
             break;
         case "tk":
-            setlang(7)
+            setlang0(0)
             break;
         case "lt":
-            setlang(7)
+            setlang0(0)
             break;
         default:
-            return setlang(0)
+            return setlang0(0)
 
       }
 
@@ -22300,7 +22260,7 @@
 
       document.getElementById("fps").fontFamily="ns"
       document.getElementById("y1").fontFamily="ns"
-      document.getElementById("pgr5").fontFamily="ns"
+
 
 
 
@@ -22819,9 +22779,9 @@
           window.resinit=resinit;
           resol(resinit);
 
-          langnum=1
-          setlang0(langnum)
-
+          // langnum=0
+          // setlang0(0)
+          findlang()
           switch (skinnum) {
             case 0:
               document.getElementById("skin-middle0").children[1].innerText=textdic[40][langset[langnum]]
@@ -23577,8 +23537,8 @@
           배[1].children[12].position.x=-2;
           배[1].children[12].material.visible=true;
         }else{
-          배[1].children[12].position.x=-100;
-          배[1].children[12].material.visible=false;
+          // 배[1].children[12].position.x=-100;
+          // 배[1].children[12].material.visible=false;
         }
       }
 
@@ -24951,7 +24911,7 @@
     <div id="logo">
         <b>랙</b>
     </div>
-    <b id="co">RAEK GAMES</b>
+    <div id="co">RAEK GAMES</div>
     <div id="tts">로딩 중..</div>
     <img id="title" src="png/title.png">
     <img id="title1" src="png/apen.gif">
@@ -25145,33 +25105,8 @@
             <div id="nrec"></div>
         </div>
 
-        <div class="gameinfo" onclick="fwd()" id="gameinfo">
+        <div class="gameinfo" onclick="" id="gameinfo">
             <div id="npoint"> 100</div>
-            <div class="pgr-container" id="mpoint">
-                <div class="pgr">
-                    <div class="pgr-bar" style="width: 30%" id="pgr1"></div>
-                    <div id="pgr5">+🎫</div>
-                    <img src="png/hero1.gif" id="pgr4">
-
-                </div>
-                <span class="pgr-count" id="pgr3">3/10</span>
-                <span class="pgr-count" id="pgr2">3/10</span>
-            </div>
-
-            <table id="ptable">
-                <tr>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-            </table>
 
         </div>
         <div class="gameover" id="obt1">
