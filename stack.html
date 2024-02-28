@@ -2510,6 +2510,21 @@
             height: 5vmax;
             z-index: 2;
         }
+        #center0{
+            position: absolute;
+            border: none;
+            background-color: transparent;
+            border-radius: 3vw;
+            /* background-image: url("png/green_button09.png"); */
+            background-size: 6vmax 4vmax;
+            top: 1.9vmax;
+            left: 6%;
+            width: 20vmax;
+            height: 4vmax;
+            z-index: 1;
+            font-family: 'mono';
+            font-size: 1.8vh;
+        }
 
         .center {
             position: absolute;
@@ -13675,6 +13690,20 @@
     // Animate the scene
     function animate(currentTime) {
 
+      if(startflag&&!gameoverflag){
+        document.getElementById("center0").style.opacity=0
+      }else{
+        if(스킬포인트>0){
+          var txtcount3 = parseInt(elapsedTime*100 ) % 100
+
+          document.getElementById("center0").style.opacity=txtcount3/100
+
+        }else{
+          document.getElementById("center0").style.opacity=0
+        }
+      }
+
+
         let deltaTime = currentTime - lastTime;
 
 
@@ -17012,7 +17041,7 @@
                     temp1[0].children[0].style.fontFamily="mono"
                     temp1[0].children[1].style.fontFamily="mono"
                     temp1[0].children[2].style.fontFamily="mono"
-                    var multiply0=parseInt(-cubes[cubes.length-1].mesh.position.z/22.5)
+                    var multiply0=parseInt(-cubes[cubes.length-1].mesh.position.z/28.24)
                     var multiply=multiply0*0.2+1
 
                     multiply.toFixed(1);
@@ -18727,7 +18756,7 @@
                 }
 
                 if(gamemod==2){
-                  topViewCamera.position.set(cubes[cubes.length - 1].body.position.x, bh *(cubes.length+3-2) , cubes[cubes.length - 1].body.position.z);
+                  topViewCamera.position.set(cubes[cubes.length - 1].body.position.x, bh *(cubes.length+스킬[2]+3-2) , cubes[cubes.length - 1].body.position.z);
                 }else{
                   topViewCamera.position.set(cubes[cubes.length - 1].body.position.x, bh *(cubes.length+3) , cubes[cubes.length - 1].body.position.z);
                 }
@@ -23815,7 +23844,9 @@
         mod0.addEventListener('click', function() {
           if(스킬포인트>0){
             스킬포인트--;
+            window.스킬포인트=스킬포인트
             스킬[0]+=1;
+            window.스킬=스킬
 
             var modtxt=document.querySelector(".modinfo1");
             var modlst=document.querySelectorAll(".mod");
@@ -23883,7 +23914,9 @@
         mod1.addEventListener('click', function() {
           if(스킬포인트>0){
             스킬포인트--;
+            window.스킬포인트=스킬포인트
             스킬[1]+=1;
+            window.스킬=스킬
 
             var modtxt=document.querySelector(".modinfo1");
             var modlst=document.querySelectorAll(".mod");
@@ -23892,7 +23925,7 @@
 
             modlst[0].children[3].innerText=String(스킬[0]*10+10)
             modlst[1].children[3].innerText=String(2*(스킬[1]-1))+"도"
-            modlst[2].children[3].innerText=String((스킬[2]+1))+"층"
+            modlst[2].children[3].innerText=String((스킬[2]+1))+"M"
 
             modlst[0].children[2].innerText="레벨 "+String(스킬[0])
             modlst[1].children[2].innerText="레벨 "+String(스킬[1])
@@ -23954,7 +23987,9 @@
         mod2.addEventListener('click', function() {
           if(스킬포인트>0){
             스킬포인트--;
+            window.스킬포인트=스킬포인트
             스킬[2]+=1;
+            window.스킬=스킬
 
             var modtxt=document.querySelector(".modinfo1");
             var modlst=document.querySelectorAll(".mod");
@@ -23963,7 +23998,7 @@
 
             modlst[0].children[3].innerText=String(스킬[0]*10+10)
             modlst[1].children[3].innerText=String(2*(스킬[1]-1))+"도"
-            modlst[2].children[3].innerText=String((스킬[2]+1))+"층"
+            modlst[2].children[3].innerText=String((스킬[2]+1))+"M"
 
             modlst[0].children[2].innerText="레벨 "+String(스킬[0])
             modlst[1].children[2].innerText="레벨 "+String(스킬[1])
@@ -24067,6 +24102,7 @@
             필+=parseInt(점수*10);
 
             if(필>=바){
+              스킬포인트++;
               스킬포인트++;
               window.스킬포인트=스킬포인트
               document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
@@ -24976,7 +25012,7 @@
 
 
 
-      modtxt.children[0].innerText="스킬 포인트:"+String(스킬포인트)
+
 
 
 
@@ -24986,7 +25022,7 @@
 
       modlst[0].children[3].innerText=String(스킬[0]*10+10)
       modlst[1].children[3].innerText=String(2*(스킬[1]-1))+"도"
-      modlst[2].children[3].innerText=String((스킬[2]+1))+"층"
+      modlst[2].children[3].innerText=String((스킬[2]+1))+"M"
 
       modlst[0].children[2].innerText="레벨 "+String(스킬[0])
       modlst[1].children[2].innerText="레벨 "+String(스킬[1])
@@ -24997,9 +25033,17 @@
 
 
 
-      // modlst[0].children[2].style.fontSize="2.5vmin";
-      // modlst[1].children[2].style.fontSize="2.5vmin";
-      // modlst[2].children[2].style.fontSize="2.5vmin";
+      modlst[0].children[1].style.fontSize="4vmin";
+      modlst[1].children[1].style.fontSize="4vmin";
+      modlst[2].children[1].style.fontSize="4vmin";
+
+      modlst[0].children[2].style.fontSize="4vmin";
+      modlst[1].children[2].style.fontSize="4vmin";
+      modlst[2].children[2].style.fontSize="4vmin";
+
+      modlst[0].children[2].style.color="yellow"
+      modlst[1].children[2].style.color="yellow"
+      modlst[2].children[2].style.color="yellow"
 
 
       if(!document.getElementById("gameover-overlay").classList.contains("hidden")) return;
@@ -26285,9 +26329,13 @@
 </button>
 
 <button id="center" class="center" onclick="showmod()">
-    <img id="center0" class="" src="png/up.png">
+    <img class="" src="png/up.png">
     LV.1
 </button>
+
+<div id="center0">
+<레벨업 가능
+</div>
 
 <button id="right" class="right" onclick="optionon()">
     <img class="" src="png/up.png">
