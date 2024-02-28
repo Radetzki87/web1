@@ -17126,10 +17126,22 @@
             }
 
 
-            if(cubes[cubes.length-1].mesh.position.y<5){
+            if(cubes[cubes.length-1].mesh.position.y<(cubes.length-3+스킬[2])*bh/2){
+              camera.left -=0.1
+              camera.right +=0.4
+              camera.top +=0.1
+              camera.bottom -=0.4
+              camera.updateProjectionMatrix();
+              activeFloor=cubes.length
                 if(cubes[cubes.length-1].body.velocity.norm()<0.1){
                   오버=true;
                 }
+                if(cubes[cubes.length-2].body.position.y<cubes[cubes.length-1].body.position.y){
+                  if(cubes[cubes.length-2].body.position.y<1){
+                    오버=true;
+                  }
+                }
+
             }
           }
           // if (Math.abs(cubes[cubes.length-1].mesh.rotation.x) > Math.PI/3 || Math.abs(cubes[cubes.length-1].mesh.rotation.z) > Math.PI/3) {
