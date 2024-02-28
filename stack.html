@@ -2763,6 +2763,44 @@
             text-align: center;
 
         }
+        .shammer {
+            position: absolute;
+            background-color: rgba(250, 20, 20, 1);
+            border-radius: 2vmin;
+            border:5vmax rgba(250, 50, 50, 0.8);
+            /* background-image: url("png/green_button09.png"); */
+            /* background-size: 6vmax 4vmax; */
+            top: 17vh;
+            left: -14vh;
+            width: 14vh;
+            height: 11vh;
+            z-index: 1;
+            transition: left 0.4s;
+            text-align: center;
+
+        }
+
+        .shammer img{
+            position: relative;
+            left:34%;
+            bottom:0%;
+            /* width: 5vmax; */
+            height: 7vh;
+            z-index: 2;
+        }
+
+        .shammer div{
+          position: relative;
+          left:38.5%;
+          font-family: 'GG';
+          font-size: 1.1vh;
+            /* left:37%;
+            bottom:5%;
+
+            height: 4vmax;
+            z-index: 3; */
+            z-index: 2;
+        }
 
         .hammer {
             position: absolute;
@@ -2775,7 +2813,7 @@
             left: -14vh;
             width: 14vh;
             height: 10vh;
-            z-index: 1;
+            z-index: 2;
             transition: left 0.4s;
             text-align: center;
 
@@ -2787,7 +2825,7 @@
             bottom:0%;
             /* width: 5vmax; */
             height: 5vh;
-            z-index: 3;
+            z-index: 4;
         }
 
         .hammer div{
@@ -2800,7 +2838,7 @@
 
             height: 4vmax;
             z-index: 3; */
-            z-index: 3;
+            z-index: 4;
         }
 
         .hammer0 {
@@ -5160,17 +5198,17 @@
               itemflag=true;
               pin=false;
               bridge=false;
-              // 뻥--;
-              if(lastX<-0.75){
-                뻥--;
-              }else{
-                if(뻥>2){
-                  뻥-=3;
-                  superflag=true;
-                }else{
-                  return;
-                }
-              }
+              뻥--;
+              // if(lastX<-0.75){
+              //   뻥--;
+              // }else{
+              //   if(뻥>2){
+              //     뻥-=3;
+              //     superflag=true;
+              //   }else{
+              //     return;
+              //   }
+              // }
 
               document.getElementById('hammer').children[1].innerText=String(해머)
               document.getElementById('pung').children[1].innerText=String(뻥)
@@ -5545,10 +5583,18 @@
 
 
 
-              document.getElementById('hammer').style.left=itemleft1
-              setTimeout(function() {
-                  document.getElementById('hammer').style.left=itemleft
-              }, 400);
+
+              if(superflag){
+                document.getElementById('shammer').style.left="-8vmin"
+                setTimeout(function() {
+                    document.getElementById('shammer').style.left="-10vmin"
+                }, 400);
+              }else{
+                document.getElementById('hammer').style.left=itemleft1
+                setTimeout(function() {
+                    document.getElementById('hammer').style.left=itemleft
+                }, 400);
+              }
             }else if(pung){
 
               // if(뻥<=0) {
@@ -5883,7 +5929,7 @@
 
                 if(itemr){
                   if(superflag){
-                    force2.set(-25000,0,0)
+                    force2.set(-15000,0,0)
                   }else{
                     force2.set(-4000,0,0)
 
@@ -5891,7 +5937,7 @@
                   이펙트2(itemidx, 128, "left");
                 }else if(iteml){
                   if(superflag){
-                    force2.set(0,0,-25000)
+                    force2.set(0,0,-15000)
                   }else{
                     force2.set(0,0,-4000)
                   }
@@ -5900,6 +5946,7 @@
 
                 setTimeout(function() {
                     if(해머<=0) document.getElementById('hammer').style.left="-13.3vh"
+                    if(해머<3) document.getElementById('shammer').style.left="-14vh"
                 }, 400);
 
 
@@ -15289,7 +15336,7 @@
                     setTimeout(function() {
                       document.getElementById("tut-info").style.display=""
                       document.getElementById("tut-info").style.opacity="0.8";
-                      document.getElementById("tut-info").children[0].innerText="▲ "+textdic[3][langset[langnum]]+" ▲"
+                      document.getElementById("tut-info").children[0].innerText="▲ "+"해머를 3개모으면 슈퍼 해머를 쓸 수 있어요"+" ▲"
                       document.getElementById("tut-info").children[1].innerText=""
                     }, 1000);
                   }else{
@@ -19764,11 +19811,18 @@
 
 
 
+
+
       }else if(n==4||n==5||n==6){
         if(해머==0){
           document.getElementById('hammer').style.left=itemleft
         }
         해머++;
+
+        if(해머>=3){
+          document.getElementById('shammer').style.left="-10vmin"
+
+        }
 
         document.getElementById('hammer').children[1].innerText=String(해머)
 
@@ -24337,6 +24391,23 @@
                 document.getElementById('center').innerText="LV."+String(레벨)
                 document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
                 document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
+                if(필>=바){
+                  스킬포인트++;
+                  스킬포인트++;
+                  window.스킬포인트=스킬포인트
+                  document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
+                  document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
+                  필-=바;
+                  바+=100;
+                  레벨++;
+
+                  setTimeout(function() {
+                    showpop("","레벨 업","",0)
+                    document.getElementById('center').innerText="LV."+String(레벨)
+                    document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
+                    document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
+                  }, 1200);
+                }
               }, 1200);
             }else{
               document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
@@ -26566,6 +26637,11 @@
 <button id="hammer" class="hammer" onclick="">
     <img class="" src="png/hammer.png">
     <div>0</div>
+</button>
+
+<button id="shammer" class="shammer" onclick="">
+    <img class="" src="png/hammer.png">
+    <div>cost:3</div>
 </button>
 
 <button id="pung" class="pung" onclick="">
