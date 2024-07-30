@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    html {
+        height: 100vh;
+    }
+
+    body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    .timer-container {
+        color: rgb(50, 50, 50);
+        font-family: 'Roboto', sans-serif;
+        display: inline-block;
+        padding: 40px;
+        border-radius: 20%;
+        border: 15px solid rgb(55, 55, 55);
+        box-shadow: inset 0 0 3px 3px rgba(50, 50, 50, 0.3), inset 0 0 1px 2px rgba(50, 50, 50, 0.2);
+    }
+
+    .timer {
+        position: relative;
+        font-size: 20px;
+
+        width: 15em;
+        height: 15em;
+    }
+
+    .timer .line {
+        width: 100%;
+        height: 1px;
+        top: calc(50% - 1px / 2);
+
+        background: #000;
+        position: absolute;
+    }
+
+    .timer .line.thick {
+        width: calc(100% + .4em);
+        left: calc(-.4em / 2);
+
+        height: 3px;
+        top: calc(50% - 3px / 2);
+    }
+
+    .timer .cover1{
+        position: absolute;
+        width: calc(100% - 4%);
+        height: calc(100% - 4%);
+        left: calc(4% / 2);
+        top: calc(4% / 2);
+        border-radius: 50%;
+        background: #fff;
+        z-index: 1;
+    }
+
+    .fin {
+        position: absolute;
+        width: 1px;
+        left: calc(50% - 1px / 2);
+
+        height: calc(50% - .3em);
+        top: .3em;
+
+        background: rgb(255, 57, 50);
+        z-index: 2;
+        transform-origin: bottom;
+    }
+
+    .timer .cover2 {
+        position: absolute;
+        width: 18%;
+        height: 18%;
+        left: calc(50% - 18% / 2);
+        top: calc(50% - 18% / 2);
+
+        border-radius: 50%;
+        background: #fff;
+        z-index: 3;
+        box-shadow: 0 0 3px 3px rgba(50, 50, 50, 0.4), 0 0 1px 2px rgba(50, 50, 50, 0.3);
+    }
+
+    .num-box {
+        position: absolute;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        width: calc(100% + 18%);
+        left: calc(-18% / 2);
+        height: 40px;
+        top: calc(50% - 40px/2);
+        font-weight: 600;
+    }
+
+    .button-container {
+        margin-top: 60px;
+        display:  inline-flex;
+    }
+
+    .control {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 1px solid #555;
+        background: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 17px;
+        color: rgb(255, 57, 50);
+    }
+    .control:active {
+        transform: scale(.96);
+    }
+
+    .time-container {
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .time-container .total-time {
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    </style>
+
+
+</head>
+<body>
+    <div class="timer-container">
+
+        <div id="timer" class="timer">
+            <div class="cover1"></div>
+
+            <div id="lines">
+
+            </div>
+
+            <div id="fins">
+
+            </div>
+
+            <div id="num-container">
+
+            </div>
+
+            <div class="cover2"></div>
+        </div>
+    </div>
+
+    <div class="time-container">
+        <div id="remain-time" class="remain-time"></div>
+        <div id="total-time" class="total-time"></div>
+    </div>
+
+    <div class="button-container">
+        <button id="control" class="control">PLAY</i></button>
+        <button id="reset" class="control" onclick="onClick(1)">리셋</button>
+        <button id="plus1" class="control" onclick="onClick(2)">+ 1</button>
+        <button id="minus1" class="control" onclick="onClick(3)">- 1</button>
+        <button id="plus10" class="control" onclick="onClick(4)">+ 5</button>
+        <button id="minus10" class="control" onclick="onClick(5)">- 5</button>
+    </div>
+
+    <script>
+    const timer = document.getElementById('timer');
+    const lines = timer.querySelector('#lines');
+    const fins = timer.querySelector('#fins');
+    const nums = timer.querySelector('#num-container');
+    const control = document.querySelector('.button-container #control');
+    const remainTime = document.querySelector('.time-container #remain-time');
+    const totalTime = document.querySelector('.time-container #total-time');
+
+    const button1 = document.querySelector('#reset');
+    const button2 = document.querySelector('#plus1');
+    const button3 = document.querySelector('#minus1');
+    const button4 = document.querySelector('#plus10');
+    const button5 = document.querySelector('#minus10');
+
+    var endTime = 30
+
+    let intervalID = null;
+    let progressTimeSec = 0;
+
+    let isPlay = true;
+
+    function paintLines() {
+        for(let i=0; i<30; i++) {
+            const line = document.createElement('div');
+            line.classList.add('line');
+            line.style.transform = `rotate(${i*6}deg)`;
+
+            if (i%5 == 0) {
+                line.classList.add('thick')
+            }
+
+            lines.append(line);
+        }
+    }
+
+    function paintNumber() {
+        let left = 15;
+        let right = 45;
+
+        for (let i=0; i<6; i++) {
+            const numBox = document.createElement('div');
+            numBox.classList.add('num-box');
+            numBox.style.transform = `rotate(${i*30}deg)`;
+
+            const spanLeft = document.createElement('span');
+            const spanRight = document.createElement('span');
+
+            const leftText = left - 5*i;
+            spanLeft.textContent = leftText<0 ? 60+ leftText : leftText;
+            spanRight.textContent = right - (5 * i);
+
+            spanLeft.style.transform = `rotate(${-30*i}deg)`;
+            spanRight.style.transform = `rotate(${-30*i}deg)`;
+
+            numBox.append(spanLeft,spanRight);
+            nums.append(numBox);
+        }
+    }
+
+    function paintRemainTime() {
+        for (let min=0; min<endTime; min++) {
+            for (let sec=0; sec<60; sec++) {
+                const remainFin = document.createElement('div');
+                remainFin.classList.add('fin');
+
+                const deg = min*6+sec*0.1;
+                remainFin.style.transform = `rotate(${-deg}deg)`
+
+                fins.append(remainFin);
+            }
+        }
+    }
+
+    function tickSec() {
+        progressTimeSec++;
+        if(progressTimeSec >= endTime * 60) pause();
+
+        const lastFin = fins.lastChild;
+
+        if (lastFin) {
+            lastFin.remove();
+        }
+
+        renderRemainTime();
+    }
+
+    function play() {
+        intervalID = setInterval(tickSec,1000)
+        isPlay = true;
+        control.innerHTML = `PAUSE`;
+    }
+
+    function pause() {
+        clearInterval(intervalID);
+        isPlay = false;
+        control.innerHTML = `PLAY`;
+    }
+
+    function onClickControl() {
+        if (isPlay) {
+            pause();
+
+        } else {
+            play();
+        }
+    }
+
+    function onClick(n) {
+      pause()
+      progressTimeSec=0
+
+        if(n==1){
+          endTime=30
+        }else if(n==2){
+          endTime++
+        }else if(n==3){
+          endTime--
+        }else if(n==4){
+          endTime+=5;
+        }else if(n==5){
+          endTime-=5;
+        }
+
+
+
+
+        renderRemainTime();
+
+
+        while (fins.children.length>0) {
+          const lastFin = fins.lastChild;
+
+          if (lastFin) {
+              lastFin.remove();
+          }
+        }
+
+
+        paintRemainTime();
+        totalTime.textContent = `(${endTime} : 00)`;
+
+
+
+    }
+
+    function renderRemainTime() {
+        const totalSec = endTime * 60 - progressTimeSec;
+        const min = Math.floor(totalSec/60);
+        const sec = totalSec % 60;
+
+        remainTime.textContent = `
+            ${min<10?`0${min}`:min} :
+            ${sec<10?`0${sec}`:sec}
+        `;
+    }
+
+    function paintTime() {
+        renderRemainTime();
+        totalTime.textContent = `(${endTime} : 00)`;
+    }
+
+    if (lines) {
+        paintLines();
+    }
+
+    if (nums) {
+        paintNumber();
+    }
+
+    if (fins) {
+        paintRemainTime();
+    }
+
+    if(control) {
+        control.addEventListener('click', onClickControl);
+
+
+
+    }
+
+
+    if(remainTime && totalTime) {
+        paintTime();
+    }
+
+    pause();
+
+    </script>
+
+</body>
+</html>
