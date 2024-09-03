@@ -3493,7 +3493,7 @@
 
     var 마찰=[0.2,0.3,0.15,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
-    var 중력=[-7,-11,-14,-7,-7]
+    var 중력=[-7,-11,-15,-7,-7]
 
     var resinit=0
     window.resinit=resinit
@@ -3774,6 +3774,8 @@
     var sdic = []
     var songfade;
     var soundic = {};
+
+    let 보드반경=7
 
     var colorlst = [
         [0x9DC8C8, 0x58C9B9, 0x519D9E, 0xD1B6E1, ],
@@ -6965,6 +6967,18 @@
     document.addEventListener('keydown', (event) => {
         // if(inflag) return;
         if (event.code === 'KeyW') {
+          let force2 = new CANNON.Vec3();
+          force2.set(0,0,-50000);
+
+          let quaternion = new CANNON.Quaternion();
+          quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI*(180)/180);
+          let rotatedVec = force2.clone();
+          // rotatedVec.applyQuaternion(quaternion);
+          rotatedVec=quaternion.vmult(force2);
+
+          cubes[cubes.length-1].body.applyForce(rotatedVec, cubes[cubes.length-1].body.position);
+
+          return;
           if(!goahead) return;
             if(!originflag){
               msetting(function(object) {
@@ -7682,9 +7696,9 @@
         }
         console.log(stacknum)
 
-        stacknum=[0,0,0,0,8,8,16,8,16,32,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
+        // stacknum=[0,0,0,0,8,8,16,8,16,32,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
-        stacknum=[0,0,0,0,8,16,32,64,128,256,512,1024,2048,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
+        // stacknum=[0,0,0,0,8,16,32,64,128,256,512,1024,2048,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
         frontalViewCamera.left= -bw / 1.05
         frontalViewCamera.right = bw / 1.05
@@ -7990,7 +8004,7 @@
           var temp0=[0]
           // skinnum = temp0[parseInt(Math.random()*temp0.length)];
           skinnum=parseInt(Math.random()*(skinset.length-1))
-          
+
 
           if(skinnum==1){
             skinnum=0;
@@ -8055,7 +8069,7 @@
         lastTime2=0;
         restartonce2=true;
 
-        // skinnum=skinset.indexOf("classic")
+        skinnum=skinset.indexOf("classic")
 
         review1= false;
         review2= false;
@@ -15340,22 +15354,33 @@
             if (-isoAngle - camera.rotation.x > 0) {
 
 
-                if(onceflag0){
+                if(onceflag0){//보드판
                   camera.rotation.x=-isoAngle;
                   console.log("빵")
                   for (var i = 0; i < 50; i++) {
-                    var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(bw*6*bscale, 0.1, bscale*bw/2.2), new THREE.MeshLambertMaterial({
-                        color: 0xB0B0B0,
+                    // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 32);
+                    var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.1, 32), new THREE.MeshLambertMaterial({
+                        // color: colorlst[parseInt(Math.random()*colorlst.length)][1],
+                        color: colorlst[i+1][1],
                         opacity: 1,
                         transparent: true
                     }), );
-                    mesh5.position.set(0, 0, -15-i*bscale*(bw/2));
+
+                    // var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(bw*6*bscale, 0.1, bscale*bw/2.2), new THREE.MeshLambertMaterial({
+                    //     color: 0xB0B0B0,
+                    //     opacity: 1,
+                    //     transparent: true
+                    // }), );
+                      mesh5.position.set(0, 0.3*bh-i*0.05, 0);
+                    // mesh5.position.set(0, 0, -15-i*bscale*(bw/2));
 
                       createTextMesh("X"+String(i+2), 777, (textMesh) => {
-                        textMesh.position.z+=1*bscale;
-                        textMesh.position.x-=25*bscale;
+                        // textMesh.position.z+=1*bscale;
+                        textMesh.position.z+=-2*보드반경*(i+2)-0.3*보드반경
+                        textMesh.position.x-=5*bscale;
                         textMesh.rotation.order = 'YXZ';
                         textMesh.rotation.x = -Math.PI / 2;
+                        // textMesh.material.visible=false;
 
 
                         mesh5.add(textMesh);
@@ -17284,13 +17309,16 @@
               console.log(cubes[cubes.length-1].mesh.position.z)
               console.log(기록)
             }else{
+              console.log(Math.sqrt(Math.pow(cubes[cubes.length-1].mesh.position.z,2)+Math.pow(cubes[cubes.length-1].mesh.position.x,2)))
               보드.forEach((item, i) => {
-                if(item.position.z>cubes[cubes.length-1].mesh.position.z){
+
+
+                if(Math.sqrt(Math.pow(cubes[cubes.length-1].mesh.position.z,2)+Math.pow(cubes[cubes.length-1].mesh.position.x,2))>2*보드반경*(i-1)){
                   item.material.color=new THREE.Color(colorlst[colornum][3])
 
                   item.children[0].material.color=new THREE.Color(colorlst[colornum][0])
-                  if(i+1>기록){
-                    기록=i+1
+                  if(i-2>기록){
+                    기록=i-2
                   }
                 }
               });
@@ -17300,12 +17328,13 @@
           }else{
             for (var j = 3; j < cubes.length; j++) {
               보드.forEach((item, i) => {
-                if(item.position.z+(bscale*bw/4)>cubes[j].mesh.position.z){
+                // if(item.position.z+(bscale*bw/4)>cubes[j].mesh.position.z){
+                if(Math.sqrt(Math.pow(cubes[cubes.length-1].mesh.position.z,2)+Math.pow(cubes[cubes.length-1].mesh.position.x,2))>2*보드반경*(i-1)){
                   item.material.color=new THREE.Color(colorlst[colornum][3])
 
                   item.children[0].material.color=new THREE.Color(colorlst[colornum][0])
-                  if(i+1>기록){
-                    기록=i+1
+                  if(i-2>기록){
+                    기록=i-2
                   }
                 }
               });
@@ -19332,10 +19361,10 @@
                   var height = window.innerWidth / 1.1;
                   var width1 = window.innerWidth / 1.1;
                   var height1 = window.innerWidth / 1.1;
-                  var width2 = window.innerWidth / 1.4;
-                  var height2 = window.innerWidth / 1.4;
-                  var width3 = window.innerWidth / 1.65;
-                  var height3 = window.innerWidth / 1.65;
+                  var width2 = window.innerWidth / 1.1;
+                  var height2 = window.innerWidth / 1.1;
+                  var width3 = window.innerWidth / 1.1;
+                  var height3 = window.innerWidth / 1.1;
                 // }
                 if((window.innerWidth / window.innerHeight) > 0.5){
 
@@ -19985,12 +20014,12 @@
     window.freeze=freeze;
     function getitem(n=0){
       if(n==0){
-        n=1+parseInt(Math.random()*6)
-      }
-
-      if(n==9){
         n=1+parseInt(Math.random()*9)
       }
+
+      // if(n==9){
+      //   n=1+parseInt(Math.random()*9)
+      // }
 
       if(n==1||n==2||n==3){
         if(뻥==0){
