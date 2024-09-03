@@ -24401,7 +24401,7 @@
             보드=[]
 
             bscale-=0.1
-
+            보드반경-=1
             camera.left += bw*0.1
             camera.right -= bw  *4*0.1
             camera.top -=  bw*0.1
@@ -24410,19 +24410,52 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
 
+            // for (var i = 0; i < 50; i++) {
+            //   var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(bw*6*bscale, 0.1, bscale*bw/2.2), new THREE.MeshLambertMaterial({
+            //       color: 0xB0B0B0,
+            //       opacity: 1,
+            //       transparent: true
+            //   }), );
+            //   mesh5.position.set(0, 0, -15-i*bscale*(bw/2));
+            //
+            //     createTextMesh("X"+String(i+2), 777, (textMesh) => {
+            //       textMesh.position.z+=1*bscale;
+            //       textMesh.position.x-=25*bscale;
+            //       textMesh.rotation.order = 'YXZ';
+            //       textMesh.rotation.x = -Math.PI / 2;
+            //
+            //
+            //       mesh5.add(textMesh);
+            //       scene.add(mesh5)
+            //       보드.push(mesh5)
+            //     });
+            //
+            // }
+
             for (var i = 0; i < 50; i++) {
-              var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(bw*6*bscale, 0.1, bscale*bw/2.2), new THREE.MeshLambertMaterial({
-                  color: 0xB0B0B0,
+              // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 32);
+              var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.1, 32), new THREE.MeshLambertMaterial({
+                  // color: colorlst[parseInt(Math.random()*colorlst.length)][1],
+                  color: colorlst[i+1][1],
                   opacity: 1,
                   transparent: true
               }), );
-              mesh5.position.set(0, 0, -15-i*bscale*(bw/2));
+
+              // var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(bw*6*bscale, 0.1, bscale*bw/2.2), new THREE.MeshLambertMaterial({
+              //     color: 0xB0B0B0,
+              //     opacity: 1,
+              //     transparent: true
+              // }), );
+                mesh5.position.set(0, 0.3*bh-i*0.05, 0);
+              // mesh5.position.set(0, 0, -15-i*bscale*(bw/2));
 
                 createTextMesh("X"+String(i+2), 777, (textMesh) => {
-                  textMesh.position.z+=1*bscale;
-                  textMesh.position.x-=25*bscale;
+                  // textMesh.position.z+=1*bscale;
+                  textMesh.position.z+=-2*보드반경*(i+2)-0.3*보드반경
+                  textMesh.position.x-=5*bscale;
                   textMesh.rotation.order = 'YXZ';
                   textMesh.rotation.x = -Math.PI / 2;
+                  // textMesh.material.visible=false;
 
 
                   mesh5.add(textMesh);
@@ -24431,8 +24464,6 @@
                 });
 
             }
-
-
 
             var modtxt=document.querySelector(".modinfo1");
             var modlst=document.querySelectorAll(".mod");
