@@ -4461,6 +4461,102 @@
             }
             // this.move();
         }
+        spawn(prev) {
+
+
+          for (let row = 0; row < this.size; row++) {
+              for (let col = 0; col < this.size; col++) {
+                  this.board[row][col]=prev.board[row][col]
+                  var tn=prev.board[row][col]
+                  if(tn>0){
+                    var ntxt=String(prev.board[row][col])
+                    var ntile = tilemold[parseInt(Math.log2(tn))-1].clone();
+                    ntile.material = new THREE.MeshLambertMaterial({
+                        color: getColorForNumber(tn)
+                    });
+                    ntile.children[0].material = new THREE.MeshBasicMaterial({
+                        color: 0xffffff
+                    });
+
+                    ntile.position.set(
+                        0 - bw / 2 + tw / 2 + col * tw,
+                        0,
+                        0 - bw / 2 + tw / 2 + row * tw
+                    );
+
+                    // ntile.position.set(
+                    //     prev.boardpointer[row][col].position.x,
+                    //     0,
+                    //     prev.boardpointer[row][col].position.z
+                    // );
+
+
+
+                    ntile.userData["time"] = elapsedTime;
+                    ntile.userData["merge"] = 0;
+                    ntile.userData["skin"] = "tile";
+                    ntile.userData["skintype"] =1;
+                    ntile.userData["number"]=this.board[row][col]
+
+
+                    ntile.children.forEach((text) => {
+                        if(ntxt.length>=3){
+                          text.scale.x=0.8-((ntxt.length-3)/5);
+                        }else{
+                          text.scale.x=1;
+                        }
+                        text.userData["time"] = elapsedTime;
+                        text.userData["merge"] = 0;
+                        text.userData["skin"] = "tile";
+                    })
+
+                    // ntile.style.tran
+                    cubes[this.index].mesh.add(ntile);
+
+                    // tilelst.push(ntile);
+                    this.boardpointer[row][col] = ntile;
+
+                  }
+
+
+
+
+              }
+          }
+          var nftiles=[];
+
+          for (var i = 0; i < ftiles.length; i++) {
+            if(ftiles[i].q==0){
+              var nftile= Object.assign({},ftiles[i]);
+              nftile.index=this.index
+              nftile.body=this
+              nftile.body0=this.boardpointer[ftiles[i].c][ftiles[i].d]
+
+              nftile.body0.position.x=ftiles[i].body0.position.x
+              nftile.body0.position.z=ftiles[i].body0.position.z
+
+              nftiles.push(nftile)
+            }else{
+              console.log(ftiles[i])
+            }
+
+          }
+
+          console.log(nftiles)
+
+          for (var i = 0; i < nftiles.length; i++) {
+            ftiles.push(nftiles[i])
+          }
+
+
+
+
+
+
+
+        }
+
+
         spawnTile(direction, tilenum=0) {
 
             var emptyPositions = [];
@@ -8069,7 +8165,7 @@
         lastTime2=0;
         restartonce2=true;
 
-        skinnum=skinset.indexOf("classic")
+        // skinnum=skinset.indexOf("classic")
 
         review1= false;
         review2= false;
@@ -16436,8 +16532,9 @@
                                   cubes[activeFloor+1].mesh.userData.constraint=[];
                                   cubes[activeFloor+1].mesh.userData.ice=false;
                                   cubes[activeFloor+1].mesh.userData.bye=false;
-                                  cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
-                                  cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
+                                  // cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
+                                  cubes[activeFloor+1].mesh.userData.game2048.spawn(cubes[activeFloor].mesh.userData.game2048);
+
                                   activeFloor=cubes.length-1;
                                   stacktime=elapsedTime;
 
@@ -17051,6 +17148,10 @@
                 }
               });
               m2once=true;
+              setTimeout(function() {
+                cubes[cubes.length-1].mesh.userData.game2048.spawnTile();
+              }, 20);
+
             }
 
             camera.position.y=posy+((elapsedTime - stacktime)/0.35)*bh
@@ -17143,6 +17244,7 @@
                 }
               }
               m2flag=false;
+
               m2once=false
               cubes[cubes.length-2].mesh.children.forEach((item, i) => {
                 if(item.userData["skin"] == skinset[skinnum]) item.material.transparent=false;
