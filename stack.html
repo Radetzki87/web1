@@ -3491,7 +3491,7 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.2,0.3,0.15,0.2,0.3]
+    var 마찰=[0.2,0.3,0.7,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
     var 중력=[-7,-11,-15,-7,-7]
 
@@ -4435,6 +4435,7 @@
             } else {
                 this.q = 0;
             }
+            this.txt=""
 
         }
     }
@@ -4461,13 +4462,14 @@
             }
             // this.move();
         }
-        spawn(prev) {
-
+        spawn(prev, c,d, index) {
 
           for (let row = 0; row < this.size; row++) {
               for (let col = 0; col < this.size; col++) {
                   this.board[row][col]=prev.board[row][col]
+
                   var tn=prev.board[row][col]
+
                   if(tn>0){
                     var ntxt=String(prev.board[row][col])
                     var ntile = tilemold[parseInt(Math.log2(tn))-1].clone();
@@ -4526,6 +4528,7 @@
           var nftiles=[];
 
           for (var i = 0; i < ftiles.length; i++) {
+
             if(ftiles[i].q==0){
               var nftile= Object.assign({},ftiles[i]);
               nftile.index=this.index
@@ -4534,9 +4537,102 @@
 
               nftile.body0.position.x=ftiles[i].body0.position.x
               nftile.body0.position.z=ftiles[i].body0.position.z
-
+              nftile.txt="나아냐"
               nftiles.push(nftile)
             }else{
+              continue;
+              // if(i==index) continue;
+              if(ftiles[i].c==c&&ftiles[i].d==d) continue;
+              if(ftiles[i].body0.userData["merge"]==1) continue;
+              var nftile= Object.assign({},ftiles[i]);
+              nftile.index=this.index
+              nftile.body=this
+              nftile.txt="새로생김"
+
+
+              var tn=parseInt(ftiles[i].body0.userData["number"])
+
+              if(tn>0){
+                var ntxt=String(tn)
+                var ntile = tilemold[parseInt(Math.log2(tn))-1].clone();
+                ntile.material = new THREE.MeshLambertMaterial({
+                    color: getColorForNumber(tn)
+                });
+                ntile.children[0].material = new THREE.MeshBasicMaterial({
+                    color: 0xffffff
+                });
+
+                ntile.position.set(
+                    ftiles[i].body0.position.x,
+                    0,
+                    ftiles[i].body0.position.z
+                );
+
+
+
+                ntile.userData["time"] = elapsedTime;
+                ntile.userData["merge"] = 0;
+                ntile.userData["skin"] = "tile";
+                ntile.userData["skintype"] =1;
+                ntile.userData["number"]=tn
+
+
+                ntile.children.forEach((text) => {
+                    if(ntxt.length>=3){
+                      text.scale.x=0.8-((ntxt.length-3)/5);
+                    }else{
+                      text.scale.x=1;
+                    }
+                    text.userData["time"] = elapsedTime;
+                    text.userData["merge"] = 0;
+                    text.userData["skin"] = "tile";
+                })
+
+                // ntile.style.tran
+                cubes[this.index].mesh.add(ntile);
+                this.boardpointer[ftiles[i].a][ftiles[i].b]=ntile
+                nftile.body0=ntile
+
+
+
+
+                var tile = this.boardpointer[ftiles[i].c][ftiles[i].d];
+                var colort=getColorForNumber(tn)
+                if (tile.material.color.getHex() !== colort) {
+                    tile.material.color.set(colort);
+                }
+                const text = tn.toString();
+                tile.children.forEach((item) => {
+                    tile.remove(item);
+                })
+                let ntext1;
+
+                var jeg = parseInt(Math.log(tn) / Math.log(2));
+                ntext1 = textmold[jeg - 1].clone();
+                ntext1.material = new THREE.MeshBasicMaterial({
+                    color: 0xffffff
+                });
+
+                if(text.length>=3){
+                  ntext1.scale.x=0.8-((text.length-3)/5);
+                }else{
+                  ntext1.scale.x=1;
+                }
+
+                tile.add(ntext1);
+                tile.userData["skin"] = "tile"
+                tile.userData["skintype"] = "1"
+                tile.userData["text"] = text;
+                atchanged = elapsedTime;
+
+
+                // tilelst.push(ntile);
+                // this.boardpointer[row][col] = ntile;
+                nftile.body0.position.x=ftiles[i].body0.position.x
+                nftile.body0.position.z=ftiles[i].body0.position.z
+                nftiles.push(nftile)
+              }
+
               console.log(ftiles[i])
             }
 
@@ -16386,6 +16482,13 @@
             ftiles.forEach((item, index) => {
 
                 if (!item.merge && item.body0 != []) item.body.boardpointer[item.c][item.d] = item.body0;
+                if(item.body0.position==null){
+                  // rmvftile.push(index);
+                  console.log("조졌네")
+                  console.log(item.index)
+                  console.log(item.txt)
+                  return;
+                }
                 switch (item.direction) {
                     case 'up':
 
@@ -16459,6 +16562,7 @@
                             }else{
                               ntext.scale.x=1;
                             }
+
                             ntext.userData["time"] = elapsedTime;
                             ntext.userData["merge"] = 1;
                             tile.add(ntext);
@@ -16467,14 +16571,17 @@
                             tile.userData["text"] = text;
                             atchanged = elapsedTime;
                             var tempflag = true
+
                             if(skinset[skinnum]=="classic"&&sidecam){
                               bf=99;
                             }
+
                             tempeffects.forEach((object) => {
                                 if (object[1] >= num && object[2] == item.direction) {
                                     tempflag = false
                                 }
                             })
+
                             var mnum;
                             if(num==4096){
                               mnum=2048
@@ -16503,6 +16610,7 @@
                               // var tnum=Math.pow(2, (cubes.length-3))
 
                               if(num==stacknum[activeFloor]&&activeFloor==cubes.length-1&&!m2flag&&!빌더){
+                                m2flag=true;
                                 console.log(activeFloor)
                                 if(tutorialflag&&tutstep==23){
                                   tutstep++;
@@ -16533,7 +16641,7 @@
                                   cubes[activeFloor+1].mesh.userData.ice=false;
                                   cubes[activeFloor+1].mesh.userData.bye=false;
                                   // cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
-                                  cubes[activeFloor+1].mesh.userData.game2048.spawn(cubes[activeFloor].mesh.userData.game2048);
+                                  cubes[activeFloor+1].mesh.userData.game2048.spawn(cubes[activeFloor].mesh.userData.game2048, item.c, item.d, index);
 
                                   activeFloor=cubes.length-1;
                                   stacktime=elapsedTime;
@@ -17148,9 +17256,9 @@
                 }
               });
               m2once=true;
-              setTimeout(function() {
-                cubes[cubes.length-1].mesh.userData.game2048.spawnTile();
-              }, 20);
+              // setTimeout(function() {
+              //   cubes[cubes.length-1].mesh.userData.game2048.spawnTile();
+              // }, 20);
 
             }
 
