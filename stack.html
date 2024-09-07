@@ -3491,7 +3491,7 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.2,0.3,0.7,0.2,0.3]
+    var 마찰=[0.2,0.3,0.23,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
     var 중력=[-7,-11,-15,-7,-7]
 
@@ -7850,7 +7850,7 @@
               bb=16;
               break;
             case 3:
-              bb=16;
+              bb=32;
               break;
             case 4:
               bb=32;
@@ -7862,7 +7862,7 @@
               bb=32;
               break;
             case 7:
-              bb=32;
+              bb=64;
               break;
             case 8:
               bb=64;
@@ -7879,7 +7879,7 @@
             case 19:
               bb=128;
             case 21:
-              bb=128;
+              bb=256;
               break;
             default:
               bb=64;
@@ -7888,7 +7888,7 @@
         }
         console.log(stacknum)
 
-        // stacknum=[0,0,0,0,8,8,16,8,16,32,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
+        stacknum=[0,0,0,0,8,16,8,16,32,8,16,32,64,16,32,64,128,32,64,128,256,64,128,256,512,64,128,256,512,128,256,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
         // stacknum=[0,0,0,0,8,16,32,64,128,256,512,1024,2048,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
@@ -15552,8 +15552,8 @@
                   for (var i = 0; i < 50; i++) {
                     // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 32);
                     var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.1, 32), new THREE.MeshLambertMaterial({
-                        // color: colorlst[parseInt(Math.random()*colorlst.length)][1],
-                        color: colorlst[i+1][1],
+                        color: colorlst[parseInt(Math.random()*colorlst.length)][1],
+                        // color: colorlst[i+1][1],
                         opacity: 1,
                         transparent: true
                     }), );
@@ -16526,12 +16526,53 @@
                     item.body0.position.x = item.dx;
                     item.body0.position.z = item.dz;
                     if (item.merge) {
-                        // type();
-                        // console.log(ftiles)
+
                         var num = parseInt(item.body.board[item.c][item.d])
                         if(num>maxnum) maxnum=num
                         점수+=num;
                         console.log(점수)
+
+                        if(true){
+                          필+=parseInt(num);
+
+                          if(필>=바){
+                            window.스킬포인트=스킬포인트
+                            document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
+                            document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
+                            필-=바;
+                            바+=200;
+                            레벨++;
+
+                            setTimeout(function() {
+                              getitem();
+                              showpop("","아이템 획득","",0)
+                              document.getElementById('center').innerText="LV."+String(레벨)
+                              document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
+                              document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
+                              if(필>=바){
+                                // 스킬포인트++;
+                                // 스킬포인트++;
+                                window.스킬포인트=스킬포인트
+                                document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
+                                document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
+                                필-=바;
+                                바+=200;
+                                // 레벨++;
+
+                                setTimeout(function() {
+                                  getitem();
+                                  showpop("","아이템 획득","",0)
+                                  document.getElementById('center').innerText="LV."+String(레벨)
+                                  document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
+                                  document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
+                                }, 1200);
+                              }
+                            }, 1200);
+                          }else{
+                            document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
+                            document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
+                          }
+                        }
                         // item.body.boardpointer[item.c][item.d].userData["text"]=String(num*2);
                         cubes[item.index].mesh.remove(item.body0);
                         item.body.boardpointer[item.a][item.b] = [];
@@ -17316,7 +17357,7 @@
             // });
           }
 
-          if(elapsedTime - stacktime > 1&&m2flag){
+          if(elapsedTime - stacktime > 0.6&&m2flag){
 
             // console.log(sdic);
             // console.log(cubes);
@@ -17362,7 +17403,7 @@
 
               if((cubes.length-1)%2==0){
                 // setTimeout(function() {
-                  getitem(0)
+                  // getitem(0)
                 // }, 50);
               }
               if(soundic[sdic[activeFloor-1][0]].isPlaying) soundic[sdic[activeFloor-1][0]].stop();
@@ -24853,6 +24894,7 @@
         reBtn.addEventListener('click', function() {
           if(restartflag) return;
           if(gamemod>=2){
+            return;
             showpop("",String(parseInt(점수))+" ★",textdic[44][langset[langnum]])
             필+=parseInt(점수);
 
