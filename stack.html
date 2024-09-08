@@ -2517,13 +2517,13 @@
             border-radius: 3vw;
             /* background-image: url("png/green_button09.png"); */
             background-size: 6vmax 4vmax;
-            top: 1.9vmax;
+            top: 1vmax;
             left: 6%;
             width: 20vmax;
             height: 4vmax;
             z-index: 1;
             font-family: 'mono';
-            font-size: 1.8vh;
+            font-size: 3vh;
         }
 
         .center {
@@ -3194,7 +3194,8 @@
     // document.getElementById('game-over-panel').style.display="none";
 
     const gameOverPanel = document.getElementById('game-over-panel');
-
+    let 횟수=0;
+    let combo=0
     var re3time=0;
     var re3flag2=false;
     var re3flag=false;
@@ -3407,7 +3408,7 @@
     var 축소타임=0;
 
 
-    var 무게=4;
+    var 무게=5;
     var 해머=0
     var 뻥=0
 
@@ -3491,9 +3492,9 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.2,0.3,0.28,0.2,0.3]
+    var 마찰=[0.2,0.3,0.16,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
-    var 중력=[-7,-11,-15,-7,-7]
+    var 중력=[-7,-11,-17,-7,-7]
 
     var resinit=0
     window.resinit=resinit
@@ -3522,7 +3523,7 @@
     var fstep;
     var tfloor;
 
-    var 횟수=0;
+    var 차례=0;
     var tutsize1="4vmin"
 
     var tutsize2="3vmin"
@@ -4898,15 +4899,15 @@
                     }
 
                     점수+=200;
-                    cubes[this.index].mesh.children.forEach((item) => {
-                      if(item.userData["skin"]=="tile"){
-                        var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][this.index]))
-                        item.material.color= new THREE.Color('hsl(' + String(newcl["h"]+Math.log2(parseInt(item.userData["text"]))*8) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
-                        item.children.forEach((text) => {
-                          // text.material.color= new THREE.Color(0xFFFFFF);
-                        });
-                      }
-                    });
+                    // cubes[this.index].mesh.children.forEach((item) => {
+                    //   if(item.userData["skin"]=="tile"){
+                    //     var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][this.index]))
+                    //     item.material.color= new THREE.Color('hsl(' + String(newcl["h"]+Math.log2(parseInt(item.userData["text"]))*8) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
+                    //     item.children.forEach((text) => {
+                    //       // text.material.color= new THREE.Color(0xFFFFFF);
+                    //     });
+                    //   }
+                    // });
                     // gameoverflag=true;
                     if(gamemod<2){
                       var fullall=true;
@@ -6126,7 +6127,7 @@
                   if(superflag){
                     force2.set(-20000,0,0)
                   }else{
-                    force2.set(-7000,0,0)
+                    force2.set(-6000,0,0)
 
                   }
                   이펙트2(itemidx, 128, "left");
@@ -6134,7 +6135,7 @@
                   if(superflag){
                     force2.set(0,0,-20000)
                   }else{
-                    force2.set(0,0,-7000)
+                    force2.set(0,0,-6000)
                   }
                   이펙트2(itemidx, 128, "up");
                 }
@@ -6183,7 +6184,7 @@
                   if(superflag){
                     force2.set(25000,0,0)
                   }else{
-                    force2.set(7000,0,0)
+                    force2.set(6000,0,0)
                   }
 
                   이펙트2(itemidx, 128, "right");
@@ -6191,7 +6192,7 @@
                   if(superflag){
                     force2.set(0,0,25000)
                   }else{
-                    force2.set(0,0,7000)
+                    force2.set(0,0,6000)
                   }
 
                   이펙트2(itemidx, 128, "down");
@@ -6265,19 +6266,19 @@
                 cubes.forEach((item,) => {
                   if(item.mesh.userData.pin){
                     if(skinnum==skinset.indexOf("classic")){
-                      item.mesh.scale.x=핀크기*0.8
-                      item.mesh.scale.z=핀크기*0.8
+                      item.mesh.scale.x=핀크기*0.8*item.mesh.userData.combo
+                      item.mesh.scale.z=핀크기*0.8*item.mesh.userData.combo
                     }else{
-                      item.mesh.scale.x=핀크기
-                      item.mesh.scale.z=핀크기
+                      item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                      item.mesh.scale.z=핀크기*item.mesh.userData.combo
                     }
                   }else{
                     if(skinnum==skinset.indexOf("classic")){
-                      item.mesh.scale.x=0.8
-                      item.mesh.scale.z=0.8
+                      item.mesh.scale.x=0.8*item.mesh.userData.combo
+                      item.mesh.scale.z=0.8*item.mesh.userData.combo
                     }else{
-                      item.mesh.scale.x=1
-                      item.mesh.scale.z=1
+                      item.mesh.scale.x=1*item.mesh.userData.combo
+                      item.mesh.scale.z=1*item.mesh.userData.combo
                     }
 
                   }
@@ -6297,7 +6298,7 @@
 
                   let groundBody = new CANNON.Body({
                       mass: 무게,
-                      shape: new CANNON.Box(new CANNON.Vec3(핀크기*bw/2, 0.99*bh/2, 핀크기*bw/2)),
+                      shape: new CANNON.Box(new CANNON.Vec3(cubes[itemidx].mesh.userData.combo*핀크기*bw/2, 0.99*bh/2, cubes[itemidx].mesh.userData.combo*핀크기*bw/2)),
                       material: customMaterial,
                       allowSleep: true,
                       sleepSpeedLimit: 1000,
@@ -6328,11 +6329,11 @@
                   itemtime=elapsedTime
                   itemuse0=true;
                   if(skinnum==skinset.indexOf("classic")){
-                    cubes[itemidx].mesh.scale.x=핀크기*0.8;
-                    cubes[itemidx].mesh.scale.z=핀크기*0.8;
+                    cubes[itemidx].mesh.scale.x=cubes[itemidx].mesh.userData.combo*핀크기*0.8;
+                    cubes[itemidx].mesh.scale.z=cubes[itemidx].mesh.userData.combo*핀크기*0.8;
                   }else{
-                    cubes[itemidx].mesh.scale.x=핀크기;
-                    cubes[itemidx].mesh.scale.z=핀크기;
+                    cubes[itemidx].mesh.scale.x=cubes[itemidx].mesh.userData.combo*핀크기;
+                    cubes[itemidx].mesh.scale.z=cubes[itemidx].mesh.userData.combo*핀크기;
                   }
 
 
@@ -6351,19 +6352,19 @@
                 cubes.forEach((item) => {
                   if(item.mesh.userData.pin){
                     if(skinnum==skinset.indexOf("classic")){
-                      item.mesh.scale.x=핀크기*0.8
-                      item.mesh.scale.z=핀크기*0.8
+                      item.mesh.scale.x=핀크기*0.8*item.mesh.userData.combo
+                      item.mesh.scale.z=핀크기*0.8*item.mesh.userData.combo
                     }else{
-                      item.mesh.scale.x=핀크기
-                      item.mesh.scale.z=핀크기
+                      item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                      item.mesh.scale.z=핀크기*item.mesh.userData.combo
                     }
                   }else{
                     if(skinnum==skinset.indexOf("classic")){
-                      item.mesh.scale.x=0.8
-                      item.mesh.scale.z=0.8
+                      item.mesh.scale.x=0.8*item.mesh.userData.combo
+                      item.mesh.scale.z=0.8*item.mesh.userData.combo
                     }else{
-                      item.mesh.scale.x=1
-                      item.mesh.scale.z=1
+                      item.mesh.scale.x=1*item.mesh.userData.combo
+                      item.mesh.scale.z=1*item.mesh.userData.combo
                     }
 
                   }
@@ -6509,20 +6510,20 @@
                       cubes.forEach((item) => {
                         if(item.mesh.userData.pin){
                           if(skinnum==skinset.indexOf("classic")){
-                            item.mesh.scale.x=핀크기*0.8
-                            item.mesh.scale.z=핀크기*0.8
+                            item.mesh.scale.x=핀크기*0.8*item.mesh.userData.combo
+                            item.mesh.scale.z=핀크기*0.8*item.mesh.userData.combo
                           }else{
-                            item.mesh.scale.x=핀크기
-                            item.mesh.scale.z=핀크기
+                            item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                            item.mesh.scale.z=핀크기*item.mesh.userData.combo
                           }
 
                         }else{
                           if(skinnum==skinset.indexOf("classic")){
-                            item.mesh.scale.x=0.8
-                            item.mesh.scale.z=0.8
+                            item.mesh.scale.x=0.8*item.mesh.userData.combo
+                            item.mesh.scale.z=0.8*item.mesh.userData.combo
                           }else{
-                            item.mesh.scale.x=1
-                            item.mesh.scale.z=1
+                            item.mesh.scale.x=1*item.mesh.userData.combo
+                            item.mesh.scale.z=1*item.mesh.userData.combo
                           }
 
                         }
@@ -6705,20 +6706,20 @@
                       cubes.forEach((item,) => {
                         if(item.mesh.userData.pin){
                           if(skinnum==skinset.indexOf("classic")){
-                            item.mesh.scale.x=핀크기*0.8
-                            item.mesh.scale.z=핀크기*0.8
+                            item.mesh.scale.x=핀크기*0.8*item.mesh.userData.combo
+                            item.mesh.scale.z=핀크기*0.8*item.mesh.userData.combo
                           }else{
-                            item.mesh.scale.x=핀크기
-                            item.mesh.scale.z=핀크기
+                            item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                            item.mesh.scale.z=핀크기*item.mesh.userData.combo
                           }
 
                         }else{
                           if(skinnum==skinset.indexOf("classic")){
-                            item.mesh.scale.x=0.8
-                            item.mesh.scale.z=0.8
+                            item.mesh.scale.x=0.8*item.mesh.userData.combo
+                            item.mesh.scale.z=0.8*item.mesh.userData.combo
                           }else{
-                            item.mesh.scale.x=1
-                            item.mesh.scale.z=1
+                            item.mesh.scale.x=1*item.mesh.userData.combo
+                            item.mesh.scale.z=1*item.mesh.userData.combo
                           }
 
                         }
@@ -6977,20 +6978,20 @@
               cubes.forEach((item,) => {
                 if(item.mesh.userData.pin){
                   if(skinnum==skinset.indexOf("classic")){
-                    item.mesh.scale.x=핀크기*0.8
-                    item.mesh.scale.z=핀크기*0.8
+                    item.mesh.scale.x=핀크기*0.8*item.mesh.userData.combo
+                    item.mesh.scale.z=핀크기*0.8*item.mesh.userData.combo
                   }else{
-                    item.mesh.scale.x=핀크기
-                    item.mesh.scale.z=핀크기
+                    item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                    item.mesh.scale.z=핀크기*item.mesh.userData.combo
                   }
 
                 }else{
                   if(skinnum==skinset.indexOf("classic")){
-                    item.mesh.scale.x=0.8
-                    item.mesh.scale.z=0.8
+                    item.mesh.scale.x=0.8*item.mesh.userData.combo
+                    item.mesh.scale.z=0.8*item.mesh.userData.combo
                   }else{
-                    item.mesh.scale.x=1
-                    item.mesh.scale.z=1
+                    item.mesh.scale.x=1*item.mesh.userData.combo
+                    item.mesh.scale.z=1*item.mesh.userData.combo
                   }
 
                 }
@@ -7774,6 +7775,8 @@
         fullc=0;
         ccount=0;
         횟수=0;
+        차례=0;
+        combo=0
         tilelst=[];
         fullmax=false;
         fulltower=false;
@@ -7888,7 +7891,7 @@
         }
         console.log(stacknum)
 
-        stacknum=[0,0,0,0,8,16,32,8,16,32,64,32,64,128,16,32,64,128,256,64,128,256,512,64,128,256,512,128,256,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
+        stacknum=[0,0,0,0,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
         // stacknum=[0,0,0,0,8,16,32,64,128,256,512,1024,2048,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
@@ -8324,6 +8327,8 @@
         document.getElementById('pin').children[1].innerText=String(핀)
         document.getElementById('bridge').children[1].innerText=String(다리)
 
+        document.getElementById('shammer').style.left="-20vmin"
+
 
         legs=[];
         icelst0=[];
@@ -8343,6 +8348,10 @@
         보드=[];
         기록=0;
         축소타임=0;
+        바=100
+        필=0
+        document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
+        document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
         resetting(stack, function(object) { //재시작
             msetting1(function(object) {
                 if(gamemod!=2){
@@ -8383,6 +8392,7 @@
                     item.mesh.userData.pin=false;
                     item.mesh.userData.ice=false;
                     item.mesh.userData.bye=false;
+                    item.mesh.userData.combo=1;
                     item.mesh.userData.constraint=[];
                     // item.body.fixedRotation=true;
 
@@ -11564,26 +11574,66 @@
 
 
           ㄷ.push(mesh1);
-          var vw=w*1.26
-          var vbw=bw*1.26
+
+          // var vw=w*1.26
+          // var vbw=bw*1.26
+          //
+          // var geoms = [];
+          // originHelper = new THREE.Object3D();
+          // originHelper.position.set(0, vbw / 2, 0)
+          // originHelper.updateWorldMatrix(true, false);
+          // var tg = new THREE.PlaneGeometry(vbw, vw);
+          // tg.applyMatrix4(originHelper.matrixWorld);
+          // geoms.push(tg)
+          //
+          // originHelper.position.set(+vbw / 2 + vw * 0.6 / 2, -(vbw / 4) + vbw / 2 + vw / 2, 0)
+          // originHelper.updateWorldMatrix(true, false);
+          // var tg = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
+          // tg.applyMatrix4(originHelper.matrixWorld);
+          // geoms.push(tg)
+          //
+          // originHelper.position.set(-vbw / 2 - vw * 0.6 / 2, -(vbw / 4) + vbw / 2 + vw / 2, 0)
+          // originHelper.updateWorldMatrix(true, false);
+          // var tg = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
+          // tg.applyMatrix4(originHelper.matrixWorld);
+          // geoms.push(tg)
+          //
+          // var mgeo = new BufferGeometryUtils.mergeGeometries(geoms, false);
+          //
+          // var mesh1 = new THREE.Mesh(mgeo, new THREE.MeshBasicMaterial({
+          // 	color: 0xffffff,
+          //   side: THREE.DoubleSide
+          // }));
+          // mesh1.rotation.order = 'YXZ';
+          // mesh1.rotation.x = - Math.PI / 2;
+          // mesh1.userData["skin"]="exc"
+
+          var vw=w
+          var vbw=bw
 
           var geoms = [];
           originHelper = new THREE.Object3D();
-          originHelper.position.set(0, vbw / 2, 0)
+          originHelper.position.set(0, vbw / 2+ vw/2, 0)
           originHelper.updateWorldMatrix(true, false);
           var tg = new THREE.PlaneGeometry(vbw, vw);
           tg.applyMatrix4(originHelper.matrixWorld);
           geoms.push(tg)
 
-          originHelper.position.set(+vbw / 2 + vw * 0.6 / 2, -(vbw / 4) + vbw / 2 + vw / 2, 0)
+          originHelper.position.set(+vbw / 2 + vw/2, 0, 0)
           originHelper.updateWorldMatrix(true, false);
-          var tg = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
+          var tg = new THREE.PlaneGeometry(vw, vbw+vw+vw);
           tg.applyMatrix4(originHelper.matrixWorld);
           geoms.push(tg)
 
-          originHelper.position.set(-vbw / 2 - vw * 0.6 / 2, -(vbw / 4) + vbw / 2 + vw / 2, 0)
+          originHelper.position.set(-vbw / 2 - vw / 2, 0, 0)
           originHelper.updateWorldMatrix(true, false);
-          var tg = new THREE.PlaneGeometry(vw * 0.6, vbw / 2);
+          var tg = new THREE.PlaneGeometry(vw, vbw+vw+vw);
+          tg.applyMatrix4(originHelper.matrixWorld);
+          geoms.push(tg)
+
+          originHelper.position.set(0, -vbw / 2- vw / 2, 0)
+          originHelper.updateWorldMatrix(true, false);
+          var tg = new THREE.PlaneGeometry(vbw, vw);
           tg.applyMatrix4(originHelper.matrixWorld);
           geoms.push(tg)
 
@@ -11860,6 +11910,7 @@
 
     function msetting2(n, callback) {
           m2flag=true;
+          // 차례=0
           let temp = ["0", "2", "4", "8", "16", "32", "64", "128", "256", "512", "1024", "2048", "up", "down", "left", "right"]
           var sdickeys = Object.keys(soundic);
           for (let j = 0; j < temp.length; j++) {
@@ -14047,18 +14098,19 @@
 
 
       if(startflag&&!gameoverflag){
-        document.getElementById("center0").style.opacity=0
+        document.getElementById("center0").innerText="점수: "+String(점수)
+        document.getElementById("center0").style.opacity=1
       }else{
 
 
-        if(스킬포인트>0){
-          var txtcount3 = parseInt(elapsedTime*100 ) % 100
-
-          document.getElementById("center0").style.opacity=txtcount3/100
-
-        }else{
-          document.getElementById("center0").style.opacity=0
-        }
+        // if(스킬포인트>0){
+        //   var txtcount3 = parseInt(elapsedTime*100 ) % 100
+        //
+        //   document.getElementById("center0").style.opacity=txtcount3/100
+        //
+        // }else{
+        //   document.getElementById("center0").style.opacity=0
+        // }
 
         if(축소){
           // if(elapsedTime-축소타임<1){
@@ -15929,9 +15981,9 @@
               stepmold[5].position.z=cubes[itemidx].body.position.z
 
               if(cubes[itemidx].mesh.userData.pin){
-                stepmold[5].position.x=cubes[itemidx].body.position.x+핀크기*bw/1.3
+                stepmold[5].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData.combo*핀크기*bw/1.3
               }else{
-                stepmold[5].position.x=cubes[itemidx].body.position.x+bw/1.3
+                stepmold[5].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData.combo*bw/1.3
               }
 
               stepmold[5].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
@@ -15949,19 +16001,19 @@
                 // item.opacity=dur0/36
                 if(item.userData.pin){
                   if(skinnum==skinset.indexOf("classic")){
-                    item.scale.x=0.8*핀크기+(pshift[dur]-1)*0.3*0.8
-                    item.scale.z=0.8*핀크기+(pshift[dur]-1)*0.3*0.8
+                    item.scale.x=(0.8*핀크기+(pshift[dur]-1)*0.3*0.8)*item.userData.combo
+                    item.scale.z=(0.8*핀크기+(pshift[dur]-1)*0.3*0.8)*item.userData.combo
                   }else{
-                    item.scale.x=핀크기+(pshift[dur]-1)*0.3
-                    item.scale.z=핀크기+(pshift[dur]-1)*0.3
+                    item.scale.x=(핀크기+(pshift[dur]-1)*0.3)*item.userData.combo
+                    item.scale.z=(핀크기+(pshift[dur]-1)*0.3)*item.userData.combo
                   }
                 }else{
                   if(skinnum==skinset.indexOf("classic")){
-                    item.scale.x=0.8+(pshift[dur]-1)*0.3*0.8
-                    item.scale.z=0.8+(pshift[dur]-1)*0.3*0.8
+                    item.scale.x=(0.8+(pshift[dur]-1)*0.3*0.8)*item.userData.combo
+                    item.scale.z=(0.8+(pshift[dur]-1)*0.3*0.8)*item.userData.combo
                   }else{
-                    item.scale.x=1+(pshift[dur]-1)*0.3
-                    item.scale.z=1+(pshift[dur]-1)*0.3
+                    item.scale.x=(1+(pshift[dur]-1)*0.3)*item.userData.combo
+                    item.scale.z=(1+(pshift[dur]-1)*0.3)*item.userData.combo
                   }
 
                 }
@@ -15991,11 +16043,11 @@
 
                 if(!cubes[itemidx].mesh.pin){
                   if(skinnum==skinset.indexOf("classic")){
-                    cubes[itemidx].mesh.scale.x=0.8+(pshift[dur]-1)*0.9*0.8
-                    cubes[itemidx].mesh.scale.z=0.8+(pshift[dur]-1)*0.9*0.8
+                    cubes[itemidx].mesh.scale.x=(0.8+(pshift[dur]-1)*0.9*0.8)*cubes[itemidx].mesh.userData.combo
+                    cubes[itemidx].mesh.scale.z=(0.8+(pshift[dur]-1)*0.9*0.8)*cubes[itemidx].mesh.userData.combo
                   }else{
-                    cubes[itemidx].mesh.scale.x=1+(pshift[dur]-1)*0.9
-                    cubes[itemidx].mesh.scale.z=1+(pshift[dur]-1)*0.9
+                    cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.9)*cubes[itemidx].mesh.userData.combo
+                    cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.9)*cubes[itemidx].mesh.userData.combo
                   }
 
                 }
@@ -16007,20 +16059,20 @@
                   if(i==itemidx) return;
                   if(item.mesh.userData.pin){
                     if(skinnum==skinset.indexOf("classic")){
-                      item.mesh.scale.x=핀크기*0.8
-                      item.mesh.scale.z=핀크기*0.8
+                      item.mesh.scale.x=핀크기*0.8*item.mesh.userData.combo
+                      item.mesh.scale.z=핀크기*0.8*item.mesh.userData.combo
                     }else{
-                      item.mesh.scale.x=핀크기
-                      item.mesh.scale.z=핀크기
+                      item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                      item.mesh.scale.z=핀크기*item.mesh.userData.combo
                     }
 
                   }else{
                     if(skinnum==skinset.indexOf("classic")){
-                      item.mesh.scale.x=0.8
-                      item.mesh.scale.z=0.8
+                      item.mesh.scale.x=0.8*item.mesh.userData.combo
+                      item.mesh.scale.z=0.8*item.mesh.userData.combo
                     }else{
-                      item.mesh.scale.x=1
-                      item.mesh.scale.z=1
+                      item.mesh.scale.x=1*item.mesh.userData.combo
+                      item.mesh.scale.z=1*item.mesh.userData.combo
                     }
 
                   }
@@ -16156,9 +16208,9 @@
 
 
                 if(cubes[itemidx].mesh.userData.pin){
-                  stepmold[7].position.x=cubes[itemidx].body.position.x+핀크기*bw/1.2+((pshift[dur]-1)*3)
+                  stepmold[7].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData.combo*핀크기*bw/1.2+((pshift[dur]-1)*3)
                 }else{
-                  stepmold[7].position.x=cubes[itemidx].body.position.x+bw/1.2+((pshift[dur]-1)*3)
+                  stepmold[7].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData.combo*bw/1.2+((pshift[dur]-1)*3)
                 }
 
 
@@ -16168,9 +16220,9 @@
 
 
                 if(cubes[itemidx].mesh.userData.pin){
-                  stepmold[7].position.z=cubes[itemidx].body.position.x+핀크기*bw/1.2+((pshift[dur]-1)*3)
+                  stepmold[7].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData.combo*핀크기*bw/1.2+((pshift[dur]-1)*3)
                 }else{
-                  stepmold[7].position.z=cubes[itemidx].body.position.x+bw/1.2+((pshift[dur]-1)*3)
+                  stepmold[7].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData.combo*bw/1.2+((pshift[dur]-1)*3)
                 }
 
 
@@ -16263,19 +16315,19 @@
               cubes.forEach((item) => {
                 if(item.mesh.userData.pin){
                   if(skinnum==skinset.indexOf("classic")){
-                    item.mesh.scale.x=핀크기*0.8
-                    item.mesh.scale.z=핀크기*0.8
+                    item.mesh.scale.x=핀크기*0.8*item.mesh.userData.combo
+                    item.mesh.scale.z=핀크기*0.8*item.mesh.userData.combo
                   }else{
-                    item.mesh.scale.x=핀크기
-                    item.mesh.scale.z=핀크기
+                    item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                    item.mesh.scale.z=핀크기*item.mesh.userData.combo
                   }
                 }else{
                   if(skinnum==skinset.indexOf("classic")){
-                    item.mesh.scale.x=0.8
-                    item.mesh.scale.z=0.8
+                    item.mesh.scale.x=0.8*item.mesh.userData.combo
+                    item.mesh.scale.z=0.8*item.mesh.userData.combo
                   }else{
-                    item.mesh.scale.x=1
-                    item.mesh.scale.z=1
+                    item.mesh.scale.x=1*item.mesh.userData.combo
+                    item.mesh.scale.z=1*item.mesh.userData.combo
                   }
 
                 }
@@ -16299,19 +16351,19 @@
               cubes.forEach((item) => {
                 if(item.mesh.userData.pin){
                   if(skinnum==skinset.indexOf("classic")){
-                    item.mesh.scale.x=핀크기*0.8
-                    item.mesh.scale.z=핀크기*0.8
+                    item.mesh.scale.x=핀크기*0.8*item.mesh.userData.combo
+                    item.mesh.scale.z=핀크기*0.8*item.mesh.userData.combo
                   }else{
-                    item.mesh.scale.x=핀크기
-                    item.mesh.scale.z=핀크기
+                    item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                    item.mesh.scale.z=핀크기*item.mesh.userData.combo
                   }
                 }else{
                   if(skinnum==skinset.indexOf("classic")){
-                    item.mesh.scale.x=0.8
-                    item.mesh.scale.z=0.8
+                    item.mesh.scale.x=0.8*item.mesh.userData.combo
+                    item.mesh.scale.z=0.8*item.mesh.userData.combo
                   }else{
-                    item.mesh.scale.x=1
-                    item.mesh.scale.z=1
+                    item.mesh.scale.x=1*item.mesh.userData.combo
+                    item.mesh.scale.z=1*item.mesh.userData.combo
                   }
 
                 }
@@ -16883,7 +16935,9 @@
             })
 
             if (rmvftile.length != 0 && ftiles.length == rmvftile.length && ftiles[0].body.boardChanged) {
+                if(ftiles[0].index==cubes.length-1) 차례++
                 ftiles[0].body.spawnTile(ftiles[0].direction);
+
                 tempeffects =[];
 
 
@@ -17160,16 +17214,16 @@
               var tsize;
               if(item.mesh.userData.pin){
                 if(skinnum==skinset.indexOf("classic")){
-                  tsize=핀크기*0.8;
+                  tsize=핀크기*0.8*item.mesh.userData.combo;
                 }else{
-                  tsize=핀크기;
+                  tsize=핀크기*item.mesh.userData.combo;
                 }
 
               }else{
                 if(skinnum==skinset.indexOf("classic")){
-                  tsize=0.8
+                  tsize=0.8*item.mesh.userData.combo
                 }else{
-                  tsize=1
+                  tsize=1*item.mesh.userData.combo
                 }
 
               }
@@ -17186,20 +17240,20 @@
             cubes.forEach((item) => {
               if(item.mesh.userData.pin){
                 if(skinnum==skinset.indexOf("classic")){
-                  item.mesh.scale.x=핀크기*0.8
-                  item.mesh.scale.z=핀크기*0.8
+                  item.mesh.scale.x=핀크기*0.8*item.mesh.userData.combo
+                  item.mesh.scale.z=핀크기*0.8*item.mesh.userData.combo
                 }else{
-                  item.mesh.scale.x=핀크기
-                  item.mesh.scale.z=핀크기
+                  item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                  item.mesh.scale.z=핀크기*item.mesh.userData.combo
                 }
 
               }else{
                 if(skinnum==skinset.indexOf("classic")){
-                  item.mesh.scale.x=0.8
-                  item.mesh.scale.z=0.8
+                  item.mesh.scale.x=0.8*item.mesh.userData.combo
+                  item.mesh.scale.z=0.8*item.mesh.userData.combo
                 }else{
-                  item.mesh.scale.x=1
-                  item.mesh.scale.z=1
+                  item.mesh.scale.x=1*item.mesh.userData.combo
+                  item.mesh.scale.z=1*item.mesh.userData.combo
                 }
 
               }
@@ -17222,16 +17276,16 @@
               var tsize;
               if(item.mesh.userData.pin){
                 if(skinnum==skinset.indexOf("classic")){
-                  tsize=핀크기*0.8;
+                  tsize=핀크기*0.8*item.mesh.userData.combo;
                 }else{
-                  tsize=핀크기;
+                  tsize=핀크기*item.mesh.userData.combo;
                 }
 
               }else{
                 if(skinnum==skinset.indexOf("classic")){
-                  tsize=0.8;
+                  tsize=0.8*item.mesh.userData.combo;
                 }else{
-                  tsize=1
+                  tsize=1*item.mesh.userData.combo
                 }
 
               }
@@ -17248,20 +17302,20 @@
             cubes.forEach((item) => {
               if(item.mesh.userData.pin){
                 if(skinnum==skinset.indexOf("classic")){
-                  item.mesh.scale.x=핀크기*0.8
-                  item.mesh.scale.z=핀크기*0.8
+                  item.mesh.scale.x=핀크기*0.8*item.mesh.userData.combo
+                  item.mesh.scale.z=핀크기*0.8*item.mesh.userData.combo
                 }else{
-                  item.mesh.scale.x=핀크기
-                  item.mesh.scale.z=핀크기
+                  item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                  item.mesh.scale.z=핀크기*item.mesh.userData.combo
                 }
 
               }else{
                 if(skinnum==skinset.indexOf("classic")){
-                  item.mesh.scale.x=0.8
-                  item.mesh.scale.z=0.8
+                  item.mesh.scale.x=0.8*item.mesh.userData.combo
+                  item.mesh.scale.z=0.8*item.mesh.userData.combo
                 }else{
-                  item.mesh.scale.x=1
-                  item.mesh.scale.z=1
+                  item.mesh.scale.x=1*item.mesh.userData.combo
+                  item.mesh.scale.z=1*item.mesh.userData.combo
                 }
 
               }
@@ -17297,6 +17351,20 @@
                 }
               });
               m2once=true;
+
+              if(cubes[cubes.length-1].mesh.userData.combo==1){
+                이펙트2(cubes.length-1, 2, "left", 1);
+
+              }else if(cubes[cubes.length-1].mesh.userData.combo==1.15){
+                이펙트2(cubes.length-1, 16, "left", 1);
+
+              }else if(cubes[cubes.length-1].mesh.userData.combo==1.2){
+                이펙트2(cubes.length-1, 64, "left", 1);
+
+              }else if(cubes[cubes.length-1].mesh.userData.combo>=1.25){
+                이펙트2(cubes.length-1, 256, "left", 1);
+
+              }
               // setTimeout(function() {
               //   cubes[cubes.length-1].mesh.userData.game2048.spawnTile();
               // }, 20);
@@ -17317,7 +17385,7 @@
 
 
             if(skinset[skinnum]=="classic"){
-              cubes[cubes.length-1].mesh.scale.set(0.45+(elapsedTime - stacktime), 0.65+(elapsedTime - stacktime),0.45+(elapsedTime - stacktime))
+              cubes[cubes.length-1].mesh.scale.set((0.45+(elapsedTime - stacktime))*cubes[cubes.length-1].mesh.userData.combo, 0.65+(elapsedTime - stacktime),(0.45+(elapsedTime - stacktime))*cubes[cubes.length-1].mesh.userData.combo)
 
               cubes.forEach((item,) => {
 
@@ -17328,7 +17396,7 @@
 
               });
             }else{
-              cubes[cubes.length-1].mesh.scale.set(0.65+(elapsedTime - stacktime), 0.65+(elapsedTime - stacktime),0.65+(elapsedTime - stacktime))
+              cubes[cubes.length-1].mesh.scale.set((0.65+(elapsedTime - stacktime))*cubes[cubes.length-1].mesh.userData.combo, 0.65+(elapsedTime - stacktime),(0.65+(elapsedTime - stacktime))*cubes[cubes.length-1].mesh.userData.combo)
               cubes.forEach((item,) => {
 
                 if(item.mesh.userData["freeze"]==true){
@@ -17347,9 +17415,9 @@
 
           }else{
             if(skinset[skinnum]=="classic"){
-              cubes[cubes.length-1].mesh.scale.set(0.8,0.978,0.8)
+              cubes[cubes.length-1].mesh.scale.set(cubes[cubes.length-1].mesh.userData.combo*0.8,0.978,cubes[cubes.length-1].mesh.userData.combo*0.8)
             }else{
-              cubes[cubes.length-1].mesh.scale.set(1,gap,1)
+              cubes[cubes.length-1].mesh.scale.set(cubes[cubes.length-1].mesh.userData.combo*1,gap,cubes[cubes.length-1].mesh.userData.combo*1)
             }
 
             // cubes[cubes.length-1].mesh.children.forEach((item) => {
@@ -17380,9 +17448,9 @@
 
             if(soundic[sdic[cubes.length-1][0]]!=null){
               if(skinnum==skinset.indexOf("classic")){
-                cubes[cubes.length-1].mesh.scale.set(0.8,0.978,0.8)
+                cubes[cubes.length-1].mesh.scale.set(0.8*cubes[cubes.length-1].mesh.userData.combo,0.978,0.8*cubes[cubes.length-1].mesh.userData.combo)
               }else{
-                cubes[cubes.length-1].mesh.scale.set(1,gap,1)
+                cubes[cubes.length-1].mesh.scale.set(1*cubes[cubes.length-1].mesh.userData.combo,gap,1*cubes[cubes.length-1].mesh.userData.combo)
               }
 
               if(cubes.length>=7){
@@ -17751,10 +17819,11 @@
                     var multiply=multiply0
 
                     multiply.toFixed(1);
-                    점수=(cubes.length-3)*multiply
-                    점수
+                    var 이전점수=점수
+                    점수+=(cubes.length-3)*multiply
+
                     temp1[0].children[0].style.fontSize="11vmin"
-                    temp1[0].children[0].innerText=String(cubes.length-3)+"(층)"+"x"+String(getNotRoundDecimalNumber(multiply,0))+"="+String(getNotRoundDecimalNumber(점수,0))
+                    temp1[0].children[0].innerText=String(이전점수)+"+("+String(cubes.length-3)+"(층)"+"x"+String(getNotRoundDecimalNumber(multiply,0))+")="+String(getNotRoundDecimalNumber(점수,0))
 
 
 
@@ -19049,38 +19118,73 @@
 
       if (effects.length != 0) { //효과
           for (let i = effects.length-1; i >= 0; i--) {
-            var setval=0.6 -(effects[i][0].scale.y - 1)*0.75;
-            if(setval<0||setval>0.6){
-              setval=0;
-            }
-            if(skinset[skinnum]=="classic"){//클
-              // effects[i][0].position.z=cubes[effects[i][3]].mesh.position.z-bh/4.4;
-            }
+            if(effects[i][4]==0){
+              var setval=0.6 -(effects[i][0].scale.y - 1)*0.75;
+              if(setval<0||setval>0.6){
+                setval=0;
+              }
+              if(skinset[skinnum]=="classic"){//클
+                // effects[i][0].position.z=cubes[effects[i][3]].mesh.position.z-bh/4.4;
+              }
 
-            effects[i][0].scale.y +=(deltaTime/600)
-            effects[i][0].scale.x +=(deltaTime/2000);
+              effects[i][0].scale.y +=(deltaTime/600)
+              effects[i][0].scale.x +=(deltaTime/2000);
 
-            effects[i][0].material.visible=true;
-            effects[i][0].material.transparent=true;
-            if(skinset[skinnum]=="classic"){
-              effects[i][0].material.transparent = true
-              effects[i][0].material.opacity = setval
-              effects[i][0].material.alphaTest=0
-              effects[i][0].material.depthWrite=false;
+              effects[i][0].material.visible=true;
+              effects[i][0].material.transparent=true;
+              if(skinset[skinnum]=="classic"){
+                effects[i][0].material.transparent = true
+                effects[i][0].material.opacity = setval
+                effects[i][0].material.alphaTest=0
+                effects[i][0].material.depthWrite=false;
+              }else{
+                effects[i][0].material.transparent = true
+                effects[i][0].material.opacity = setval
+                effects[i][0].material.alphaTest=0
+                effects[i][0].material.depthWrite=false;
+              }
+
+
+              if (effects[i][0].scale.y > 1.8) {
+                  effects[i][0].material.visible=false;
+                  cubes[effects[i][3]].mesh.remove(effects[i][0]);
+                  effects.splice(i, 1);
+              }
             }else{
-              effects[i][0].material.transparent = true
-              effects[i][0].material.opacity = setval
-              effects[i][0].material.alphaTest=0
-              effects[i][0].material.depthWrite=false;
+              var setval=0.6 -(effects[i][0].scale.y - 1)*0.75;
+              if(setval<0||setval>0.6){
+                setval=0;
+              }
+              if(skinset[skinnum]=="classic"){//클
+                // effects[i][0].position.z=cubes[effects[i][3]].mesh.position.z-bh/4.4;
+              }
+
+              effects[i][0].scale.y +=(deltaTime/1300)
+              effects[i][0].scale.x +=(deltaTime/1300);
+
+              effects[i][0].material.visible=true;
+              effects[i][0].material.transparent=true;
+              if(skinset[skinnum]=="classic"){
+                effects[i][0].material.transparent = true
+                effects[i][0].material.opacity = setval
+                effects[i][0].material.alphaTest=0
+                effects[i][0].material.depthWrite=false;
+              }else{
+                effects[i][0].material.transparent = true
+                effects[i][0].material.opacity = setval
+                effects[i][0].material.alphaTest=0
+                effects[i][0].material.depthWrite=false;
+              }
+
+
+
+              if (effects[i][0].scale.y > 1.8) {
+                  effects[i][0].material.visible=false;
+                  cubes[effects[i][3]].mesh.remove(effects[i][0]);
+                  effects.splice(i, 1);
+              }
             }
 
-
-
-            if (effects[i][0].scale.y > 1.8) {
-                effects[i][0].material.visible=false;
-                cubes[effects[i][3]].mesh.remove(effects[i][0]);
-                effects.splice(i, 1);
-            }
           }
           // effects.forEach((item, index) => {
           //
@@ -20265,7 +20369,7 @@
     window.freeze=freeze;
     function getitem(n=0){
       if(n==0){
-        n=1+parseInt(Math.random()*9)
+        n=1+parseInt(Math.random()*8)
       }
 
       // if(n==9){
@@ -21756,10 +21860,45 @@
           mesh.receiveShadow = true;
           mesh.castShadow = true;
       }
+
+
       //쌓
       scene.add(mesh);
+      if(차례<1){
+        combo+=2;
+      }else if(차례<=1){
+        combo++;
+      }else{
+        combo=0;
+      }
+      var 기준=1;
+      if(combo==0){
 
-      const shape = new CANNON.Box(new CANNON.Vec3(width / 2, height / 2, depth / 2));
+        기준=1
+      }else if(combo==1){
+
+        기준=1.1
+      }else if(combo==2){
+
+        기준=1.15
+      }else if(combo==3){
+
+        기준=1.2
+      }else if(combo==4){
+
+        기준=1.35
+      }else if(combo==5){
+
+        기준=1.4
+      }else if(combo>=6){
+        기준=1.45
+      }
+
+      console.log("차례: "+String(차례)+" 콤보: "+String(combo))
+
+      차례=0;
+      mesh.userData.combo=기준
+      const shape = new CANNON.Box(new CANNON.Vec3(기준*width / 2, height / 2, 기준*depth / 2));
       // const cylinderShape = new CANNON.Cylinder(width, width, bh, 16);
       // const shape2 = new CANNON.Cylinder(width,width,height,1)
       const customMaterial = new CANNON.Material('customMaterial');
@@ -22106,9 +22245,15 @@
 
     }
 
-    function 이펙트2(floor, num, direction) {
+    function 이펙트2(floor, num, direction, m=0) {
         var tnum=parseInt(Math.log2(num))
-        if(skinset[skinnum]=="classic"){
+        // if(skinset[skinnum]=="classic"){
+        //   var mesh0 = ㄷ2[tnum].clone();
+        // }else{
+        //   var mesh0 = ㄷ[tnum].clone();
+        // }
+
+        if(m!=0){
           var mesh0 = ㄷ2[tnum].clone();
         }else{
           var mesh0 = ㄷ[tnum].clone();
@@ -22157,7 +22302,13 @@
         }
 
         cubes[floor].mesh.add(mesh0);
-        effects.push([mesh0, num, direction, floor]);
+        if(m==0){
+          effects.push([mesh0, num, direction, floor, 0]);
+        }else{
+          effects.push([mesh0, num, direction, floor, 1]);
+        }
+
+        // effects.push([mesh0, num, direction, floor]);
 
     }
 
@@ -27148,7 +27299,7 @@
 </button>
 
 <div id="center0">
-<레벨업 가능
+2048
 </div>
 
 <button id="right" class="right" onclick="optionon()">
