@@ -3491,7 +3491,7 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.2,0.3,0.23,0.2,0.3]
+    var 마찰=[0.2,0.3,0.28,0.2,0.3]
     var 탄성=[0.4,0.4,0.05,0.7,0.4]
     var 중력=[-7,-11,-15,-7,-7]
 
@@ -6124,17 +6124,17 @@
 
                 if(itemr){
                   if(superflag){
-                    force2.set(-15000,0,0)
+                    force2.set(-20000,0,0)
                   }else{
-                    force2.set(-4000,0,0)
+                    force2.set(-7000,0,0)
 
                   }
                   이펙트2(itemidx, 128, "left");
                 }else if(iteml){
                   if(superflag){
-                    force2.set(0,0,-15000)
+                    force2.set(0,0,-20000)
                   }else{
-                    force2.set(0,0,-4000)
+                    force2.set(0,0,-7000)
                   }
                   이펙트2(itemidx, 128, "up");
                 }
@@ -6183,7 +6183,7 @@
                   if(superflag){
                     force2.set(25000,0,0)
                   }else{
-                    force2.set(4000,0,0)
+                    force2.set(7000,0,0)
                   }
 
                   이펙트2(itemidx, 128, "right");
@@ -6191,7 +6191,7 @@
                   if(superflag){
                     force2.set(0,0,25000)
                   }else{
-                    force2.set(0,0,4000)
+                    force2.set(0,0,7000)
                   }
 
                   이펙트2(itemidx, 128, "down");
@@ -7888,7 +7888,7 @@
         }
         console.log(stacknum)
 
-        stacknum=[0,0,0,0,8,16,8,16,32,8,16,32,64,16,32,64,128,32,64,128,256,64,128,256,512,64,128,256,512,128,256,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
+        stacknum=[0,0,0,0,8,16,32,8,16,32,64,32,64,128,16,32,64,128,256,64,128,256,512,64,128,256,512,128,256,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
         // stacknum=[0,0,0,0,8,16,32,64,128,256,512,1024,2048,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
@@ -8388,7 +8388,7 @@
 
                   })
 
-                  var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(bw, bh*(스킬[2]) , bw ), new THREE.MeshLambertMaterial({
+                  var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(bw*1.5, bh*(스킬[2]) , bw*1.5 ), new THREE.MeshLambertMaterial({
                       color: 0x808080,
                       opacity: 1,
                       transparent: true
@@ -8396,7 +8396,7 @@
                   mesh5.position.set(0, bh*(스킬[2])/2, 0);
                   scene.add(mesh5)
                   토대.push(mesh5)
-                  var shape = new CANNON.Box(new CANNON.Vec3(bw/ 2, bh*(스킬[2]) / 2, bw / 2));
+                  var shape = new CANNON.Box(new CANNON.Vec3(1.5*bw/ 2, bh*(스킬[2]) / 2, 1.5*bw / 2));
                   // const cylinderShape = new CANNON.Cylinder(width, width, bh, 16);
                   // const shape2 = new CANNON.Cylinder(width,width,height,1)
                   var customMaterial = new CANNON.Material('customMaterial');
@@ -16540,7 +16540,7 @@
                             document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
                             document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
                             필-=바;
-                            바+=200;
+                            바+=100;
                             레벨++;
 
                             setTimeout(function() {
@@ -16556,7 +16556,7 @@
                                 document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
                                 document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
                                 필-=바;
-                                바+=200;
+                                바+=100;
                                 // 레벨++;
 
                                 setTimeout(function() {
@@ -17401,10 +17401,10 @@
 
               activeFloor=cubes.length-1;
 
-              if((cubes.length-1)%2==0){
-                // setTimeout(function() {
-                  // getitem(0)
-                // }, 50);
+              if((cubes.length-1)%3==0){
+                setTimeout(function() {
+                  getitem(0)
+                }, 50);
               }
               if(soundic[sdic[activeFloor-1][0]].isPlaying) soundic[sdic[activeFloor-1][0]].stop();
               soundic[sdic[activeFloor][0]].play();
@@ -24806,7 +24806,7 @@
 
             토대=[]
 
-            var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(bw, bh*(스킬[2]) , bw ), new THREE.MeshLambertMaterial({
+            var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(1.5*bw, bh*(스킬[2]) , 1.5*bw ), new THREE.MeshLambertMaterial({
                 color: 0x808080,
                 opacity: 1,
                 transparent: true
@@ -24814,7 +24814,7 @@
             mesh5.position.set(0, bh*(스킬[2])/2, 0);
             scene.add(mesh5)
             토대.push(mesh5)
-            var shape = new CANNON.Box(new CANNON.Vec3(bw/ 2, bh*(스킬[2]) / 2, bw / 2));
+            var shape = new CANNON.Box(new CANNON.Vec3(1.5*bw/ 2, bh*(스킬[2]) / 2, 1.5*bw / 2));
             // const cylinderShape = new CANNON.Cylinder(width, width, bh, 16);
             // const shape2 = new CANNON.Cylinder(width,width,height,1)
             var customMaterial = new CANNON.Material('customMaterial');
@@ -24894,47 +24894,47 @@
         reBtn.addEventListener('click', function() {
           if(restartflag) return;
           if(gamemod>=2){
-            return;
-            showpop("",String(parseInt(점수))+" ★",textdic[44][langset[langnum]])
-            필+=parseInt(점수);
-
-            if(필>=바){
-              스킬포인트++;
-              스킬포인트++;
-              window.스킬포인트=스킬포인트
-              document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
-              document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
-              필-=바;
-              바+=100;
-              레벨++;
-
-              setTimeout(function() {
-                showpop("","레벨 업","",0)
-                document.getElementById('center').innerText="LV."+String(레벨)
-                document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
-                document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
-                if(필>=바){
-                  스킬포인트++;
-                  스킬포인트++;
-                  window.스킬포인트=스킬포인트
-                  document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
-                  document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
-                  필-=바;
-                  바+=100;
-                  레벨++;
-
-                  setTimeout(function() {
-                    showpop("","레벨 업","",0)
-                    document.getElementById('center').innerText="LV."+String(레벨)
-                    document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
-                    document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
-                  }, 1200);
-                }
-              }, 1200);
-            }else{
-              document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
-              document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
-            }
+            // return;
+            // showpop("",String(parseInt(점수))+" ★",textdic[44][langset[langnum]])
+            // 필+=parseInt(점수);
+            //
+            // if(필>=바){
+            //   스킬포인트++;
+            //   스킬포인트++;
+            //   window.스킬포인트=스킬포인트
+            //   document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
+            //   document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
+            //   필-=바;
+            //   바+=100;
+            //   레벨++;
+            //
+            //   setTimeout(function() {
+            //     showpop("","레벨 업","",0)
+            //     document.getElementById('center').innerText="LV."+String(레벨)
+            //     document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
+            //     document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
+            //     if(필>=바){
+            //       스킬포인트++;
+            //       스킬포인트++;
+            //       window.스킬포인트=스킬포인트
+            //       document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
+            //       document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
+            //       필-=바;
+            //       바+=100;
+            //       레벨++;
+            //
+            //       setTimeout(function() {
+            //         showpop("","레벨 업","",0)
+            //         document.getElementById('center').innerText="LV."+String(레벨)
+            //         document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
+            //         document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
+            //       }, 1200);
+            //     }
+            //   }, 1200);
+            // }else{
+            //   document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
+            //   document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
+            // }
 
 
 
