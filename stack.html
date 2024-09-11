@@ -3765,6 +3765,8 @@
     	return ThreeBSP;
     })();
 
+    let pfloor=2
+
     let 횟수=0;
     let combo=0
     var re3time=0;
@@ -4065,8 +4067,8 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.2,0.3,0.16,0.2,0.3]
-    var 탄성=[0.4,0.4,0.05,0.7,0.4]
+    var 마찰=[0.2,0.3,0.17,0.2,0.3]
+    var 탄성=[0.4,0.4,0.2,0.7,0.4]
     var 중력=[-7,-11,-17,-7,-7]
 
     var resinit=0
@@ -6807,7 +6809,7 @@
               }else if(ice){
                 uselst=[];
                 var tc=0;
-                for (var i = 3; i <cubes.length-1; i++) {
+                for (var i = 4; i <cubes.length-1; i++) {
                   if(cubes[i].body.sleepState!=0){
                     continue;
                   }
@@ -8267,7 +8269,7 @@
             // groundBody1.position.set(cubes[activeFloor-1].body.position.x, -1+cubes[activeFloor-1].body.position.y-bh/2, cubes[activeFloor-1].body.position.z);
             // groundBody1.quaternion.copy(cubes[activeFloor-1].body.quaternion);
             var tc=0;
-            for (var i = 3; i <cubes.length-1; i++) {
+            for (var i = 4; i <cubes.length-1; i++) {
 
                 if(cubes[i].body.sleepState==2){
                   continue;
@@ -8479,6 +8481,7 @@
         stacknum=[0,0,0,0,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
         // stacknum=[0,0,0,0,8,16,32,64,128,256,512,1024,2048,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
+        stacknum=[0,0,0,0,64,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
         frontalViewCamera.left= -bw / 1.05
         frontalViewCamera.right = bw / 1.05
@@ -8532,12 +8535,12 @@
           forceAmount = 10*bw * bw * bh / 10;
           groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
           world.gravity.set(0, 0, 0);
-          world.solver.iterations =8;
+          world.solver.iterations =15;
           // world.solver.tolerance = 8
           gap=0.981;
 
         }
-        groundBody.position.set(0, 0, 0);
+        groundBody.position.set(0, -10, 0);
         world.addBody(groundBody);
 
         // groundBody1.position.set(0, -3, 0);
@@ -8938,6 +8941,7 @@
         축소타임=0;
         바=100
         필=0
+        pfloor=2
         document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
         document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
         resetting(stack, function(object) { //재시작
@@ -9011,11 +9015,12 @@
                   });
 
                   body.position.set(0, bh*(스킬[2])/2-40, 0);
+                  scene.remove(cubes[cubes.length-2].mesh)
+                  cubes[cubes.length-2].mesh.position.y=-20*bh*(스킬[2])
+                  cubes[cubes.length-2].body.position.y=-20*bh*(스킬[2])
 
-                  cubes[cubes.length-2].mesh.position.y+=bh*(스킬[2])
-                  cubes[cubes.length-1].mesh.position.y+=bh*(스킬[2])
-                  cubes[cubes.length-2].body.position.y+=bh*(스킬[2])
-                  cubes[cubes.length-1].body.position.y+=bh*(스킬[2])
+                  cubes[cubes.length-1].mesh.position.y+=bh*(스킬[2]-1)
+                  cubes[cubes.length-1].body.position.y+=bh*(스킬[2]-1)
                   world.addBody(body);
                   토대.push(body)
 
@@ -16290,9 +16295,9 @@
                     //     transparent: true
                     // }), );
 
-                      mesh5.position.set(0, 33-33+0.3*bh-i*0.05, 0);
+                      mesh5.position.set(0, -10+33-33+0.3*bh-i*0.05, 0);
 
-                      if(i==1) mesh5.position.y=-1
+                      if(i==1) mesh5.position.y=-21
                     // mesh5.position.set(0, 0, -15-i*bscale*(bw/2));
 
 
@@ -16673,7 +16678,7 @@
               stepmold[5].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
 
               var icelst=[]
-              for (var i = 3; i < cubes.length-1; i++) {
+              for (var i = 4; i < cubes.length-1; i++) {
                 if(cubes[i].body.sleepState!=0){
                   continue;
                 }
@@ -17399,7 +17404,7 @@
                                   const game2048 = new Game2048(칸, cubes.length);
 
                                   var overcount=0;
-                                  for (var i = 3; i < cubes.length; i++) {
+                                  for (var i = 4; i < cubes.length; i++) {
                                     if(!cubes[i].mesh.userData.bye){
                                       overcount++;
                                     }
@@ -17483,7 +17488,7 @@
                                 // forceAmount=1000;
                                 var force = new CANNON.Vec3();
                                 var tnum=parseInt(Math.log2(num))-2;
-                                var forceset2=[650, 850, 1150, 1200, 1400, 1600, 1800];
+                                var forceset2=[650, 850, 1150, 1200, 1400, 1600, 1900,2200 ,2500];
 
                                 // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                                 switch (item.direction) {
@@ -18335,7 +18340,7 @@
             }
 
           }else{
-            for (var j = 3; j < cubes.length; j++) {
+            for (var j = 4; j < cubes.length; j++) {
               보드.forEach((item, i) => {
                 // if(item.position.z+(bscale*bw/4)>cubes[j].mesh.position.z){
                 if(Math.sqrt(Math.pow(cubes[cubes.length-1].mesh.position.z,2)+Math.pow(cubes[cubes.length-1].mesh.position.x,2))>2*보드반경*(i-1)){
@@ -18350,7 +18355,7 @@
             }
 
 
-            if(cubes[cubes.length-1].mesh.position.y<(cubes.length-3+스킬[2])*bh/2){
+            if(cubes[cubes.length-1].mesh.position.y<(cubes.length-4+스킬[2])*bh/2){
               camera.left -=0.1
               camera.right +=0.4
               camera.top +=0.1
@@ -20019,8 +20024,9 @@
                 })
             }
 
-            if (startflag&&!gameoverflag) {
 
+            if (pfloor!=cubes.length-1&startflag&&!gameoverflag) {
+              pfloor=cubes.length-1
                 while (포인트.length > 0) {
                     scene.remove(포인트.pop());
                 }
@@ -21044,7 +21050,7 @@
           const game2048 = new Game2048(칸, cubes.length);
 
           var overcount=0;
-          for (var i = 3; i < cubes.length; i++) {
+          for (var i = 4; i < cubes.length; i++) {
             if(!cubes[i].mesh.userData.bye){
               overcount++;
             }
