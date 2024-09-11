@@ -3158,6 +3158,8 @@
 
 
 <script src="build/cannon.min.js"></script>
+
+
   <script type="importmap">
     {
     "imports": {
@@ -3173,6 +3175,9 @@
     import {
         GLTFLoader
     } from 'three/addons/loaders/GLTFLoader.js';
+
+
+
     import {
         FontLoader
     } from 'three/addons/loaders/FontLoader.js';
@@ -3189,11 +3194,577 @@
     import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
     import Stats from 'three/addons/libs/stats.module.js';
 
+
+    window.THREE=THREE
+
     document.body.style.overscrollBehaviorY = 'none';
     document.body.style.overscrollBehaviorX = 'none';
     // document.getElementById('game-over-panel').style.display="none";
 
     const gameOverPanel = document.getElementById('game-over-panel');
+
+
+     let ThreeBSP = (function() {
+
+    	var ThreeBSP,
+    		EPSILON = 1e-5,
+    		COPLANAR = 0,
+    		FRONT = 1,
+    		BACK = 2,
+    		SPANNING = 3;
+
+    	ThreeBSP = function( geometry ) {
+    		// Convert THREE.Geometry to ThreeBSP
+    		var i, _length_i,
+    			face, vertex, faceVertexUvs, uvs,
+    			polygon,
+    			polygons = [],
+    			tree;
+
+
+
+    		if ( geometry instanceof THREE.Geometry  ) {
+    			this.matrix = new THREE.Matrix4;
+    		} else if ( geometry instanceof THREE.Mesh ) {
+          console.log(geometry)
+    			// #todo: add hierarchy support
+    			geometry.updateMatrix();
+    			this.matrix = geometry.matrix.clone();
+    			geometry = geometry.geometry;
+    		} else if ( geometry instanceof ThreeBSP.Node ) {
+    			this.tree = geometry;
+    			this.matrix = new THREE.Matrix4;
+    			return this;
+    		} else {
+    			throw 'ThreeBSP: Given geometry is unsupported';
+    		}
+
+        // geometry.updateMatrix();
+        // this.matrix = geometry.matrix.clone();
+
+
+        // geometry = geometry.geometry;
+
+    		for ( i = 0, _length_i = geometry.faces.length; i < _length_i; i++ ) {
+    			face = geometry.faces[i];
+    			faceVertexUvs = geometry.faceVertexUvs[0][i];
+    			polygon = new ThreeBSP.Polygon;
+
+    			if ( face instanceof THREE.Face3 ) {
+    				vertex = geometry.vertices[ face.a ];
+                                    uvs = faceVertexUvs ? new THREE.Vector2( faceVertexUvs[0].x, faceVertexUvs[0].y ) : null;
+                                    vertex = new ThreeBSP.Vertex( vertex.x, vertex.y, vertex.z, face.vertexNormals[0], uvs );
+    				vertex.applyMatrix4(this.matrix);
+    				polygon.vertices.push( vertex );
+
+    				vertex = geometry.vertices[ face.b ];
+                                    uvs = faceVertexUvs ? new THREE.Vector2( faceVertexUvs[1].x, faceVertexUvs[1].y ) : null;
+                                    vertex = new ThreeBSP.Vertex( vertex.x, vertex.y, vertex.z, face.vertexNormals[1], uvs );
+    				vertex.applyMatrix4(this.matrix);
+    				polygon.vertices.push( vertex );
+
+    				vertex = geometry.vertices[ face.c ];
+                                    uvs = faceVertexUvs ? new THREE.Vector2( faceVertexUvs[2].x, faceVertexUvs[2].y ) : null;
+                                    vertex = new ThreeBSP.Vertex( vertex.x, vertex.y, vertex.z, face.vertexNormals[2], uvs );
+    				vertex.applyMatrix4(this.matrix);
+    				polygon.vertices.push( vertex );
+    			} else if ( typeof THREE.Face4 ) {
+    				vertex = geometry.vertices[ face.a ];
+                                    uvs = faceVertexUvs ? new THREE.Vector2( faceVertexUvs[0].x, faceVertexUvs[0].y ) : null;
+                                    vertex = new ThreeBSP.Vertex( vertex.x, vertex.y, vertex.z, face.vertexNormals[0], uvs );
+    				vertex.applyMatrix4(this.matrix);
+    				polygon.vertices.push( vertex );
+
+    				vertex = geometry.vertices[ face.b ];
+                                    uvs = faceVertexUvs ? new THREE.Vector2( faceVertexUvs[1].x, faceVertexUvs[1].y ) : null;
+                                    vertex = new ThreeBSP.Vertex( vertex.x, vertex.y, vertex.z, face.vertexNormals[1], uvs );
+    				vertex.applyMatrix4(this.matrix);
+    				polygon.vertices.push( vertex );
+
+    				vertex = geometry.vertices[ face.c ];
+                                    uvs = faceVertexUvs ? new THREE.Vector2( faceVertexUvs[2].x, faceVertexUvs[2].y ) : null;
+                                    vertex = new ThreeBSP.Vertex( vertex.x, vertex.y, vertex.z, face.vertexNormals[2], uvs );
+    				vertex.applyMatrix4(this.matrix);
+    				polygon.vertices.push( vertex );
+
+    				vertex = geometry.vertices[ face.d ];
+                                    uvs = faceVertexUvs ? new THREE.Vector2( faceVertexUvs[3].x, faceVertexUvs[3].y ) : null;
+                                    vertex = new ThreeBSP.Vertex( vertex.x, vertex.y, vertex.z, face.vertexNormals[3], uvs );
+    				vertex.applyMatrix4(this.matrix);
+    				polygon.vertices.push( vertex );
+    			} else {
+    				throw 'Invalid face type at index ' + i;
+    			}
+
+    			polygon.calculateProperties();
+    			polygons.push( polygon );
+    		};
+
+    		this.tree = new ThreeBSP.Node( polygons );
+    	};
+    	ThreeBSP.prototype.subtract = function( other_tree ) {
+    		var a = this.tree.clone(),
+    			b = other_tree.tree.clone();
+
+    		a.invert();
+    		a.clipTo( b );
+    		b.clipTo( a );
+    		b.invert();
+    		b.clipTo( a );
+    		b.invert();
+    		a.build( b.allPolygons() );
+    		a.invert();
+    		a = new ThreeBSP( a );
+    		a.matrix = this.matrix;
+    		return a;
+    	};
+    	ThreeBSP.prototype.union = function( other_tree ) {
+    		var a = this.tree.clone(),
+    			b = other_tree.tree.clone();
+
+    		a.clipTo( b );
+    		b.clipTo( a );
+    		b.invert();
+    		b.clipTo( a );
+    		b.invert();
+    		a.build( b.allPolygons() );
+    		a = new ThreeBSP( a );
+    		a.matrix = this.matrix;
+    		return a;
+    	};
+    	ThreeBSP.prototype.intersect = function( other_tree ) {
+    		var a = this.tree.clone(),
+    			b = other_tree.tree.clone();
+
+    		a.invert();
+    		b.clipTo( a );
+    		b.invert();
+    		a.clipTo( b );
+    		b.clipTo( a );
+    		a.build( b.allPolygons() );
+    		a.invert();
+    		a = new ThreeBSP( a );
+    		a.matrix = this.matrix;
+    		return a;
+    	};
+    	ThreeBSP.prototype.toGeometry = function() {
+    		var i, j,
+    			matrix = new THREE.Matrix4().getInverse( this.matrix ),
+    			geometry = new THREE.Geometry(),
+    			polygons = this.tree.allPolygons(),
+    			polygon_count = polygons.length,
+    			polygon, polygon_vertice_count,
+    			vertice_dict = {},
+    			vertex_idx_a, vertex_idx_b, vertex_idx_c,
+    			vertex, face,
+    			verticeUvs;
+
+    		for ( i = 0; i < polygon_count; i++ ) {
+    			polygon = polygons[i];
+    			polygon_vertice_count = polygon.vertices.length;
+
+    			for ( j = 2; j < polygon_vertice_count; j++ ) {
+    				verticeUvs = [];
+
+    				vertex = polygon.vertices[0];
+    				verticeUvs.push( new THREE.Vector2( vertex.uv.x, vertex.uv.y ) );
+    				vertex = new THREE.Vector3( vertex.x, vertex.y, vertex.z );
+    				vertex.applyMatrix4(matrix);
+
+    				if ( typeof vertice_dict[ vertex.x + ',' + vertex.y + ',' + vertex.z ] !== 'undefined' ) {
+    					vertex_idx_a = vertice_dict[ vertex.x + ',' + vertex.y + ',' + vertex.z ];
+    				} else {
+    					geometry.vertices.push( vertex );
+    					vertex_idx_a = vertice_dict[ vertex.x + ',' + vertex.y + ',' + vertex.z ] = geometry.vertices.length - 1;
+    				}
+
+    				vertex = polygon.vertices[j-1];
+    				verticeUvs.push( new THREE.Vector2( vertex.uv.x, vertex.uv.y ) );
+    				vertex = new THREE.Vector3( vertex.x, vertex.y, vertex.z );
+    				vertex.applyMatrix4(matrix);
+    				if ( typeof vertice_dict[ vertex.x + ',' + vertex.y + ',' + vertex.z ] !== 'undefined' ) {
+    					vertex_idx_b = vertice_dict[ vertex.x + ',' + vertex.y + ',' + vertex.z ];
+    				} else {
+    					geometry.vertices.push( vertex );
+    					vertex_idx_b = vertice_dict[ vertex.x + ',' + vertex.y + ',' + vertex.z ] = geometry.vertices.length - 1;
+    				}
+
+    				vertex = polygon.vertices[j];
+    				verticeUvs.push( new THREE.Vector2( vertex.uv.x, vertex.uv.y ) );
+    				vertex = new THREE.Vector3( vertex.x, vertex.y, vertex.z );
+    				vertex.applyMatrix4(matrix);
+    				if ( typeof vertice_dict[ vertex.x + ',' + vertex.y + ',' + vertex.z ] !== 'undefined' ) {
+    					vertex_idx_c = vertice_dict[ vertex.x + ',' + vertex.y + ',' + vertex.z ];
+    				} else {
+    					geometry.vertices.push( vertex );
+    					vertex_idx_c = vertice_dict[ vertex.x + ',' + vertex.y + ',' + vertex.z ] = geometry.vertices.length - 1;
+    				}
+
+    				face = new THREE.Face3(
+    					vertex_idx_a,
+    					vertex_idx_b,
+    					vertex_idx_c,
+    					new THREE.Vector3( polygon.normal.x, polygon.normal.y, polygon.normal.z )
+    				);
+
+    				geometry.faces.push( face );
+    				geometry.faceVertexUvs[0].push( verticeUvs );
+    			}
+
+    		}
+    		return geometry;
+    	};
+    	ThreeBSP.prototype.toMesh = function( material ) {
+    		var geometry = this.toGeometry(),
+    			mesh = new THREE.Mesh( geometry, material );
+
+    		mesh.position.setFromMatrixPosition( this.matrix );
+    		mesh.rotation.setFromRotationMatrix( this.matrix );
+
+    		return mesh;
+    	};
+
+
+    	ThreeBSP.Polygon = function( vertices, normal, w ) {
+    		if ( !( vertices instanceof Array ) ) {
+    			vertices = [];
+    		}
+
+    		this.vertices = vertices;
+    		if ( vertices.length > 0 ) {
+    			this.calculateProperties();
+    		} else {
+    			this.normal = this.w = undefined;
+    		}
+    	};
+    	ThreeBSP.Polygon.prototype.calculateProperties = function() {
+    		var a = this.vertices[0],
+    			b = this.vertices[1],
+    			c = this.vertices[2];
+
+    		this.normal = b.clone().subtract( a ).cross(
+    			c.clone().subtract( a )
+    		).normalize();
+
+    		this.w = this.normal.clone().dot( a );
+
+    		return this;
+    	};
+    	ThreeBSP.Polygon.prototype.clone = function() {
+    		var i, vertice_count,
+    			polygon = new ThreeBSP.Polygon;
+
+    		for ( i = 0, vertice_count = this.vertices.length; i < vertice_count; i++ ) {
+    			polygon.vertices.push( this.vertices[i].clone() );
+    		};
+    		polygon.calculateProperties();
+
+    		return polygon;
+    	};
+
+    	ThreeBSP.Polygon.prototype.flip = function() {
+    		var i, vertices = [];
+
+    		this.normal.multiplyScalar( -1 );
+    		this.w *= -1;
+
+    		for ( i = this.vertices.length - 1; i >= 0; i-- ) {
+    			vertices.push( this.vertices[i] );
+    		};
+    		this.vertices = vertices;
+
+    		return this;
+    	};
+    	ThreeBSP.Polygon.prototype.classifyVertex = function( vertex ) {
+    		var side_value = this.normal.dot( vertex ) - this.w;
+
+    		if ( side_value < -EPSILON ) {
+    			return BACK;
+    		} else if ( side_value > EPSILON ) {
+    			return FRONT;
+    		} else {
+    			return COPLANAR;
+    		}
+    	};
+    	ThreeBSP.Polygon.prototype.classifySide = function( polygon ) {
+    		var i, vertex, classification,
+    			num_positive = 0,
+    			num_negative = 0,
+    			vertice_count = polygon.vertices.length;
+
+    		for ( i = 0; i < vertice_count; i++ ) {
+    			vertex = polygon.vertices[i];
+    			classification = this.classifyVertex( vertex );
+    			if ( classification === FRONT ) {
+    				num_positive++;
+    			} else if ( classification === BACK ) {
+    				num_negative++;
+    			}
+    		}
+
+            if ( num_positive === vertice_count && num_negative === 0 ) {
+                return FRONT;
+            } else if ( num_positive === 0 && num_negative === vertice_count ) {
+                return BACK;
+            } else if ( num_positive > 0 && num_negative > 0 ) {
+                return SPANNING;
+            } else {
+                return COPLANAR;
+            }
+    	};
+    	ThreeBSP.Polygon.prototype.splitPolygon = function( polygon, coplanar_front, coplanar_back, front, back ) {
+    		var classification = this.classifySide( polygon );
+
+    		if ( classification === COPLANAR ) {
+
+    			( this.normal.dot( polygon.normal ) > 0 ? coplanar_front : coplanar_back ).push( polygon );
+
+    		} else if ( classification === FRONT ) {
+
+    			front.push( polygon );
+
+    		} else if ( classification === BACK ) {
+
+    			back.push( polygon );
+
+    		} else {
+
+    			var vertice_count,
+    				i, j, ti, tj, vi, vj,
+    				t, v,
+    				f = [],
+    				b = [];
+
+    			for ( i = 0, vertice_count = polygon.vertices.length; i < vertice_count; i++ ) {
+
+    				j = (i + 1) % vertice_count;
+    				vi = polygon.vertices[i];
+    				vj = polygon.vertices[j];
+    				ti = this.classifyVertex( vi );
+    				tj = this.classifyVertex( vj );
+
+    				if ( ti != BACK ) f.push( vi );
+    				if ( ti != FRONT ) b.push( vi );
+    				if ( (ti | tj) === SPANNING ) {
+    					t = ( this.w - this.normal.dot( vi ) ) / this.normal.dot( vj.clone().subtract( vi ) );
+    					v = vi.interpolate( vj, t );
+    					f.push( v );
+    					b.push( v );
+    				}
+    			}
+
+
+    			if ( f.length >= 3 ) front.push( new ThreeBSP.Polygon( f ).calculateProperties() );
+    			if ( b.length >= 3 ) back.push( new ThreeBSP.Polygon( b ).calculateProperties() );
+    		}
+    	};
+
+    	ThreeBSP.Vertex = function( x, y, z, normal, uv ) {
+    		this.x = x;
+    		this.y = y;
+    		this.z = z;
+    		this.normal = normal || new THREE.Vector3;
+    		this.uv = uv || new THREE.Vector2;
+    	};
+    	ThreeBSP.Vertex.prototype.clone = function() {
+    		return new ThreeBSP.Vertex( this.x, this.y, this.z, this.normal.clone(), this.uv.clone() );
+    	};
+    	ThreeBSP.Vertex.prototype.add = function( vertex ) {
+    		this.x += vertex.x;
+    		this.y += vertex.y;
+    		this.z += vertex.z;
+    		return this;
+    	};
+    	ThreeBSP.Vertex.prototype.subtract = function( vertex ) {
+    		this.x -= vertex.x;
+    		this.y -= vertex.y;
+    		this.z -= vertex.z;
+    		return this;
+    	};
+    	ThreeBSP.Vertex.prototype.multiplyScalar = function( scalar ) {
+    		this.x *= scalar;
+    		this.y *= scalar;
+    		this.z *= scalar;
+    		return this;
+    	};
+    	ThreeBSP.Vertex.prototype.cross = function( vertex ) {
+    		var x = this.x,
+    			y = this.y,
+    			z = this.z;
+
+    		this.x = y * vertex.z - z * vertex.y;
+    		this.y = z * vertex.x - x * vertex.z;
+    		this.z = x * vertex.y - y * vertex.x;
+
+    		return this;
+    	};
+    	ThreeBSP.Vertex.prototype.normalize = function() {
+    		var length = Math.sqrt( this.x * this.x + this.y * this.y + this.z * this.z );
+
+    		this.x /= length;
+    		this.y /= length;
+    		this.z /= length;
+
+    		return this;
+    	};
+    	ThreeBSP.Vertex.prototype.dot = function( vertex ) {
+    		return this.x * vertex.x + this.y * vertex.y + this.z * vertex.z;
+    	};
+    	ThreeBSP.Vertex.prototype.lerp = function( a, t ) {
+    		this.add(
+    			a.clone().subtract( this ).multiplyScalar( t )
+    		);
+
+    		this.normal.add(
+    			a.normal.clone().sub( this.normal ).multiplyScalar( t )
+    		);
+
+    		this.uv.add(
+    			a.uv.clone().sub( this.uv ).multiplyScalar( t )
+    		);
+
+    		return this;
+    	};
+    	ThreeBSP.Vertex.prototype.interpolate = function( other, t ) {
+    		return this.clone().lerp( other, t );
+    	};
+    	ThreeBSP.Vertex.prototype.applyMatrix4 = function ( m ) {
+
+    		// input: THREE.Matrix4 affine matrix
+
+    		var x = this.x, y = this.y, z = this.z;
+
+    		var e = m.elements;
+
+    		this.x = e[0] * x + e[4] * y + e[8]  * z + e[12];
+    		this.y = e[1] * x + e[5] * y + e[9]  * z + e[13];
+    		this.z = e[2] * x + e[6] * y + e[10] * z + e[14];
+
+    		return this;
+
+    	}
+
+
+    	ThreeBSP.Node = function( polygons ) {
+    		var i, polygon_count,
+    			front = [],
+    			back = [];
+
+    		this.polygons = [];
+    		this.front = this.back = undefined;
+
+    		if ( !(polygons instanceof Array) || polygons.length === 0 ) return;
+
+    		this.divider = polygons[0].clone();
+
+    		for ( i = 0, polygon_count = polygons.length; i < polygon_count; i++ ) {
+    			this.divider.splitPolygon( polygons[i], this.polygons, this.polygons, front, back );
+    		}
+
+    		if ( front.length > 0 ) {
+    			this.front = new ThreeBSP.Node( front );
+    		}
+
+    		if ( back.length > 0 ) {
+    			this.back = new ThreeBSP.Node( back );
+    		}
+    	};
+    	ThreeBSP.Node.isConvex = function( polygons ) {
+    		var i, j;
+    		for ( i = 0; i < polygons.length; i++ ) {
+    			for ( j = 0; j < polygons.length; j++ ) {
+    				if ( i !== j && polygons[i].classifySide( polygons[j] ) !== BACK ) {
+    					return false;
+    				}
+    			}
+    		}
+    		return true;
+    	};
+    	ThreeBSP.Node.prototype.build = function( polygons ) {
+    		var i, polygon_count,
+    			front = [],
+    			back = [];
+
+    		if ( !this.divider ) {
+    			this.divider = polygons[0].clone();
+    		}
+
+    		for ( i = 0, polygon_count = polygons.length; i < polygon_count; i++ ) {
+    			this.divider.splitPolygon( polygons[i], this.polygons, this.polygons, front, back );
+    		}
+
+    		if ( front.length > 0 ) {
+    			if ( !this.front ) this.front = new ThreeBSP.Node();
+    			this.front.build( front );
+    		}
+
+    		if ( back.length > 0 ) {
+    			if ( !this.back ) this.back = new ThreeBSP.Node();
+    			this.back.build( back );
+    		}
+    	};
+    	ThreeBSP.Node.prototype.allPolygons = function() {
+    		var polygons = this.polygons.slice();
+    		if ( this.front ) polygons = polygons.concat( this.front.allPolygons() );
+    		if ( this.back ) polygons = polygons.concat( this.back.allPolygons() );
+    		return polygons;
+    	};
+    	ThreeBSP.Node.prototype.clone = function() {
+    		var node = new ThreeBSP.Node();
+
+    		node.divider = this.divider.clone();
+    		node.polygons = this.polygons.map( function( polygon ) { return polygon.clone(); } );
+    		node.front = this.front && this.front.clone();
+    		node.back = this.back && this.back.clone();
+
+    		return node;
+    	};
+    	ThreeBSP.Node.prototype.invert = function() {
+    		var i, polygon_count, temp;
+
+    		for ( i = 0, polygon_count = this.polygons.length; i < polygon_count; i++ ) {
+    			this.polygons[i].flip();
+    		}
+
+    		this.divider.flip();
+    		if ( this.front ) this.front.invert();
+    		if ( this.back ) this.back.invert();
+
+    		temp = this.front;
+    		this.front = this.back;
+    		this.back = temp;
+
+    		return this;
+    	};
+    	ThreeBSP.Node.prototype.clipPolygons = function( polygons ) {
+    		var i, polygon_count,
+    			front, back;
+
+    		if ( !this.divider ) return polygons.slice();
+
+    		front = [], back = [];
+
+    		for ( i = 0, polygon_count = polygons.length; i < polygon_count; i++ ) {
+    			this.divider.splitPolygon( polygons[i], front, back, front, back );
+    		}
+
+    		if ( this.front ) front = this.front.clipPolygons( front );
+    		if ( this.back ) back = this.back.clipPolygons( back );
+    		else back = [];
+
+    		return front.concat( back );
+    	};
+
+    	ThreeBSP.Node.prototype.clipTo = function( node ) {
+    		this.polygons = node.clipPolygons( this.polygons );
+    		if ( this.front ) this.front.clipTo( node );
+    		if ( this.back ) this.back.clipTo( node );
+    	};
+
+
+    	return ThreeBSP;
+    })();
+
     let 횟수=0;
     let combo=0
     var re3time=0;
@@ -4873,14 +5444,20 @@
                       }
                   }
                   if(full){
-                    fullguide=1;
+
                     if(gamemod==2){
-                      fulltower=true
+
+                      setTimeout(function() {
+                          fullguide=1;
+                          fulltower=true
+                          fullc++
+                          this.fullflag=true;
+                          fullany=true;
+                      }, 1000);
+
                       showpop("",textdic[25][langset[langnum]],"")
                     }
-                    fullc++
-                    this.fullflag=true;
-                    fullany=true;
+
                     if(오토) tcheck[2]=elapsedTime;
                     if(gamemod==0){
                       cubes[this.index].body.material.friction = 0.16
@@ -4901,15 +5478,15 @@
                     }
 
                     점수+=200;
-                    // cubes[this.index].mesh.children.forEach((item) => {
-                    //   if(item.userData["skin"]=="tile"){
-                    //     var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][this.index]))
-                    //     item.material.color= new THREE.Color('hsl(' + String(newcl["h"]+Math.log2(parseInt(item.userData["text"]))*8) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
-                    //     item.children.forEach((text) => {
-                    //       // text.material.color= new THREE.Color(0xFFFFFF);
-                    //     });
-                    //   }
-                    // });
+                    cubes[this.index].mesh.children.forEach((item) => {
+                      if(item.userData["skin"]=="tile"){
+                        var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][this.index%5]))
+                        item.material.color= new THREE.Color('hsl(' + String(newcl["h"]+Math.log2(parseInt(item.userData["text"]))*8) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"]) + '%)');
+                        item.children.forEach((text) => {
+                          // text.material.color= new THREE.Color(0xFFFFFF);
+                        });
+                      }
+                    });
                     // gameoverflag=true;
                     if(gamemod<2){
                       var fullall=true;
@@ -7652,10 +8229,16 @@
 
           // dl2.shadow.mapSize = new THREE.Vector2(1000, 1000);
         } else if (event.code === 'KeyC') {
-            for (var i = 0; i < cubes.length-1; i++) {
+            console.log("한번")
+            for (var i = cubes.length-1; i > 3; i--) {
               let force2 = new CANNON.Vec3();
-              force2.set(300*(avx - cubes[i].body.position.x)+300*(cubes[i+1].body.position.x - cubes[i].body.position.x),0,300*(avz - cubes[i].body.position.z)+300*(cubes[i+1].body.position.z - cubes[i].body.position.z));
+              if(i==cubes.length-1){
+                force2.set(1000*(getdistance(cubes[i].body.position.x, avx))+0*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,1000*(getdistance(cubes[i].body.position.z, avz))+0*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+              }else{
+                force2.set(1700*(getdistance(cubes[i].body.position.x, avx))+0*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,1700*(getdistance(cubes[i].body.position.z, avz))+0*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+              }
               cubes[i].body.applyForce(force2, cubes[i].body.position);
+
             }
 
 
@@ -7954,7 +8537,7 @@
           gap=0.981;
 
         }
-        groundBody.position.set(0, -1, 0);
+        groundBody.position.set(0, 0, 0);
         world.addBody(groundBody);
 
         // groundBody1.position.set(0, -3, 0);
@@ -7995,7 +8578,7 @@
             });
         }
         groundmesh = new THREE.Mesh(groundgeometry, groundmaterial);
-        groundmesh.position.set(0, -1, 0);
+        groundmesh.position.set(0, -31, 0);
         if (shadowon) groundmesh.receiveShadow = true
         groundmesh.rotation.x=0;
         groundmesh.rotation.z=0;
@@ -8403,15 +8986,15 @@
 
                   })
 
-                  var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(bw*1.5, bh*(스킬[2]) , bw*1.5 ), new THREE.MeshLambertMaterial({
-                      color: 0x808080,
+                  var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(22, 80+bh*(스킬[2]) ,22 ), new THREE.MeshLambertMaterial({
+                      color: colorlst[colornum][1],
                       opacity: 1,
                       transparent: true
                   }), );
-                  mesh5.position.set(0, bh*(스킬[2])/2, 0);
+                  mesh5.position.set(0, bh*(스킬[2])/2-40, 0);
                   scene.add(mesh5)
                   토대.push(mesh5)
-                  var shape = new CANNON.Box(new CANNON.Vec3(1.5*bw/ 2, bh*(스킬[2]) / 2, 1.5*bw / 2));
+                  var shape = new CANNON.Box(new CANNON.Vec3(22/ 2, (80+bh*(스킬[2])) / 2, 22/ 2));
                   // const cylinderShape = new CANNON.Cylinder(width, width, bh, 16);
                   // const shape2 = new CANNON.Cylinder(width,width,height,1)
                   var customMaterial = new CANNON.Material('customMaterial');
@@ -8427,7 +9010,7 @@
                       sleepTimeLimit: 0
                   });
 
-                  body.position.set(0, bh*(스킬[2])/2, 0);
+                  body.position.set(0, bh*(스킬[2])/2-40, 0);
 
                   cubes[cubes.length-2].mesh.position.y+=bh*(스킬[2])
                   cubes[cubes.length-1].mesh.position.y+=bh*(스킬[2])
@@ -8435,6 +9018,69 @@
                   cubes[cubes.length-1].body.position.y+=bh*(스킬[2])
                   world.addBody(body);
                   토대.push(body)
+
+                  if(false){
+                      var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(500, 100+bh*(스킬[2]) ,500 ), new THREE.MeshLambertMaterial({
+                          color: colorlst[colornum][2],
+                          opacity: 1,
+                          transparent: true
+                      }), );
+                      mesh6.position.set(-265, bh*(스킬[2])/2-20, 0);
+                      scene.add(mesh6)
+                      토대.push(mesh6)
+                      var shape = new CANNON.Box(new CANNON.Vec3(500/ 2, (100+bh*(스킬[2])) / 2, 500 / 2));
+                      // const cylinderShape = new CANNON.Cylinder(width, width, bh, 16);
+                      // const shape2 = new CANNON.Cylinder(width,width,height,1)
+                      var customMaterial = new CANNON.Material('customMaterial');
+                      customMaterial.friction = 0.2; // Friction coefficient, range: 0-1
+                      customMaterial.restitution = 0.4; // Restitution (elasticity), range: 0-1
+
+                      var body11 = new CANNON.Body({
+                          mass: 0,
+                          shape: shape,
+                          material: customMaterial,
+                          allowSleep: true,
+                          sleepSpeedLimit: 1000,
+                          sleepTimeLimit: 0
+                      });
+
+                      body11.position.set(-265, bh*(스킬[2])/2-20, 0);
+
+
+                      world.addBody(body11);
+                      토대.push(body11)
+
+
+                      var mesh7 = new THREE.Mesh(new THREE.BoxGeometry(500, 100+bh*(스킬[2]) ,500 ), new THREE.MeshLambertMaterial({
+                          color: colorlst[colornum][2],
+                          opacity: 1,
+                          transparent: true
+                      }), );
+                      mesh7.position.set(235, bh*(스킬[2])/2-20, -265);
+                      scene.add(mesh7)
+                      토대.push(mesh7)
+                      var shape = new CANNON.Box(new CANNON.Vec3(500/ 2, (100+bh*(스킬[2])) / 2, 500 / 2));
+                      // const cylinderShape = new CANNON.Cylinder(width, width, bh, 16);
+                      // const shape2 = new CANNON.Cylinder(width,width,height,1)
+                      var customMaterial = new CANNON.Material('customMaterial');
+                      customMaterial.friction = 0.2; // Friction coefficient, range: 0-1
+                      customMaterial.restitution = 0.4; // Restitution (elasticity), range: 0-1
+
+                      var body12 = new CANNON.Body({
+                          mass: 0,
+                          shape: shape,
+                          material: customMaterial,
+                          allowSleep: true,
+                          sleepSpeedLimit: 1000,
+                          sleepTimeLimit: 0
+                      });
+
+                      body12.position.set(235, bh*(스킬[2])/2-20, -265);
+
+
+                      world.addBody(body12);
+                      토대.push(body12)
+                  }
                   cubes[4].mesh.userData.game2048.spawnTile();
                   cubes[4].mesh.userData.game2048.spawnTile();
                   if(skinnum==skinset.indexOf("classic")){
@@ -8563,7 +9209,18 @@
             var fhight = 두께*th / 8
             // var fcolor=0xFfAfAf
             var fcolor = colorlst[colornum][3]
-        } else if (fontSize == 777) {
+        } else if(fontSize == 9991){
+          var fsize = bw / 4
+          var fhight = 두께*th / 4
+          var fcolor = colorlst[colornum][1]
+
+        } else if(fontSize == 9981){
+          var fsize = bw / 7
+          var fhight = 두께*th / 8
+          // var fcolor=0xFfAfAf
+          var fcolor = colorlst[colornum][0]
+
+        }else if (fontSize == 777) {
             var fsize =  bscale*bw / 4
             var fhight = 두께*th / 8
             // var fcolor=0xFfAfAf
@@ -15612,22 +16269,38 @@
                 if(onceflag0){//보드판
                   camera.rotation.x=-isoAngle;
                   console.log("빵")
+                  var nc = hexToHSL(hexToHtmlColor(colorlst0[parseInt(Math.random()*colorlst0.length)][1]))
                   for (var i = 0; i < 50; i++) {
+
+                    // var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]+(10*i)) + ', ' + '80%, ' +  '50%)');
+                    // console.log(newcolor3)
                     // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 32);
-                    var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.1, 32), new THREE.MeshLambertMaterial({
-                        color: colorlst[parseInt(Math.random()*colorlst.length)][1],
-                        // color: colorlst[i+1][1],
+                    var rcv=parseInt(Math.random()*(colorlst0.length-51))
+                    var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.1, 32,1,false, Math.PI/2, Math.PI*2), new THREE.MeshLambertMaterial({
+                        // color: colorlst0[parseInt(Math.random()*colorlst0.length)][1],
+                        // color: newcolor3.getHexString(),
+                        color: colorlst0[rcv+parseInt(i/5)][i%5],
                         opacity: 1,
                         transparent: true
                     }), );
-
+                    // mesh5.material.color=newcolor3
                     // var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(bw*6*bscale, 0.1, bscale*bw/2.2), new THREE.MeshLambertMaterial({
                     //     color: 0xB0B0B0,
                     //     opacity: 1,
                     //     transparent: true
                     // }), );
-                      mesh5.position.set(0, 0.3*bh-i*0.05, 0);
+
+                      mesh5.position.set(0, 33-33+0.3*bh-i*0.05, 0);
+
+                      if(i==1) mesh5.position.y=-1
                     // mesh5.position.set(0, 0, -15-i*bscale*(bw/2));
+
+
+                    // var cubeBsp = new ThreeBSP(mesh5);
+
+
+
+
 
                       createTextMesh("X"+String(i+2), 777, (textMesh) => {
                         // textMesh.position.z+=1*bscale;
@@ -19336,7 +20009,7 @@
                 시간.forEach((item) => {
                   if(gamemod==2){
                     item.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
-                    item.position.x = avx - bw / 2.5;
+                    item.position.x = avx - bw / 4;
                     item.position.z = avz - bw / 1.5;
                   }else{
                     item.position.x = avx - bw / 2.5;
@@ -19346,8 +20019,8 @@
                 })
             }
 
-            if (pointbuf != 점수||(gamemod==2&&cubes.length==5)||gamemod==4||gamemod==3) {
-                pointbuf = 점수
+            if (startflag&&!gameoverflag) {
+
                 while (포인트.length > 0) {
                     scene.remove(포인트.pop());
                 }
@@ -19412,11 +20085,12 @@
 
 
                     var temptxt3= "NEXT: "+stacknum[1+cubes.length-1].toString()
-                    createTextMesh(temptxt3, 998, (textMesh2) => {
+                    createTextMesh(temptxt3, 9981, (textMesh2) => {
                       if(gamemod==2){
 
                         textMesh.add(textMesh2)
                         textMesh.children[0].position.y +=bh
+                        textMesh.children[0].position.x +=bh/2
 
 
 
@@ -19447,8 +20121,9 @@
                         }
 
                         textMesh.add(textMesh3)
-                        textMesh.children[1].position.z -=bh/2.1
+                        // textMesh.children[1].position.z -=bh/4
                         textMesh.children[1].position.y +=bh
+                        textMesh.children[1].position.x -=bh*1.1
 
                         textMesh.position.x = avx - bw / 1.5;
                         textMesh.depth = 10;
@@ -19477,8 +20152,9 @@
 
             if(!스샷&&gamemod!=4){
 
-              if (pointbuf != 점수||(gamemod==2&&cubes.length==5)||gamemod==4||gamemod==3) {
+              if (pointbuf != 점수) {
                   pointbuf = 점수
+                  console.log("점수")
 
             // if (timebuf != parseInt(elapsedTime)||(gamemod==3&&timebuf != parseInt(elapsedTime))) {
 
@@ -19486,105 +20162,89 @@
                 while (시간.length > 0) {
                     scene.remove(시간.pop());
                 }
-                if(gamemod==2){
-
-                  if(langnum==13||langnum==22||langnum==29||langnum==36){
-                    timestring=String(cubes.length-3)
-                  }else{
-                    timestring=String(cubes.length-3)
-                  }
-                }else if(gamemod==3){
-                  remain=tbonus-elapsedTime;
-                  if(remain<3){
-                    if(!soundic[esound[12]].isPlaying) soundic[esound[12]].play();
-
-                  }
-                  if(remain<0){
-                    var timestring="00:00"
-                  }else{
-                    if (parseInt(remain) % 60 >= 10) {
-                        if (parseInt(remain / 60) >= 10) {
-                            var timestring = String(parseInt(remain / 60)) + ":" + String(parseInt(remain) % 60);
-                        } else {
-                            var timestring = "0" + String(parseInt(remain / 60)) + ":" + String(parseInt(remain) % 60);
-                        }
-                    } else {
-                        if (parseInt(remain / 60) >= 10) {
-                            var timestring = String(parseInt(remain / 60)) + ":0" + String(parseInt(remain) % 60);
-                        } else {
-                            var timestring = "0" + String(parseInt(remain / 60)) + ":0" + String(parseInt(remain) % 60);
-                        }
-                    }
-                  }
 
 
-                }else if(gamemod==4){
-                  timestring=String(activeFloor+1)+" F"
+                // if(gamemod==2){
+                //
+                //   if(langnum==13||langnum==22||langnum==29||langnum==36){
+                //     timestring=String(cubes.length-3)
+                //   }else{
+                //     timestring=String(cubes.length-3)
+                //   }
+                // }else if(gamemod==3){
+                //   remain=tbonus-elapsedTime;
+                //   if(remain<3){
+                //     if(!soundic[esound[12]].isPlaying) soundic[esound[12]].play();
+                //
+                //   }
+                //   if(remain<0){
+                //     var timestring="00:00"
+                //   }else{
+                //     if (parseInt(remain) % 60 >= 10) {
+                //         if (parseInt(remain / 60) >= 10) {
+                //             var timestring = String(parseInt(remain / 60)) + ":" + String(parseInt(remain) % 60);
+                //         } else {
+                //             var timestring = "0" + String(parseInt(remain / 60)) + ":" + String(parseInt(remain) % 60);
+                //         }
+                //     } else {
+                //         if (parseInt(remain / 60) >= 10) {
+                //             var timestring = String(parseInt(remain / 60)) + ":0" + String(parseInt(remain) % 60);
+                //         } else {
+                //             var timestring = "0" + String(parseInt(remain / 60)) + ":0" + String(parseInt(remain) % 60);
+                //         }
+                //     }
+                //   }
+                //
+                //
+                // }else if(gamemod==4){
+                //   timestring=String(activeFloor+1)+" F"
+                //
+                // }else{
+                //   if (parseInt(elapsedTime) % 60 >= 10) {
+                //       if (parseInt(elapsedTime / 60) >= 10) {
+                //           var timestring = String(parseInt(elapsedTime / 60)) + ":" + String(parseInt(elapsedTime) % 60);
+                //       } else {
+                //           var timestring = "0" + String(parseInt(elapsedTime / 60)) + ":" + String(parseInt(elapsedTime) % 60);
+                //       }
+                //   } else {
+                //       if (parseInt(elapsedTime / 60) >= 10) {
+                //           var timestring = String(parseInt(elapsedTime / 60)) + ":0" + String(parseInt(elapsedTime) % 60);
+                //       } else {
+                //           var timestring = "0" + String(parseInt(elapsedTime / 60)) + ":0" + String(parseInt(elapsedTime) % 60);
+                //       }
+                //   }
+                // }
 
-                }else{
-                  if (parseInt(elapsedTime) % 60 >= 10) {
-                      if (parseInt(elapsedTime / 60) >= 10) {
-                          var timestring = String(parseInt(elapsedTime / 60)) + ":" + String(parseInt(elapsedTime) % 60);
-                      } else {
-                          var timestring = "0" + String(parseInt(elapsedTime / 60)) + ":" + String(parseInt(elapsedTime) % 60);
-                      }
+                temptxt=parseInt(점수)
+
+                createTextMesh(temptxt.toString(), 9991, (textMesh) => {
+
+
+                  textMesh.position.y = cubes.length * bh - th * 0
+                  if (temptxt.toString().length >= 4) {
+                      textMesh.position.z = 1+avz - bw /(3.1+(temptxt.toString().length-4)*0.3);
+                  } else if (temptxt.toString().length == 3) {
+                      // textMesh.position.z = 3+avz - bw / 2.6;
+                      textMesh.position.z = 1+avz - bw / 2.6;
                   } else {
-                      if (parseInt(elapsedTime / 60) >= 10) {
-                          var timestring = String(parseInt(elapsedTime / 60)) + ":0" + String(parseInt(elapsedTime) % 60);
-                      } else {
-                          var timestring = "0" + String(parseInt(elapsedTime / 60)) + ":0" + String(parseInt(elapsedTime) % 60);
-                      }
-                  }
-                }
-
-                createTextMesh(timestring, 998, (textMesh) => {
-                  if(gamemod==2){
-                    textMesh.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
-
-                    if(timestring.length==1){
-                      stepmold[0].position.x=2
-                    }else if(timestring.length==2){
-                      stepmold[0].position.x=2.5
-                    }else if(timestring.length==3){
-                      stepmold[0].position.x=6
-                    }
-
-                    // stepmold[0].material.color=new THREE.MeshLambertMaterial({
-                    //     color: colorlst[colornum][2]
-                    // });
-                    // stepmold[0].material.color=new THREE.Color(colorlst[colornum][3])
-                    // textMesh.add(stepmold[0])
-
-
-
-                  }else if(gamemod==4){
-                    if(횟수%5==4){
-                      textMesh.scale.x=0.8+(parseInt(elapsedTime*10)%10)*0.05
-                      textMesh.scale.y=0.8+(parseInt(elapsedTime*10)%10)*0.05
-                    }else{
-                      textMesh.scale.x=1
-                      textMesh.scale.y=1
-                    }
-                    textMesh.position.y = cubes.length * bh
-                  }else if(gamemod==3){
-                    if(remain<3){
-                      textMesh.scale.x=0.8+(parseInt(elapsedTime*10)%10)*0.05
-                      textMesh.scale.y=0.8+(parseInt(elapsedTime*10)%10)*0.05
-                    }else{
-                      textMesh.scale.x=1
-                      textMesh.scale.y=1
-                    }
-                    textMesh.position.y = cubes.length * bh
-                  }else{
-                    textMesh.position.y = cubes.length * bh
+                      textMesh.position.z = 1+avz - bw / 2.3;
                   }
 
-                    textMesh.position.x = avx - bw / 2.5;
-                    textMesh.position.z = avz - bw / 1.5;
+                // createTextMesh(timestring, 998, (textMesh) => {
+
+
+                textMesh.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
+                textMesh.position.x = avx - bw / 4;
+                textMesh.position.z = avz - bw / 1.5;
+                    //
+                    // textMesh.position.x = avx - bw / 2.5;
+                    // textMesh.position.z = avz - bw / 1.5;
                     // textMesh.position.x=0;
                     textMesh.depth = 10;
                     textMesh.rotation.order = 'YXZ';
                     textMesh.rotation.y = 2 * Math.PI;
+
+
 
 
                     scene.add(textMesh)
@@ -22481,6 +23141,15 @@
             return 1.4 * dstx + 1.0 * (dsty - dstx)
         }
     }
+
+    function getdistance(x1, y1) {
+      var res=y1-x1
+        if (res>0) {
+            return Math.sqrt(res)
+        } else {
+            return -1*Math.sqrt(-res)
+        }
+    }
     // Function to add a new box at a random position above the stack
     function spawnNewBox() {
         const randomX = Math.random() * 2 - 1;
@@ -24932,7 +25601,7 @@
 
             for (var i = 0; i < 50; i++) {
               // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 32);
-              var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.1, 32), new THREE.MeshLambertMaterial({
+              var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.1, 32, Math.PI), new THREE.MeshLambertMaterial({
                   // color: colorlst[parseInt(Math.random()*colorlst.length)][1],
                   color: colorlst[i+1][1],
                   opacity: 1,
@@ -25051,21 +25720,27 @@
             world.remove(토대[1])
             scene.remove(토대[0])
 
+            world.remove(토대[3])
+            scene.remove(토대[2])
+
+            world.remove(토대[5])
+            scene.remove(토대[4])
+
             토대=[]
 
-            var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(1.5*bw, bh*(스킬[2]) , 1.5*bw ), new THREE.MeshLambertMaterial({
+            var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(12, 50+bh*(스킬[2]) ,12), new THREE.MeshLambertMaterial({
                 color: 0x808080,
                 opacity: 1,
                 transparent: true
             }), );
-            mesh5.position.set(0, bh*(스킬[2])/2, 0);
+            mesh5.position.set(0, bh*(스킬[2])/2-50, 0);
             scene.add(mesh5)
             토대.push(mesh5)
-            var shape = new CANNON.Box(new CANNON.Vec3(1.5*bw/ 2, bh*(스킬[2]) / 2, 1.5*bw / 2));
+            var shape = new CANNON.Box(new CANNON.Vec3(12/2, (50+bh*(스킬[2])) / 2, 12/2));
             // const cylinderShape = new CANNON.Cylinder(width, width, bh, 16);
             // const shape2 = new CANNON.Cylinder(width,width,height,1)
             var customMaterial = new CANNON.Material('customMaterial');
-            customMaterial.friction = 0.2; // Friction coefficient, range: 0-1
+            customMaterial.friction = 0.4; // Friction coefficient, range: 0-1
             customMaterial.restitution = 0.4; // Restitution (elasticity), range: 0-1
 
             const body = new CANNON.Body({
@@ -25077,7 +25752,7 @@
                 sleepTimeLimit: 0
             });
 
-            body.position.set(0, bh*(스킬[2])/2, 0);
+            body.position.set(0, bh*(스킬[2])/2-50, 0);
 
             cubes[cubes.length-2].mesh.position.y+=bh
             cubes[cubes.length-1].mesh.position.y+=bh
