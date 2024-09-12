@@ -4352,6 +4352,7 @@
     var soundic = {};
 
     let 보드반경=7
+    let 보드높이=-20
 
     var colorlst = [
         [0x9DC8C8, 0x58C9B9, 0x519D9E, 0xD1B6E1, ],
@@ -8540,7 +8541,7 @@
           gap=0.981;
 
         }
-        groundBody.position.set(0, -10, 0);
+        groundBody.position.set(0, 보드높이, 0);
         world.addBody(groundBody);
 
         // groundBody1.position.set(0, -3, 0);
@@ -8581,7 +8582,7 @@
             });
         }
         groundmesh = new THREE.Mesh(groundgeometry, groundmaterial);
-        groundmesh.position.set(0, -31, 0);
+        groundmesh.position.set(0, 보드높이-10, 0);
         if (shadowon) groundmesh.receiveShadow = true
         groundmesh.rotation.x=0;
         groundmesh.rotation.z=0;
@@ -9002,7 +9003,7 @@
                   // const cylinderShape = new CANNON.Cylinder(width, width, bh, 16);
                   // const shape2 = new CANNON.Cylinder(width,width,height,1)
                   var customMaterial = new CANNON.Material('customMaterial');
-                  customMaterial.friction = 0.2; // Friction coefficient, range: 0-1
+                  customMaterial.friction = 0.18; // Friction coefficient, range: 0-1
                   customMaterial.restitution = 0.4; // Restitution (elasticity), range: 0-1
 
                   const body = new CANNON.Body({
@@ -16295,7 +16296,7 @@
                     //     transparent: true
                     // }), );
 
-                      mesh5.position.set(0, -10+33-33+0.3*bh-i*0.05, 0);
+                      mesh5.position.set(0, 보드높이+33-33+0.3*bh-i*0.05, 0);
 
                       if(i==1) mesh5.position.y=-21
                     // mesh5.position.set(0, 0, -15-i*bscale*(bw/2));
@@ -17488,7 +17489,7 @@
                                 // forceAmount=1000;
                                 var force = new CANNON.Vec3();
                                 var tnum=parseInt(Math.log2(num))-2;
-                                var forceset2=[650, 850, 1150, 1200, 1400, 1600, 1900,2200 ,2500];
+                                var forceset2=[650, 900, 1200, 1500, 1800, 2100, 2400,2700 ,3000];
 
                                 // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                                 switch (item.direction) {
