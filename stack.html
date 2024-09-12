@@ -8482,7 +8482,7 @@
         stacknum=[0,0,0,0,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
         // stacknum=[0,0,0,0,8,16,32,64,128,256,512,1024,2048,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
-        stacknum=[0,0,0,0,8,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
+        stacknum=[0,0,0,0,64,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
         frontalViewCamera.left= -bw / 1.05
         frontalViewCamera.right = bw / 1.05
@@ -14766,8 +14766,8 @@
 
 
       if(startflag&&!gameoverflag){
-        document.getElementById("center0").innerText="점수: "+String(점수)
-        document.getElementById("center0").style.opacity=1
+        document.getElementById("center0").innerText=""
+        document.getElementById("center0").style.opacity=0
       }else{
 
 
@@ -18408,12 +18408,15 @@
               camera.top +=0.1
               camera.bottom -=0.4
               camera.updateProjectionMatrix();
-              activeFloor=cubes.length
+
+              if(skinset[skinnum]!="classic"){
+                activeFloor=cubes.length-1
+              }
                 if(cubes[cubes.length-1].body.velocity.norm()<0.1){
                   오버=true;
                 }
                 if(cubes[cubes.length-2].body.position.y<cubes[cubes.length-1].body.position.y){
-                  if(cubes[cubes.length-2].body.position.y<바닥높이+10){
+                  if(cubes[cubes.length-2].body.position.y<보드높이+10){
                     오버=true;
                   }
                 }
@@ -18978,6 +18981,12 @@
         }
 
         if(gameoverflag){
+
+
+          console.log(activeFloor)
+          if(skinset[skinnum]=="classic"){
+            activeFloor=cubes.length-1
+          }
           for (var i = 0; i < 5; i++) {
             if(skinset[skinnum]=="classic"){
 
@@ -19104,8 +19113,10 @@
                     for (var i = 0; i < cubes.length; i++) {
 
                         if (i == activeFloor) {
-                          console.log("11")
+
+
                           if(skinnum==skinset.indexOf("classic")){
+                            console.log("야호")
                             camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
                             camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
                           }else{
@@ -19137,10 +19148,10 @@
 
                             cubes.forEach((item, index) => {
 
-                                item.mesh.material.visible = false
+                                // item.mesh.material.visible = false
                                 // item.mesh.material.opacity = 0
-                                item.mesh.material.alphaTest=0
-                                item.mesh.material.transparent = false;
+                                // item.mesh.material.alphaTest=0
+                                // item.mesh.material.transparent = false;
                               })
 
 
@@ -19383,7 +19394,7 @@
             }else{
               camera.position.x=2*(bw * 2 )+ avx
               camera.position.z=2*(bw * 2 )+ avz
-
+              console.log("야호2")
             }
         }else {
           if (!restartflag) {
@@ -19415,12 +19426,22 @@
           if(gamemod==2&&activeFloor==cubes.length){
             // dl2.shadow.camera.position.y= bh * (cubes.length)
             cubes[cubes.length-2].mesh.children.forEach((tile, index) => {
-              if (tile.userData["skin"] == "tile") {
-                tile.material.visible = false;
-                tile.children.forEach((text) => {
-                  text.material.visible = false;
-                });
+              if(skinset[skinnum]=="classic"){
+                if (tile.userData["skin"] == "tile") {
+                  tile.material.visible = true;
+                  tile.children.forEach((text) => {
+                    text.material.visible = true;
+                  });
+                }
+              }else{
+                if (tile.userData["skin"] == "tile") {
+                  tile.material.visible = false;
+                  tile.children.forEach((text) => {
+                    text.material.visible = false;
+                  });
+                }
               }
+
             })
           }
           if(skinset[skinnum]=="gb"){
@@ -19701,18 +19722,18 @@
         }
 
         if(!restartflag){
-          if(legs.length>0){
-            legs.forEach((item) => {
-              item.position.copy(item.userData.body.position);
-              if(item.userData.right){
-                item.position.x=item.userData.body.position.x-bw/5
-              }else{
-                item.position.z=item.userData.body.position.z-bw/5
-              }
+            if(legs.length>0){
+              legs.forEach((item) => {
+                item.position.copy(item.userData.body.position);
+                if(item.userData.right){
+                  item.position.x=item.userData.body.position.x-bw/5
+                }else{
+                  item.position.z=item.userData.body.position.z-bw/5
+                }
 
-              item.quaternion.copy(item.userData.body.quaternion);
-            });
-          }
+                item.quaternion.copy(item.userData.body.quaternion);
+              });
+            }
 
 
           for (var i = 0; i < cubes.length; i++) {
@@ -19847,16 +19868,57 @@
           }
 
         }else if(skinset[skinnum]=="classic"){//클
-          cubes.forEach((item) => {
 
+          cubes.forEach((item, i) => {
                 if(gamemod!=2){
                   item.mesh.scale.set(클크기,gap,클크기)
                 }
                 item.mesh.scale.set(클크기,gap,클크기)
 
                 item.mesh.position.z=bh/4.4;
+              })
+
+      }
+
+      if(gameoverflag&&skinset[skinnum]=="classic"){
+        cubes.forEach((item, i) => {
+          if(i==cubes.length-1){
+            console.log("dd")
+            item.mesh.children.forEach((child) => {
+              if (child.userData["skin"]=="classic") {
+                  // item.material.visible=false;
+                  child.material.visible = true;
+                  child.material.opacity = 1;
+                  child.material.alphaTest = 0;
+                  child.material.transparent = false;
+              }else if (child.userData["skin"]=="bottom") {
+                  // item.material.visible=false;
+                  child.material.visible = true;
+                  child.material.opacity = 1;
+                  child.material.alphaTest = 0;
+                  child.material.transparent = false;
+              }else if (child.userData["skin"]=="tile") {
+                  // item.material.visible=false;
+                  child.material.visible = true;
+                  child.material.opacity = 1;
+                  child.material.alphaTest = 0;
+                  child.material.transparent = false;
+                  child.children.forEach((gchild) => {
+                    gchild.material.visible = true;
+                    gchild.material.opacity = 1;
+                    gchild.material.alphaTest = 0;
+                    gchild.material.transparent = false;
+                  })
+              }
+
+
+            })
+          }
         })
       }
+
+
+
 
       if (effects.length != 0) { //효과
           for (let i = effects.length-1; i >= 0; i--) {
@@ -28124,7 +28186,7 @@
 </button>
 
 <div id="center0">
-2048
+
 </div>
 
 <button id="right" class="right" onclick="optionon()">
