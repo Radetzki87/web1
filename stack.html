@@ -4352,7 +4352,7 @@
     var soundic = {};
 
     let 보드반경=8
-    let 보드높이=-20
+    let 보드높이=-30
 
     var colorlst = [
         [0x9DC8C8, 0x58C9B9, 0x519D9E, 0xD1B6E1, ],
@@ -8482,7 +8482,7 @@
         stacknum=[0,0,0,0,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
         // stacknum=[0,0,0,0,8,16,32,64,128,256,512,1024,2048,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
-        stacknum=[0,0,0,0,64,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
+        stacknum=[0,0,0,0,8,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
         frontalViewCamera.left= -bw / 1.05
         frontalViewCamera.right = bw / 1.05
@@ -8919,7 +8919,7 @@
         document.getElementById('pin').children[1].innerText=String(핀)
         document.getElementById('bridge').children[1].innerText=String(다리)
 
-        document.getElementById('shammer').style.left="-20vmin"
+        document.getElementById('shammer').style.left="-40vmin"
 
 
         legs=[];
@@ -12794,7 +12794,7 @@
         backmesh.position.z = -20;
         backmesh.position.x = -40;
         backmesh.position.y = -60;
-        // scene.add(backmesh);
+        scene.add(backmesh);
         gradback.push(backmesh);
 
 
@@ -16282,11 +16282,11 @@
                     // console.log(newcolor3)
                     // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 32);
                     var rcv=parseInt(Math.random()*(colorlst0.length-51))
-                    var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.1, 32,1,false, Math.PI/2, Math.PI*2), new THREE.MeshLambertMaterial({
+                    var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.05, 32,1,false, Math.PI/2, Math.PI*2), new THREE.MeshLambertMaterial({
                         // color: colorlst0[parseInt(Math.random()*colorlst0.length)][1],
                         // color: newcolor3.getHexString(),
                         color: colorlst0[rcv+parseInt(i/5)][i%5],
-                        opacity: 1,
+                        opacity: 0.001,
                         transparent: true
                     }), );
                     // mesh5.material.color=newcolor3
@@ -16298,7 +16298,11 @@
 
                       mesh5.position.set(0, 보드높이+33-33+0.3*bh-i*0.05, 0);
 
-                      if(i==1) mesh5.position.y=-21
+
+                      mesh5.material.depthWrite=false;
+
+                      // if(i==1) mesh5.position.y=보드높이-21
+
                     // mesh5.position.set(0, 0, -15-i*bscale*(bw/2));
 
 
@@ -16310,8 +16314,8 @@
 
                       createTextMesh("X"+String(i+2), 777, (textMesh) => {
                         // textMesh.position.z+=1*bscale;
-                        textMesh.position.z+=-2*보드반경*(i+2)-0.3*보드반경
-                        textMesh.position.x-=5*bscale;
+                        textMesh.position.z+=-2*보드반경*(i+2)-0.4*보드반경
+                        textMesh.position.x-=(10)*bscale;
                         textMesh.rotation.order = 'YXZ';
                         textMesh.rotation.x = -Math.PI / 2;
                         // textMesh.material.visible=false;
@@ -18045,6 +18049,17 @@
                 }else if(item.userData["skin"]=="bottom"){
                   item.material.visible=false;
                 }
+                // if(cubes.length>6)
+                // 보드.forEach((item, i) => {
+                //   item.material.visible=true;
+                //   item.material.opacity+=0.001
+                //   item.material.alphaTest=item.material.opacity
+                //   item.material.depthWrite=false;
+                //   if(i>cubes.length-1){
+                //     item.material.visible=false;
+                //   }
+                // });
+
               });
               m2once=true;
 
@@ -18078,6 +18093,24 @@
                 item.position.y = (cubes.length-4+스킬[2]) * bh +((elapsedTime - stacktime)/0.35)*bh
               }
             })
+
+
+            보드.forEach((item, i) => {
+
+              if(i>cubes.length-1){
+                item.material.visible=false;
+              }else{
+                item.material.visible=true;
+                if(cubes.length>10){
+                  item.material.opacity=0.12+0.08*(cubes.length-11)+((elapsedTime - stacktime)/0.35)*0.08
+                }else{
+                  item.material.opacity=0.02*(cubes.length-5)+((elapsedTime - stacktime)/0.35)*0.02
+                }
+
+                item.material.alphaTest=item.material.opacity
+                item.material.depthWrite=false;
+              }
+            });
 
 
             if(skinset[skinnum]=="classic"){
@@ -18304,6 +18337,7 @@
         if (!gameoverflag&&startflag) {
           var 오버=false;
           if(발사){
+            gradback[0].material.visible=false;
             dl2.target.position.set(cubes[cubes.length-1].mesh.position.x);
             // dl2.position.x=40+cubes[cubes.length-1].mesh.position.x
             // dl2.position.z=40+160+cubes[cubes.length-1].mesh.position.z
@@ -18325,7 +18359,12 @@
               console.log(기록)
             }else{
               console.log(Math.sqrt(Math.pow(cubes[cubes.length-1].mesh.position.z,2)+Math.pow(cubes[cubes.length-1].mesh.position.x,2)))
+              gradback[0].material.visible=false;
               보드.forEach((item, i) => {
+                item.material.visible=true;
+                item.material.opacity=1
+                item.material.alphaTest=item.material.opacity
+                item.material.depthWrite=true;
 
 
                 if(Math.sqrt(Math.pow(cubes[cubes.length-1].mesh.position.z,2)+Math.pow(cubes[cubes.length-1].mesh.position.x,2))>2*보드반경*(i-1)){
@@ -18357,6 +18396,13 @@
 
 
             if(cubes[cubes.length-1].mesh.position.y<(cubes.length-4+스킬[2])*bh/2){
+              보드.forEach((item) => {
+                item.material.visible=true;
+                item.material.opacity=1
+                item.material.alphaTest=item.material.opacity
+                item.material.depthWrite=true;
+              })
+              gradback[0].material.visible=false;
               camera.left -=0.1
               camera.right +=0.4
               camera.top +=0.1
@@ -18367,7 +18413,7 @@
                   오버=true;
                 }
                 if(cubes[cubes.length-2].body.position.y<cubes[cubes.length-1].body.position.y){
-                  if(cubes[cubes.length-2].body.position.y<1){
+                  if(cubes[cubes.length-2].body.position.y<바닥높이+10){
                     오버=true;
                   }
                 }
@@ -25612,7 +25658,7 @@
               var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.1, 32, Math.PI), new THREE.MeshLambertMaterial({
                   // color: colorlst[parseInt(Math.random()*colorlst.length)][1],
                   color: colorlst[i+1][1],
-                  opacity: 1,
+                  opacity: 0.1,
                   transparent: true
               }), );
 
