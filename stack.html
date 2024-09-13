@@ -3154,7 +3154,21 @@
 
 
 <body>
-
+<script type="x-shader/x-vertex" id="vertexshader">
+    attribute float scale;
+		void main() {
+			vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+			gl_PointSize = scale * ( 750.0 / - mvPosition.z );
+			gl_Position = projectionMatrix * mvPosition;
+		}
+	</script>
+<script type="x-shader/x-fragment" id="fragmentshader">
+    uniform vec3 color;
+		void main() {
+			if ( length( gl_PointCoord - vec2( 0.5, 0.5 ) ) > 0.475 ) discard;
+			gl_FragColor = vec4( color, 0.5 );
+		}
+</script>
 
 
 <script src="build/cannon.min.js"></script>
@@ -3766,7 +3780,7 @@
     })();
 
     let pfloor=2
-
+    let drawt=true;
     let 횟수=0;
     let combo=0
     var re3time=0;
@@ -3891,7 +3905,7 @@
     var restartonce1=false;
     var restartonce2=true;
 
-    var particleflag=false;
+    var particleflag=true;
 
     var ringloc=[];
     var ringflag=false;
@@ -6700,7 +6714,7 @@
               itemtouch=false;
             }
             if(itemtouch){
-
+              drawon2()
               console.log("아이템 사용")
               var force2 = new CANNON.Vec3();
               if(hammer){
@@ -7639,7 +7653,7 @@
         sideViewCamera.position.set(bw * 1.5, bw * 0.8, 0);
         sideViewCamera.lookAt(0, bw * 0.8, 0);
     }
-    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.4, bw / 1.4, bw / 1.4, -bw / 1.4, 0.1, 1000);
+    var topViewCamera = new THREE.OrthographicCamera(-bw / 1.8, bw / 1.8, bw / 1.8, -bw / 1.8, 0.1, 1000);
     topViewCamera.position.set(0, bh * 20, 0);
     topViewCamera.lookAt(0, 0, 0);
     var renderer = new THREE.WebGLRenderer({
@@ -8084,7 +8098,7 @@
           //   draw=true;
           //   drawcount=elapsedTime;
           // }
-          up(16);
+          // up(16);
           // langnum++
           // if(langnum>langset.length-1) langnum=0;
           // window.langnum=langnum;
@@ -17155,7 +17169,7 @@
         }
 
         if (skin0 && skinflag) {
-            if (txtcount != txttimebuf) {
+            if (txtcount != txttimebuf||true) {
                 if(particleflag){
                   const positions0 = particles.geometry.attributes.position.array;
                   // const size0 = particles.geometry.attributes.size.array;
@@ -17165,7 +17179,7 @@
                       j = 0;
                   for (let ix = 0; ix < 5; ix++) {
                       for (let iy = 0; iy < 5; iy++) {
-                          positions0[i + 1] = bh * ((Math.sin((ix + txtcount) * 0.15) * 0.1) - (Math.sin((iy + txtcount) * 0.15) * 0.1));
+                          positions0[i + 1] = (cubes.length-4)*bh+bh * ((Math.sin((ix + txtcount) * 0.15) * 0.1) - (Math.sin((iy + txtcount) * 0.15) * 0.1));
                           scales0[j] = 0.5+(Math.sin((ix * txtcount / 2) * 0.25 / 3)) * (1 + 0) + (Math.sin((iy * txtcount / 3) * 0.25)) * (1 + 0);
                           // scales0[ j ] = 32
                           i += 3;
@@ -18081,6 +18095,8 @@
               // }, 20);
 
             }
+
+
 
             camera.position.y=posy+((elapsedTime - stacktime)/0.35)*bh
             시간.forEach((item) => {
@@ -20577,16 +20593,34 @@
                 //   var width1 = window.innerWidth / 1.15;
                 //   var height1 = window.innerWidth / 1.15;
                 // }else{
+
+                var tt0=cubes[cubes.length-1].mesh.userData.combo;
+
+                if(cubes[cubes.length-1].mesh.userData.pin){
+                  tt0*=핀크기
+                }
+
                   var width = window.innerWidth / 1.1;
                   var height = window.innerWidth / 1.1;
 
                   var width1 = window.innerWidth / 1.1;
                   var height1 = window.innerWidth / 1.1;
-                  var width2 = window.innerWidth / 1.4;
-                  var height2 = window.innerWidth / 1.4;
-                  var width3 = window.innerWidth / 1.4;
-                  var height3 = window.innerWidth / 1.4;
+                  var width2 = window.innerWidth / 1.2+0.24*window.innerWidth*(tt0-1);
+                  var height2 = window.innerWidth / 1.2+0.24*window.innerWidth*(tt0-1);
+                  var width3 = window.innerWidth / 1.2+0.24*window.innerWidth*(tt0-1);
+                  var height3 = window.innerWidth / 1.2+0.24*window.innerWidth*(tt0-1);
                 // }
+
+                console.log(topViewCamera.left)
+                topViewCamera.left = -bw / 1.8-4*(tt0-1)
+                console.log(topViewCamera.left)
+                topViewCamera.right = bw / 1.8+4*(tt0-1)
+                topViewCamera.top = bw / 1.8+4*(tt0-1)
+                topViewCamera.bottom = -bw / 1.8-4*(tt0-1)
+
+                topViewCamera.updateProjectionMatrix();
+
+
                 if((window.innerWidth / window.innerHeight) > 0.5){
 
 
@@ -20619,6 +20653,7 @@
                 }else{
 
                   if(draw){
+
                     var tdraw=elapsedTime-drawcount
                     if(tdraw>1){
                       topcam=false;
@@ -20631,12 +20666,14 @@
                     }
 
                   }else{
+                    // console.log("탑")
+
                     var tdraw=drawcount-elapsedTime
                     if(tdraw<0){
                       tdraw=0
                     }
-                      renderer.setViewport(window.innerWidth / 2 - width2 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
-                      renderer.setScissor(window.innerWidth / 2 - width2 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
+                      renderer.setViewport(window.innerWidth / 2 - width2 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
+                      renderer.setScissor(window.innerWidth / 2 - width2 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
                       renderer.setScissorTest(true);
                       renderer.render(scene, topViewCamera);
 
@@ -26581,17 +26618,37 @@
     function drawon(){
 
       if(draw){
+        drawt=true;
         꺼져=false;
         topcam=true;
         draw=false;
         drawcount=elapsedTime+0.3;
       }else{
+        drawt=false;
         꺼져=true;
         draw=true;
         drawcount=elapsedTime;
       }
     }
     window.drawon=drawon;
+
+    function drawon2(){
+      if(draw){
+        if(drawt){
+          꺼져=false;
+          topcam=true;
+          draw=false;
+          drawcount=elapsedTime+0.3;
+        }
+      }else{
+
+          꺼져=true;
+          draw=true;
+          drawcount=elapsedTime;
+
+      }
+    }
+    window.drawon2=drawon2;
 
 </script>
 
