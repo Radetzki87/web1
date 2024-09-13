@@ -4082,7 +4082,7 @@
     var upversion=0;
 
     var 마찰=[0.2,0.3,0.17,0.2,0.3]
-    var 탄성=[0.4,0.4,0.2,0.7,0.4]
+    var 탄성=[0.4,0.4,0.1,0.7,0.4]
     var 중력=[-7,-11,-17,-7,-7]
 
     var resinit=0
@@ -6027,8 +6027,8 @@
               if(lastX<-0.75){
                 해머--;
               }else{
-                if(해머>2){
-                  해머-=3;
+                if(해머>4){
+                  해머-=5;
                   superflag=true;
                 }else{
                   해머--;
@@ -6714,7 +6714,11 @@
               itemtouch=false;
             }
             if(itemtouch){
-              drawon2()
+              drawon2(0.5)
+              // setTimeout(function() {
+              //     drawon2()
+              // }, 500);
+
               console.log("아이템 사용")
               var force2 = new CANNON.Vec3();
               if(hammer){
@@ -6738,8 +6742,10 @@
 
                 setTimeout(function() {
                     if(해머<=0) document.getElementById('hammer').style.left="-13.3vh"
-                    if(해머<3) document.getElementById('shammer').style.left="-14vh"
+                    if(해머<5) document.getElementById('shammer').style.left="-14vh"
+
                 }, 400);
+
 
 
                 let quaternion = new CANNON.Quaternion();
@@ -6757,8 +6763,10 @@
 
                   if(superflag){
                     superflag=false;
+
                     activeFloor=cubes.length;
                     발사=true;
+                    drawon2()
                     // cubes[itemidx].mesh.userData.bye=true;
                     // cubes[itemidx].mesh.userData.constraint.forEach((item) => {
                     //   world.removeConstraint(item);
@@ -8956,6 +8964,11 @@
         축소타임=0;
         바=100
         필=0
+
+        drawt=true;
+        draw=false;
+        drawcount=0
+
         pfloor=2
         document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
         document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
@@ -9230,15 +9243,15 @@
             // var fcolor=0xFfAfAf
             var fcolor = colorlst[colornum][3]
         } else if(fontSize == 9991){
-          var fsize = bw / 4
+          var fsize = bw / 3.5
           var fhight = 두께*th / 4
           var fcolor = colorlst[colornum][1]
 
         } else if(fontSize == 9981){
-          var fsize = bw / 7
+          var fsize = bw / 6
           var fhight = 두께*th / 8
           // var fcolor=0xFfAfAf
-          var fcolor = colorlst[colornum][0]
+          var fcolor = colorlst[colornum][3]
 
         }else if (fontSize == 777) {
             var fsize =  bscale*bw / 4
@@ -16387,7 +16400,7 @@
                     setTimeout(function() {
                       document.getElementById("tut-info").style.display=""
                       document.getElementById("tut-info").style.opacity="0.8";
-                      document.getElementById("tut-info").children[0].innerText="▲ "+"해머를 3개모으면 슈퍼 해머를 쓸 수 있어요"+" ▲"
+                      document.getElementById("tut-info").children[0].innerText="▲ "+"해머를 5개모으면 슈퍼 해머를 쓸 수 있어요"+" ▲"
                       document.getElementById("tut-info").children[1].innerText=""
                     }, 1000);
                   }else{
@@ -17507,7 +17520,7 @@
                                 // forceAmount=1000;
                                 var force = new CANNON.Vec3();
                                 var tnum=parseInt(Math.log2(num))-2;
-                                var forceset2=[650, 900, 1200, 1500, 1800, 2100, 2400,2700 ,3000];
+                                var forceset2=[650, 900, 1300, 1700, 2100, 2500, 2900,3300 ,3700];
 
                                 // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                                 switch (item.direction) {
@@ -18397,6 +18410,7 @@
 
           }else{
             for (var j = 4; j < cubes.length; j++) {
+
               보드.forEach((item, i) => {
                 // if(item.position.z+(bscale*bw/4)>cubes[j].mesh.position.z){
                 if(Math.sqrt(Math.pow(cubes[cubes.length-1].mesh.position.z,2)+Math.pow(cubes[cubes.length-1].mesh.position.x,2))>2*보드반경*(i-1)){
@@ -18412,6 +18426,9 @@
 
 
             if(cubes[cubes.length-1].mesh.position.y<(cubes.length-4+스킬[2])*bh/2){
+              if(!draw){
+                drawon2()
+              }
               보드.forEach((item) => {
                 item.material.visible=true;
                 item.material.opacity=1
@@ -20221,7 +20238,7 @@
 
                         textMesh.add(textMesh2)
                         textMesh.children[0].position.y +=bh
-                        textMesh.children[0].position.x +=bh/2
+                        textMesh.children[0].position.x +=bh/1.5
 
 
 
@@ -20229,7 +20246,7 @@
 
 
                       }
-                      createTextMesh(String(cubes.length-3), 998, (textMesh3) => {
+                      createTextMesh(String(cubes.length-4), 998, (textMesh3) => {
                         if(gamemod==2){
 
 
@@ -20611,12 +20628,12 @@
                   var height3 = window.innerWidth / 1.2+0.2*window.innerWidth*(tt0-1);
                 // }
 
-                console.log(topViewCamera.left)
-                topViewCamera.left = -bw / 1.8-5*(tt0-1)
-                console.log(topViewCamera.left)
-                topViewCamera.right = bw / 1.8+5*(tt0-1)
-                topViewCamera.top = bw / 1.8+5*(tt0-1)
-                topViewCamera.bottom = -bw / 1.8-5*(tt0-1)
+                // console.log(topViewCamera.left)
+                topViewCamera.left = -bw / 1.8-6*(tt0-1)
+                // console.log(topViewCamera.left)
+                topViewCamera.right = bw / 1.8+6*(tt0-1)
+                topViewCamera.top = bw / 1.8+6*(tt0-1)
+                topViewCamera.bottom = -bw / 1.8-6*(tt0-1)
 
                 topViewCamera.updateProjectionMatrix();
 
@@ -21320,7 +21337,7 @@
         }
         해머++;
 
-        if(해머>=3){
+        if(해머>=5){
           document.getElementById('shammer').style.left="-10vmin"
 
         }
@@ -24924,7 +24941,7 @@
 
 
           resinit=parseInt(nslst["data3"]["2"]);
-          resinit=0;
+          resinit=2;
 
           window.resinit=resinit;
 
@@ -26632,13 +26649,13 @@
     }
     window.drawon=drawon;
 
-    function drawon2(){
+    function drawon2(n=0){
       if(draw){
         if(drawt){
           꺼져=false;
           topcam=true;
           draw=false;
-          drawcount=elapsedTime+0.3;
+          drawcount=elapsedTime+0.3+n;
         }
       }else{
 
@@ -28258,7 +28275,7 @@
 
 <button id="shammer" class="shammer" onclick="">
     <img class="" src="png/hammer.png">
-    <div>cost:3</div>
+    <div>cost:5</div>
 </button>
 
 <button id="pung" class="pung" onclick="">
