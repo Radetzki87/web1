@@ -3724,7 +3724,7 @@
     var upversion=0;
 
     var 마찰=[0.2,0.3,0.17,0.2,0.3]
-    var 탄성=[0.4,0.4,0.1,0.7,0.4]
+    var 탄성=[0.4,0.4,0.15,0.7,0.4]
     var 중력=[-7,-11,-17,-7,-7]
 
     var resinit=0
@@ -6367,7 +6367,7 @@
 
                 if(itemr){
                   if(superflag){
-                    force2.set(-20000,0,0)
+                    force2.set(-25000,0,0)
                   }else{
                     force2.set(-6000,0,0)
 
@@ -6375,7 +6375,7 @@
                   이펙트2(itemidx, 128, "left");
                 }else if(iteml){
                   if(superflag){
-                    force2.set(0,0,-20000)
+                    force2.set(0,0,-25000)
                   }else{
                     force2.set(0,0,-6000)
                   }
@@ -8528,7 +8528,7 @@
         lastTime2=0;
         restartonce2=true;
 
-        if(Math.random()*2>0){
+        if(Math.random()*2>0.8){
           skinnum=skinset.indexOf("classic")
         }
 
@@ -8679,6 +8679,8 @@
                       transparent: true
                   }), );
                   mesh5.position.set(0, bh*(스킬[2])/2-40, 0);
+                  mesh5.receiveShadow = true;
+                  mesh5.castShadow = true;
                   scene.add(mesh5)
                   토대.push(mesh5)
                   var shape = new CANNON.Box(new CANNON.Vec3(22/ 2, (80+bh*(스킬[2])) / 2, 22/ 2));
@@ -15666,6 +15668,14 @@
                 restart();
 
             } else {
+
+                보드.forEach((item) => {
+                  item.material.visible=false;
+                  item.children.forEach((child) => {
+                    child.material.visible=false;
+                  });
+                });
+
                 // camera.rotation.x += Math.PI / 512
                 camera.rotation.x += deltaTime / 1800
                 if(gamemod!=2){
@@ -15778,7 +15788,7 @@
                     opacity: 1
                 });
                 for (var i = 0; i < cubes.length; i++) {
-                    cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i) * bh + bh / 2) +(restartloc[i].y) * 1.49 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
+                    cubes[i].mesh.position.set(restartloc[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), ((i-3) * bh + bh / 2) +(restartloc[i].y) * 1.49 * Math.abs(camera.rotation.x - restartend), restartloc[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     cubes[i].mesh.rotation.set(restartrot[i].x * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].y * 1.39 * Math.abs(camera.rotation.x - restartend), restartrot[i].z * 1.39 * Math.abs(camera.rotation.x - restartend))
                     if(skinset[skinnum]=="classic"){
                       // cubes[i].mesh.position.z=cubes[i].body.position.z
@@ -15978,7 +15988,7 @@
                   console.log("빵")
 
 
-
+                  console.log(보드.length)
 
 
                   var nc = hexToHSL(hexToHtmlColor(colorlst0[parseInt(Math.random()*colorlst0.length)][1]))
@@ -16003,6 +16013,7 @@
                     // }), );
 
                       mesh5.position.set(0, 보드높이+33-33+0.3*bh-i*0.05, 0);
+                      mesh5.receiveShadow = true;
 
 
                       mesh5.material.depthWrite=false;
@@ -16016,11 +16027,10 @@
 
 
 
-
-
-                      createTextMesh("X"+String(i+2), 777, (textMesh) => {
+                    if(i>2){
+                      createTextMesh("X"+String(i-1), 777, (textMesh) => {
                         // textMesh.position.z+=1*bscale;
-                        textMesh.position.z+=-2*보드반경*(i+2)-0.4*보드반경
+                        textMesh.position.z+=-2*보드반경*(i-1)-0.4*보드반경
                         textMesh.position.x-=(10)*bscale;
                         textMesh.rotation.order = 'YXZ';
                         textMesh.rotation.x = -Math.PI / 2;
@@ -16028,11 +16038,65 @@
 
 
                         mesh5.add(textMesh);
-                        scene.add(mesh5)
-                        보드.push(mesh5)
+                        createTextMesh("X"+String(i-1), 777, (textMesh) => {
+                          // textMesh.position.z+=1*bscale;
+                          textMesh.position.z-=-2*보드반경*(i-1)-0.8*보드반경
+                          textMesh.position.x-=(8)*bscale;
+                          textMesh.rotation.order = 'YXZ';
+                          textMesh.rotation.x = -Math.PI / 2;
+                          // textMesh.material.visible=false;
+
+
+                          mesh5.add(textMesh);
+                          createTextMesh("X"+String(i-1), 777, (textMesh) => {
+                            // textMesh.position.z+=1*bscale;
+                            textMesh.position.x+=-2*보드반경*(i-1)-0.4*보드반경
+                            textMesh.position.z-=(3)*bscale;
+                            textMesh.rotation.order = 'YXZ';
+                            textMesh.rotation.x = -Math.PI / 2;
+                            textMesh.rotation.y = -Math.PI ;
+                            textMesh.rotation.z = -Math.PI/2 ;
+                            // textMesh.material.visible=false;
+
+
+                            mesh5.add(textMesh);
+                            createTextMesh("X"+String(i-1), 777, (textMesh) => {
+                              // textMesh.position.z+=1*bscale;
+                              textMesh.position.x-=-2*보드반경*(i-1)-0.8*보드반경
+                              textMesh.position.z-=(3)*bscale;
+                              textMesh.rotation.order = 'YXZ';
+                              textMesh.rotation.x = -Math.PI / 2;
+                              textMesh.rotation.y = -Math.PI ;
+                              textMesh.rotation.z = -Math.PI/2 ;
+
+
+                              mesh5.add(textMesh);
+                              scene.add(mesh5)
+                              보드.push(mesh5)
+
+
+
+                            });
+                          });
+                        });
                       });
 
+                    }else{
+                      scene.add(mesh5)
+                      보드.push(mesh5)
+                    }
+
+
+
                   }
+
+
+                  보드.forEach((item) => {
+                    item.children.forEach((child) => {
+                      child.material.opacity=0
+                      child.material.depthWrite=false;
+                    });
+                  });
 
                   for (var i = 0; i < 3; i++) {
                     cubes[i].body.sleep();
@@ -16204,6 +16268,16 @@
 
                   console.log("콩")
 
+
+
+
+                  if(skinnum==skinset.indexOf("classic")){
+                    activeFloor=5
+                  }else{
+                    activeFloor=5
+                  }
+                  bf=99;
+
                   if(skinnum==skinset.indexOf("classic")){
                     // console.log(cubes[cubes.length-1].mesh)
                     cubes[cubes.length-1].mesh.children.forEach((item, i) => {
@@ -16300,8 +16374,12 @@
 
                     })
                   }
+
+
+
                   setTimeout(function() {
                     터치=true
+                    bf=99;
                   }, 500);
 
                   document.getElementById('hammer0').style.display="none"
@@ -17944,6 +18022,8 @@
 
               if(i>cubes.length-1){
                 item.material.visible=false;
+
+
               }else{
                 item.material.visible=true;
                 if(cubes.length>10){
@@ -17954,7 +18034,29 @@
 
                 item.material.alphaTest=item.material.opacity
                 item.material.depthWrite=false;
+
+
               }
+
+
+                // item.children.forEach((child) => {
+                //   child.material.visible=true;
+                //   // child.material.opacity=0.2*(cubes.length-5)+((elapsedTime - stacktime)/0.35)*0.2
+                //   child.material.opacity=1
+                //   child.material.alphaTest=item.material.opacity
+                //   child.material.depthWrite=false;
+                // });
+
+                item.children.forEach((child) => {
+                  child.material.visible=true;
+                  child.material.transparent=true;
+                  child.material.opacity=0.02*(cubes.length-5)+((elapsedTime - stacktime)/0.35)*0.02
+                  child.material.alphaTest=item.material.opacity
+                  child.material.depthWrite=true;
+                });
+
+
+
             });
 
 
@@ -18027,10 +18129,10 @@
                 cubes[cubes.length-1].mesh.scale.set(1*cubes[cubes.length-1].mesh.userData.combo,gap,1*cubes[cubes.length-1].mesh.userData.combo)
               }
 
-              if(cubes.length>=6){
+              if(cubes.length>=7){
                 for (var j = cubes[cubes.length-2].mesh.children.length - 1; j >= 0; j--) {
                     if (cubes[cubes.length-2].mesh.children[j].userData["skin"] != skinset[skinnum]) {
-                      if(cubes[cubes.length-2].mesh.children[j].userData["skin"]!="bottom"&&cubes[cubes.length-2].mesh.children[j].userData["skin"]!="text1"&&cubes[cubes.length-2].mesh.children[j].userData["skin"]!="face"&&cubes[cubes.length-2].mesh.children[j].userData["skin"].substring(0, cubes[cubes.length-2].mesh.children[j].userData["skin"].length - 1) != "txtback") cubes[cubes.length-2].mesh.remove(cubes[cubes.length-2].mesh.children[j]);
+                      if(cubes[cubes.length-2].mesh.children[j].userData["skin"]!="text1"&&cubes[cubes.length-2].mesh.children[j].userData["skin"]!="face"&&cubes[cubes.length-2].mesh.children[j].userData["skin"].substring(0, cubes[cubes.length-2].mesh.children[j].userData["skin"].length - 1) != "txtback") cubes[cubes.length-2].mesh.remove(cubes[cubes.length-2].mesh.children[j]);
                     }
                 }
               }
@@ -18205,17 +18307,32 @@
             }else{
               console.log(Math.sqrt(Math.pow(cubes[cubes.length-1].mesh.position.z,2)+Math.pow(cubes[cubes.length-1].mesh.position.x,2)))
               gradback[0].material.visible=false;
+              var nc = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
               보드.forEach((item, i) => {
                 item.material.visible=true;
                 item.material.opacity=1
                 item.material.alphaTest=item.material.opacity
                 item.material.depthWrite=true;
+                item.children.forEach((child) => {
+                  child.material.visible=true;
+                  child.material.opacity=1
+                  child.material.alphaTest=item.material.opacity
+                  child.material.depthWrite=true;
+                });
 
 
                 if(Math.sqrt(Math.pow(cubes[cubes.length-1].mesh.position.z,2)+Math.pow(cubes[cubes.length-1].mesh.position.x,2))>2*보드반경*(i-1)){
-                  item.material.color=new THREE.Color(colorlst[colornum][3])
 
-                  item.children[0].material.color=new THREE.Color(colorlst[colornum][0])
+
+
+                  item.material.color=new THREE.Color('hsl(' + String(nc["h"]+3*i) + ', ' + String(nc["s"]+0.4*i) + '%, ' + String(nc["l"]-0.4*i  ) + '%)');
+                  if(i>2){
+                    item.children[0].material.color=new THREE.Color(colorlst[colornum][0])
+                    item.children[1].material.color=new THREE.Color(colorlst[colornum][0])
+                    item.children[2].material.color=new THREE.Color(colorlst[colornum][0])
+                    item.children[3].material.color=new THREE.Color(colorlst[colornum][0])
+                  }
+
                   if(i-2>기록){
                     기록=i-2
                   }
@@ -18225,14 +18342,23 @@
             }
 
           }else{
+            var nc = hexToHSL(hexToHtmlColor(colorlst[colornum][3]))
             for (var j = 4; j < cubes.length; j++) {
 
               보드.forEach((item, i) => {
                 // if(item.position.z+(bscale*bw/4)>cubes[j].mesh.position.z){
                 if(Math.sqrt(Math.pow(cubes[cubes.length-1].mesh.position.z,2)+Math.pow(cubes[cubes.length-1].mesh.position.x,2))>2*보드반경*(i-1)){
-                  item.material.color=new THREE.Color(colorlst[colornum][3])
 
-                  item.children[0].material.color=new THREE.Color(colorlst[colornum][0])
+
+
+                  item.material.color=new THREE.Color('hsl(' + String(nc["h"]+3*i) + ', ' + String(nc["s"]+0.4*i) + '%, ' + String(nc["l"]-0.4*i  ) + '%)');
+
+                  if(i>2){
+                    item.children[0].material.color=new THREE.Color(colorlst[colornum][0])
+                    item.children[1].material.color=new THREE.Color(colorlst[colornum][0])
+                    item.children[2].material.color=new THREE.Color(colorlst[colornum][0])
+                    item.children[3].material.color=new THREE.Color(colorlst[colornum][0])
+                  }
                   if(i-2>기록){
                     기록=i-2
                   }
@@ -18250,6 +18376,13 @@
                 item.material.opacity=1
                 item.material.alphaTest=item.material.opacity
                 item.material.depthWrite=true;
+                item.children.forEach((child) => {
+                  child.material.visible=true;
+                  child.material.opacity=1
+                  child.material.alphaTest=item.material.opacity
+                  child.material.depthWrite=true;
+                });
+
               })
               gradback[0].material.visible=false;
               camera.left -=0.1
@@ -18416,8 +18549,8 @@
                     var 이전점수=점수
                     점수+=(cubes.length-3)*multiply
 
-                    temp1[0].children[0].style.fontSize="11vmin"
-                    temp1[0].children[0].innerText=String(이전점수)+"+("+String(cubes.length-3)+"(층)"+"x"+String(getNotRoundDecimalNumber(multiply,0))+")="+String(getNotRoundDecimalNumber(점수,0))
+                    temp1[0].children[0].style.fontSize="8vmin"
+                    temp1[0].children[0].innerText=String(이전점수)+"+("+String(cubes.length-3)+"층"+" X"+String(getNotRoundDecimalNumber(multiply,0))+")="+String(getNotRoundDecimalNumber(점수,0))
 
 
 
@@ -25675,7 +25808,7 @@
 
                 createTextMesh("X"+String(i+2), 777, (textMesh) => {
                   // textMesh.position.z+=1*bscale;
-                  textMesh.position.z+=-2*보드반경*(i+2)-0.3*보드반경
+                  textMesh.position.z+=-2*보드반경*(i-1)-0.3*보드반경
                   textMesh.position.x-=5*bscale;
                   textMesh.rotation.order = 'YXZ';
                   textMesh.rotation.x = -Math.PI / 2;
@@ -25683,8 +25816,42 @@
 
 
                   mesh5.add(textMesh);
-                  scene.add(mesh5)
-                  보드.push(mesh5)
+                  createTextMesh("X"+String(i+2), 777, (textMesh) => {
+                    // textMesh.position.z+=1*bscale;
+                    textMesh.position.z-=-2*보드반경*(i-1)-0.3*보드반경
+                    textMesh.position.x-=5*bscale;
+                    textMesh.rotation.order = 'YXZ';
+                    textMesh.rotation.x = -Math.PI / 2;
+                    // textMesh.material.visible=false;
+
+
+                    mesh5.add(textMesh);
+                    createTextMesh("X"+String(i+2), 777, (textMesh) => {
+                      // textMesh.position.z+=1*bscale;
+                      textMesh.position.x+=-2*보드반경*(i-1)-0.3*보드반경
+                      textMesh.position.z-=5*bscale;
+                      textMesh.rotation.order = 'YXZ';
+                      textMesh.rotation.x = -Math.PI / 2;
+                      // textMesh.material.visible=false;
+
+
+                      mesh5.add(textMesh);
+                      createTextMesh("X"+String(i+2), 777, (textMesh) => {
+                        // textMesh.position.z+=1*bscale;
+                        textMesh.position.x-=-2*보드반경*(i-1)-0.3*보드반경
+                        textMesh.position.z-=5*bscale;
+                        textMesh.rotation.order = 'YXZ';
+                        textMesh.rotation.x = -Math.PI / 2;
+                        // textMesh.material.visible=false;
+
+
+                        mesh5.add(textMesh);
+                        scene.add(mesh5)
+                        보드.push(mesh5)
+                      });
+                    });
+                  });
+
                 });
 
             }
@@ -25791,6 +25958,8 @@
                 transparent: true
             }), );
             mesh5.position.set(0, bh*(스킬[2])/2-50, 0);
+            mesh5.receiveShadow = true;
+            mesh5.castShadow = true;
             scene.add(mesh5)
             토대.push(mesh5)
             var shape = new CANNON.Box(new CANNON.Vec3(12/2, (50+bh*(스킬[2])) / 2, 12/2));
