@@ -7,6 +7,7 @@
 
 
         body {
+            position: fixed;
             overflow: hidden;
             text-align: center;
             -webkit-tap-highlight-color : rgba(0,0,0,0);
@@ -2854,6 +2855,7 @@
     document.body.style.overscrollBehaviorX = 'none';
     // document.getElementById('game-over-panel').style.display="none";
 
+
     const gameOverPanel = document.getElementById('game-over-panel');
 
 
@@ -5402,6 +5404,7 @@
     var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
     function handleTouchStart(event) {
+
         if(!터치) return
         // if(originflag&&-isoAngle != camera.rotation.x) return;
 
@@ -5977,6 +5980,7 @@
     }
 
     function handleTouchMove(event) {
+      event.preventDefault();
         if(restartflag) return;
 
         if (gameoverflag) return;
@@ -7270,13 +7274,13 @@
 
 
     window.addEventListener("touchstart", handleTouchStart, {
-        passive: true
+        passive: false
     });
     window.addEventListener("touchmove", handleTouchMove, {
-        passive: true
+        passive: false
     });
     window.addEventListener("touchend", handleTouchEnd, {
-        passive: true
+        passive: false
     });
     let boxSize = 1;
     let boxh = boxSize / 2;
