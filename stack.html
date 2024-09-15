@@ -8433,7 +8433,7 @@
         //       dl2.color=new THREE.Color(0xffffff);
         //       dl2.intensity=0.7
         //       dl2.castShadow = true;
-        //       dl2.shadow.mapSize = new THREE.Vector2(800, 800);
+        //       dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
         //       if(gamemod==2){
         //         dl2.intensity=0.7
         //
@@ -8833,22 +8833,22 @@
                           dl2.castShadow = true;
                           switch (resinit) {
                             case 0:
-                              dl2.shadow.mapSize = new THREE.Vector2(800, 800);
+                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                               break;
                             case 1:
-                              dl2.shadow.mapSize = new THREE.Vector2(800, 800);
+                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                               break;
                             case 2:
-                              dl2.shadow.mapSize = new THREE.Vector2(800, 800);
+                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                               break;
                             case 3:
-                              dl2.shadow.mapSize = new THREE.Vector2(800, 800);
+                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                               break;
                             case 4:
-                              dl2.shadow.mapSize = new THREE.Vector2(800, 800);
+                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                               break;
                             case 5:
-                              dl2.shadow.mapSize = new THREE.Vector2(800, 800);
+                              dl2.shadow.mapSize = new THREE.Vector2(1500, 1500);
                               break;
                             default:
                               return;
@@ -16006,7 +16006,7 @@
                         // color: colorlst0[parseInt(Math.random()*colorlst0.length)][1],
                         // color: newcolor3.getHexString(),
                         color: colorlst0[rcv+parseInt(i/5)][i%5],
-                        opacity: 0.001,
+                        opacity: 0,
                         transparent: true
                     }), );
                     // mesh5.material.color=newcolor3
@@ -16017,7 +16017,7 @@
                     // }), );
 
                       mesh5.position.set(0, 보드높이+33-33+0.3*bh-i*0.05, 0);
-                      mesh5.receiveShadow = true;
+                      // mesh5.receiveShadow = true;
 
 
                       mesh5.material.depthWrite=false;
@@ -18054,7 +18054,12 @@
                 item.children.forEach((child) => {
                   child.material.visible=true;
                   child.material.transparent=true;
-                  child.material.opacity=0.02*(cubes.length-5)+((elapsedTime - stacktime)/0.35)*0.02
+                  if(cubes.length>10){
+                    child.material.opacity=0.12+0.08*(cubes.length-11)+((elapsedTime - stacktime)/0.35)*0.08
+                  }else{
+                    child.material.opacity=0.02*(cubes.length-5)+((elapsedTime - stacktime)/0.35)*0.02
+                  }
+
                   child.material.alphaTest=item.material.opacity
                   child.material.depthWrite=true;
                 });
