@@ -3767,8 +3767,8 @@
     var version;
     var upversion=0;
 
-    var 마찰=[0.2,0.3,0.17,0.2,0.3]
-    var 탄성=[0.4,0.4,0.15,0.7,0.4]
+    var 마찰=[0.2,0.3,0.16,0.2,0.3]
+    var 탄성=[0.4,0.4,0.2,0.7,0.4]
     var 중력=[-7,-11,-17,-7,-7]
 
     var resinit=0
@@ -4052,7 +4052,7 @@
     var soundic = {};
 
     let 보드반경=8
-    let 보드높이=-30
+    let 보드높이=25
 
     var colorlst = [
         [0x9DC8C8, 0x58C9B9, 0x519D9E, 0xD1B6E1, ],
@@ -8189,8 +8189,8 @@
         }
         console.log(stacknum)
 
-        stacknum=[0,0,0,0,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
-
+        // stacknum=[0,0,0,0,8,16,32,8,16,32,64,16,32,64,8,16,32,64,8,16,32,64,8,8,8,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
+        // stacknum=[0,0,0,0,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]
         // stacknum=[0,0,0,0,8,16,32,64,128,256,512,1024,2048,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
         stacknum=[0,0,0,0,64,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
 
@@ -8240,7 +8240,7 @@
         }else if (gamemod==2){
           for (var i = 0; i < cubes.length; i++) {
             cubes[i].body.material.friction = 마찰[2];
-            cubes[i].body.material.restitution = 탄성[2];
+            cubes[i].body.material.restitution = 0.2;
           }
           stack=3;
           forceAmount = 10*bw * bw * bh / 10;
@@ -8252,6 +8252,9 @@
 
         }
         groundBody.position.set(0, 보드높이, 0);
+        groundBody.material.friction = 0.1
+        groundBody.material.restitution = 1;
+
         world.addBody(groundBody);
 
         // groundBody1.position.set(0, -3, 0);
@@ -8293,7 +8296,7 @@
         }
         groundmesh = new THREE.Mesh(groundgeometry, groundmaterial);
         groundmesh.position.set(0, 보드높이-10, 0);
-        if (shadowon) groundmesh.receiveShadow = true
+        // if (shadowon) groundmesh.receiveShadow = true
         groundmesh.rotation.x=0;
         groundmesh.rotation.z=0;
 
@@ -19440,6 +19443,8 @@
             }else{
               camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
               camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
+              var diffy=camera.position.y-cubes[cubes.length-1].mesh.position.y
+              camera.position.y-=0.1*diffy;
               console.log("33")
             }
 
