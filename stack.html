@@ -14495,9 +14495,9 @@
                                         ncolornum0=colornum0
                                         restart()
                                         animate();
-                                      }, 1000  );
+                                      }, 1500  );
 
-                                  }, 500  );
+                                  }, 1000  );
                               })
                               // console.log(tilemold);
                               // console.log(textmold)
@@ -20810,8 +20810,27 @@
 
                 }
               }else{
-                var width3 = window.innerWidth / 2.15;
-                var height3 = window.innerWidth / 2.15;
+                var tt0=cubes[cubes.length-1].mesh.userData.combo;
+
+                if(cubes[cubes.length-1].mesh.userData.pin){
+                  tt0*=핀크기
+                }
+
+                // var width3 = window.innerWidth / 1.65;
+                // var height3 = window.innerWidth / 1.65;
+
+                var width3 = window.innerWidth / 1.65+0.3*window.innerWidth*(tt0-1);
+                var height3 = window.innerWidth / 1.65+0.3*window.innerWidth*(tt0-1);
+              // }
+
+              // console.log(topViewCamera.left)
+              topViewCamera.left = -bw / 1.8-6*(tt0-1)
+              // console.log(topViewCamera.left)
+              topViewCamera.right = bw / 1.8+6*(tt0-1)
+              topViewCamera.top = bw / 1.8+6*(tt0-1)
+              topViewCamera.bottom = -bw / 1.8-6*(tt0-1)
+
+              topViewCamera.updateProjectionMatrix();
                 if(draw){
 
                   var tdraw=elapsedTime-drawcount
@@ -20819,8 +20838,8 @@
                     topcam=false;
                     tdraw=1;
                   }else{
-                    renderer.setViewport(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
-                    renderer.setScissor(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setViewport(window.innerWidth / 2 - width3 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setScissor(window.innerWidth / 2 - width3 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
                   }
@@ -20830,8 +20849,8 @@
                   if(tdraw<0){
                     tdraw=0
                   }
-                    renderer.setViewport(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
-                    renderer.setScissor(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setViewport(window.innerWidth / 2 - width3 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setScissor(window.innerWidth / 2 - width3 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
 
