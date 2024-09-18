@@ -1373,7 +1373,7 @@
         }
 
         .gameinfo1 {
-            font-family: 'mono';
+            font-family: 'GG';
             top:12vmin;
             position: absolute;
             font-size: 15vmin;
@@ -6467,11 +6467,11 @@
         }
 
         if(itemflag){
-            if((hammer||pung)&&itemtouch&&superflag&&itemidx!=cubes.length-1){
-              itemtouch=false;
-            }
+            // if((hammer||pung)&&itemtouch&&superflag){ //&&itemidx!=cubes.length-1
+            //   itemtouch=false;
+            // }
             if(itemtouch){
-              drawon2(0.5)
+              drawon2(1)
               // setTimeout(function() {
               //     drawon2()
               // }, 500);
@@ -6521,21 +6521,33 @@
                   if(superflag){
                     superflag=false;
 
-                    activeFloor=cubes.length;
-                    발사=true;
-                    drawon2()
-                    // cubes[itemidx].mesh.userData.bye=true;
-                    // cubes[itemidx].mesh.userData.constraint.forEach((item) => {
-                    //   world.removeConstraint(item);
-                    //
-                    // });
-                    // setTimeout(function() {
-                    //   cubes[itemidx].body.sleep();
-                    //   // cubes[i].body.collisionResponse = false;
-                    //
-                    //   cubes[itemidx].mesh.userData.ice=true;
-                    //
-                    // }, 500);
+                    if(itemidx==cubes.length-1){
+                      // console.log("발사")
+                      activeFloor=cubes.length;
+                      setTimeout(function() {
+                        발사=true;
+                      }, 50);
+
+                      drawon2()
+                    }else{
+                      cubes[itemidx].mesh.userData.bye=true;
+                      cubes[itemidx].mesh.userData.constraint.forEach((item) => {
+                        world.removeConstraint(item);
+
+                      });
+                      스킬[2]-=1;
+
+                      drawon2()
+                      // setTimeout(function() {
+                      //   cubes[itemidx].body.sleep();
+                      //   // cubes[i].body.collisionResponse = false;
+                      //
+                      //   cubes[itemidx].mesh.userData.ice=true;
+                      //
+                      // }, 500);
+                    }
+
+
 
                   }
 
@@ -6591,6 +6603,9 @@
                 var tc=0;
                 for (var i = 4; i <cubes.length-1; i++) {
                   if(cubes[i].body.sleepState!=0){
+                    continue;
+                  }
+                  if(cubes[i].mesh.userData["bye"]){
                     continue;
                   }
                   tc++;
@@ -6654,7 +6669,7 @@
                   uselst=[];
 
                   let customMaterial = new CANNON.Material('customMaterial');
-                  customMaterial.friction = 마찰[2]*cubes[itemidx].mesh.userData.combo*핀크기; // Friction coefficient, range: 0-1
+                  customMaterial.friction = 마찰[2]*cubes[itemidx].mesh.userData.combo*(1+(1-핀크기)*0.3); // Friction coefficient, range: 0-1
                   customMaterial.restitution = 탄성[2]; // Restitution (elasticity), range: 0-1
 
                   let groundBody = new CANNON.Body({
@@ -7992,6 +8007,31 @@
             if (skinnum >= skinset.length) {
                 skinnum = 0;
             }
+
+            cubes.forEach((item, i) => {
+              if(i>=4){
+                if(item.mesh.userData.pin){
+                  if(skinnum==skinset.indexOf("classic")){
+                    item.mesh.scale.x=핀크기*클크기*item.mesh.userData.combo
+                    item.mesh.scale.z=핀크기*클크기*item.mesh.userData.combo
+                  }else{
+                    item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                    item.mesh.scale.z=핀크기*item.mesh.userData.combo
+                  }
+
+                }else{
+                  if(skinnum==skinset.indexOf("classic")){
+                    item.mesh.scale.x=클크기*item.mesh.userData.combo
+                    item.mesh.scale.z=클크기*item.mesh.userData.combo
+                  }else{
+                    item.mesh.scale.x=1*item.mesh.userData.combo
+                    item.mesh.scale.z=1*item.mesh.userData.combo
+                  }
+
+                }
+              }
+
+            });
             bf=999
             // if(lookcenter){
             // }else if(lookright){
@@ -8324,7 +8364,7 @@
         }
         groundBody.position.set(0, 보드높이, 0);
         groundBody.material.friction = 0.05
-        groundBody.material.restitution = 1;
+        groundBody.material.restitution = 0;
 
         world.addBody(groundBody);
 
@@ -8743,6 +8783,7 @@
         drawcount=0
         aniflag0=true;
         pfloor=2
+        스킬[2]=1;
 
         console.log(sdic)
         document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
@@ -8807,8 +8848,8 @@
                   // const cylinderShape = new CANNON.Cylinder(width, width, bh, 16);
                   // const shape2 = new CANNON.Cylinder(width,width,height,1)
                   var customMaterial = new CANNON.Material('customMaterial');
-                  customMaterial.friction = 0.18; // Friction coefficient, range: 0-1
-                  customMaterial.restitution = 0.4; // Restitution (elasticity), range: 0-1
+                  customMaterial.friction = 마찰[2]; // Friction coefficient, range: 0-1
+                  customMaterial.restitution = 0.2; // Restitution (elasticity), range: 0-1
 
                   const body = new CANNON.Body({
                       mass: 0,
@@ -16184,7 +16225,7 @@
 
 
                   var nc = hexToHSL(hexToHtmlColor(colorlst0[parseInt(Math.random()*colorlst0.length)][1]))
-                  for (var i = 0; i < 50; i++) {
+                  for (var i = 0; i < 40; i++) {
 
                     // var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]+(10*i)) + ', ' + '80%, ' +  '50%)');
                     // console.log(newcolor3)
@@ -16726,7 +16767,7 @@
           avx = 0;
           avz = 0;
           var templength=0
-            for (var i = 0; i < cubes.length; i++) {
+            for (var i = 4; i < cubes.length; i++) {
 
                 cubes[i].mesh.children.forEach((item) => {
                   if (item.userData["skin"]==skinset[skinnum]) {
@@ -16783,6 +16824,9 @@
               var icelst=[]
               for (var i = 4; i < cubes.length-1; i++) {
                 if(cubes[i].body.sleepState!=0){
+                  continue;
+                }
+                if(cubes[i].mesh.userData["bye"]){
                   continue;
                 }
                 icelst.push(cubes[i].mesh)
@@ -17519,7 +17563,7 @@
                                     temz1-=bh/4.4
                                   }
 
-                                  cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (overcount) * bh+bh*(스킬[2]+1), temz1, bw, bh, bw, game2048, cubes.length, true));
+                                  cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-3) * bh+bh*(스킬[2]), temz1, bw, bh, bw, game2048, cubes.length, true));
                                   cubes[activeFloor+1].mesh.quaternion.copy(cubes[activeFloor].mesh.quaternion);
                                   cubes[activeFloor+1].body.quaternion.copy(cubes[activeFloor].body.quaternion);
 
@@ -18524,6 +18568,7 @@
 
 
             if(cubes[cubes.length-1].body.velocity.norm()<0.0001){
+              console.log("오버?")
               오버=true;
               console.log(cubes[cubes.length-1].mesh.position.z)
               console.log(기록)
@@ -18590,11 +18635,18 @@
                     aniflag0=false
                   }
                 }
+
+
+
+
+
+
+
               });
             }
 
 
-            if(cubes[cubes.length-1].mesh.position.y<(cubes.length-4+스킬[2])*bh/2){
+            if(cubes[cubes.length-1].mesh.position.y<(cubes.length-5+스킬[2])*bh/2){
               aniflag0=false
               if(!draw){
                 drawon2()
@@ -18623,13 +18675,28 @@
                 activeFloor=cubes.length-1
               }
                 if(cubes[cubes.length-1].body.velocity.norm()<0.1){
+                  console.log("낙하종료")
                   오버=true;
                 }
+
                 // if(cubes[cubes.length-2].body.position.y<cubes[cubes.length-1].body.position.y){
                 //   if(cubes[cubes.length-2].body.position.y<보드높이+bh){
                 //     오버=true;
                 //   }
                 // }
+
+            }else{
+              // console.log(cubes[4].mesh.position.y)
+              for (var i = 4; i < cubes.length-1; i++) {
+                if(cubes[i].mesh.position.y<보드높이+5){
+                  // console.log("있음")
+                  if(cubes[i].mesh.userData["bye"]!=true){
+                    cubes[i].mesh.userData["bye"]=true;
+                    스킬[2]-=1;
+
+                  }
+                }
+              }
 
             }
           }
@@ -18778,7 +18845,8 @@
                     점수+=(cubes.length-3)*multiply
 
                     temp1[0].children[0].style.fontSize="8vmin"
-                    temp1[0].children[0].innerText=String(이전점수)+"+("+String(cubes.length-3)+"층"+" X"+String(getNotRoundDecimalNumber(multiply,0))+")="+String(getNotRoundDecimalNumber(점수,0))
+                    temp1[0].children[0].style.fontfamily= 'GG';
+                    temp1[0].children[0].innerText=String(이전점수)+"+("+String(cubes.length-3)+"층"+"X"+String(getNotRoundDecimalNumber(multiply,0))+")="+String(getNotRoundDecimalNumber(점수,0))
 
 
 
@@ -19206,13 +19274,15 @@
                   item.material.visible=false;
                 }else if(item.userData["skin"]==skinset[skinnum]){
                   item.material.opacity=1;
-                  // item.material.alphaTest=1;
+                  item.material.alphaTest=1;
                 }
               });
             }
 
           }
         }
+
+
         sideback.forEach((item) => {
           item.material.visible=false;
         });
@@ -19612,6 +19682,7 @@
               camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
               camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
               console.log("22")
+              // console.log(cubes[4].mesh.position.y)
             }else{
               camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
               camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
@@ -20095,7 +20166,7 @@
       if(gameoverflag&&skinset[skinnum]=="classic"){
         cubes.forEach((item, i) => {
           if(i==cubes.length-1){
-            console.log("dd")
+            // console.log("dd")
             item.mesh.children.forEach((child) => {
               if (child.userData["skin"]=="classic") {
                   // item.material.visible=false;
@@ -20220,6 +20291,10 @@
           ring[0].children.forEach((item) => {
               item.material.visible = false;
           })
+      }
+
+      if(gameoverflag){
+        gradback[0].material.visible=false;
       }
 
 
@@ -20871,10 +20946,10 @@
 
                   var width1 = window.innerWidth / 1.1;
                   var height1 = window.innerWidth / 1.1;
-                  var width2 = window.innerWidth / 1.2+0.2*window.innerWidth*(tt0-1);
-                  var height2 = window.innerWidth / 1.2+0.2*window.innerWidth*(tt0-1);
-                  var width3 = window.innerWidth / 1.2+0.2*window.innerWidth*(tt0-1);
-                  var height3 = window.innerWidth / 1.2+0.2*window.innerWidth*(tt0-1);
+                  var width2 = window.innerWidth / 1.6+0.2*window.innerWidth*(tt0-1);
+                  var height2 = window.innerWidth / 1.6+0.2*window.innerWidth*(tt0-1);
+                  var width3 = window.innerWidth / 1.6+0.2*window.innerWidth*(tt0-1);
+                  var height3 = window.innerWidth / 1.6+0.2*window.innerWidth*(tt0-1);
                 // }
 
                 // console.log(topViewCamera.left)
@@ -20995,11 +21070,11 @@
               // }
 
               // console.log(topViewCamera.left)
-              topViewCamera.left = -bw / 1.8-6*(tt0-1)
+              topViewCamera.left = -bw / 1.9-6*(tt0-1)
               // console.log(topViewCamera.left)
-              topViewCamera.right = bw / 1.8+6*(tt0-1)
-              topViewCamera.top = bw / 1.8+6*(tt0-1)
-              topViewCamera.bottom = -bw / 1.8-6*(tt0-1)
+              topViewCamera.right = bw / 1.9+6*(tt0-1)
+              topViewCamera.top = bw / 1.9+6*(tt0-1)
+              topViewCamera.bottom = -bw / 1.9-6*(tt0-1)
 
               topViewCamera.updateProjectionMatrix();
                 if(draw){
@@ -25176,7 +25251,7 @@
       document.getElementById("pbt").children[1].style.fontFamily="GG"
       document.getElementById("ads0").style.fontFamily="GG"
       document.getElementById("skin0").style.fontFamily="GG"
-      document.querySelector(".gameinfo1").children[1].style.fontFamily="mono"
+      document.querySelector(".gameinfo1").children[1].style.fontFamily="GG"
       document.querySelector(".gameinfo1").children[0].style.fontFamily="GG"
       document.querySelector(".gameinfo1").children[2].style.fontFamily="GG"
       document.getElementById("playing").style.fontFamily="GG"
