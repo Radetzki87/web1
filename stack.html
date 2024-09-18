@@ -6653,7 +6653,7 @@
                   uselst=[];
 
                   let customMaterial = new CANNON.Material('customMaterial');
-                  customMaterial.friction = 마찰[2]*cubes[itemidx].mesh.userData.combo*핀크기; // Friction coefficient, range: 0-1
+                  customMaterial.friction = 마찰[2]; // Friction coefficient, range: 0-1
                   customMaterial.restitution = 탄성[2]; // Restitution (elasticity), range: 0-1
 
                   let groundBody = new CANNON.Body({
@@ -23106,7 +23106,7 @@
         customMaterial.friction = 마찰[gamemod];
         customMaterial.restitution = 탄성[gamemod];
       }else{
-        customMaterial.friction =마찰[2]*기준;
+        customMaterial.friction =마찰[2];
         customMaterial.restitution = 탄성[2];
       }
 
