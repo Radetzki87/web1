@@ -1417,13 +1417,15 @@
         }
 
         .gameinfo1 .c{
-          right:5vmin;
+          left:5vmin;
+
           position: absolute;
           /* position: relative; */
           /* right:40%; */
           /* text-align: right; */
           font-size: 16vmin;
-          text-align: right;
+          text-align: left;
+          transform: translate(0, 6vmin);
         }
 
         .gameinfo1 .d{
@@ -2163,7 +2165,7 @@
             height: 4vmax;
             z-index: 1;
             font-family: 'mono';
-            font-size: 3vh;
+            font-size: 1vh;
         }
 
         .center {
@@ -12619,6 +12621,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       icelst0=[];
       if(오토) tcheck=[0,0,0,0,0]
       cubes.length=5;
+
       maxnow=0;
       topcam=true
       drawcount=0
@@ -18581,9 +18584,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
 
+
     if(startflag&&!gameoverflag){
-      document.getElementById("center0").innerText=namelst1[cubes.length-1]
       document.getElementById("center0").style.opacity=0
+
     }else{
 
 
@@ -20111,6 +20115,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   // console.log(newcolor3)
                   // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 32);
                   var rcv=parseInt(Math.random()*(colorlst0.length-51))
+                  document.getElementById("center0").innerText="colornum: "+String(colornum)+"\n"+"colornum0: "+String(colornum0)+"\ncolornum2: "+String(rcv)
+                  document.getElementById("center0").style.opacity=1
                   var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.05, 32,1,false, Math.PI/2, Math.PI*2), new THREE.MeshLambertMaterial({
                       // color: colorlst0[parseInt(Math.random()*colorlst0.length)][1],
                       // color: newcolor3.getHexString(),
@@ -20382,6 +20388,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
                 console.log("콩")
+
 
                 // cubes.forEach((item) => {
                 //   if(item.mesh.userData.pin){
@@ -22481,8 +22488,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   item.children[3].material.color=new THREE.Color(colorlst[colornum][0])
                 }
 
-                if(i-3>기록){
-                  기록=i-3
+                if(i-2>기록){
+                  기록=i-2
                 }
               }
             });
@@ -22507,11 +22514,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   item.children[2].material.color=new THREE.Color(colorlst[colornum][0])
                   item.children[3].material.color=new THREE.Color(colorlst[colornum][0])
                 }
-                if(i-3>기록){
-                  기록=i-3
+                if(i-2>기록){
+                  기록=i-2
                 }
 
-                if(기록>3){
+                if(기록>2){
                   aniflag0=false
                 }
               }
@@ -22669,18 +22676,25 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   temp1[0].children[0].style.fontFamily="mono"
                   temp1[0].children[1].style.fontFamily="mono"
                   temp1[0].children[2].style.fontFamily="mono"
-                  var multiply0=기록+1
+                  var multiply0=기록
                   var multiply=multiply0
-                  if(multiply>=2){
+                  if(multiply>=1){
                     multiply*=2;
+                  }else{
+                    multiply=1
                   }
                   multiply.toFixed(1);
                   var 이전점수=점수
+                  var 이전점수1=String(이전점수)
                   점수+=(cubes.length-3)*multiply
 
                   temp1[0].children[0].style.fontSize="8vmin"
                   temp1[0].children[0].style.fontfamily= 'GG';
-                  temp1[0].children[0].innerText=String(이전점수)+"+("+String(cubes.length-3)+"층"+"X"+String(getNotRoundDecimalNumber(multiply,0))+")="+String(getNotRoundDecimalNumber(점수,0))
+                  temp1[0].children[0].innerText=String(이전점수)+" + "+String((cubes.length-3)*multiply)+" = "+String(getNotRoundDecimalNumber(점수,0))
+                  temp1[0].children[2].innerText="("+String(cubes.length-3)+"층 "+"X "+String(getNotRoundDecimalNumber(multiply,0))+")"
+                  temp1[0].children[2].style.color=hexToHtmlColor(colorlst[colornum][1])
+                  temp1[0].children[2].style.fontSize="3vmin"
+                  temp1[0].children[2].style.left=String(16+4.3*이전점수1.length)+"vmin"
 
 
 
