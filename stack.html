@@ -7953,7 +7953,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var songfade;
   var soundic = {};
 
-  let 보드반경=8
+  let 보드반경=10
   let 보드높이=-25
 
   var colorlst = [
@@ -12999,7 +12999,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         var fcolor = colorlst[colornum][3]
 
       }else if (fontSize == 777) {
-          var fsize =  bscale*bw / 4
+          var fsize =  bscale*bw / 3
           var fhight = 두께*th / 8
           // var fcolor=0xFfAfAf
           var fcolor = 0xffffff
@@ -20141,7 +20141,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
                   if(i>2){
-                    createTextMesh("X"+String(i-1), 777, (textMesh) => {
+                    createTextMesh("X"+String(2*(i-2)), 777, (textMesh) => {
                       // textMesh.position.z+=1*bscale;
                       textMesh.position.z+=-2*보드반경*(i-1)-0.4*보드반경
                       textMesh.position.x-=(10)*bscale;
@@ -20151,7 +20151,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
                       mesh5.add(textMesh);
-                      createTextMesh("X"+String(i-1), 777, (textMesh) => {
+                      createTextMesh("X"+String(2*(i-2)), 777, (textMesh) => {
                         // textMesh.position.z+=1*bscale;
                         textMesh.position.z-=-2*보드반경*(i-1)-0.8*보드반경
                         textMesh.position.x-=(8)*bscale;
@@ -20161,7 +20161,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
                         mesh5.add(textMesh);
-                        createTextMesh("X"+String(i-1), 777, (textMesh) => {
+                        createTextMesh("X"+String(2*(i-2)), 777, (textMesh) => {
                           // textMesh.position.z+=1*bscale;
                           textMesh.position.x+=-2*보드반경*(i-1)-0.4*보드반경
                           textMesh.position.z-=(3)*bscale;
@@ -20173,7 +20173,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
                           mesh5.add(textMesh);
-                          createTextMesh("X"+String(i-1), 777, (textMesh) => {
+                          createTextMesh("X"+String(2*(i-2)), 777, (textMesh) => {
                             // textMesh.position.z+=1*bscale;
                             textMesh.position.x-=-2*보드반경*(i-1)-0.8*보드반경
                             textMesh.position.z-=(3)*bscale;
@@ -22481,8 +22481,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   item.children[3].material.color=new THREE.Color(colorlst[colornum][0])
                 }
 
-                if(i-2>기록){
-                  기록=i-2
+                if(i-3>기록){
+                  기록=i-3
                 }
               }
             });
@@ -22507,11 +22507,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   item.children[2].material.color=new THREE.Color(colorlst[colornum][0])
                   item.children[3].material.color=new THREE.Color(colorlst[colornum][0])
                 }
-                if(i-2>기록){
-                  기록=i-2
+                if(i-3>기록){
+                  기록=i-3
                 }
 
-                if(기록>2){
+                if(기록>3){
                   aniflag0=false
                 }
               }
@@ -22671,7 +22671,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   temp1[0].children[2].style.fontFamily="mono"
                   var multiply0=기록+1
                   var multiply=multiply0
-
+                  if(multiply>=2){
+                    multiply*=2;
+                  }
                   multiply.toFixed(1);
                   var 이전점수=점수
                   점수+=(cubes.length-3)*multiply
