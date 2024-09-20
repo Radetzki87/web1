@@ -20806,6 +20806,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           avx /= templength;
           avz /= templength;
 
+          if(templength<2){
+            curveflag=false
+          }
+
           if(axis.length>0){
           axis.forEach((item)=>{
             scene.remove(axis.pop())
@@ -22716,6 +22720,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       if (!gameoverflag&&startflag) {
         var 오버=false;
         if(발사){
+          curveflag=false
           aniflag0=false
           gradback[0].material.visible=false;
           dl2.target.position.set(cubes[cubes.length-1].mesh.position.x);
@@ -22769,6 +22774,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                 if(i-2>기록){
                   기록=i-2
+
+
                 }
               }
             });
@@ -22795,10 +22802,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 }
                 if(i-2>기록){
                   기록=i-2
+
                 }
 
                 if(기록>2){
                   aniflag0=false
+                  curveflag=false
                 }
               }
 
@@ -22814,6 +22823,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
           if(cubes[cubes.length-1].mesh.position.y<(cubes.length-5+스킬[2])*bh/2){
             aniflag0=false
+            curveflag=false
             if(!draw){
               drawon2()
             }
