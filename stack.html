@@ -7578,6 +7578,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var 스킬=[1,1,1,0,0]
   window.스킬=스킬
   var 토대=[];
+  var temp6=[];
+  var mtext=""
+  var mcount=0
   var 기록=0;
   var bscale=1.5;
   var 축소=false;
@@ -7933,6 +7936,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let curveflag = false;
   var curves=[];
   var dimlines = [];
+  var dimcircles = [];
   var tilting = true;
   var incline = false;
   var effects = [];
@@ -9809,6 +9813,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           }
 
         }
+      }else if(lastY>0.2){
+        if(!curveflag&&cubes.length>5){
+          curveflag=true;
+        }
       }
 
       // if(cat[0]=="p"){
@@ -10371,7 +10379,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           // event.preventDefault();
           // event.stopPropagation();
       }
-
+      curveflag=false
       if(itemflag){
           // if((hammer||pung)&&itemtouch&&superflag){ //&&itemidx!=cubes.length-1
           //   itemtouch=false;
@@ -12695,7 +12703,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                 })
 
-                var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(22, 80+bh*(스킬[2]) ,22 ), new THREE.MeshLambertMaterial({
+                var mesh5 = new THREE.Mesh(new THREE.BoxGeometry(22, 80+bh*(스킬[2]) ,22), new THREE.MeshLambertMaterial({
                     color: colorlst[colornum][1],
                     opacity: 1,
                     transparent: true
@@ -12730,6 +12738,114 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 cubes[cubes.length-1].body.position.y+=bh*(스킬[2]-1)
                 world.addBody(body);
                 토대.push(body)
+
+
+                if(true){
+                    temp6 = [];
+                    var textlst=["해머를 5개모으면 슈퍼 해머를 사용 할 수 있어요!", "합쳐지는 숫자가 클수록 작용하는 힘 역시 커집니다!", "층을 3개씩 쌓을때마다 아이템을 획득합니다!", "2회 이내에 목표 숫자를 합성해내면 더 큰 층을 만들어낼 수 있어요!"]
+                    // var text1 = textdic[87][langset[langnum]]+" " + sdic[n][0].substring(0, sdic[n][0].length - 4) + " "
+                    mtext=textlst[parseInt(Math.random()*textlst.length)]
+                    mcount=0;
+                    console.log(mtext);
+                    for (var i = 0; i < 100; i++) {
+                        var canvas = document.createElement('canvas');
+                        var ctx = canvas.getContext('2d');
+                        // const padding = 10;
+                        ctx.globalAlpha = 1;
+                        canvas.width = 16.5 * 8;
+                        canvas.height = 5.6 * 8;
+                        var tl = mtext.length;
+                        var textw = tl * (canvas.width / 10);
+                        ctx.font = `${13}px Arial`;
+
+                        // ctx.fillStyle = hexToHtmlColor(colorlst[colornum][3])
+                        ctx.globalAlpha = 0.1;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        // ctx.fillStyle = hexToHtmlColor(colorlst[colornum][0])
+                        ctx.fillStyle = "#000000"
+                        ctx.globalAlpha = 1;
+                        // // ctx.fillText(text, padding, padding + textHeight * 0.8);
+                        ctx.fillText(mtext, 0 - (i) * (textw / 100), canvas.height * 0.6, textw, canvas.height);
+                        ctx.fillText(mtext, textw - (i) * (textw / 100), canvas.height * 0.6, textw, canvas.height);
+
+                        if(mcount==0&&textw - (i) * (textw / 100)<canvas.width){
+                          mcount=i;
+                          console.log("mcount:"+String(mcount))
+                        }
+                        ctx.font = `${7}px Arial`;
+
+                        // ctx.fillText("  "+sdic[n]["producer"], 0, canvas.height * 0.35, canvas.width / 2.5, canvas.height);
+                        // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
+                        var img3 = new THREE.CanvasTexture(canvas);
+                        var material5 = new THREE.MeshLambertMaterial({
+                            map: img3,
+                            side: THREE.DoubleSide,
+                            transparent: true,
+                            opacity: 1
+                        });
+                        temp6.push(material5);
+                    }
+                    var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(bw*1.3, bh*1.3), new THREE.MeshLambertMaterial({
+                        color: 0x000000,
+                        opacity: 1,
+                        transparent: true
+                    }), );
+                    mesh1.position.set(11.2,-bh,bh*0.7)
+                    mesh1.rotation.y = Math.PI / 2
+                    // mesh1.userData["1"] = true;
+                    // mesh1.userData["2"] = true;
+                    // mesh1.userData["skin"] = "text1";
+
+
+                    mesh1.material=temp6[0]
+                    // mesh1.userData["3"]=true;
+                    scene.add(mesh1)
+                    토대.push(mesh1)
+
+
+
+
+                    var mesh2 = new THREE.Mesh(new THREE.PlaneGeometry(bw*1.3, bh*1.3), new THREE.MeshLambertMaterial({
+                        color: 0x000000,
+                        opacity: 1,
+                        transparent: true
+                    }), );
+                    mesh2.position.set(bh*0.7,-bh,11.2)
+                    mesh2.rotation.y = 0
+                    // mesh1.userData["1"] = true;
+                    // mesh1.userData["2"] = true;
+                    // mesh1.userData["skin"] = "text1";
+
+
+                    mesh2.material=temp6[50]
+                    // mesh1.userData["3"]=true;
+                    scene.add(mesh2)
+                    토대.push(mesh2)
+
+                    var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(bw*1.35, bh/4 ,bw*1.35 ), new THREE.MeshLambertMaterial({
+                        color: colorlst[colornum][1],
+                        opacity: 1,
+                        transparent: true
+                    }), );
+                    mesh6.position.set(2.5,-bh/3,2.5);
+                    scene.add(mesh6)
+
+                    var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(bw*1.35, bh/4 ,bw*1.35 ), new THREE.MeshLambertMaterial({
+                        color: colorlst[colornum][1],
+                        opacity: 1,
+                        transparent: true
+                    }), );
+                    mesh6.position.set(2.5,-bh-bh/1.6,2.5);
+                    scene.add(mesh6)
+                    // 토대.push(mesh6)
+
+                }
+
+
+
+
+
+
 
                 if(false){
                     var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(2, bw*2 ,bw ), new THREE.MeshLambertMaterial({
@@ -18560,6 +18676,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                                       ncolornum=colornum
                                       ncolornum0=colornum0
+                                      console.log("restart")
+                                      console.log(cls.length)
+                                      while (cls.length!=7) {
+                                        console.log("while")
+                                      }
+
+
                                       restart()
                                       animate();
                                     }, 1500  );
@@ -18619,7 +18742,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
       if (startflag&&!gameoverflag) { //스타트
-          window.cubes=cubes
+
 
 
 
@@ -20264,7 +20387,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   setTimeout(function() {
                     document.getElementById("tut-info").style.display=""
                     document.getElementById("tut-info").style.opacity="0.8";
-                    document.getElementById("tut-info").children[0].innerText="▲ "+"해머를 5개모으면 슈퍼 해머를 쓸 수 있어요"+" ▲"
+                    document.getElementById("tut-info").children[0].innerText=""
                     document.getElementById("tut-info").children[1].innerText=""
                   }, 1000);
                 }else{
@@ -20388,6 +20511,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
                 console.log("콩")
+
+
+
+
+
 
 
                 // cubes.forEach((item) => {
@@ -20678,6 +20806,147 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           avx /= templength;
           avz /= templength;
 
+          if(axis.length>0){
+          axis.forEach((item)=>{
+            scene.remove(axis.pop())
+            })
+          }
+
+          if(curves.length>0){
+          curves.forEach((item)=>{
+            scene.remove(curves.pop())
+            })
+          }
+
+          if(dimlines.length>0){
+            dimlines.forEach((item)=>{
+              scene.remove(dimlines.pop())
+            })
+          }
+
+          if(dimcircles.length>0){
+            dimcircles.forEach((item)=>{
+              scene.remove(dimcircles.pop())
+            })
+          }
+
+      }
+      if(!curveflag){
+        activeFloor=cubes.length-1;
+      }
+
+      if(!gameoverflag&&startflag&&cubes.length>5&&curveflag){
+
+        if(axis.length==0){
+          var dir = new THREE.Vector3(0, 1, 0);
+
+          //normalize the direction vector (convert to vector of length 1)
+          dir.normalize();
+
+          var origin = new THREE.Vector3( 0, 0, 0 );
+          var length = bh*(cubes.length+2);
+          var hex = 0xffff00;
+          var arrowHelper= new THREE.ArrowHelper( dir, origin, length, hex )
+          arrowHelper.children.forEach((item)=>{
+            item.material.opacity=0.4;
+            item.material.transparent=true;
+            item.material.linewidth=1
+          })
+          // arrowHelper.geometry.boundingSphere.radius=20
+          scene.add(arrowHelper);
+          axis.push(arrowHelper);
+          axis[0].position.x=avx;
+          axis[0].position.z=avz;
+          axis[0].children[1].material.visible=false
+
+
+        }else{
+          axis[0].position.x=avx;
+          axis[0].position.z=avz;
+        }
+
+
+
+        activeFloor=3
+        var pointlst=[];
+        // pointlst.push(new THREE.Vector3(cubes[0].mesh.position.x,0,cubes[0].mesh.position.z))
+        for(var i=4;i<cubes.length;i++){
+          if(cubes[i].body.sleepState==2) continue;
+          if(cubes[i].mesh.userData.bye) continue;
+          pointlst.push(new THREE.Vector3( cubes[i].mesh.position.x,cubes[i].mesh.position.y, cubes[i].mesh.position.z ))
+        }
+
+
+        // pointlst.push(new THREE.Vector3(cubes[cubes.length-1].mesh.position.x,cubes[cubes.length-1].mesh.position.y+bh,cubes[cubes.length-1].mesh.position.z))
+        var curve = new THREE.CatmullRomCurve3(pointlst);
+        var points = curve.getPoints(60);
+        var geometry = new THREE.BufferGeometry().setFromPoints( points );
+        var material = new THREE.LineDashedMaterial( { color: colorlst[colornum][0], dashSize:1, gapSize: 1 ,linewidth: 2,  scale: 7
+        });
+
+        material.opacity=1;
+        material.transparent=true;
+        // Create the final object to add to the scene
+        var curveObject = new THREE.Line( geometry, material );
+        curveObject.computeLineDistances();
+
+        curves.push(curveObject);
+        scene.add(curveObject)
+
+        for(var i=0;i<pointlst.length;i++){
+          var material = new THREE.LineDashedMaterial( { color: colorlst[colornum][1], dashSize:1, gapSize: 0.5 ,linewidth: 0.5,  scale: 4
+          })
+          material.opacity=0.6;
+          material.transparent=true;
+          var points = [];
+          if(averageflag){
+            points.push( new THREE.Vector3( avx, pointlst[i].y, avz ) );
+          }else{
+            points.push( new THREE.Vector3( cubes[0].mesh.position.x, pointlst[i].y, cubes[0].mesh.position.z ) );
+          }
+
+          points.push( pointlst[i] );
+          var geometry = new THREE.BufferGeometry().setFromPoints( points );
+          var line = new THREE.Line( geometry, material );
+          line.computeLineDistances();
+          scene.add(line);
+          dimlines.push(line);
+
+          var material2 = new THREE.LineDashedMaterial( { color: colorlst[colornum][1], dashSize:1, gapSize: 0.5 ,linewidth: 0.3,  scale: 2
+          })
+          material2.opacity=0.5;
+          material2.transparent=true;
+
+          var crad=getdist2(avx,avz,pointlst[i].x, pointlst[i].z)
+          var cgeometry = new THREE.CircleGeometry(crad, 64);
+
+          var positions = [];
+          var positionAttribute = cgeometry.attributes.position;
+
+          for (let i = 1; i < positionAttribute.count; i++) { // 첫 번째 점을 제외하고 추가
+              positions.push(
+                  positionAttribute.getX(i),
+                  positionAttribute.getY(i),
+                  positionAttribute.getZ(i)
+              );
+          }
+
+
+          var lineGeometry = new THREE.BufferGeometry();
+          lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+
+          // console.log(cgeometry)
+          // cgeometry.vertices.shift();
+          // cgeometry.vertices.shift(); // 첫 번째 점을 제거하여 선이 닫히지 않도록 함.
+          var circle = new THREE.Line(lineGeometry, material2);
+
+          circle.position.set(avx, pointlst[i].y, avz)
+          circle.rotation.x=-Math.PI/2
+
+          scene.add(circle)
+          dimcircles.push(circle);
+
+        }
       }
 
 
@@ -21216,7 +21485,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           }
       } else if (!skinflag) {}
 
-      // var txtcount = parseInt(elapsedTime * 10) % 100
+      var txtcount = parseInt(elapsedTime * 20) % 100
+      // var txtcount2= txtcount+40+parseInt(mtext.length*0.85)
+      var txtcount2= txtcount+mcount
+      if(txtcount2>99){
+        txtcount2-=100;
+      }
+
+      토대[2].material = temp6[txtcount];
+      토대[3].material = temp6[txtcount2];
+
+
       if(skinset[skinnum]=="gb"){
         // txts[0].material = createtxt("  FPS: " + String(fps), txtcount)
 
@@ -21235,11 +21514,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
 
-      if (dimlines.length > 0) {
-          dimlines.forEach((item) => {
-              scene.remove(dimlines.pop())
-          })
-      }
+      // if (dimlines.length > 0) {
+      //     dimlines.forEach((item) => {
+      //         scene.remove(dimlines.pop())
+      //     })
+      // }
 
 
 
@@ -23525,7 +23804,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             console.log("야호2")
           }
       }else {
-        if (!restartflag) {
+        if (!restartflag) {//카메라
           if(!gameoverflag){
             camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
             camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
@@ -24181,9 +24460,16 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
           }else{
 
-              if(!m2flag){
+              if(!m2flag){//카메라
                 // console.log("a2")
-                camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
+                if(startflag){
+                  // console.log("a2")
+                  camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
+                }else{
+                  // console.log("a3")
+                  camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
+                }
+
               }else{
 
               }
@@ -27539,6 +27825,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       } else {
           return 1.4 * dstx + 1.0 * (dsty - dstx)
       }
+  }
+
+  function getdist2(x2, y2, x3, y3) {
+      var dstx = (x2 - x3)*(x2 - x3);
+      var dsty = (y2 - y3)*(y2 - y3);
+      return Math.sqrt(dstx+dsty)
   }
 
   function getdistance(x1, y1) {
