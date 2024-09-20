@@ -7,6 +7,7 @@
 
 
         body {
+          user-select: none;
             position: fixed;
             overflow: hidden;
             text-align: center;
@@ -20,6 +21,7 @@
             overscroll-behavior-y: none;
         }
         canvas {
+            user-select: none; 
             overflow: hidden;
             overflow-x: hidden;.
             overflow-y: hidden;
@@ -20877,7 +20879,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         for(var i=4;i<cubes.length;i++){
           if(cubes[i].body.sleepState==2) continue;
           if(cubes[i].mesh.userData.bye) continue;
-          pointlst.push(new THREE.Vector3( cubes[i].mesh.position.x,cubes[i].mesh.position.y, cubes[i].mesh.position.z ))
+          pointlst.push(new THREE.Vector3( cubes[i].body.position.x,cubes[i].body.position.y, cubes[i].body.position.z ))
         }
 
 
@@ -20885,7 +20887,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         var curve = new THREE.CatmullRomCurve3(pointlst);
         var points = curve.getPoints(60);
         var geometry = new THREE.BufferGeometry().setFromPoints( points );
-        var material = new THREE.LineDashedMaterial( { color: colorlst[colornum][0], dashSize:1, gapSize: 1 ,linewidth: 2,  scale: 7
+        var material = new THREE.LineDashedMaterial( { color: colorlst[colornum][0], dashSize:1, gapSize: 0.5 ,linewidth: 2,  scale: 7
         });
 
         material.opacity=1;
@@ -20906,7 +20908,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           if(averageflag){
             points.push( new THREE.Vector3( avx, pointlst[i].y, avz ) );
           }else{
-            points.push( new THREE.Vector3( cubes[0].mesh.position.x, pointlst[i].y, cubes[0].mesh.position.z ) );
+            points.push( new THREE.Vector3( cubes[0].body.position.x, pointlst[i].y, cubes[0].body.position.z ) );
           }
 
           points.push( pointlst[i] );
