@@ -384,6 +384,10 @@
           transition: width 1.2s;
         }
 
+        #pgrs1{
+          transition: width 2.2s;
+        }
+
 
         #tut-info{
           opacity: 0;
@@ -2027,6 +2031,24 @@
             margin: 4vmin 0;
         }
 
+        .pgrs {
+            font-family: 'GG';
+            /* position: absolute; */
+            font-size: 5vmin;
+            /*display: none;*/
+            flex-grow: 1;
+
+            left:40vmin;
+            width: 55vmin;
+            /* height: 2vmin; */
+            text-align: right;
+            top:1vmin;
+            z-index: 2;
+
+        }
+
+
+
         .pgr-container {
             font-family: 'GG';
             position: absolute;
@@ -2955,6 +2977,9 @@
 </div>
 
 
+
+
+
 <button id="left" class="left" onclick="drawon()">
     <img class="" src="png/topcam.png">
 </button>
@@ -3293,6 +3318,12 @@
             <label> </label>
             <label> </label>
             <label id="nrec"></label>
+            <div class="pgrs">
+                <div class="pgr">
+                    <div class="pgr-bar" style="width: 30%" id="pgrs1"></div>
+                </div>
+                <span class="pgr-count" id="pgrs2">3/10</span>
+            </div>
         </div>
 
         <div class="gameinfo">
@@ -9376,6 +9407,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let atchanged = 0;
 
   var gameoverflag = false;
+  var overonce = false;
   //스크롤
   const uiScene = new THREE.Scene();
   let uiScene2 = new THREE.Scene();
@@ -11907,12 +11939,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           // }else if(lookright){
           // }
       } else if (event.code === 'KeyE') {
-        if(오토){
-          오토=false;
-        }else{
-          오토=true;
-        }
-
+        // if(오토){
+        //   오토=false;
+        // }else{
+        //   오토=true;
+        // }
+        up(0)
         // resol(rescounter);
         // rescounter++;
         // if (rescounter > 5) {
@@ -11922,7 +11954,18 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         // dl2.shadow.mapSize = new THREE.Vector2(1000, 1000);
       } else if (event.code === 'KeyC') {
           console.log("한번")
-          for (var i = cubes.length-1; i > 4; i--) {
+          // for (var i = cubes.length-1; i > 4; i--) {
+          //   let force2 = new CANNON.Vec3();
+          //   if(i==cubes.length-1){
+          //     force2.set(800*(getdistance(cubes[i].body.position.x, avx))+500*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,800*(getdistance(cubes[i].body.position.z, avz))+500*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+          //   }else{
+          //     force2.set(1000*(getdistance(cubes[i].body.position.x, avx))+500*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,1000*(getdistance(cubes[i].body.position.z, avz))+500*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+          //   }
+          //   cubes[i].body.applyForce(force2, cubes[i].body.position);
+          //
+          // }
+
+          for (var i = cubes.length-1; i >= 4; i--) {
             let force2 = new CANNON.Vec3();
             if(i==cubes.length-1){
               force2.set(800*(getdistance(cubes[i].body.position.x, avx))+500*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,800*(getdistance(cubes[i].body.position.z, avz))+500*(cubes[i].body.position.z - cubes[i-1].body.position.z));
@@ -11930,8 +11973,29 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               force2.set(1000*(getdistance(cubes[i].body.position.x, avx))+500*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,1000*(getdistance(cubes[i].body.position.z, avz))+500*(cubes[i].body.position.z - cubes[i-1].body.position.z));
             }
             cubes[i].body.applyForce(force2, cubes[i].body.position);
-
+            i--
           }
+          let tj=4
+          setTimeout(() => {
+            if(cubes.length-1%2==0){
+              let force2 = new CANNON.Vec3();
+              for (var i = 5; i < cubes.length; i++) {
+                force2.set(1000*(getdistance(cubes[i].body.position.x, avx))+300*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,1000*(getdistance(cubes[i].body.position.z, avz))+300*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+                cubes[i].body.applyForce(force2, cubes[i].body.position);
+                i++;
+              }
+            }else{
+              for (var i = 4; i < cubes.length; i++) {
+                let force2 = new CANNON.Vec3();
+                force2.set(1000*(getdistance(cubes[i].body.position.x, avx))+300*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,1000*(getdistance(cubes[i].body.position.z, avz))+300*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+                cubes[i].body.applyForce(force2, cubes[i].body.position);
+                i++;
+              }
+            }
+          }, 500);
+
+
+
 
 
 
@@ -12655,10 +12719,25 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       aniflag0=true;
       pfloor=2
       스킬[2]=1;
+      overonce=false
+
+      document.getElementById('pgrs1').style.width=String(parseInt(100*((0)/(5000))))+"%";
+      document.getElementById('pgrs2').innerText=String(0)+"/"+String(5000)
+
+      document.getElementById('pgrs1').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][1]);
+      document.getElementById('pgrs2').style.color=hexToHtmlColor(colorlst0[colornum0][3]);
 
       console.log(sdic)
       document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
       document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
+      if(document.querySelector(".gameinfo0").children[2].innerText=="🎫"){
+        스킬[0]=2
+      }else if(document.querySelector(".gameinfo0").children[2].innerText=="🎫🎫"){
+        스킬[0]=3
+      }
+      document.querySelector(".gameinfo0").children[2].innerText=""
+
+
       resetting(stack, function(object) { //재시작
           msetting1(function(object) {
               if(gamemod!=2){
@@ -21397,7 +21476,33 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       }
 
       var txtcount = parseInt(elapsedTime * 20) % 100
-      if(gameoverflag){
+      if(gameoverflag){//겜오바
+        console.log(document.getElementById('pgrs1').style.width)
+        if(!overonce){
+          overonce=true;
+          if(점수>5000){
+            document.getElementById('pgrs1').style.width=String(parseInt(100*((5000)/(5000))))+"%";
+            document.getElementById('pgrs2').innerText=String(점수)+"/"+String(5000)
+          }else{
+            document.getElementById('pgrs1').style.width=String(parseInt(100*((점수)/(5000))))+"%";
+            document.getElementById('pgrs2').innerText=String(점수)+"/"+String(5000)
+          }
+          if(점수>=3000){
+            setTimeout(function() {
+                if(점수>=4000){
+                  document.querySelector(".gameinfo0").children[2].innerText+="🎫"
+                  setTimeout(function() {
+                    document.querySelector(".gameinfo0").children[2].innerText+="🎫"
+                  }, 500);
+                }
+
+            }, 2200);
+          }
+
+        }
+
+
+
         var txtcount2 = parseInt(elapsedTime * 3) % 1000
         var temp0=document.querySelectorAll(".gameover");
         if(txtcount2%2==0){
@@ -22967,6 +23072,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   temp1[0].children[0].style.fontFamily="mono"
                   temp1[0].children[1].style.fontFamily="mono"
                   temp1[0].children[2].style.fontFamily="mono"
+
                   var multiply0=기록
                   var multiply=multiply0
                   if(multiply>=1){
@@ -22974,6 +23080,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   }else{
                     multiply=1
                   }
+                  // 점수=4500;
                   multiply.toFixed(1);
                   var 이전점수=점수
                   var 이전점수1=String(이전점수)
@@ -23254,23 +23361,23 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 document.getElementById("full").children[1].style.color="lightyellow"
                 // document.getElementById("코인").children[1].style.color=hexToHtmlColor(colorlst[colornum][0]);
 
-                if(gamemod==2){
+                if(gamemod==2){ //인포0
                   if(langnum==13||langnum==22||langnum==29||langnum==36){
-                    document.querySelector(".gameinfo0").children[0].innerText=String(cubes.length-3)+": "+textdic[42][langset[langnum]]
-                    document.querySelector(".gameinfo0").children[1].innerText=String(parseInt(bestscore2))+": "+textdic[43][langset[langnum]]
+                    // document.querySelector(".gameinfo0").children[0].innerText=String(cubes.length-3)+": "+textdic[42][langset[langnum]]
+                    // document.querySelector(".gameinfo0").children[1].innerText=String(parseInt(bestscore2))+": "+textdic[43][langset[langnum]]
                   }else{
-                    document.querySelector(".gameinfo0").children[0].innerText=textdic[42][langset[langnum]]+": "+String(getNotRoundDecimalNumber(점수,1));
-                    document.querySelector(".gameinfo0").children[1].innerText="EXP 획득:"+String(parseInt(점수))
+                    // document.querySelector(".gameinfo0").children[0].innerText=textdic[42][langset[langnum]]+": "+String(getNotRoundDecimalNumber(점수,1));
+                    // document.querySelector(".gameinfo0").children[1].innerText="EXP 획득:"+String(parseInt(점수))
 
 
                   }
 
                   if(cubes.length-3>bestscore2){
-                    setTimeout(function() {
-                      soundic[esound[10]].play();
-                      document.querySelector(".gameinfo0").children[2].innerText=textdic[135][langset[langnum]]
-                      document.querySelector(".gameinfo0").children[2].style.color="yellow"
-                    }, 1000);
+                    // setTimeout(function() {
+                    //   soundic[esound[10]].play();
+                    //   document.querySelector(".gameinfo0").children[2].innerText=textdic[135][langset[langnum]]
+                    //   document.querySelector(".gameinfo0").children[2].style.color="yellow"
+                    // }, 1000);
 
 
                     if(!webflag) Android.saveLeader("2", cubes.length-3)
@@ -25696,7 +25803,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
   window.on=on;
 
-  function up(n){
+  function up(n=0){
     if(!m2flag){
       msetting2(cubes.length+0, function(object) {
         // document.getElementById("intro").classList.add("fade");
@@ -25709,7 +25816,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           }
 
         }
-        cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (overcount+스킬[2]) * bh+bh, cubes[cubes.length-1].mesh.position.z, bw, bh, bw, game2048, cubes.length, true));
+          var temz1=cubes[cubes.length-1].mesh.position.z;
+        if(skinnum==skinset.indexOf("classic")){
+
+          temz1-=bh/4.4
+        }
+
+        cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-3) * bh+bh*(스킬[2]), temz1, bw, bh, bw, game2048, cubes.length, true));
         cubes[activeFloor+1].mesh.quaternion.copy(cubes[activeFloor].mesh.quaternion);
         cubes[activeFloor+1].body.quaternion.copy(cubes[activeFloor].body.quaternion);
 
@@ -25722,8 +25835,46 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         cubes[activeFloor+1].mesh.userData.ice=false;
         cubes[activeFloor+1].mesh.userData.bye=false;
         cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
-        cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
-        activeFloor=cubes.length;
+        // cubes[activeFloor+1].mesh.userData.game2048.spawn(cubes[activeFloor].mesh.userData.game2048, item.c, item.d, index);
+
+
+
+        activeFloor=cubes.length-1;
+
+
+        if(skinnum==skinset.indexOf("classic")){
+          // console.log(cubes[cubes.length-1].mesh)
+          cubes[cubes.length-1].mesh.children.forEach((item, i) => {
+
+
+            if(item.userData["skintype"]=="best"){
+            cubes[cubes.length-1].mesh.remove(item);
+
+            createTextMesh(String(cubes.length-4), bw / 4, (ntile) => {
+              ntile.position.y = +(th / 32)
+              ntile.position.z += th / 2;
+              ntile.rotation.order = 'YXZ';
+              ntile.rotation.x = -Math.PI / 2;
+
+              ntile.material = new THREE.MeshBasicMaterial({
+                  color: colorlst[colornum][0]
+
+              });
+              ntile.position.y=bh/2.5;
+              ntile.position.x=bw/2.8;
+              ntile.position.z=-bw/1.65;
+              ntile.scale.set(0.35,0.3,1)
+              // ntile.children[0].position.z=bh;
+              ntile.userData["skin"] = "classic"
+              ntile.userData["skintype"] = "best"
+
+              cubes[cubes.length-1].mesh.add(ntile);
+
+              return;
+            })
+          }
+        })
+      }
         stacktime=elapsedTime;
 
         // var camval=0
@@ -25733,10 +25884,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         //
         // console.log(camval)
 
-        var camval=(cubes.length-icecount)
-        if(camval>17){
-          camval=17;
-        }
+        var camval=cubes.length
+        // if(camval>17){
+        //   camval=17;
+        // }
         if((window.innerWidth / window.innerHeight) > 4/7){
           camera.left = -bw * 1.8-(camval)/4;
           camera.right = bw * 1.8 * 4+(camval);
@@ -25744,10 +25895,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           camera.bottom = -bw * 1.8 * 4-(camval);
         }else{
           if(!fullcam){
-            camera.left = -bw * 1.3-(camval)/4;
-            camera.right = bw * 1.3 * 4+(camval);
-            camera.top = bw * 1.3+(camval)/4;
-            camera.bottom = -bw * 1.3 * 4-(camval);
+            camera.left = -bw * 1.1-(camval*2)/4;
+            camera.right = bw * 1.1 * 4+(camval*2);
+            camera.top = bw * 1.1+(camval*2)/4;
+            camera.bottom = -bw * 1.1 * 4-(camval*2);
           }else{
             camera.left = -bw * 1.1-(camval-3)/4;
             camera.right = bw * 1.1 * 4+(camval-3)
@@ -25771,10 +25922,6 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
       })
-      // console.log(sdic);
-      // console.log(txtlst);
-      // dl2.position.y=50+((cubes.length-3) * bh)
-      // dl2.shadow.camera.position.y= bh * (cubes.length)
 
     }
   }
