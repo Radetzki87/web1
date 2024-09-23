@@ -2030,6 +2030,20 @@
             font-size: 8vmin;
             margin: 4vmin 0;
         }
+        #pgrs3 {
+          font-size: 3vmin;
+          width: 80vmin;
+          display: inline-flex;
+          text-align: center;
+        }
+
+        #pgrs3 img{
+          width: 4vmin;
+        }
+
+        #pgrs3 span{
+          margin-right: 8vmin;
+        }
 
         .pgrs {
             font-family: 'GG';
@@ -2038,11 +2052,12 @@
             /*display: none;*/
             flex-grow: 1;
 
-            left:40vmin;
-            width: 55vmin;
+            left:10vmin;
+            width: 80vmin;
             /* height: 2vmin; */
             text-align: right;
-            top:1vmin;
+            margin-top: 3vmin;
+            /* top:30vmin; */
             z-index: 2;
 
         }
@@ -3321,6 +3336,29 @@
             <div class="pgrs">
                 <div class="pgr">
                     <div class="pgr-bar" style="width: 30%" id="pgrs1"></div>
+                </div>
+                <div id="pgrs3">
+                  <span>
+                    <div>0</div>
+                  </span>
+                  <span>
+                    <div>1000</div>
+                  </span>
+                  <span>
+                    <div>2000</div>
+                  </span>
+                  <span>
+                    <div>3000</div>
+                    <img src="png/staple.png">
+                  </span>
+                  <span>
+                    <div>4000</div>
+                    <img src="png/staple.png">
+                  </span>
+                  <span>
+                    <div>5000</div>
+                    <img src="png/staple.png">
+                  </span>
                 </div>
                 <span class="pgr-count" id="pgrs2">3/10</span>
             </div>
@@ -12734,6 +12772,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         스킬[0]=2
       }else if(document.querySelector(".gameinfo0").children[2].innerText=="🎫🎫"){
         스킬[0]=3
+      }else if(document.querySelector(".gameinfo0").children[2].innerText=="🎫🎫🎫"){
+        스킬[0]=4
+      }else{
+        스킬[0]=1
       }
       document.querySelector(".gameinfo0").children[2].innerText=""
 
@@ -21480,23 +21522,41 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         console.log(document.getElementById('pgrs1').style.width)
         if(!overonce){
           overonce=true;
+          document.getElementById('pgrs2').innerText=""
           if(점수>5000){
             document.getElementById('pgrs1').style.width=String(parseInt(100*((5000)/(5000))))+"%";
-            document.getElementById('pgrs2').innerText=String(점수)+"/"+String(5000)
+            // document.getElementById('pgrs2').innerText=String(점수)+"/"+String(5000)
           }else{
             document.getElementById('pgrs1').style.width=String(parseInt(100*((점수)/(5000))))+"%";
-            document.getElementById('pgrs2').innerText=String(점수)+"/"+String(5000)
+            // document.getElementById('pgrs2').innerText=String(점수)+"/"+String(5000)
           }
           if(점수>=3000){
             setTimeout(function() {
+              document.querySelector(".gameinfo0").children[2].innerText+="🎫"
+
+              document.querySelector("#pgrs3").children[3].style.color="red"
+              document.querySelector("#pgrs3").children[3].style.backgroundColor="rgba(130, 180, 80, 0.2)"
+              document.querySelector("#pgrs3").children[3].style.borderRadius="2vmin"
+
+              //hexToHtmlColor(colorlst[colornum][1])
                 if(점수>=4000){
-                  document.querySelector(".gameinfo0").children[2].innerText+="🎫"
                   setTimeout(function() {
                     document.querySelector(".gameinfo0").children[2].innerText+="🎫"
-                  }, 500);
+                    document.querySelector("#pgrs3").children[4].children[0].style.color="red"
+                    document.querySelector("#pgrs3").children[4].style.backgroundColor="rgba(130, 180, 80, 0.2)"
+                    document.querySelector("#pgrs3").children[4].style.borderRadius="2vmin"
+                    if(점수>=5000){
+                      setTimeout(function() {
+                        document.querySelector(".gameinfo0").children[2].innerText+="🎫"
+                        document.querySelector("#pgrs3").children[5].children[0].style.color="red"
+                        document.querySelector("#pgrs3").children[5].style.backgroundColor="rgba(130, 180, 80, 0.2)"
+                        document.querySelector("#pgrs3").children[5].style.borderRadius="2vmin"
+                      }, 300);
+                    }
+                  }, 300);
                 }
 
-            }, 2200);
+            }, 800);
           }
 
         }
@@ -23080,7 +23140,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   }else{
                     multiply=1
                   }
-                  // 점수=4500;
+                  // 점수=3000;
                   multiply.toFixed(1);
                   var 이전점수=점수
                   var 이전점수1=String(이전점수)
