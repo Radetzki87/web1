@@ -10501,6 +10501,29 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
               soundic[sdic[cubes.length-1]["32"]].play();
 
+              cubes.forEach((item) => {
+                if(item.mesh.userData.pin){
+                  if(skinnum==skinset.indexOf("classic")){
+                    item.mesh.scale.x=핀크기*클크기*item.mesh.userData.combo
+                    item.mesh.scale.z=핀크기*클크기*item.mesh.userData.combo
+                  }else{
+                    item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                    item.mesh.scale.z=핀크기*item.mesh.userData.combo
+                  }
+
+                }else{
+                  if(skinnum==skinset.indexOf("classic")){
+                    item.mesh.scale.x=클크기*item.mesh.userData.combo
+                    item.mesh.scale.z=클크기*item.mesh.userData.combo
+                  }else{
+                    item.mesh.scale.x=1*item.mesh.userData.combo
+                    item.mesh.scale.z=1*item.mesh.userData.combo
+                  }
+
+                }
+
+              });
+
 
               // activeFloor=cubes.length;
 
@@ -10567,6 +10590,29 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
               cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
               soundic[sdic[cubes.length-1]["32"]].play();
+
+              cubes.forEach((item) => {
+                if(item.mesh.userData.pin){
+                  if(skinnum==skinset.indexOf("classic")){
+                    item.mesh.scale.x=핀크기*클크기*item.mesh.userData.combo
+                    item.mesh.scale.z=핀크기*클크기*item.mesh.userData.combo
+                  }else{
+                    item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                    item.mesh.scale.z=핀크기*item.mesh.userData.combo
+                  }
+
+                }else{
+                  if(skinnum==skinset.indexOf("classic")){
+                    item.mesh.scale.x=클크기*item.mesh.userData.combo
+                    item.mesh.scale.z=클크기*item.mesh.userData.combo
+                  }else{
+                    item.mesh.scale.x=1*item.mesh.userData.combo
+                    item.mesh.scale.z=1*item.mesh.userData.combo
+                  }
+
+                }
+
+              });
               if(superflag){
                 superflag=false;
                 cubes[itemidx].mesh.userData.bye=true;
