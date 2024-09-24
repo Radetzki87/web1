@@ -8032,6 +8032,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
   let 보드반경=10
   let 보드높이=-25
+  let rcv=0
 
   var colorlst = [
       [0x9DC8C8, 0x58C9B9, 0x519D9E, 0xD1B6E1, ],
@@ -9265,6 +9266,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
       moveBoard(direction) {
         if(!aniflag0) return;
+        if(m2flag&&elapsedTime - stacktime < 0.3) return;
         var tempbd = [];
           for (let row = 0; row < this.size; row++) {
               var temp = [];
@@ -12835,6 +12837,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         스킬[0]=1
       }
       document.querySelector(".gameinfo0").children[2].innerText=""
+
+      document.querySelector("#pgrs3").children[3].style.backgroundColor="rgba(130, 180, 80, 0)"
+      document.querySelector("#pgrs3").children[3].style.borderRadius="2vmin"
 
 
       resetting(stack, function(object) { //재시작
@@ -17958,7 +17963,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         id2=1
       } else{
         id0=1
-        id2=5
+        id2=4
       }
 
       for (let i = id0; i < id2; i++) {
@@ -18797,12 +18802,6 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     cubes.forEach((item) => {
 
 
-                        // item.mesh.userData.game2048.spawnTile("up",64);
-                        // item.mesh.userData.game2048.spawnTile("up",32);
-                        // item.mesh.userData.game2048.spawnTile("up",16);
-                        // item.mesh.userData.game2048.spawnTile("up",16);
-                        // item.mesh.userData.game2048.spawnTile("up",8);
-                        // item.mesh.userData.game2048.spawnTile();
 
                     })
                     setsdic(1);
@@ -18832,6 +18831,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                                 // document.getElementById("coin2").innerText=String(freead);
                               }
                                 setTimeout(function() {
+                                  var game48 = new Game2048(칸, cubes.length);
                                     document.getElementById("intro").children[2].style.opacity="0.8";
                                     goahead=true;
 
@@ -18861,11 +18861,29 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                                       while (cls.length!=7) {
                                         console.log("while")
                                       }
+                                      activeFloor=cubes.length;
+                                      console.log(cubes)
+                                      cubes[cubes.length-1].mesh.quaternion.copy(cubes[cubes.length-1].mesh.quaternion);
+                                      cubes[cubes.length-1].body.quaternion.copy(cubes[cubes.length-1].body.quaternion);
+
+                                      // cubes[activeFloor+1].body.fixedRotation=true;
+
+                                      cubes[cubes.length-1].mesh.userData.body = cubes[cubes.length-1].body;
+                                      cubes[cubes.length-1].mesh.userData.game2048 = game48
+                                      cubes[cubes.length-1].mesh.userData.pin=false;
+                                      cubes[cubes.length-1].mesh.userData.constraint=[];
+                                      cubes[cubes.length-1].mesh.userData.ice=false;
+                                      cubes[cubes.length-1].mesh.userData.bye=false;
+                                      cubes[cubes.length-1].mesh.userData.game2048.spawnTile();
+                                      // cubes[activeFloor+1].mesh.userData.game2048.spawn(cubes[activeFloor].mesh.userData.game2048, item.c, item.d, index);
 
 
                                       restart()
                                       animate();
                                     }, 1500  );
+
+                                    cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-3) * bh+bh*(스킬[2]), cubes[cubes.length-1].mesh.position.z, bw, bh, bw, game48, cubes.length, true));
+
 
                                 }, 1000  );
                             })
@@ -20417,7 +20435,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   // var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]+(10*i)) + ', ' + '80%, ' +  '50%)');
                   // console.log(newcolor3)
                   // var geometry1 = new THREE.CylinderGeometry(0.5*bh*tscale0, 0.5*bh*tscale0, 통, 32);
-                  var rcv=parseInt(Math.random()*(colorlst0.length-51))
+                  rcv=parseInt(Math.random()*(colorlst0.length-51))
                   document.getElementById("center0").innerText="colornum: "+String(colornum)+"\n"+"colornum0: "+String(colornum0)+"\ncolornum2: "+String(rcv)
                   document.getElementById("center0").style.opacity=1
                   var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.05, 32,1,false, Math.PI/2, Math.PI*2), new THREE.MeshLambertMaterial({
@@ -21272,11 +21290,23 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             var dur0=parseInt(elapsedTime*20)%36
 
             if(skinnum==skinset.indexOf("classic")){
-              cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
-              cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
+              if(cubes[itemidx].mesh.userData.pin){
+                cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo*핀크기
+                cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo*핀크기
+              }else{
+                cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
+                cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
+              }
+
             }else{
-              cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
-              cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
+              if(cubes[itemidx].mesh.userData.pin){
+                cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo*핀크기
+                cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo*핀크기
+              }else{
+                cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
+                cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
+              }
+
             }
 
 
@@ -21322,11 +21352,23 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             var dur0=parseInt(elapsedTime*20)%36
 
             if(skinnum==skinset.indexOf("classic")){
-              cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
-              cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
+              if(cubes[itemidx].mesh.userData.pin){
+                cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo*핀크기
+                cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo*핀크기
+              }else{
+                cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
+                cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
+              }
+
             }else{
-              cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
-              cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
+              if(cubes[itemidx].mesh.userData.pin){
+                cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo*핀크기
+                cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo*핀크기
+              }else{
+                cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
+                cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
+              }
+
             }
 
             if(itemr){
@@ -21955,7 +21997,45 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                             // console.log(sdic)
                             // var tnum=Math.pow(2, (cubes.length-3))
 
-                            if(num==stacknum[activeFloor]&&activeFloor==cubes.length-1&&!m2flag&&!빌더){
+                            if(num==stacknum[activeFloor]&&activeFloor==cubes.length-1&&!빌더){
+                              if(m2flag){
+
+
+                                if(elapsedTime - stacktime < 0.3){
+                                  rmvftile.push(index);
+                                  return;
+                                }else{
+                                  if(cubes.length-2>=item.index){
+                                    console.log("호"+String(item.body.index))
+                                    console.log(item)
+                                    rmvftile.push(index);
+                                    return
+
+                                  }else{
+                                    console.log("야"+String(item.body.index))
+                                    console.log(item)
+                                    stacktime=elapsedTime
+                                    m2once=false
+
+                                  }
+
+                                }
+                              }
+
+
+                              if(cubes.length-2>=item.index){
+                                rmvftile.push(index);
+                                console.log("호호호호호호호"+String(item.body.index))
+                                console.log(item)
+                                return
+
+
+                              }
+                              console.log("야야야야야야야야야야"+String(item.body.index))
+                              console.log(cubes.length)
+                              console.log(item.index)
+
+
                               m2flag=true;
                               console.log(activeFloor)
                               if(tutorialflag&&tutstep==23){
@@ -22042,7 +22122,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                                 //
                                 // console.log(camval)
 
-                                var camval=cubes.length
+                                var camval=cubes.length/2
                                 // if(camval>17){
                                 //   camval=17;
                                 // }
@@ -22834,6 +22914,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               }, 50);
             }
             if(soundic[sdic[activeFloor-1][0]].isPlaying) soundic[sdic[activeFloor-1][0]].stop();
+            if(soundic[sdic[activeFloor-2][0]].isPlaying) soundic[sdic[activeFloor-2][0]].stop();
+            if(soundic[sdic[activeFloor-3][0]].isPlaying) soundic[sdic[activeFloor-3][0]].stop();
             soundic[sdic[activeFloor][0]].play();
             songTitleElement.innerText = sdic[activeFloor]["title"];
             if(langnum==13||langnum==22||langnum==29||langnum==36){
@@ -25364,8 +25446,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     topcam=false;
                     tdraw=1;
                   }else{
-                    renderer.setViewport(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
-                    renderer.setScissor(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setViewport(window.innerWidth / 2 - width3 / 2, -5-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setScissor(window.innerWidth / 2 - width3 / 2, -5-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
                   }
@@ -25375,8 +25457,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   if(tdraw<0){
                     tdraw=0
                   }
-                    renderer.setViewport(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
-                    renderer.setScissor(window.innerWidth / 2 - width3 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setViewport(window.innerWidth / 2 - width3 / 2, -5-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
+                    renderer.setScissor(window.innerWidth / 2 - width3 / 2, -5-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
 
@@ -25393,8 +25475,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     topcam=false;
                     tdraw=1;
                   }else{
-                    renderer.setViewport(window.innerWidth / 2 - width2 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
-                    renderer.setScissor(window.innerWidth / 2 - width2 / 2, -20-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
+                    renderer.setViewport(window.innerWidth / 2 - width2 / 2, -5-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
+                    renderer.setScissor(window.innerWidth / 2 - width2 / 2, -5-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
                   }
@@ -26242,12 +26324,23 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
     if(flag){
-      var newcolor1=colorlst0[colornum0][idx%5]
-      var newcolor2=parseInt(idx/5);
-      var nc = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx%5]))
-      var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
-      var newcolor4 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]*0.9) + '%, ' + String(nc["l"]*1.2) + '%)');
-      var newcolor5 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]*1.1) + '%, ' + String(nc["l"]*0.95) + '%)');
+      if(false){
+
+        var newcolor1=colorlst0[rcv+parseInt(idx/5)][idx%5]
+        var newcolor2=parseInt(idx/5);
+        var nc = hexToHSL(hexToHtmlColor(colorlst0[rcv+parseInt(idx/5)][idx%5]))
+        var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
+        var newcolor4 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]*0.9) + '%, ' + String(nc["l"]*1.2) + '%)');
+        var newcolor5 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]*1.1) + '%, ' + String(nc["l"]*0.95) + '%)');
+      }else{
+        var newcolor1=colorlst0[colornum0][idx%5]
+        var newcolor2=parseInt(idx/5);
+        var nc = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx%5]))
+        var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
+        var newcolor4 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]*0.9) + '%, ' + String(nc["l"]*1.2) + '%)');
+        var newcolor5 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]*1.1) + '%, ' + String(nc["l"]*0.95) + '%)');
+      }
+
     }else{
       var newcolor1=colorlst0[colornum0][idx]
       var nc = hexToHSL(hexToHtmlColor(colorlst0[colornum0][idx]))
