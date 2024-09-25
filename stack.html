@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
-    <title>2048 BRIX</title>
+    <title>2048 BUILD</title>
     <style>
         body {
           user-select: none;
@@ -9910,29 +9910,85 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       // }
 
       if(cubes.length>5) return;
-
-
-
-
       raycaster.setFromCamera(핑거, camera);
       const intersects = raycaster.intersectObjects(scene.children);
       var cat=[];
+      if(lastY<0){
+        if(startflag) return;
+            if (intersects.length > 0) {
+              intersects.forEach((item, i) => {
+                if(item.object.userData["type"]=="btn"){
+                  cat.push(item.object);
+                }
+                if(cat.length==1) return;
+              });
+            }
+
+            if(cat.length>=1){
+              console.log(cat[0].userData)
+              if(cat[0].userData["click"]==true){
+                cat[0].userData["click"]=false;
+                cat[0].userData["time"]=elapsedTime;
+
+                if(cat[0].userData["left"]){
+                  skinnum++;
+                  if (skinnum >= skinset.length-1) {
+                      skinnum = 0;
+                  }
+                  bf=999
+                }else{
+                  skinnum--;
+                  if (skinnum <0) {
+                      skinnum = skinset.length-1;
+                  }
+
+                }
+
+                cubes.forEach((item) => {
+                  if(item.mesh.userData.pin){
+                    if(skinnum==skinset.indexOf("classic")){
+                      item.mesh.scale.x=핀크기*클크기*item.mesh.userData.combo
+                      item.mesh.scale.z=핀크기*클크기*item.mesh.userData.combo
+                    }else{
+                      item.mesh.scale.x=핀크기*item.mesh.userData.combo
+                      item.mesh.scale.z=핀크기*item.mesh.userData.combo
+                    }
+
+                  }else{
+                    if(skinnum==skinset.indexOf("classic")){
+                      item.mesh.scale.x=클크기*item.mesh.userData.combo
+                      item.mesh.scale.z=클크기*item.mesh.userData.combo
+                    }else{
+                      item.mesh.scale.x=1*item.mesh.userData.combo
+                      item.mesh.scale.z=1*item.mesh.userData.combo
+                    }
+
+                  }
+                  bf=999
+
+                });
+
+              }
 
 
-      if (intersects.length > 0) {
-        intersects.forEach((item, i) => {
-          if(item.object.userData["game2048"]!=null){
-            cat.push(item.object.userData["game2048"]);
-
-            tempidx=cat[0].index;
 
 
-          }
-          if(cat.length==1) return;
+            }
 
-        });
+            return;
+
+      }else{
+        if (intersects.length > 0) {
+          intersects.forEach((item, i) => {
+            if(item.object.userData["game2048"]!=null){
+              cat.push(item.object.userData["game2048"]);
+              tempidx=cat[0].index;
+            }
+            if(cat.length==1) return;
+
+          });
+        }
       }
-
       // console.log(cat)
       if(cat.length>=1){
 
@@ -9945,12 +10001,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         if (!startflag) {
             startflag = true
 
-            // textscene.forEach((item) => {
-            //   item.material.visible = false;
-            //   item.children.forEach((child) => {
-            //       child.material.visible = false;
-            //   })
-            // })
+            textscene.forEach((item) => {
+              item.material.visible = false;
+              item.children.forEach((child) => {
+                  child.material.visible = false;
+              })
+            })
 
             document.getElementById("optionlst").style.display="none"
             if(!document.getElementById("tutorial").classList.contains("hidden")){
@@ -9981,7 +10037,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             return;
           }
         }
-
+        // return
         if(cubes.length>5) return;
         activeFloor = 4;
         // if (soundic[sdic[activeFloor]["upper"]].isPlaying) {
@@ -12005,6 +12061,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           if (skinnum >= skinset.length) {
               skinnum = 0;
           }
+          bf=999
 
           cubes.forEach((item, i) => {
             if(i>=4){
@@ -13025,6 +13082,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     mesh6.castShadow=true;
                     mesh6.position.set(0.8,-bh/3-bh*0.8,0.8);
                     scene.add(mesh6)
+                    토대.push(mesh6)
 
                     var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(bw*1.65, bh/3 ,bw*1.65 ), new THREE.MeshLambertMaterial({
                         color: colorlst[colornum][1],
@@ -13034,7 +13092,55 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     mesh6.castShadow=true;
                     mesh6.position.set(0.8,-bh*2-bh/1.6,0.8);
                     scene.add(mesh6)
-                    // 토대.push(mesh6)
+                    토대.push(mesh6)
+
+                }
+
+                if(true){ //삼각
+                  var radiusTop = 3.2;       // 윗면 반지름
+                  var radiusBottom = 3.2;    // 아랫면 반지름
+                  var height = 1.5;          // 높이
+                  var radialSegments = 3;  // 삼각형 면의 개수
+
+                  var geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments);
+                  var material = new THREE.MeshLambertMaterial({ color: colorlst[colornum][0] });
+
+                  // 삼각형 메시 생성
+                  var triangle1 = new THREE.Mesh(geometry, material);
+                  var triangle2 = new THREE.Mesh(geometry, material);
+
+                  triangle1.rotation.order = 'XYZ';
+                  triangle2.rotation.order = 'XYZ';
+
+                  triangle1.rotation.x = Math.PI / 2
+                  triangle1.rotation.y = Math.PI / 2
+
+                  triangle2.rotation.x = Math.PI / 2
+                  triangle2.rotation.y = -Math.PI / 2
+
+                  triangle1.position.set(bh*1.2,-bh*5,11.5);
+                  triangle2.position.set(-bh*1.2,-bh*5,11.5);
+
+                  triangle1.castShadow=true;
+                  triangle2.castShadow=true;
+
+                  triangle1.userData["type"]="btn"
+                  triangle2.userData["type"]="btn"
+
+                  triangle1.userData["click"]=true
+                  triangle2.userData["click"]=true
+
+                  triangle1.userData["left"]=false
+                  triangle2.userData["left"]=true
+
+                  triangle1.userData["time"]=0
+                  triangle2.userData["time"]=0
+
+                  토대.push(triangle1)
+                  토대.push(triangle2)
+                  scene.add(triangle1)
+                  scene.add(triangle2)
+
 
                 }
 
@@ -20936,6 +21042,32 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
           }
       } else {
+        // console.log("십오야")
+
+        if(!토대[6].userData["click"]){
+          if((elapsedTime-토대[6].userData["time"])<0.3){
+            토대[6].position.z=11.5-(Math.sin((Math.PI/0.3)*(elapsedTime-토대[6].userData["time"])))
+          }else{
+            토대[6].userData["click"]=true;
+            토대[6].position.z=11.5
+          }
+
+        }
+
+
+        if(!토대[7].userData["click"]){
+          if((elapsedTime-토대[7].userData["time"])<0.3){
+            토대[7].position.z=11.5-(Math.sin((Math.PI/0.3)*(elapsedTime-토대[7].userData["time"])))
+          }else{
+            토대[7].userData["click"]=true;
+            토대[7].position.z=11.5
+          }
+
+        }
+
+
+
+
         if(tutorialflag&&tutstep==99){
 
           var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
