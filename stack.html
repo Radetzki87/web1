@@ -2167,7 +2167,7 @@
             background-color: transparent;
 
             background-size: 6vmax 4vmax;
-            bottom: 1.5vmax;
+            bottom: 2.5vmax;
             left: 3%;
             width: 6vmax;
             height: 4vmax;
@@ -2185,8 +2185,8 @@
         }
 
         .left img {
-            width: 5vmax;
-            height: 5vmax;
+            width: 6vmax;
+            height: 6vmax;
             z-index: 2;
         }
         #center0{
@@ -2685,7 +2685,7 @@
             background-color: transparent;
             /* background-image: url("png/green_button09.png"); */
             background-size: 6vmax 4vmax;
-            bottom: 1vmax;
+            bottom: 1.5vmax;
             right: 3%;
             width: 6vmax;
             height: 4vmax;
@@ -2693,8 +2693,8 @@
         }
 
         .right img{
-            width: 5vmax;
-            height: 5vmax;
+            width: 6vmax;
+            height: 6vmax;
             z-index: 2;
         }
 
@@ -7435,7 +7435,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let cls=[];
   let aniflag0=true;
   let pfloor=2
-  let drawt=true;
+  let drawt=false;
   let 횟수=0;
   let combo=0
   let 콤보=1
@@ -7624,7 +7624,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
   var icelst0=[];
 
-  var draw=false;
+  var draw=true;
   var drawcount=0;
 
   var itemflag=false;
@@ -7819,7 +7819,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var fpslst=[];
   var rescounter=3;
 
-  var greylst=[27,26,4,1,3,30,40,46,20,39,16,38,23,84,86,98,85,96,78,62,83,53,80,62,53,50,92, 52, 64,65,67,70,5,97]
+  // var greylst=[27,26,4,1,3,30,40,46,20,39,16,38,23,84,86,98,85,96,78,62,83,53,80,62,53,50,92, 52, 64,65,67,70,5,97]
+  var greylst=[]
 
   var esound=["ESM_Atmospheric_Upgrade_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Atmospheric_Upgrade_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Atmospheric_Upgrade_3_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Atmospheric_Upgrade_4_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Plucky_Level_Complete_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Simple_Menu_Select_3_Mobile_App_Game_FX_Sound_Magic_Fantasy_Touch_Accent_Stab_Hit.mp3","ESM_Sequence_Pickup_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Sequence_Pickup_3_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Sequence_Pickup_4_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_80s_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Clangy_Sequence_2_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Mallets_Objective_Complete_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Mallets_Happy_Flurry_3_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Bell_Sequence_1_Mobile_App_Game_FX_Sound_Magic_Musical_Element_Transition_Chord_Simple_Hit.mp3","ESM_Low_Subtle_Power_Up_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3", "ESM_Atmospheric_Downgrade_1_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3","ESM_Mallets_Mission_Accomplished_2_Mobile_App_Game_FX_Sound_Magic_Fantasy_Retro_Classic_Musical_Element_Transition_Chord_Simple_Hit_Designed.mp3"]
 
@@ -7968,7 +7969,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let mergeflag = false;
   let bounceflag = false;
 
-  let topcam = true;
+  let topcam = false;
 
   let sidecam = false;
 
@@ -12262,7 +12263,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       );
 
 
-      if(fullcam){
+      if(fullcam&&false){
 
         camera.left += bw*0.2
         camera.right -= bw  *4*0.2
@@ -12439,7 +12440,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       // if (shadowon) groundmesh.receiveShadow = true
       groundmesh.rotation.x=0;
       groundmesh.rotation.z=0;
-
+      groundmesh.material.visible=false;
       if(gamemod==3){
         remain=30;
         tbonus=30
@@ -12451,7 +12452,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       점수 = 0;
       pluscoin = 0;
 
-      if(fullcam) topcam = true;
+      if(fullcam&&false) topcam = true;
       endtext = false;
       initflag = true;
       restartflag = false;
@@ -20694,6 +20695,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
           if (initflag) {
             // scene.add(보드[0])
+            drawon2()
 
             if(스킬[0]-1==1){
               getitem(9)
@@ -21284,7 +21286,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           if (diff >=0) {
               restartonce1=false;
               re3flag=false;
-              if(fullcam) topcam=true
+              if(fullcam&&false) topcam=true
 
               playlock=false;
 
@@ -21733,6 +21735,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
                 console.log("콩")
+                if(drawt){
+                  drawon2();
+                }
+
                 textscene[0].position.set(-6.7,-2.6,11.5)
                 textscene[0].castShadow = true;
                 textscene[0].children.forEach((item, i) => {
@@ -21942,7 +21948,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 document.getElementById('hammer').style.borderColor=hexToHtmlColor(colorlst[colornum][2])
                 document.getElementById('pung').style.borderColor=hexToHtmlColor(colorlst[colornum][2])
 
-                if(fullcam){
+                if(fullcam&&false){
                      topcam=false
                  }else{
                      topcam=true
@@ -21961,8 +21967,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               // camera.position.y+=deltaTime / 26.666
               if (-isoAngle - camera.rotation.x > 0) camera.rotation.x=-isoAngle-0.001;
               // camera.position.y-=100000*(Math.PI/128)
-              groundmesh.material.opacity=땅투명+(-isoAngle - camera.rotation.x)
-              groundmesh.material.alphaTest=groundmesh.material.opacity;
+              // groundmesh.material.opacity=땅투명+(-isoAngle - camera.rotation.x)
+              // groundmesh.material.alphaTest=groundmesh.material.opacity;
           }
       }
       if (rotationflag) {
@@ -23177,10 +23183,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                                     camera.top = bw * 1.1+(camval*2)/4;
                                     camera.bottom = -bw * 1.1 * 4-(camval*2);
                                   }else{
-                                    camera.left = -bw * 1.1-(camval-3)/4;
-                                    camera.right = bw * 1.1 * 4+(camval-3)
-                                    camera.top = bw * 1.1+(camval-3)/4
-                                    camera.bottom = -bw * 1.1 * 4-(camval-3)
+                                    if(false){
+                                      camera.left = -bw * 1.1-(camval-3)/4;
+                                      camera.right = bw * 1.1 * 4+(camval-3)
+                                      camera.top = bw * 1.1+(camval-3)/4
+                                      camera.bottom = -bw * 1.1 * 4-(camval-3)
+                                    }
+
 
                                     // camera.left-=0.25
                                     // camera.right+=1
@@ -24904,8 +24913,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                         if(skinnum==skinset.indexOf("classic")){
                           console.log("야호")
-                          camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
-                          camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
+                          camera.position.x=4*(bw * 2 )+ avx
+                          camera.position.z=4*(bw * 2 )+ avz
+                          // camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
+                          // camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
                         }else{
                           camera.position.x=4*(bw * 2 )+ avx
                           camera.position.z=4*(bw * 2 )+ avz
@@ -25186,13 +25197,18 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       }else {
         if (!restartflag) {//카메라
           if(!gameoverflag){
-            camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
-            camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
+            // camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
+            // camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
+
+            camera.position.x=4*(bw * 2 )+ avx
+            camera.position.z=4*(bw * 2 )+ avz
             console.log("22")
             // console.log(cubes[4].mesh.position.y)
           }else{
-            camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
-            camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
+            // camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
+            // camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
+            camera.position.x=4*(bw * 2 )+ avx
+            camera.position.z=4*(bw * 2 )+ avz
             var diffy=camera.position.y-cubes[cubes.length-1].mesh.position.y
             camera.position.y-=0.1*diffy;
             console.log("33")
@@ -25830,7 +25846,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           //     renderer.setScissorTest(true);
           //     renderer.render(scene, camera);
           // }
-          if(fullcam){
+          if(fullcam&&false){
             if(gamemod==2){
               console.log("a1")
               if(!m2flag) camera.position.y= (4+스킬[2])*(bh * ((cubes.length)*0.5+4))+(-isoAngle - camera.rotation.x)*30
@@ -26800,7 +26816,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         item.material.visible=false;
       });
       if(particleflag) particles.material.visible=true;
-      groundmesh.material.visible=true;
+      groundmesh.material.visible=false;
       if (shadowon) groundmesh.receiveShadow = true
 
 
@@ -27161,10 +27177,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             camera.top = bw * 1.1+(camval*2)/4;
             camera.bottom = -bw * 1.1 * 4-(camval*2);
           }else{
-            camera.left = -bw * 1.1-(camval-3)/4;
-            camera.right = bw * 1.1 * 4+(camval-3)
-            camera.top = bw * 1.1+(camval-3)/4
-            camera.bottom = -bw * 1.1 * 4-(camval-3)
+            if(false){
+              camera.left = -bw * 1.1-(camval-3)/4;
+              camera.right = bw * 1.1 * 4+(camval-3)
+              camera.top = bw * 1.1+(camval-3)/4
+              camera.bottom = -bw * 1.1 * 4-(camval-3)
+            }
+
 
             // camera.left-=0.25
             // camera.right+=1
@@ -28850,7 +28869,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         document.getElementById("tut-info").children[0].style.top="48%"
         document.getElementById("tut-info").children[1].style.top="4%"
       }else{
-        if(fullcam){
+        if(fullcam&&false){
           fullon()
         }
         if(window.innerWidth > window.innerHeight){
@@ -31379,7 +31398,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
       yesbtn.addEventListener('click', function() {
 
-        if(fullcam){
+        if(fullcam&&false){
           fullcam=false;
           topcam=true;
         }
@@ -32632,7 +32651,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
   function fullon(){
 
-    if(fullcam){
+    if(fullcam&&false){
       camera.left -= bw*0.2
       camera.right += bw  *4*0.2
       camera.top +=  bw*0.2
