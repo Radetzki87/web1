@@ -7898,7 +7898,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var shadowon = true;
   var initflag = true;
 
-  let skinset = ["base","skelecton","hiphop","lofi","hotel", "brick1", "brick2","gb", "classic","r808", "space","archer", "donut", "building", "tower",  "adam"];
+  let skinset = ["base","skelecton","hiphop","lofi","hotel", "brick1", "brick2","gb", "classic","r808", "space","archer", "donut", "building", "tower",  "adam", "desertb", "brickhouse", "m1", "m3","cabin"];
   window.skinset=skinset;
   skinset.forEach((item)=>{
     skinmold[item]=[];
@@ -9944,12 +9944,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         if (!startflag) {
             startflag = true
 
-            textscene.forEach((item) => {
-              item.material.visible = false;
-              item.children.forEach((child) => {
-                  child.material.visible = false;
-              })
-            })
+            // textscene.forEach((item) => {
+            //   item.material.visible = false;
+            //   item.children.forEach((child) => {
+            //       child.material.visible = false;
+            //   })
+            // })
 
             document.getElementById("optionlst").style.display="none"
             if(!document.getElementById("tutorial").classList.contains("hidden")){
@@ -11631,12 +11631,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             world.gravity.set(0, 중력[gamemod], 0);
           }
           if (!startflag) {
-            textscene.forEach((item) => {
-              item.material.visible = false;
-              item.children.forEach((child) => {
-                  child.material.visible = false;
-              })
-            })
+            // textscene.forEach((item) => {
+            //   item.material.visible = false;
+            //   item.children.forEach((child) => {
+            //       child.material.visible = false;
+            //   })
+            // })
               startflag = true
               document.getElementById("optionlst").style.display="none"
               if(!document.getElementById("tutorial").classList.contains("hidden")){
@@ -12721,6 +12721,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         skinnum=skinset.indexOf("classic")
       }
 
+      // skinnum=skinset.indexOf("cabin")
+
 
       review1= false;
       review2= false;
@@ -12982,7 +12984,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                         opacity: 1,
                         transparent: true
                     }), );
-                    mesh1.position.set(11.2,-bh,bh*0.7)
+                    mesh1.position.set(11.2,-bh*2,bh*0.7)
                     mesh1.rotation.y = Math.PI / 2
                     // mesh1.userData["1"] = true;
                     // mesh1.userData["2"] = true;
@@ -13002,7 +13004,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                         opacity: 1,
                         transparent: true
                     }), );
-                    mesh2.position.set(bh*0.7,-bh,11.2)
+                    mesh2.position.set(bh*0.7,-bh*2,11.2)
                     mesh2.rotation.y = 0
                     // mesh1.userData["1"] = true;
                     // mesh1.userData["2"] = true;
@@ -13019,7 +13021,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                         opacity: 1,
                         transparent: true
                     }), );
-                    mesh6.position.set(2.5,-bh/3,2.5);
+                    mesh6.castShadow=true;
+                    mesh6.position.set(2.5,-bh/3-bh,2.5);
                     scene.add(mesh6)
 
                     var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(bw*1.35, bh/4 ,bw*1.35 ), new THREE.MeshLambertMaterial({
@@ -13027,7 +13030,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                         opacity: 1,
                         transparent: true
                     }), );
-                    mesh6.position.set(2.5,-bh-bh/1.6,2.5);
+                    mesh6.castShadow=true;
+                    mesh6.position.set(2.5,-bh*2-bh/1.6,2.5);
                     scene.add(mesh6)
                     // 토대.push(mesh6)
 
@@ -14811,6 +14815,1016 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                           skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
                         }
                         // mesh.add(object.children[0]);
+                    });
+                });
+
+
+                //m3
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/m3-0.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*1.083;
+                    object.children[0].scale.z = 2.57*1.083;
+                    object.children[0].scale.y = 2.57*0.933;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "m3"
+                    object.children[0].userData["skintype"] =0;
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst[idx].push(object.children[0].material)
+                    // clmeshlst2[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/m3-1.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*1.083;
+                    object.children[0].scale.z = 2.57*1.083;
+                    object.children[0].scale.y = 2.57*0.933;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "m3"
+                    object.children[0].userData["skintype"] =2;
+
+                    var newcl = hexToHSL(hexToHtmlColor(0xE84226))
+                    var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"]*0.6) + '%)');
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: tc
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst2[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var mtlLoader = new MTLLoader();
+                mtlLoader.load(ur2+'/src/m3-2.mtl', function(materials) {
+                    materials.preload();
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    loader.setMaterials(materials);
+                    loader.load(ur2+'/src/m3-2.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+
+                        object.children[0].scale.x = 2.57*1.083;
+                        object.children[0].scale.z = 2.57*1.083;
+                        object.children[0].scale.y = 2.57*0.933;
+
+                        // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                        // plight.position.set( 0, 0, bw/2 );
+                        // object.children[0].add(rectLight);
+                        object.children[0].userData["skin"] = "m3"
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+                        if(idx==0){
+                          skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                        }
+                        mesh.add(object.children[0]);
+                    });
+                });
+
+
+
+                var mtlLoader = new MTLLoader();
+                mtlLoader.load(ur2+'/src/m3-3.mtl', function(materials) {
+                    materials.preload();
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    loader.setMaterials(materials);
+                    loader.load(ur2+'/src/m3-3.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+
+                        object.children[0].scale.x = 2.57*1.083;
+                        object.children[0].scale.z = 2.57*1.083;
+                        object.children[0].scale.y = 2.57*0.933;
+
+                        // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                        // plight.position.set( 0, 0, bw/2 );
+                        // object.children[0].add(rectLight);
+                        object.children[0].userData["skin"] = "m3"
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+                        if(idx==0){
+                          skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                        }
+                        mesh.add(object.children[0]);
+                    });
+                });
+
+                var mtlLoader = new MTLLoader();
+                mtlLoader.load(ur2+'/src/m3-4.mtl', function(materials) {
+                    materials.preload();
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    loader.setMaterials(materials);
+                    loader.load(ur2+'/src/m3-4.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+
+                        object.children[0].scale.x = 2.57*1.083;
+                        object.children[0].scale.z = 2.57*1.083;
+                        object.children[0].scale.y = 2.57*0.933;
+
+                        // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                        // plight.position.set( 0, 0, bw/2 );
+                        // object.children[0].add(rectLight);
+                        object.children[0].userData["skin"] = "m3"
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+                        if(idx==0){
+                          skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                        }
+                        mesh.add(object.children[0]);
+                    });
+                });
+
+                //m2
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/M2-0.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.722;
+                    object.children[0].scale.z = 2.57*0.722;
+                    object.children[0].scale.y = 2.57*0.5;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "m1"
+                    object.children[0].userData["skintype"] =2;
+                    object.children[0].userData["variation"] =0;
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst2[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/M2-1.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.722;
+                    object.children[0].scale.z = 2.57*0.722;
+                    object.children[0].scale.y = 2.57*0.5;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "m1"
+                    object.children[0].userData["skintype"] =0;
+                    object.children[0].userData["variation"] =0;
+
+                    var newcl = hexToHSL(hexToHtmlColor(0xE84226))
+                    var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"]*0.6) + '%)');
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: tc
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/M2-2.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.722;
+                    object.children[0].scale.z = 2.57*0.722;
+                    object.children[0].scale.y = 2.57*0.5;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "m1"
+                    object.children[0].userData["skintype"] =1;
+                    object.children[0].userData["variation"] =0;
+                    var newcl = hexToHSL(hexToHtmlColor(0x4C1708))
+                    var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] *1.25) + '%)');
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: tc
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst1[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/M2-3.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.722;
+                    object.children[0].scale.z = 2.57*0.722;
+                    object.children[0].scale.y = 2.57*0.5;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "m1"
+
+                    object.children[0].userData["variation"] =0;
+                    var newcl = hexToHSL(hexToHtmlColor(0xA0A9A9))
+                    var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] *1.25) + '%)');
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: tc
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    // clmeshlst1[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+                //m20 중세
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/m4-0.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.722;
+                    object.children[0].scale.z = 2.57*0.722;
+                    object.children[0].scale.y = 2.57*0.5;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "m1"
+                    object.children[0].userData["skintype"] =2;
+                    object.children[0].userData["variation"] =1;
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst2[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/m4-1.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.722;
+                    object.children[0].scale.z = 2.57*0.722;
+                    object.children[0].scale.y = 2.57*0.5;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "m1"
+                    object.children[0].userData["skintype"] =0;
+                    object.children[0].userData["variation"] =1;
+
+                    var newcl = hexToHSL(hexToHtmlColor(0xE84226))
+                    var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.75) + '%, ' + String(newcl["l"]*0.6) + '%)');
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: tc
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/m4-2.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.722;
+                    object.children[0].scale.z = 2.57*0.722;
+                    object.children[0].scale.y = 2.57*0.5;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "m1"
+                    object.children[0].userData["skintype"] =1;
+                    object.children[0].userData["variation"] =1;
+                    var newcl = hexToHSL(hexToHtmlColor(0x4C1708))
+                    var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] *1.25) + '%)');
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: tc
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst1[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/m4-3.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.722;
+                    object.children[0].scale.z = 2.57*0.722;
+                    object.children[0].scale.y = 2.57*0.5;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "m1"
+
+                    object.children[0].userData["variation"] =1;
+                    var newcl = hexToHSL(hexToHtmlColor(0xA0A9A9))
+                    var tc = new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"] * 0.95) + '%, ' + String(newcl["l"] *1.25) + '%)');
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: tc
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    // clmeshlst1[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var mtlLoader = new MTLLoader();
+                mtlLoader.load(ur2+'/src/m4-4.mtl', function(materials) {
+                    materials.preload();
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    loader.setMaterials(materials);
+                    loader.load(ur2+'/src/m2-4.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+
+                        object.children[0].scale.x = 2.57*0.722;
+                        object.children[0].scale.z = 2.57*0.722;
+                        object.children[0].scale.y = 2.57*0.5;
+
+                        // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                        // plight.position.set( 0, 0, bw/2 );
+                        // object.children[0].add(rectLight);
+                        object.children[0].userData["skin"] = "m1"
+                        object.children[0].userData["subskin"] = "window"
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+                        if(idx==0){
+                          skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                        }
+                        mesh.add(object.children[0]);
+                    });
+                });
+
+
+
+                //캐빈
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/hotel/cabin0-0.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.5532;
+                    object.children[0].scale.z = 2.57*0.5532;
+                    object.children[0].scale.y = 2.57*0.4516;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "cabin"
+                    object.children[0].userData["skintype"] =0;
+
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst2[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var mtlLoader = new MTLLoader();
+                mtlLoader.load(ur2+'/hotel/cabin0-1.mtl', function(materials) {
+                    materials.preload();
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    loader.setMaterials(materials);
+                    loader.load(ur2+'/hotel/cabin0-1.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+
+                        object.children[0].scale.x = 2.57*0.5532;
+                        object.children[0].scale.z = 2.57*0.5532;
+                        object.children[0].scale.y = 2.57*0.4516;
+
+                        // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                        // plight.position.set( 0, 0, bw/2 );
+                        // object.children[0].add(rectLight);
+                        object.children[0].userData["skin"] = "cabin"
+                        object.children[0].userData["skintype"] =1;
+
+
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+
+                        // clmeshlst[idx].push(object.children[0].material)
+                        if(idx==0){
+                          skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                        }
+                        mesh.add(object.children[0]);
+                    });
+                });
+
+                var mtlLoader = new MTLLoader();
+                mtlLoader.load(ur2+'/hotel/cabin0-2.mtl', function(materials) {
+                    materials.preload();
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    loader.setMaterials(materials);
+                    loader.load(ur2+'/hotel/cabin0-2.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+
+                        object.children[0].scale.x = 2.57*0.5532;
+                        object.children[0].scale.z = 2.57*0.5532;
+                        object.children[0].scale.y = 2.57*0.4516;
+
+                        // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                        // plight.position.set( 0, 0, bw/2 );
+                        // object.children[0].add(rectLight);
+                        object.children[0].userData["skin"] = "cabin"
+                        // object.children[0].userData["skintype"] =0;
+                        object.children[0].userData["skintype"] =3;
+
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+                        if(idx==0){
+                          skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                        }
+                        mesh.add(object.children[0]);
+                    });
+                });
+
+
+
+                var mtlLoader = new MTLLoader();
+                mtlLoader.load(ur2+'/hotel/cabin0-3.mtl', function(materials) {
+                    materials.preload();
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    loader.setMaterials(materials);
+                    loader.load(ur2+'/hotel/cabin0-3.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+
+                        object.children[0].scale.x = 2.57*0.5532;
+                        object.children[0].scale.z = 2.57*0.5532;
+                        object.children[0].scale.y = 2.57*0.4516;
+
+                        // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                        // plight.position.set( 0, 0, bw/2 );
+                        // object.children[0].add(rectLight);
+                        object.children[0].userData["skin"] = "cabin"
+
+
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+                        if(idx==0){
+                          skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                        }
+                        mesh.add(object.children[0]);
+                    });
+                });
+
+                var mtlLoader = new MTLLoader();
+                mtlLoader.load(ur2+'/hotel/cabin0-4.mtl', function(materials) {
+                    materials.preload();
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    loader.setMaterials(materials);
+                    loader.load(ur2+'/hotel/cabin0-4.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+
+                        object.children[0].scale.x = 2.57*0.5532;
+                        object.children[0].scale.z = 2.57*0.5532;
+                        object.children[0].scale.y = 2.57*0.4516;
+
+
+                        // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                        // plight.position.set( 0, 0, bw/2 );
+                        // object.children[0].add(rectLight);
+                        object.children[0].userData["skin"] = "cabin"
+                        // object.children[0].userData["skintype"] =0;
+
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+                        clmeshlst2[idx].push(object.children[0].material)
+                        if(idx==0){
+                          skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                        }
+                        mesh.add(object.children[0]);
+                    });
+                });
+
+                //사막
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/desertb-0.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.6341;
+                    object.children[0].scale.z = 2.57*0.6341;
+                    object.children[0].scale.y = 2.57*0.3414;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "desertb"
+                    object.children[0].userData["skintype"] =1;
+
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst1[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/desertb-1.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.6341;
+                    object.children[0].scale.z = 2.57*0.6341;
+                    object.children[0].scale.y = 2.57*0.3414;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "desertb"
+                    object.children[0].userData["skintype"] =0;
+
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/desertb-2.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.6341;
+                    object.children[0].scale.z = 2.57*0.6341;
+                    object.children[0].scale.y = 2.57*0.3414;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "desertb"
+                    object.children[0].userData["skintype"] =2;
+
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst2[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/desertb-3.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.6341;
+                    object.children[0].scale.z = 2.57*0.6341;
+                    object.children[0].scale.y = 2.57*0.3414;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "desertb"
+                    object.children[0].userData["skintype"] =1;
+
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst1[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/desertb-4.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.6341;
+                    object.children[0].scale.z = 2.57*0.6341;
+                    object.children[0].scale.y = 2.57*0.3414;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "desertb"
+                    object.children[0].userData["skintype"] =3;
+
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst2[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var mtlLoader = new MTLLoader();
+                mtlLoader.load(ur2+'/src/desertb-5.mtl', function(materials) {
+                    materials.preload();
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    loader.setMaterials(materials);
+                    loader.load(ur2+'/src/desertb-5.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+
+                        object.children[0].scale.x = 2.57*0.6341;
+                        object.children[0].scale.z = 2.57*0.6341;
+                        object.children[0].scale.y = 2.57*0.3414;
+
+                        // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                        // plight.position.set( 0, 0, bw/2 );
+                        // object.children[0].add(rectLight);
+                        object.children[0].userData["skin"] = "desertb"
+
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+                        if(idx==0){
+                          skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                        }
+                        mesh.add(object.children[0]);
+                    });
+                });
+
+
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/desertb-6.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.6341;
+                    object.children[0].scale.z = 2.57*0.6341;
+                    object.children[0].scale.y = 2.57*0.3414;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "desertb"
+                    object.children[0].userData["skintype"] =2;
+
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst2[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+
+                //brickhouse
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/brickhouse-0.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.7123;
+                    object.children[0].scale.z = 2.57*0.7123;
+                    object.children[0].scale.y = 2.57*0.4118;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "brickhouse"
+                    object.children[0].userData["skintype"] =1;
+
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst1[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/brickhouse-1.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.7123;
+                    object.children[0].scale.z = 2.57*0.7123;
+                    object.children[0].scale.y = 2.57*0.4118;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "brickhouse"
+                    object.children[0].userData["skintype"] =0;
+
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/brickhouse-2.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.7123;
+                    object.children[0].scale.z = 2.57*0.7123;
+                    object.children[0].scale.y = 2.57*0.4118;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "brickhouse"
+                    object.children[0].userData["skintype"] =2;
+
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xD4650A
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+                    clmeshlst2[idx].push(object.children[0].material)
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/brickhouse-3.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.7123;
+                    object.children[0].scale.z = 2.57*0.7123;
+                    object.children[0].scale.y = 2.57*0.4118;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "brickhouse"
+                    object.children[0].userData["skintype"] =3;
+
+                    clmeshlst2[idx].push(object.children[0].material)
+
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xC7BEAC
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var loader = new OBJLoader();
+                // Load OBJ file
+                // loader.setMaterials(materials);
+                loader.load(ur2+'/src/brickhouse-4.obj', (object) => {
+                    object.children[0].rotation.y = Math.PI / 2
+                    object.children[0].position.set(0, 0, 0)
+                    object.children[0].scale.x = 2.57*0.7123;
+                    object.children[0].scale.z = 2.57*0.7123;
+                    object.children[0].scale.y = 2.57*0.4118;
+                    // object.children[0].scale.x=2.25;
+                    // object.children[0].scale.z=2.25;
+                    // object.children[0].scale.y=1.92;
+                    object.children[0].userData["skin"] = "brickhouse"
+
+
+                    object.children[0].material = new THREE.MeshLambertMaterial({
+                        color: 0xC7BEAC
+                    });
+                    if (shadowon) {
+                        object.children[0].receiveShadow = true;
+                        object.children[0].castShadow = true;
+                    }
+
+                    if(idx==0){
+                      skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                    }
+                    mesh.add(object.children[0]);
+                });
+
+                var mtlLoader = new MTLLoader();
+                mtlLoader.load(ur2+'/src/brickhouse-5.mtl', function(materials) {
+                    materials.preload();
+                    var loader = new OBJLoader();
+                    // Load OBJ file
+                    loader.setMaterials(materials);
+                    loader.load(ur2+'/src/brickhouse-5.obj', (object) => {
+                        object.children[0].rotation.y = Math.PI / 2
+
+                        object.children[0].scale.x = 2.57*0.7123;
+                        object.children[0].scale.z = 2.57*0.7123;
+                        object.children[0].scale.y = 2.57*0.4118;
+
+                        // object.children[0].position.set( bw/4, -th*0.9, bw/1.95 );
+                        // object.children[0].scale.x=2.25;
+                        // object.children[0].scale.z=2.25;
+                        // object.children[0].scale.y=1.92;
+                        // var plight = new THREE.PointLight( 0xff0000, 1, 100 );
+                        // plight.position.set( 0, 0, bw/2 );
+                        // object.children[0].add(rectLight);
+                        object.children[0].userData["skin"] = "brickhouse"
+
+                        if (shadowon) {
+                            object.children[0].receiveShadow = true;
+                            object.children[0].castShadow = true;
+                        }
+                        if(idx==0){
+                          skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
+                        }
+                        mesh.add(object.children[0]);
                     });
                 });
 
@@ -16865,6 +17879,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   }
 
   function txtsetting(callback) {
+      textscene=[];
       //그라디
       var canvas = document.createElement('canvas');
       var ctx = canvas.getContext('2d');
@@ -17005,11 +18020,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       var geometry12 = new TextGeometry("2", {
           font: font0,
           size: bw / 2,
-          height: 두께*th / 2
+          height: 두께*th / 1.5
       });
       geometry12.computeBoundingBox();
       geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
+      var material = new THREE.MeshLambertMaterial({
           color: colorlst[colornum][3]
       });
       var tmesh = new THREE.Mesh(geometry12, material);
@@ -17028,11 +18043,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       var geometry12 = new TextGeometry("0", {
           font: font0,
           size: bw / 2,
-          height: 두께*th / 2
+          height: 두께*th / 1.5
       });
       geometry12.computeBoundingBox();
       geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
+      var material = new THREE.MeshLambertMaterial({
           color: colorlst[colornum][2]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
@@ -17045,11 +18060,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       var geometry12 = new TextGeometry("4", {
           font: font0,
           size: bw / 2,
-          height: 두께*th / 2
+          height: 두께*th / 1.5
       });
       geometry12.computeBoundingBox();
       geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
+      var material = new THREE.MeshLambertMaterial({
           color: colorlst[colornum][1]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
@@ -17062,11 +18077,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       var geometry12 = new TextGeometry("8", {
           font: font0,
           size: bw / 2,
-          height: 두께*th / 2
+          height: 두께*th / 1.5
       });
       geometry12.computeBoundingBox();
       geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
+      var material = new THREE.MeshLambertMaterial({
           color: colorlst[colornum][0]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
@@ -17078,6 +18093,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       tmesh.rotation.order = 'YXZ';
       tmesh.rotation.y = Math.PI / 1000;
       tmesh.add(tmesh1)
+      tmesh.userData["hi"]=true;
       textscene.push(tmesh)
       // gradback.push(tmesh);
       scene.add(tmesh)
@@ -17318,359 +18334,359 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       scene.add(tmesh)
     }
 
-    if(현지화){
-      var geometry12 = new TextGeometry("브", {
-          font: font0,
-          size: bw / 2.8,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][3]
-      });
-      var tmesh = new THREE.Mesh(geometry12, material);
-      if(gamemod==2){
-        tmesh.position.y = cubes[0].body.position.y+9
-      }else{
-        tmesh.position.y = cubes[0].body.position.y + 12
-      }
-      tmesh.position.y+=0.3
-      tmesh.position.x = bw * (1.2)
-      tmesh.position.z = bw * (0.98)
-      // textMesh.position.x=0;
-      tmesh.depth = 10;
-      tmesh.scale.x=1.1;
-      tmesh.rotation.order = 'YXZ';
-      tmesh.rotation.y = Math.PI / 4;
-
-      var geometry12 = new TextGeometry("릭", {
-          font: font0,
-          size: bw / 2.8,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][2]
-      });
-      var tmesh1 = new THREE.Mesh(geometry12, material);
-      // tmesh1.position.y
-      tmesh1.position.x = 5.8;
-      tmesh1.position.y-=0.5;
-      tmesh1.depth = 10;
-      tmesh1.rotation.order = 'YXZ';
-      tmesh1.scale.x=1.1;
-      // tmesh1.rotation.y =Math.PI / 4;
-      tmesh.add(tmesh1)
-
-      var geometry12 = new TextGeometry("", {
-          font: font0,
-          size: bw / 3,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][1]
-      });
-      var tmesh1 = new THREE.Mesh(geometry12, material);
-      // tmesh1.position.y
-      tmesh1.position.x = 4.7 * 1.94;
-      tmesh1.depth = 10;
-      tmesh1.rotation.order = 'YXZ';
-      // tmesh1.rotation.y =Math.PI / 4;
-      tmesh.add(tmesh1)
-      var geometry12 = new TextGeometry("스", {
-          font: font0,
-          size: bw / 2.8,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][0]
-      });
-      var tmesh1 = new THREE.Mesh(geometry12, material);
-      // tmesh1.position.y
-      tmesh1.position.x = 12;
-      tmesh1.depth = 10;
-      tmesh1.scale.x=1.1;
-      tmesh1.rotation.order = 'YXZ';
-      tmesh.rotation.order = 'YXZ';
-      tmesh.rotation.y = Math.PI / 2;
-      tmesh.add(tmesh1)
-      textscene.push(tmesh)
-      // gradback.push(tmesh);
-      scene.add(tmesh)
-      현지.push(tmesh);
-
-
-
+    // if(현지화){
+    //   var geometry12 = new TextGeometry("브", {
+    //       font: font0,
+    //       size: bw / 2.8,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][3]
+    //   });
+    //   var tmesh = new THREE.Mesh(geometry12, material);
+    //   if(gamemod==2){
+    //     tmesh.position.y = cubes[0].body.position.y+9
+    //   }else{
+    //     tmesh.position.y = cubes[0].body.position.y + 12
+    //   }
+    //   tmesh.position.y+=0.3
+    //   tmesh.position.x = bw * (1.2)
+    //   tmesh.position.z = bw * (0.98)
+    //   // textMesh.position.x=0;
+    //   tmesh.depth = 10;
+    //   tmesh.scale.x=1.1;
+    //   tmesh.rotation.order = 'YXZ';
+    //   tmesh.rotation.y = Math.PI / 4;
+    //
+    //   var geometry12 = new TextGeometry("릭", {
+    //       font: font0,
+    //       size: bw / 2.8,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][2]
+    //   });
+    //   var tmesh1 = new THREE.Mesh(geometry12, material);
+    //   // tmesh1.position.y
+    //   tmesh1.position.x = 5.8;
+    //   tmesh1.position.y-=0.5;
+    //   tmesh1.depth = 10;
+    //   tmesh1.rotation.order = 'YXZ';
+    //   tmesh1.scale.x=1.1;
+    //   // tmesh1.rotation.y =Math.PI / 4;
+    //   tmesh.add(tmesh1)
+    //
+    //   var geometry12 = new TextGeometry("", {
+    //       font: font0,
+    //       size: bw / 3,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][1]
+    //   });
+    //   var tmesh1 = new THREE.Mesh(geometry12, material);
+    //   // tmesh1.position.y
+    //   tmesh1.position.x = 4.7 * 1.94;
+    //   tmesh1.depth = 10;
+    //   tmesh1.rotation.order = 'YXZ';
+    //   // tmesh1.rotation.y =Math.PI / 4;
+    //   tmesh.add(tmesh1)
+    //   var geometry12 = new TextGeometry("스", {
+    //       font: font0,
+    //       size: bw / 2.8,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][0]
+    //   });
+    //   var tmesh1 = new THREE.Mesh(geometry12, material);
+    //   // tmesh1.position.y
+    //   tmesh1.position.x = 12;
+    //   tmesh1.depth = 10;
+    //   tmesh1.scale.x=1.1;
+    //   tmesh1.rotation.order = 'YXZ';
+    //   tmesh.rotation.order = 'YXZ';
+    //   tmesh.rotation.y = Math.PI / 2;
+    //   tmesh.add(tmesh1)
+    //   textscene.push(tmesh)
+    //   // gradback.push(tmesh);
+    //   scene.add(tmesh)
+    //   현지.push(tmesh);
+    //
+    //
+    //
+    //   var geometry12 = new TextGeometry("B", {
+    //       font: font0,
+    //       size: bw / 2,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][3]
+    //   });
+    //   var tmesh = new THREE.Mesh(geometry12, material);
+    //   if(gamemod==2){
+    //     tmesh.position.y = cubes[0].body.position.y+9
+    //   }else{
+    //     tmesh.position.y = cubes[0].body.position.y + 12
+    //   }
+    //
+    //   tmesh.position.x = bw * (1.2)
+    //   tmesh.position.z = bw * (1)
+    //   // textMesh.position.x=0;
+    //   tmesh.depth = 10;
+    //   tmesh.rotation.order = 'YXZ';
+    //   tmesh.rotation.y = Math.PI / 4;
+    //
+    //   var geometry12 = new TextGeometry("R", {
+    //       font: font0,
+    //       size: bw / 2,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][2]
+    //   });
+    //   var tmesh1 = new THREE.Mesh(geometry12, material);
+    //   // tmesh1.position.y
+    //   tmesh1.position.x = 4.75;
+    //   tmesh1.depth = 10;
+    //   tmesh1.rotation.order = 'YXZ';
+    //   // tmesh1.rotation.y =Math.PI / 4;
+    //   tmesh.add(tmesh1)
+    //
+    //   var geometry12 = new TextGeometry("I", {
+    //       font: font0,
+    //       size: bw / 2,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][1]
+    //   });
+    //   var tmesh1 = new THREE.Mesh(geometry12, material);
+    //   // tmesh1.position.y
+    //   tmesh1.position.x = 4.7 * 1.94;
+    //   tmesh1.depth = 10;
+    //   tmesh1.rotation.order = 'YXZ';
+    //   // tmesh1.rotation.y =Math.PI / 4;
+    //   tmesh.add(tmesh1)
+    //   var geometry12 = new TextGeometry("X", {
+    //       font: font0,
+    //       size: bw / 2,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][0]
+    //   });
+    //   var tmesh1 = new THREE.Mesh(geometry12, material);
+    //   // tmesh1.position.y
+    //   tmesh1.position.x = 4.7 * 2.9;
+    //   tmesh1.depth = 10;
+    //   tmesh1.rotation.order = 'YXZ';
+    //   tmesh.rotation.order = 'YXZ';
+    //   tmesh.rotation.y = Math.PI / 2;
+    //
+    //   tmesh.add(tmesh1)
+    //   textscene.push(tmesh)
+    //   // gradback.push(tmesh);
+    //   scene.add(tmesh)
+    //   현지.push(tmesh);
+    // }else if(일본화){
+    //   var geometry12 = new TextGeometry("ブ", {
+    //       font: font0,
+    //       size: bw / 2.8,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][3]
+    //   });
+    //   var tmesh = new THREE.Mesh(geometry12, material);
+    //   if(gamemod==2){
+    //     tmesh.position.y = cubes[0].body.position.y+9
+    //   }else{
+    //     tmesh.position.y = cubes[0].body.position.y + 12
+    //   }
+    //   tmesh.position.y+=0.3
+    //   tmesh.position.x = bw * (1.2)
+    //   tmesh.position.z = bw * (0.98)
+    //   // textMesh.position.x=0;
+    //   tmesh.depth = 10;
+    //   tmesh.scale.x=0.95;
+    //   tmesh.rotation.order = 'YXZ';
+    //   tmesh.rotation.y = Math.PI / 4;
+    //
+    //   var geometry12 = new TextGeometry("リ", {
+    //       font: font0,
+    //       size: bw / 2.8,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][2]
+    //   });
+    //   var tmesh1 = new THREE.Mesh(geometry12, material);
+    //   // tmesh1.position.y
+    //   tmesh1.position.x = 4.5;
+    //   tmesh1.position.y-=0.5;
+    //   tmesh1.depth = 10;
+    //   tmesh1.scale.x=0.95;
+    //   tmesh1.rotation.order = 'YXZ';
+    //
+    //   // tmesh1.rotation.y =Math.PI / 4;
+    //   tmesh.add(tmesh1)
+    //
+    //   var geometry12 = new TextGeometry("ク", {
+    //       font: font0,
+    //       size: bw / 3,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][1]
+    //   });
+    //   var tmesh1 = new THREE.Mesh(geometry12, material);
+    //   // tmesh1.position.y
+    //   tmesh1.position.x = 9.3;
+    //   tmesh1.depth = 10;
+    //   tmesh1.rotation.order = 'YXZ';
+    //   tmesh1.scale.x=0.95;
+    //   // tmesh1.rotation.y =Math.PI / 4;
+    //   tmesh.add(tmesh1)
+    //   var geometry12 = new TextGeometry("ス", {
+    //       font: font0,
+    //       size: bw / 2.8,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][0]
+    //   });
+    //   var tmesh1 = new THREE.Mesh(geometry12, material);
+    //   // tmesh1.position.y
+    //   tmesh1.position.x = 13.8;
+    //   tmesh1.depth = 10;
+    //   tmesh1.scale.x=0.95;
+    //   tmesh1.rotation.order = 'YXZ';
+    //   tmesh.rotation.order = 'YXZ';
+    //   tmesh.rotation.y = Math.PI / 2;
+    //   tmesh.add(tmesh1)
+    //   textscene.push(tmesh)
+    //   // gradback.push(tmesh);
+    //   scene.add(tmesh)
+    //   현지.push(tmesh);
+    //
+    //
+    //
+    //   var geometry12 = new TextGeometry("B", {
+    //       font: font0,
+    //       size: bw / 2,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][3]
+    //   });
+    //   var tmesh = new THREE.Mesh(geometry12, material);
+    //   if(gamemod==2){
+    //     tmesh.position.y = cubes[0].body.position.y+9
+    //   }else{
+    //     tmesh.position.y = cubes[0].body.position.y + 12
+    //   }
+    //
+    //   tmesh.position.x = bw * (1.2)
+    //   tmesh.position.z = bw * (1)
+    //   // textMesh.position.x=0;
+    //   tmesh.depth = 10;
+    //   tmesh.rotation.order = 'YXZ';
+    //   tmesh.rotation.y = Math.PI / 4;
+    //
+    //   var geometry12 = new TextGeometry("R", {
+    //       font: font0,
+    //       size: bw / 2,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][2]
+    //   });
+    //   var tmesh1 = new THREE.Mesh(geometry12, material);
+    //   // tmesh1.position.y
+    //   tmesh1.position.x = 4.75;
+    //   tmesh1.depth = 10;
+    //   tmesh1.rotation.order = 'YXZ';
+    //   // tmesh1.rotation.y =Math.PI / 4;
+    //   tmesh.add(tmesh1)
+    //
+    //   var geometry12 = new TextGeometry("I", {
+    //       font: font0,
+    //       size: bw / 2,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][1]
+    //   });
+    //   var tmesh1 = new THREE.Mesh(geometry12, material);
+    //   // tmesh1.position.y
+    //   tmesh1.position.x = 4.7 * 1.94;
+    //   tmesh1.depth = 10;
+    //   tmesh1.rotation.order = 'YXZ';
+    //   // tmesh1.rotation.y =Math.PI / 4;
+    //   tmesh.add(tmesh1)
+    //   var geometry12 = new TextGeometry("X", {
+    //       font: font0,
+    //       size: bw / 2,
+    //       height: 두께*th / 2
+    //   });
+    //   geometry12.computeBoundingBox();
+    //   geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
+    //   var material = new THREE.MeshBasicMaterial({
+    //       color: colorlst0[colornum0][0]
+    //   });
+    //   var tmesh1 = new THREE.Mesh(geometry12, material);
+    //   // tmesh1.position.y
+    //   tmesh1.position.x = 4.7 * 2.9;
+    //   tmesh1.depth = 10;
+    //   tmesh1.rotation.order = 'YXZ';
+    //   tmesh.rotation.order = 'YXZ';
+    //   tmesh.rotation.y = Math.PI / 2;
+    //   tmesh.add(tmesh1)
+    //   textscene.push(tmesh)
+    //   // gradback.push(tmesh);
+    //   scene.add(tmesh)
+    //   현지.push(tmesh);
+    // }else{
+    if(true){
       var geometry12 = new TextGeometry("B", {
           font: font0,
           size: bw / 2,
-          height: 두께*th / 2
+          height: 두께*th / 1.5
       });
       geometry12.computeBoundingBox();
       geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][3]
-      });
-      var tmesh = new THREE.Mesh(geometry12, material);
-      if(gamemod==2){
-        tmesh.position.y = cubes[0].body.position.y+9
-      }else{
-        tmesh.position.y = cubes[0].body.position.y + 12
-      }
-
-      tmesh.position.x = bw * (1.2)
-      tmesh.position.z = bw * (1)
-      // textMesh.position.x=0;
-      tmesh.depth = 10;
-      tmesh.rotation.order = 'YXZ';
-      tmesh.rotation.y = Math.PI / 4;
-
-      var geometry12 = new TextGeometry("R", {
-          font: font0,
-          size: bw / 2,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][2]
-      });
-      var tmesh1 = new THREE.Mesh(geometry12, material);
-      // tmesh1.position.y
-      tmesh1.position.x = 4.75;
-      tmesh1.depth = 10;
-      tmesh1.rotation.order = 'YXZ';
-      // tmesh1.rotation.y =Math.PI / 4;
-      tmesh.add(tmesh1)
-
-      var geometry12 = new TextGeometry("I", {
-          font: font0,
-          size: bw / 2,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][1]
-      });
-      var tmesh1 = new THREE.Mesh(geometry12, material);
-      // tmesh1.position.y
-      tmesh1.position.x = 4.7 * 1.94;
-      tmesh1.depth = 10;
-      tmesh1.rotation.order = 'YXZ';
-      // tmesh1.rotation.y =Math.PI / 4;
-      tmesh.add(tmesh1)
-      var geometry12 = new TextGeometry("X", {
-          font: font0,
-          size: bw / 2,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][0]
-      });
-      var tmesh1 = new THREE.Mesh(geometry12, material);
-      // tmesh1.position.y
-      tmesh1.position.x = 4.7 * 2.9;
-      tmesh1.depth = 10;
-      tmesh1.rotation.order = 'YXZ';
-      tmesh.rotation.order = 'YXZ';
-      tmesh.rotation.y = Math.PI / 2;
-
-      tmesh.add(tmesh1)
-      textscene.push(tmesh)
-      // gradback.push(tmesh);
-      scene.add(tmesh)
-      현지.push(tmesh);
-    }else if(일본화){
-      var geometry12 = new TextGeometry("ブ", {
-          font: font0,
-          size: bw / 2.8,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][3]
-      });
-      var tmesh = new THREE.Mesh(geometry12, material);
-      if(gamemod==2){
-        tmesh.position.y = cubes[0].body.position.y+9
-      }else{
-        tmesh.position.y = cubes[0].body.position.y + 12
-      }
-      tmesh.position.y+=0.3
-      tmesh.position.x = bw * (1.2)
-      tmesh.position.z = bw * (0.98)
-      // textMesh.position.x=0;
-      tmesh.depth = 10;
-      tmesh.scale.x=0.95;
-      tmesh.rotation.order = 'YXZ';
-      tmesh.rotation.y = Math.PI / 4;
-
-      var geometry12 = new TextGeometry("リ", {
-          font: font0,
-          size: bw / 2.8,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][2]
-      });
-      var tmesh1 = new THREE.Mesh(geometry12, material);
-      // tmesh1.position.y
-      tmesh1.position.x = 4.5;
-      tmesh1.position.y-=0.5;
-      tmesh1.depth = 10;
-      tmesh1.scale.x=0.95;
-      tmesh1.rotation.order = 'YXZ';
-
-      // tmesh1.rotation.y =Math.PI / 4;
-      tmesh.add(tmesh1)
-
-      var geometry12 = new TextGeometry("ク", {
-          font: font0,
-          size: bw / 3,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][1]
-      });
-      var tmesh1 = new THREE.Mesh(geometry12, material);
-      // tmesh1.position.y
-      tmesh1.position.x = 9.3;
-      tmesh1.depth = 10;
-      tmesh1.rotation.order = 'YXZ';
-      tmesh1.scale.x=0.95;
-      // tmesh1.rotation.y =Math.PI / 4;
-      tmesh.add(tmesh1)
-      var geometry12 = new TextGeometry("ス", {
-          font: font0,
-          size: bw / 2.8,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][0]
-      });
-      var tmesh1 = new THREE.Mesh(geometry12, material);
-      // tmesh1.position.y
-      tmesh1.position.x = 13.8;
-      tmesh1.depth = 10;
-      tmesh1.scale.x=0.95;
-      tmesh1.rotation.order = 'YXZ';
-      tmesh.rotation.order = 'YXZ';
-      tmesh.rotation.y = Math.PI / 2;
-      tmesh.add(tmesh1)
-      textscene.push(tmesh)
-      // gradback.push(tmesh);
-      scene.add(tmesh)
-      현지.push(tmesh);
-
-
-
-      var geometry12 = new TextGeometry("B", {
-          font: font0,
-          size: bw / 2,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][3]
-      });
-      var tmesh = new THREE.Mesh(geometry12, material);
-      if(gamemod==2){
-        tmesh.position.y = cubes[0].body.position.y+9
-      }else{
-        tmesh.position.y = cubes[0].body.position.y + 12
-      }
-
-      tmesh.position.x = bw * (1.2)
-      tmesh.position.z = bw * (1)
-      // textMesh.position.x=0;
-      tmesh.depth = 10;
-      tmesh.rotation.order = 'YXZ';
-      tmesh.rotation.y = Math.PI / 4;
-
-      var geometry12 = new TextGeometry("R", {
-          font: font0,
-          size: bw / 2,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][2]
-      });
-      var tmesh1 = new THREE.Mesh(geometry12, material);
-      // tmesh1.position.y
-      tmesh1.position.x = 4.75;
-      tmesh1.depth = 10;
-      tmesh1.rotation.order = 'YXZ';
-      // tmesh1.rotation.y =Math.PI / 4;
-      tmesh.add(tmesh1)
-
-      var geometry12 = new TextGeometry("I", {
-          font: font0,
-          size: bw / 2,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][1]
-      });
-      var tmesh1 = new THREE.Mesh(geometry12, material);
-      // tmesh1.position.y
-      tmesh1.position.x = 4.7 * 1.94;
-      tmesh1.depth = 10;
-      tmesh1.rotation.order = 'YXZ';
-      // tmesh1.rotation.y =Math.PI / 4;
-      tmesh.add(tmesh1)
-      var geometry12 = new TextGeometry("X", {
-          font: font0,
-          size: bw / 2,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
-          color: colorlst0[colornum0][0]
-      });
-      var tmesh1 = new THREE.Mesh(geometry12, material);
-      // tmesh1.position.y
-      tmesh1.position.x = 4.7 * 2.9;
-      tmesh1.depth = 10;
-      tmesh1.rotation.order = 'YXZ';
-      tmesh.rotation.order = 'YXZ';
-      tmesh.rotation.y = Math.PI / 2;
-      tmesh.add(tmesh1)
-      textscene.push(tmesh)
-      // gradback.push(tmesh);
-      scene.add(tmesh)
-      현지.push(tmesh);
-    }else{
-
-      var geometry12 = new TextGeometry("B", {
-          font: font0,
-          size: bw / 2,
-          height: 두께*th / 2
-      });
-      geometry12.computeBoundingBox();
-      geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
+      var material = new THREE.MeshLambertMaterial({
           color: colorlst0[colornum0][3]
       });
       var tmesh = new THREE.Mesh(geometry12, material);
@@ -17691,16 +18707,16 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       var geometry12 = new TextGeometry("U", {
           font: font0,
           size: bw / 2,
-          height: 두께*th / 2
+          height: 두께*th / 1.5
       });
       geometry12.computeBoundingBox();
       geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
+      var material = new THREE.MeshLambertMaterial({
           color: colorlst0[colornum0][2]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
       // tmesh1.position.y
-      tmesh1.position.x = 4.75*1.05;
+      tmesh1.position.x = 4.85*1.05;
       tmesh1.scale.x=0.85
       tmesh1.depth = 10;
       tmesh1.rotation.order = 'YXZ';
@@ -17710,16 +18726,16 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       var geometry12 = new TextGeometry("I", {
           font: font0,
           size: bw / 2,
-          height: 두께*th / 2
+          height: 두께*th / 1.5
       });
       geometry12.computeBoundingBox();
       geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
+      var material = new THREE.MeshLambertMaterial({
           color: colorlst0[colornum0][1]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
       // tmesh1.position.y
-      tmesh1.position.x = 4.7 * 1.75;
+      tmesh1.position.x = 4.8 * 1.75;
       tmesh1.scale.x=0.85
       tmesh1.depth = 10;
       tmesh1.rotation.order = 'YXZ';
@@ -17729,16 +18745,16 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       var geometry12 = new TextGeometry("L", {
           font: font0,
           size: bw / 2,
-          height: 두께*th / 2
+          height: 두께*th / 1.5
       });
       geometry12.computeBoundingBox();
       geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
+      var material = new THREE.MeshLambertMaterial({
           color: colorlst0[colornum0][0]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
       // tmesh1.position.y
-      tmesh1.position.x = 4.7 * 2.45;
+      tmesh1.position.x = 4.8 * 2.45;
       tmesh1.scale.x=0.85
       tmesh1.depth = 10;
       tmesh1.rotation.order = 'YXZ';
@@ -17749,21 +18765,22 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       var geometry12 = new TextGeometry("D", {
           font: font0,
           size: bw / 2,
-          height: 두께*th / 2
+          height: 두께*th / 1.5
       });
       geometry12.computeBoundingBox();
       geometry12.translate(-geometry12.boundingBox.max.x / 2, -geometry12.boundingBox.min.y - 0.13, 0);
-      var material = new THREE.MeshBasicMaterial({
+      var material = new THREE.MeshLambertMaterial({
           color: colorlst0[colornum0][0]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
       // tmesh1.position.y
-      tmesh1.position.x = 4.7 * 3.4;
+      tmesh1.position.x = 4.8 * 3.4;
       tmesh1.scale.x=0.85
       tmesh1.depth = 10;
       tmesh1.rotation.order = 'YXZ';
       tmesh.rotation.order = 'YXZ';
       tmesh.rotation.y = Math.PI / 2;
+      tmesh.userData["hello"]=true;
       tmesh.add(tmesh1)
 
       textscene.push(tmesh)
@@ -18180,12 +19197,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             world.gravity.set(0, 중력[gamemod], 0);
           }
           if (!startflag) {
-            textscene.forEach((item) => {
-              item.material.visible = false;
-              item.children.forEach((child) => {
-                  child.material.visible = false;
-              })
-            })
+            // textscene.forEach((item) => {
+            //   item.material.visible = false;
+            //   item.children.forEach((child) => {
+            //       child.material.visible = false;
+            //   })
+            // })
               startflag = true
               document.getElementById("optionlst").style.display="none"
               if(!document.getElementById("tutorial").classList.contains("hidden")){
@@ -19872,12 +20889,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             }, 100);
 
 
-            textscene.forEach((item, index) => {
-                item.material.visible = false;
-                item.children.forEach((child) => {
-                    child.material.visible = false;
-                })
-            })
+            // textscene.forEach((item, index) => {
+            //     item.material.visible = false;
+            //     item.children.forEach((child) => {
+            //         child.material.visible = false;
+            //     })
+            // })
 
 
               for (let i = 0; i < 6; i++) {
@@ -20716,6 +21733,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
                 console.log("콩")
+                textscene[0].position.set(-6.7,-2.6,11.5)
+                textscene[0].castShadow = true;
+                textscene[0].children.forEach((item, i) => {
+                  item.castShadow = true;
+                });
+
+                textscene[1].position.set(11,-2.7,8)
+                textscene[1].castShadow = true;
+                textscene[1].children.forEach((item, i) => {
+                  item.castShadow = true;
+                });
 
 
 
@@ -22067,12 +23095,16 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                                   temz1-=bh/4.4
                                 }
 
-                                cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-3) * bh+bh*(스킬[2]), temz1, bw, bh, bw, game2048, cubes.length, true));
+                                let rand1=parseInt(Math.random()*2);
+                                let trot=parseInt(Math.random()*4);
+
+                                cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-3) * bh+bh*(스킬[2]), temz1, bw, bh, bw, game2048, cubes.length, true, rand1,trot));
                                 cubes[activeFloor+1].mesh.quaternion.copy(cubes[activeFloor].mesh.quaternion);
                                 cubes[activeFloor+1].body.quaternion.copy(cubes[activeFloor].body.quaternion);
 
                                 // cubes[activeFloor+1].body.fixedRotation=true;
-
+                                cubes[activeFloor+1].mesh.userData.ver = rand1
+                                cubes[activeFloor+1].mesh.userData.rot = trot
                                 cubes[activeFloor+1].mesh.userData.body = cubes[activeFloor+1].body;
                                 cubes[activeFloor+1].mesh.userData.game2048 = game2048
                                 cubes[activeFloor+1].mesh.userData.pin=false;
@@ -25645,12 +26677,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           item.material.visible=true;
         });
         if(!startflag){
-          textscene.forEach((item, index) => {
-              item.material.visible = false;
-              item.children.forEach((child) => {
-                  child.material.visible = false;
-              })
-          })
+          // textscene.forEach((item, index) => {
+          //     item.material.visible = false;
+          //     item.children.forEach((child) => {
+          //         child.material.visible = false;
+          //     })
+          // })
         }
 
           for (var i = 0; i < cubes.length; i++) {
@@ -26327,7 +27359,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 };
 
 
-  function newbox(x, y, z, width, height, depth, game2048, idx, flag){
+  function newbox(x, y, z, width, height, depth, game2048, idx, flag,rand1, trot){
 
 
     if(flag){
@@ -26339,6 +27371,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
         var newcolor4 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]*0.9) + '%, ' + String(nc["l"]*1.2) + '%)');
         var newcolor5 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]*1.1) + '%, ' + String(nc["l"]*0.95) + '%)');
+        var newcolor6 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]*0.3) + '%, ' + String(nc["l"]*1.8) + '%)');
+
       }else{
         var newcolor1=colorlst0[colornum0][idx%5]
         var newcolor2=parseInt(idx/5);
@@ -26346,6 +27380,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
         var newcolor4 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]*0.9) + '%, ' + String(nc["l"]*1.2) + '%)');
         var newcolor5 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]*1.1) + '%, ' + String(nc["l"]*0.95) + '%)');
+        var newcolor6 = new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]*0.3) + '%, ' + String(nc["l"]*0.5) + '%)');
+
       }
 
     }else{
@@ -26692,7 +27728,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         }
         var geoms = [];
         if (true) { //신스킨
-
+          var trot=parseInt(Math.random()*4);
             var moldkey=Object.keys(skinmold);
             moldkey.forEach((item) => {
               skinmold[item].forEach((obj) => {
@@ -26735,16 +27771,49 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                       color: newcolor5
                   });
                   if(!flag) clmeshlst2[idx].push(obj1.material);
+                }else if(obj1.userData["skintype"]==3){
+                  obj1.material=new THREE.MeshLambertMaterial({
+                      color: newcolor6
+                  });
+                  if(!flag) clmeshlst2[idx].push(obj1.material);
                 }else{
                   obj1.material=mat1
                   // if(!flag) clmeshlst[idx].push(obj1.material);
                 }
-                //
-                // if(obj1.userData["skin"]=="skelecton"){
-                //   obj1.material=new THREE.MeshLambertMaterial({
-                //       color: newcolor3
-                //   });
-                // }
+
+                if(obj1.userData["skin"]=="m1"){
+                  if(obj1.userData["variation"]==rand1){
+
+
+
+                  }
+
+                  obj1.rotation.y=trot*(Math.PI/2)
+                }
+
+
+
+                if(obj1.userData["skin"]=="m3"){
+                  obj1.rotation.y=trot*(Math.PI/2)
+                }
+
+                if(obj1.userData["skin"]=="cabin"){
+                  obj1.rotation.y=trot*(Math.PI/2)
+                }
+
+                if(obj1.userData["skin"]=="desertb"){
+                  obj1.rotation.y=-trot*(Math.PI/2)
+                }
+
+                if(obj1.userData["skin"]=="brickhouse"){
+                  obj1.rotation.y=trot*(Math.PI/2)
+                }
+
+                if(obj1.userData["skin"]=="skelecton"){
+                  obj1.material=new THREE.MeshLambertMaterial({
+                      color: newcolor3
+                  });
+                }
 
                 if (shadowon) {
                     // if(obj1.userData["skin"]=="skelecton"){
