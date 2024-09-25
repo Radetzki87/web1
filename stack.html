@@ -30,6 +30,20 @@
         }
 
         @font-face {
+          font-family: 'wild';
+          src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/Dovemayo_wild.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+      }
+
+        @font-face {
+            font-family: 'dove';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
             font-family: 'mono';
             src: url('src/MonoplexKRNerd-Bold.woff2') format('woff2');
             font-weight: 700;
@@ -8045,7 +8059,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var soundic = {};
 
   let 보드반경=10
-  let 보드높이=-25
+  let 보드높이=-33.2
   let rcv=0
 
   var colorlst = [
@@ -13011,7 +13025,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                 if(true){
                     temp6 = [];
-                    var textlst=["해머를 5개모으면 슈퍼 해머를 사용 할 수 있어요!", "합쳐지는 숫자가 클수록 작용하는 힘 역시 커집니다!", "층을 3개씩 쌓을때마다 아이템을 획득합니다!", "2회 이내에 목표 숫자를 합성해내면 더 큰 층을 만들어낼 수 있어요!"]
+                    var textlst=["해머를 5개모으면 슈퍼 해머를 사용 할 수 있어요!", "합쳐지는 숫자가 클수록 가해지는 힘 역시 커집니다!", "층을 3개씩 쌓을때마다 아이템을 획득합니다!", "2회 이내에 목표 숫자를 합성해내면 더 큰 층을 만들어낼 수 있어요!"]
                     // var text1 = textdic[87][langset[langnum]]+" " + sdic[n][0].substring(0, sdic[n][0].length - 4) + " "
                     mtext=textlst[parseInt(Math.random()*textlst.length)]
                     mcount=0;
@@ -13025,7 +13039,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                         canvas.height = 5.6 * 8;
                         var tl = mtext.length;
                         var textw = tl * (canvas.width / 10);
-                        ctx.font = `${13}px Arial`;
+                        ctx.font = `${13}px dove`;
 
                         ctx.fillStyle = hexToHtmlColor(colorlst[colornum][2])
                         ctx.globalAlpha = 0.2;
@@ -13041,7 +13055,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                           mcount=i;
                           console.log("mcount:"+String(mcount))
                         }
-                        ctx.font = `${7}px Arial`;
+                        ctx.font = `${7}px dove`;
 
                         // ctx.fillText("  "+sdic[n]["producer"], 0, canvas.height * 0.35, canvas.width / 2.5, canvas.height);
                         // ctx.drawImage(unitimg["scroll"], 0,0,314,1664)
@@ -13109,18 +13123,29 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     mesh6.castShadow=true;
                     mesh6.position.set(0.8,-bh*2-bh/1.6,0.8);
                     scene.add(mesh6)
+
+                    var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(bw*1.75, bh/3 ,bw*1.75 ), new THREE.MeshLambertMaterial({
+                        color: colorlst[colornum][0],
+                        opacity: 1,
+                        transparent: true
+                    }), );
+                    // mesh6.castShadow=true;
+                    mesh6.position.set(0,-bh*8,0);
+                    scene.add(mesh6)
+
+
                     토대.push(mesh6)
 
                 }
 
                 if(true){ //삼각
-                  var radiusTop = 2.5;       // 윗면 반지름
-                  var radiusBottom = 2.5;    // 아랫면 반지름
+                  var radiusTop = 2.8;       // 윗면 반지름
+                  var radiusBottom = 2.8;    // 아랫면 반지름
                   var height = 2.5;          // 높이
                   var radialSegments = 3;  // 삼각형 면의 개수
 
                   var geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments);
-                  var material = new THREE.MeshLambertMaterial({ color: colorlst[colornum][3] });
+                  var material = new THREE.MeshBasicMaterial({ color: colorlst0[colornum0][3] });
 
                   // 삼각형 메시 생성
                   var triangle1 = new THREE.Mesh(geometry, material);
@@ -13139,7 +13164,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   triangle2.position.set(-bh*1.22,-bh*6.8,11.5);
 
                   triangle1.castShadow=true;
-                  triangle2.castShadow=true;
+                  triangle2.castShadow=true
+
+                  triangle1.receiveShadow=true;
+                  triangle2.receiveShadow=true;
 
                   triangle1.userData["type"]="btn"
                   triangle2.userData["type"]="btn"
@@ -13169,21 +13197,47 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   // mtext=textlst[parseInt(Math.random()*textlst.length)]
                   // mcount=0;
                   // console.log(mtext);
-                  for (var i = 0; i < 19; i++) {
+                  var ipsum=["Lorem ipsum dolor sit amet, consectetur","adipiscing elit, sed do eiusmod tempor","incididunt ut labore et dolore magna","aliqua. Ut enim ad minim veniam, quis","nostrud exercitation ullamco laboris nisi","ut aliquip ex ea commodo consequat. Duis","aute irure dolor in reprehenderit in","voluptate velit esse cillum dolore eu","fugiat nulla pariatur. Excepteur sint","occaecat cupidatat non proident, sunt in","culpa qui officia deserunt mollit anim id","est laborum."]
+                  for (var i = 0; i < 20; i++) {
                       let canvas2 = document.createElement('canvas');
                       let ctx2 = canvas2.getContext('2d');
                       let padding = 10;
                       ctx2.globalAlpha = 1;
                       canvas2.width = 660*0.2;
                       canvas2.height = 440*0.2;
-                      ctx2.fillStyle ="black"
+                      ctx2.fillStyle ="white"
+
                       ctx2.globalAlpha = 0.2;
 
                       ctx2.fillRect(0, 0, 660*0.2, 440*0.2);
-                      // // ctx.fillText(text, padding, padding + textHeight * 0.8);
+                      ctx2.fillStyle ="black"
                       ctx2.globalAlpha = 1;
-                      var tn="sk"+String(i)
-                      ctx2.drawImage(unitimg[tn], padding,padding*1.5,660*0.2-padding*2,440*0.2-padding*2)
+                      ctx2.font = `${10}px dove`;
+                      if(i==19){
+                        ctx2.fillText("NOW PLAYING~", 5, 20);
+                        ctx2.font = `${6}px dove`;
+                        ipsum.sort(() => Math.random() - 0.5);
+
+                        for (var j = 0; j < ipsum.length-3; j++) {
+                          ctx2.fillText(ipsum[j], 5, 30+j*6);
+                        }
+
+                        ctx2.globalAlpha = 1;
+
+                      }else{
+                        ctx2.fillText(skinset[i], 5, 40);
+                        ctx2.font = `${4}px dove`;
+                        ipsum.sort(() => Math.random() - 0.5);
+
+                        for (var j = 0; j < ipsum.length-5; j++) {
+                          ctx2.fillText(ipsum[j], 5, 50+j*5);
+                        }
+
+                        ctx2.globalAlpha = 1;
+                        var tn="sk"+String(i)
+                        ctx2.drawImage(unitimg[tn], padding*5,padding*1,660*0.2-padding*6,440*0.2-padding*5)
+                      }
+
 
                       let img3 = new THREE.CanvasTexture(canvas2);
                       let material5 = new THREE.MeshLambertMaterial({
@@ -13218,7 +13272,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   mesh6.position.set(0,-bh*4.6+bw*0.4,11.1)
                   scene.add(mesh6)
 
-                  var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(bw*3*0.47, bh*2, bh/4), new THREE.MeshLambertMaterial({
+                  var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(bw*3*0.49, bh*2, bh/4), new THREE.MeshLambertMaterial({
                       color: colorlst[colornum][0],
                       opacity: 1,
                       transparent: true
@@ -13229,14 +13283,14 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   scene.add(mesh6)
 
 
-                  var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(bh/2.2+bh/2, bw*2*0.43, bh/4), new THREE.MeshLambertMaterial({
+                  var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(bh/2.2+bh/1.8, bw*2*0.43, bh/4), new THREE.MeshLambertMaterial({
                       color: colorlst[colornum][0],
                       opacity: 1,
                       transparent: true
                   }), );
                   mesh6.castShadow=true;
                   mesh6.receiveShadow=true
-                  mesh6.position.set(0+bw*3*0.214+bh/4,-bh*4.58,11.1)
+                  mesh6.position.set(0+bw*3*0.214+bh/3.6,-bh*4.58,11.1)
                   scene.add(mesh6)
 
                   var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(bh/2.2+bh/10, bw*2*0.43, bh/4), new THREE.MeshLambertMaterial({
@@ -13272,6 +13326,29 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     mesh6.position.set(-bw/1.55+i*(bh/4), -bh*4.6+bw*0.58 ,11.6)
                     scene.add(mesh6)
                   }
+
+                  for (var i = 0; i < 5; i++) {
+                    var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(bh/4, bh/6, bh/4), new THREE.MeshLambertMaterial({
+                        color: colorlst0[colornum0][i],
+                        opacity: 1,
+                        transparent: true
+                    }), );
+                    mesh6.castShadow=true;
+                    mesh6.receiveShadow=true
+                    mesh6.position.set(11,-bh*4.3+i*(bh/6),10)
+                    scene.add(mesh6)
+                  }
+
+                  var mesh6 = new THREE.Mesh(new THREE.BoxGeometry(bw*1.4, bw*1.3, bh/4), new THREE.MeshLambertMaterial({
+                      color: colorlst[colornum][2],
+                      opacity: 1,
+                      transparent: true
+                  }), );
+                  mesh6.castShadow=true;
+                  mesh6.receiveShadow=true
+                  mesh6.rotation.y = Math.PI / 2
+                  mesh6.position.set(11,-bh*5.3,0)
+                  scene.add(mesh6)
 
 
 
@@ -20944,7 +21021,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
             토대[7].position.z=11.5-1
 
-            토대[8].material.visible=false;
+            토대[8].material=temp7[19]
 
             if(스킬[0]-1==1){
               getitem(9)
@@ -21188,8 +21265,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         // console.log("십오야")
 
         if(!토대[6].userData["click"]){
-          if((elapsedTime-토대[6].userData["time"])<0.3){
-            토대[6].position.z=11.5-(Math.sin((Math.PI/0.3)*(elapsedTime-토대[6].userData["time"])))
+          if((elapsedTime-토대[6].userData["time"])<0.2){
+            토대[6].position.z=11.5-(Math.sin((Math.PI/0.2)*(elapsedTime-토대[6].userData["time"])))
           }else{
             토대[6].userData["click"]=true;
             토대[6].position.z=11.5
@@ -21199,8 +21276,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
         if(!토대[7].userData["click"]){
-          if((elapsedTime-토대[7].userData["time"])<0.3){
-            토대[7].position.z=11.5-(Math.sin((Math.PI/0.3)*(elapsedTime-토대[7].userData["time"])))
+          if((elapsedTime-토대[7].userData["time"])<0.2){
+            토대[7].position.z=11.5-(Math.sin((Math.PI/0.2)*(elapsedTime-토대[7].userData["time"])))
           }else{
             토대[7].userData["click"]=true;
             토대[7].position.z=11.5
@@ -25088,8 +25165,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           if (!gameoverflag) {
               if (activeFloor == cubes.length) {
                 console.log("11")
-                  camera.position.x=4*(bw * 2 )+ avx
-                  camera.position.z=4*(bw * 2 )+ avz
+                  camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].body.position.x
+                  camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].body.position.z
 
                   // camera.position.set(
                   //     2*(bw * 2 )+ avx,
@@ -25194,13 +25271,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                         if(skinnum==skinset.indexOf("classic")){
                           console.log("야호")
-                          camera.position.x=4*(bw * 2 )+ avx
-                          camera.position.z=4*(bw * 2 )+ avz
+                          camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].body.position.x
+                          camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].body.position.z
                           // camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
                           // camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
                         }else{
-                          camera.position.x=4*(bw * 2 )+ avx
-                          camera.position.z=4*(bw * 2 )+ avz
+                          camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].body.position.x
+                          camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].body.position.z
                         }
 
 
@@ -25471,25 +25548,25 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   }
               }
           }else{
-            camera.position.x=2*(bw * 2 )+ avx
-            camera.position.z=2*(bw * 2 )+ avz
+            camera.position.x=2*(bw * 2 )+ cubes[cubes.length-1].body.position.x
+            camera.position.z=2*(bw * 2 )+ cubes[cubes.length-1].body.position.z
             console.log("야호2")
           }
       }else {
         if (!restartflag) {//카메라
           if(!gameoverflag){
-            // camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
-            // camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
+            camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].body.position.x;
+            camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].body.position.z;
 
-            camera.position.x=4*(bw * 2 )+ avx
-            camera.position.z=4*(bw * 2 )+ avz
+            // camera.position.x=4*(bw * 2 )+ (avx+3*cubes[cubes.length-1].body.position.x)/4
+            // camera.position.z=4*(bw * 2 )+ (avz+3*cubes[cubes.length-1].body.position.z)/4
             console.log("22")
             // console.log(cubes[4].mesh.position.y)
           }else{
-            // camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
-            // camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.z;
-            camera.position.x=4*(bw * 2 )+ avx
-            camera.position.z=4*(bw * 2 )+ avz
+            camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].body.position.x;
+            camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].body.position.z;
+            // camera.position.x=4*(bw * 2 )+ (avx+3*cubes[cubes.length-1].body.position.x)/4
+            // camera.position.z=4*(bw * 2 )+ (avz+3*cubes[cubes.length-1].body.position.z)/4
             var diffy=camera.position.y-cubes[cubes.length-1].mesh.position.y
             camera.position.y-=0.1*diffy;
             console.log("33")
