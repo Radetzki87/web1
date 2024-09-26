@@ -9959,6 +9959,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               console.log(cat[0].userData)
               if(cat[0].userData["click"]==true){
                 cat[0].userData["click"]=false;
+                console.log(cat[0])
                 cat[0].userData["time"]=elapsedTime;
 
                 if(cat[0].userData["left"]){
@@ -9973,6 +9974,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   if (skinnum <0) {
                       skinnum = skinset.length-1;
                   }
+                  bf=999
                   토대[8].material=temp7[skinnum]
 
                 }
@@ -24644,7 +24646,35 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             if(!draw){
               drawon2()
             }
-            보드.forEach((item) => {
+            보드.forEach((item,i) => {
+
+                // if(item.position.z+(bscale*bw/4)>cubes[j].mesh.position.z){
+                if(Math.sqrt(Math.pow(cubes[cubes.length-1].mesh.position.z,2)+Math.pow(cubes[cubes.length-1].mesh.position.x,2))>2*보드반경*(i-1)){
+
+
+
+                  item.material.color=new THREE.Color('hsl(' + String(nc["h"]+3*i) + ', ' + String(nc["s"]+0.4*i) + '%, ' + String(nc["l"]-0.4*i  ) + '%)');
+
+                  if(i>2){
+                    item.children[0].material.color=new THREE.Color(colorlst[colornum][0])
+                    item.children[1].material.color=new THREE.Color(colorlst[colornum][0])
+                    item.children[2].material.color=new THREE.Color(colorlst[colornum][0])
+                    item.children[3].material.color=new THREE.Color(colorlst[colornum][0])
+                  }
+                  if(i-2>기록){
+                    기록=i-2
+
+                  }
+
+                  if(기록>2){
+                    aniflag0=false
+                    curveflag=false
+
+
+
+
+                  }
+                }
               item.material.visible=true;
               item.material.opacity=1
               item.material.alphaTest=item.material.opacity
