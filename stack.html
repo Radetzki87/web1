@@ -3014,7 +3014,7 @@
     <img class="" src="png/topcam.png">
 </button>
 
-<button id="center" class="center" onclick="showmod()">
+<button id="center" class="center" onclick="fullon()">
     <img class="" src="png/up.png">
     LV.1
 </button>
@@ -3028,22 +3028,22 @@
     <img class="hidden" src="png/down.png">
 </button>
 
-<button id="hammer" class="hammer" onclick="">
+<button id="hammer" class="hammer" ontouchstart="itemon(0)">
     <img class="" src="png/hammer.png">
     <div>0</div>
 </button>
 
-<button id="shammer" class="shammer" onclick="">
+<button id="shammer" class="shammer" ontouchstart="itemon(1)">
     <img class="" src="png/hammer.png">
     <div>cost:5</div>
 </button>
 
-<button id="pung" class="pung" onclick="">
+<button id="pung" class="pung" ontouchstart="itemon(2)">
     <img class="" src="png/pung.png">
     <div>0</div>
 </button>
 
-<button id="ice" class="ice" onclick="">
+<button id="ice" class="ice" ontouchstart="itemon(4)">
     <img class="" src="png/freeze.png">
     <div>0</div>
 </button>
@@ -3053,7 +3053,7 @@
     <div>+</div>
 </div>
 
-<button id="pin" class="pin" onclick="">
+<button id="pin" class="pin" ontouchstart="itemon(5)">
     <img class="" src="png/pin.png">
     <div>0</div>
 </button>
@@ -3063,7 +3063,7 @@
     <div>+</div>
 </div>
 
-<button id="bridge" class="bridge" onclick="">
+<button id="bridge" class="bridge" ontouchstart="itemon(6)">
     <img class="" src="png/staple.png">
     <div>0</div>
 </button>
@@ -7514,7 +7514,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   window.인트로=인트로
   window.예스노=예스노
 
-  let 모니터=false
+  let 모니터=true
 
   var 보드=[];
 
@@ -8058,7 +8058,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var soundic = {};
 
   let 보드반경=10
-  let 보드높이=-33.2
+  let 보드높이=-34
   let rcv=0
 
   var colorlst = [
@@ -9717,204 +9717,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         // return;
       }
 
-      if(lastX<-0.65){
-        if(lastY>0.70&&lastY<0.9){
-          if(뻥>0){
-            pung=true;
-            hammer=false;
-            ice=false;
-            itemflag=true;
-            pin=false;
-            bridge=false;
-            뻥--;
-
-            if(soundic[esound[5]].isPlaying){
-              soundic[esound[5]].stop();
-            }
-
-            soundic[esound[5]].play();
-            // if(lastX<-0.75){
-            //   뻥--;
-            // }else{
-            //   if(뻥>2){
-            //     뻥-=3;
-            //     superflag=true;
-            //   }else{
-            //     return;
-            //   }
-            // }
-
-            document.getElementById('hammer').children[1].innerText=String(해머)
-            document.getElementById('pung').children[1].innerText=String(뻥)
-            document.getElementById('ice').children[1].innerText=String(얼음)
-            document.getElementById('pin').children[1].innerText=String(핀)
-            document.getElementById('bridge').children[1].innerText=String(다리)
-            if(topcam){
-              draw=true;
-              drawcount=elapsedTime;
-            }
-          }else{
-            return;
-          }
-
-          return;
-        }else if(lastY>0.45&&lastY<0.65){
-          if(해머>0){
-            pung=false;
-            ice=false;
-            hammer=true;
-            itemflag=true;
-            pin=false;
-            bridge=false;
-
-            if(soundic[esound[5]].isPlaying){
-              soundic[esound[5]].stop();
-            }
-
-            soundic[esound[5]].play();
-              // 해머--;
-            if(lastX<-0.8){
-              해머--;
-            }else{
-              if(해머>7){
-                해머-=8;
-                superflag=true;
-              }else{
-                // 해머--;
-
-              }
-            }
-            document.getElementById('hammer').children[1].innerText=String(해머)
-            document.getElementById('pung').children[1].innerText=String(뻥)
-            document.getElementById('ice').children[1].innerText=String(얼음)
-            document.getElementById('pin').children[1].innerText=String(핀)
-            document.getElementById('bridge').children[1].innerText=String(다리)
-            if(topcam){
-              draw=true;
-              drawcount=elapsedTime;
-            }
-
-          }else{
-            return;
-          }
-
-        }else if(lastY>0.2&&lastY<0.4){
-          if(얼음>0){
-            pung=false;
-            hammer=false;
-            ice=true;
-            itemflag=true;
-            pin=false;
-            bridge=false;
-              얼음--;
-
-              if(soundic[esound[5]].isPlaying){
-                soundic[esound[5]].stop();
-              }
-
-              soundic[esound[5]].play();
-
-            // if(lastX<-0.8){
-            //   얼음--;
-            // }else{
-            //   if(얼음>2){
-            //     얼음-=3;
-            //     superflag=true;
-            //   }else{
-            //     return;
-            //   }
-            // }
-            document.getElementById('hammer').children[1].innerText=String(해머)
-            document.getElementById('pung').children[1].innerText=String(뻥)
-            document.getElementById('ice').children[1].innerText=String(얼음)
-            document.getElementById('pin').children[1].innerText=String(핀)
-            document.getElementById('bridge').children[1].innerText=String(다리)
-            if(topcam){
-              draw=true;
-              drawcount=elapsedTime;
-            }
-          }else{
-            return;
-          }
-
-        }else if(lastY>-0.05&&lastY<0.15){
-          if(핀>0){
-            pung=false;
-            hammer=false;
-            ice=false;
-            pin=true;
-            bridge=false;
-            itemflag=true;
-              핀--;
-
-              if(soundic[esound[5]].isPlaying){
-                soundic[esound[5]].stop();
-              }
-
-              soundic[esound[5]].play();
-            // if(lastX<-0.8){
-            //   핀--;
-            // }else{
-            //   if(핀>2){
-            //     핀-=3;
-            //     superflag=true;
-            //   }else{
-            //     return;
-            //   }
-            // }
-            document.getElementById('hammer').children[1].innerText=String(해머)
-            document.getElementById('pung').children[1].innerText=String(뻥)
-            document.getElementById('ice').children[1].innerText=String(얼음)
-            document.getElementById('pin').children[1].innerText=String(핀)
-            document.getElementById('bridge').children[1].innerText=String(다리)
-            if(topcam){
-              draw=true;
-              drawcount=elapsedTime;
-            }
-          }else{
-            return;
-          }
-
-        }else if(lastY>-0.3&&lastY<-0.1){
-          if(다리>0){
-            pung=false;
-            hammer=false;
-            ice=false;
-            pin=false;
-            bridge=true;
-            itemflag=true;
-            다리--;
-
-            if(soundic[esound[5]].isPlaying){
-              soundic[esound[5]].stop();
-            }
-
-            soundic[esound[5]].play();
-            // if(lastX<-0.8){
-            //   다리--;
-            // }else{
-            //   if(다리>2){
-            //     다리-=3;
-            //     superflag=true;
-            //   }else{
-            //     return;
-            //   }
-            // }
-            document.getElementById('hammer').children[1].innerText=String(해머)
-            document.getElementById('pung').children[1].innerText=String(뻥)
-            document.getElementById('ice').children[1].innerText=String(얼음)
-            document.getElementById('pin').children[1].innerText=String(핀)
-            document.getElementById('bridge').children[1].innerText=String(다리)
-            if(topcam){
-              draw=true;
-              drawcount=elapsedTime;
-            }
-          }else{
-            return;
-          }
-
-        }
-      }else if(lastY>0.2){
+      if(lastY>0.2){
         if(!curveflag&&cubes.length>5){
           // curveflag=true;
         }
@@ -10912,8 +10715,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                 scene.add(legs[legs.length-1]);
               }else{
+
                 var 아래층=cubes[itemidx-1];
                 var 취소=false
+                if(itemidx==4) 취소=true;
                 if(cubes[itemidx-1].mesh.userData.bye==true){
                   if(cubes[itemidx-2].mesh.userData.bye==true){
                     if(cubes[itemidx-3].mesh.userData.bye==true){
@@ -12009,6 +11814,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               }
           }
       } else if (event.code === 'KeyR') {
+        up(1)
         // if(draw){
         //   draw=false;
         //   drawcount=elapsedTime+0.3;
@@ -12026,16 +11832,59 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
       } else if (event.code === 'KeyQ') {
 
-        let force2 = new CANNON.Vec3();
-        force2.set(0,0,-8000);
+        getitem(1)
+        getitem(1)
+        getitem(1)
+        getitem(1)
+        getitem(1)
+        getitem(1)
+        getitem(1)
+        getitem(1)
 
-        let quaternion = new CANNON.Quaternion();
-        quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI*(80)/180);
-        let rotatedVec = force2.clone();
-        // rotatedVec.applyQuaternion(quaternion);
-        rotatedVec=quaternion.vmult(force2);
+        getitem(4)
+        getitem(4)
+        getitem(4)
+        getitem(4)
+        getitem(4)
+        getitem(4)
+        getitem(4)
+        getitem(4)
 
-        cubes[3].body.applyForce(rotatedVec, cubes[3].body.position);
+        getitem(7)
+        getitem(7)
+        getitem(7)
+        getitem(7)
+        getitem(7)
+        getitem(7)
+
+        getitem(8)
+        getitem(8)
+        getitem(8)
+        getitem(8)
+        getitem(8)
+        getitem(8)
+        getitem(8)
+
+        getitem(9)
+        getitem(9)
+        getitem(9)
+        getitem(9)
+        getitem(9)
+        getitem(9)
+        getitem(9)
+        getitem(9)
+
+
+        // let force2 = new CANNON.Vec3();
+        // force2.set(0,0,-8000);
+        //
+        // let quaternion = new CANNON.Quaternion();
+        // quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI*(80)/180);
+        // let rotatedVec = force2.clone();
+        // // rotatedVec.applyQuaternion(quaternion);
+        // rotatedVec=quaternion.vmult(force2);
+        //
+        // cubes[3].body.applyForce(rotatedVec, cubes[3].body.position);
 
 
 
@@ -12334,11 +12183,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
       if((window.innerWidth / window.innerHeight) > 4/7){
+        console.log("4/7")
         camera.left = -bw * 1.8
         camera.right = bw * 1.8 * 4
         camera.top = bw * 1.8
         camera.bottom = -bw * 1.8 * 4
       }else{
+        console.log("<4/7")
         camera.left = -bw * 1.3
         camera.right = bw * 1.3 * 4
         camera.top = bw * 1.3
@@ -12358,15 +12209,21 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       );
 
 
-      if(fullcam&&false){
+      if(fullcam){
 
-        camera.left += bw*0.2
-        camera.right -= bw  *4*0.2
-        camera.top -=  bw*0.2
-        camera.bottom += bw*4*0.2
+        // camera.left += bw*0.45
+        // camera.right -= bw  *4*0.45
+        // camera.top -=  bw*0.45
+        // camera.bottom += bw*4*0.45
+        camera.left = -bw * 1.3+bw*0.45
+        camera.right = bw * 1.3 * 4-bw  *4*0.45
+        camera.top = bw * 1.3-bw*0.45
+        camera.bottom = -bw * 1.3 * 4+bw*4*0.45
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
+      }else{
+
       }
 
 
@@ -12476,7 +12333,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       }else if (gamemod==2){
         for (var i = 0; i < cubes.length; i++) {
           cubes[i].body.material.friction = 마찰[2];
-          cubes[i].body.material.restitution = 0.2;
+          cubes[i].body.material.restitution = 탄성[2];
         }
         stack=3;
         forceAmount = 10*bw * bw * bh / 10;
@@ -12484,6 +12341,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         world.gravity.set(0, 0, 0);
         world.solver.iterations =15;
         // world.solver.tolerance = 8
+
         gap=0.981;
 
       }
@@ -12547,7 +12405,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       점수 = 0;
       pluscoin = 0;
 
-      if(fullcam&&false) topcam = true;
+      if(fullcam) topcam = true;
       endtext = false;
       initflag = true;
       restartflag = false;
@@ -21732,7 +21590,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           if (diff >=0) {
               restartonce1=false;
               re3flag=false;
-              if(fullcam&&false) topcam=true
+              if(fullcam) topcam=true
 
               playlock=false;
 
@@ -22404,7 +22262,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 document.getElementById('hammer').style.borderColor=hexToHtmlColor(colorlst[colornum][2])
                 document.getElementById('pung').style.borderColor=hexToHtmlColor(colorlst[colornum][2])
 
-                if(fullcam&&false){
+                if(fullcam){
                      topcam=false
                  }else{
                      topcam=true
@@ -22952,7 +22810,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             stepmold[3].scale.y = pshift[dur]*0.9*3.2 / 2;
 
           }else if(bridge){
-
+            if(itemidx==4) return;
             // stepmold[7].material.visible=true;
             //
             // var dur=parseInt(elapsedTime*25)%pshift.length
@@ -23761,6 +23619,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                                 //   camval=17;
                                 // }
                                 if((window.innerWidth / window.innerHeight) > 4/7){
+                                  console.log("adk")
                                   camera.left = -bw * 1.8-(camval)/4;
                                   camera.right = bw * 1.8 * 4+(camval);
                                   camera.top = bw * 1.8+(camval)/4;
@@ -23772,11 +23631,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                                     camera.top = bw * 1.1+(camval*2)/4;
                                     camera.bottom = -bw * 1.1 * 4-(camval*2);
                                   }else{
-                                    if(false){
-                                      camera.left = -bw * 1.1-(camval-3)/4;
-                                      camera.right = bw * 1.1 * 4+(camval-3)
-                                      camera.top = bw * 1.1+(camval-3)/4
-                                      camera.bottom = -bw * 1.1 * 4-(camval-3)
+                                    if(true){
+                                      camval/=3
+                                      camera.left = -bw * 1.3+bw*0.45-(camval*2)/4;
+                                      camera.right = bw * 1.3 * 4-bw  *4*0.45+(camval*2);
+                                      camera.top = bw * 1.3-bw*0.45+(camval*2)/4;
+                                      camera.bottom = -bw * 1.3 * 4+bw*4*0.45-(camval*2);
+
+                                      // camera.left = -bw * 1.1-(camval-3)/4;
+                                      // camera.right = bw * 1.1 * 4+(camval-3)
+                                      // camera.top = bw * 1.1+(camval-3)/4
+                                      // camera.bottom = -bw * 1.1 * 4-(camval-3)
                                     }
 
 
@@ -26337,7 +26202,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         }
 
       }else if(skinset[skinnum]=="classic"){//클
-
+        console.log("23123")
         cubes.forEach((item, i) => {
               if(gamemod!=2){
                 item.mesh.scale.set(클크기,gap,클크기)
@@ -26509,10 +26374,21 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           //     renderer.setScissorTest(true);
           //     renderer.render(scene, camera);
           // }
-          if(fullcam&&false){
+          if(fullcam){
             if(gamemod==2){
-              console.log("a1")
-              if(!m2flag) camera.position.y= (4+스킬[2])*(bh * ((cubes.length)*0.5+4))+(-isoAngle - camera.rotation.x)*30
+              // console.log("a1")
+              // if(!m2flag) camera.position.y= (4+스킬[2])*(bh * ((cubes.length)*0.5+4))+(-isoAngle - camera.rotation.x)*30
+              if(!m2flag){//카메라
+                // console.log("a2")
+                if(startflag){
+                  // console.log("a2")
+                  camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
+                }else{
+                  // console.log("a3")
+                  camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
+                }
+
+              }
             }else{
               camera.position.y=(4+스킬[2])*(bh * (5 + 3))+(-isoAngle - camera.rotation.x)*30
             }
@@ -27762,6 +27638,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           temz1-=bh/4.4
         }
 
+        if(n==1){
+          temz1-=bw*1.2
+        }
+
+
+
         cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-3) * bh+bh*(스킬[2]), temz1, bw, bh, bw, game2048, cubes.length, true));
         cubes[activeFloor+1].mesh.quaternion.copy(cubes[activeFloor].mesh.quaternion);
         cubes[activeFloor+1].body.quaternion.copy(cubes[activeFloor].body.quaternion);
@@ -27840,7 +27722,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             camera.top = bw * 1.1+(camval*2)/4;
             camera.bottom = -bw * 1.1 * 4-(camval*2);
           }else{
-            if(false){
+            if(true){
               camera.left = -bw * 1.1-(camval-3)/4;
               camera.right = bw * 1.1 * 4+(camval-3)
               camera.top = bw * 1.1+(camval-3)/4
@@ -29431,9 +29313,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       combo=0;
     }
 
-    if(!flag){
+    if(!flag||!startflag){
       combo=0
     }
+
     var 기준=콤보;
     if(combo==0){
 
@@ -29454,6 +29337,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
       기준=콤보*1.35
     }else if(combo>=6){
+      // 기준=콤보*(1.15+(0.05*combo))
       기준=콤보*1.4
     }
 
@@ -29532,7 +29416,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         document.getElementById("tut-info").children[0].style.top="48%"
         document.getElementById("tut-info").children[1].style.top="4%"
       }else{
-        if(fullcam&&false){
+        if(fullcam){
           fullon()
         }
         if(window.innerWidth > window.innerHeight){
@@ -32061,7 +31945,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
       yesbtn.addEventListener('click', function() {
 
-        if(fullcam&&false){
+        if(fullcam){
           fullcam=false;
           topcam=true;
         }
@@ -33313,27 +33197,63 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   window.lboard=lboard;
 
   function fullon(){
+    var camval=cubes.length/1.3
+    if(fullcam){
+      // if(startflag){
+      //
+      // }else{
+      //
+      // }
 
-    if(fullcam&&false){
-      camera.left -= bw*0.2
-      camera.right += bw  *4*0.2
-      camera.top +=  bw*0.2
-      camera.bottom -= bw*4*0.2
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      fullcam=false
-      topcam=true;
+      if(cubes.length==5){
+        camera.left = -bw * 1.3
+        camera.right = bw * 1.3*4
+        camera.top = bw * 1.3
+        camera.bottom = -bw * 1.3*4
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        fullcam=false;
+        topcam=false;
+      }else{
+        camera.left = -bw * 1.1-(camval*2)/4;
+        camera.right = bw * 1.1 * 4+(camval*2);
+        camera.top = bw * 1.1+(camval*2)/4;
+        camera.bottom = -bw * 1.1 * 4-(camval*2);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        fullcam=false;
+        topcam=true;
+      }
+
+
+
+      // camera.left -= bw*0.45
+      // camera.right += bw  *4*0.45
+      // camera.top +=  bw*0.45
+      // camera.bottom -= bw*4*0.45
+
     }else{
-      camera.left += bw*0.2
-      camera.right -= bw  *4*0.2
-      camera.top -=  bw*0.2
-      camera.bottom += bw*4*0.2
+
+      camval/=3
+      camera.left = -bw * 1.3+bw*0.45-(camval*2)/4;
+      camera.right = bw * 1.3 * 4-bw  *4*0.45+(camval*2);
+      camera.top = bw * 1.3-bw*0.45+(camval*2)/4;
+      camera.bottom = -bw * 1.3 * 4+bw*4*0.45-(camval*2);
       renderer.setSize(window.innerWidth, window.innerHeight);
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
-      fullcam=true;
+      fullcam=true
       topcam=false;
+
+
+
+      // camera.left += bw*0.45
+      // camera.right -= bw  *4*0.45
+      // camera.top -=  bw*0.45
+      // camera.bottom += bw*4*0.45
+
 
     }
   }
@@ -33628,6 +33548,229 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           document.getElementById("right").children[0].classList.remove("hidden");
           document.getElementById("right").children[0].style.display = ""
       }, 10);
+  }
+
+  function itemon(n) {
+    switch (n) {
+      case 0:
+        if(해머>0){
+          pung=false;
+          ice=false;
+          hammer=true;
+          itemflag=true;
+          pin=false;
+          bridge=false;
+
+          if(soundic[esound[5]].isPlaying){
+            soundic[esound[5]].stop();
+          }
+          해머--;
+          soundic[esound[5]].play();
+          document.getElementById('hammer').children[1].innerText=String(해머)
+          document.getElementById('pung').children[1].innerText=String(뻥)
+          document.getElementById('ice').children[1].innerText=String(얼음)
+          document.getElementById('pin').children[1].innerText=String(핀)
+          document.getElementById('bridge').children[1].innerText=String(다리)
+          if(topcam){
+            draw=true;
+            drawcount=elapsedTime;
+          }
+
+        }else{
+          return;
+        }
+        break;
+      case 1:
+          if(해머>7){
+            pung=false;
+            ice=false;
+            hammer=true;
+            itemflag=true;
+            pin=false;
+            bridge=false;
+
+            if(soundic[esound[5]].isPlaying){
+              soundic[esound[5]].stop();
+            }
+            해머-=8;
+            superflag=true;
+            soundic[esound[5]].play();
+            document.getElementById('hammer').children[1].innerText=String(해머)
+            document.getElementById('pung').children[1].innerText=String(뻥)
+            document.getElementById('ice').children[1].innerText=String(얼음)
+            document.getElementById('pin').children[1].innerText=String(핀)
+            document.getElementById('bridge').children[1].innerText=String(다리)
+            if(topcam){
+              draw=true;
+              drawcount=elapsedTime;
+            }
+
+          }else{
+            return;
+          }
+          break;
+      case 2:
+          if(뻥>0){
+            pung=true;
+            hammer=false;
+            ice=false;
+            itemflag=true;
+            pin=false;
+            bridge=false;
+            뻥--;
+
+            if(soundic[esound[5]].isPlaying){
+              soundic[esound[5]].stop();
+            }
+
+            soundic[esound[5]].play();
+
+
+            document.getElementById('hammer').children[1].innerText=String(해머)
+            document.getElementById('pung').children[1].innerText=String(뻥)
+            document.getElementById('ice').children[1].innerText=String(얼음)
+            document.getElementById('pin').children[1].innerText=String(핀)
+            document.getElementById('bridge').children[1].innerText=String(다리)
+            if(topcam){
+              draw=true;
+              drawcount=elapsedTime;
+            }
+          }else{
+            return;
+          }
+        break;
+      case 3:
+
+        break;
+      case 4:
+          if(얼음>0){
+            pung=false;
+            hammer=false;
+            ice=true;
+            itemflag=true;
+            pin=false;
+            bridge=false;
+              얼음--;
+
+              if(soundic[esound[5]].isPlaying){
+                soundic[esound[5]].stop();
+              }
+
+              soundic[esound[5]].play();
+
+            // if(lastX<-0.8){
+            //   얼음--;
+            // }else{
+            //   if(얼음>2){
+            //     얼음-=3;
+            //     superflag=true;
+            //   }else{
+            //     return;
+            //   }
+            // }
+            document.getElementById('hammer').children[1].innerText=String(해머)
+            document.getElementById('pung').children[1].innerText=String(뻥)
+            document.getElementById('ice').children[1].innerText=String(얼음)
+            document.getElementById('pin').children[1].innerText=String(핀)
+            document.getElementById('bridge').children[1].innerText=String(다리)
+            if(topcam){
+              draw=true;
+              drawcount=elapsedTime;
+            }
+          }else{
+            return;
+          }
+        break;
+      case 5:
+          if(핀>0){
+            pung=false;
+            hammer=false;
+            ice=false;
+            pin=true;
+            bridge=false;
+            itemflag=true;
+              핀--;
+
+              if(soundic[esound[5]].isPlaying){
+                soundic[esound[5]].stop();
+              }
+
+              soundic[esound[5]].play();
+            // if(lastX<-0.8){
+            //   핀--;
+            // }else{
+            //   if(핀>2){
+            //     핀-=3;
+            //     superflag=true;
+            //   }else{
+            //     return;
+            //   }
+            // }
+            document.getElementById('hammer').children[1].innerText=String(해머)
+            document.getElementById('pung').children[1].innerText=String(뻥)
+            document.getElementById('ice').children[1].innerText=String(얼음)
+            document.getElementById('pin').children[1].innerText=String(핀)
+            document.getElementById('bridge').children[1].innerText=String(다리)
+            if(topcam){
+              draw=true;
+              drawcount=elapsedTime;
+            }
+          }else{
+            return;
+          }
+        break;
+      case 6:
+          if(다리>0){
+            pung=false;
+            hammer=false;
+            ice=false;
+            pin=false;
+            bridge=true;
+            itemflag=true;
+            다리--;
+
+            if(soundic[esound[5]].isPlaying){
+              soundic[esound[5]].stop();
+            }
+
+            soundic[esound[5]].play();
+            // if(lastX<-0.8){
+            //   다리--;
+            // }else{
+            //   if(다리>2){
+            //     다리-=3;
+            //     superflag=true;
+            //   }else{
+            //     return;
+            //   }
+            // }
+            document.getElementById('hammer').children[1].innerText=String(해머)
+            document.getElementById('pung').children[1].innerText=String(뻥)
+            document.getElementById('ice').children[1].innerText=String(얼음)
+            document.getElementById('pin').children[1].innerText=String(핀)
+            document.getElementById('bridge').children[1].innerText=String(다리)
+            if(topcam){
+              draw=true;
+              drawcount=elapsedTime;
+            }
+          }else{
+            return;
+          }
+        break;
+      default:
+    }
+
+    document.getElementById('hammer').children[1].innerText=String(해머)
+    document.getElementById('pung').children[1].innerText=String(뻥)
+    document.getElementById('ice').children[1].innerText=String(얼음)
+    document.getElementById('pin').children[1].innerText=String(핀)
+    document.getElementById('bridge').children[1].innerText=String(다리)
+    if(topcam){
+      draw=true;
+      drawcount=elapsedTime;
+    }
+
+
   }
 
   function showmod() {
