@@ -7519,6 +7519,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   window.인트로=인트로
   window.예스노=예스노
 
+
   let 모니터=false
 
   var 보드=[];
@@ -7764,7 +7765,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var version;
   var upversion=0;
 
-  var 마찰=[0.2,0.3,0.18,0.2,0.3]
+  var 마찰=[0.2,0.3,0.17,0.2,0.3]
   var 탄성=[0.4,0.4,0.2,0.7,0.4]
   var 중력=[-7,-11,-16,-7,-7]
 
@@ -8065,6 +8066,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let 보드반경=8
   let 보드높이=-34
   let rcv=0
+
+  let pingx=0;
+  let pingy=0;
+
+  let pingz=0;
 
   var colorlst = [
       [0x9DC8C8, 0x58C9B9, 0x519D9E, 0xD1B6E1, ],
@@ -9747,6 +9753,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
       if(cubes.length>5) return;
       raycaster.setFromCamera(핑거, camera);
+
+      pingx=raycaster.ray.origin.x;
+      pingy=raycaster.ray.origin.y;
+      pingz=raycaster.ray.origin.z;
+
       const intersects = raycaster.intersectObjects(scene.children);
       var cat=[];
       if(lastY<0){
@@ -10101,6 +10112,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         }
 
         raycaster.setFromCamera(핑거0, camera);
+
+        pingx=raycaster.ray.origin.x;
+        pingy=raycaster.ray.origin.y;
+        pingz=raycaster.ray.origin.z;
+
+        console.log([pingx, pingy, pingz])
         const intersects = raycaster.intersectObjects(scene.children);
         var cat=[];
 
@@ -22905,9 +22922,14 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             stepmold[3].children[0].material.visible=true;
             var dur=parseInt(elapsedTime*20)%pshift.length
 
-            stepmold[3].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
-            stepmold[3].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
-            stepmold[3].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
+            stepmold[3].position.set(pingx-90, pingy-73, pingz-90)
+
+
+
+            // stepmold[3].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+            // stepmold[3].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+            // stepmold[3].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
+
             // stepmold[3].position.y=핑거0.y*bh*12-bh*4
 
             stepmold[3].scale.y = pshift[dur]*0.9*3.2 / 2;
@@ -22922,10 +22944,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             stepmold[4].children[0].material.visible=true;
             var dur=parseInt(elapsedTime*25)%pshift.length
 
-            stepmold[4].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
-            stepmold[4].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
-            // stepmold[4].position.y=핑거0.y*bh*12-bh*4
-            stepmold[4].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
+            stepmold[4].position.set(pingx-90, pingy-73, pingz-90)
+
+            // stepmold[4].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+            // stepmold[4].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+            // // stepmold[4].position.y=핑거0.y*bh*12-bh*4
+            // stepmold[4].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
 
             stepmold[4].rotation.x=Math.PI/10*dur0
             // stepmold[4].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/4
@@ -22934,10 +22958,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
             var dur=parseInt(elapsedTime*25)%pshift.length
 
-            stepmold[7].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
-            stepmold[7].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
-            // stepmold[4].position.y=핑거0.y*bh*12-bh*4
-            stepmold[7].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
+            stepmold[7].position.set(pingx-90, pingy-73, pingz-90)
+
+
+            // stepmold[7].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+            // stepmold[7].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+            // // stepmold[4].position.y=핑거0.y*bh*12-bh*4
+            // stepmold[7].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
 
             stepmold[7].rotation.x=Math.PI/10*dur0
             // stepmold[4].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/4
@@ -22955,10 +22982,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             stepmold[5].material.visible=true;
             var dur=parseInt(elapsedTime*25)%pshift.length
 
-            stepmold[5].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
-            stepmold[5].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
-            // stepmold[4].position.y=핑거0.y*bh*12-bh*4
-            stepmold[5].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
+            stepmold[5].position.set(pingx-90, pingy-73, pingz-90)
+
+            // stepmold[5].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+            // stepmold[5].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+            // // stepmold[4].position.y=핑거0.y*bh*12-bh*4
+            // stepmold[5].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
 
             stepmold[5].rotation.x=Math.PI/10*dur0
 
@@ -22992,10 +23021,14 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             stepmold[6].material.visible=true;
             stepmold[6].material.visible=true;
 
-            stepmold[6].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
-            stepmold[6].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+            stepmold[6].position.set(pingx-90, pingy-73, pingz-90)
+
+            // stepmold[6].position.z=avz+bw-(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+            // stepmold[6].position.x=avx+bw+(핑거0.x+0.6)*(camera.right-camera.left)*0.35
+            //
+            // stepmold[6].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
+
             stepmold[6].rotation.x=Math.PI/2;
-            stepmold[6].position.y=핑거0.y*bh*(camera.right-camera.left)*0.15+(camera.position.y)*0.8-bh*12
             var dur=parseInt(elapsedTime*25)%pshift.length
             stepmold[6].rotation.y=Math.PI/10*dur0
             cubes.forEach((item) => {
