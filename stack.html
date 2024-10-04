@@ -8067,9 +8067,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let 보드높이=-34
   let rcv=0
 
+  let tctime=0;
   let pingx=0;
   let pingy=0;
-
   let pingz=0;
 
   var colorlst = [
@@ -10373,6 +10373,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       }
       curveflag=false
       if(itemflag){
+
           // if((hammer||pung)&&itemtouch&&superflag){ //&&itemidx!=cubes.length-1
           //   itemtouch=false;
           // }
@@ -10383,6 +10384,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             // }, 500);
 
             console.log("아이템 사용")
+            tctime=elapsedTime
             var force2 = new CANNON.Vec3();
             if(hammer){
 
@@ -10482,6 +10484,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
             }else if(pung){
+              tctime=elapsedTime
               if(itemr){
                 if(superflag){
                   force2.set(25000*cubes[itemidx].body.mass/5,0,0)
@@ -10557,6 +10560,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 if(cubes[i].body.sleepState!=0){
                   continue;
                 }
+
                 if(cubes[i].mesh.userData["bye"]){
                   continue;
                 }
@@ -10590,6 +10594,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
               }
+              tctime=elapsedTime
               soundic[esound[13]].play();
               cubes.forEach((item,) => {
                 if(item.mesh.userData.pin){
@@ -10669,7 +10674,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 window.cubes=cubes
 
 
-
+                tctime=elapsedTime
               soundic[esound[13]].play();
 
 
@@ -10765,7 +10770,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
 
-
+                tctime=elapsedTime
 
                 if(itemr){
                   var upperx=cubes[itemidx].mesh.position.x
@@ -11263,6 +11268,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
           }else{
+            tctime=elapsedTime
             console.log("취소")
 
 
@@ -22531,8 +22537,29 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       }
 
 
-
       if(itemdrag){
+
+        if(elapsedTime-tctime<0.6){
+          var tcl=camera.left
+          var tcr=camera.right
+          var tct=camera.top
+          var tcb=camera.bottom
+
+          var tempb=bw * 1.4
+          var tempa=bw * 1.4 * 4
+          camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime))/0.6))
+          camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime))/0.6))
+          camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime))/0.6))
+          camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime))/0.6))
+
+          // camera.left = -bw * 1.3+((bw * 1.3+tcl)*((0.6-(elapsedTime-tctime))/0.6))
+          // camera.right =bw * 1.3*4+((-bw * 1.3*4+tcr)*((0.6-(elapsedTime-tctime))/0.6))
+          // camera.top = bw * 1.3+((-bw * 1.3+tct)*((0.6-(elapsedTime-tctime))/0.6))
+          // camera.bottom = -bw * 1.3*4+((bw * 1.3*4+tcb)*((0.6-(elapsedTime-tctime))/0.6))
+
+          camera.updateProjectionMatrix();
+
+        }
 
 
 
@@ -23061,6 +23088,55 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
       }else{
+        // if(startflag&&elapsedTime-tctime<0.6){
+        //   console.log("아닌데")
+        // }
+
+
+        if(elapsedTime>1&&startflag&&elapsedTime-tctime<0.6){
+          var tcl=camera.left
+          var tcr=camera.right
+          var tct=camera.top
+          var tcb=camera.bottom
+
+          if(!fullcam){
+            var camval=cubes.length/1.3
+            var tempb=bw * 1.1+(camval*2)/4
+            var tempa=bw * 1.1 * 4+(camval*2)
+            if(cubes.length==5){
+              tempb=bw * 1.3
+              tempa=bw * 1.3 * 4
+            }else{
+              tempb=bw * 1.1+(camval*2)/4
+              tempa=bw * 1.1 * 4+(camval*2)
+            }
+
+
+            camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime))/0.6))
+            camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime))/0.6))
+            camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime))/0.6))
+            camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime))/0.6))
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            console.log("2")
+          }else{
+            var camval=cubes.length/1.3
+            camval/=3
+
+            var tempb=bw * 1.3-bw*0.45+(camval*2)/4
+            var tempa=bw * 1.3 * 4-bw  *4*0.45+(camval*2)
+            camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime))/0.6))
+            camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime))/0.6))
+            camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime))/0.6))
+            camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime))/0.6))
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+          }
+        }
 
         // stepmold[3].position.y=bh*(cubes.length+15)
         // stepmold[4].position.y=bh*(cubes.length+15)
@@ -33284,9 +33360,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   }
   window.lboard=lboard;
 
+
+
+
   function fullon(){
     var camval=cubes.length/1.3
     if(fullcam){
+      console.log("킷타")
       // if(startflag){
       //
       // }else{
@@ -33645,6 +33725,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
     switch (n) {
       case 0:
         if(해머>0){
+          tctime=elapsedTime
           pung=false;
           ice=false;
           hammer=true;
@@ -33673,6 +33754,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         break;
       case 1:
           if(해머>7){
+            tctime=elapsedTime
             pung=false;
             ice=false;
             hammer=true;
@@ -33702,6 +33784,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           break;
       case 2:
           if(뻥>0){
+            tctime=elapsedTime
             pung=true;
             hammer=false;
             ice=false;
@@ -33735,6 +33818,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         break;
       case 4:
           if(얼음>0){
+            tctime=elapsedTime
             pung=false;
             hammer=false;
             ice=true;
@@ -33774,6 +33858,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         break;
       case 5:
           if(핀>0){
+            tctime=elapsedTime
             pung=false;
             hammer=false;
             ice=false;
@@ -33812,6 +33897,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         break;
       case 6:
           if(다리>0){
+            tctime=elapsedTime
             pung=false;
             hammer=false;
             ice=false;
