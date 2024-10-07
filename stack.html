@@ -22539,25 +22539,28 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
       if(itemdrag){
 
-        if(elapsedTime-tctime<0.6){
-          var tcl=camera.left
-          var tcr=camera.right
-          var tct=camera.top
-          var tcb=camera.bottom
+        if(elapsedTime-tctime<0.8&&elapsedTime-tctime>0.2){ //확대
+          if(camera.top<bw * 1.5){
+            var tcl=camera.left
+            var tcr=camera.right
+            var tct=camera.top
+            var tcb=camera.bottom
 
-          var tempb=bw * 1.4
-          var tempa=bw * 1.4 * 4
-          camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime))/0.6))
-          camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime))/0.6))
-          camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime))/0.6))
-          camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime))/0.6))
+            var tempb=bw * 1.5
+            var tempa=bw * 1.5 * 4
+            camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+            camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+            camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+            camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime-0.2))/0.6))
 
-          // camera.left = -bw * 1.3+((bw * 1.3+tcl)*((0.6-(elapsedTime-tctime))/0.6))
-          // camera.right =bw * 1.3*4+((-bw * 1.3*4+tcr)*((0.6-(elapsedTime-tctime))/0.6))
-          // camera.top = bw * 1.3+((-bw * 1.3+tct)*((0.6-(elapsedTime-tctime))/0.6))
-          // camera.bottom = -bw * 1.3*4+((bw * 1.3*4+tcb)*((0.6-(elapsedTime-tctime))/0.6))
+            // camera.left = -bw * 1.3+((bw * 1.3+tcl)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+            // camera.right =bw * 1.3*4+((-bw * 1.3*4+tcr)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+            // camera.top = bw * 1.3+((-bw * 1.3+tct)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+            // camera.bottom = -bw * 1.3*4+((bw * 1.3*4+tcb)*((0.6-(elapsedTime-tctime-0.2))/0.6))
 
-          camera.updateProjectionMatrix();
+            camera.updateProjectionMatrix();
+          }
+
 
         }
 
@@ -23093,7 +23096,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         // }
 
 
-        if(elapsedTime>1&&startflag&&elapsedTime-tctime<0.6){
+        if(elapsedTime>1&&startflag&&elapsedTime-tctime<0.8&&elapsedTime-tctime>0.2){ //확대
           var tcl=camera.left
           var tcr=camera.right
           var tct=camera.top
@@ -23112,10 +23115,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             }
 
 
-            camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime))/0.6))
-            camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime))/0.6))
-            camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime))/0.6))
-            camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime))/0.6))
+            camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+            camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+            camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+            camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime-0.2))/0.6))
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
@@ -23127,10 +23130,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
             var tempb=bw * 1.3-bw*0.45+(camval*2)/4
             var tempa=bw * 1.3 * 4-bw  *4*0.45+(camval*2)
-            camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime))/0.6))
-            camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime))/0.6))
-            camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime))/0.6))
-            camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime))/0.6))
+            camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+            camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+            camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+            camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime-0.2))/0.6))
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
