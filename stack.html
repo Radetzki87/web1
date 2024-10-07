@@ -9841,14 +9841,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               cat.push(item.object.userData["game2048"]);
               tempidx=cat[0].index;
             }
+            // if(item.object.userData["dir"]!=null){
+            //   cat.push(item.object.userData["dir"]);
+            //   tempidx=cat[0][0];
+            // }
             if(cat.length==1) return;
 
           });
         }
       }
-      // console.log(cat)
+      console.log(cat[0])
       if(cat.length>=1){
-
 
         if(shiftlock) return;
         if(!document.getElementById("credit-info").classList.contains("hidden")) return;
@@ -10117,61 +10120,105 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         pingy=raycaster.ray.origin.y;
         pingz=raycaster.ray.origin.z;
 
-        console.log([pingx, pingy, pingz])
+        // console.log([pingx, pingy, pingz])
         const intersects = raycaster.intersectObjects(scene.children);
         var cat=[];
+        var cat2=[];
 
         var tempidx;
         if (intersects.length > 0) {
           intersects.forEach((item, i) => {
-            if(item.object.userData["game2048"]!=null){
-              cat.push(item.object.userData["game2048"]);
-              if(cat[0]!="p"&&cat[0]!="h"){
-                tempidx=cat[0].index;
-                if(cubes[tempidx].body.sleepState==2) return cat.pop();
-                if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
-                // if(cubes[tempidx].body.sleepState==2){
-                //   return cat.pop()
-                // }
+            // if(item.object.userData["game2048"]!=null){
+            //   cat2.push(item.object)
+            //   cat.push(item.object.userData["game2048"]);
+            //   if(cat[0]!="p"&&cat[0]!="h"){
+            //     tempidx=cat[0].index;
+            //     if(cubes[tempidx].body.sleepState==2) return cat.pop();
+            //     if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
+            //     // if(cubes[tempidx].body.sleepState==2){
+            //     //   return cat.pop()
+            //     // }
+            //
+            //   }else{
+            //     cat.pop()
+            //   }
+            //
+            //
+            // }
 
-              }else{
-                cat.pop()
-              }
+            if(item.object.userData["dir"]!=null){
+              // cat2.push(item.object)
+              cat.push([item.object.userData["layer"], item.object.userData["dir"]]);
+              tempidx=item.object.userData["layer"]
+              if(cubes[tempidx].body.sleepState==2) return cat.pop();
+              if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
+              //
+              // if(cat[0]!="p"&&cat[0]!="h"){
+              //   tempidx=item.object.userData["layer"]
+              //   if(cubes[tempidx].body.sleepState==2) return cat.pop();
+              //   if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
+              //   // if(cubes[tempidx].body.sleepState==2){
+              //   //   return cat.pop()
+              //   // }
+              //
+              // }else{
+              //   cat.pop()
+              // }
 
 
             }
-            if(cat.length==1) return;
+            if(cat.length==3) return;
 
           });
         }
 
+        console.log(cat)
+        cat.sort(function(a, b) {
+            return a[0] - b[0];
+        });
+
+        console.log(cat)
+
 
         if(cat.length>=1&&tempidx<cubes.length){
+          tempidx=cat[0][0]
           itemtouch=true;
 
-          var toffset0=cubes[tempidx].body.position.x-avx-cubes[tempidx].body.position.z+avz
-          var toffset1;
-          var roffset0=cubes[tempidx].mesh.rotation.y;
-          console.log(Math.cos(roffset0))
-          if(toffset0>0){
-            toffset1=Math.sqrt(toffset0/2)
-          }else{
-            toffset1=-Math.sqrt(-toffset0/2)
-          }
-
-
-          if(핑거0.x>-0.6+toffset1*0.05){
+          if(cat[0][1]=="right"){
             itemr=true;
             iteml=false;
 
             itemidx=tempidx
-          }else{
+          }else if(cat[0][1]=="left"){
             itemr=false;
             iteml=true;
 
             itemidx=tempidx
           }
-          console.log(tempidx)
+          //
+          // var toffset0=cubes[tempidx].body.position.x-avx-cubes[tempidx].body.position.z+avz
+          // var toffset1;
+          // var roffset0=cubes[tempidx].mesh.rotation.y;
+          // console.log(Math.cos(roffset0))
+          // if(toffset0>0){
+          //   toffset1=Math.sqrt(toffset0/2)
+          // }else{
+          //   toffset1=-Math.sqrt(-toffset0/2)
+          // }
+          //
+          //
+          // if(핑거0.x>-0.6+toffset1*0.05){
+          //   itemr=true;
+          //   iteml=false;
+          //
+          //   itemidx=tempidx
+          // }else{
+          //   itemr=false;
+          //   iteml=true;
+          //
+          //   itemidx=tempidx
+          // }
+          // console.log(tempidx)
 
 
         }else{
@@ -24564,7 +24611,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             if(cubes.length>=7){
               for (var j = cubes[cubes.length-2].mesh.children.length - 1; j >= 0; j--) {
                   if (cubes[cubes.length-2].mesh.children[j].userData["skin"] != skinset[skinnum]) {
-                    if(cubes[cubes.length-2].mesh.children[j].userData["skin"]!="text1"&&cubes[cubes.length-2].mesh.children[j].userData["skin"]!="face"&&cubes[cubes.length-2].mesh.children[j].userData["skin"].substring(0, cubes[cubes.length-2].mesh.children[j].userData["skin"].length - 1) != "txtback") cubes[cubes.length-2].mesh.remove(cubes[cubes.length-2].mesh.children[j]);
+                    if(cubes[cubes.length-2].mesh.children[j].userData["skin"]!="dir"&&cubes[cubes.length-2].mesh.children[j].userData["skin"]!="text1"&&cubes[cubes.length-2].mesh.children[j].userData["skin"]!="face"&&cubes[cubes.length-2].mesh.children[j].userData["skin"].substring(0, cubes[cubes.length-2].mesh.children[j].userData["skin"].length - 1) != "txtback") cubes[cubes.length-2].mesh.remove(cubes[cubes.length-2].mesh.children[j]);
                   }
               }
             }
@@ -29458,16 +29505,54 @@ function createPath( char, scale, offsetX, offsetY, data ) {
     // mesh1.userData["3"]=true;
     mesh1.userData["skin"] = "txtback1";
 
-    mesh.position.set(x, y, z);
-    mesh.material.visible = true;
+    // mesh.position.set(x, y, z);
+    // mesh.material.visible = true;
     // clmeshlst2[idx].push(mesh1.material)
     mesh.add(mesh1)
+
+    //좌우
+    var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width, height), new THREE.MeshBasicMaterial({
+        color: 0xaaaaaa,
+        opacity: 0.3,
+        transparent: true
+    }), );
+    mesh1.position.set(depth/2, 0 , 0)
+    mesh1.rotation.y = Math.PI / 2
+
+    mesh1.userData["dir"] = "right";
+    mesh1.userData["layer"] = idx
+    mesh1.userData["skin"] = "dir";
+
+
+    // clmeshlst2[idx].push(mesh1.material)
+    mesh.add(mesh1)
+
+    var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width, height), new THREE.MeshBasicMaterial({
+        color: 0xaaaaaa,
+        opacity: 0.3,
+        transparent: true
+    }), );
+    mesh1.position.set(0, 0 , depth/2)
+    mesh1.rotation.y = 0
+
+    mesh1.userData["dir"] = "left";
+    mesh1.userData["layer"] = idx
+    mesh1.userData["skin"] = "dir";
+
+
+    // clmeshlst2[idx].push(mesh1.material)
+    mesh.add(mesh1)
+
+
+    mesh.position.set(x, y, z);
+    mesh.material.visible = true;
 
 
     if (shadowon) {
         mesh.receiveShadow = true;
         mesh.castShadow = true;
     }
+
 
 
     //쌓
