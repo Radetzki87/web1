@@ -7523,7 +7523,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let 모니터=false
 
   var 보드=[];
-
+  var 눌=false
   let themelst = ["wooden", "lofi", "retro","808", "hiphop"];
   var themelang=["BRICK", "LO-FI", "RETRO","BEAT", "HIPHOP"]
   window.themelst=themelst
@@ -9504,6 +9504,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var touch0 = 1 - ((window.innerWidth * 0.53) / (window.innerHeight / 2))
 
   function handleTouchStart(event) {
+
     window.cls=cls
     if(cls.length!=7){
       return;
@@ -9852,6 +9853,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       }
       console.log(cat[0])
       if(cat.length>=1){
+        눌=true;
+        tctime=elapsedTime
 
         if(shiftlock) return;
         if(!document.getElementById("credit-info").classList.contains("hidden")) return;
@@ -10145,37 +10148,77 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             //
             //
             // }
+            if(pin){
+              if(item.object.userData["game2048"]!=null){
+                // cat2.push(item.object)
+                cat.push([item.object.userData["game2048"].index,"left"]);
 
-            if(item.object.userData["dir"]!=null){
-              // cat2.push(item.object)
-              cat.push([item.object.userData["layer"], item.object.userData["dir"]]);
-              tempidx=item.object.userData["layer"]
-              if(cubes[tempidx].body.sleepState==2) return cat.pop();
-              if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
-              //
-              // if(cat[0]!="p"&&cat[0]!="h"){
-              //   tempidx=item.object.userData["layer"]
-              //   if(cubes[tempidx].body.sleepState==2) return cat.pop();
-              //   if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
-              //   // if(cubes[tempidx].body.sleepState==2){
-              //   //   return cat.pop()
-              //   // }
-              //
-              // }else{
-              //   cat.pop()
-              // }
+                if(item.object.userData["game2048"]!="p"&&item.object.userData["game2048"]!="h"){
+                  tempidx=cat[0][0];
+
+                  if(cubes[tempidx].body.sleepState==2) return cat.pop();
+                  if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
+                }else{
+                  cat.pop()
+                }
+                //
+                // if(cat[0]!="p"&&cat[0]!="h"){
+                //   tempidx=item.object.userData["layer"]
+                //   if(cubes[tempidx].body.sleepState==2) return cat.pop();
+                //   if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
+                //   // if(cubes[tempidx].body.sleepState==2){
+                //   //   return cat.pop()
+                //   // }
+                //
+                // }else{
+                //   cat.pop()
+                // }
 
 
+              }
+                if(cat.length>=1) return;
+            }else{
+              if(item.object.userData["dir"]!=null){
+                // cat2.push(item.object)
+                cat.push([item.object.userData["layer"], item.object.userData["dir"]]);
+                tempidx=item.object.userData["layer"]
+                if(cubes[tempidx].body.sleepState==2) return cat.pop();
+                if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
+                //
+                // if(cat[0]!="p"&&cat[0]!="h"){
+                //   tempidx=item.object.userData["layer"]
+                //   if(cubes[tempidx].body.sleepState==2) return cat.pop();
+                //   if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
+                //   // if(cubes[tempidx].body.sleepState==2){
+                //   //   return cat.pop()
+                //   // }
+                //
+                // }else{
+                //   cat.pop()
+                // }
+
+
+              }
+                if(cat.length==3) return;
             }
-            if(cat.length==3) return;
+
+
+
 
           });
         }
 
         console.log(cat)
-        cat.sort(function(a, b) {
-            return a[0] - b[0];
-        });
+        if(pin){
+          cat.sort(function(a, b) {
+              return b[0] - a[0];
+          });
+        }else{
+          cat.sort(function(a, b) {
+              return a[0] - b[0];
+          });
+        }
+
 
         console.log(cat)
 
@@ -10410,6 +10453,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   }
 
   function handleTouchEnd(event) {
+      눌=false;
+      tctime=elapsedTime
       if(restartflag) return;
       if (gameoverflag) return;
       if (document.getElementById("setting-overlay").classList.contains("show") || !document.getElementById("gameover-overlay").classList.contains("hidden") || document.getElementById("options-overlay").classList.contains("show") || document.getElementById("optionlst").classList.contains("show")) {
@@ -12958,8 +13003,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                 body.position.set(0, bh*(스킬[2])/2-40, 0);
                 scene.remove(cubes[cubes.length-2].mesh)
-                cubes[cubes.length-2].mesh.position.y=-20*bh*(스킬[2])
-                cubes[cubes.length-2].body.position.y=-20*bh*(스킬[2])
+                for (var i = 0; i < 4; i++) {
+                  cubes[i].mesh.position.y=-20*bh*(스킬[2]+i)
+                  cubes[i].body.position.y=-20*bh*(스킬[2]+i)
+                  cubes[i].body.sleep();
+                }
+                // cubes[cubes.length-2].mesh.position.y=-20*bh*(스킬[2])
+                // cubes[cubes.length-2].body.position.y=-20*bh*(스킬[2])
 
                 cubes[cubes.length-1].mesh.position.y+=bh*(스킬[2]-1)
                 cubes[cubes.length-1].body.position.y+=bh*(스킬[2]-1)
@@ -23142,51 +23192,78 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         //   console.log("아닌데")
         // }
 
+        if(눌){
+          if(elapsedTime-tctime<0.7&&elapsedTime-tctime>0.1){ //확대
+            if(camera.top<bw * 1.5){
+              var tcl=camera.left
+              var tcr=camera.right
+              var tct=camera.top
+              var tcb=camera.bottom
 
-        if(elapsedTime>1&&startflag&&elapsedTime-tctime<0.8&&elapsedTime-tctime>0.2){ //확대
-          var tcl=camera.left
-          var tcr=camera.right
-          var tct=camera.top
-          var tcb=camera.bottom
+              var tempb=bw * 1.5
+              var tempa=bw * 1.5 * 4
+              camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime-0.1))/0.6))
+              camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime-0.1))/0.6))
+              camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime-0.1))/0.6))
+              camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime-0.1))/0.6))
 
-          if(!fullcam){
-            var camval=cubes.length/1.3
-            var tempb=bw * 1.1+(camval*2)/4
-            var tempa=bw * 1.1 * 4+(camval*2)
-            if(cubes.length==5){
-              tempb=bw * 1.3
-              tempa=bw * 1.3 * 4
-            }else{
-              tempb=bw * 1.1+(camval*2)/4
-              tempa=bw * 1.1 * 4+(camval*2)
+              // camera.left = -bw * 1.3+((bw * 1.3+tcl)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+              // camera.right =bw * 1.3*4+((-bw * 1.3*4+tcr)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+              // camera.top = bw * 1.3+((-bw * 1.3+tct)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+              // camera.bottom = -bw * 1.3*4+((bw * 1.3*4+tcb)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+
+              camera.updateProjectionMatrix();
             }
 
 
-            camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime-0.2))/0.6))
-            camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime-0.2))/0.6))
-            camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime-0.2))/0.6))
-            camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime-0.2))/0.6))
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
+          }
+        }else{
+          if(elapsedTime>1&&startflag&&elapsedTime-tctime<0.8&&elapsedTime-tctime>0.2){ //확대
+            var tcl=camera.left
+            var tcr=camera.right
+            var tct=camera.top
+            var tcb=camera.bottom
 
-            console.log("2")
-          }else{
-            var camval=cubes.length/1.3
-            camval/=3
+            if(!fullcam){
+              var camval=cubes.length/1.3
+              var tempb=bw * 1.1+(camval*2)/4
+              var tempa=bw * 1.1 * 4+(camval*2)
+              if(cubes.length==5){
+                tempb=bw * 1.3
+                tempa=bw * 1.3 * 4
+              }else{
+                tempb=bw * 1.1+(camval*2)/4
+                tempa=bw * 1.1 * 4+(camval*2)
+              }
 
-            var tempb=bw * 1.3-bw*0.45+(camval*2)/4
-            var tempa=bw * 1.3 * 4-bw  *4*0.45+(camval*2)
-            camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime-0.2))/0.6))
-            camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime-0.2))/0.6))
-            camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime-0.2))/0.6))
-            camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime-0.2))/0.6))
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
 
+              camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+              camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+              camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+              camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+              renderer.setSize(window.innerWidth, window.innerHeight);
+              camera.aspect = window.innerWidth / window.innerHeight;
+              camera.updateProjectionMatrix();
+
+              console.log("2")
+            }else{
+              var camval=cubes.length/1.3
+              camval/=3
+
+              var tempb=bw * 1.3-bw*0.45+(camval*2)/4
+              var tempa=bw * 1.3 * 4-bw  *4*0.45+(camval*2)
+              camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+              camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+              camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+              camera.bottom = -tempa+((tempa+tcb)*((0.6-(elapsedTime-tctime-0.2))/0.6))
+              renderer.setSize(window.innerWidth, window.innerHeight);
+              camera.aspect = window.innerWidth / window.innerHeight;
+              camera.updateProjectionMatrix();
+
+            }
           }
         }
+
 
         // stepmold[3].position.y=bh*(cubes.length+15)
         // stepmold[4].position.y=bh*(cubes.length+15)
