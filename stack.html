@@ -24997,9 +24997,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             camera.bottom -=0.4
             camera.updateProjectionMatrix();
 
-            if(skinset[skinnum]!="classic"){
-              activeFloor=cubes.length-1
-            }
+            // if(skinset[skinnum]!="classic"){
+            //   activeFloor=cubes.length-1
+            // }
               if(cubes[cubes.length-1].body.velocity.norm()<0.1){
                 console.log("낙하종료")
                 오버=true;
@@ -25599,7 +25599,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         console.log(activeFloor)
         if(skinset[skinnum]=="classic"){
           activeFloor=cubes.length-1
+        }else{
+          activeFloor=cubes.length
+          bf=99
         }
+
         for (var i = 0; i < 5; i++) {
           if(skinset[skinnum]=="classic"){
 
@@ -25635,8 +25639,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   //     2*(bh * (cubes.length + 2)),
                   //     2*(bw * 2 )+ avz,
                   // );
-                  if(gamemod==2&&!m2flag) {
-
+                  if(gamemod==2&&!m2flag&&!gameoverflag) {
+                    console.log("아효4")
                     camera.position.y= (50+스킬[2])*(bh * ((cubes.length)*0.5+3))
                   }
 
@@ -25731,7 +25735,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
                         if(skinnum==skinset.indexOf("classic")){
-                          console.log("야호")
+                          // console.log("야호")
                           camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].body.position.x
                           camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].body.position.z
                           // camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].mesh.position.x;
@@ -25749,7 +25753,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                         //     2*(bh * (cubes.length + 2)),
                         //     2*(bw * 2 )+ avz,
                         // );
-                        if(gamemod==2&&!m2flag) {
+                        if(gamemod==2&&!m2flag&&!gameoverflag) {
 
                           camera.position.y= (30+스킬[2])*(bh * ((cubes.length)*0.5+3))
                         }
@@ -26011,9 +26015,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           }else{
             camera.position.x=2*(bw * 2 )+ cubes[cubes.length-1].body.position.x
             camera.position.z=2*(bw * 2 )+ cubes[cubes.length-1].body.position.z
-            console.log("야호2")
+            // console.log("야호2")
           }
       }else {
+        // console.log("야호6")
         if (!restartflag) {//카메라
           if(!gameoverflag){
             camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].body.position.x;
@@ -26024,12 +26029,16 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             // console.log("22")
             // console.log(cubes[4].mesh.position.y)
           }else{
+            // console.log("야호3")
             camera.position.x=4*(bw * 2 )+ cubes[cubes.length-1].body.position.x;
             camera.position.z=4*(bw * 2 )+ cubes[cubes.length-1].body.position.z;
             // camera.position.x=4*(bw * 2 )+ (avx+3*cubes[cubes.length-1].body.position.x)/4
             // camera.position.z=4*(bw * 2 )+ (avz+3*cubes[cubes.length-1].body.position.z)/4
-            var diffy=camera.position.y-cubes[cubes.length-1].body.position.y
-            camera.position.y-=diffy;
+            if(!gameoverflag){
+              var diffy=camera.position.y-cubes[cubes.length-1].body.position.y
+              camera.position.y-=diffy;
+            }
+
             // console.log("33")
           }
 
@@ -26690,9 +26699,25 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 // console.log("a2")
                 if(startflag){
                   // console.log("a2")
-                  camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
+
+                  if(gameoverflag){
+                    if(skinset[skinnum]=="classic"){//클
+                        console.log("a2")
+                      camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
+                      // camera.position.y=10
+                    }else{
+                        console.log("a5")
+                        camera.position.y=2*(bh * ((cubes.length-11.2)*0.5+9+스킬[2]))
+                      // camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
+                    }
+                  }else{
+                    camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
+
+                  }
+
+
                 }else{
-                  // console.log("a3")
+                  console.log("a3")
                   camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
                 }
 
