@@ -8063,6 +8063,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var songfade;
   var soundic = {};
 
+  let 판=[];
   let 보드반경=8
   let 보드높이=-34
   let rcv=0
@@ -10835,7 +10836,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 scene.add(legs[legs.length-1]);
               }else{
 
+
+
                 var 아래층=cubes[itemidx-1];
+                var 아래=itemidx-1
                 var 취소=false
                 if(itemidx==4) 취소=true;
                 if(cubes[itemidx-1].mesh.userData.bye==true){
@@ -10844,14 +10848,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                       취소=true;
                     }else{
                       아래층=cubes[itemidx-3];
+                      아래=itemidx-3
                     }
                   }else{
                     console.log("hi2")
                     아래층=cubes[itemidx-2];
+                    아래=itemidx-2
                   }
                 }else{
                   console.log("hi1")
                   아래층=cubes[itemidx-1];
+                  아래=itemidx-1
                 }
 
 
@@ -10865,27 +10872,41 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 tctime=elapsedTime
 
                 if(itemr){
-                  var upperx=cubes[itemidx].mesh.position.x
-                  var lowerx=아래층.mesh.position.x
-                  if(cubes[itemidx].mesh.userData.pin){
-                    upperx=cubes[itemidx].mesh.position.x+(핀크기*cubes[itemidx].mesh.userData["combo"]-1)*bw/2;
-                  }else{
-                    upperx=cubes[itemidx].mesh.position.x+(cubes[itemidx].mesh.userData["combo"]-1)*bw/2;
-                  }
 
-                  if(아래층.mesh.userData.pin){
-                    lowerx=아래층.mesh.position.x+(핀크기*아래층.mesh.userData["combo"]-1)*bw/2;
-                  }else{
-                    lowerx=아래층.mesh.position.x+(아래층.mesh.userData["combo"]-1)*bw/2;
-                  }
+                  let wpos1=new THREE.Vector3();
+                  let wpos2=new THREE.Vector3();
+
+                  판[itemidx-1][1].getWorldPosition(wpos1);
+                  판[아래-1][1].getWorldPosition(wpos2);
+
+
+                  var upperx=wpos1.x
+                  var lowerx=wpos2.x
+                  // if(cubes[itemidx].mesh.userData.pin){
+                  //   upperx=cubes[itemidx].mesh.position.x+(핀크기*cubes[itemidx].mesh.userData["combo"]-1)*bw/2;
+                  // }else{
+                  //   upperx=cubes[itemidx].mesh.position.x+(cubes[itemidx].mesh.userData["combo"]-1)*bw/2;
+                  // }
+                  //
+                  // if(아래층.mesh.userData.pin){
+                  //   lowerx=아래층.mesh.position.x+(핀크기*아래층.mesh.userData["combo"]-1)*bw/2;
+                  // }else{
+                  //   lowerx=아래층.mesh.position.x+(아래층.mesh.userData["combo"]-1)*bw/2;
+                  // }
                   var majorx;
+                  var majory;
+                  var majorz;
                   if(upperx>lowerx){
                     majorx=upperx
+                    majory=0.5*(wpos1.y+wpos2.y)
+                    majorz=wpos1.z
                   }else{
                     majorx=lowerx
+                    majory=0.5*(wpos1.y+wpos2.y)
+                    majorz=wpos2.z
                   }
                   console.log(Math.abs(upperx-lowerx))
-                  if(취소||Math.abs(upperx-lowerx)>2.3){
+                  if(취소||Math.abs(upperx-lowerx)>2.3||Math.abs(wpos1.z-wpos2.z)>0.5*bw*cubes[itemidx].mesh.scale.x){
                     console.log("취소")
                     if(draw&&!꺼져){
                       topcam=true;
@@ -11028,12 +11049,14 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
                   compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
 
-                  if(cubes[itemidx].mesh.userData.pin){
-                    legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/5);
-                  }else{
-                    legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/5);
+                  // if(cubes[itemidx].mesh.userData.pin){
+                  //   legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/5);
+                  // }else{
+                  //   legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/5);
+                  //
+                  // }
+                  legs[legs.length-1].position.set(majorx, majory, majorz);
 
-                  }
                   legs[legs.length-1].quaternion.copy(cubes[itemidx].mesh.quaternion)
                   // legs[legs.length-1].rotation.z=-1;
 
@@ -11072,30 +11095,35 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   이펙트2(itemidx, 16, "left");
                   soundic[sdic[cubes.length-1]["16"]].play();
                 }else if(iteml){
-                  var upperz=cubes[itemidx].mesh.position.z
-                  var lowerz=아래층.mesh.position.z
-                  if(cubes[itemidx].mesh.userData.pin){
-                    upperz=cubes[itemidx].mesh.position.z+(핀크기*cubes[itemidx].mesh.userData["combo"]-1)*bw/2;
-                  }else{
-                    upperz=cubes[itemidx].mesh.position.z+(cubes[itemidx].mesh.userData["combo"]-1)*bw/2;
-                  }
 
-                  if(아래층.mesh.userData.pin){
-                    lowerz=아래층.mesh.position.z+(핀크기*아래층.mesh.userData["combo"]-1)*bw/2;
-                  }else{
-                    lowerz=아래층.mesh.position.z+(아래층.mesh.userData["combo"]-1)*bw/2;
-                  }
+                  let wpos1=new THREE.Vector3();
+                  let wpos2=new THREE.Vector3();
+
+                  판[itemidx-1][2].getWorldPosition(wpos1);
+                  판[아래-1][2].getWorldPosition(wpos2);
+
+
+                  var upperz=wpos1.z
+                  var lowerz=wpos2.z
+
+                  var majorx;
+                  var majory;
                   var majorz;
                   if(upperz>lowerz){
                     majorz=upperz
+                    majory=0.5*(wpos1.y+wpos2.y)
+                    majorx=wpos1.x
                   }else{
                     majorz=lowerz
+                    majory=0.5*(wpos1.y+wpos2.y)
+                    majorx=wpos2.x
                   }
+
 
 
 
                   console.log(Math.abs(upperz-lowerz))
-                  if(취소||Math.abs(upperz-lowerz)>2.3){
+                  if(취소||Math.abs(upperz-lowerz)>2.3||Math.abs(wpos1.x-wpos2.x)>0.5*bw*cubes[itemidx].mesh.scale.x){
                     console.log("취소")
                     stepmold[3].material.visible=false;
                     stepmold[3].children[0].material.visible=false;
@@ -11239,6 +11267,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   //   legs[legs.length-1].position.set(majorx+bw/1.5+0.5*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/4);
                   //
                   // }
+                  legs[legs.length-1].position.set(majorx, majory, majorz);
+
                   legs[legs.length-1].quaternion.copy(cubes[itemidx].mesh.quaternion)
 
                   // legs[legs.length-1].rotation.z=-1;
@@ -11600,22 +11630,23 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       // if(inflag) return;
       if (event.code === 'KeyW') {
         let force2 = new CANNON.Vec3();
-        force2.set(0,0,-10000);
-
+        force2.set(0,0,-500);
         let quaternion = new CANNON.Quaternion();
         quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI*(180)/180);
         let rotatedVec = force2.clone();
         // rotatedVec.applyQuaternion(quaternion);
         rotatedVec=quaternion.vmult(force2);
 
-        cubes[cubes.length-1].body.applyForce(rotatedVec, cubes[cubes.length-1].body.position);
+        // let wpos1=new THREE.Vector3();
+        // wpos1.copy(cubes[cubes.length-1].mesh.position)
+        // wpos1.x+=bw/
+        var offset = new CANNON.Vec3(-bw/2, 0, -bw/2);
+        cubes[cubes.length-1].body.applyForce(rotatedVec, cubes[cubes.length-1].body.position.clone().vadd(offset));
 
         return;
         if(!goahead) return;
           if(!originflag){
             msetting(function(object) {
-
-
 
               document.getElementById("intro").style.top="-120%";
               document.getElementById("intro").style.opacity="0";
@@ -12927,6 +12958,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
       document.querySelector("#center").style.display="none"
 
+      판.length=4;
 
 
       resetting(stack, function(object) { //재시작
@@ -22727,20 +22759,29 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           }else if(pin){//클래식
             stepmold[6].rotation.x=Math.PI/2;
             stepmold[6].material.visible=true;
-            stepmold[6].material.visible=true;
+            // stepmold[6].material.visible=true;
             var dur=parseInt(elapsedTime*25)%pshift.length
             stepmold[3].position.y=bh*(cubes.length+15)
-            stepmold[6].position.y=cubes[itemidx].body.position.y
 
-              stepmold[6].position.z=cubes[itemidx].body.position.z
-              stepmold[6].position.x=cubes[itemidx].body.position.x+bw/1.3
+            let wpos1=new THREE.Vector3();
+
+            판[itemidx-1][1].getWorldPosition(wpos1);
+
+            stepmold[6].position.z=wpos1.z
+            stepmold[6].position.x=wpos1.x
+            stepmold[6].position.y=wpos1.y
+
+            // stepmold[6].position.y=cubes[itemidx].body.position.y
+            //
+            //   stepmold[6].position.z=cubes[itemidx].body.position.z
+            //   stepmold[6].position.x=cubes[itemidx].body.position.x+bw/1.3
 
 
               // stepmold[6].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
 
-
+                  var dur0=parseInt(elapsedTime*20)%36
               stepmold[6].rotation.y=Math.PI/10*dur0
-              var dur0=parseInt(elapsedTime*20)%36
+
               if(!cubes[itemidx].mesh.pin){
                 if(skinnum==skinset.indexOf("classic")){
                   cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.9*클크기)*cubes[itemidx].mesh.userData.combo
@@ -22820,48 +22861,91 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
             if(skinnum==skinset.indexOf("classic")){
               if(cubes[itemidx].mesh.userData.pin){
-                cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.2*클크기)*cubes[itemidx].mesh.userData.combo*핀크기
-                cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.2*클크기)*cubes[itemidx].mesh.userData.combo*핀크기
+                cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo*핀크기
+                cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo*핀크기
               }else{
-                cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.2*클크기)*cubes[itemidx].mesh.userData.combo
-                cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.2*클크기)*cubes[itemidx].mesh.userData.combo
+                cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
+                cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
               }
 
             }else{
               if(cubes[itemidx].mesh.userData.pin){
-                cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.2)*cubes[itemidx].mesh.userData.combo*핀크기
-                cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.2)*cubes[itemidx].mesh.userData.combo*핀크기
+                cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo*핀크기
+                cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo*핀크기
               }else{
-                cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.2)*cubes[itemidx].mesh.userData.combo
-                cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.2)*cubes[itemidx].mesh.userData.combo
+                cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
+                cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
               }
 
             }
 
 
 
+
+
             if(itemr){
-              stepmold[4].position.z=cubes[itemidx].body.position.z
+              // stepmold[4].position.z=cubes[itemidx].body.position.z
+              let wpos1=new THREE.Vector3();
+
+              판[itemidx-1][1].getWorldPosition(wpos1);
+
+              stepmold[4].position.z=wpos1.z
+              stepmold[4].position.x=wpos1.x
+              stepmold[4].position.y=wpos1.y
+
+              var wqtn=new THREE.Quaternion();
+              cubes[itemidx].mesh.getWorldQuaternion(wqtn);
+              stepmold[4].quaternion.copy(wqtn);
+
+              var nqtn = new THREE.Quaternion();
+              nqtn.setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI/2);
+
+              var nqtn2 = new THREE.Quaternion();
+              nqtn2.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2+(pshift[dur]-1)*Math.PI/3);
+              stepmold[4].quaternion.copy(wqtn.multiply(nqtn2).multiply(nqtn));
 
 
-              if(cubes[itemidx].mesh.userData.pin){
-                stepmold[4].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData["combo"]*핀크기*bw/1.5
-              }else{
-                stepmold[4].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData["combo"]*bw/1.5
-              }
 
-              stepmold[4].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
+              // var nqtn = new THREE.Quaternion();
+              // nqtn.setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI/2);
+              // stepmold[4].quaternion.copy(cubes[itemidx].mesh.quaternion.multiply(nqtn));
+              // stepmold[4].rotation.order="YXZ"
+
+
+              // if(cubes[itemidx].mesh.userData.pin){
+              //
+              //   stepmold[4].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData["combo"]*핀크기*bw/1.5
+              //
+              // }else{
+              //   stepmold[4].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData["combo"]*bw/1.5
+              //
+              // }
+
+              // stepmold[4].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
 
             }else if(iteml){
-              stepmold[4].position.x=cubes[itemidx].body.position.x
+              // stepmold[4].position.x=cubes[itemidx].body.position.x
+              var wpos2=new THREE.Vector3();
+              // var wqtn=new THREE.Quaternion();
+              판[itemidx-1][2].getWorldPosition(wpos2);
+              // cubes[itemidx-1].mesh.getWorldQuaternion(wqtn);
+              stepmold[4].position.z=wpos2.z
+              stepmold[4].position.x=wpos2.x
+              stepmold[4].position.y=wpos2.y
+
+              var wqtn=new THREE.Quaternion();
+              cubes[itemidx].mesh.getWorldQuaternion(wqtn);
+              stepmold[4].quaternion.copy(wqtn);
+
+              var nqtn = new THREE.Quaternion();
+              nqtn.setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI/2);
+
+              var nqtn2 = new THREE.Quaternion();
+              nqtn2.setFromAxisAngle(new THREE.Vector3(0, 1, 0), 0-(pshift[dur]-1)*Math.PI/3);
+              stepmold[4].quaternion.copy(wqtn.multiply(nqtn2).multiply(nqtn));
 
 
-              if(cubes[itemidx].mesh.userData.pin){
-                stepmold[4].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData["combo"]*핀크기*bw/1.5
-              }else{
-                stepmold[4].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData["combo"]*bw/1.5
-              }
-              stepmold[4].rotation.y=0-(pshift[dur]-1)*Math.PI/3
+
 
             }
 
@@ -22906,50 +22990,87 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
             if(skinnum==skinset.indexOf("classic")){
               if(cubes[itemidx].mesh.userData.pin){
-                cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.2*클크기)*cubes[itemidx].mesh.userData.combo*핀크기
-                cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.2*클크기)*cubes[itemidx].mesh.userData.combo*핀크기
+                cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo*핀크기
+                cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo*핀크기
               }else{
-                cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.2*클크기)*cubes[itemidx].mesh.userData.combo
-                cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.2*클크기)*cubes[itemidx].mesh.userData.combo
+                cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
+                cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
               }
 
             }else{
               if(cubes[itemidx].mesh.userData.pin){
-                cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.2)*cubes[itemidx].mesh.userData.combo*핀크기
-                cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.2)*cubes[itemidx].mesh.userData.combo*핀크기
+                cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo*핀크기
+                cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo*핀크기
               }else{
-                cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.2)*cubes[itemidx].mesh.userData.combo
-                cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.2)*cubes[itemidx].mesh.userData.combo
+                cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
+                cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
               }
 
             }
 
             if(itemr){
 
-              stepmold[3].position.z=cubes[itemidx].body.position.z
+              // stepmold[3].position.z=cubes[itemidx].body.position.z
+              //
+              //
+              // if(cubes[itemidx].mesh.userData.pin){
+              //   stepmold[3].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData["combo"]*핀크기*bw/1.5+((pshift[dur]-1)*3)
+              // }else{
+              //   stepmold[3].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData["combo"]*bw/1.5+((pshift[dur]-1)*3)
+              // }
+              //
+              //
+              // stepmold[3].rotation.y=cubes[itemidx].mesh.rotation.y+Math.PI/2
 
+              let wpos1=new THREE.Vector3();
 
-              if(cubes[itemidx].mesh.userData.pin){
-                stepmold[3].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData["combo"]*핀크기*bw/1.5+((pshift[dur]-1)*3)
-              }else{
-                stepmold[3].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData["combo"]*bw/1.5+((pshift[dur]-1)*3)
-              }
+              판[itemidx-1][1].getWorldPosition(wpos1);
 
+              stepmold[3].position.z=wpos1.z
+              stepmold[3].position.x=wpos1.x+((pshift[dur]-1)*3)
+              stepmold[3].position.y=wpos1.y
 
-              stepmold[3].rotation.y=cubes[itemidx].mesh.rotation.y+Math.PI/2
+              var wqtn=new THREE.Quaternion();
+              cubes[itemidx].mesh.getWorldQuaternion(wqtn);
+              stepmold[3].quaternion.copy(wqtn);
+
+              var nqtn = new THREE.Quaternion();
+              nqtn.setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI/2);
+
+              var nqtn2 = new THREE.Quaternion();
+              nqtn2.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI);
+              stepmold[3].quaternion.copy(wqtn.multiply(nqtn2).multiply(nqtn));
 
             }else if(iteml){
-              stepmold[3].position.x=cubes[itemidx].body.position.x
+              // stepmold[3].position.x=cubes[itemidx].body.position.x
+              //
+              //
+              // if(cubes[itemidx].mesh.userData.pin){
+              //   stepmold[3].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData["combo"]*핀크기*bw/1.5+((pshift[dur]-1)*3)
+              // }else{
+              //   stepmold[3].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData["combo"]*bw/1.5+((pshift[dur]-1)*3)
+              // }
+              //
+              //
+              // stepmold[3].rotation.y=cubes[itemidx].mesh.rotation.y
+              let wpos1=new THREE.Vector3();
 
+              판[itemidx-1][2].getWorldPosition(wpos1);
 
-              if(cubes[itemidx].mesh.userData.pin){
-                stepmold[3].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData["combo"]*핀크기*bw/1.5+((pshift[dur]-1)*3)
-              }else{
-                stepmold[3].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData["combo"]*bw/1.5+((pshift[dur]-1)*3)
-              }
+              stepmold[3].position.z=wpos1.z+((pshift[dur]-1)*3)-bw*0.1
+              stepmold[3].position.x=wpos1.x
+              stepmold[3].position.y=wpos1.y
 
+              var wqtn=new THREE.Quaternion();
+              cubes[itemidx].mesh.getWorldQuaternion(wqtn);
+              stepmold[3].quaternion.copy(wqtn);
 
-              stepmold[3].rotation.y=cubes[itemidx].mesh.rotation.y
+              var nqtn = new THREE.Quaternion();
+              nqtn.setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI/2);
+
+              var nqtn2 = new THREE.Quaternion();
+              nqtn2.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI/2);
+              stepmold[3].quaternion.copy(wqtn.multiply(nqtn2).multiply(nqtn));
 
 
 
@@ -22994,33 +23115,75 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             stepmold[7].material.visible=true;
 
             var dur=parseInt(elapsedTime*20)%pshift.length
+
+
             stepmold[4].position.y=bh*(cubes.length+15)
             stepmold[7].position.y=cubes[itemidx].body.position.y-bh/2
             if(itemr){
 
-              stepmold[7].position.z=cubes[itemidx].body.position.z-bw/5
+              let wpos1=new THREE.Vector3();
 
+              판[itemidx-1][1].getWorldPosition(wpos1);
 
-              if(cubes[itemidx].mesh.userData.pin){
-                stepmold[7].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData.combo*핀크기*bw/1.2+((pshift[dur]-1)*3)
-              }else{
-                stepmold[7].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData.combo*bw/1.2+((pshift[dur]-1)*3)
-              }
+              stepmold[7].position.z=wpos1.z
+              stepmold[7].position.x=wpos1.x+((pshift[dur]-1)*3)
+              stepmold[7].position.y=wpos1.y-0.5*bh
 
+              var wqtn=new THREE.Quaternion();
+              cubes[itemidx].mesh.getWorldQuaternion(wqtn);
+              stepmold[7].quaternion.copy(wqtn);
 
-              stepmold[7].rotation.y=cubes[itemidx].mesh.rotation.y
+              var nqtn = new THREE.Quaternion();
+              nqtn.setFromAxisAngle(new THREE.Vector3(0, 0, 1), 0);
+
+              var nqtn2 = new THREE.Quaternion();
+              nqtn2.setFromAxisAngle(new THREE.Vector3(0, 1, 0), 0);
+              stepmold[7].quaternion.copy(wqtn.multiply(nqtn2).multiply(nqtn));
+
+              // stepmold[7].position.z=cubes[itemidx].body.position.z-bw/5
+              //
+              //
+              // if(cubes[itemidx].mesh.userData.pin){
+              //   stepmold[7].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData.combo*핀크기*bw/1.2+((pshift[dur]-1)*3)
+              // }else{
+              //   stepmold[7].position.x=cubes[itemidx].body.position.x+cubes[itemidx].mesh.userData.combo*bw/1.2+((pshift[dur]-1)*3)
+              // }
+              //
+              //
+              // stepmold[7].rotation.y=cubes[itemidx].mesh.rotation.y
             }else if(iteml){
-              stepmold[7].position.x=cubes[itemidx].body.position.x-bw/5
+
+              let wpos1=new THREE.Vector3();
+
+              판[itemidx-1][2].getWorldPosition(wpos1);
+
+              stepmold[7].position.z=wpos1.z+((pshift[dur]-1)*3)
+              stepmold[7].position.x=wpos1.x
+              stepmold[7].position.y=wpos1.y-0.5*bh
+
+              var wqtn=new THREE.Quaternion();
+              cubes[itemidx].mesh.getWorldQuaternion(wqtn);
+              stepmold[7].quaternion.copy(wqtn);
+
+              var nqtn = new THREE.Quaternion();
+              nqtn.setFromAxisAngle(new THREE.Vector3(0, 0, 1), 0);
+
+              var nqtn2 = new THREE.Quaternion();
+              nqtn2.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2);
+              stepmold[7].quaternion.copy(wqtn.multiply(nqtn2).multiply(nqtn));
 
 
-              if(cubes[itemidx].mesh.userData.pin){
-                stepmold[7].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData.combo*핀크기*bw/1.2+((pshift[dur]-1)*3)
-              }else{
-                stepmold[7].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData.combo*bw/1.2+((pshift[dur]-1)*3)
-              }
+              // stepmold[7].position.x=cubes[itemidx].body.position.x-bw/5
+
+              //
+              // if(cubes[itemidx].mesh.userData.pin){
+              //   stepmold[7].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData.combo*핀크기*bw/1.2+((pshift[dur]-1)*3)
+              // }else{
+              //   stepmold[7].position.z=cubes[itemidx].body.position.z+cubes[itemidx].mesh.userData.combo*bw/1.2+((pshift[dur]-1)*3)
+              // }
 
 
-              stepmold[7].rotation.y=cubes[itemidx].mesh.rotation.y-Math.PI/2
+              // stepmold[7].rotation.y=cubes[itemidx].mesh.rotation.y-Math.PI/2
 
 
 
@@ -24688,7 +24851,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             if(cubes.length>=7){
               for (var j = cubes[cubes.length-2].mesh.children.length - 1; j >= 0; j--) {
                   if (cubes[cubes.length-2].mesh.children[j].userData["skin"] != skinset[skinnum]) {
-                    if(cubes[cubes.length-2].mesh.children[j].userData["skin"]!="dir"&&cubes[cubes.length-2].mesh.children[j].userData["skin"]!="text1"&&cubes[cubes.length-2].mesh.children[j].userData["skin"]!="face"&&cubes[cubes.length-2].mesh.children[j].userData["skin"].substring(0, cubes[cubes.length-2].mesh.children[j].userData["skin"].length - 1) != "txtback") cubes[cubes.length-2].mesh.remove(cubes[cubes.length-2].mesh.children[j]);
+                    if(cubes[cubes.length-2].mesh.children[j].userData["skin"]!="bb"&&cubes[cubes.length-2].mesh.children[j].userData["skin"]!="dir"&&cubes[cubes.length-2].mesh.children[j].userData["skin"]!="text1"&&cubes[cubes.length-2].mesh.children[j].userData["skin"]!="face"&&cubes[cubes.length-2].mesh.children[j].userData["skin"].substring(0, cubes[cubes.length-2].mesh.children[j].userData["skin"].length - 1) != "txtback") cubes[cubes.length-2].mesh.remove(cubes[cubes.length-2].mesh.children[j]);
                   }
               }
             }
@@ -27955,7 +28118,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         }
 
         if(n==1){
-          temz1-=bw*1.2
+          temz1-=bw*0.5
         }
 
 
@@ -27965,6 +28128,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         cubes[activeFloor+1].body.quaternion.copy(cubes[activeFloor].body.quaternion);
 
         // cubes[activeFloor+1].body.fixedRotation=true;
+
+
 
         cubes[activeFloor+1].mesh.userData.body = cubes[activeFloor+1].body;
         cubes[activeFloor+1].mesh.userData.game2048 = game2048
@@ -29612,6 +29777,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
     // clmeshlst2[idx].push(mesh1.material)
     mesh.add(mesh1)
 
+
     //좌우
     var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width, height), new THREE.MeshBasicMaterial({
         color: 0xaaaaaa,
@@ -29626,25 +29792,54 @@ function createPath( char, scale, offsetX, offsetY, data ) {
     mesh1.userData["skin"] = "dir";
 
 
+
     // clmeshlst2[idx].push(mesh1.material)
     mesh.add(mesh1)
 
-    var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width, height), new THREE.MeshBasicMaterial({
+    var mesh3 = new THREE.Mesh(new THREE.PlaneGeometry(width, height), new THREE.MeshBasicMaterial({
         color: 0xaaaaaa,
         opacity: 0.3,
         transparent: true
     }), );
-    mesh1.position.set(0, 0 , width/2)
-    mesh1.rotation.y = 0
+    mesh3.position.set(0, 0 , width/2)
+    mesh3.rotation.y = 0
 
-    mesh1.userData["dir"] = "left";
-    mesh1.userData["layer"] = idx
-    mesh1.userData["skin"] = "dir";
+    mesh3.userData["dir"] = "left";
+    mesh3.userData["layer"] = idx
+    mesh3.userData["skin"] = "dir";
 
 
     // clmeshlst2[idx].push(mesh1.material)
-    mesh.add(mesh1)
+    mesh.add(mesh3)
 
+
+    let bmesh2 = new THREE.Mesh(new THREE.PlaneGeometry(width/10, height/10), new THREE.MeshBasicMaterial({
+        color: 0xaaaaaa,
+        opacity: 0.3,
+        transparent: true,
+        visible:false
+    }), );
+    bmesh2.position.set(1.8*depth/2, 0 , 0)
+    bmesh2.rotation.y = Math.PI / 2
+    bmesh2.userData["skin"] = "bb";
+
+    mesh.add(bmesh2)
+
+    let bmesh4 = new THREE.Mesh(new THREE.PlaneGeometry(width/10, height/10), new THREE.MeshBasicMaterial({
+        color: 0xaaaaaa,
+        opacity: 0.3,
+        transparent: true,
+        visible:false
+    }), );
+    bmesh4.position.set(0, 0, 1.8*width/2)
+    bmesh4.rotation.y = 0
+    bmesh4.userData["skin"] = "bb";
+
+
+    mesh.add(bmesh4)
+
+
+    판.push([idx,bmesh2,bmesh4])
 
     mesh.position.set(x, y, z);
     mesh.material.visible = true;
