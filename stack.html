@@ -27100,74 +27100,93 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 }
                 newmesh.position.x = avx - bw / 1.5;
 
-                textMesh.depth = 10;
-                textMesh.rotation.order = 'YXZ';
-                textMesh.rotation.y = Math.PI / 2;
-
-                newmesh.add(textMesh)
 
 
-                  var temptxt3= "NEXT: "+stacknum[1+cubes.length-1].toString()
-                  createTextMesh(temptxt3, 9981, (textMesh2) => {
-                    if(gamemod==2){
-                      textMesh2.depth = 10;
-                      textMesh2.rotation.order = 'YXZ';
-                      textMesh2.rotation.y = Math.PI / 2;
 
-                      newmesh.add(textMesh2)
-                      newmesh.children[1].position.y =bh*1.5
-                      newmesh.children[1].position.x +=bh/1.5
+                  // createTextMesh(temptxt.toString(), 999, (textMesh0) => {
+
+                    // textMesh0.depth = 0;
 
 
 
 
+                    // var textMesh10 = textMesh.clone();
+                    // textMesh10.position.x=-bh*0.2
+                    // textMesh.add(textMesh10)
+                    // textMesh.depth = 10;
+                    textMesh.rotation.order = 'YXZ';
+                    textMesh.rotation.y = Math.PI / 2;
+                    newmesh.add(textMesh)
 
-
-                    }
-                    createTextMesh(String(cubes.length-4), 998, (textMesh3) => {
+                    var temptxt3= "NEXT: "+stacknum[1+cubes.length-1].toString()
+                    createTextMesh(temptxt3, 9981, (textMesh2) => {
                       if(gamemod==2){
+                        textMesh2.depth = 10;
+                        textMesh2.rotation.order = 'YXZ';
+                        textMesh2.rotation.y = Math.PI / 2;
+
+                        newmesh.add(textMesh2)
+                        newmesh.children[1].position.y =bh*1.5
+                        newmesh.children[1].position.x +=bh/1.5
 
 
-                        if(String(cubes.length-3).length==1){
-                          stepmold[0].position.x=2
-                        }else if(String(cubes.length-3).length==2){
-                          stepmold[0].position.x=2.5
-                        }else if(String(cubes.length-3).length==3){
-                          stepmold[0].position.x=6
-                        }
 
-                        // stepmold[0].material.color=new THREE.MeshLambertMaterial({
-                        //     color: colorlst[colornum][2]
-                        // });
-                        textMesh3.depth = 10;
-                        textMesh3.rotation.order = 'YXZ';
-                        textMesh3.rotation.y = Math.PI / 2;
-                        stepmold[0].material.color=new THREE.Color(colorlst[colornum][3])
-                        textMesh3.add(stepmold[0])
 
 
 
                       }
 
-                      newmesh.add(textMesh3)
-                      // textMesh.children[1].position.z -=bh/4
-                      newmesh.children[2].position.y=0
-                      newmesh.children[2].position.x -=bh*1.1
+
+                      createTextMesh(String(cubes.length-4), 998, (textMesh3) => {
+                        if(gamemod==2){
+
+
+                          if(String(cubes.length-3).length==1){
+                            stepmold[0].position.x=2
+                          }else if(String(cubes.length-3).length==2){
+                            stepmold[0].position.x=2.5
+                          }else if(String(cubes.length-3).length==3){
+                            stepmold[0].position.x=6
+                          }
+
+                          // stepmold[0].material.color=new THREE.MeshLambertMaterial({
+                          //     color: colorlst[colornum][2]
+                          // });
+                          textMesh3.depth = 10;
+                          textMesh3.rotation.order = 'YXZ';
+                          textMesh3.rotation.y = Math.PI / 2;
+                          stepmold[0].material.color=new THREE.Color(colorlst[colornum][3])
+                          textMesh3.add(stepmold[0])
 
 
 
-                        scene.add(newmesh)
-                        포인트.push(newmesh);
+                        }
 
+                        newmesh.add(textMesh3)
+                        // textMesh.children[1].position.z -=bh/4
+                        newmesh.children[2].position.y=0
+                        newmesh.children[2].position.x -=bh*1.1
+
+                        // textMesh10.depth = 10;
+                        // textMesh10.rotation.order = 'YXZ';
+                        // textMesh10.rotation.y = Math.PI / 2;
+                        //
+                        // newmesh.add(textMesh10)
+                          scene.add(newmesh)
+                          포인트.push(newmesh);
+
+
+
+                      });
+
+
+                        // console.log(textMesh);
 
 
                     });
+                  // })
 
 
-                      // console.log(textMesh);
-
-
-                  });
 
 
 
