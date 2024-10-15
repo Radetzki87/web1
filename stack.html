@@ -7522,6 +7522,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
   let 모니터=false
 
+  let 컴보=0
+
+
   var 보드=[];
   var 눌=false
   let themelst = ["wooden", "lofi", "retro","808", "hiphop"];
@@ -8063,6 +8066,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var songfade;
   var soundic = {};
 
+  let icelst=[];
+  let 아이스취소=false;
   let 판=[];
   let 보드반경=8
   let 보드높이=-34
@@ -10149,11 +10154,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             //
             //
             // }
-            if(pin){
+
+            if(pin||ice){
+
               if(item.object.userData["game2048"]!=null){
                 // cat2.push(item.object)
-                cat.push([item.object.userData["game2048"].index,"left"]);
 
+                if(ice&&아이스취소){
+                  return
+                }else{
+                  cat.push([item.object.userData["game2048"].index,"left"]);
+                }
                 if(item.object.userData["game2048"]!="p"&&item.object.userData["game2048"]!="h"){
                   tempidx=cat[0][0];
 
@@ -10210,7 +10221,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
         }
 
         console.log(cat)
-        if(pin){
+        if(pin||ice){
           cat.sort(function(a, b) {
               return b[0] - a[0];
           });
@@ -10225,7 +10236,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
         if(cat.length>=1&&tempidx<cubes.length){
+
+
           tempidx=cat[0][0]
+          if(bridge&&tempidx==4) return;
+
           itemtouch=true;
 
           if(cat[0][1]=="right"){
@@ -10267,6 +10282,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
         }else{
           itemtouch=false;
+
           return;
         }
 
@@ -10860,15 +10876,6 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   아래층=cubes[itemidx-1];
                   아래=itemidx-1
                 }
-
-
-
-
-
-
-
-
-
                 tctime=elapsedTime
 
                 if(itemr){
@@ -10906,8 +10913,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     majorz=wpos2.z
                   }
                   console.log(Math.abs(upperx-lowerx))
-                  if(취소||Math.abs(upperx-lowerx)>2.3||Math.abs(wpos1.z-wpos2.z)>0.5*bw*cubes[itemidx].mesh.scale.x){
-                    console.log("취소")
+                  if(취소||Math.abs(upperx-lowerx)>3||Math.abs(wpos1.z-wpos2.z)>0.5*bw*cubes[itemidx].mesh.scale.z*아래층.mesh.scale.z){
+                    if(Math.abs(wpos1.z-wpos2.z)>0.5*bw*cubes[itemidx].mesh.scale.z*아래층.mesh.scale.z){
+                      console.log("취소2")
+                    }else{
+                      console.log("취소")
+                    }
+
                     if(draw&&!꺼져){
                       topcam=true;
                       draw=false;
@@ -11077,6 +11089,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   cubes[itemidx].mesh.userData.constraint.push(constraint2)
                   setTimeout(function() {
                       if(다리<=0) document.getElementById('bridge').style.left="-13.3vh"
+                      if(아래층.mesh.userData.ice){
+                        아래층.body.sleep()
+                      }
+
                   }, 400);
 
                   scene.add(legs[legs.length-1]);
@@ -11091,7 +11107,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                   cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
 
-                  아래층.body.applyForce(rotatedVec, 아래층.body.position);
+                  // 아래층.body.applyForce(rotatedVec, 아래층.body.position);
                   이펙트2(itemidx, 16, "left");
                   soundic[sdic[cubes.length-1]["16"]].play();
                 }else if(iteml){
@@ -11123,7 +11139,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
                   console.log(Math.abs(upperz-lowerz))
-                  if(취소||Math.abs(upperz-lowerz)>2.3||Math.abs(wpos1.x-wpos2.x)>0.5*bw*cubes[itemidx].mesh.scale.x){
+                  if(취소||Math.abs(upperz-lowerz)>3||Math.abs(wpos1.x-wpos2.x)>0.5*bw*cubes[itemidx].mesh.scale.x*아래층.mesh.scale.x){
+                    if(Math.abs(wpos1.x-wpos2.x)>0.5*bw*cubes[itemidx].mesh.scale.x*아래층.mesh.scale.x){
+                      console.log("취소2")
+                    }else{
+                      console.log("취소")
+                    }
                     console.log("취소")
                     stepmold[3].material.visible=false;
                     stepmold[3].children[0].material.visible=false;
@@ -11291,6 +11312,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   cubes[itemidx].mesh.userData.constraint.push(constraint2)
                   setTimeout(function() {
                       if(다리<=0) document.getElementById('bridge').style.left="-13.3vh"
+                      if(아래층.mesh.userData.ice){
+                        아래층.body.sleep()
+                      }
                   }, 400);
 
 
@@ -11306,8 +11330,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                   cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
                   이펙트2(itemidx, 16, "up");
-                  아래층.body.applyForce(rotatedVec, 아래층.body.position);
+                  // 아래층.body.applyForce(rotatedVec, 아래층.body.position);
                   soundic[sdic[cubes.length-1]["16"]].play();
+
 
 
 
@@ -11391,6 +11416,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
           }else{
             tctime=elapsedTime
+            아이스취소=false;
             console.log("취소")
 
 
@@ -12959,6 +12985,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       document.querySelector("#center").style.display="none"
 
       판.length=4;
+      icelst=[];
+      아이스취소=false
 
 
       resetting(stack, function(object) { //재시작
@@ -21350,8 +21378,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               포인트.forEach((item) => {
                   item.material.visible = true;
                   stepmold[0].material.visible = true;
-                  item.children[0].material.visible = true;
+                  item.children[0].material.visible = true
+                  item.children[0].material.opacity = 1
+                  item.children[0].material.transparent = false;
+
                   item.children[1].material.visible = true;
+                  item.children[2].material.visible = true;
               })
               시간.forEach((item) => {
                   item.material.visible = true;
@@ -21502,7 +21534,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               item.material.visible = false;
               stepmold[0].material.visible = false;
               item.children[0].material.visible = false;
+              // item.children[0].material.opacity = 1
+              // item.children[0].material.transparent = false;
+
               item.children[1].material.visible = false;
+              item.children[2].material.visible = false;
+              // item.children[1].material.visible = false;
           })
           시간.forEach((item) => {
               item.material.visible = false;
@@ -22717,7 +22754,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
             stepmold[5].rotation.y=-Math.PI/2+(pshift[dur]-1)*Math.PI/3
 
-            var icelst=[]
+            icelst=[]
             for (var i = 4; i < cubes.length-1; i++) {
               if(cubes[i].body.sleepState!=0){
                 continue;
@@ -22728,31 +22765,42 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               icelst.push(cubes[i].mesh)
               if(icelst.length>=3) break;
             }
-            console.log(icelst.length)
-            icelst.forEach((item) => {
-              // item.opacity=dur0/36
-              if(item.userData.pin){
-                if(skinnum==skinset.indexOf("classic")){
-                  item.scale.x=(클크기*핀크기+(pshift[dur]-1)*0.3*클크기)*item.userData.combo
-                  item.scale.z=(클크기*핀크기+(pshift[dur]-1)*0.3*클크기)*item.userData.combo
+            // console.log(icelst.length)
+            if(icelst.length==0) {
+              아이스취소=true;
+            }else{
+              아이스취소=false;
+            }
+
+            if(!아이스취소){
+              icelst.forEach((item) => {
+                // item.opacity=dur0/36
+                if(item.userData.pin){
+                  if(skinnum==skinset.indexOf("classic")){
+                    item.scale.x=(클크기*핀크기+(pshift[dur]-1)*0.3*클크기)*item.userData.combo
+                    item.scale.z=(클크기*핀크기+(pshift[dur]-1)*0.3*클크기)*item.userData.combo
+                  }else{
+                    item.scale.x=(핀크기+(pshift[dur]-1)*0.3)*item.userData.combo
+                    item.scale.z=(핀크기+(pshift[dur]-1)*0.3)*item.userData.combo
+                  }
                 }else{
-                  item.scale.x=(핀크기+(pshift[dur]-1)*0.3)*item.userData.combo
-                  item.scale.z=(핀크기+(pshift[dur]-1)*0.3)*item.userData.combo
-                }
-              }else{
-                if(skinnum==skinset.indexOf("classic")){
-                  item.scale.x=(클크기+(pshift[dur]-1)*0.3*클크기)*item.userData.combo
-                  item.scale.z=(클크기+(pshift[dur]-1)*0.3*클크기)*item.userData.combo
-                }else{
-                  item.scale.x=(1+(pshift[dur]-1)*0.3)*item.userData.combo
-                  item.scale.z=(1+(pshift[dur]-1)*0.3)*item.userData.combo
+                  if(skinnum==skinset.indexOf("classic")){
+                    item.scale.x=(클크기+(pshift[dur]-1)*0.3*클크기)*item.userData.combo
+                    item.scale.z=(클크기+(pshift[dur]-1)*0.3*클크기)*item.userData.combo
+                  }else{
+                    item.scale.x=(1+(pshift[dur]-1)*0.3)*item.userData.combo
+                    item.scale.z=(1+(pshift[dur]-1)*0.3)*item.userData.combo
+                  }
+
                 }
 
-              }
+
+                // item.scale.x=dur0/pshift.length
+              });
+            }
 
 
-              // item.scale.x=dur0/pshift.length
-            });
+
 
 
 
@@ -23081,7 +23129,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
             stepmold[3].scale.y = pshift[dur]*0.9*3.2 / 2;
 
-          }else if(bridge){
+          }else if(bridge&&itemidx!=4){
             if(itemidx==4) return;
             // stepmold[7].material.visible=true;
             //
@@ -24728,6 +24776,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           포인트.forEach((item) => {
             if(gamemod==2){
               item.position.y = (cubes.length-4+스킬[2]) * bh +((elapsedTime - stacktime)/0.35)*bh
+
+
             }
           })
 
@@ -26914,13 +26964,56 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   if(gamemod==2){
                     item.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
                       temptxt="+:"+String(stacknum[cubes.length-1])
-                      if (temptxt.toString().length >= 4) {
-                          item.position.z = 4+avz - bw / 3;
-                      } else if (temptxt.toString().length == 3) {
-                          item.position.z = 3+avz - bw / 2.6;
-                      } else {
-                          item.position.z = 1+avz - bw / 2.3;
+                      if(!m2flag){
+                        var dur=parseInt(elapsedTime*25)%pshift.length
+
+                        item.children[1].position.y= bh*1.5+0.4*(1-pshift[dur])
+                        item.children[2].position.y= 0.4*(1-pshift[dur])
+                        item.children[0].scale.set(1+0.2*(1-pshift[dur]),1+0.2*(1-pshift[dur]),1+0.2*(1-pshift[dur]))
+                        if (temptxt.toString().length >= 4) {
+                            item.position.z = 4+avz - bw / 3;
+                        } else if (temptxt.toString().length == 3) {
+                            item.position.z = 3+avz - bw / 2.6;
+                        } else {
+                            item.position.z = 1+avz - bw / 2.3;
+                        }
+                      }else{
+
+                        // console.log(cubes[cubes.length-1].mesh.userData.combo)
+                        if(컴보==2){
+                          if(elapsedTime - stacktime <=0.6){
+                            item.children[0].scale.set(1+0.8*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime)),1+0.8*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime)),1+0.8*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime)))
+                            item.children[1].position.y= bh*1.5+1.8*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime))
+                            item.children[2].position.y= 1.8*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime))
+                          }
+                        }else if(컴보==1){
+                          if(elapsedTime - stacktime <=0.6){
+                            item.children[0].scale.set(1+0.5*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime)),1+0.5*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime)),1+0.5*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime)))
+                            item.children[1].position.y= bh*1.5+1.5*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime))
+                            item.children[2].position.y= 1.5*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime))
+                          }
+                        }else{
+                          if(elapsedTime - stacktime <=0.6){
+                            item.children[0].scale.set(1+0.2*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime)),1+0.2*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime)),1+0.2*Math.sin((Math.PI/0.6)*(elapsedTime - stacktime)))
+                            item.children[1].position.y= bh*1.5+Math.sin((Math.PI/0.6)*(elapsedTime - stacktime))
+                            item.children[2].position.y= Math.sin((Math.PI/0.6)*(elapsedTime - stacktime))
+                          }
+                        }
+
+
+
+
+
+
+                        if (temptxt.toString().length >= 4) {
+                            item.position.z = 4+avz - bw / 3;
+                        } else if (temptxt.toString().length == 3) {
+                            item.position.z = 3+avz - bw / 2.6;
+                        } else {
+                            item.position.z = 1+avz - bw / 2.3;
+                        }
                       }
+
                   }else if(gamemod==3){
                       temptxt=String(ccount);
                       if (temptxt.toString().length >= 4) {
@@ -26989,57 +27082,41 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 temptxt=parseInt(점수)
               }
 
+
+
               createTextMesh(temptxt.toString(), 999, (textMesh) => {
-                  if(gamemod==2){
-                    textMesh.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
-                    if (temptxt.toString().length >= 4) {
-                        textMesh.position.z = 4+avz - bw / 3;
-                    } else if (temptxt.toString().length == 3) {
-                        textMesh.position.z = 3+avz - bw / 2.6;
-                    } else {
-                        textMesh.position.z = 1+avz - bw / 2.3;
-                    }
-                  }else if(gamemod==4){
-                    textMesh.position.y = cubes.length * bh - th * 0
-                    if(횟수%5==4){
-                      textMesh.scale.x=0.8+(parseInt(elapsedTime*10)%10)*0.05
-                      textMesh.scale.y=0.8+(parseInt(elapsedTime*10)%10)*0.05
-                    }else{
-                      textMesh.scale.x=1
-                      textMesh.scale.y=1
-                    }
+                var geometry = new THREE.BoxGeometry(0, 0, 0);
+                var material = new THREE.MeshBasicMaterial({
 
+                });
+                var newmesh = new THREE.Mesh(geometry, material);
+                newmesh.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
+                if (temptxt.toString().length >= 4) {
+                    newmesh.position.z = 4+avz - bw / 3;
+                } else if (temptxt.toString().length == 3) {
+                    newmesh.position.z = 3+avz - bw / 2.6;
+                } else {
+                    newmesh.position.z = 1+avz - bw / 2.3;
+                }
+                newmesh.position.x = avx - bw / 1.5;
 
-                    if (temptxt.toString().length >= 4) {
-                        textMesh.position.z = 4+avz - bw / 3;
-                    } else if (temptxt.toString().length == 3) {
-                        textMesh.position.z = 3+avz - bw / 2.6;
-                    } else {
-                        textMesh.position.z = 1+avz - bw / 2.3;
-                    }
-                  }else{
-                    textMesh.position.y = cubes.length * bh - th * 0
-                    if (temptxt.toString().length >= 4) {
-                        textMesh.position.z = 1+avz - bw /(3.1+(temptxt.toString().length-4)*0.3);
-                    } else if (temptxt.toString().length == 3) {
-                        // textMesh.position.z = 3+avz - bw / 2.6;
-                        textMesh.position.z = 1+avz - bw / 2.6;
-                    } else {
-                        textMesh.position.z = 1+avz - bw / 2.3;
-                    }
-                  }
+                textMesh.depth = 10;
+                textMesh.rotation.order = 'YXZ';
+                textMesh.rotation.y = Math.PI / 2;
 
-                  // textMesh.position.z=0
-
+                newmesh.add(textMesh)
 
 
                   var temptxt3= "NEXT: "+stacknum[1+cubes.length-1].toString()
                   createTextMesh(temptxt3, 9981, (textMesh2) => {
                     if(gamemod==2){
+                      textMesh2.depth = 10;
+                      textMesh2.rotation.order = 'YXZ';
+                      textMesh2.rotation.y = Math.PI / 2;
 
-                      textMesh.add(textMesh2)
-                      textMesh.children[0].position.y +=bh
-                      textMesh.children[0].position.x +=bh/1.5
+                      newmesh.add(textMesh2)
+                      newmesh.children[1].position.y =bh*1.5
+                      newmesh.children[1].position.x +=bh/1.5
 
 
 
@@ -27062,6 +27139,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                         // stepmold[0].material.color=new THREE.MeshLambertMaterial({
                         //     color: colorlst[colornum][2]
                         // });
+                        textMesh3.depth = 10;
+                        textMesh3.rotation.order = 'YXZ';
+                        textMesh3.rotation.y = Math.PI / 2;
                         stepmold[0].material.color=new THREE.Color(colorlst[colornum][3])
                         textMesh3.add(stepmold[0])
 
@@ -27069,20 +27149,15 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                       }
 
-                      textMesh.add(textMesh3)
+                      newmesh.add(textMesh3)
                       // textMesh.children[1].position.z -=bh/4
-                      textMesh.children[1].position.y +=bh
-                      textMesh.children[1].position.x -=bh*1.1
-
-                      textMesh.position.x = avx - bw / 1.5;
-                      textMesh.depth = 10;
-                      textMesh.rotation.order = 'YXZ';
-                      textMesh.rotation.y = Math.PI / 2;
+                      newmesh.children[2].position.y=0
+                      newmesh.children[2].position.x -=bh*1.1
 
 
 
-                        scene.add(textMesh)
-                        포인트.push(textMesh);
+                        scene.add(newmesh)
+                        포인트.push(newmesh);
 
 
 
@@ -27291,6 +27366,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             stepmold[0].material.visible = false;
             item.children[0].material.visible = false;
             item.children[1].material.visible = false;
+            item.children[2].material.visible = false;
+            // item.children[1].material.visible = false;
 
         })
         시간.forEach((item) => {
@@ -27913,7 +27990,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
           stepmold[0].material.visible = true;
           item.children[0].material.visible = true;
+          item.children[0].material.opacity = 1
+          item.children[0].material.transparent = false;
+
           item.children[1].material.visible = true;
+          item.children[2].material.visible = true;
+          // item.children[1].material.visible = true;
       })
       시간.forEach((item) => {
           item.material.visible = true
@@ -29856,10 +29938,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
     scene.add(mesh);
     if(차례<1){
       combo+=2;
+      컴보=2
     }else if(차례<=1){
       combo++;
+      컴보=1
     }else{
       combo=0;
+      컴보=0
     }
 
     if(!flag||!startflag){
