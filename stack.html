@@ -8153,6 +8153,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let icelst=[];
   let 아이스취소=false;
   let 판=[];
+
+  let 배율=[1.7,1.15,1.3,0.4,0.5]
+
   let 보드반경=8
   let 보드높이=-34
   let rcv=0
@@ -24315,14 +24318,14 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       if(itemdrag){
 
         if(elapsedTime-tctime<0.8&&elapsedTime-tctime>0.2){ //확대
-          if(camera.top<bw * 1.5){
+          if(camera.top<bw * 배율[0]){
             var tcl=camera.left
             var tcr=camera.right
             var tct=camera.top
             var tcb=camera.bottom
 
-            var tempb=bw * 1.5
-            var tempa=bw * 1.5 * 4
+            var tempb=bw * 배율[0]
+            var tempa=bw * 배율[0] * 4
             camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime-0.2))/0.6))
             camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime-0.2))/0.6))
             camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime-0.2))/0.6))
@@ -25014,14 +25017,14 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
         if(눌){
           if(elapsedTime-tctime<0.7&&elapsedTime-tctime>0.1){ //확대
-            if(camera.top<bw * 1.5){
+            if(camera.top<bw * 배율[0]){
               var tcl=camera.left
               var tcr=camera.right
               var tct=camera.top
               var tcb=camera.bottom
 
-              var tempb=bw * 1.5
-              var tempa=bw * 1.5 * 4
+              var tempb=bw * 배율[0]
+              var tempa=bw * 배율[0] * 4
               camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime-0.1))/0.6))
               camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime-0.1))/0.6))
               camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime-0.1))/0.6))
@@ -25046,14 +25049,14 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
             if(!fullcam){
               var camval=cubes.length/1.3
-              var tempb=bw * 1.1+(camval*2)/4
-              var tempa=bw * 1.1 * 4+(camval*2)
+              var tempb=bw * 배율[1]+(camval*2)/4
+              var tempa=bw * 배율[1] * 4+(camval*2)
               if(cubes.length==5){
-                tempb=bw * 1.3
-                tempa=bw * 1.3 * 4
+                tempb=bw * 배율[2]
+                tempa=bw * 배율[2] * 4
               }else{
-                tempb=bw * 1.1+(camval*2)/4
-                tempa=bw * 1.1 * 4+(camval*2)
+                tempb=bw * 배율[1]+(camval*2)/4
+                tempa=bw * 배율[1] * 4+(camval*2)
               }
 
 
@@ -25070,8 +25073,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               var camval=cubes.length/1.3
               camval/=3
 
-              var tempb=bw * 1.3-bw*0.45+(camval*2)/4
-              var tempa=bw * 1.3 * 4-bw  *4*0.45+(camval*2)
+              var tempb=bw * 배율[2]-bw*0.45+(camval*2)/4
+              var tempa=bw * 배율[2] * 4-bw  *4*0.45+(camval*2)
               camera.left =-tempb+((tempb+tcl)*((0.6-(elapsedTime-tctime-0.2))/0.6))
               camera.right = tempa+((-tempa+tcr)*((0.6-(elapsedTime-tctime-0.2))/0.6))
               camera.top = tempb+((-tempb+tct)*((0.6-(elapsedTime-tctime-0.2))/0.6))
@@ -25738,17 +25741,17 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                                   camera.bottom = -bw * 1.8 * 4-(camval);
                                 }else{
                                   if(!fullcam){
-                                    camera.left = -bw * 1.1-(camval*2)/4;
-                                    camera.right = bw * 1.1 * 4+(camval*2);
-                                    camera.top = bw * 1.1+(camval*2)/4;
-                                    camera.bottom = -bw * 1.1 * 4-(camval*2);
+                                    camera.left = -bw * 배율[1]-(camval*2)/4;
+                                    camera.right = bw * 배율[1] * 4+(camval*2);
+                                    camera.top = bw * 배율[1]+(camval*2)/4;
+                                    camera.bottom = -bw * 배율[1] * 4-(camval*2);
                                   }else{
                                     if(true){
                                       camval/=3
-                                      camera.left = -bw * 1.3+bw*0.45-(camval*2)/4;
-                                      camera.right = bw * 1.3 * 4-bw  *4*0.45+(camval*2);
-                                      camera.top = bw * 1.3-bw*0.45+(camval*2)/4;
-                                      camera.bottom = -bw * 1.3 * 4+bw*4*0.45-(camval*2);
+                                      camera.left = -bw * 배율[2]+bw*0.45-(camval*2)/4;
+                                      camera.right = bw * 배율[2] * 4-bw  *4*0.45+(camval*2);
+                                      camera.top = bw * 배율[2]-bw*0.45+(camval*2)/4;
+                                      camera.bottom = -bw * 배율[2] * 4+bw*4*0.45-(camval*2);
 
                                       // camera.left = -bw * 1.1-(camval-3)/4;
                                       // camera.right = bw * 1.1 * 4+(camval-3)
@@ -28590,11 +28593,21 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     item.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
                       temptxt="+:"+String(stacknum[cubes.length-1])
                       if(!m2flag){
+
                         var dur=parseInt(elapsedTime*15)%pshift.length
 
                         item.children[1].position.y= bh*1.5+0.1*(1-pshift[dur])
                         item.children[2].position.y= 0.1*(1-pshift[dur])
                         item.children[0].scale.set(1+0.2*(1-pshift[dur]),1+0.2*(1-pshift[dur]),1+0.2*(1-pshift[dur]))
+
+                        // if(차례<2){
+                        //   var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                        //   item.children[0].material.color= new THREE.Color('hsl(' + String(newcl["h"]*pshift[dur]) + ', ' + String(newcl["s"] ) + '%, ' + String(newcl["l"] ) + '%)');
+                        // }else{
+                        //   var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][2]))
+                        //   item.children[0].material.color= new THREE.Color('hsl(' + String(newcl["h"]) + ', ' + String(newcl["s"]) + '%, ' + String(newcl["l"] ) + '%)');
+                        // }
+
                         if (temptxt.toString().length >= 4) {
                             item.position.z = 4+avz - bw / 3;
                         } else if (temptxt.toString().length == 3) {
@@ -35514,20 +35527,20 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       // }
 
       if(cubes.length==5){
-        camera.left = -bw * 1.3
-        camera.right = bw * 1.3*4
-        camera.top = bw * 1.3
-        camera.bottom = -bw * 1.3*4
+        camera.left = -bw * 배율[2]
+        camera.right = bw * 배율[2]*4
+        camera.top = bw * 배율[2]
+        camera.bottom = -bw * 배율[2]*4
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         fullcam=false;
         topcam=false;
       }else{
-        camera.left = -bw * 1.1-(camval*2)/4;
-        camera.right = bw * 1.1 * 4+(camval*2);
-        camera.top = bw * 1.1+(camval*2)/4;
-        camera.bottom = -bw * 1.1 * 4-(camval*2);
+        camera.left = -bw * 배율[1]-(camval*2)/4;
+        camera.right = bw * 배율[1] * 4+(camval*2);
+        camera.top = bw * 배율[1]+(camval*2)/4;
+        camera.bottom = -bw * 배율[1] * 4-(camval*2);
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
@@ -35545,10 +35558,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     }else{
 
       camval/=3
-      camera.left = -bw * 1.3+bw*0.45-(camval*2)/4;
-      camera.right = bw * 1.3 * 4-bw  *4*0.45+(camval*2);
-      camera.top = bw * 1.3-bw*0.45+(camval*2)/4;
-      camera.bottom = -bw * 1.3 * 4+bw*4*0.45-(camval*2);
+      camera.left = -bw * 배율[2]+bw*0.45-(camval*2)/4;
+      camera.right = bw * 배율[2] * 4-bw  *4*0.45+(camval*2);
+      camera.top = bw * 배율[2]-bw*0.45+(camval*2)/4;
+      camera.bottom = -bw *배율[2] * 4+bw*4*0.45-(camval*2);
       renderer.setSize(window.innerWidth, window.innerHeight);
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
