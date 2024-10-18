@@ -7523,7 +7523,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let 모니터=false
 
   let 컴보=0
-
+  let mergetime=0;
 
   var 보드=[];
   var 눌=false
@@ -10116,11 +10116,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
         if(window.innerWidth>window.innerHeight){
           핑거0.x = 0.01+(event.touches[0].clientX / window.innerHeight)* 0.8 - 1;
-          핑거0.y = 0.06-(event.touches[0].clientY / window.innerHeight)*0.8 + 1;
+          핑거0.y = 0.04-(event.touches[0].clientY / window.innerHeight)*0.8 + 1;
 
         }else{
           핑거0.x = 0.01+(event.touches[0].clientX / window.innerWidth)* 0.8 - 1;
-          핑거0.y = 0.06-(event.touches[0].clientY / window.innerWidth)*0.8 + 1;
+          핑거0.y = 0.04-(event.touches[0].clientY / window.innerWidth)*0.8 + 1;
         }
 
         raycaster.setFromCamera(핑거0, camera);
@@ -13645,7 +13645,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     // scene.add(dL);
 
                     dl2.position.set(40, 200, 160);
-                    dl2.shadow.camera.position.set(40, 200, 160);
+                    // dl2.shadow.camera.position.set(40, 200, 160);
+                    dl2.shadow.camera.position.copy(camera.position)
 
                     // dl2.position.set(10, 50, 40);
                     // dl2.position.set(-40+Math.random()*80,50,-10+Math.random()*50);
@@ -20365,7 +20366,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
     if(startflag&&!gameoverflag){
-      document.getElementById("center0").style.opacity=0
+      document.getElementById("center0").style.opacity=1
 
     }else{
 
@@ -23866,6 +23867,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                       var num = parseInt(item.body.board[item.c][item.d])
                       if(num>maxnum) maxnum=num
+                      mergetime=elapsedTime;
                       점수+=num;
                       console.log(점수)
 
@@ -25002,6 +25004,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       if (elapsedTime - atchanged > 0 && elapsedTime - atchanged < 0.1) {
           bounceflag = true;
           if (activeFloor != cubes.length) {
+
+
+
               cubes[activeFloor].mesh.children.forEach((item) => {
                   if (item.userData["1"] == true) return
                   if (item.userData.merge == 1) {
@@ -26965,7 +26970,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     item.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
                       temptxt="+:"+String(stacknum[cubes.length-1])
                       if(!m2flag){
-                        var dur=parseInt(elapsedTime*25)%pshift.length
+                        var dur=parseInt(elapsedTime*15)%pshift.length
 
                         item.children[1].position.y= bh*1.5+0.1*(1-pshift[dur])
                         item.children[2].position.y= 0.1*(1-pshift[dur])
@@ -27050,8 +27055,22 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               시간.forEach((item) => {
                 if(gamemod==2){
                   item.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
-                  item.position.x = avx - bw / 4;
+                  item.position.x = avx - bw / 6;
                   item.position.z = avz - bw / 1.5;
+                  if(elapsedTime - mergetime <=0.3){
+                    시간.forEach((item) => {
+
+                        item.scale.set(1+0.05*Math.sin((Math.PI/0.3)*(elapsedTime - mergetime)),1+0.05*Math.sin((Math.PI/0.3)*(elapsedTime - mergetime)),1+0.05*Math.sin((Math.PI/0.3)*(elapsedTime - mergetime)))
+                        // item.position.y= bh*1.5+Math.sin((Math.PI/0.1)*(elapsedTime - atchanged))
+                        // item.position.y= Math.sin((Math.PI/0.1)*(elapsedTime - atchanged))
+
+                    });
+                  }
+
+
+
+
+
                 }else{
                   item.position.x = avx - bw / 2.5;
                   item.position.z = avz - bw / 1.5;
@@ -27348,7 +27367,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
               textMesh.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
-              textMesh.position.x = avx - bw / 4;
+              textMesh.position.x = avx - bw / 6;
               textMesh.position.z = avz - bw / 1.5;
                   //
                   // textMesh.position.x = avx - bw / 2.5;
@@ -28333,10 +28352,22 @@ function createPath( char, scale, offsetX, offsetY, data ) {
     }
   }
 
+  function lightset(){
+    dl2.shadow.camera.left = camera.left
+    dl2.shadow.camera.right = camera.right
+    dl2.shadow.camera.top = camera.top
+    dl2.shadow.camera.bottom = camera.bottom
+    dl2.shadow.camera.updateProjectionMatrix();
+
+  }
+
   window.freeze=freeze;
   function getitem(n=0){
     if(n==0){
-      n=1+parseInt(Math.random()*8)
+      n=1+parseInt(Math.random()*10)
+      var bag=[1,1,1,1,1,4,4,4,4,4,7,8,8]
+      bag.sort(() => Math.random() - 0.5);
+      n=bag[0];
     }
 
     // if(n==9){
