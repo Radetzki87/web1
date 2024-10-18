@@ -10583,7 +10583,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
               if(itemr){
                 if(superflag){
-                  force2.set(-25000*cubes[itemidx].body.mass/5,0,0)
+                  force2.set(-35000*cubes[itemidx].body.mass/5,0,0)
                 }else{
                   force2.set(-6000*cubes[itemidx].body.mass/5,0,0)
 
@@ -10591,7 +10591,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 이펙트2(itemidx, 128, "left");
               }else if(iteml){
                 if(superflag){
-                  force2.set(0,0,-25000*cubes[itemidx].body.mass/5)
+                  force2.set(0,0,-35000*cubes[itemidx].body.mass/5)
                 }else{
                   force2.set(0,0,-6000*cubes[itemidx].body.mass/5)
                 }
@@ -10647,7 +10647,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                   if(itemidx==cubes.length-1){
                     // console.log("발사")
-                    activeFloor=cubes.length;
+                    if(skinnum!=skinset.indexOf("classic")){
+                      activeFloor=cubes.length;
+                    }
+
                     setTimeout(function() {
                       발사=true;
                     }, 50);
@@ -11617,469 +11620,471 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   }
 
   function handleMouseMove(event){
-    event.preventDefault();
-      if(restartflag) return;
+      if(!itemflag) return;
 
-      if (gameoverflag) return;
-      if (document.getElementById("setting-overlay").classList.contains("show") || !document.getElementById("gameover-overlay").classList.contains("hidden") || document.getElementById("options-overlay").classList.contains("show") || document.getElementById("optionlst").classList.contains("show")) {
-          return;
-      } else {
-          // event.preventDefault();
-          // event.stopPropagation();
-      }
-      // if(inflag) return;
-      // event.preventDefault();
+      event.preventDefault();
+        if(restartflag) return;
 
-
-
-
-      if(window.innerWidth>window.innerHeight){
-        touchx = (event.clientX / window.innerHeight) * 2 - 1;
-        touchy = -(event.clientY / window.innerHeight) * 2 + 1;
-
-      }else{
-        touchx = (event.clientX / window.innerWidth) * 2 - 1;
-        touchy = -(event.clientY / window.innerHeight) * 2 + 1;
-      }
-
-
-
-
-      if(itemflag){
-        if(!itemdrag){
-          itemdrag=true;
-          if(hammer){
-            // if(해머<=0) {
-            //   itemdrag=false;
-            //   itemflag=false;
-            //   hammer=false
-            //   return;
-            // }
-
-
-
-
-            if(superflag){
-              document.getElementById('shammer').style.left="-6vmin"
-              setTimeout(function() {
-                  document.getElementById('shammer').style.left="-10vmin"
-              }, 400);
-            }else{
-              document.getElementById('hammer').style.left=itemleft1
-              setTimeout(function() {
-                  document.getElementById('hammer').style.left=itemleft
-              }, 400);
-            }
-          }else if(pung){
-
-            // if(뻥<=0) {
-            //   itemdrag=false;
-            //   itemflag=false;
-            //   pung=false;
-            //   return;
-            // }
-            document.getElementById('pung').style.left=itemleft1
-            setTimeout(function() {
-                document.getElementById('pung').style.left=itemleft
-            }, 400);
-          }else if(ice){
-
-            // if(뻥<=0) {
-            //   itemdrag=false;
-            //   itemflag=false;
-            //   pung=false;
-            //   return;
-            // }
-            document.getElementById('ice').style.left=itemleft1
-            setTimeout(function() {
-                document.getElementById('ice').style.left=itemleft
-            }, 400);
-          }else if(pin){
-
-            // if(뻥<=0) {
-            //   itemdrag=false;
-            //   itemflag=false;
-            //   pung=false;
-            //   return;
-            // }
-            document.getElementById('pin').style.left=itemleft1
-            setTimeout(function() {
-                document.getElementById('pin').style.left=itemleft
-            }, 400);
-          }else if(bridge){
-
-            // if(뻥<=0) {
-            //   itemdrag=false;
-            //   itemflag=false;
-            //   pung=false;
-            //   return;
-            // }
-            document.getElementById('bridge').style.left=itemleft1
-            setTimeout(function() {
-                document.getElementById('bridge').style.left=itemleft
-            }, 400);
-          }
-
-
-
-
+        if (gameoverflag) return;
+        if (document.getElementById("setting-overlay").classList.contains("show") || !document.getElementById("gameover-overlay").classList.contains("hidden") || document.getElementById("options-overlay").classList.contains("show") || document.getElementById("optionlst").classList.contains("show")) {
+            return;
+        } else {
+            // event.preventDefault();
+            // event.stopPropagation();
         }
+        // if(inflag) return;
+        // event.preventDefault();
 
 
 
 
         if(window.innerWidth>window.innerHeight){
-          핑거0.x = 0.01+(event.clientX / window.innerHeight)* 0.8 - 1;
-          핑거0.y = 0.04-(event.clientY / window.innerHeight)*0.8 + 1;
+          touchx = (event.clientX / window.innerHeight) * 2 - 1;
+          touchy = -(event.clientY / window.innerHeight) * 2 + 1;
 
         }else{
-          핑거0.x = 0.01+(event.clientX / window.innerWidth)* 0.8 - 1;
-          핑거0.y = 0.04-(event.clientY / window.innerWidth)*0.8 + 1;
+          touchx = (event.clientX / window.innerWidth) * 2 - 1;
+          touchy = -(event.clientY / window.innerHeight) * 2 + 1;
         }
 
-        raycaster.setFromCamera(핑거0, camera);
-
-        pingx=raycaster.ray.origin.x;
-        pingy=raycaster.ray.origin.y;
-        pingz=raycaster.ray.origin.z;
-
-        // console.log([pingx, pingy, pingz])
-        const intersects = raycaster.intersectObjects(scene.children);
-        var cat=[];
-        var cat2=[];
-
-        var tempidx;
-        if (intersects.length > 0) {
-          intersects.forEach((item, i) => {
-            // if(item.object.userData["game2048"]!=null){
-            //   cat2.push(item.object)
-            //   cat.push(item.object.userData["game2048"]);
-            //   if(cat[0]!="p"&&cat[0]!="h"){
-            //     tempidx=cat[0].index;
-            //     if(cubes[tempidx].body.sleepState==2) return cat.pop();
-            //     if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
-            //     // if(cubes[tempidx].body.sleepState==2){
-            //     //   return cat.pop()
-            //     // }
-            //
-            //   }else{
-            //     cat.pop()
-            //   }
-            //
-            //
-            // }
-
-            if(pin||ice){
-
-              if(item.object.userData["game2048"]!=null){
-                // cat2.push(item.object)
-
-                if(ice&&아이스취소){
-                  return
-                }else{
-                  cat.push([item.object.userData["game2048"].index,"left"]);
-                }
-                if(item.object.userData["game2048"]!="p"&&item.object.userData["game2048"]!="h"){
-                  tempidx=cat[0][0];
-
-                  if(cubes[tempidx].body.sleepState==2) return cat.pop();
-                  if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
-                }else{
-                  cat.pop()
-                }
-                //
-                // if(cat[0]!="p"&&cat[0]!="h"){
-                //   tempidx=item.object.userData["layer"]
-                //   if(cubes[tempidx].body.sleepState==2) return cat.pop();
-                //   if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
-                //   // if(cubes[tempidx].body.sleepState==2){
-                //   //   return cat.pop()
-                //   // }
-                //
-                // }else{
-                //   cat.pop()
-                // }
 
 
+
+        if(itemflag){
+          if(!itemdrag){
+            itemdrag=true;
+            if(hammer){
+              // if(해머<=0) {
+              //   itemdrag=false;
+              //   itemflag=false;
+              //   hammer=false
+              //   return;
+              // }
+
+
+
+
+              if(superflag){
+                document.getElementById('shammer').style.left="-6vmin"
+                setTimeout(function() {
+                    document.getElementById('shammer').style.left="-10vmin"
+                }, 400);
+              }else{
+                document.getElementById('hammer').style.left=itemleft1
+                setTimeout(function() {
+                    document.getElementById('hammer').style.left=itemleft
+                }, 400);
               }
-                if(cat.length>=1) return;
-            }else{
-              if(item.object.userData["dir"]!=null){
-                // cat2.push(item.object)
-                cat.push([item.object.userData["layer"], item.object.userData["dir"]]);
-                tempidx=item.object.userData["layer"]
-                if(cubes[tempidx].body.sleepState==2) return cat.pop();
-                if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
-                //
-                // if(cat[0]!="p"&&cat[0]!="h"){
-                //   tempidx=item.object.userData["layer"]
-                //   if(cubes[tempidx].body.sleepState==2) return cat.pop();
-                //   if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
-                //   // if(cubes[tempidx].body.sleepState==2){
-                //   //   return cat.pop()
-                //   // }
-                //
-                // }else{
-                //   cat.pop()
-                // }
+            }else if(pung){
 
+              // if(뻥<=0) {
+              //   itemdrag=false;
+              //   itemflag=false;
+              //   pung=false;
+              //   return;
+              // }
+              document.getElementById('pung').style.left=itemleft1
+              setTimeout(function() {
+                  document.getElementById('pung').style.left=itemleft
+              }, 400);
+            }else if(ice){
 
-              }
-                if(cat.length==3) return;
+              // if(뻥<=0) {
+              //   itemdrag=false;
+              //   itemflag=false;
+              //   pung=false;
+              //   return;
+              // }
+              document.getElementById('ice').style.left=itemleft1
+              setTimeout(function() {
+                  document.getElementById('ice').style.left=itemleft
+              }, 400);
+            }else if(pin){
+
+              // if(뻥<=0) {
+              //   itemdrag=false;
+              //   itemflag=false;
+              //   pung=false;
+              //   return;
+              // }
+              document.getElementById('pin').style.left=itemleft1
+              setTimeout(function() {
+                  document.getElementById('pin').style.left=itemleft
+              }, 400);
+            }else if(bridge){
+
+              // if(뻥<=0) {
+              //   itemdrag=false;
+              //   itemflag=false;
+              //   pung=false;
+              //   return;
+              // }
+              document.getElementById('bridge').style.left=itemleft1
+              setTimeout(function() {
+                  document.getElementById('bridge').style.left=itemleft
+              }, 400);
             }
 
 
 
 
-          });
-        }
-
-        console.log(cat)
-        if(pin||ice){
-          cat.sort(function(a, b) {
-              return b[0] - a[0];
-          });
-        }else{
-          cat.sort(function(a, b) {
-              return a[0] - b[0];
-          });
-        }
-
-
-        console.log(cat)
-
-
-        if(cat.length>=1&&tempidx<cubes.length){
-
-
-          tempidx=cat[0][0]
-          if(bridge&&tempidx==4) return;
-
-          itemtouch=true;
-
-          if(cat[0][1]=="right"){
-            itemr=true;
-            iteml=false;
-
-            itemidx=tempidx
-          }else if(cat[0][1]=="left"){
-            itemr=false;
-            iteml=true;
-
-            itemidx=tempidx
           }
-          //
-          // var toffset0=cubes[tempidx].body.position.x-avx-cubes[tempidx].body.position.z+avz
-          // var toffset1;
-          // var roffset0=cubes[tempidx].mesh.rotation.y;
-          // console.log(Math.cos(roffset0))
-          // if(toffset0>0){
-          //   toffset1=Math.sqrt(toffset0/2)
-          // }else{
-          //   toffset1=-Math.sqrt(-toffset0/2)
-          // }
-          //
-          //
-          // if(핑거0.x>-0.6+toffset1*0.05){
-          //   itemr=true;
-          //   iteml=false;
-          //
-          //   itemidx=tempidx
-          // }else{
-          //   itemr=false;
-          //   iteml=true;
-          //
-          //   itemidx=tempidx
-          // }
-          // console.log(tempidx)
-
-
-        }else{
-          itemtouch=false;
-
-          return;
-        }
 
 
 
-      }else if (ontouch) {
 
+          if(window.innerWidth>window.innerHeight){
+            핑거0.x = 0.01+(event.clientX / window.innerHeight)* 0.8 - 1;
+            핑거0.y = 0.04-(event.clientY / window.innerHeight)*0.8 + 1;
 
-          if (!aniflag) {
-              if (touchx - lastX > 0.1/(window.innerWidth/window.innerHeight)) {
-                  if (gameoverflag) {
-                      ontouch = false
+          }else{
+            핑거0.x = 0.01+(event.clientX / window.innerWidth)* 0.8 - 1;
+            핑거0.y = 0.04-(event.clientY / window.innerWidth)*0.8 + 1;
+          }
 
-                      return
-                  } else if(activeFloor!=cubes.length){
-                      if(playlock) return;
-                      const game2048 = cubes[activeFloor].mesh.userData.game2048;
-                      game2048.moveBoard("right");
+          raycaster.setFromCamera(핑거0, camera);
+
+          pingx=raycaster.ray.origin.x;
+          pingy=raycaster.ray.origin.y;
+          pingz=raycaster.ray.origin.z;
+
+          // console.log([pingx, pingy, pingz])
+          const intersects = raycaster.intersectObjects(scene.children);
+          var cat=[];
+          var cat2=[];
+
+          var tempidx;
+          if (intersects.length > 0) {
+            intersects.forEach((item, i) => {
+              // if(item.object.userData["game2048"]!=null){
+              //   cat2.push(item.object)
+              //   cat.push(item.object.userData["game2048"]);
+              //   if(cat[0]!="p"&&cat[0]!="h"){
+              //     tempidx=cat[0].index;
+              //     if(cubes[tempidx].body.sleepState==2) return cat.pop();
+              //     if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
+              //     // if(cubes[tempidx].body.sleepState==2){
+              //     //   return cat.pop()
+              //     // }
+              //
+              //   }else{
+              //     cat.pop()
+              //   }
+              //
+              //
+              // }
+
+              if(pin||ice){
+
+                if(item.object.userData["game2048"]!=null){
+                  // cat2.push(item.object)
+
+                  if(ice&&아이스취소){
+                    return
+                  }else{
+                    cat.push([item.object.userData["game2048"].index,"left"]);
                   }
-                  ontouch = false;
-              } else if (-touchx + lastX > 0.1/(window.innerWidth/window.innerHeight)) {
-                  if (gameoverflag) {
-                      ontouch = false
+                  if(item.object.userData["game2048"]!="p"&&item.object.userData["game2048"]!="h"){
+                    tempidx=cat[0][0];
 
-                      return
-                  } else if(activeFloor!=cubes.length){
-                      if(playlock) return;
-                      const game2048 = cubes[activeFloor].mesh.userData.game2048;
-                      game2048.moveBoard("left");
+                    if(cubes[tempidx].body.sleepState==2) return cat.pop();
+                    if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
+                  }else{
+                    cat.pop()
                   }
-                  ontouch = false;
-              } else if (touchy - lastY > 0.2/(window.innerHeight/window.innerWidth)) {
-                  if (gameoverflag) {
-                      ontouch = false
+                  //
+                  // if(cat[0]!="p"&&cat[0]!="h"){
+                  //   tempidx=item.object.userData["layer"]
+                  //   if(cubes[tempidx].body.sleepState==2) return cat.pop();
+                  //   if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
+                  //   // if(cubes[tempidx].body.sleepState==2){
+                  //   //   return cat.pop()
+                  //   // }
+                  //
+                  // }else{
+                  //   cat.pop()
+                  // }
 
-                      return
-                  } else if(activeFloor!=cubes.length){
-                      if(playlock) return;
-                      const game2048 = cubes[activeFloor].mesh.userData.game2048;
-                      game2048.moveBoard("up");
-                  }
-                  ontouch = false;
-              } else if (-touchy + lastY > 0.2/(window.innerHeight/window.innerWidth)) {
-                  if (gameoverflag) {
-                      ontouch = false
 
-                      return
-                  } else if(activeFloor!=cubes.length){
-                      if(playlock) return;
-                      const game2048 = cubes[activeFloor].mesh.userData.game2048;
-                      game2048.moveBoard("down");
-                  }
-                  ontouch = false;
+                }
+                  if(cat.length>=1) return;
+              }else{
+                if(item.object.userData["dir"]!=null){
+                  // cat2.push(item.object)
+                  cat.push([item.object.userData["layer"], item.object.userData["dir"]]);
+                  tempidx=item.object.userData["layer"]
+                  if(cubes[tempidx].body.sleepState==2) return cat.pop();
+                  if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
+                  //
+                  // if(cat[0]!="p"&&cat[0]!="h"){
+                  //   tempidx=item.object.userData["layer"]
+                  //   if(cubes[tempidx].body.sleepState==2) return cat.pop();
+                  //   if(pin&&cubes[tempidx].mesh.userData.pin) return cat.pop();
+                  //   // if(cubes[tempidx].body.sleepState==2){
+                  //   //   return cat.pop()
+                  //   // }
+                  //
+                  // }else{
+                  //   cat.pop()
+                  // }
+
+
+                }
+                  if(cat.length==3) return;
               }
-          }
-          // console.log(game2048.)
-      } else if (dragflag&&gamemod!=2) {
-          if(shiftlock) return;
-          if (bufflag) {
-              buffloor = activeFloor
-              bufflag = false
-          }
-          activeFloor = buffloor + parseInt((touchy - lastY) * 10);
-          if (activeFloor > cubes.length) {
-              activeFloor = cubes.length;
-
-          }else if (activeFloor < 0) {
-              activeFloor = 0;
 
 
+
+
+            });
           }
 
-          if (true) {
-
-            bf=99;
-
-              if (true) {
-                  let thisnum = activeFloor
-                  var playable = true
-
-                  switch (thisnum) {
-                    case 0:
-                          if (soundic[sdic[1][0]].isPlaying) {
-                            soundic[sdic[1][0]].stop();
-                          }
-                      break;
-                    case 1:
-                          if (soundic[sdic[0][0]].isPlaying) {
-                            soundic[sdic[0][0]].stop();
-                          }
-                          if (soundic[sdic[2][0]].isPlaying) {
-                            soundic[sdic[2][0]].stop();
-                          }
-                      break;
-                    case 2:
-                          if (soundic[sdic[1][0]].isPlaying) {
-                            soundic[sdic[1][0]].stop();
-                          }
-                          if (soundic[sdic[3][0]].isPlaying) {
-                            soundic[sdic[3][0]].stop();
-                          }
-                      break;
-                    case 3:
-                          if (soundic[sdic[2][0]].isPlaying) {
-                            soundic[sdic[2][0]].stop();
-                          }
-                          if (soundic[sdic[4][0]].isPlaying) {
-                            soundic[sdic[4][0]].stop();
-                          }
-                      break;
-                    case 4:
-                          if (soundic[sdic[3][0]].isPlaying) {
-                            soundic[sdic[3][0]].stop();
-                          }
-                          if (soundic[sdic[5][0]].isPlaying) {
-                            soundic[sdic[5][0]].stop();
-                          }
-                      break;
-                    case 5:
-                          if (soundic[sdic[4][0]].isPlaying) {
-                            soundic[sdic[4][0]].stop();
-                          }
-
-                      break;
-                    default:
-
-                  }
-
-                  if (!soundic[sdic[thisnum][0]].isPlaying) {
-                      fullguide=0
-                      soundic[sdic[thisnum][0]].play();
-
-                      songfade=elapsedTime;
-
-                      songTitleElement.innerText = sdic[thisnum]["title"];
-                      if(langnum==13||langnum==22||langnum==29||langnum==36){
-                        document.getElementById("playing").style.left=String(2+1.1*songTitleElement.innerText.length)+"vmax"
-                      }
-                      artistNameElement.innerText = sdic[thisnum]["producer"];
-                      var songInfo = document.getElementById('song-info');
-                      songInfo.classList.add("moveleft");
-                      songInfo.style.left="0px"
-                      document.querySelector("#song-info").style.zIndex="2"
-
-                      document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
-                      document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
-                      document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
-
-                      if(thisnum==5){
-                          document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
-                          document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
-                          document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
-                          var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-                          // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*0.8, newcl.l*0.35)
-
-                          document.getElementById('songback').style.backgroundColor=송백
-
-                          // document.getElementById('songback').style.opacity="0.35"
-
-                      }else{
-                          document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][thisnum])
-                          document.getElementById('song-title').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
-
-                          var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
-                          document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.90, newcl.l*1.1)
-                          var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
-                          // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h+Math.PI/2, newcl.s, newcl.l*0.35)
-                          document.getElementById('songback').style.backgroundColor=송백
-                          // document.getElementById('songback').style.opacity="0.35"
-
-                      }
-
-
-                      document.getElementById('playing').style.color="#eeeeee"
-
-                      if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
-
-                      songInfo.classList.add("show1");
-
-                  }
-              }
+          console.log(cat)
+          if(pin||ice){
+            cat.sort(function(a, b) {
+                return b[0] - a[0];
+            });
+          }else{
+            cat.sort(function(a, b) {
+                return a[0] - b[0];
+            });
           }
-      }
+
+
+          console.log(cat)
+
+
+          if(cat.length>=1&&tempidx<cubes.length){
+
+
+            tempidx=cat[0][0]
+            if(bridge&&tempidx==4) return;
+
+            itemtouch=true;
+
+            if(cat[0][1]=="right"){
+              itemr=true;
+              iteml=false;
+
+              itemidx=tempidx
+            }else if(cat[0][1]=="left"){
+              itemr=false;
+              iteml=true;
+
+              itemidx=tempidx
+            }
+            //
+            // var toffset0=cubes[tempidx].body.position.x-avx-cubes[tempidx].body.position.z+avz
+            // var toffset1;
+            // var roffset0=cubes[tempidx].mesh.rotation.y;
+            // console.log(Math.cos(roffset0))
+            // if(toffset0>0){
+            //   toffset1=Math.sqrt(toffset0/2)
+            // }else{
+            //   toffset1=-Math.sqrt(-toffset0/2)
+            // }
+            //
+            //
+            // if(핑거0.x>-0.6+toffset1*0.05){
+            //   itemr=true;
+            //   iteml=false;
+            //
+            //   itemidx=tempidx
+            // }else{
+            //   itemr=false;
+            //   iteml=true;
+            //
+            //   itemidx=tempidx
+            // }
+            // console.log(tempidx)
+
+
+          }else{
+            itemtouch=false;
+
+            return;
+          }
+
+
+
+        }else if (ontouch) {
+
+
+            if (!aniflag) {
+                if (touchx - lastX > 0.1/(window.innerWidth/window.innerHeight)) {
+                    if (gameoverflag) {
+                        ontouch = false
+
+                        return
+                    } else if(activeFloor!=cubes.length){
+                        if(playlock) return;
+                        const game2048 = cubes[activeFloor].mesh.userData.game2048;
+                        game2048.moveBoard("right");
+                    }
+                    ontouch = false;
+                } else if (-touchx + lastX > 0.1/(window.innerWidth/window.innerHeight)) {
+                    if (gameoverflag) {
+                        ontouch = false
+
+                        return
+                    } else if(activeFloor!=cubes.length){
+                        if(playlock) return;
+                        const game2048 = cubes[activeFloor].mesh.userData.game2048;
+                        game2048.moveBoard("left");
+                    }
+                    ontouch = false;
+                } else if (touchy - lastY > 0.2/(window.innerHeight/window.innerWidth)) {
+                    if (gameoverflag) {
+                        ontouch = false
+
+                        return
+                    } else if(activeFloor!=cubes.length){
+                        if(playlock) return;
+                        const game2048 = cubes[activeFloor].mesh.userData.game2048;
+                        game2048.moveBoard("up");
+                    }
+                    ontouch = false;
+                } else if (-touchy + lastY > 0.2/(window.innerHeight/window.innerWidth)) {
+                    if (gameoverflag) {
+                        ontouch = false
+
+                        return
+                    } else if(activeFloor!=cubes.length){
+                        if(playlock) return;
+                        const game2048 = cubes[activeFloor].mesh.userData.game2048;
+                        game2048.moveBoard("down");
+                    }
+                    ontouch = false;
+                }
+            }
+            // console.log(game2048.)
+        } else if (dragflag&&gamemod!=2) {
+            if(shiftlock) return;
+            if (bufflag) {
+                buffloor = activeFloor
+                bufflag = false
+            }
+            activeFloor = buffloor + parseInt((touchy - lastY) * 10);
+            if (activeFloor > cubes.length) {
+                activeFloor = cubes.length;
+
+            }else if (activeFloor < 0) {
+                activeFloor = 0;
+
+
+            }
+
+            if (true) {
+
+              bf=99;
+
+                if (true) {
+                    let thisnum = activeFloor
+                    var playable = true
+
+                    switch (thisnum) {
+                      case 0:
+                            if (soundic[sdic[1][0]].isPlaying) {
+                              soundic[sdic[1][0]].stop();
+                            }
+                        break;
+                      case 1:
+                            if (soundic[sdic[0][0]].isPlaying) {
+                              soundic[sdic[0][0]].stop();
+                            }
+                            if (soundic[sdic[2][0]].isPlaying) {
+                              soundic[sdic[2][0]].stop();
+                            }
+                        break;
+                      case 2:
+                            if (soundic[sdic[1][0]].isPlaying) {
+                              soundic[sdic[1][0]].stop();
+                            }
+                            if (soundic[sdic[3][0]].isPlaying) {
+                              soundic[sdic[3][0]].stop();
+                            }
+                        break;
+                      case 3:
+                            if (soundic[sdic[2][0]].isPlaying) {
+                              soundic[sdic[2][0]].stop();
+                            }
+                            if (soundic[sdic[4][0]].isPlaying) {
+                              soundic[sdic[4][0]].stop();
+                            }
+                        break;
+                      case 4:
+                            if (soundic[sdic[3][0]].isPlaying) {
+                              soundic[sdic[3][0]].stop();
+                            }
+                            if (soundic[sdic[5][0]].isPlaying) {
+                              soundic[sdic[5][0]].stop();
+                            }
+                        break;
+                      case 5:
+                            if (soundic[sdic[4][0]].isPlaying) {
+                              soundic[sdic[4][0]].stop();
+                            }
+
+                        break;
+                      default:
+
+                    }
+
+                    if (!soundic[sdic[thisnum][0]].isPlaying) {
+                        fullguide=0
+                        soundic[sdic[thisnum][0]].play();
+
+                        songfade=elapsedTime;
+
+                        songTitleElement.innerText = sdic[thisnum]["title"];
+                        if(langnum==13||langnum==22||langnum==29||langnum==36){
+                          document.getElementById("playing").style.left=String(2+1.1*songTitleElement.innerText.length)+"vmax"
+                        }
+                        artistNameElement.innerText = sdic[thisnum]["producer"];
+                        var songInfo = document.getElementById('song-info');
+                        songInfo.classList.add("moveleft");
+                        songInfo.style.left="0px"
+                        document.querySelector("#song-info").style.zIndex="2"
+
+                        document.getElementById('songback1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][1])
+                        document.getElementById('songback2').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2])
+                        document.getElementById('songback3').style.backgroundColor=hexToHtmlColor(colorlst[colornum][3])
+
+                        if(thisnum==5){
+                            document.getElementById('song-title').style.color=hexToHtmlColor(colorlst[colornum][2])
+                            document.getElementById('artist-name').style.color=hexToHtmlColor(colorlst[colornum][1])
+                            document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0])
+                            var newcl = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+                            // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h, newcl.s*0.8, newcl.l*0.35)
+
+                            document.getElementById('songback').style.backgroundColor=송백
+
+                            // document.getElementById('songback').style.opacity="0.35"
+
+                        }else{
+                            document.getElementById('songback4').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][thisnum])
+                            document.getElementById('song-title').style.color=hexToHtmlColor(colorlst0[colornum0][thisnum])
+
+                            var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
+                            document.getElementById('artist-name').style.color=hslToHex(newcl.h, newcl.s*0.90, newcl.l*1.1)
+                            var newcl = hexToHSL(hexToHtmlColor(colorlst0[colornum0][thisnum]))
+                            // document.getElementById('songback').style.backgroundColor=hslToHex(newcl.h+Math.PI/2, newcl.s, newcl.l*0.35)
+                            document.getElementById('songback').style.backgroundColor=송백
+                            // document.getElementById('songback').style.opacity="0.35"
+
+                        }
+
+
+                        document.getElementById('playing').style.color="#eeeeee"
+
+                        if (songInfo.classList.contains("hidden")) songInfo.classList.remove("hidden");
+
+                        songInfo.classList.add("show1");
+
+                    }
+                }
+            }
+        }
   }
 
   function handleMouseUp(event){
@@ -23582,7 +23587,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   // }), );
 
                     mesh5.position.set(0, 보드높이+33-33+0.3*bh-i*0.05, 0);
-                    // mesh5.receiveShadow = true;
+                    mesh5.receiveShadow = false;
 
 
                     mesh5.material.depthWrite=false;
@@ -26666,18 +26671,26 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           curveflag=false
           aniflag0=false
           gradback[0].material.visible=false;
-          dl2.target.position.set(cubes[cubes.length-1].mesh.position.x);
-          // dl2.position.x=40+cubes[cubes.length-1].mesh.position.x
-          // dl2.position.z=40+160+cubes[cubes.length-1].mesh.position.z
+          // dl2.target.position.set(cubes[cubes.length-1].mesh.position);
+          dl2.position.x=40+cubes[cubes.length-1].mesh.position.x
+          dl2.position.z=160+cubes[cubes.length-1].mesh.position.z
           // dl2.shadow.camera.position.x=40+cubes[cubes.length-1].mesh.position.x
           // dl2.shadow.camera.position.z=160+cubes[cubes.length-1].mesh.position.z
           // dl2.shadow.camera.lookAt(cubes[cubes.length-1].mesh.position)
           // dl2.shadow.camera.updateProjectionMatrix();
+          dl2.shadow.camera.position.copy(camera.position)
+
+
           camera.left -=0.1
           camera.right +=0.4
           camera.top +=0.1
           camera.bottom -=0.4
+          // dl2.shadow.camera.left = camera.left
+          // dl2.shadow.camera.right = camera.right
+          // dl2.shadow.camera.top = camera.top
+          // dl2.shadow.camera.bottom = camera.bottom
           camera.updateProjectionMatrix();
+          // dl2.shadow.camera.updateProjectionMatrix();
 
 
 
@@ -26812,6 +26825,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
             })
             gradback[0].material.visible=false;
+            dl2.shadow.camera.position.copy(camera.position)
+            // dl2.shadow.camera.updateProjectionMatrix();
             camera.left -=0.1
             camera.right +=0.4
             camera.top +=0.1
@@ -26865,6 +26880,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               curveflag=false
 
               gradback[0].material.visible=false;
+              dl2.shadow.camera.position.copy(camera.position)
+              // dl2.shadow.camera.updateProjectionMatrix();
               camera.left -=0.1
               camera.right +=0.4
               camera.top +=0.1
