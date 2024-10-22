@@ -2550,7 +2550,7 @@
             left: -14vh;
             width: 14vh;
             height: 10vh;
-            z-index: 1;
+            z-index: 2;
             transition: left 0.4s;
             text-align: center;
 
@@ -2649,9 +2649,10 @@
 
         .hammer div{
           position: relative;
-          left:38.5%;
+          left:72%;
           font-family: 'GG';
           font-size: 2.5vh;
+          width: 8vmin;
             /* left:37%;
             bottom:5%;
 
@@ -2702,9 +2703,10 @@
 
         .pung div{
           position: relative;
-          left:38.5%;
+          left:72%;
           font-family: 'GG';
           font-size: 2.5vh;
+          width: 8vmin;
             /* position: relative;
             left:37%;
             bottom:5%;
@@ -3124,12 +3126,17 @@
 
 <button id="shammer" class="shammer" ontouchstart="itemon(1)" onmousedown="itemon(1)">
     <img class="" src="png/hammer.png">
-    <div>cost:5</div>
+    <div>cost:8</div>
 </button>
 
 <button id="pung" class="pung" ontouchstart="itemon(2)" onmousedown="itemon(2)">
     <img class="" src="png/pung.png">
     <div>0</div>
+</button>
+
+<button id="spung" class="spung" ontouchstart="itemon(3)" onmousedown="itemon(3)">
+    <img class="" src="png/pung.png">
+    <div>cost:8</div>
 </button>
 
 <button id="ice" class="ice" ontouchstart="itemon(4)" onmousedown="itemon(4)">
@@ -7790,6 +7797,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var itemleft="-9vh"
   var itemleft1="-8vh"
 
+  var sitemleft="-10vmin"
+  var sitemleft1="-3vmin"
+
+
 
   var pshift=[1,1.1,1.2,1.25,1.3,1.325,1.35,1.325,1.3,1.275,1.25,1.225,1.2,1.15,1.1,1.075,1.05]
 
@@ -8155,6 +8166,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let 판=[];
 
   let 배율=[1.7,1.15,1.3,0.4,0.5]
+
+  let pungtime=false
 
   let 보드반경=8
   let 보드높이=-34
@@ -10133,9 +10146,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
             if(superflag){
-              document.getElementById('shammer').style.left="-6vmin"
+              document.getElementById('shammer').style.left=sitemleft1
               setTimeout(function() {
-                  document.getElementById('shammer').style.left="-10vmin"
+                  document.getElementById('shammer').style.left=sitemleft
               }, 400);
             }else{
               document.getElementById('hammer').style.left=itemleft1
@@ -10151,10 +10164,18 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             //   pung=false;
             //   return;
             // }
-            document.getElementById('pung').style.left=itemleft1
-            setTimeout(function() {
-                document.getElementById('pung').style.left=itemleft
-            }, 400);
+            if(superflag){
+              document.getElementById('spung').style.left=sitemleft1
+              setTimeout(function() {
+                  document.getElementById('spung').style.left=sitemleft
+              }, 400);
+            }else{
+              document.getElementById('pung').style.left=itemleft1
+              setTimeout(function() {
+                  document.getElementById('pung').style.left=itemleft
+              }, 400);
+            }
+
           }else if(ice){
 
             // if(뻥<=0) {
@@ -10326,6 +10347,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
           tempidx=cat[0][0]
+          if(superflag&&pung&&tempidx==cubes.length-1) return;
           if(bridge&&tempidx==4) return;
 
           itemtouch=true;
@@ -10586,7 +10608,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
               if(itemr){
                 if(superflag){
-                  force2.set(-35000*cubes[itemidx].body.mass/5,0,0)
+                  force2.set(-28000*cubes[itemidx].body.mass/5,0,0)
                 }else{
                   force2.set(-6000*cubes[itemidx].body.mass/5,0,0)
 
@@ -10594,7 +10616,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 이펙트2(itemidx, 128, "left");
               }else if(iteml){
                 if(superflag){
-                  force2.set(0,0,-35000*cubes[itemidx].body.mass/5)
+                  force2.set(0,0,-28000*cubes[itemidx].body.mass/5)
                 }else{
                   force2.set(0,0,-6000*cubes[itemidx].body.mass/5)
                 }
@@ -10602,8 +10624,14 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               }
 
               setTimeout(function() {
-                  if(해머<=0) document.getElementById('hammer').style.left="-13.3vh"
-                  if(해머<8) document.getElementById('shammer').style.left="-14vh"
+                  if(해머<=0){
+                    document.getElementById('hammer').style.left="-13.3vh"
+                    document.getElementById('shammer').style.left="-14vh"
+                  }else if(해머<8){
+                    document.getElementById('shammer').style.left="-14vh"
+                  }else{
+                    document.getElementById('shammer').style.left=sitemleft
+                  }
 
               }, 400);
 
@@ -10656,6 +10684,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                     setTimeout(function() {
                       발사=true;
+                      document.getElementById('hammer').style.left="-14vmax"
+                      document.getElementById('pung').style.left="-14vmax"
+                      document.getElementById('ice').style.left="-14vmax"
+                      document.getElementById('pin').style.left="-14vmax"
+                      document.getElementById('bridge').style.left="-14vmax"
+                      document.getElementById('shammer').style.left="-14vmax"
+                      document.getElementById('spung').style.left="-14vmax"
                     }, 50);
 
                     drawon2()
@@ -10665,7 +10700,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                       world.removeConstraint(item);
 
                     });
-                    스킬[2]-=1;
+                    스킬[2]-=0.5;
 
                     drawon2()
                     // setTimeout(function() {
@@ -10683,10 +10718,44 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
             }else if(pung){
+              var 아래층=cubes[itemidx-1];
+              var 아래=0
+              var 취소=false
+
+              for (let i=itemidx-1; i >3; i--) {
+                if(cubes[i].mesh.userData.ice){
+                  아래=0
+                  취소=true
+                  break;
+                }
+                if(!cubes[i].mesh.userData.bye){
+                  아래층=cubes[i];
+                  아래=i
+                  break;
+                }
+              }
+              if(아래==0){
+                취소=true;
+                console.log("안돼")
+              }
+
+              var wpos1=new THREE.Vector3();
+              if(superflag){
+                wpos1.copy(stepmold[3].position)
+                if(itemr){
+                  // wpos1.x+=2*bh
+                }else{
+                  // wpos1.z+=2*bh
+                }
+              }
+
+
+
+
               tctime=elapsedTime
               if(itemr){
                 if(superflag){
-                  force2.set(25000*cubes[itemidx].body.mass/5,0,0)
+                  force2.set(65000*cubes[itemidx].body.mass/5,0,0)
                 }else{
                   force2.set(6000*cubes[itemidx].body.mass/5,0,0)
                 }
@@ -10694,7 +10763,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 이펙트2(itemidx, 128, "right");
               }else if(iteml){
                 if(superflag){
-                  force2.set(0,0,25000*cubes[itemidx].body.mass/5)
+                  force2.set(0,0,65000*cubes[itemidx].body.mass/5)
                 }else{
                   force2.set(0,0,6000*cubes[itemidx].body.mass/5)
                 }
@@ -10702,8 +10771,18 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 이펙트2(itemidx, 128, "down");
               }
               setTimeout(function() {
-                    if(뻥<=0)  document.getElementById('pung').style.left="-13.3vh"
+                if(뻥<=0){
+                  document.getElementById('pung').style.left="-13.3vh"
+                  document.getElementById('spung').style.left="-14vh"
+                }else if(뻥<5){
+                  document.getElementById('spung').style.left="-14vh"
+                }else{
+                  document.getElementById('spung').style.left=sitemleft
+                }
+
               }, 400);
+
+
               let quaternion = new CANNON.Quaternion();
               quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[itemidx].mesh.rotation.y);
               let rotatedVec = force2.clone();
@@ -10711,6 +10790,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               rotatedVec=quaternion.vmult(force2);
 
               cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
+              if(superflag){
+                cubes[아래].body.applyForce(rotatedVec, cubes[아래].body.position);
+              }
               soundic[sdic[cubes.length-1]["32"]].play();
 
               cubes.forEach((item) => {
@@ -10736,21 +10818,78 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
               });
               if(superflag){
+                itemtime=elapsedTime
+                pungtime=true;
                 superflag=false;
                 cubes[itemidx].mesh.userData.bye=true;
+                cubes[아래].mesh.userData.bye=true;
+
+                cubes[itemidx].mesh.userData.gone=true;
+                cubes[아래].mesh.userData.gone=true;
+
+                uselst.push(cubes[itemidx])
+                uselst.push(cubes[아래])
+                uselst.push(wpos1)
+                uselst.push([cubes[itemidx].mesh.position.x,cubes[itemidx].mesh.position.y,cubes[itemidx].mesh.position.z])
+                uselst.push([cubes[아래].mesh.position.x,cubes[아래].mesh.position.y,cubes[아래].mesh.position.z])
+                uselst.push([cubes[itemidx].mesh.scale.x,cubes[itemidx].mesh.scale.y,cubes[itemidx].mesh.scale.z])
+                uselst.push([cubes[아래].mesh.scale.x,cubes[아래].mesh.scale.y,cubes[아래].mesh.scale.z])
                 cubes[itemidx].mesh.userData.constraint.forEach((item) => {
                   world.removeConstraint(item);
 
                 });
-                setTimeout(function() {
-                  cubes[itemidx].body.sleep();
-                  // cubes[i].body.collisionResponse = false;
+                cubes[아래].mesh.userData.constraint.forEach((item) => {
+                  world.removeConstraint(item);
 
-                  cubes[itemidx].mesh.userData.ice=true;
+                });
+                스킬[2]-=1;
 
-                }, 500);
+                drawon2()
+
+
+                // if(itemidx==cubes.length-1){
+                //   // console.log("발사")
+                //   if(skinnum!=skinset.indexOf("classic")){
+                //     activeFloor=cubes.length;
+                //   }
+                //
+                //   setTimeout(function() {
+                //     발사=true;
+                //   }, 50);
+                //
+                //   drawon2()
+                // }else{
+                //   cubes[itemidx].mesh.userData.bye=true;
+                //   cubes[itemidx].mesh.userData.constraint.forEach((item) => {
+                //     world.removeConstraint(item);
+                //
+                //   });
+                //   스킬[2]-=1;
+                //
+                //   drawon2()
+                //
+                // }
+
+
 
               }
+
+              // if(superflag){
+              //   superflag=false;
+              //   cubes[itemidx].mesh.userData.bye=true;
+              //   cubes[itemidx].mesh.userData.constraint.forEach((item) => {
+              //     world.removeConstraint(item);
+              //
+              //   });
+              //   setTimeout(function() {
+              //     cubes[itemidx].body.sleep();
+              //     // cubes[i].body.collisionResponse = false;
+              //
+              //     cubes[itemidx].mesh.userData.ice=true;
+              //
+              //   }, 500);
+              //
+              // }
 
             }else if(ice){
               uselst=[];
@@ -10942,30 +11081,24 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 scene.add(legs[legs.length-1]);
               }else{
 
-
-
                 var 아래층=cubes[itemidx-1];
-                var 아래=itemidx-1
+                var 아래=0
                 var 취소=false
-                if(itemidx==4) 취소=true;
-                if(cubes[itemidx-1].mesh.userData.bye==true){
-                  if(cubes[itemidx-2].mesh.userData.bye==true){
-                    if(cubes[itemidx-3].mesh.userData.bye==true){
-                      취소=true;
-                    }else{
-                      아래층=cubes[itemidx-3];
-                      아래=itemidx-3
-                    }
-                  }else{
-                    console.log("hi2")
-                    아래층=cubes[itemidx-2];
-                    아래=itemidx-2
+
+                for (let i=itemidx-1; i >3; i--) {
+                  if(!cubes[i].mesh.userData.bye){
+                    아래층=cubes[i];
+                    아래=i
+                    break;
                   }
-                }else{
-                  console.log("hi1")
-                  아래층=cubes[itemidx-1];
-                  아래=itemidx-1
                 }
+                if(아래==0){
+                  취소=true;
+                  console.log("안돼")
+                }
+
+
+
                 tctime=elapsedTime
 
                 if(itemr){
@@ -11033,7 +11166,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     }else if(pung){
                       뻥++;
                       if(superflag){
-                        뻥+=7;
+                        뻥+=4;
                         superflag=false
                       }
                     }else if(ice){
@@ -11090,8 +11223,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                      ice=false
                      pin=false
                      bridge=false
-                     itemr=false;
-                     iteml=false;
+                     // itemr=false;
+                     // iteml=false;
                      itemdrag=false
                      superflag=false;
                      ontouch = false;
@@ -11253,7 +11386,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     }else if(pung){
                       뻥++;
                       if(superflag){
-                        뻥+=7;
+                        뻥+=4;
                         superflag=false
                       }
                     }else if(ice){
@@ -11309,8 +11442,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                      ice=false
                      pin=false
                      bridge=false
-                     itemr=false;
-                     iteml=false;
+                     // itemr=false;
+                     // iteml=false;
                      itemdrag=false
                      superflag=false;
                      ontouch = false;
@@ -11485,8 +11618,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
              pin=false
              bridge=false
              superflag=false;
-             itemr=false;
-             iteml=false;
+             // itemr=false;
+             // iteml=false;
              itemdrag=false
              setTimeout(function() {
                // cubes.forEach((item, i) => {
@@ -11533,7 +11666,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             }else if(pung){
               뻥++;
               if(superflag){
-                뻥+=7;
+                뻥+=4;
                 superflag=false
               }
             }else if(ice){
@@ -11590,8 +11723,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
              pin=false
              superflag=false;
              bridge=false
-             itemr=false;
-             iteml=false;
+             // itemr=false;
+             // iteml=false;
              itemdrag=false
 
           }
@@ -11686,10 +11819,18 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               //   pung=false;
               //   return;
               // }
-              document.getElementById('pung').style.left=itemleft1
-              setTimeout(function() {
-                  document.getElementById('pung').style.left=itemleft
-              }, 400);
+              if(superflag){
+                document.getElementById('spung').style.left="-6vmin"
+                setTimeout(function() {
+                    document.getElementById('spung').style.left="-10vmin"
+                }, 400);
+              }else{
+                document.getElementById('pung').style.left=itemleft1
+                setTimeout(function() {
+                    document.getElementById('pung').style.left=itemleft
+                }, 400);
+              }
+
             }else if(ice){
 
               // if(뻥<=0) {
@@ -12188,6 +12329,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   activeFloor=cubes.length;
                   setTimeout(function() {
                     발사=true;
+                    document.getElementById('hammer').style.left="-14vmax"
+                    document.getElementById('pung').style.left="-14vmax"
+                    document.getElementById('ice').style.left="-14vmax"
+                    document.getElementById('pin').style.left="-14vmax"
+                    document.getElementById('bridge').style.left="-14vmax"
+                    document.getElementById('shammer').style.left="-14vmax"
+                    document.getElementById('spung').style.left="-14vmax"
                   }, 50);
 
                   drawon2()
@@ -12474,30 +12622,25 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               scene.add(legs[legs.length-1]);
             }else{
 
-
-
               var 아래층=cubes[itemidx-1];
-              var 아래=itemidx-1
+              var 아래=0
               var 취소=false
-              if(itemidx==4) 취소=true;
-              if(cubes[itemidx-1].mesh.userData.bye==true){
-                if(cubes[itemidx-2].mesh.userData.bye==true){
-                  if(cubes[itemidx-3].mesh.userData.bye==true){
-                    취소=true;
-                  }else{
-                    아래층=cubes[itemidx-3];
-                    아래=itemidx-3
-                  }
-                }else{
-                  console.log("hi2")
-                  아래층=cubes[itemidx-2];
-                  아래=itemidx-2
+
+              for (let i=itemidx-1; i >3; i--) {
+                if(!cubes[i].mesh.userData.bye){
+                  아래층=cubes[i];
+                  아래=i
+                  break;
                 }
-              }else{
-                console.log("hi1")
-                아래층=cubes[itemidx-1];
-                아래=itemidx-1
               }
+              if(아래==0){
+                취소=true;
+                console.log("안돼")
+              }
+
+
+
+
               tctime=elapsedTime
 
               if(itemr){
@@ -12565,7 +12708,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   }else if(pung){
                     뻥++;
                     if(superflag){
-                      뻥+=7;
+                      뻥+=4;
                       superflag=false
                     }
                   }else if(ice){
@@ -12622,8 +12765,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                    ice=false
                    pin=false
                    bridge=false
-                   itemr=false;
-                   iteml=false;
+                   // itemr=false;
+                   // iteml=false;
                    itemdrag=false
                    superflag=false;
                    ontouch = false;
@@ -12785,7 +12928,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   }else if(pung){
                     뻥++;
                     if(superflag){
-                      뻥+=7;
+                      뻥+=4;
                       superflag=false
                     }
                   }else if(ice){
@@ -12841,8 +12984,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                    ice=false
                    pin=false
                    bridge=false
-                   itemr=false;
-                   iteml=false;
+                   // itemr=false;
+                   // iteml=false;
                    itemdrag=false
                    superflag=false;
                    ontouch = false;
@@ -13017,8 +13160,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
            pin=false
            bridge=false
            superflag=false;
-           itemr=false;
-           iteml=false;
+           // itemr=false;
+           // iteml=false;
            itemdrag=false
            setTimeout(function() {
              // cubes.forEach((item, i) => {
@@ -13065,7 +13208,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           }else if(pung){
             뻥++;
             if(superflag){
-              뻥+=7;
+              뻥+=4;
               superflag=false
             }
           }else if(ice){
@@ -13122,8 +13265,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
            pin=false
            superflag=false;
            bridge=false
-           itemr=false;
-           iteml=false;
+           // itemr=false;
+           // iteml=false;
            itemdrag=false
 
         }
@@ -14108,7 +14251,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           cubes[i].body.material.friction = 마찰[2];
           cubes[i].body.material.restitution = 탄성[2];
         }
-        stack=3;
+        stack=1;
         forceAmount = 10*bw * bw * bh / 10;
         groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
         world.gravity.set(0, 0, 0);
@@ -14513,6 +14656,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       document.getElementById('bridge').children[1].innerText=String(다리)
 
       document.getElementById('shammer').style.left="-40vmin"
+      document.getElementById('spung').style.left="-40vmin"
 
 
       legs=[];
@@ -14598,6 +14742,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       판.length=4;
       icelst=[];
       아이스취소=false
+      pungtime=false;
 
 
       resetting(stack, function(object) { //재시작
@@ -14640,6 +14785,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   item.mesh.userData.pin=false;
                   item.mesh.userData.ice=false;
                   item.mesh.userData.bye=false;
+                  item.mesh.userData.gone=false;
                   item.mesh.userData.combo=콤보;
                   item.mesh.userData.constraint=[];
                   // item.body.fixedRotation=true;
@@ -21944,6 +22090,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                                       cubes[cubes.length-1].mesh.userData.constraint=[];
                                       cubes[cubes.length-1].mesh.userData.ice=false;
                                       cubes[cubes.length-1].mesh.userData.bye=false;
+                                      cubes[cubes.length-1].mesh.userData.gone=false;
                                       cubes[cubes.length-1].mesh.userData.game2048.spawnTile();
                                       // cubes[activeFloor+1].mesh.userData.game2048.spawn(cubes[activeFloor].mesh.userData.game2048, item.c, item.d, index);
 
@@ -24484,7 +24631,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
           }else if(hammer){
             if(superflag){
-              stepmold[4].scale.set(1.3*0.8*3.57 / 2,1.3*0.8*3.57 / 2,1.3*0.8*3.57 / 2)
+              stepmold[4].scale.set(1.6*0.8*3.57 / 2,1.6*0.8*3.57 / 2,1.6*0.8*3.57 / 2)
             }else{
               stepmold[4].scale.set(1*0.8*3.57 / 2,1*0.8*3.57 / 2,1*0.8*3.57 / 2)
             }
@@ -24610,22 +24757,47 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
             }
 
           }else if(pung){
+            var 아래층=cubes[itemidx-1];
+            var 아래=0
+            var 취소=false
+
+
+
             if(superflag){
-              stepmold[3].scale.x=1.8*0.7*3.2 / 2
-              stepmold[3].scale.z=1.8*0.7*3.2 / 2
+              for (let i=itemidx-1; i >3; i--) {
+                if(cubes[i].mesh.userData.ice){
+                  아래=0
+                  취소=true
+                  break;
+                }
+                if(!cubes[i].mesh.userData.bye){
+                  아래층=cubes[i];
+                  아래=i
+                  break;
+                }
+              }
+              if(아래==0){
+                취소=true;
+                console.log("안돼")
+              }
+              stepmold[3].scale.x=2.8*0.7*3.2 / 2
+              stepmold[3].scale.z=2.8*0.7*3.2 / 2
+              stepmold[3].position.y=cubes[itemidx].body.position.y-bh/2
             }else{
               stepmold[3].scale.x=0.7*3.2 / 2
               stepmold[3].scale.z=0.7*3.2 / 2
+              stepmold[3].position.y=cubes[itemidx].body.position.y
             }
             stepmold[3].material.visible=true;
             stepmold[3].children[0].material.visible=true;
             var dur=parseInt(elapsedTime*20)%pshift.length
             stepmold[4].position.y=bh*(cubes.length+15)
-            stepmold[3].position.y=cubes[itemidx].body.position.y
+
             var dur0=parseInt(elapsedTime*20)%36
 
             cubes.forEach((item, i) => {
               if(i==itemidx) return;
+
               if(item.mesh.userData.pin){
                 if(skinnum==skinset.indexOf("classic")){
                   item.mesh.scale.x=핀크기*클크기*item.mesh.userData.combo
@@ -24656,6 +24828,16 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 cubes[itemidx].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
                 cubes[itemidx].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[itemidx].mesh.userData.combo
               }
+              if(superflag){
+                console.log("아래:"+String(아래))
+                if(cubes[아래].mesh.userData.pin){
+                  cubes[아래].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[아래].mesh.userData.combo*핀크기
+                  cubes[아래].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[아래].mesh.userData.combo*핀크기
+                }else{
+                  cubes[아래].mesh.scale.x=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[아래].mesh.userData.combo
+                  cubes[아래].mesh.scale.z=(클크기+(pshift[dur]-1)*0.1*클크기)*cubes[아래].mesh.userData.combo
+                }
+              }
 
             }else{
               if(cubes[itemidx].mesh.userData.pin){
@@ -24664,6 +24846,16 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               }else{
                 cubes[itemidx].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
                 cubes[itemidx].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[itemidx].mesh.userData.combo
+              }
+              if(superflag){
+                console.log("아래:"+String(아래))
+                if(cubes[아래].mesh.userData.pin){
+                  cubes[아래].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[아래].mesh.userData.combo*핀크기
+                  cubes[아래].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[아래].mesh.userData.combo*핀크기
+                }else{
+                  cubes[아래].mesh.scale.x=(1+(pshift[dur]-1)*0.1)*cubes[아래].mesh.userData.combo
+                  cubes[아래].mesh.scale.z=(1+(pshift[dur]-1)*0.1)*cubes[아래].mesh.userData.combo
+                }
               }
 
             }
@@ -24689,6 +24881,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               stepmold[3].position.z=wpos1.z
               stepmold[3].position.x=wpos1.x+((pshift[dur]-1)*3)
               stepmold[3].position.y=wpos1.y
+              if(superflag){
+                // stepmold[3].position.x+=bh/3
+                stepmold[3].position.y-=bh/2
+              }
 
               var wqtn=new THREE.Quaternion();
               cubes[itemidx].mesh.getWorldQuaternion(wqtn);
@@ -24721,6 +24917,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               stepmold[3].position.x=wpos1.x
               stepmold[3].position.y=wpos1.y
 
+              if(superflag){
+                // stepmold[3].position.z+=bh/3
+                stepmold[3].position.y-=bh/2
+              }
               var wqtn=new THREE.Quaternion();
               cubes[itemidx].mesh.getWorldQuaternion(wqtn);
               stepmold[3].quaternion.copy(wqtn);
@@ -24862,8 +25062,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
           if(pung){
             if(superflag){
-              stepmold[3].scale.x=1.8*0.7*3.2 / 2
-              stepmold[3].scale.z=1.8*0.7*3.2 / 2
+              stepmold[3].scale.x=2.8*0.7*3.2 / 2
+              stepmold[3].scale.z=2.8*0.7*3.2 / 2
             }else{
               stepmold[3].scale.x=0.7*3.2 / 2
               stepmold[3].scale.z=0.7*3.2 / 2
@@ -24886,7 +25086,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
           }else if(hammer){
             if(superflag){
-              stepmold[4].scale.set(1.3*0.8*3.57 / 2,1.3*0.8*3.57 / 2,1.3*0.8*3.57 / 2)
+              stepmold[4].scale.set(1.6*0.8*3.57 / 2,1.6*0.8*3.57 / 2,1.6*0.8*3.57 / 2)
             }else{
               stepmold[4].scale.set(1*0.8*3.57 / 2,1*0.8*3.57 / 2,1*0.8*3.57 / 2)
             }
@@ -25112,6 +25312,24 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         document.querySelector(".gameinfo0").children[2].style.display="none"
         // console.log(document.getElementById('pgrs1').style.width)
         if(!overonce){
+
+          document.getElementById('hammer0').style.display="none"
+          document.getElementById('pung0').style.display="none"
+          document.getElementById('ice0').style.display="none"
+          document.getElementById('pin0').style.display="none"
+          document.getElementById('bridge0').style.display="none"
+          document.getElementById('hammer').style.left="-14vmax"
+          document.getElementById('pung').style.left="-14vmax"
+          document.getElementById('ice').style.left="-14vmax"
+          document.getElementById('pin').style.left="-14vmax"
+          document.getElementById('bridge').style.left="-14vmax"
+          document.getElementById('shammer').style.left="-14vmax"
+          document.getElementById('spung').style.left="-14vmax"
+
+
+
+
+
           overonce=true;
           document.getElementById('pgrs2').innerText=""
           if(점수<2000){
@@ -25666,7 +25884,12 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                                 let rand1=parseInt(Math.random()*2);
                                 let trot=parseInt(Math.random()*4);
 
-                                cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-3) * bh+bh*(스킬[2]), temz1, bw, bh, bw, game2048, cubes.length, true, rand1,trot));
+                                var clength=0
+                                for (var i = 4; i < cubes.length; i++) {
+                                  if(cubes[i].mesh.userData["bye"]) clength++
+                                }
+
+                                cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-2-clength) * bh, temz1, bw, bh, bw, game2048, cubes.length, true, rand1,trot));
                                 cubes[activeFloor+1].mesh.quaternion.copy(cubes[activeFloor].mesh.quaternion);
                                 cubes[activeFloor+1].body.quaternion.copy(cubes[activeFloor].body.quaternion);
 
@@ -25679,6 +25902,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                                 cubes[activeFloor+1].mesh.userData.constraint=[];
                                 cubes[activeFloor+1].mesh.userData.ice=false;
                                 cubes[activeFloor+1].mesh.userData.bye=false;
+                                cubes[activeFloor+1].mesh.userData.gone=false;
                                 // cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
                                 cubes[activeFloor+1].mesh.userData.game2048.spawn(cubes[activeFloor].mesh.userData.game2048, item.c, item.d, index);
 
@@ -26202,6 +26426,49 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           팝리스트[3]=true;
         }
       }
+      if(pungtime){
+        if(elapsedTime - itemtime <= 0.4){
+
+          stepmold[3].position.copy(uselst[2])
+          stepmold[3].material.visible=true;
+          stepmold[3].children[0].material.visible=true;
+          if(itemr){
+            stepmold[3].position.x=uselst[2].x+0.9*bh*((elapsedTime - itemtime)/0.4)
+          }else{
+            stepmold[3].position.z=uselst[2].z+0.9*bh*((elapsedTime - itemtime)/0.4)
+          }
+
+          uselst[0].mesh.position.x=uselst[3][0]+(uselst[2].x-uselst[3][0])*((elapsedTime - itemtime)/0.4)
+          uselst[0].mesh.position.y=uselst[3][1]+(uselst[2].y-uselst[3][1])*((elapsedTime - itemtime)/0.4)
+          uselst[0].mesh.position.z=uselst[3][2]+(uselst[2].z-uselst[3][2])*((elapsedTime - itemtime)/0.4)
+
+          uselst[1].mesh.position.x=uselst[4][0]+(uselst[2].x-uselst[4][0])*((elapsedTime - itemtime)/0.4)
+          uselst[1].mesh.position.y=uselst[4][1]+(uselst[2].y-uselst[4][1])*((elapsedTime - itemtime)/0.4)
+          uselst[1].mesh.position.z=uselst[4][2]+(uselst[2].z-uselst[4][2])*((elapsedTime - itemtime)/0.4)
+
+
+
+          uselst[0].mesh.scale.x=uselst[5][0]-uselst[5][0]*((elapsedTime - itemtime)/0.4)
+          uselst[0].mesh.scale.y=uselst[5][1]-uselst[5][1]*((elapsedTime - itemtime)/0.4)
+          uselst[0].mesh.scale.z=uselst[5][2]-uselst[5][2]*((elapsedTime - itemtime)/0.4)
+
+          uselst[1].mesh.scale.x=uselst[6][0]-uselst[6][0]*((elapsedTime - itemtime)/0.4)
+          uselst[1].mesh.scale.y=uselst[6][1]-uselst[6][1]*((elapsedTime - itemtime)/0.4)
+          uselst[1].mesh.scale.z=uselst[6][2]-uselst[6][2]*((elapsedTime - itemtime)/0.4)
+
+
+        }else{
+          console.log(uselst[2])
+          stepmold[3].position.y=bh*(cubes.length+45)
+          pungtime=false;
+
+          scene.remove(uselst[0].mesh)
+          scene.remove(uselst[1].mesh)
+          world.remove(uselst[0].body)
+          world.remove(uselst[1].body)
+          uselst=[];
+        }
+      }
 
       if(itemuse){
         if(elapsedTime - itemtime <= 0.15){
@@ -26381,14 +26648,18 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
           camera.position.y=posy+((elapsedTime - stacktime)/0.35)*bh
+          var clength=0
+          for (var i = 4; i < cubes.length; i++) {
+            if(cubes[i].mesh.userData["bye"]) clength++
+          }
           시간.forEach((item) => {
             if(gamemod==2){
-              item.position.y = (cubes.length-4+스킬[2]) * bh +((elapsedTime - stacktime)/0.35)*bh
+              item.position.y = (cubes.length-3-clength) * bh +((elapsedTime - stacktime)/0.35)*bh
             }
           })
           포인트.forEach((item) => {
             if(gamemod==2){
-              item.position.y = (cubes.length-4+스킬[2]) * bh +((elapsedTime - stacktime)/0.35)*bh
+              item.position.y = (cubes.length-3-clength) * bh +((elapsedTime - stacktime)/0.35)*bh
 
 
             }
@@ -26501,6 +26772,13 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               // item.body.torque.set(0,0,0)
             }
 
+            if(!item.mesh.userData.gone&&item.mesh.userData.bye){
+              item.mesh.userData.gone=true;
+              scene.remove(item.mesh)
+              world.remove(item.body)
+
+            }
+
 
           });
 
@@ -26518,6 +26796,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   }
               }
             }
+
+
             m2flag=false;
 
             m2once=false
@@ -26778,13 +27058,31 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           //   }
           //
           // });
+          var clength=0
+          for (var i = 4; i < cubes.length; i++) {
+            if(cubes[i].mesh.userData["bye"]) clength++
+          }
 
 
-          if(cubes[cubes.length-1].mesh.position.y<(cubes.length-5+스킬[2])*bh/2){
+          if(cubes[cubes.length-1].mesh.position.y<(cubes.length-5-clength)*bh/2){
             aniflag0=false
             curveflag=false
             if(!draw){
               drawon2()
+              if(document.getElementById('hammer0').style.display!="none"){
+                document.getElementById('hammer0').style.display="none"
+                document.getElementById('pung0').style.display="none"
+                document.getElementById('ice0').style.display="none"
+                document.getElementById('pin0').style.display="none"
+                document.getElementById('bridge0').style.display="none"
+                document.getElementById('hammer').style.left="-14vmax"
+                document.getElementById('pung').style.left="-14vmax"
+                document.getElementById('ice').style.left="-14vmax"
+                document.getElementById('pin').style.left="-14vmax"
+                document.getElementById('bridge').style.left="-14vmax"
+                document.getElementById('shammer').style.left="-14vmax"
+                document.getElementById('spung').style.left="-14vmax"
+              }
             }
             보드.forEach((item,i) => {
 
@@ -26879,6 +27177,21 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
             });
 
             if(기록>2){
+              if(document.getElementById('hammer0').style.display!="none"){
+                document.getElementById('hammer0').style.display="none"
+                document.getElementById('pung0').style.display="none"
+                document.getElementById('ice0').style.display="none"
+                document.getElementById('pin0').style.display="none"
+                document.getElementById('bridge0').style.display="none"
+                document.getElementById('hammer').style.left="-14vmax"
+                document.getElementById('pung').style.left="-14vmax"
+                document.getElementById('ice').style.left="-14vmax"
+                document.getElementById('pin').style.left="-14vmax"
+                document.getElementById('bridge').style.left="-14vmax"
+                document.getElementById('shammer').style.left="-14vmax"
+                document.getElementById('spung').style.left="-14vmax"
+              }
+
               aniflag0=false
               curveflag=false
 
@@ -27596,7 +27909,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                         // );
                         if(gamemod==2&&!m2flag&&!gameoverflag) {
 
-                          camera.position.y= (30+스킬[2])*(bh * ((cubes.length)*0.5+3))
+                          camera.position.y= (30+스킬[2])*(bh * ((cubes.length)*0.5+30))
                         }
 
 
@@ -28211,10 +28524,12 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           }
 
 
-        for (var i = 0; i < cubes.length; i++) {
+        for (var i = 0; i < cubes.length; i++) { //추적
+          if(cubes[i].mesh.userData["gone"]) continue;
           for (var j = 0; j < cubes[i].mesh.children.length; j++) {
             cubes[i].mesh.material.receiveShadow = false;
             cubes[i].mesh.material.castShadow = false;
+
 
             if(skinset[skinnum]=="classic"){//클
               if(gamemod!=2){
@@ -28515,22 +28830,30 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           //     renderer.setScissorTest(true);
           //     renderer.render(scene, camera);
           // }
+          var clength=0
+          // for (var i = 4; i < cubes.length; i++) {
+          //   if(cubes[i].mesh.userData["bye"]) clength++
+          // }
+          // console.log(clength)
           if(fullcam){
             if(gamemod==2){
               // console.log("a1")
               // if(!m2flag) camera.position.y= (4+스킬[2])*(bh * ((cubes.length)*0.5+4))+(-isoAngle - camera.rotation.x)*30
+
+
               if(!m2flag){//카메라
                 // console.log("a2")
                 if(startflag){
-                  // console.log("a2")
-                  camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
+                  console.log("a1")
+                  camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
                 }else{
-                  // console.log("a3")
-                  camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
+                  console.log("a2")
+                  camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
                 }
 
               }
             }else{
+              console.log("a3")
               camera.position.y=(4+스킬[2])*(bh * (5 + 3))+(-isoAngle - camera.rotation.x)*30
             }
 
@@ -28543,23 +28866,24 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
                   if(gameoverflag){
                     if(skinset[skinnum]=="classic"){//클
-                        console.log("a2")
-                      camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
+                        console.log("a5")
+                      camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
                       // camera.position.y=10
                     }else{
-                        console.log("a5")
-                        camera.position.y=2*(bh * ((cubes.length-11.2)*0.5+9+스킬[2]))
+                        console.log("a6")
+                        camera.position.y=2*(bh * ((cubes.length-11.2-clength)*0.5+9+스킬[2]))
                       // camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
                     }
                   }else{
-                    camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
+                    console.log("a7")
+                    camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
 
                   }
 
 
                 }else{
-                  console.log("a3")
-                  camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
+                  console.log("a8")
+                  camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
                 }
 
               }else{
@@ -28587,10 +28911,14 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           }
           var temptxt;
           if (averageflag) {
+            var clength=0
+            for (var i = 4; i < cubes.length; i++) {
+              if(cubes[i].mesh.userData["bye"]) clength++
+            }
               포인트.forEach((item) => {
                   item.position.x = avx - bw / 1.5;
                   if(gamemod==2){
-                    item.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
+                    item.position.y = (cubes.length-2-clength) * bh - th * 0
                       temptxt="+:"+String(stacknum[cubes.length-1])
                       if(!m2flag){
 
@@ -28685,9 +29013,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
               })
 
+
               시간.forEach((item) => {
                 if(gamemod==2){
-                  item.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
+                  item.position.y = (cubes.length-2-clength) * bh - th * 0
                   item.position.x = avx - bw / 6;
                   item.position.z = avz - bw / 1.5;
                   if(elapsedTime - mergetime <=0.3){
@@ -28986,7 +29315,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               createTextMesh(temptxt.toString(), 9991, (textMesh) => {
 
 
-                textMesh.position.y = cubes.length * bh - th * 0
+                textMesh.position.y = (cubes.length-1-clength) * bh - th * 0
                 if (temptxt.toString().length >= 4) {
                     textMesh.position.z = 1+avz - bw /(3.1+(temptxt.toString().length-4)*0.3);
                 } else if (temptxt.toString().length == 3) {
@@ -28999,7 +29328,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               // createTextMesh(timestring, 998, (textMesh) => {
 
 
-              textMesh.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
+              textMesh.position.y = (cubes.length-2-clength) * bh - th * 0
               textMesh.position.x = avx - bw / 6;
               textMesh.position.z = avz - bw / 1.5;
                   //
@@ -29875,8 +30204,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         }
 
 
-
-        cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-3) * bh+bh*(스킬[2]), temz1, bw, bh, bw, game2048, cubes.length, true));
+        var clength=0
+        for (var i = 4; i < cubes.length; i++) {
+          if(cubes[i].mesh.userData["bye"]) clength++
+        }
+        cubes.push(newbox(cubes[cubes.length-1].mesh.position.x,  (cubes.length-2-clength) * bh, temz1, bw, bh, bw, game2048, cubes.length, true));
         cubes[activeFloor+1].mesh.quaternion.copy(cubes[activeFloor].mesh.quaternion);
         cubes[activeFloor+1].body.quaternion.copy(cubes[activeFloor].body.quaternion);
 
@@ -29890,6 +30222,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         cubes[activeFloor+1].mesh.userData.constraint=[];
         cubes[activeFloor+1].mesh.userData.ice=false;
         cubes[activeFloor+1].mesh.userData.bye=false;
+        cubes[activeFloor+1].mesh.userData.gone=false;
         cubes[activeFloor+1].mesh.userData.game2048.spawnTile();
         // cubes[activeFloor+1].mesh.userData.game2048.spawn(cubes[activeFloor].mesh.userData.game2048, item.c, item.d, index);
 
@@ -29998,7 +30331,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
   function getitem(n=0){
     if(n==0){
       n=1+parseInt(Math.random()*10)
-      var bag=[1,1,1,1,1,4,4,4,4,4,7,8,8]
+      var bag=[1,1,1,1,1,4,4,4,4,4,7,8,8,9,9]
       bag.sort(() => Math.random() - 0.5);
       n=bag[0];
     }
@@ -30012,6 +30345,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         document.getElementById('pung').style.left=itemleft
       }
       뻥++;
+
+      if(뻥>=5){
+        document.getElementById('spung').style.left=sitemleft
+
+      }
 
       document.getElementById('pung').children[1].innerText=String(뻥)
 
@@ -30045,7 +30383,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       해머++;
 
       if(해머>=8){
-        document.getElementById('shammer').style.left="-7vmin"
+        document.getElementById('shammer').style.left=sitemleft
 
       }
 
@@ -35968,7 +36306,34 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           }
         break;
       case 3:
+          if(뻥>4){
+            tctime=elapsedTime
+            pung=true;
+            ice=false;
+            hammer=false;
+            itemflag=true;
+            pin=false;
+            bridge=false;
 
+            if(soundic[esound[5]].isPlaying){
+              soundic[esound[5]].stop();
+            }
+            뻥-=5;
+            superflag=true;
+            soundic[esound[5]].play();
+            document.getElementById('hammer').children[1].innerText=String(해머)
+            document.getElementById('pung').children[1].innerText=String(뻥)
+            document.getElementById('ice').children[1].innerText=String(얼음)
+            document.getElementById('pin').children[1].innerText=String(핀)
+            document.getElementById('bridge').children[1].innerText=String(다리)
+            if(topcam){
+              draw=true;
+              drawcount=elapsedTime;
+            }
+
+          }else{
+            return;
+          }
         break;
       case 4:
           if(얼음>0){
