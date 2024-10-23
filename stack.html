@@ -2052,7 +2052,7 @@
         }
 
         #pgrs3 img{
-          transform: translate(0, -10vmin);
+          transform: translate(0, -11vmin);
           width: 4vmin;
         }
 
@@ -3479,14 +3479,14 @@
                   </span>
                   <span>
                     <div>1000</div>
-                    <img src="png/staple.png">
+                    <img src="png/hammer.png">
                   </span>
                   <span>
                     <div>1500</div>
                   </span>
                   <span>
                     <div>2000</div>
-                    <img src="png/staple.png">
+                    <img src="png/pung.png">
                   </span>
                 </div>
                 <span class="pgr-count" id="pgrs2">3/10</span>
@@ -14876,12 +14876,12 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
       document.querySelector("#pgrs3").children[2].children[1].style.color="white"
-      document.querySelector("#pgrs3").children[2].children[1].style.backgroundColor="rgba(80, 180, 80, 0.3)"
+      document.querySelector("#pgrs3").children[2].children[1].style.backgroundColor="rgba(180, 180, 180, 0.8)"
       document.querySelector("#pgrs3").children[2].children[1].style.borderRadius="1vmin"
       document.querySelector("#pgrs3").children[2].children[1].style.pading="1vmin 1vmin"
 
       document.querySelector("#pgrs3").children[4].children[1].style.color="white"
-      document.querySelector("#pgrs3").children[4].children[1].style.backgroundColor="rgba(80, 180, 80, 0.3)"
+      document.querySelector("#pgrs3").children[4].children[1].style.backgroundColor="rgba(180, 180, 180, 0.8)"
       document.querySelector("#pgrs3").children[4].children[1].style.borderRadius="1vmin"
       document.querySelector("#pgrs3").children[4].children[1].style.pading="1vmin 1vmin"
 
@@ -14893,7 +14893,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       pungtime=false;
       document.querySelector("#spung > div").innerText="COST:"+String(supercost[0])
       document.querySelector("#shammer > div").innerText="COST:"+String(supercost[1])
-      var itemorder=["pung", "hammer", "ice", "pin", "bridge"]
+      var itemorder=["hammer", "pung", "ice", "pin", "bridge"]
       for (var i = 0; i < 5; i++) {
         document.querySelector("#"+itemorder[i]).style.top=String(4+11*i)+"vh"
         if(i<2){
@@ -14909,6 +14909,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
       document.getElementById('pgr1').style.backgroundColor="green"
 
+      document.getElementById("pgrs3").children[2].children[1].src = "png/pung.png"
+      document.getElementById("pgrs3").children[4].children[1].src = "png/hammer.png"
 
 
       resetting(stack, function(object) { //재시작
@@ -23077,56 +23079,57 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
 
+
             if(스킬[0]-1==1){
-              getitem(9)
+              getitem(1)
             }else if(스킬[0]-1==2){
-              getitem(9)
+              getitem(1)
               setTimeout(function() {
-                  getitem(9)
+                  getitem(4)
               }, 100);
             }else if(스킬[0]-1==3){
-              getitem(9)
+              getitem(1)
               setTimeout(function() {
-                  getitem(9)
+                  getitem(4)
                   setTimeout(function() {
                       getitem(9)
                   }, 100);
               }, 100);
             }else if(스킬[0]-1==4){
-              getitem(9)
+              getitem(1)
               setTimeout(function() {
-                  getitem(9)
+                  getitem(4)
                   setTimeout(function() {
                       getitem(9)
                       setTimeout(function() {
-                          getitem(9)
+                          getitem(8)
                       }, 100);
                   }, 100);
               }, 100);
             }else if(스킬[0]-1==5){
-              getitem(9)
+              getitem(1)
               setTimeout(function() {
-                  getitem(9)
+                  getitem(4)
                   setTimeout(function() {
                       getitem(9)
                       setTimeout(function() {
-                          getitem(9)
+                          getitem(8)
                           setTimeout(function() {
-                              getitem(9)
+                              getitem(7)
                           }, 100);
                       }, 100);
                   }, 100);
               }, 100);
             }else if(스킬[0]-1==6){
-              getitem(9)
+              getitem(1)
               setTimeout(function() {
-                  getitem(9)
+                  getitem(4)
                   setTimeout(function() {
                       getitem(9)
                       setTimeout(function() {
-                          getitem(9)
+                          getitem(8)
                           setTimeout(function() {
-                              getitem(9)
+                              getitem(7)
                               setTimeout(function() {
                                   getitem(9)
                               }, 100);
@@ -23135,19 +23138,19 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   }, 100);
               }, 100);
             }else if(스킬[0]-1>=7){
-              getitem(9)
+              getitem(1)
               setTimeout(function() {
-                  getitem(9)
+                  getitem(4)
                   setTimeout(function() {
                       getitem(9)
                       setTimeout(function() {
-                          getitem(9)
+                          getitem(8)
                           setTimeout(function() {
-                              getitem(9)
+                              getitem(7)
                               setTimeout(function() {
                                   getitem(9)
                                   setTimeout(function() {
-                                      getitem(9)
+                                      getitem(8)
                                   }, 100);
                               }, 100);
                           }, 100);
@@ -25569,6 +25572,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
           overonce=true;
+          document.getElementById("pgrs3").children[4].children[1].src = "png/hammer.png"
 
           if(true){
             document.getElementById('pgrs2').innerText=""
@@ -25580,8 +25584,13 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 document.querySelector("#pgrs3").children[j].children[0].style.color="black"
                 document.querySelector("#pgrs3").children[j].style.backgroundColor="black"
               }
+
+              document.getElementById("pgrs3").children[2].children[1].src = "png/pung.png"
+
+
               document.getElementById('pgrs1').style.width=String(parseInt(100*((2000)/(2000))))+"%";
               setTimeout(function() {
+
                 document.getElementById('pgrs1').style.width=String(parseInt(100*((0)/(2000))))+"%";
 
 
@@ -25593,10 +25602,12 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
                 document.querySelector(".gameinfo0").children[2].innerText+="🎫"
                 for (let i = 1; i < 5; i++) {
+
                   if(점수-2000*i>2000){
 
                     var settime0=1000+(i-1)*1
                     if(i==1){
+
                       settime0=1000
                     }else if(i==2){
                       settime0=3000
@@ -25606,6 +25617,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       settime0=7000
                     }
                     setTimeout(function() {
+
+
+
+
+
                       document.querySelector("#pgrs3").children[0].children[0].innerText=String(2000*i)
                       document.querySelector("#pgrs3").children[1].children[0].innerText=String(2000*i+500)
                       document.querySelector("#pgrs3").children[2].children[0].innerText=String(2000*i+1000)
@@ -25616,14 +25632,31 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
                       document.querySelector("#pgrs3").children[2].children[1].style.color="white"
-                      document.querySelector("#pgrs3").children[2].children[1].style.backgroundColor="rgba(80, 180, 80, 0.3)"
+                      document.querySelector("#pgrs3").children[2].children[1].style.backgroundColor="rgba(180, 180, 180, 0.8)"
                       document.querySelector("#pgrs3").children[4].children[1].style.color="white"
-                      document.querySelector("#pgrs3").children[4].children[1].style.backgroundColor="rgba(80, 180, 80, 0.3)"
+                      document.querySelector("#pgrs3").children[4].children[1].style.backgroundColor="rgba(180, 180, 180, 0.8)"
 
                       console.log(String(i)+"헐헐헐헐"+String(1000+(i-1)*1)+"헐헐헐헐")
                       for (let j = 0; j < 5; j++) {
                         document.querySelector("#pgrs3").children[j].children[0].style.color="black"
                         document.querySelector("#pgrs3").children[j].style.backgroundColor="black"
+                      }
+
+                      if(i==1){
+                        document.getElementById("pgrs3").children[2].children[1].src = "png/pung.png"
+                        document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
+                      }else if(i==2){
+                        document.getElementById("pgrs3").children[2].children[1].src = "png/pin.png"
+                        document.getElementById("pgrs3").children[4].children[1].src = "png/freeze.png"
+                      }else if(i==3){
+                        document.getElementById("pgrs3").children[2].children[1].src = "png/staple.png"
+                        document.getElementById("pgrs3").children[4].children[1].src = "png/pin.png"
+                      }else if(i==4){
+                        document.getElementById("pgrs3").children[2].children[1].src = "png/freeze.png"
+                        document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
+                      }else if(i==5){
+                        document.getElementById("pgrs3").children[2].children[1].src = "png/pin.png"
+                        document.getElementById("pgrs3").children[4].children[1].src = "png/freeze.png"
                       }
                       document.getElementById('pgrs1').style.width=String(parseInt(100*((2000)/(2000))))+"%";
                       if(i>=1){
@@ -25669,9 +25702,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                         document.querySelector("#pgrs3").children[2].children[0].innerText=String(2000*i+1000)
 
                         document.querySelector("#pgrs3").children[2].children[1].style.color="white"
-                        document.querySelector("#pgrs3").children[2].children[1].style.backgroundColor="rgba(80, 180, 80, 0.3)"
+                        document.querySelector("#pgrs3").children[2].children[1].style.backgroundColor="rgba(180, 180, 180, 0.8)"
                         document.querySelector("#pgrs3").children[4].children[1].style.color="white"
-                        document.querySelector("#pgrs3").children[4].children[1].style.backgroundColor="rgba(80, 180, 80, 0.3)"
+                        document.querySelector("#pgrs3").children[4].children[1].style.backgroundColor="rgba(180, 180, 180, 0.8)"
                         if(i>=1){
                           document.querySelector("#pgrs3").children[2].children[1].style.display=""
                         }
@@ -25683,6 +25716,24 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                           document.querySelector("#pgrs3").children[j].children[0].style.color="black"
                           document.querySelector("#pgrs3").children[j].style.backgroundColor="black"
                         }
+
+                        if(i==1){
+                          document.getElementById("pgrs3").children[2].children[1].src = "png/pung.png"
+                          document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
+                        }else if(i==2){
+                          document.getElementById("pgrs3").children[2].children[1].src = "png/pin.png"
+                          document.getElementById("pgrs3").children[4].children[1].src = "png/freeze.png"
+                        }else if(i==3){
+                          document.getElementById("pgrs3").children[2].children[1].src = "png/staple.png"
+                          document.getElementById("pgrs3").children[4].children[1].src = "png/pin.png"
+                        }else if(i==4){
+                          document.getElementById("pgrs3").children[2].children[1].src = "png/freeze.png"
+                          document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
+                        }else if(i==5){
+                          document.getElementById("pgrs3").children[2].children[1].src = "png/pin.png"
+                          document.getElementById("pgrs3").children[4].children[1].src = "png/freeze.png"
+                        }
+
                         document.getElementById('pgrs1').style.width=String(parseInt(100*((점수-2000*i)/(2000))))+"%";
                         console.log(String(i)+"얍얍얍얍얍"+String(1000+2000*(i-1))+"얍얍얍얍얍얍"+String(점수-2000*i))
                         if(i>=1&&(점수-2000*i)>=1000){
@@ -27586,7 +27637,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   var 이전점수1=String(이전점수)
                   점수+=(cubes.length-4)*multiply
 
-                  // 점수=1000;
+                  // 점수=5000;
                   temp1[0].children[0].style.fontSize="8vmin"
                   temp1[0].children[0].style.fontfamily= 'GG';
                   temp1[0].children[0].innerText=String(이전점수)+" + "+String((cubes.length-4)*multiply)+" = "+String(getNotRoundDecimalNumber(점수,0))
