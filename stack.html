@@ -25483,23 +25483,24 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
 
-          var inputData = [점수, cubes.length-4, parseInt(elapsedTime), 사용횟수]
 
-           fetch('http://121.162.140.50:4848/submit', {
-               method: 'POST',
-               mode: 'no-cors',
-               headers: {
-                   'Content-Type': 'application/json',
-               },
-               body: JSON.stringify({ data: inputData }),
+           var params=String(점수)+"||"+String(cubes.length-4)+"||"+String(parseInt(elapsedTime))+"||"+String(사용횟수)
+           fetch(`http://121.162.140.50:4848/submit?${params.toString()}`, {
+               method: 'GET',
+               mode: 'no-cors' // no-cors 모드 설정
            })
-           .then(response => response.text())
-           .then(data => {
-               // alert('서버 응답: ' + data);
+           .then(() => {
+               // no-cors 모드에서는 응답 객체에 접근할 수 없기 때문에 단순히 요청 성공 여부만 표시합니다.
+               console.log('GET 요청이 전송되었습니다.');
+               // alert('GET 요청이 전송되었습니다.');
            })
            .catch((error) => {
-               // console.error('오류 발생:', error);
+               console.error('오류 발생:', error);
+               // alert('GET 요청 전송 중 오류가 발생했습니다.');
            });
+
+
+
 
 
 
