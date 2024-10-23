@@ -1399,7 +1399,7 @@
             display: inline-flex;
             z-index: 2;
             /* flex-direction: column; */
-            background-color: rgba(50, 50, 50, 0.2);
+            background-color: rgba(200, 200, 200, 0.7);
             border-radius: 4vmin;
             border: 0px solid #000;
             width: 90vmin;
@@ -1466,11 +1466,11 @@
             display: flex;
             z-index: 2;
             flex-direction: column;
-            background-color: rgba(50, 50, 50, 0.5);
+            background-color: rgba(200, 200, 200, 0.7);
             border-radius: 4vmin;
             border: 0px solid #000;
             width: 90vmin;
-            height: 19vmin;
+            height: 35vmin;
             justify-content: center;
             align-items: left;
             margin-bottom: 3vmin;
@@ -2043,24 +2043,43 @@
             margin: 4vmin 0;
         }
         #pgrs3 {
-
           font-size: 3vmin;
           text-align: center;
-          width: 80vmin;
+          width: 80%;
           display: flex;
           flex-direction: row;
           text-align: center;
         }
 
         #pgrs3 img{
+          transform: translate(0, -10vmin);
           width: 4vmin;
         }
 
+        #pgrs3 div{
+          transform: translate(0, 5vmin);
+          color:black;
+          // padding:1%;
+          // // background-color: rgba(150, 180, 200, 0.3);
+          // margin-right: 12.5vmin;
+          // position: relative;
+        }
+
         #pgrs3 span{
-          padding:1%;
-          // background-color: rgba(150, 180, 200, 0.3);
-          margin-right: 12.5vmin;
+          display: flex;
+          flex-direction: column;
+          top:24%;
+          width: 0.5vmin;
+          height: 5vmin;
+          background-color: #444;
+          // padding:1%;
+          // // background-color: rgba(150, 180, 200, 0.3);
+          // margin-right: 12.5vmin;
           position: absolute;
+          text-align: center;
+          // justify-content: center;
+          align-items: center;
+          // position: relative;
         }
 
         .pgrs {
@@ -2103,7 +2122,7 @@
         }
 
         .pgr {
-
+            margin-top:7%;
             /*display: none;*/
             background-color: #f3f3f3;
             border: 0.5vmin solid #ccc;
@@ -13540,7 +13559,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       // if(inflag) return;
       if (event.code === 'KeyW') {
         let force2 = new CANNON.Vec3();
-        force2.set(0,0,-500);
+        force2.set(0,0,-5000);
         let quaternion = new CANNON.Quaternion();
         quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI*(180)/180);
         let rotatedVec = force2.clone();
@@ -14775,8 +14794,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
       document.querySelector(".pgr").style.borderColor=hexToHtmlColor(colorlst[colornum][2]);
       document.querySelector(".pgr").style.backgroundColor=hexToHtmlColor(colorlst[colornum][2]);
-      document.getElementById('pgr1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][0]);
-      document.getElementById('pgr2').style.color=hexToHtmlColor(colorlst[colornum][2]);
+      // document.getElementById('pgr1').style.backgroundColor=hexToHtmlColor(colorlst[colornum][2]);
+      document.getElementById('pgr1').style.backgroundColor="green"
+      document.getElementById('pgr2').style.color=hexToHtmlColor(colorlst[colornum][0]);
 
 
       document.getElementById('hammer').children[1].innerText=String(해머)
@@ -14822,7 +14842,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       document.getElementById('pgrs1').style.width=String(parseInt(100*((0)/(5000))))+"%";
       document.getElementById('pgrs2').innerText=String(0)+"/"+String(5000)
 
-      document.getElementById('pgrs1').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][1]);
+      // document.getElementById('pgrs1').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0]);
+      document.getElementById('pgrs1').style.backgroundColor="green"
       document.getElementById('pgrs2').style.color=hexToHtmlColor(colorlst0[colornum0][3]);
 
       console.log(sdic)
@@ -14846,26 +14867,23 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       document.querySelector(".gameinfo0").children[2].innerText=""
 
 
-      document.querySelector("#pgrs3").children[0].innerText="0"
-      document.querySelector("#pgrs3").children[1].innerText="500"
+      document.querySelector("#pgrs3").children[0].children[0].innerText="0"
+      document.querySelector("#pgrs3").children[1].children[0].innerText="500"
       document.querySelector("#pgrs3").children[2].children[0].innerText="1000"
       document.querySelector("#pgrs3").children[2].children[1].style.display="none"
-      document.querySelector("#pgrs3").children[3].innerText="1500"
+      document.querySelector("#pgrs3").children[3].children[0].innerText="1500"
       document.querySelector("#pgrs3").children[4].children[0].innerText="2000"
 
-      document.querySelector("#pgrs3").children[0].style.left="5vmin"
-      document.querySelector("#pgrs3").children[1].style.left="23.75vmin"
-      document.querySelector("#pgrs3").children[2].style.left="42.5vmin"
-      document.querySelector("#pgrs3").children[3].style.left="61.25vmin"
-      document.querySelector("#pgrs3").children[4].style.left="80vmin"
 
-      document.querySelector("#pgrs3").children[2].style.color="white"
-      document.querySelector("#pgrs3").children[2].style.backgroundColor="rgba(130, 180, 80, 0)"
-      document.querySelector("#pgrs3").children[2].style.borderRadius="2vmin"
+      document.querySelector("#pgrs3").children[2].children[1].style.color="white"
+      document.querySelector("#pgrs3").children[2].children[1].style.backgroundColor="rgba(80, 180, 80, 0.3)"
+      document.querySelector("#pgrs3").children[2].children[1].style.borderRadius="1vmin"
+      document.querySelector("#pgrs3").children[2].children[1].style.pading="1vmin 1vmin"
 
-      document.querySelector("#pgrs3").children[4].style.color="white"
-      document.querySelector("#pgrs3").children[4].style.backgroundColor="rgba(130, 180, 80, 0)"
-      document.querySelector("#pgrs3").children[4].style.borderRadius="2vmin"
+      document.querySelector("#pgrs3").children[4].children[1].style.color="white"
+      document.querySelector("#pgrs3").children[4].children[1].style.backgroundColor="rgba(80, 180, 80, 0.3)"
+      document.querySelector("#pgrs3").children[4].children[1].style.borderRadius="1vmin"
+      document.querySelector("#pgrs3").children[4].children[1].style.pading="1vmin 1vmin"
 
       document.querySelector("#center").style.display="none"
 
@@ -14883,6 +14901,14 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         }
       }
       사용횟수=0
+      document.querySelector("#pgrs3").length=5;
+      for (var i = 0; i < document.querySelector("#pgrs3").length; i++) {
+        document.querySelector("#pgrs3").children[i].style.left=String(7+(106/5)*i)+"%"
+        document.querySelector("#pgrs3").children[i].children[0].style.color="black"
+      }
+
+      document.getElementById('pgr1').style.backgroundColor="green"
+
 
 
       resetting(stack, function(object) { //재시작
@@ -25462,6 +25488,42 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
       var txtcount = parseInt(elapsedTime * 20) % 100
       if(gameoverflag){//겜오바
+        // console.log(-0.5+document.querySelector("#pgrs1").getBoundingClientRect().right/window.innerWidth)
+        var barx=-0.5+document.querySelector("#pgrs1").getBoundingClientRect().right/window.innerWidth
+        console.log(barx)
+        if(barx>=0.39){
+          console.log("80%")
+          if(document.querySelector("#pgrs3").children[4].children[0].style.color=="black"){
+            document.querySelector("#pgrs3").children[4].children[0].style.color="red"
+            document.querySelector("#pgrs3").children[4].style.backgroundColor="red"
+          }
+        }else if(barx>=0.197){
+          console.log("60%")
+          if(document.querySelector("#pgrs3").children[3].children[0].style.color=="black"){
+            document.querySelector("#pgrs3").children[3].children[0].style.color="red"
+            document.querySelector("#pgrs3").children[3].style.backgroundColor="red"
+          }
+        }else if(barx>=-0.001){
+          console.log("40%")
+          if(document.querySelector("#pgrs3").children[2].children[0].style.color=="black"){
+            document.querySelector("#pgrs3").children[2].children[0].style.color="red"
+            document.querySelector("#pgrs3").children[2].style.backgroundColor="red"
+          }
+        }else if(barx>=-0.1985){
+          console.log("20%")
+          if(document.querySelector("#pgrs3").children[1].children[0].style.color=="black"){
+            document.querySelector("#pgrs3").children[1].children[0].style.color="red"
+            document.querySelector("#pgrs3").children[1].style.backgroundColor="red"
+          }
+        }else if(barx>=-0.4){
+          console.log("0%")
+          if(document.querySelector("#pgrs3").children[0].children[0].style.color=="black"){
+            document.querySelector("#pgrs3").children[0].children[0].style.color="red"
+            document.querySelector("#pgrs3").children[0].style.backgroundColor="red"
+          }
+        }
+
+
         document.querySelector(".gameinfo0").children[2].style.display="none"
         // console.log(document.getElementById('pgrs1').style.width)
         if(!overonce){
@@ -25483,21 +25545,21 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
 
-
-           var params=String(점수)+"||"+String(cubes.length-4)+"||"+String(parseInt(elapsedTime))+"||"+String(사용횟수)
-           fetch(`http://121.162.140.50:4848/submit?${params.toString()}`, {
-               method: 'GET',
-               mode: 'no-cors' // no-cors 모드 설정
-           })
-           .then(() => {
-               // no-cors 모드에서는 응답 객체에 접근할 수 없기 때문에 단순히 요청 성공 여부만 표시합니다.
-               console.log('GET 요청이 전송되었습니다.');
-               // alert('GET 요청이 전송되었습니다.');
-           })
-           .catch((error) => {
-               console.error('오류 발생:', error);
-               // alert('GET 요청 전송 중 오류가 발생했습니다.');
-           });
+           //
+           // var params=String(점수)+"||"+String(cubes.length-4)+"||"+String(parseInt(elapsedTime))+"||"+String(사용횟수)
+           // fetch(`http://121.162.140.50:4848/submit?${params.toString()}`, {
+           //     method: 'GET',
+           //     mode: 'no-cors' // no-cors 모드 설정
+           // })
+           // .then(() => {
+           //     // no-cors 모드에서는 응답 객체에 접근할 수 없기 때문에 단순히 요청 성공 여부만 표시합니다.
+           //     console.log('GET 요청이 전송되었습니다.');
+           //     // alert('GET 요청이 전송되었습니다.');
+           // })
+           // .catch((error) => {
+           //     console.error('오류 발생:', error);
+           //     // alert('GET 요청 전송 중 오류가 발생했습니다.');
+           // });
 
 
 
@@ -25505,132 +25567,151 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
           overonce=true;
-          document.getElementById('pgrs2').innerText=""
-          if(점수<2000){
-            document.getElementById('pgrs1').style.width=String(parseInt(100*((점수)/(2000))))+"%";
-          }else{
-            document.getElementById('pgrs1').style.width=String(parseInt(100*((2000)/(2000))))+"%";
-            setTimeout(function() {
-              document.getElementById('pgrs1').style.width=String(parseInt(100*((0)/(2000))))+"%";
-              soundic[esound[10]].play();
-              document.querySelector("#pgrs3").children[4].style.color="red"
-              document.querySelector("#pgrs3").children[4].style.backgroundColor="rgba(130, 180, 80, 0.8)"
+
+          if(true){
+            document.getElementById('pgrs2').innerText=""
+            if(점수<2000){
+
+              document.getElementById('pgrs1').style.width=String(parseInt(100*((점수)/(2000))))+"%";
+            }else{
+              for (let j = 0; j < 5; j++) {
+                document.querySelector("#pgrs3").children[j].children[0].style.color="black"
+                document.querySelector("#pgrs3").children[j].style.backgroundColor="black"
+              }
+              document.getElementById('pgrs1').style.width=String(parseInt(100*((2000)/(2000))))+"%";
+              setTimeout(function() {
+                document.getElementById('pgrs1').style.width=String(parseInt(100*((0)/(2000))))+"%";
+
+
+                soundic[esound[10]].play();
+                document.querySelector("#pgrs3").children[4].children[1].style.color="red"
+                document.querySelector("#pgrs3").children[4].children[1].style.backgroundColor="rgba(80, 180, 80, 0.8)"
 
 
 
-              document.querySelector(".gameinfo0").children[2].innerText+="🎫"
-              for (let i = 1; i < 5; i++) {
-                if(점수-2000*i>2000){
+                document.querySelector(".gameinfo0").children[2].innerText+="🎫"
+                for (let i = 1; i < 5; i++) {
+                  if(점수-2000*i>2000){
 
-                  var settime0=1000+(i-1)*1
-                  if(i==1){
-                    settime0=1000
-                  }else if(i==2){
-                    settime0=3000
-                  }else if(i==3){
-                    settime0=5000
-                  }else if(i==4){
-                    settime0=7000
-                  }
-                  setTimeout(function() {
-                    document.querySelector("#pgrs3").children[0].innerText=String(2000*i)
-                    document.querySelector("#pgrs3").children[1].innerText=String(2000*i+500)
-                    document.querySelector("#pgrs3").children[2].children[0].innerText=String(2000*i+1000)
-                    document.querySelector("#pgrs3").children[2].children[1].style.display=""
-                    document.querySelector("#pgrs3").children[3].innerText=String(2000*i+1500)
-
-                    document.querySelector("#pgrs3").children[4].children[0].innerText=String(2000*i+2000)
-
-
-                    document.querySelector("#pgrs3").children[2].style.color="white"
-                    document.querySelector("#pgrs3").children[2].style.backgroundColor="rgba(130, 180, 80, 0)"
-                    document.querySelector("#pgrs3").children[4].style.color="white"
-                    document.querySelector("#pgrs3").children[4].style.backgroundColor="rgba(130, 180, 80, 0)"
-
-                    console.log(String(i)+"헐헐헐헐"+String(1000+(i-1)*1)+"헐헐헐헐")
-                    document.getElementById('pgrs1').style.width=String(parseInt(100*((2000)/(2000))))+"%";
-                    if(i>=1){
-                      setTimeout(function() {
-                        document.querySelector("#pgrs3").children[2].style.color="red"
-                        document.querySelector("#pgrs3").children[2].style.backgroundColor="rgba(130, 180, 80, 0.8)"
-                        if(soundic[esound[10]].isPlaying){
-                          soundic[esound[10]].stop();
-                        }
-                        soundic[esound[10]].play();
-                        document.querySelector(".gameinfo0").children[2].innerText+="🎫"
-                      },400);
-                    }
-                    setTimeout(function() {
-                      document.getElementById('pgrs1').style.width=String(parseInt(100*((0)/(2000))))+"%";
-                      document.querySelector("#pgrs3").children[4].style.color="red"
-                      document.querySelector("#pgrs3").children[4].style.backgroundColor="rgba(130, 180, 80, 0.8)"
-                      if(soundic[esound[10]].isPlaying){
-                        soundic[esound[10]].stop();
-                      }
-                      soundic[esound[10]].play();
-                      document.querySelector(".gameinfo0").children[2].innerText+="🎫"
-                    },1000);
-                  }, settime0);
-                }else{
-                  if(점수-2000*i<0){
-                    continue;
-                  }else{
-                    var settime=1000+2000*(i-1)
+                    var settime0=1000+(i-1)*1
                     if(i==1){
-                      settime=1010
+                      settime0=1000
                     }else if(i==2){
-                      settime=3020
+                      settime0=3000
                     }else if(i==3){
-                      settime=5030
+                      settime0=5000
                     }else if(i==4){
-                      settime=7030
+                      settime0=7000
                     }
                     setTimeout(function() {
-                      document.querySelector("#pgrs3").children[0].innerText=String(2000*i)
-                      document.querySelector("#pgrs3").children[1].innerText=String(2000*i+500)
+                      document.querySelector("#pgrs3").children[0].children[0].innerText=String(2000*i)
+                      document.querySelector("#pgrs3").children[1].children[0].innerText=String(2000*i+500)
                       document.querySelector("#pgrs3").children[2].children[0].innerText=String(2000*i+1000)
-
-                      document.querySelector("#pgrs3").children[2].style.color="white"
-                      document.querySelector("#pgrs3").children[2].style.backgroundColor="rgba(130, 180, 80, 0)"
-                      document.querySelector("#pgrs3").children[4].style.color="white"
-                      document.querySelector("#pgrs3").children[4].style.backgroundColor="rgba(130, 180, 80, 0)"
-                      if(i>=1){
-                        document.querySelector("#pgrs3").children[2].children[1].style.display=""
-                      }
-
-                      document.querySelector("#pgrs3").children[3].innerText=String(2000*i+1500)
+                      document.querySelector("#pgrs3").children[2].children[1].style.display=""
+                      document.querySelector("#pgrs3").children[3].children[0].innerText=String(2000*i+1500)
 
                       document.querySelector("#pgrs3").children[4].children[0].innerText=String(2000*i+2000)
 
-                      document.getElementById('pgrs1').style.width=String(parseInt(100*((점수-2000*i)/(2000))))+"%";
-                      console.log(String(i)+"얍얍얍얍얍"+String(1000+2000*(i-1))+"얍얍얍얍얍얍"+String(점수-2000*i))
-                      if(i>=1&&(점수-2000*i)>=1000){
+
+                      document.querySelector("#pgrs3").children[2].children[1].style.color="white"
+                      document.querySelector("#pgrs3").children[2].children[1].style.backgroundColor="rgba(80, 180, 80, 0.3)"
+                      document.querySelector("#pgrs3").children[4].children[1].style.color="white"
+                      document.querySelector("#pgrs3").children[4].children[1].style.backgroundColor="rgba(80, 180, 80, 0.3)"
+
+                      console.log(String(i)+"헐헐헐헐"+String(1000+(i-1)*1)+"헐헐헐헐")
+                      for (let j = 0; j < 5; j++) {
+                        document.querySelector("#pgrs3").children[j].children[0].style.color="black"
+                        document.querySelector("#pgrs3").children[j].style.backgroundColor="black"
+                      }
+                      document.getElementById('pgrs1').style.width=String(parseInt(100*((2000)/(2000))))+"%";
+                      if(i>=1){
                         setTimeout(function() {
-                          document.querySelector("#pgrs3").children[2].style.color="red"
-                          document.querySelector("#pgrs3").children[2].style.backgroundColor="rgba(130, 180, 80, 0.8)"
+                          document.querySelector("#pgrs3").children[2].children[1].style.color="red"
+                          document.querySelector("#pgrs3").children[2].children[1].style.backgroundColor="rgba(80, 180, 80, 0.8)"
                           if(soundic[esound[10]].isPlaying){
                             soundic[esound[10]].stop();
                           }
                           soundic[esound[10]].play();
                           document.querySelector(".gameinfo0").children[2].innerText+="🎫"
-                        },1000);
+                        },400);
                       }
+                      setTimeout(function() {
+                        document.getElementById('pgrs1').style.width=String(parseInt(100*((0)/(2000))))+"%";
+
+                        document.querySelector("#pgrs3").children[4].children[1].style.color="red"
+                        document.querySelector("#pgrs3").children[4].children[1].style.backgroundColor="rgba(80, 180, 80, 0.8)"
+                        if(soundic[esound[10]].isPlaying){
+                          soundic[esound[10]].stop();
+                        }
+                        soundic[esound[10]].play();
+                        document.querySelector(".gameinfo0").children[2].innerText+="🎫"
+                      },1000);
+                    }, settime0);
+                  }else{
+                    if(점수-2000*i<0){
+                      continue;
+                    }else{
+                      var settime=1000+2000*(i-1)
+                      if(i==1){
+                        settime=1010
+                      }else if(i==2){
+                        settime=3020
+                      }else if(i==3){
+                        settime=5030
+                      }else if(i==4){
+                        settime=7030
+                      }
+                      setTimeout(function() {
+                        document.querySelector("#pgrs3").children[0].children[0].innerText=String(2000*i)
+                        document.querySelector("#pgrs3").children[1].children[0].innerText=String(2000*i+500)
+                        document.querySelector("#pgrs3").children[2].children[0].innerText=String(2000*i+1000)
+
+                        document.querySelector("#pgrs3").children[2].children[1].style.color="white"
+                        document.querySelector("#pgrs3").children[2].children[1].style.backgroundColor="rgba(80, 180, 80, 0.3)"
+                        document.querySelector("#pgrs3").children[4].children[1].style.color="white"
+                        document.querySelector("#pgrs3").children[4].children[1].style.backgroundColor="rgba(80, 180, 80, 0.3)"
+                        if(i>=1){
+                          document.querySelector("#pgrs3").children[2].children[1].style.display=""
+                        }
+
+                        document.querySelector("#pgrs3").children[3].children[0].innerText=String(2000*i+1500)
+
+                        document.querySelector("#pgrs3").children[4].children[0].innerText=String(2000*i+2000)
+                        for (let j = 0; j < 5; j++) {
+                          document.querySelector("#pgrs3").children[j].children[0].style.color="black"
+                          document.querySelector("#pgrs3").children[j].style.backgroundColor="black"
+                        }
+                        document.getElementById('pgrs1').style.width=String(parseInt(100*((점수-2000*i)/(2000))))+"%";
+                        console.log(String(i)+"얍얍얍얍얍"+String(1000+2000*(i-1))+"얍얍얍얍얍얍"+String(점수-2000*i))
+                        if(i>=1&&(점수-2000*i)>=1000){
+                          setTimeout(function() {
+                            document.querySelector("#pgrs3").children[2].children[1].style.color="red"
+                            document.querySelector("#pgrs3").children[2].children[1].style.backgroundColor="rgba(80, 180, 80, 0.8)"
+                            if(soundic[esound[10]].isPlaying){
+                              soundic[esound[10]].stop();
+                            }
+                            soundic[esound[10]].play();
+                            document.querySelector(".gameinfo0").children[2].innerText+="🎫"
+                          },1000);
+                        }
 
 
 
 
-                    }, settime);
+                      }, settime);
+                    }
                   }
                 }
-              }
 
 
 
 
 
-            }, 1000);
+              }, 1000);
 
+            }
           }
+
 
 
           // if(점수>5000){
@@ -27497,12 +27578,13 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   }else{
                     multiply=1
                   }
-                  // 점수=2000;
+                  // 점수=1987;
                   multiply.toFixed(1);
                   var 이전점수=점수
                   var 이전점수1=String(이전점수)
                   점수+=(cubes.length-4)*multiply
 
+                  // 점수=1000;
                   temp1[0].children[0].style.fontSize="8vmin"
                   temp1[0].children[0].style.fontfamily= 'GG';
                   temp1[0].children[0].innerText=String(이전점수)+" + "+String((cubes.length-4)*multiply)+" = "+String(getNotRoundDecimalNumber(점수,0))
@@ -27924,7 +28006,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       if(gameoverflag){
 
 
-        console.log(activeFloor)
+        // console.log(activeFloor)
         if(skinset[skinnum]=="classic"){
           activeFloor=cubes.length-1
         }else{
@@ -29040,7 +29122,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
                   if(gameoverflag){
                     if(skinset[skinnum]=="classic"){//클
-                        console.log("a5")
+                        // console.log("a5")
                       camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
                       // camera.position.y=10
                     }else{
@@ -29049,14 +29131,14 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       // camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
                     }
                   }else{
-                    console.log("a7")
+                    // console.log("a7")
                     camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
 
                   }
 
 
                 }else{
-                  console.log("a8")
+                  // console.log("a8")
                   camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
                 }
 
