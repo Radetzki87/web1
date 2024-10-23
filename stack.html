@@ -7898,6 +7898,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var tfloor;
 
   var 차례=0;
+  var 사용횟수=0;
   var tutsize1="4vmin"
 
   var tutsize2="3vmin"
@@ -10627,7 +10628,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 }
                 이펙트2(itemidx, 128, "up");
               }
-
+              사용횟수++;
               setTimeout(function() {
                   if(해머<=0){
                     document.getElementById('hammer').style.left="-13.3vh"
@@ -10679,6 +10680,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               // activeFloor=cubes.length;
 
                 if(superflag){
+                  사용횟수++;
                   superflag=false;
 
                   if(itemidx==cubes.length-1){
@@ -10743,9 +10745,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 취소=true;
                 console.log("안돼")
               }
-
+              사용횟수++;
               var wpos1=new THREE.Vector3();
               if(superflag){
+                사용횟수++;
                 wpos1.copy(stepmold[3].position)
                 if(itemr){
                   // wpos1.x+=2*bh
@@ -10938,6 +10941,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
               }
               tctime=elapsedTime
+              사용횟수++;
               soundic[esound[13]].play();
               cubes.forEach((item,) => {
                 if(item.mesh.userData.pin){
@@ -11019,7 +11023,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                 tctime=elapsedTime
               soundic[esound[13]].play();
-
+              사용횟수++;
 
               setTimeout(function() {
                     if(핀<=0)  document.getElementById('pin').style.left="-13.3vh"
@@ -11101,6 +11105,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   취소=true;
                   console.log("안돼")
                 }
+                사용횟수++;
 
 
 
@@ -12264,7 +12269,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           tctime=elapsedTime
           var force2 = new CANNON.Vec3();
           if(hammer){
-
+            사용횟수++;
             if(itemr){
               if(superflag){
                 force2.set(-28000*cubes[itemidx].body.mass/5,0,0)
@@ -12333,6 +12338,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             // activeFloor=cubes.length;
 
               if(superflag){
+                사용횟수++;
                 superflag=false;
 
                 if(itemidx==cubes.length-1){
@@ -12377,6 +12383,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
           }else if(pung){
+            사용횟수++;
             var 아래층=cubes[itemidx-1];
             var 아래=0
             var 취소=false
@@ -12400,6 +12407,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
             var wpos1=new THREE.Vector3();
             if(superflag){
+              사용횟수++;
               wpos1.copy(stepmold[3].position)
               if(itemr){
                 // wpos1.x+=2*bh
@@ -12554,6 +12562,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             // }
 
           }else if(ice){
+            사용횟수++;
             uselst=[];
             var tc=0;
             for (var i = 4; i <cubes.length-1; i++) {
@@ -12623,6 +12632,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             }, 400);
 
           }else if(pin&&!cubes[itemidx].mesh.userData.pin){
+            사용횟수++;
               uselst=[];
 
               let customMaterial = new CANNON.Material('customMaterial');
@@ -12758,7 +12768,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 취소=true;
                 console.log("안돼")
               }
-
+              사용횟수++;
 
 
               tctime=elapsedTime
@@ -14872,6 +14882,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           document.querySelector("#s"+itemorder[i]).style.top=String(4+11*i-0.5)+"vh"
         }
       }
+      사용횟수=0
 
 
       resetting(stack, function(object) { //재시작
@@ -25455,6 +25466,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         // console.log(document.getElementById('pgrs1').style.width)
         if(!overonce){
 
+
+
           document.getElementById('hammer0').style.display="none"
           document.getElementById('pung0').style.display="none"
           document.getElementById('ice0').style.display="none"
@@ -25469,6 +25482,23 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           document.getElementById('spung').style.left="-14vmax"
 
 
+
+          var inputData = [점수, cubes.length-4, parseInt(elapsedTime), 사용횟수]
+
+           fetch('http://121.162.140.50:4848/submit', {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json',
+               },
+               body: JSON.stringify({ data: inputData }),
+           })
+           .then(response => response.text())
+           .then(data => {
+               // alert('서버 응답: ' + data);
+           })
+           .catch((error) => {
+               // console.error('오류 발생:', error);
+           });
 
 
 
