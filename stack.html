@@ -2116,7 +2116,7 @@
             /* height: 2vmin; */
 
             text-align: right;
-            top:1vmin;
+            top:-3vmin;
             z-index: 2;
 
         }
@@ -8194,6 +8194,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
   let supercost=[5,5]
   let 보드반경=8
+  let screen=[]
+  let startonce=true
+
+  let 오프셋=[4,5]
+
+
 
   let 보드높이=-34
   let rcv=0
@@ -8837,13 +8843,15 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var font0 = floader.parse(fontjson);
 
   class ftile {
-      constructor(a, b, c, d, index, direction, flag, me, me2) {
+      constructor(a, b, c, d, index, direction, flag, me, me2, me3, flag2) {
           this.body = me;
           this.body0 = me2;
+          this.body3 = me3;
           this.a = a;
           this.b = b;
           this.c = c;
           this.d = d;
+          this.org=flag2
           this.index = index;
           this.direction = direction;
           this.mx = -bw / 2 + (tw / 2) + (tw) * (b);
@@ -8951,10 +8959,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
             }
         }
+
+
         var nftiles=[];
-
         for (var i = 0; i < ftiles.length; i++) {
-
+          if(!ftiles[i].org) continue;
           if(ftiles[i].q==0){
             var nftile= Object.assign({},ftiles[i]);
             nftile.index=this.index
@@ -9064,11 +9073,15 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
         }
 
-        console.log(nftiles)
+        // console.log(nnftiles)
 
         for (var i = 0; i < nftiles.length; i++) {
           ftiles.push(nftiles[i])
         }
+
+        // for (var i = 0; i < nnftiles.length; i++) {
+        //   ftiles.push(nnftiles[i])
+        // }
 
 
 
@@ -9293,8 +9306,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               if(skinset[skinnum]=="classic"){
                 bf=99;
               }
+
+
               // tilelst.push(ntile);
+              cubes[this.index].mesh.add(ntile);
               this.boardpointer[position.row][position.col] = ntile;
+              var nntile=ntile.clone()
+              nntile.material=ntile.material.clone()
+              nntile.children[0].material=ntile.children[0].material.clone()
+              console.log(screen[0])
+              screen[0].add(nntile);
+              screen[0].userData.game2048.boardpointer[position.row][position.col] = nntile;
               // createTile(this.index,th*0.6, tw, this.board[position.row][position.col], (tile) => {
               //   tile.position.set(
               //     0 - bw/2 + tw/2 + position.col * tw,
@@ -9403,14 +9425,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               // console.log(this.boardpointer[col][row]);
               this.board[newRow][newCol] = this.board[row][col];
               this.board[row][col] = 0;
-              ftiles.push(new ftile(row, col, newRow, newCol, this.index, direction, false, this, this.boardpointer[row][col]))
+              ftiles.push(new ftile(row, col, newRow, newCol, this.index, direction, false, this, this.boardpointer[row][col], this,true))
+              ftiles.push(new ftile(row, col, newRow, newCol, this.index, direction, false, screen[0].userData.game2048, screen[0].userData.game2048.boardpointer[row][col],this,false))
               // renderer.setAnimationLoop(animation);
               this.boardChanged = true;
           } else if (this.board[newRow][newCol] === this.board[row][col]) {
               // console.log(this.boardpointer[col][row]);
               this.board[newRow][newCol] += this.board[row][col];
               this.board[row][col] = 0;
-              ftiles.push(new ftile(row, col, newRow, newCol, this.index, direction, true, this, this.boardpointer[row][col]))
+              ftiles.push(new ftile(row, col, newRow, newCol, this.index, direction, true, this, this.boardpointer[row][col],this,true))
+              ftiles.push(new ftile(row, col, newRow, newCol, this.index, direction, true, screen[0].userData.game2048, screen[0].userData.game2048.boardpointer[row][col],this,false))
+
               this.boardChanged = true;
               if (stage4) {
                   if (this.board[newRow][newCol] == 64) {
@@ -13455,9 +13480,18 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       sideViewCamera.position.set(bw * 1.5, bw * 0.8, 0);
       sideViewCamera.lookAt(0, bw * 0.8, 0);
   }
+
+  let renderTarget = new THREE.WebGLRenderTarget(
+    window.innerWidth,
+    window.innerHeight
+  );
+
   var topViewCamera = new THREE.OrthographicCamera(-bw / 1.8, bw / 1.8, bw / 1.8, -bw / 1.8, 0.1, 1000);
   topViewCamera.position.set(0, bh * 20, 0);
   topViewCamera.lookAt(0, 0, 0);
+
+
+
   var renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true
@@ -14072,31 +14106,288 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         // }
 
         // dl2.shadow.mapSize = new THREE.Vector2(1000, 1000);
-      } else if (event.code === 'KeyC') {
-          console.log("한번")
-          // for (var i = cubes.length-1; i > 4; i--) {
+      }  else if (event.code === 'KeyK') {
+        // if(오토){
+        //   오토=false;
+        // }else{
+        //   오토=true;
+        // }
+        renderer.setRenderTarget(renderTarget);
+        renderer.render(scene, topViewCamera);
+        renderer.setRenderTarget(null);
+
+        var planeGeometry = new THREE.PlaneGeometry(5, 5);
+        var planeMaterial = new THREE.MeshBasicMaterial({
+          map: renderTarget.texture
+        });
+        var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+        plane.position.set(0,cubes[cubes.length-1].mesh.position.y+bh*2,0)
+        scene.add(plane);
+
+
+        // resol(rescounter);
+        // rescounter++;
+        // if (rescounter > 5) {
+        //     rescounter = 0;
+        // }
+
+        // dl2.shadow.mapSize = new THREE.Vector2(1000, 1000);
+      }else if (event.code === 'KeyL') {
+        // if(오토){
+        //   오토=false;
+        // }else{
+        //   오토=true;
+        // }
+
+        renderer.setRenderTarget(renderTarget);
+        renderer.render(scene, topViewCamera);
+        renderer.setRenderTarget(null);
+
+
+        var planeMaterial = new THREE.MeshBasicMaterial({
+          map: renderTarget.texture
+        });
+
+        var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+        plane.position.set(0,cubes[cubes.length-1].mesh.position.y+bh*2,0)
+        scene.add(plane);
+
+
+
+        // resol(rescounter);
+        // rescounter++;
+        // if (rescounter > 5) {
+        //     rescounter = 0;
+        // }
+
+        // dl2.shadow.mapSize = new THREE.Vector2(1000, 1000);
+      }else if (event.code === 'KeyC') {
+          // console.log("한번")
+          // // for (var i = cubes.length-1; i > 4; i--) {
+          // //   let force2 = new CANNON.Vec3();
+          // //   if(i==cubes.length-1){
+          // //     force2.set(800*(getdistance(cubes[i].body.position.x, avx))+500*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,800*(getdistance(cubes[i].body.position.z, avz))+500*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+          // //   }else{
+          // //     force2.set(1000*(getdistance(cubes[i].body.position.x, avx))+500*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,1000*(getdistance(cubes[i].body.position.z, avz))+500*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+          // //   }
+          // //   cubes[i].body.applyForce(force2, cubes[i].body.position);
+          // //
+          // // }
+          //
+          // for (var i = cubes.length-1; i >= 4; i--) {
           //   let force2 = new CANNON.Vec3();
-          //   if(i==cubes.length-1){
-          //     force2.set(800*(getdistance(cubes[i].body.position.x, avx))+500*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,800*(getdistance(cubes[i].body.position.z, avz))+500*(cubes[i].body.position.z - cubes[i-1].body.position.z));
-          //   }else{
-          //     force2.set(1000*(getdistance(cubes[i].body.position.x, avx))+500*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,1000*(getdistance(cubes[i].body.position.z, avz))+500*(cubes[i].body.position.z - cubes[i-1].body.position.z));
-          //   }
+          //   force2.set(2800*(getdistance(cubes[i].body.position.x, avx))+0*(cubes[i].body.position.x - cubes[i-1].body.position.x),350,2800*(getdistance(cubes[i].body.position.z, avz))+0*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+          //
+          //   // if(i%2==0){
+          //   //   force2.set(1500*(getdistance(cubes[i].body.position.x, avx))+0*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,1500*(getdistance(cubes[i].body.position.z, avz))+0*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+          //   // }else{
+          //   //   force2.set(800*(getdistance(cubes[i].body.position.x, avx))+800*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,800*(getdistance(cubes[i].body.position.z, avz))+800*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+          //   // }
           //   cubes[i].body.applyForce(force2, cubes[i].body.position);
           //
           // }
 
-          for (var i = cubes.length-1; i >= 4; i--) {
-            let force2 = new CANNON.Vec3();
-            force2.set(2800*(getdistance(cubes[i].body.position.x, avx))+0*(cubes[i].body.position.x - cubes[i-1].body.position.x),350,2800*(getdistance(cubes[i].body.position.z, avz))+0*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+          var a=[]
+          for (var i = 4; i < cubes.length; i++) {
+            if(cubes[i].mesh.userData.bye||cubes[i].mesh.userData.gone) continue;
+            var b={};
+            var clone={};
+            var pinsize=1;
+            if(cubes[i].mesh.userData.pin){
+              pinsize=핀크기
+            }
+            var 스케일=0.3
+            var geometry1;
 
-            // if(i%2==0){
-            //   force2.set(1500*(getdistance(cubes[i].body.position.x, avx))+0*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,1500*(getdistance(cubes[i].body.position.z, avz))+0*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+            // if(item.mesh.userData.pin){
+            //   if(skinnum==skinset.indexOf("classic")){
+            //     item.mesh.scale.x=핀크기*클크기*item.mesh.userData.combo
+            //     item.mesh.scale.z=핀크기*클크기*item.mesh.userData.combo
+            //   }else{
+            //     item.mesh.scale.x=핀크기*item.mesh.userData.combo
+            //     item.mesh.scale.z=핀크기*item.mesh.userData.combo
+            //   }
+            //
             // }else{
-            //   force2.set(800*(getdistance(cubes[i].body.position.x, avx))+800*(cubes[i].body.position.x - cubes[i-1].body.position.x),50,800*(getdistance(cubes[i].body.position.z, avz))+800*(cubes[i].body.position.z - cubes[i-1].body.position.z));
+            //   if(skinnum==skinset.indexOf("classic")){
+            //     item.mesh.scale.x=클크기*item.mesh.userData.combo
+            //     item.mesh.scale.z=클크기*item.mesh.userData.combo
+            //   }else{
+            //     item.mesh.scale.x=1*item.mesh.userData.combo
+            //     item.mesh.scale.z=1*item.mesh.userData.combo
+            //   }
+            //
             // }
-            cubes[i].body.applyForce(force2, cubes[i].body.position);
+            if(skinnum==skinset.indexOf("classic")){
+              geometry1 = new THREE.BoxGeometry(클크기*cubes[i].mesh.userData.combo*pinsize*bw*스케일, bh*스케일, 클크기*cubes[i].mesh.userData.combo*pinsize*bw*스케일);
+            }else{
+              geometry1 = new THREE.BoxGeometry(클크기*cubes[i].mesh.userData.combo*pinsize*bw*스케일, bh*스케일, 클크기*cubes[i].mesh.userData.combo*pinsize*bw*스케일);
+            }
+
+
+            var material1 = new THREE.MeshLambertMaterial({
+                color: cubes[i].mesh.material.color
+            });
+
+            clone.mesh=new THREE.Mesh(geometry1, material1);
+
+            clone.mesh.quaternion.copy(cubes[i].mesh.quaternion);
+
+
+
+            clone.mesh.position.set((cubes[i].mesh.position.x)*스케일,(cubes[i].mesh.position.y)*스케일,(cubes[i].mesh.position.z)*스케일)
+
+            clone.mesh.freeze=cubes[i].mesh.userData.freeze;
+            clone.mesh.pin=cubes[i].mesh.userData.pin;
+            clone.mesh.ice=cubes[i].mesh.userData.ice;
+            clone.mesh.bye=cubes[i].mesh.userData.bye;
+            clone.mesh.combo=cubes[i].mesh.userData.combo;
+            clone.mesh.constraint=cubes[i].mesh.userData.constraint.length;
+            clone.mesh.receiveShadow = true;
+            clone.mesh.castShadow = true;
+
+            b.freeze=cubes[i].mesh.userData.freeze;
+            b.pin=cubes[i].mesh.userData.pin;
+            b.ice=cubes[i].mesh.userData.ice;
+            b.bye=cubes[i].mesh.userData.bye;
+            b.combo=cubes[i].mesh.userData.combo;
+            b.constraint=cubes[i].mesh.userData.constraint.length;
+
+            b.position=[(cubes[i].mesh.position.x)*스케일,(cubes[i].mesh.position.y)*스케일,(cubes[i].mesh.position.z)*스케일]
+            b.quaternion=cubes[i].mesh.quaternion.clone();
+            b.skinnum=skinnum
+            // b.ver=cubes[i].mesh.userData.ver;
+            // b.rot=cubes[i].mesh.userData.rot;
+
+            b.color=cubes[i].mesh.material.color
+
+
+            // stagemesh[현챕터-1].add(clone.mesh);
+
+            // var sdickeys = Object.keys(soundic);
+            // sdickeys.forEach((item) => {
+            //   soundic[item]?.stop();
+            // });
+
+            a.push(b)
 
           }
+
+
+          var 제이슨=JSON.stringify(a);
+          console.log(제이슨)
+          var 큐브=JSON.parse(제이슨);
+          for (var i = 0; i < 큐브.length; i++) {
+            var clone={};
+            var pinsize=1;
+            if(큐브[i].pin){
+              pinsize=핀크기
+            }
+            var 스케일=0.3
+            var geometry1 = new THREE.BoxGeometry(bw, bh, bw);
+            var material1 = new THREE.MeshLambertMaterial({
+                color: 큐브[i].color,
+                visible: false
+            });
+
+            clone.mesh=new THREE.Mesh(geometry1, material1);
+
+            clone.mesh.scale.set(큐브[i].combo*pinsize*스케일,스케일,큐브[i].combo*pinsize*스케일)
+
+            var trot=큐브[i].rot
+
+            var moldkey=Object.keys(skinmold);
+            moldkey.forEach((item) => {
+              skinmold[item].forEach((obj) => {
+                let obj1=obj.clone();
+                if(obj1.userData["skin"]==skinset[skinnum]){
+                  let mat1=obj.material.clone();
+                  var newcolor1=큐브[i].color
+                  var nc = hexToHSL(hexToHtmlColor(큐브[i].color))
+                  var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
+                  var newcolor4 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]*0.8) + '%, ' + String(nc["l"]*1.2) + '%)');
+                  var newcolor5 = new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]*1.1) + '%, ' + String(nc["l"]*0.85) + '%)');
+                  var newcolor6 = new THREE.Color('hsl(' + String(nc["h"]+0.2) + ', ' + String(nc["s"]*1) + '%, ' + String(nc["l"]*0.3) + '%)');
+
+
+                  if(obj1.userData["skintype"]==0){
+                    obj1.material=new THREE.MeshLambertMaterial({
+                        color: newcolor3
+                    });
+
+                  }else if(obj1.userData["skintype"]==1){
+                    obj1.material=new THREE.MeshLambertMaterial({
+                        color: newcolor4
+                    });
+
+                  }else if(obj1.userData["skintype"]==2){
+                    obj1.material=new THREE.MeshLambertMaterial({
+                        color: newcolor5
+                    });
+
+                  }else if(obj1.userData["skintype"]==3){
+                    obj1.material=new THREE.MeshLambertMaterial({
+                        color: newcolor6
+                    });
+
+                  }else{
+                    obj1.material=mat1
+                    obj1.material.visible=true;
+                    // if(!flag) clmeshlst[idx].push(obj1.material);
+                  }
+                  // obj1.rotation.y=trot*(Math.PI/2)
+
+
+                  obj1.receiveShadow = true;
+                  obj1.castShadow = true;
+                  clone.mesh.add(obj1);
+
+                }
+              });
+            });
+
+            clone.mesh.quaternion["_w"]=큐브[i].quaternion[3]
+            clone.mesh.quaternion["_x"]=큐브[i].quaternion[0]
+            clone.mesh.quaternion["_y"]=큐브[i].quaternion[1]
+            clone.mesh.quaternion["_z"]=큐브[i].quaternion[2]
+
+            // clone.mesh.position.copy(cubes[i].mesh.position);
+            clone.mesh.position.x=cubes[cubes.length-1].mesh.position.x+큐브[i].position[0]
+            clone.mesh.position.y=cubes[cubes.length-1].mesh.position.y+큐브[i].position[1]
+            clone.mesh.position.z=cubes[cubes.length-1].mesh.position.z+큐브[i].position[2]
+
+            clone.mesh.freeze=큐브[i].freeze;
+            clone.mesh.pin=큐브[i].pin;
+            clone.mesh.ice=큐브[i].ice;
+            clone.mesh.bye=큐브[i].bye;
+            clone.mesh.combo=큐브[i].combo;
+            clone.mesh.constraint=큐브[i].constraint.length;
+            clone.mesh.receiveShadow = true;
+            clone.mesh.castShadow = true;
+
+            scene.add(clone.mesh)
+
+          }
+
+          // clone.mesh.quaternion.copy(큐브[i].quaternion);
+
+
+
+
+
+            //
+            //
+            //
+            // stagemesh[현챕터-1].add(clone.mesh);
+
+            // stagemesh[현챕터-1].scale.set(1,1,1);
+            // stagemesh[현챕터-1].position.set(0,0,0);
+
+
+
+
 
 
 
@@ -14205,10 +14496,13 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       } else {
           for (var i = 0; i < cubes.length; i++) {
               if (i == activeFloor) {
-                  if (!cubes[i].mesh.userData.game2048.boardChanged && !aniflag) {
+                  if (!aniflag) {
                       const game2048 = cubes[i].mesh.userData.game2048;
                       game2048.moveBoard(direction);
                       // console.log(game2048.)
+                  }else{
+                    console.log(cubes[i].mesh.userData.game2048.boardChanged)
+                    console.log(aniflag)
                   }
                   // cubes[i].body.applyForce(force, cubes[i].body.position);
               }
@@ -14913,6 +15207,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       document.getElementById("pgrs3").children[4].children[1].src = "png/hammer.png"
 
 
+      startonce=true
+
+
+
+
       resetting(stack, function(object) { //재시작
           msetting1(function(object) {
               if(gamemod!=2){
@@ -14926,6 +15225,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       item.mesh.userData.game2048.spawnTile("up",Math.pow(2, 3+parseInt(Math.random()*4)));
                       item.mesh.userData.game2048.spawnTile("down",Math.pow(2, 2+parseInt(Math.random()*4)));
                     }else{
+
+
                       item.mesh.userData.game2048.spawnTile();
                       item.mesh.userData.game2048.spawnTile();
 
@@ -14944,6 +15245,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 })
 
               }else{
+
+
                 cubes.forEach((item) => {
                   item.mesh.scale.x=1
                   item.mesh.scale.z=1
@@ -15000,6 +15303,24 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 cubes[cubes.length-1].body.position.y+=bh*(스킬[2]-1)
                 world.addBody(body);
                 토대.push(body)
+
+
+                // screen=[];
+                //
+                // renderer.setRenderTarget(renderTarget);
+                // renderer.render(scene, topViewCamera);
+                // renderer.setRenderTarget(null);
+                //
+                // var planeGeometry = new THREE.PlaneGeometry(5, 5);
+                // var planeMaterial = new THREE.MeshBasicMaterial({
+                //   map: renderTarget.texture
+                // });
+                // var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+                //
+                // plane.position.set(0,cubes[cubes.length-1].mesh.position.y+bh*2,0)
+                // screen.push(plane)
+                // scene.add(plane);
+
 
 
                 if(true){
@@ -15526,8 +15847,35 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     world.addBody(body12);
                     토대.push(body12)
                 }
+
+                screen[0].scale.set(0.5, 0.5,0.5)
+                screen[0].userData.game2048 = new Game2048(4, 999);
+
+
+
+
+                for (var i = screen[0].children.length-1; i >=1; i--) {
+                  screen[0].remove(screen[0].children[i])
+                }
+
+
+
+
+
+
+
+                // console.log(screen[0].children)
+                scene.add(screen[0])
+
                 cubes[4].mesh.userData.game2048.spawnTile();
                 cubes[4].mesh.userData.game2048.spawnTile();
+
+                screen[0].children.forEach((item) => {
+                  item.material.visible=false
+                  item.children.forEach((child) => {
+                    child.material.visible=false
+                  });
+                });
                 if(skinnum==skinset.indexOf("classic")){
                   for (var i = 0; i < cubes.length; i++) {
                     cubes[i].mesh.scale.set(cubes[i].mesh.userData["combo"]*클크기,0.978,cubes[i].mesh.userData["combo"]*클크기)
@@ -22262,7 +22610,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                                       cubes[cubes.length-1].mesh.userData.ice=false;
                                       cubes[cubes.length-1].mesh.userData.bye=false;
                                       cubes[cubes.length-1].mesh.userData.gone=false;
-                                      cubes[cubes.length-1].mesh.userData.game2048.spawnTile();
+                                      // cubes[cubes.length-1].mesh.userData.game2048.spawnTile();
                                       // cubes[activeFloor+1].mesh.userData.game2048.spawn(cubes[activeFloor].mesh.userData.game2048, item.c, item.d, index);
 
 
@@ -22328,7 +22676,27 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
       if (startflag&&!gameoverflag) { //스타트
+          if(startonce){
 
+
+            for (var i = screen[0].children.length-1; i >=0; i--) {
+              screen[0].children[i].material.visible=true;
+
+
+              for (var j = 0; j < screen[0].children[i].children.length; j++) {
+                screen[0].children[i].children[j].material.visible=true;
+
+              }
+
+            }
+
+
+
+            startonce=false
+
+
+
+          }
 
 
 
@@ -23883,6 +24251,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
                 console.log(보드.length)
+
 
 
                 var nc = hexToHSL(hexToHtmlColor(colorlst0[parseInt(Math.random()*colorlst0.length)][1]))
@@ -26001,56 +26370,63 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   item.body0.position.x = item.dx;
                   item.body0.position.z = item.dz;
                   if (item.merge) {
-
-                      var num = parseInt(item.body.board[item.c][item.d])
+                      var num = parseInt(item.body3.board[item.c][item.d])
                       if(num>maxnum) maxnum=num
                       mergetime=elapsedTime;
-                      점수+=num;
-                      console.log(점수)
+                      if(item.org){
 
-                      if(true){
-                        필+=parseInt(num);
+                              점수+=num;
+                              console.log(점수)
 
-                        if(필>=바){
-                          window.스킬포인트=스킬포인트
-                          document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
-                          document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
-                          필-=바;
-                          바+=100;
-                          레벨++;
+                              if(true){
+                                필+=parseInt(num);
 
-                          setTimeout(function() {
-                            getitem();
-                            showpop("","아이템 획득","",0)
-                            document.getElementById('center').innerText="LV."+String(레벨)
-                            document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
-                            document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
-                            if(필>=바){
-                              // 스킬포인트++;
-                              // 스킬포인트++;
-                              window.스킬포인트=스킬포인트
-                              document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
-                              document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
-                              필-=바;
-                              바+=100;
-                              // 레벨++;
+                                if(필>=바){
+                                  window.스킬포인트=스킬포인트
+                                  document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
+                                  document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
+                                  필-=바;
+                                  바+=100;
+                                  레벨++;
 
-                              setTimeout(function() {
-                                getitem();
-                                showpop("","아이템 획득","",0)
-                                document.getElementById('center').innerText="LV."+String(레벨)
-                                document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
-                                document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
-                              }, 1200);
-                            }
-                          }, 1200);
-                        }else{
-                          document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
-                          document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
-                        }
+                                  setTimeout(function() {
+                                    getitem();
+                                    showpop("","아이템 획득","",0)
+                                    document.getElementById('center').innerText="LV."+String(레벨)
+                                    document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
+                                    document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
+                                    if(필>=바){
+                                      // 스킬포인트++;
+                                      // 스킬포인트++;
+                                      window.스킬포인트=스킬포인트
+                                      document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
+                                      document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
+                                      필-=바;
+                                      바+=100;
+                                      // 레벨++;
+
+                                      setTimeout(function() {
+                                        getitem();
+                                        showpop("","아이템 획득","",0)
+                                        document.getElementById('center').innerText="LV."+String(레벨)
+                                        document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
+                                        document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
+                                      }, 1200);
+                                    }
+                                  }, 1200);
+                                }else{
+                                  document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
+                                  document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
+                                }
+                              }
+
                       }
+
                       // item.body.boardpointer[item.c][item.d].userData["text"]=String(num*2);
                       cubes[item.index].mesh.remove(item.body0);
+                      if(!item.org){
+                        screen[0].remove(item.body0);
+                      }
                       item.body.boardpointer[item.a][item.b] = [];
                       // console.log(String(item.c)+", "+String(item.d))
                       if (item.body.boardpointer[item.c][item.d] != "") {
@@ -26069,6 +26445,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                           })
                           let ntext;
                           var jeg = parseInt(Math.log(num) / Math.log(2));
+                          console.log(jeg)
+                          console.log(num)
                           ntext = textmold[jeg - 1].clone();
                           ntext.material = new THREE.MeshBasicMaterial({
                               color: 0xffffff
@@ -26093,26 +26471,31 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                             bf=99;
                           }
 
-                          tempeffects.forEach((object) => {
-                              if (object[1] >= num && object[2] == item.direction) {
-                                  tempflag = false
-                              }
-                          })
+                          if(item.org){
 
-                          var mnum;
-                          if(num==4096){
-                            mnum=2048
-                          }else{
-                            mnum=num
-                          }
-                          if (tempflag) {
-                              tempeffects.push([item.index, num, item.direction]);
-                              이펙트2(item.index, num, item.direction);
-                              if (soundic[sdic[activeFloor][mnum]]?.isPlaying) {
-                                  soundic[sdic[activeFloor][mnum]]?.stop();
+
+                              tempeffects.forEach((object) => {
+                                  if (object[1] >= num && object[2] == item.direction) {
+                                      tempflag = false
+                                  }
+                              })
+
+                              var mnum;
+                              if(num==4096){
+                                mnum=2048
+                              }else{
+                                mnum=num
                               }
-                              soundic[sdic[activeFloor][mnum]]?.play();
+                              if (tempflag) {
+                                  tempeffects.push([item.index, num, item.direction]);
+                                  이펙트2(item.index, num, item.direction);
+                                  if (soundic[sdic[activeFloor][mnum]]?.isPlaying) {
+                                      soundic[sdic[activeFloor][mnum]]?.stop();
+                                  }
+                                  soundic[sdic[activeFloor][mnum]]?.play();
+                              }
                           }
+
 
                           // 이펙트2(item.index, num, item.direction);
 
@@ -26126,7 +26509,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                             // console.log(sdic)
                             // var tnum=Math.pow(2, (cubes.length-3))
 
-                            if(num==stacknum[activeFloor]&&activeFloor==cubes.length-1&&!빌더){
+                            if(num==stacknum[activeFloor]&&activeFloor==cubes.length-1&&!빌더&&item.org){
                               if(m2flag){
 
 
@@ -26314,7 +26697,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                               // dl2.position.y=50+((cubes.length-3) * bh)
                               // dl2.shadow.camera.position.y= bh * (cubes.length)
 
-                            }else{
+                            }else if(item.org){
                               // forceAmount=1000;
                               var force = new CANNON.Vec3();
                               var tnum=parseInt(Math.log2(num))-2;
@@ -26451,7 +26834,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       // if (soundic[sdic[activeFloor][item.direction]][0].isPlaying) {
                       //     soundic[sdic[activeFloor][item.direction]][0].stop();
                       // }
-                      if(!m2flag){
+                      if(!m2flag&&item.org){
                         if (!soundic[sdic[item.index][item.direction]]?.isPlaying) soundic[sdic[item.index][item.direction]].play();
                       }
 
@@ -26464,7 +26847,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
           if (rmvftile.length != 0 && ftiles.length == rmvftile.length && ftiles[0].body.boardChanged) {
               if(ftiles[0].index==cubes.length-1) 차례++
-              ftiles[0].body.spawnTile(ftiles[0].direction);
+              // if(!m2flag)
+               if(ftiles[0].org&&!m2flag) ftiles[0].body.spawnTile(ftiles[0].direction);
 
               tempeffects =[];
 
@@ -26932,6 +27316,14 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               // });
 
             });
+            var nc = hexToHSL(hexToHtmlColor(colorlst0[colornum0][(cubes.length-1)%5]))
+            var newcolor2=parseInt((cubes.length-1)/5);
+
+
+            screen[0].children[0].material.color=new THREE.Color('hsl(' + String(nc["h"]+(30*newcolor2)) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
+
+
+
             m2once=true;
 
             if(cubes[cubes.length-1].mesh.userData.combo==콤보){
@@ -26972,6 +27364,12 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
             }
           })
+          if(skinnum==skinset.indexOf("classic")){
+            screen[0].position.y = cubes[cubes.length-1].mesh.position.y-bh+bh/1.5+((elapsedTime - stacktime)/0.35)*bh
+          }else{
+            screen[0].position.y = cubes[cubes.length-1].mesh.position.y-bh+bh/4+((elapsedTime - stacktime)/0.35)*bh
+          }
+
 
 
           보드.forEach((item, i) => {
@@ -27106,6 +27504,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
             }
 
 
+
+
             m2flag=false;
 
             m2once=false
@@ -27202,6 +27602,32 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       //스케일
       if (elapsedTime - atchanged > 0 && elapsedTime - atchanged < 0.1) {
           bounceflag = true;
+
+          screen[0].children.forEach((item) => {
+            if(item.userData["skin"]=="tile"){
+              if (item.userData.merge == 1) {
+                  if (elapsedTime - item.userData.time > 0 && elapsedTime - item.userData.time < 0.1) {
+                      item.scale.x = 0.6 + 4 * (elapsedTime - item.userData.time);
+                      item.scale.z = 0.6 + 4 * (elapsedTime - item.userData.time);
+                      // item.scale.y = 0.5 * Math.cos(2 * 2 * 15.708 * (elapsedTime - item.userData.time)) + 0.4
+                      tscale = item.scale.y
+                      // console.log(item.scale.x)
+                  }
+
+              } else {
+                  if (elapsedTime - item.userData.time > 0 && elapsedTime - item.userData.time < 0.1) {
+                      item.scale.x = 0.7 + 4 * (elapsedTime - item.userData.time);
+                      item.scale.z = 0.7 + 4 * (elapsedTime - item.userData.time);
+                      // item.scale.y = 0.6 * Math.cos((elapsedTime - item.userData.time)) + 0.3
+                      tscale = 0.9;
+                      // console.log(item.scale.x)
+                  }
+
+              }
+            }
+
+          })
+
           if (activeFloor != cubes.length) {
 
 
@@ -27232,6 +27658,18 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           }
       } else {
           tscale = 0.9;
+
+          screen[0].children.forEach((item) => {
+            if(item.userData["skin"]=="tile"){
+
+
+
+              item.scale.x = 1
+              item.scale.z = 1
+            }
+
+          })
+
           if (activeFloor != cubes.length) {
               cubes[activeFloor].mesh.children.forEach((item) => {
                     if (item.userData["skin"]=="effect"||item.userData["skin"]=="exc") return;
@@ -29114,6 +29552,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     }
 
 
+
+
+
       if (window.innerWidth > window.innerHeight) {
           if (restartflag) {
               renderer.setViewport(0, window.innerHeight - window.innerHeight * 2.5, window.innerHeight * 2.5, window.innerHeight * 2.5);
@@ -29224,6 +29665,44 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
             for (var i = 4; i < cubes.length; i++) {
               if(cubes[i].mesh.userData["bye"]) clength++
             }
+
+
+
+            if(skinnum==skinset.indexOf("classic")){
+              screen[0].position.x = cubes[cubes.length-1].mesh.position.x-bw+bh/4
+              screen[0].position.y=  cubes[cubes.length-1].mesh.position.y+bh/1.5
+            }else{
+              screen[0].position.x = cubes[cubes.length-1].mesh.position.x-bw
+              screen[0].position.y=  cubes[cubes.length-1].mesh.position.y+bh/4
+            }
+
+            screen[0].position.z = cubes[cubes.length-1].mesh.position.z-bw
+
+
+
+            screen[0].material.opacity=0;
+            screen[0].material.alphaTest=0;
+            screen[0].material.depthWrite=false;
+            for (var i = screen[0].children.length-1; i >=0; i--) {
+              // screen[0].children[i].material.visible=true;
+              screen[0].children[i].material.transparent=true;
+              screen[0].children[i].material.opacity=0.7;
+              screen[0].children[i].material.alphaTest=0.7;
+              screen[0].children[i].material.depthWrite=true;
+
+              for (var j = 0; j < screen[0].children[i].children.length; j++) {
+                // screen[0].children[i].children[j].material.visible=true;
+                screen[0].children[i].children[j].material.transparent=true;
+                screen[0].children[i].children[j].material.opacity=0.7;
+                screen[0].children[i].children[j].material.alphaTest=0.7;
+                screen[0].children[i].children[j].material.depthWrite=true;
+              }
+
+            }
+
+
+
+
               포인트.forEach((item) => {
                   item.position.x = avx - bw / 1.5;
                   if(gamemod==2){
@@ -29246,11 +29725,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                         // }
 
                         if (temptxt.toString().length >= 4) {
-                            item.position.z = 4+avz - bw / 3;
+                            item.position.z = 4+avz - bw / 3+오프셋[0];
                         } else if (temptxt.toString().length == 3) {
-                            item.position.z = 3+avz - bw / 2.6;
+                            item.position.z = 3+avz - bw / 2.6+오프셋[0];
                         } else {
-                            item.position.z = 1+avz - bw / 2.3;
+                            item.position.z = 1+avz - bw / 2.3+오프셋[0];
                         }
                       }else{
 
@@ -29281,11 +29760,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
                         if (temptxt.toString().length >= 4) {
-                            item.position.z = 4+avz - bw / 3;
+                            item.position.z = 4+avz - bw / 3+오프셋[0];
                         } else if (temptxt.toString().length == 3) {
-                            item.position.z = 3+avz - bw / 2.6;
+                            item.position.z = 3+avz - bw / 2.6+오프셋[0];
                         } else {
-                            item.position.z = 1+avz - bw / 2.3;
+                            item.position.z = 1+avz - bw / 2.3+오프셋[0];
                         }
                       }
 
@@ -29326,7 +29805,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               시간.forEach((item) => {
                 if(gamemod==2){
                   item.position.y = (cubes.length-2-clength) * bh - th * 0
-                  item.position.x = avx - bw / 6;
+
+
+                  item.position.x = avx - bw / 6+오프셋[1];
                   item.position.z = avz - bw / 1.5;
                   if(elapsedTime - mergetime <=0.3){
                     시간.forEach((item) => {
@@ -29338,8 +29819,17 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     });
                   }
 
+                  // screen[0].position.set(avx - bw / 6,(cubes.length-2-clength) * bh - th * 0+bh,avz - bw / 1.5)
 
 
+
+                  // renderer.setRenderTarget(renderTarget);
+                  // renderer.render(scene, topViewCamera);
+                  // renderer.setRenderTarget(null);
+
+                  // screen[0].material=new THREE.MeshBasicMaterial({
+                  //   map: renderTarget.texture
+                  // });
 
 
                 }else{
@@ -29382,11 +29872,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 var newmesh = new THREE.Mesh(geometry, material);
                 newmesh.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
                 if (temptxt.toString().length >= 4) {
-                    newmesh.position.z = 4+avz - bw / 3;
+                    newmesh.position.z = 4+avz - bw / 3+오프셋[0];
                 } else if (temptxt.toString().length == 3) {
-                    newmesh.position.z = 3+avz - bw / 2.6;
+                    newmesh.position.z = 3+avz - bw / 2.6+오프셋[0];
                 } else {
-                    newmesh.position.z = 1+avz - bw / 2.3;
+                    newmesh.position.z = 1+avz - bw / 2.3+오프셋[0];
                 }
                 newmesh.position.x = avx - bw / 1.5;
 
@@ -29638,7 +30128,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
               textMesh.position.y = (cubes.length-2-clength) * bh - th * 0
-              textMesh.position.x = avx - bw / 6;
+              textMesh.position.x = avx - bw / 6+오프셋[1];
               textMesh.position.z = avz - bw / 1.5;
                   //
                   // textMesh.position.x = avx - bw / 2.5;
@@ -29743,6 +30233,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               topViewCamera.rotation.order = 'YXZ';
               topViewCamera.lookAt(cubes[cubes.length - 1].body.position.x, 0, cubes[cubes.length - 1].body.position.z);
               topViewCamera.rotation.y = cubes[cubes.length - 1].mesh.rotation.y
+
+
           } else {
               for (var i = 0; i < cubes.length; i++) {
                   cubes[i].mesh.children.forEach((item) => {
@@ -29784,12 +30276,14 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       if (!gameoverflag) {
                           if(gamemod==2){
                             topViewCamera.position.set(cubes[i].body.position.x, bh *(cubes.length+스킬[2]+3), cubes[i].body.position.z);
-                          }else{
-                            topViewCamera.position.set(cubes[i].body.position.x, bh *(activeFloor+2), cubes[i].body.position.z);
                           }
+
                           topViewCamera.rotation.order = 'YXZ';
                           topViewCamera.lookAt(cubes[i].body.position.x, 0, cubes[i].body.position.z);
                           topViewCamera.rotation.y = cubes[i].mesh.rotation.y
+
+
+
                           if(ringflag&&skinnum!=skinset.indexOf("classic")){
                             ring[0].position.set(cubes[activeFloor].mesh.position.x, cubes[activeFloor].mesh.position.y, cubes[activeFloor].mesh.position.z)
                             ring[0].children.forEach((item, index) => {
@@ -29890,17 +30384,28 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 var height2 = window.innerWidth / 1.6+0.2*window.innerWidth*(tt0-1);
                 var width3 = window.innerWidth / 1.6+0.2*window.innerWidth*(tt0-1);
                 var height3 = window.innerWidth / 1.6+0.2*window.innerWidth*(tt0-1);
+
+                var width4 = window.innerWidth / 2
+                var height4 = window.innerWidth / 2
               // }
 
               // console.log(topViewCamera.left)
               topViewCamera.left = -bw / 1.8-6*(tt0-1)
-              // console.log(topViewCamera.left)
+
               topViewCamera.right = bw / 1.8+6*(tt0-1)
               topViewCamera.top = bw / 1.8+6*(tt0-1)
               topViewCamera.bottom = -bw / 1.8-6*(tt0-1)
 
               topViewCamera.updateProjectionMatrix();
 
+
+
+              //camtop
+              // renderer.setViewport(window.innerWidth /2- width4 / 4, window.innerHeight-height4/1.4, width4/2, height4/2);
+              // renderer.setScissor(window.innerWidth /2- width4 / 4, window.innerHeight-height4/1.4, width4/2, height4/2);
+              //
+              // renderer.setScissorTest(true);
+              // renderer.render(scene, topViewCamera);
 
               if((window.innerWidth / window.innerHeight) > 0.5){
 
@@ -29915,6 +30420,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     renderer.setScissor(window.innerWidth / 2 - width3 / 2, -5-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
+                    console.log("탑1")
                   }
 
                 }else{
@@ -29926,6 +30432,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     renderer.setScissor(window.innerWidth / 2 - width3 / 2, -5-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
+                    console.log("탑2")
 
 
 
@@ -29944,6 +30451,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     renderer.setScissor(window.innerWidth / 2 - width2 / 2, -5-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
+                    console.log("탑3")
                   }
 
                 }else{
@@ -29957,6 +30465,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     renderer.setScissor(window.innerWidth / 2 - width2 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
+                    console.log("탑4")
 
 
 
@@ -30028,6 +30537,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   renderer.setScissor(window.innerWidth / 2 - width3 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
                   renderer.setScissorTest(true);
                   renderer.render(scene, topViewCamera);
+                  console.log("탑0")
                 }
 
               }else{
@@ -30039,6 +30549,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   renderer.setScissor(window.innerWidth / 2 - width3 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
                   renderer.setScissorTest(true);
                   renderer.render(scene, topViewCamera);
+                  console.log("탑3")
 
 
 
@@ -32107,6 +32618,30 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     mesh1.userData["skintype"] =1;
     if(!flag) clmeshlst[idx].push(mesh1.material);
     mesh.add(mesh1);
+
+    if(idx==4){
+
+      var geometry11 = new THREE.BoxGeometry(width, height, depth);
+      var material11 = new THREE.MeshLambertMaterial({
+          color: newcolor3,
+          opacity: 0,
+          transparent: true
+      });
+      let mesh11 = new THREE.Mesh(geometry11, material11);
+      screen.push(mesh11)
+      var cmesh1=mesh1.clone()
+      cmesh1.material=mesh1.material.clone()
+      mesh11.add(cmesh1)
+
+      mesh11.position.set(0,10,0)
+      mesh11.rotation.x=Math.PI/2-0.32
+      mesh11.rotation.z=-Math.PI/4
+      mesh11.rotation.y=0.32
+
+
+
+    }
+
 
     //ring
     // let originHelper = new THREE.Object3D();
