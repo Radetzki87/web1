@@ -7566,7 +7566,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let cls=[];
   let aniflag0=true;
   let pfloor=2
-  let drawt=false;
+  let drawt=true;
   let 횟수=0;
   let combo=0
   let 콤보=1
@@ -8195,7 +8195,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let supercost=[5,5]
   let 보드반경=8
   let screen=[]
+
+  let screenopa=0.8
   let startonce=true
+
+  let screenon=false;
+  let screentime=0;
 
   let 오프셋=[4,5]
 
@@ -9314,6 +9319,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               var nntile=ntile.clone()
               nntile.material=ntile.material.clone()
               nntile.children[0].material=ntile.children[0].material.clone()
+              nntile.material.transparent=true;
+              nntile.material.opacity=screenopa
+              nntile.children[0].material.transparent=true;
+              nntile.children[0].material.opacity=screenopa
               console.log(screen[0])
               screen[0].add(nntile);
               screen[0].userData.game2048.boardpointer[position.row][position.col] = nntile;
@@ -10274,11 +10283,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
         if(window.innerWidth>window.innerHeight){
           핑거0.x = 0.01+(event.touches[0].clientX / window.innerHeight)* 0.8 - 1;
-          핑거0.y = 0.04-(event.touches[0].clientY / window.innerHeight)*0.8 + 1;
+          핑거0.y = 0.03-(event.touches[0].clientY / window.innerHeight)*0.8 + 1;
 
         }else{
           핑거0.x = 0.01+(event.touches[0].clientX / window.innerWidth)* 0.8 - 1;
-          핑거0.y = 0.04-(event.touches[0].clientY / window.innerWidth)*0.8 + 1;
+          핑거0.y = 0.03-(event.touches[0].clientY / window.innerWidth)*0.8 + 1;
         }
 
         raycaster.setFromCamera(핑거0, camera);
@@ -15035,7 +15044,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       }
 
       // skinnum=skinset.indexOf("cabin")
-
+      skinnum=skinset.indexOf("classic")
 
       review1= false;
       review2= false;
@@ -15125,8 +15134,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       바=100
       필=0
 
-      drawt=true;
-      draw=false;
+      // drawt=true;
+      draw=true
       drawcount=0
       aniflag0=true;
       pfloor=2
@@ -15208,6 +15217,17 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
       startonce=true
+
+
+      if(screenon){
+        screentime=0
+        screenopa=0.8
+        오프셋=[4,5]
+      }else{
+        screentime=-2;
+        screenopa=0
+        오프셋=[0,0]
+      }
 
 
 
@@ -22676,6 +22696,20 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
       if (startflag&&!gameoverflag) { //스타트
+          if(elapsedTime-screentime<0.4){
+            if(screenon){
+              // screen[0].material.opacity=screenopa*((elapsedTime-screentime)/0.4)
+              screen[0].scale.x=0.5*((elapsedTime-screentime)/0.4)
+              오프셋[0]=4*((elapsedTime-screentime)/0.4)
+              오프셋[1]=5*((elapsedTime-screentime)/0.4)
+            }else{
+              // screen[0].material.opacity=screenopa-screenopa*((elapsedTime-screentime)/0.4)
+              screen[0].scale.x=(0.5-0.5*(elapsedTime-screentime)/0.4)
+              오프셋[0]=4*(1-(elapsedTime-screentime)/0.4)
+              오프셋[1]=5*(1-(elapsedTime-screentime)/0.4)
+            }
+          }
+
           if(startonce){
 
 
@@ -23428,7 +23462,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
             // scene.add(보드[0])
-            drawon2()
+            if(!fullcam){
+              drawon2()
+            }
             토대[2].material=temp6[100]
             토대[3].material=temp6[100]
 
@@ -24540,7 +24576,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 토대[3].material.visible = true
 
                 if(drawt){
-                  drawon2();
+                  // drawon2();
                 }
                 if(모니터){
                   토대[8].material.visible=true;
@@ -25902,6 +25938,17 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         // console.log(document.getElementById('pgrs1').style.width)
         if(!overonce){
 
+          for (var i = screen[0].children.length-1; i >=0; i--) {
+            screen[0].children[i].material.visible=false;
+
+
+            for (var j = 0; j < screen[0].children[i].children.length; j++) {
+              screen[0].children[i].children[j].material.visible=false;
+
+            }
+
+          }
+
 
 
           document.getElementById('hammer0').style.display="none"
@@ -26451,6 +26498,12 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                           ntext.material = new THREE.MeshBasicMaterial({
                               color: 0xffffff
                           });
+
+                          if(!item.org){
+                            ntext.material.transparent=true;
+                            ntext.material.opacity=screenopa;
+
+                          }
 
                           if(text.length>=3){
                             ntext.scale.x=0.8-((text.length-3)/5);
@@ -27697,6 +27750,16 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       if (!gameoverflag&&startflag) {
         var 오버=false;
         if(발사){
+          for (var i = screen[0].children.length-1; i >=0; i--) {
+            screen[0].children[i].material.visible=false;
+
+
+            for (var j = 0; j < screen[0].children[i].children.length; j++) {
+              screen[0].children[i].children[j].material.visible=false;
+
+            }
+
+          }
           curveflag=false
           aniflag0=false
           gradback[0].material.visible=false;
@@ -27759,6 +27822,25 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
                 if(i-2>기록){
                   기록=i-2
+
+
+
+
+                }
+                if(기록>2){
+                  aniflag0=false
+                  curveflag=false
+                  for (var i = screen[0].children.length-1; i >=0; i--) {
+                    screen[0].children[i].material.visible=false;
+
+
+                    for (var j = 0; j < screen[0].children[i].children.length; j++) {
+                      screen[0].children[i].children[j].material.visible=false;
+
+                    }
+
+                  }
+
 
 
                 }
@@ -27853,7 +27935,16 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   if(기록>2){
                     aniflag0=false
                     curveflag=false
+                    for (var i = screen[0].children.length-1; i >=0; i--) {
+                      screen[0].children[i].material.visible=false;
 
+
+                      for (var j = 0; j < screen[0].children[i].children.length; j++) {
+                        screen[0].children[i].children[j].material.visible=false;
+
+                      }
+
+                    }
 
 
 
@@ -27909,6 +28000,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   item.children[1].material.color=new THREE.Color(colorlst[colornum][0])
                   item.children[2].material.color=new THREE.Color(colorlst[colornum][0])
                   item.children[3].material.color=new THREE.Color(colorlst[colornum][0])
+
+
                 }
                 if(i-2>기록){
                   기록=i-2
@@ -27923,6 +28016,17 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
             });
 
             if(기록>2){
+              for (var i = screen[0].children.length-1; i >=0; i--) {
+                screen[0].children[i].material.visible=false;
+
+
+                for (var j = 0; j < screen[0].children[i].children.length; j++) {
+                  screen[0].children[i].children[j].material.visible=false;
+
+                }
+
+              }
+
               if(document.getElementById('hammer0').style.display!="none"){
                 document.getElementById('hammer0').style.display="none"
                 document.getElementById('pung0').style.display="none"
@@ -29686,15 +29790,15 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
             for (var i = screen[0].children.length-1; i >=0; i--) {
               // screen[0].children[i].material.visible=true;
               screen[0].children[i].material.transparent=true;
-              screen[0].children[i].material.opacity=0.6;
-              screen[0].children[i].material.alphaTest=0.6;
+              screen[0].children[i].material.opacity=screenopa;
+              screen[0].children[i].material.alphaTest=screenopa;
               screen[0].children[i].material.depthWrite=true;
 
               for (var j = 0; j < screen[0].children[i].children.length; j++) {
                 // screen[0].children[i].children[j].material.visible=true;
                 screen[0].children[i].children[j].material.transparent=true;
-                screen[0].children[i].children[j].material.opacity=0.6;
-                screen[0].children[i].children[j].material.alphaTest=0.6;
+                screen[0].children[i].children[j].material.opacity=screenopa;
+                screen[0].children[i].children[j].material.alphaTest=screenopa;
                 screen[0].children[i].children[j].material.depthWrite=true;
               }
 
@@ -36707,6 +36811,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
   function fullon(){
     var camval=cubes.length/1.3
     if(fullcam){
+      if(draw){
+        drawon2();
+      }
+
       console.log("킷타")
       // if(startflag){
       //
@@ -36723,7 +36831,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         fullcam=false;
-        topcam=false;
+        // topcam=false;
       }else{
         camera.left = -bw * 배율[1]-(camval*2)/4;
         camera.right = bw * 배율[1] * 4+(camval*2);
@@ -36733,7 +36841,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         fullcam=false;
-        topcam=true;
+        // topcam=true;
       }
 
 
@@ -36754,7 +36862,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       fullcam=true
-      topcam=false;
+      drawon2();
+      // topcam=false;
 
 
 
@@ -36768,19 +36877,55 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
   }
   window.fullon=fullon;
 
+  function showscreen(n=9){
+    if(n==1){
+      screenon=true
+
+      if(screenopa!=0.8){
+        screentime=elapsedTime;
+      }
+      screenopa=0.8
+    }else if(n==0){
+      screenon=false
+      setTimeout(function() {
+        screenopa=0
+      }, 400);
+
+      screentime=elapsedTime;
+
+    }else if(screenon){
+      screenon=false;
+      screentime=elapsedTime;
+      setTimeout(function() {
+        screenopa=0
+      }, 400);
+
+    }else if(!screenon){
+      screenon=true;
+      screentime=elapsedTime;
+      screenopa=0.8
+
+    }
+
+  }
+
   function drawon(){
 
-    if(draw){
+    if(draw&&!topcam){
+
       drawt=true;
       꺼져=false;
       topcam=true;
       draw=false;
       drawcount=elapsedTime+0.3;
-    }else{
+      showscreen(0)
+    }else if(!draw&&topcam){
       drawt=false;
       꺼져=true;
       draw=true;
+
       drawcount=elapsedTime;
+      showscreen(1)
     }
   }
   window.drawon=drawon;
@@ -36792,12 +36937,14 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         topcam=true;
         draw=false;
         drawcount=elapsedTime+0.3+n;
+
       }
     }else{
 
         꺼져=true;
         draw=true;
         drawcount=elapsedTime;
+
 
     }
   }
