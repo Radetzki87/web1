@@ -7888,9 +7888,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var version;
   var upversion=0;
 
-  var 마찰=[0.2,0.3,0.18,0.2,0.3]
+  var 마찰=[0.2,0.3,0.17,0.2,0.3]
   var 탄성=[0.4,0.4,0.2,0.7,0.4]
-  var 중력=[-7,-11,-16,-7,-7]
+  var 중력=[-7,-11,-17,-7,-7]
 
   var resinit=0
   window.resinit=resinit
@@ -8196,7 +8196,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let pungtime=false
 
   let supercost=[5,5]
-  let 보드반경=8
+  let 보드반경=9
   let screen=[]
 
   let screenopa=0.8
@@ -8205,7 +8205,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
   let screentime=0;
 
-  let 오프셋=[4,5]
+  let 오프셋=[4,5,1]
 
 
 
@@ -10286,11 +10286,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
         if(window.innerWidth>window.innerHeight){
           핑거0.x = 0.01+(event.touches[0].clientX / window.innerHeight)* 0.8 - 1;
-          핑거0.y = 0.03-(event.touches[0].clientY / window.innerHeight)*0.8 + 1;
+          핑거0.y = 0.02-(event.touches[0].clientY / window.innerHeight)*0.8 + 1;
 
         }else{
           핑거0.x = 0.01+(event.touches[0].clientX / window.innerWidth)* 0.8 - 1;
-          핑거0.y = 0.03-(event.touches[0].clientY / window.innerWidth)*0.8 + 1;
+          핑거0.y = 0.02-(event.touches[0].clientY / window.innerWidth)*0.8 + 1;
         }
 
         raycaster.setFromCamera(핑거0, camera);
@@ -10670,7 +10670,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
               if(itemr){
                 if(superflag){
-                  force2.set(-28000*cubes[itemidx].body.mass/5,0,0)
+                  force2.set(-30000*cubes[itemidx].body.mass/5,0,0)
                 }else{
                   force2.set(-6000*cubes[itemidx].body.mass/5,0,0)
 
@@ -10678,7 +10678,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 이펙트2(itemidx, 128, "left");
               }else if(iteml){
                 if(superflag){
-                  force2.set(0,0,-28000*cubes[itemidx].body.mass/5)
+                  force2.set(0,0,-30000*cubes[itemidx].body.mass/5)
                 }else{
                   force2.set(0,0,-6000*cubes[itemidx].body.mass/5)
                 }
@@ -12327,13 +12327,21 @@ function createPath( char, scale, offsetX, offsetY, data ) {
           console.log("아이템 사용")
           tctime=elapsedTime
           var force2 = new CANNON.Vec3();
+
+
+          var clength=0
+
+          for (var i =itemidx ; i < cubes.length; i++) {
+            if(!cubes[i].mesh.userData["bye"]) clength++
+          }
+          var jim=clength*150
           if(hammer){
             사용횟수++;
             if(itemr){
               if(superflag){
                 force2.set(-28000*cubes[itemidx].body.mass/5,0,0)
               }else{
-                force2.set(-6000*cubes[itemidx].body.mass/5,0,0)
+                force2.set(-jim-6500*cubes[itemidx].body.mass/5,0,0)
 
               }
               이펙트2(itemidx, 128, "left");
@@ -12341,7 +12349,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               if(superflag){
                 force2.set(0,0,-28000*cubes[itemidx].body.mass/5)
               }else{
-                force2.set(0,0,-6000*cubes[itemidx].body.mass/5)
+                force2.set(0,0,-jim-6500*cubes[itemidx].body.mass/5)
               }
               이펙트2(itemidx, 128, "up");
             }
@@ -12475,6 +12483,14 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               }
             }
 
+            var clength=0
+
+            for (var i =itemidx ; i < cubes.length; i++) {
+              if(!cubes[i].mesh.userData["bye"]) clength++
+            }
+
+            var jim=clength*150
+
 
 
 
@@ -12483,7 +12499,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               if(superflag){
                 force2.set(65000*cubes[itemidx].body.mass/5,0,0)
               }else{
-                force2.set(6000*cubes[itemidx].body.mass/5,0,0)
+                force2.set(jim+6500*cubes[itemidx].body.mass/5,0,0)
               }
 
               이펙트2(itemidx, 128, "right");
@@ -12491,7 +12507,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               if(superflag){
                 force2.set(0,0,65000*cubes[itemidx].body.mass/5)
               }else{
-                force2.set(0,0,6000*cubes[itemidx].body.mass/5)
+                force2.set(0,0,jim+6500*cubes[itemidx].body.mass/5)
               }
 
               이펙트2(itemidx, 128, "down");
@@ -15231,11 +15247,16 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       if(screenon){
         screentime=0
         screenopa=0.8
-        오프셋=[4,5]
+
+        오프셋[0]=4
+        오프셋[1]=5
+
       }else{
         screentime=-2;
         screenopa=0
-        오프셋=[0,0]
+
+        오프셋[0]=0
+        오프셋[1]=0
       }
 
 
@@ -24308,7 +24329,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   rcv=parseInt(Math.random()*(colorlst0.length-51))
                   document.getElementById("center0").innerText="colornum: "+String(colornum)+"\n"+"colornum0: "+String(colornum0)+"\ncolornum2: "+String(rcv)
                   document.getElementById("center0").style.opacity=1
-                  var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.025, 32,1,false, Math.PI/2, Math.PI*2), new THREE.MeshLambertMaterial({
+                  var mesh5 = new THREE.Mesh(new THREE.CylinderGeometry(2*보드반경*i, 2*보드반경*i,0.025, 64,1,false, Math.PI/2, Math.PI*2), new THREE.MeshLambertMaterial({
                       // color: colorlst0[parseInt(Math.random()*colorlst0.length)][1],
                       // color: newcolor3.getHexString(),
                       color: colorlst0[rcv+parseInt(i/5)][i%5],
@@ -24342,6 +24363,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       // textMesh.position.z+=1*bscale;
                       textMesh.position.z+=-2*보드반경*(i-1)-0.4*보드반경
                       textMesh.position.x-=(10)*bscale;
+                      textMesh.position.y=0.1
                       textMesh.rotation.order = 'YXZ';
                       textMesh.rotation.x = -Math.PI / 2;
                       // textMesh.material.visible=false;
@@ -24352,6 +24374,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                         // textMesh.position.z+=1*bscale;
                         textMesh.position.z-=-2*보드반경*(i-1)-0.8*보드반경
                         textMesh.position.x-=(8)*bscale;
+                        textMesh.position.y=0.1
                         textMesh.rotation.order = 'YXZ';
                         textMesh.rotation.x = -Math.PI / 2;
                         // textMesh.material.visible=false;
@@ -24362,6 +24385,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                           // textMesh.position.z+=1*bscale;
                           textMesh.position.x+=-2*보드반경*(i-1)-0.4*보드반경
                           textMesh.position.z-=(3)*bscale;
+                          textMesh.position.y=0.1
                           textMesh.rotation.order = 'YXZ';
                           textMesh.rotation.x = -Math.PI / 2;
                           textMesh.rotation.y = -Math.PI ;
@@ -24374,6 +24398,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                             // textMesh.position.z+=1*bscale;
                             textMesh.position.x-=-2*보드반경*(i-1)-0.8*보드반경
                             textMesh.position.z-=(3)*bscale;
+                            textMesh.position.y=0.1
                             textMesh.rotation.order = 'YXZ';
                             textMesh.rotation.x = -Math.PI / 2;
                             textMesh.rotation.y = -Math.PI ;
@@ -24406,7 +24431,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   item.children.forEach((child) => {
                     child.material.visible=false;
                     child.material.opacity=0
-                    child.material.depthWrite=false;
+                    child.material.depthWrite=true;
                   });
                 });
 
@@ -27416,12 +27441,14 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           }
           시간.forEach((item) => {
             if(gamemod==2){
-              item.position.y = (cubes.length-3-clength) * bh +((elapsedTime - stacktime)/0.35)*bh
+              item.position.y = cubes[cubes.length-1].mesh.position.y+((elapsedTime - stacktime)/0.35)*bh+오프셋[2]
+              // item.position.y = (cubes.length-3-clength) * bh +((elapsedTime - stacktime)/0.35)*bh
             }
           })
           포인트.forEach((item) => {
             if(gamemod==2){
-              item.position.y = (cubes.length-3-clength) * bh +((elapsedTime - stacktime)/0.35)*bh
+              item.position.y = cubes[cubes.length-1].mesh.position.y+((elapsedTime - stacktime)/0.35)*bh+오프셋[2]
+              // item.position.y = (cubes.length-3-clength) * bh +((elapsedTime - stacktime)/0.35)*bh
 
 
             }
@@ -29819,7 +29846,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               포인트.forEach((item) => {
                   item.position.x = avx - bw / 1.5;
                   if(gamemod==2){
-                    item.position.y = (cubes.length-2-clength) * bh - th * 0
+                    // item.position.y = (cubes.length-2-clength) * bh - th * 0
+                    item.position.y = cubes[cubes.length-1].mesh.position.y+bh+오프셋[2]
                       temptxt="+:"+String(stacknum[cubes.length-1])
                       if(!m2flag){
 
@@ -29917,7 +29945,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
               시간.forEach((item) => {
                 if(gamemod==2){
-                  item.position.y = (cubes.length-2-clength) * bh - th * 0
+                  // item.position.y = (cubes.length-2-clength) * bh - th * 0
+                  item.position.y = cubes[cubes.length-1].mesh.position.y+bh+오프셋[2]
+
+
 
 
                   item.position.x = avx - bw / 6+오프셋[1];
@@ -29983,7 +30014,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
                 });
                 var newmesh = new THREE.Mesh(geometry, material);
-                newmesh.position.y = (cubes.length-3+스킬[2]) * bh - th * 0
+                newmesh.position.y = cubes[cubes.length-1].mesh.position.y+bh+오프셋[2]
                 if (temptxt.toString().length >= 4) {
                     newmesh.position.z = 4+avz - bw / 3+오프셋[0];
                 } else if (temptxt.toString().length == 3) {
@@ -30227,7 +30258,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               createTextMesh(temptxt.toString(), 9991, (textMesh) => {
 
 
-                textMesh.position.y = (cubes.length-1-clength) * bh - th * 0
+                textMesh.position.y = cubes[cubes.length-1].mesh.position.y+bh
                 if (temptxt.toString().length >= 4) {
                     textMesh.position.z = 1+avz - bw /(3.1+(temptxt.toString().length-4)*0.3);
                 } else if (temptxt.toString().length == 3) {
@@ -30240,7 +30271,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               // createTextMesh(timestring, 998, (textMesh) => {
 
 
-              textMesh.position.y = (cubes.length-2-clength) * bh - th * 0
+              textMesh.position.y = cubes[cubes.length-1].mesh.position.y+bh+오프셋[2]
               textMesh.position.x = avx - bw / 6+오프셋[1];
               textMesh.position.z = avz - bw / 1.5;
                   //
