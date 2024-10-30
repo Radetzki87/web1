@@ -8191,7 +8191,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let 아이스취소=false;
   let 판=[];
 
-  let 배율=[1.7,1.15,1.3,0.4,0.5]1
+  let 배율=[1.8,1.15,1.3,1,0.5]
 
   let pungtime=false
 
@@ -24006,11 +24006,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
               // camera.rotation.x += Math.PI / 512
               camera.rotation.x += deltaTime / 1800
-              if(gamemod!=2){
-                camera.position.y=2*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
-              }else{
-                camera.position.y=2*(bh * (5*0.5+3))+(-isoAngle - camera.rotation.x)*30
-              }
+              // if(gamemod!=2){
+              //   camera.position.y=22*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
+              // }else{
+              //   camera.position.y=22*(bh * (5*0.5+3))+(-isoAngle - camera.rotation.x)*30
+              // }
 
               var canvas = document.createElement('canvas');
               var ctx = canvas.getContext('2d');
@@ -29388,13 +29388,13 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
       if(startflag) world.step(1 / 60, deltaTime/850);
 
-      if(등장){
-        if(gamemod!=2){
-          camera.position.y=(4+스킬[2])*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
-        }else{
-          camera.position.y=(4+스킬[2])*(bh * (5*0.5+3))+(-isoAngle - camera.rotation.x)*30
-        }
-      }
+      // if(등장){
+      //   if(gamemod!=2){
+      //     camera.position.y=(4+스킬[2])*(bh * (5 + 2))+(-isoAngle - camera.rotation.x)*30
+      //   }else{
+      //     camera.position.y=(4+스킬[2])*(bh * (5*0.5+3))+(-isoAngle - camera.rotation.x)*30
+      //   }
+      // }
 
       if(!restartflag){
           if(legs.length>0){
@@ -29735,16 +29735,16 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 // console.log("a2")
                 if(startflag){
                   console.log("a1")
-                  camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
+                  camera.position.y=배율[3]+2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
                 }else{
                   console.log("a2")
-                  camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
+                  camera.position.y=배율[3]+2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
                 }
 
               }
             }else{
               console.log("a3")
-              camera.position.y=(4+스킬[2])*(bh * (5 + 3))+(-isoAngle - camera.rotation.x)*30
+              camera.position.y=배율[3]+(4+스킬[2])*(bh * (5 + 3))+(-isoAngle - camera.rotation.x)*30
             }
 
           }else{
@@ -29756,24 +29756,24 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
                   if(gameoverflag){
                     if(skinset[skinnum]=="classic"){//클
-                        // console.log("a5")
-                      camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
+                        console.log("a5")
+                      camera.position.y=배율[3]+2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
                       // camera.position.y=10
                     }else{
                         console.log("a6")
-                        camera.position.y=2*(bh * ((cubes.length-11.2-clength)*0.5+9+스킬[2]))
+                        camera.position.y=배율[3]+2*(bh * ((cubes.length-11.2-clength)*0.5+9+스킬[2]))
                       // camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
                     }
                   }else{
-                    // console.log("a7")
-                    camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
+                    console.log("a7")
+                    camera.position.y=배율[3]+2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
 
                   }
 
 
                 }else{
-                  // console.log("a8")
-                  camera.position.y=2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
+                  console.log("a8")
+                  camera.position.y=배율[3]+2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
                 }
 
               }else{
