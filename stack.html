@@ -15936,6 +15936,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
 
+
+
                 // console.log(screen[0].children)
                 scene.add(screen[0])
 
@@ -15948,6 +15950,17 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     child.material.visible=false
                   });
                 });
+
+
+                var nc = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+                screen[0].children[0].material.color=new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
+                cubes[4].mesh.children.forEach((item) => {
+                  if(item.userData["skin"]=="bottom"){
+                    item.material.color=new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
+                  }
+                });
+
+
                 if(skinnum==skinset.indexOf("classic")){
                   for (var i = 0; i < cubes.length; i++) {
                     cubes[i].mesh.scale.set(cubes[i].mesh.userData["combo"]*클크기,0.978,cubes[i].mesh.userData["combo"]*클크기)
@@ -24626,6 +24639,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
                 console.log("콩")
+
+
 
 
                 토대[2].material.visible = true
