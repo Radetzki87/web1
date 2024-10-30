@@ -15259,7 +15259,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
       startonce=true
-
+      if (window.innerWidth > window.innerHeight) {
+        screenon=true;
+        drawt=false;
+      }
 
       if(screenon){
         screentime=0
@@ -15275,6 +15278,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         오프셋[0]=0
         오프셋[1]=0
       }
+
+
 
 
 
@@ -26820,7 +26825,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                               // forceAmount=1000;
                               var force = new CANNON.Vec3();
                               var tnum=parseInt(Math.log2(num))-2;
-                              console.log("힘조힘조: "+String(tnum))
+
 
                               var forceset2=[650+200, 900+200, 1200+200, 1600+200, 2100+200, 2700+200, 3300+200, 3500+200 ,4000+200];
 
@@ -29730,17 +29735,23 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
       if (window.innerWidth > window.innerHeight) {
-          if (restartflag) {
-              renderer.setViewport(0, window.innerHeight - window.innerHeight * 2.5, window.innerHeight * 2.5, window.innerHeight * 2.5);
-              renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
-              renderer.setScissorTest(true);
-              renderer.render(scene, camera);
-          } else {
-              renderer.setViewport(0, window.innerHeight - window.innerHeight * 2.5, window.innerHeight * 2.5, window.innerHeight * 2.5);
-              renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
-              renderer.setScissorTest(true);
-              renderer.render(scene, camera);
-          }
+        camera.position.y=배율[4]+2*(bh * ((cubes.length)*0.5+9+스킬[2]))
+        renderer.setViewport(0, window.innerHeight - window.innerWidth * 2.5, window.innerWidth * 2.5, window.innerWidth * 2.5);
+        renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
+        renderer.setScissorTest(true);
+        renderer.render(scene, camera);
+
+          // if (restartflag) {
+          //     renderer.setViewport(0, window.innerHeight - window.innerHeight * 2.5, window.innerHeight * 2.5, window.innerHeight * 2.5);
+          //     renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
+          //     renderer.setScissorTest(true);
+          //     renderer.render(scene, camera);
+          // } else {
+          //     renderer.setViewport(0, window.innerHeight - window.innerHeight * 2.5, window.innerHeight * 2.5, window.innerHeight * 2.5);
+          //     renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
+          //     renderer.setScissorTest(true);
+          //     renderer.render(scene, camera);
+          // }
       } else {
           // if (restartflag) {
           //
@@ -29799,7 +29810,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       // camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
                     }
                   }else{
-                    // console.log("a7")
+                    console.log("a7")
                     camera.position.y=배율[4]+2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
 
                   }
