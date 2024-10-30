@@ -7655,7 +7655,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var skinlang2;
   window.skinlang2=skinlang2
 
-  let 클크기=0.78;
+  let 클크기=0.77;
 
 
   // var forceset=[[700,850,1000,1250,1600,2100,2600,3100,3600,5200,8200],[650,800,950,1200,1550,2050,2550,3050,3550,5150,8150],[600,750,900,1150,1500,2000,2500,3000,3500,5100,8100],[550,700,850,1100,1450,1950,2450,2950,3450,5050,8050],[500,650,800,1050,1400,1900,2400,2900,3400,5000,8000]]
@@ -15952,13 +15952,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 });
 
 
-                var nc = hexToHSL(hexToHtmlColor(colorlst0[ncolornum0][4]))
+                var nc = hexToHSL(hexToHtmlColor(colorlst0[colornum0][4]))
                 screen[0].children[0].material.color=new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
-                cubes[4].mesh.children.forEach((item) => {
-                  if(item.userData["skin"]=="bottom"){
-                    item.material.color=new THREE.Color('hsl(' + String(nc["h"]) + ', ' + String(nc["s"]) + '%, ' + String(nc["l"]) + '%)');
-                  }
-                });
+
 
 
                 if(skinnum==skinset.indexOf("classic")){
@@ -16700,6 +16696,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                         object.children[0].castShadow = true;
                     }
                     clmeshlst[idx].push(object.children[0].material)
+                    console.log(idx)
+                    console.log(clmeshlst)
                     if(idx==0){
                       skinmold[object.children[0].userData["skin"]].push(object.children[0].clone())
                     }
@@ -24031,6 +24029,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               restart();
 
           } else {
+
+            console.log("유굴2")
 
               보드.forEach((item) => {
                 item.material.visible=false;
@@ -31917,6 +31917,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               skinmold[item].forEach((obj) => {
                 let obj1=obj.clone();
                 let mat1=obj.material.clone();
+
+
+
+
                 if(obj1.userData["skintype"]=="top"){
                   // if(gamemod==2){
                   //   return;
@@ -31944,6 +31948,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       color: newcolor3
                   });
                   if(!flag) clmeshlst[idx].push(obj1.material);
+                  if(idx==4&&item=="classic"&&obj1.userData["skintype"]==0){
+
+                    clmeshlst[4].push(obj1.material)
+                  }
                 }else if(obj1.userData["skintype"]==1){
                   obj1.material=new THREE.MeshLambertMaterial({
                       color: newcolor4
@@ -32826,6 +32834,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     mesh1.userData["skin"] = "bottom"
     mesh1.userData["skintype"] =1;
     if(!flag) clmeshlst[idx].push(mesh1.material);
+    if(idx==4){
+        clmeshlst[4].push(mesh1.material)
+    }
     mesh.add(mesh1);
 
     if(idx==4){
@@ -32840,6 +32851,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       screen.push(mesh11)
       var cmesh1=mesh1.clone()
       cmesh1.material=mesh1.material.clone()
+
       mesh11.add(cmesh1)
 
       mesh11.position.set(0,10,0)
