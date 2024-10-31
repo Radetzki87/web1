@@ -8205,6 +8205,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let screen=[]
 
   let screenopa=0.8
+  let screensca=0.7
   let startonce=true
 
 
@@ -15965,7 +15966,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     토대.push(body12)
                 }
 
-                screen[0].scale.set(0.5, 0.5,0.5)
+                screen[0].scale.set(screensca, screensca,screensca)
                 screen[0].userData.game2048 = new Game2048(4, 999);
 
 
@@ -22810,12 +22811,12 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           if(elapsedTime-screentime<0.4){
             if(screenon){
               // screen[0].material.opacity=screenopa*((elapsedTime-screentime)/0.4)
-              screen[0].scale.x=0.5*((elapsedTime-screentime)/0.4)
+              screen[0].scale.x=screensca*((elapsedTime-screentime)/0.4)
               오프셋[0]=4*((elapsedTime-screentime)/0.4)
               오프셋[1]=5*((elapsedTime-screentime)/0.4)
             }else{
               // screen[0].material.opacity=screenopa-screenopa*((elapsedTime-screentime)/0.4)
-              screen[0].scale.x=(0.5-0.5*(elapsedTime-screentime)/0.4)
+              screen[0].scale.x=(screensca-screensca*(elapsedTime-screentime)/0.4)
               오프셋[0]=4*(1-(elapsedTime-screentime)/0.4)
               오프셋[1]=5*(1-(elapsedTime-screentime)/0.4)
             }
