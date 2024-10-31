@@ -29,6 +29,30 @@
             overscroll-behavior-x: none;
         }
 
+                /* 슬라이더의 기본 스타일 */
+        .slider-container {
+          user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 10vh;
+        }
+
+        /* 슬라이더를 세로로 변경 */
+        .vertical-slider {
+            -webkit-appearance: slider-vertical;
+            writing-mode: bt-lr; /* 슬라이더의 상하 방향 설정 */
+            height: 8vh;
+            width: 30px;
+        }
+
+        /* 슬라이더 값 표시 */
+        .slider-value {
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
         @font-face {
           font-family: 'wild';
           src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/Dovemayo_wild.woff2') format('woff2');
@@ -2816,7 +2840,7 @@
             background-color: transparent;
             /* background-image: url("png/green_button09.png"); */
             background-size: 6vmax 4vmax;
-            bottom: 1.5vmax;
+            bottom: 3vmax;
             right: 3%;
             width: 6vmax;
             height: 4vmax;
@@ -3143,6 +3167,11 @@
     <img class="" src="png/up.png">
     <img class="hidden" src="png/down.png">
 </button>
+
+<!-- <div class="right" id="right">
+    <input type="range" min="0" max="100" value="50" class="vertical-slider" id="verticalSlider">
+    <div class="slider-value" id="sliderValue">50</div>
+</div> -->
 
 <button id="hammer" class="hammer" ontouchstart="itemon(0)" onmousedown="itemon(0)">
     <img class="" src="png/hammer.png">
@@ -7691,6 +7720,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
     ur2="https://appassets.androidplatform.net/assets/obj/"
   }
 
+  var gameonce=true;
+
   var onceflag0=true;
   var onceflag1=true;
 
@@ -8203,6 +8234,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let 퇴장=false;
   let 보드반경=9
   let screen=[]
+
+
+
 
   let screenopa=0.8
   let screensca=0.6
@@ -10479,8 +10513,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                       return
                   } else if(activeFloor!=cubes.length){
                       if(playlock) return;
-                      const game2048 = cubes[activeFloor].mesh.userData.game2048;
-                      game2048.moveBoard("right");
+                      if (!aniflag&&ftiles.length==0) {
+                        const game2048 = cubes[activeFloor].mesh.userData.game2048;
+                        game2048.moveBoard("right");
+                      }
                   }
                   ontouch = false;
               } else if (-touchx + lastX > 0.1/(window.innerWidth/window.innerHeight)) {
@@ -10490,8 +10526,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                       return
                   } else if(activeFloor!=cubes.length){
                       if(playlock) return;
-                      const game2048 = cubes[activeFloor].mesh.userData.game2048;
-                      game2048.moveBoard("left");
+                      if (!aniflag&&ftiles.length==0) {
+                        const game2048 = cubes[activeFloor].mesh.userData.game2048;
+                        game2048.moveBoard("left");
+                      }
                   }
                   ontouch = false;
               } else if (touchy - lastY > 0.2/(window.innerHeight/window.innerWidth)) {
@@ -10501,8 +10539,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                       return
                   } else if(activeFloor!=cubes.length){
                       if(playlock) return;
-                      const game2048 = cubes[activeFloor].mesh.userData.game2048;
-                      game2048.moveBoard("up");
+                      if (!aniflag&&ftiles.length==0) {
+                        const game2048 = cubes[activeFloor].mesh.userData.game2048;
+                        game2048.moveBoard("up");
+                      }
                   }
                   ontouch = false;
               } else if (-touchy + lastY > 0.2/(window.innerHeight/window.innerWidth)) {
@@ -10512,8 +10552,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                       return
                   } else if(activeFloor!=cubes.length){
                       if(playlock) return;
-                      const game2048 = cubes[activeFloor].mesh.userData.game2048;
-                      game2048.moveBoard("down");
+                      if (!aniflag&&ftiles.length==0) {
+                        const game2048 = cubes[activeFloor].mesh.userData.game2048;
+                        game2048.moveBoard("down");
+                      }
                   }
                   ontouch = false;
               }
@@ -11839,6 +11881,61 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   window.addEventListener("touchend", handleTouchEnd, {
       passive: false
   });
+
+
+  //
+  // const slider = document.getElementById('verticalSlider');
+  // const sliderValue = document.getElementById('sliderValue');
+  //
+  // slider.addEventListener('input', function () {
+  //      sliderValue.textContent = slider.value;
+  //  });
+  //
+  //  // 터치 시작 시 슬라이더를 드래그 가능하게 함
+  //  slider.addEventListener('touchstart', function(event) {
+  //      event.preventDefault();
+  //      updateSliderValue(event.touches[0].clientY);
+  //  });
+  //
+  //  // 터치 이동 시 슬라이더 값을 업데이트
+  //  slider.addEventListener('touchmove', function(event) {
+  //      event.preventDefault();
+  //      updateSliderValue(event.touches[0].clientY);
+  //  });
+  //
+  //  slider.addEventListener('touchend', function(event) {
+  //      event.preventDefault();
+  //      updateSliderValue(0, false);
+  //  });
+  //
+  //
+  //  function updateSliderValue(clientY, flag=true) {
+  //
+  //       if(flag){
+  //         const sliderRect = slider.getBoundingClientRect();
+  //         const sliderHeight = sliderRect.height;
+  //         const max = parseInt(slider.max);
+  //         const min = parseInt(slider.min);
+  //
+  //         // 슬라이더에서의 터치 위치에 따른 값 계산
+  //         const offsetY = sliderRect.bottom - clientY; // 터치 위치에서 아래쪽을 기준으로 계산
+  //         const value = Math.round((offsetY / sliderHeight) * (max - min) + min);
+  //
+  //         // 슬라이더 값 설정 및 업데이트
+  //         slider.value = Math.min(Math.max(value, min), max); // 최대/최소 값 제한
+  //         sliderValue.textContent = slider.value;
+  //       }
+  //
+  //
+  //       if(!flag){
+  //         console.log("뗌")
+  //         console.log(slider.value)
+  //
+  //
+  //       }
+  //   }
+
+
 
   function handleMouseDown(event){
 
@@ -14565,8 +14662,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           // })
       } else {
           for (var i = 0; i < cubes.length; i++) {
-              if (i == activeFloor) {
-                  if (!aniflag) {
+              if (i == cubes.length-1) {
+                  if (!aniflag&&ftiles.length==0) {
                       const game2048 = cubes[i].mesh.userData.game2048;
                       game2048.moveBoard(direction);
                       // console.log(game2048.)
@@ -15231,7 +15328,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       document.getElementById('pgrs2').innerText=String(0)+"/"+String(5000)
 
       // document.getElementById('pgrs1').style.backgroundColor=hexToHtmlColor(colorlst0[colornum0][0]);
-      document.getElementById('pgrs1').style.backgroundColor="green"
+      document.getElementById('pgrs1').style.backgroundColor="skyblue"
       document.getElementById('pgrs2').style.color=hexToHtmlColor(colorlst0[colornum0][3]);
 
       console.log(sdic)
@@ -15391,6 +15488,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 mesh5.castShadow = true;
                 scene.add(mesh5)
                 토대.push(mesh5)
+                clmeshlst0[1].push(mesh5.material)
                 var shape = new CANNON.Box(new CANNON.Vec3(22/ 2, (80+bh*(스킬[2])) / 2, 22/ 2));
                 // const cylinderShape = new CANNON.Cylinder(width, width, bh, 16);
                 // const shape2 = new CANNON.Cylinder(width,width,height,1)
@@ -15443,8 +15541,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
                 if(true){
                     temp6 = [];
-                    var textlst=["해머를 5개모으면 슈퍼 해머를 사용 할 수 있어요!", "층을 3개씩 쌓을때마다 아이템을 획득합니다!", "2회 이내에 목표 숫자를 합성해내면 더 큰 블럭을 만들어낼 수 있어요!"]
-                    // var text1 = textdic[87][langset[langnum]]+" " + sdic[n][0].substring(0, sdic[n][0].length - 4) + " "
+                    // var textlst=["해머를 5개모으면 슈퍼 해머를 사용 할 수 있어요!", "층을 3개씩 쌓을때마다 아이템을 획득합니다!", "2회 이내에 목표 숫자를 합성해내면 더 큰 블럭을 만들어낼 수 있어요!"]
+                    var textlst=["--- 블록을 터치하세요! ---"]
+                      // var text1 = textdic[87][langset[langnum]]+" " + sdic[n][0].substring(0, sdic[n][0].length - 4) + " "
                     mtext=textlst[parseInt(Math.random()*textlst.length)]
                     mcount=0;
                     console.log(mtext);
@@ -15539,6 +15638,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     }), );
                     mesh6.castShadow=true;
                     mesh6.position.set(0.8,-bh/3-bh*0.8,0.8);
+                    clmeshlst0[2].push(mesh6.material)
                     scene.add(mesh6)
                     토대.push(mesh6)
 
@@ -15549,6 +15649,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     }), );
                     mesh6.castShadow=true;
                     mesh6.position.set(0.8,-bh*2-bh/1.6,0.8);
+                    clmeshlst0[2].push(mesh6.material)
                     scene.add(mesh6)
                     // 토대.push(mesh6)
 
@@ -20869,6 +20970,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       });
       var tmesh = new THREE.Mesh(geometry12, material);
 
+      clmeshlst0[3].push(tmesh.material)
+
       if(gamemod==2){
         tmesh.position.y = cubes[0].body.position.y+9
       }else{
@@ -20891,6 +20994,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           color: colorlst[colornum][2]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
+      clmeshlst0[2].push(tmesh1.material)
       // tmesh1.position.y
       tmesh1.position.x = 4.8;
       tmesh1.depth = 10;
@@ -20908,6 +21012,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           color: colorlst[colornum][1]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
+      clmeshlst0[1].push(tmesh1.material)
       // tmesh1.position.y
       tmesh1.position.x = 4.8 * 2;
       tmesh1.depth = 10;
@@ -20925,6 +21030,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           color: colorlst[colornum][0]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
+      clmeshlst0[0].push(tmesh1.material)
       // tmesh1.position.y
       tmesh1.position.x = 4.8 * 3;
       tmesh1.depth = 10;
@@ -21530,6 +21636,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           color: colorlst0[colornum0][3]
       });
       var tmesh = new THREE.Mesh(geometry12, material);
+
+      clmeshlst1[3].push(tmesh.material)
       if(gamemod==2){
         tmesh.position.y = cubes[0].body.position.y+9
       }else{
@@ -21555,6 +21663,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           color: colorlst0[colornum0][2]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
+      clmeshlst1[2].push(tmesh1.material)
       // tmesh1.position.y
       tmesh1.position.x = 5.15*1.05;
       tmesh1.scale.x=0.85
@@ -21574,6 +21683,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           color: colorlst0[colornum0][1]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
+      clmeshlst1[1].push(tmesh1.material)
       // tmesh1.position.y
       tmesh1.position.x = 5.1 * 1.75;
       tmesh1.scale.x=0.85
@@ -21593,6 +21703,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           color: colorlst0[colornum0][0]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
+      clmeshlst1[0].push(tmesh1.material)
       // tmesh1.position.y
       tmesh1.position.x = 5.1 * 2.45;
       tmesh1.scale.x=0.85
@@ -21613,6 +21724,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           color: colorlst0[colornum0][0]
       });
       var tmesh1 = new THREE.Mesh(geometry12, material);
+      clmeshlst1[0].push(tmesh1.material)
       // tmesh1.position.y
       tmesh1.position.x = 5.1 * 3.4;
       tmesh1.scale.x=0.85
@@ -21931,7 +22043,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           } else {
               for (var i = 0; i < cubes.length; i++) {
                   if (i == activeFloor) {
-                      if (!cubes[i].mesh.userData.game2048.boardChanged && !aniflag) {
+                      if (!aniflag&&ftiles.length==0) {
                           const game2048 = cubes[i].mesh.userData.game2048;
                           game2048.moveBoard(direction);
                           // console.log(game2048.)
@@ -21951,7 +22063,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           } else {
               for (var i = 0; i < cubes.length; i++) {
                   if (i == activeFloor) {
-                      if (!cubes[i].mesh.userData.game2048.boardChanged && !aniflag) {
+                      if (!aniflag&&ftiles.length==0) {
                           const game2048 = cubes[i].mesh.userData.game2048;
                           game2048.moveBoard(direction);
                           // console.log(game2048.)
@@ -21970,7 +22082,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           } else {
               for (var i = 0; i < cubes.length; i++) {
                   if (i == activeFloor) {
-                      if (!cubes[i].mesh.userData.game2048.boardChanged && !aniflag) {
+                      if (!aniflag&&ftiles.length==0) {
                           const game2048 = cubes[i].mesh.userData.game2048;
                           game2048.moveBoard(direction);
                           // console.log(game2048.)
@@ -21989,7 +22101,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           } else {
               for (var i = 0; i < cubes.length; i++) {
                   if (i == activeFloor) {
-                      if (!cubes[i].mesh.userData.game2048.boardChanged && !aniflag) {
+                      if (!aniflag&&ftiles.length==0) {
                           const game2048 = cubes[i].mesh.userData.game2048;
                           game2048.moveBoard(direction);
                           // console.log(game2048.)
@@ -22808,6 +22920,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
       if (startflag&&!gameoverflag) { //스타트
+        gameonce=false
           if(elapsedTime-screentime<0.4){
             if(screenon){
               // screen[0].material.opacity=screenopa*((elapsedTime-screentime)/0.4)
@@ -24115,8 +24228,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
       }
       if (restartflag && lookcenter) { //리스타트
+          m2flag=false
           퇴장=true;
-          zoom(배율[0])
+          zoom(배율[3])
           elapsedTime=0;
           if(!restartonce1){
 
@@ -24157,6 +24271,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               퇴장=false;
               restart();
 
+
           } else {
 
             // console.log("유굴2")
@@ -24181,18 +24296,30 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               canvas.width = 도화지;
               canvas.height = 도화지;
               var grd = ctx.createLinearGradient(0, 0, 0, 도화지);
-              var newcl0 = hslToHex(renhsl1["h"] - (renhsl1["h"] - rehsl1["h"]) * Math.abs(camera.rotation.x - restartend), renhsl1["s"] - (renhsl1["s"] - rehsl1["s"]) * Math.abs(camera.rotation.x - restartend), renhsl1["l"] - (renhsl1["l"] - rehsl1["l"]) * Math.abs(camera.rotation.x - restartend))
-              var newcl1 = hslToHex(renhsl2["h"] - (renhsl2["h"] - rehsl2["h"]) * Math.abs(camera.rotation.x - restartend), renhsl2["s"] - (renhsl2["s"] - rehsl2["s"]) * Math.abs(camera.rotation.x - restartend), renhsl2["l"] - (renhsl2["l"] - rehsl2["l"]) * Math.abs(camera.rotation.x - restartend))
-              var newcl00 = hslToHex0(renhsl1["h"] - (renhsl1["h"] - rehsl1["h"]) * Math.abs(camera.rotation.x - restartend), renhsl1["s"] - (renhsl1["s"] - rehsl1["s"]) * Math.abs(camera.rotation.x - restartend), renhsl1["l"] - (renhsl1["l"] - rehsl1["l"]) * Math.abs(camera.rotation.x - restartend))
-              var newcl10 = hslToHex0(renhsl2["h"] - (renhsl2["h"] - rehsl2["h"]) * Math.abs(camera.rotation.x - restartend), renhsl2["s"] - (renhsl2["s"] - rehsl2["s"]) * Math.abs(camera.rotation.x - restartend), renhsl2["l"] - (renhsl2["l"] - rehsl2["l"]) * Math.abs(camera.rotation.x - restartend))
-              var newcl20 = hslToHex0(renhsl3["h"] - (renhsl3["h"] - rehsl3["h"]) * Math.abs(camera.rotation.x - restartend), renhsl3["s"] - (renhsl3["s"] - rehsl3["s"]) * Math.abs(camera.rotation.x - restartend), renhsl3["l"] - (renhsl3["l"] - rehsl3["l"]) * Math.abs(camera.rotation.x - restartend))
-              var newcl30 = hslToHex0(renhsl4["h"] - (renhsl4["h"] - rehsl4["h"]) * Math.abs(camera.rotation.x - restartend), renhsl4["s"] - (renhsl4["s"] - rehsl4["s"]) * Math.abs(camera.rotation.x - restartend), renhsl4["l"] - (renhsl4["l"] - rehsl4["l"]) * Math.abs(camera.rotation.x - restartend))
-              var boxcl0 = hslToHex0(nbhsl0["h"] - (nbhsl0["h"] - bhsl0["h"]) * Math.abs(camera.rotation.x - restartend), nbhsl0["s"] - (nbhsl0["s"] - bhsl0["s"]) * Math.abs(camera.rotation.x - restartend), nbhsl0["l"] - (nbhsl0["l"] - bhsl0["l"]) * Math.abs(camera.rotation.x - restartend))
-              var boxcl1 = hslToHex0(nbhsl1["h"] - (nbhsl1["h"] - bhsl1["h"]) * Math.abs(camera.rotation.x - restartend), nbhsl1["s"] - (nbhsl1["s"] - bhsl1["s"]) * Math.abs(camera.rotation.x - restartend), nbhsl1["l"] - (nbhsl1["l"] - bhsl1["l"]) * Math.abs(camera.rotation.x - restartend))
-              var boxcl2 = hslToHex0(nbhsl2["h"] - (nbhsl2["h"] - bhsl2["h"]) * Math.abs(camera.rotation.x - restartend), nbhsl2["s"] - (nbhsl2["s"] - bhsl2["s"]) * Math.abs(camera.rotation.x - restartend), nbhsl2["l"] - (nbhsl2["l"] - bhsl2["l"]) * Math.abs(camera.rotation.x - restartend))
-              var boxcl3 = hslToHex0(nbhsl3["h"] - (nbhsl3["h"] - bhsl3["h"]) * Math.abs(camera.rotation.x - restartend), nbhsl3["s"] - (nbhsl3["s"] - bhsl3["s"]) * Math.abs(camera.rotation.x - restartend), nbhsl3["l"] - (nbhsl3["l"] - bhsl3["l"]) * Math.abs(camera.rotation.x - restartend))
-              var boxcl4 = hslToHex0(nbhsl4["h"] - (nbhsl4["h"] - bhsl4["h"]) * Math.abs(camera.rotation.x - restartend), nbhsl4["s"] - (nbhsl4["s"] - bhsl4["s"]) * Math.abs(camera.rotation.x - restartend), nbhsl4["l"] - (nbhsl4["l"] - bhsl4["l"]) * Math.abs(camera.rotation.x - restartend))
-              // console.log(parseInt(boxcl0, 16));
+              // var newcl0 = hslToHex(renhsl1["h"] - (renhsl1["h"] - rehsl1["h"]) * Math.abs(camera.rotation.x - restartend), renhsl1["s"] - (renhsl1["s"] - rehsl1["s"]) * Math.abs(camera.rotation.x - restartend), renhsl1["l"] - (renhsl1["l"] - rehsl1["l"]) * Math.abs(camera.rotation.x - restartend))
+              // var newcl1 = hslToHex(renhsl2["h"] - (renhsl2["h"] - rehsl2["h"]) * Math.abs(camera.rotation.x - restartend), renhsl2["s"] - (renhsl2["s"] - rehsl2["s"]) * Math.abs(camera.rotation.x - restartend), renhsl2["l"] - (renhsl2["l"] - rehsl2["l"]) * Math.abs(camera.rotation.x - restartend))
+              // var newcl00 = hslToHex0(renhsl1["h"] - (renhsl1["h"] - rehsl1["h"]) * Math.abs(camera.rotation.x - restartend), renhsl1["s"] - (renhsl1["s"] - rehsl1["s"]) * Math.abs(camera.rotation.x - restartend), renhsl1["l"] - (renhsl1["l"] - rehsl1["l"]) * Math.abs(camera.rotation.x - restartend))
+              // var newcl10 = hslToHex0(renhsl2["h"] - (renhsl2["h"] - rehsl2["h"]) * Math.abs(camera.rotation.x - restartend), renhsl2["s"] - (renhsl2["s"] - rehsl2["s"]) * Math.abs(camera.rotation.x - restartend), renhsl2["l"] - (renhsl2["l"] - rehsl2["l"]) * Math.abs(camera.rotation.x - restartend))
+              // var newcl20 = hslToHex0(renhsl3["h"] - (renhsl3["h"] - rehsl3["h"]) * Math.abs(camera.rotation.x - restartend), renhsl3["s"] - (renhsl3["s"] - rehsl3["s"]) * Math.abs(camera.rotation.x - restartend), renhsl3["l"] - (renhsl3["l"] - rehsl3["l"]) * Math.abs(camera.rotation.x - restartend))
+              // var newcl30 = hslToHex0(renhsl4["h"] - (renhsl4["h"] - rehsl4["h"]) * Math.abs(camera.rotation.x - restartend), renhsl4["s"] - (renhsl4["s"] - rehsl4["s"]) * Math.abs(camera.rotation.x - restartend), renhsl4["l"] - (renhsl4["l"] - rehsl4["l"]) * Math.abs(camera.rotation.x - restartend))
+              // var boxcl0 = hslToHex0(nbhsl0["h"] - (nbhsl0["h"] - bhsl0["h"]) * Math.abs(camera.rotation.x - restartend), nbhsl0["s"] - (nbhsl0["s"] - bhsl0["s"]) * Math.abs(camera.rotation.x - restartend), nbhsl0["l"] - (nbhsl0["l"] - bhsl0["l"]) * Math.abs(camera.rotation.x - restartend))
+              // var boxcl1 = hslToHex0(nbhsl1["h"] - (nbhsl1["h"] - bhsl1["h"]) * Math.abs(camera.rotation.x - restartend), nbhsl1["s"] - (nbhsl1["s"] - bhsl1["s"]) * Math.abs(camera.rotation.x - restartend), nbhsl1["l"] - (nbhsl1["l"] - bhsl1["l"]) * Math.abs(camera.rotation.x - restartend))
+              // var boxcl2 = hslToHex0(nbhsl2["h"] - (nbhsl2["h"] - bhsl2["h"]) * Math.abs(camera.rotation.x - restartend), nbhsl2["s"] - (nbhsl2["s"] - bhsl2["s"]) * Math.abs(camera.rotation.x - restartend), nbhsl2["l"] - (nbhsl2["l"] - bhsl2["l"]) * Math.abs(camera.rotation.x - restartend))
+              // var boxcl3 = hslToHex0(nbhsl3["h"] - (nbhsl3["h"] - bhsl3["h"]) * Math.abs(camera.rotation.x - restartend), nbhsl3["s"] - (nbhsl3["s"] - bhsl3["s"]) * Math.abs(camera.rotation.x - restartend), nbhsl3["l"] - (nbhsl3["l"] - bhsl3["l"]) * Math.abs(camera.rotation.x - restartend))
+              // var boxcl4 = hslToHex0(nbhsl4["h"] - (nbhsl4["h"] - bhsl4["h"]) * Math.abs(camera.rotation.x - restartend), nbhsl4["s"] - (nbhsl4["s"] - bhsl4["s"]) * Math.abs(camera.rotation.x - restartend), nbhsl4["l"] - (nbhsl4["l"] - bhsl4["l"]) * Math.abs(camera.rotation.x - restartend))
+              // // console.log(parseInt(boxcl0, 16));
+              var newcl0 = hslToHex(renhsl1["h"] - (renhsl1["h"] - rehsl1["h"]) * (Math.abs(restartend - camera.rotation.x)/0.68), renhsl1["s"] - (renhsl1["s"] - rehsl1["s"]) * (Math.abs(restartend - camera.rotation.x)/0.68), renhsl1["l"] - (renhsl1["l"] - rehsl1["l"]) * (Math.abs(restartend - camera.rotation.x)/0.68))
+              var newcl1 = hslToHex(renhsl2["h"] - (renhsl2["h"] - rehsl2["h"]) * (Math.abs(restartend - camera.rotation.x)/0.68), renhsl2["s"] - (renhsl2["s"] - rehsl2["s"]) * (Math.abs(restartend - camera.rotation.x)/0.68), renhsl2["l"] - (renhsl2["l"] - rehsl2["l"]) * (Math.abs(restartend - camera.rotation.x)/0.68))
+              var newcl00 = hslToHex0(renhsl1["h"] - (renhsl1["h"] - rehsl1["h"]) * (Math.abs(restartend - camera.rotation.x)/0.68), renhsl1["s"] - (renhsl1["s"] - rehsl1["s"]) * (Math.abs(restartend - camera.rotation.x)/0.68), renhsl1["l"] - (renhsl1["l"] - rehsl1["l"]) * (Math.abs(restartend - camera.rotation.x)/0.68))
+              var newcl10 = hslToHex0(renhsl2["h"] - (renhsl2["h"] - rehsl2["h"]) * (Math.abs(restartend - camera.rotation.x)/0.68), renhsl2["s"] - (renhsl2["s"] - rehsl2["s"]) * (Math.abs(restartend - camera.rotation.x)/0.68), renhsl2["l"] - (renhsl2["l"] - rehsl2["l"]) * (Math.abs(restartend - camera.rotation.x)/0.68))
+              var newcl20 = hslToHex0(renhsl3["h"] - (renhsl3["h"] - rehsl3["h"]) * (Math.abs(restartend - camera.rotation.x)/0.68), renhsl3["s"] - (renhsl3["s"] - rehsl3["s"]) * (Math.abs(restartend - camera.rotation.x)/0.68), renhsl3["l"] - (renhsl3["l"] - rehsl3["l"]) * (Math.abs(restartend - camera.rotation.x)/0.68))
+              var newcl30 = hslToHex0(renhsl4["h"] - (renhsl4["h"] - rehsl4["h"]) * (Math.abs(restartend - camera.rotation.x)/0.68), renhsl4["s"] - (renhsl4["s"] - rehsl4["s"]) * (Math.abs(restartend - camera.rotation.x)/0.68), renhsl4["l"] - (renhsl4["l"] - rehsl4["l"]) * (Math.abs(restartend - camera.rotation.x)/0.68))
+              var boxcl0 = hslToHex0(nbhsl0["h"] - (nbhsl0["h"] - bhsl0["h"]) * (Math.abs(restartend - camera.rotation.x)/0.68), nbhsl0["s"] - (nbhsl0["s"] - bhsl0["s"]) * (Math.abs(restartend - camera.rotation.x)/0.68), nbhsl0["l"] - (nbhsl0["l"] - bhsl0["l"]) * (Math.abs(restartend - camera.rotation.x)/0.68))
+              var boxcl1 = hslToHex0(nbhsl1["h"] - (nbhsl1["h"] - bhsl1["h"]) * (Math.abs(restartend - camera.rotation.x)/0.68), nbhsl1["s"] - (nbhsl1["s"] - bhsl1["s"]) * (Math.abs(restartend - camera.rotation.x)/0.68), nbhsl1["l"] - (nbhsl1["l"] - bhsl1["l"]) * (Math.abs(restartend - camera.rotation.x)/0.68))
+              var boxcl2 = hslToHex0(nbhsl2["h"] - (nbhsl2["h"] - bhsl2["h"]) * (Math.abs(restartend - camera.rotation.x)/0.68), nbhsl2["s"] - (nbhsl2["s"] - bhsl2["s"]) * (Math.abs(restartend - camera.rotation.x)/0.68), nbhsl2["l"] - (nbhsl2["l"] - bhsl2["l"]) * (Math.abs(restartend - camera.rotation.x)/0.68))
+              var boxcl3 = hslToHex0(nbhsl3["h"] - (nbhsl3["h"] - bhsl3["h"]) * (Math.abs(restartend - camera.rotation.x)/0.68), nbhsl3["s"] - (nbhsl3["s"] - bhsl3["s"]) * (Math.abs(restartend - camera.rotation.x)/0.68), nbhsl3["l"] - (nbhsl3["l"] - bhsl3["l"]) * (Math.abs(restartend - camera.rotation.x)/0.68))
+              var boxcl4 = hslToHex0(nbhsl4["h"] - (nbhsl4["h"] - bhsl4["h"]) * (Math.abs(restartend - camera.rotation.x)/0.68), nbhsl4["s"] - (nbhsl4["s"] - bhsl4["s"]) * (Math.abs(restartend - camera.rotation.x)/0.68), nbhsl4["l"] - (nbhsl4["l"] - bhsl4["l"]) * (Math.abs(restartend - camera.rotation.x)/0.68))
+
               clmeshlst[0].forEach((item) => {
                   item.color = new THREE.Color(parseInt(boxcl0, 16));
               })
@@ -25709,7 +25836,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
               판[itemidx-1][2].getWorldPosition(wpos1);
 
-              stepmold[3].position.z=wpos1.z+((pshift[dur]-1)*3)-bw*0.1
+              stepmold[3].position.z=wpos1.z+((pshift[dur]-1)*3)-bw*0.05
               stepmold[3].position.x=wpos1.x
               stepmold[3].position.y=wpos1.y
 
@@ -30007,10 +30134,22 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
           }
 
-
-              if(퇴장){
-                camera.position.y=배율[4]+2*(bh * ((-2)*0.5+9+스킬[2]))
+              if(ncolornum0%2==1){
+                if(퇴장){
+                  // camera.position.y=배율[4]+2*(bh * ((-2)*0.5+9+스킬[2]))
+                  camera.position.y=배율[4]+2*(bh * ((5)*0.5+9+스킬[2]))-175*(0.68-Math.abs(restartend-camera.rotation.x))
+                }else if(등장&&!gameonce){
+                  camera.position.y=배율[4]+2*(bh * ((5)*0.5+9+스킬[2]))-175*(0.68-Math.abs(restartend-camera.rotation.x))
+                }
+              }else{
+                if(퇴장){
+                  // camera.position.y=배율[4]+2*(bh * ((-2)*0.5+9+스킬[2]))
+                  camera.position.y=배율[4]+2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
+                }else if(등장&&!gameonce){
+                  camera.position.y=배율[4]+2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
+                }
               }
+
 
               // for (var i = 4; i < cubes.length-1; i++) {
               //   world.contacts.forEach(contact => {
