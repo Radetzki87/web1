@@ -8194,7 +8194,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let 아이스취소=false;
   let 판=[];
 
-  let 배율=[1.8,0.8,1.3,1.15,2]
+  let 배율=[1.8,0.9,1.3,1.15,2]
 
   let pungtime=false
 
@@ -10674,13 +10674,20 @@ function createPath( char, scale, offsetX, offsetY, data ) {
             console.log("아이템 사용")
             tctime=elapsedTime
             var force2 = new CANNON.Vec3();
+            var clength=0
+
+            for (var i =itemidx ; i < cubes.length; i++) {
+              if(!cubes[i].mesh.userData["bye"]) clength++
+            }
+            var jim=clength*150
+
             if(hammer){
 
               if(itemr){
                 if(superflag){
                   force2.set(-30000*cubes[itemidx].body.mass/5,0,0)
                 }else{
-                  force2.set(-6000*cubes[itemidx].body.mass/5,0,0)
+                  force2.set(-jim-7000*cubes[itemidx].body.mass/5,0,0)
 
                 }
                 이펙트2(itemidx, 128, "left");
@@ -10688,7 +10695,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 if(superflag){
                   force2.set(0,0,-30000*cubes[itemidx].body.mass/5)
                 }else{
-                  force2.set(0,0,-6000*cubes[itemidx].body.mass/5)
+                  force2.set(0,0,-jim-7000*cubes[itemidx].body.mass/5)
                 }
                 이펙트2(itemidx, 128, "up");
               }
@@ -10823,13 +10830,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
 
+              for (var i =itemidx ; i < cubes.length; i++) {
+                if(!cubes[i].mesh.userData["bye"]) clength++
+              }
+              var jim=clength*150
 
               tctime=elapsedTime
               if(itemr){
                 if(superflag){
                   force2.set(65000*cubes[itemidx].body.mass/5,0,0)
                 }else{
-                  force2.set(6000*cubes[itemidx].body.mass/5,0,0)
+                  force2.set(jim+7000*cubes[itemidx].body.mass/5,0,0)
                 }
 
                 이펙트2(itemidx, 128, "right");
@@ -10837,7 +10848,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 if(superflag){
                   force2.set(0,0,65000*cubes[itemidx].body.mass/5)
                 }else{
-                  force2.set(0,0,6000*cubes[itemidx].body.mass/5)
+                  force2.set(0,0,jim+7000*cubes[itemidx].body.mass/5)
                 }
 
                 이펙트2(itemidx, 128, "down");
@@ -14093,7 +14104,17 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           // if(lookcenter){
           // }else if(lookright){
           // }
-      } else if (event.code === 'KeyZ') {
+      }else if (event.code === 'KeyV') {
+        var cmd=1
+        for (var i = 4; i < cubes.length; i++) {
+          if(cubes[i].mesh.userData["bye"]) continue;
+          console.log(String(cmd)+"층: ")
+          console.log(cubes[i].body.angularVelocity)
+          cmd++
+
+        }
+
+      }else if (event.code === 'KeyZ') {
         // camera.position.y= bh * (cubes.length+0.5)
 
         // camera.left -= bw*0.5
@@ -14587,6 +14608,19 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       // listener = new THREE.AudioListener();
       // audioLoader = new THREE.AudioLoader();
       world = new CANNON.World();
+
+    //   world.addEventListener("postStep", function() {
+    //     world.contacts.forEach(contact => {
+    //         const { bi, bj } = contact;  // 두 충돌하는 body
+    //         if (bi === body1 && bj === body2 || bi === body2 && bj === body1) {
+    //             const relativeVelocity = bi.velocity.vsub(bj.velocity);  // 상대 속도 계산
+    //             const normalForce = contact.getImpactVelocityAlongNormal();  // 충돌 방향 속도
+    //             const friction = normalForce * contact.material.friction;  // 마찰력 추정
+    //             console.log("Estimated friction force:", friction);
+    //         }
+    //     });
+    // });
+
 
 
       // if((window.innerWidth / window.innerHeight) > 4/7){
@@ -15262,8 +15296,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
       document.getElementById('pgr1').style.backgroundColor="green"
 
-      document.getElementById("pgrs3").children[2].children[1].src = "png/pung.png"
-      document.getElementById("pgrs3").children[4].children[1].src = "png/hammer.png"
+      // document.getElementById("pgrs3").children[2].children[1].src = "png/pung.png"
+      // document.getElementById("pgrs3").children[4].children[1].src = "png/hammer.png"
+
+      document.getElementById("pgrs3").children[2].children[1].src = "png/staple.png"
+      document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
 
 
       startonce=true
@@ -23555,59 +23592,56 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               토대[8].material=temp7[19]
             }
 
-
-
-
             if(스킬[0]-1==1){
-              getitem(1)
+              getitem(9)
             }else if(스킬[0]-1==2){
-              getitem(1)
+              getitem(9)
               setTimeout(function() {
-                  getitem(4)
+                  getitem(9)
               }, 100);
             }else if(스킬[0]-1==3){
-              getitem(1)
+              getitem(9)
               setTimeout(function() {
-                  getitem(4)
+                  getitem(9)
                   setTimeout(function() {
                       getitem(9)
                   }, 100);
               }, 100);
             }else if(스킬[0]-1==4){
-              getitem(1)
+              getitem(9)
               setTimeout(function() {
-                  getitem(4)
+                  getitem(9)
                   setTimeout(function() {
                       getitem(9)
                       setTimeout(function() {
-                          getitem(8)
+                          getitem(9)
                       }, 100);
                   }, 100);
               }, 100);
             }else if(스킬[0]-1==5){
-              getitem(1)
+              getitem(9)
               setTimeout(function() {
-                  getitem(4)
+                  getitem(9)
                   setTimeout(function() {
                       getitem(9)
                       setTimeout(function() {
-                          getitem(8)
+                          getitem(9)
                           setTimeout(function() {
-                              getitem(7)
+                              getitem(9)
                           }, 100);
                       }, 100);
                   }, 100);
               }, 100);
             }else if(스킬[0]-1==6){
-              getitem(1)
+              getitem(9)
               setTimeout(function() {
-                  getitem(4)
+                  getitem(9)
                   setTimeout(function() {
                       getitem(9)
                       setTimeout(function() {
-                          getitem(8)
+                          getitem(9)
                           setTimeout(function() {
-                              getitem(7)
+                              getitem(9)
                               setTimeout(function() {
                                   getitem(9)
                               }, 100);
@@ -23616,19 +23650,19 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   }, 100);
               }, 100);
             }else if(스킬[0]-1>=7){
-              getitem(1)
+              getitem(9)
               setTimeout(function() {
-                  getitem(4)
+                  getitem(9)
                   setTimeout(function() {
                       getitem(9)
                       setTimeout(function() {
-                          getitem(8)
+                          getitem(9)
                           setTimeout(function() {
-                              getitem(7)
+                              getitem(9)
                               setTimeout(function() {
                                   getitem(9)
                                   setTimeout(function() {
-                                      getitem(8)
+                                      getitem(9)
                                   }, 100);
                               }, 100);
                           }, 100);
@@ -23636,6 +23670,86 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   }, 100);
               }, 100);
             }
+
+
+            // if(스킬[0]-1==1){
+            //   getitem(1)
+            // }else if(스킬[0]-1==2){
+            //   getitem(1)
+            //   setTimeout(function() {
+            //       getitem(4)
+            //   }, 100);
+            // }else if(스킬[0]-1==3){
+            //   getitem(1)
+            //   setTimeout(function() {
+            //       getitem(4)
+            //       setTimeout(function() {
+            //           getitem(9)
+            //       }, 100);
+            //   }, 100);
+            // }else if(스킬[0]-1==4){
+            //   getitem(1)
+            //   setTimeout(function() {
+            //       getitem(4)
+            //       setTimeout(function() {
+            //           getitem(9)
+            //           setTimeout(function() {
+            //               getitem(8)
+            //           }, 100);
+            //       }, 100);
+            //   }, 100);
+            // }else if(스킬[0]-1==5){
+            //   getitem(1)
+            //   setTimeout(function() {
+            //       getitem(4)
+            //       setTimeout(function() {
+            //           getitem(9)
+            //           setTimeout(function() {
+            //               getitem(8)
+            //               setTimeout(function() {
+            //                   getitem(7)
+            //               }, 100);
+            //           }, 100);
+            //       }, 100);
+            //   }, 100);
+            // }else if(스킬[0]-1==6){
+            //   getitem(1)
+            //   setTimeout(function() {
+            //       getitem(4)
+            //       setTimeout(function() {
+            //           getitem(9)
+            //           setTimeout(function() {
+            //               getitem(8)
+            //               setTimeout(function() {
+            //                   getitem(7)
+            //                   setTimeout(function() {
+            //                       getitem(9)
+            //                   }, 100);
+            //               }, 100);
+            //           }, 100);
+            //       }, 100);
+            //   }, 100);
+            // }else if(스킬[0]-1>=7){
+            //   getitem(1)
+            //   setTimeout(function() {
+            //       getitem(4)
+            //       setTimeout(function() {
+            //           getitem(9)
+            //           setTimeout(function() {
+            //               getitem(8)
+            //               setTimeout(function() {
+            //                   getitem(7)
+            //                   setTimeout(function() {
+            //                       getitem(9)
+            //                       setTimeout(function() {
+            //                           getitem(8)
+            //                       }, 100);
+            //                   }, 100);
+            //               }, 100);
+            //           }, 100);
+            //       }, 100);
+            //   }, 100);
+            // }
 
 
 
@@ -24044,7 +24158,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
           } else {
 
-            console.log("유굴2")
+            // console.log("유굴2")
 
               보드.forEach((item) => {
                 item.material.visible=false;
@@ -26094,7 +26208,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
           overonce=true;
-          document.getElementById("pgrs3").children[4].children[1].src = "png/hammer.png"
+          // document.getElementById("pgrs3").children[4].children[1].src = "png/hammer.png"
+          document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
+
 
           if(true){
             document.getElementById('pgrs2').innerText=""
@@ -26164,22 +26280,25 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                         document.querySelector("#pgrs3").children[j].style.backgroundColor="black"
                       }
 
-                      if(i==1){
-                        document.getElementById("pgrs3").children[2].children[1].src = "png/pung.png"
-                        document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
-                      }else if(i==2){
-                        document.getElementById("pgrs3").children[2].children[1].src = "png/pin.png"
-                        document.getElementById("pgrs3").children[4].children[1].src = "png/freeze.png"
-                      }else if(i==3){
-                        document.getElementById("pgrs3").children[2].children[1].src = "png/staple.png"
-                        document.getElementById("pgrs3").children[4].children[1].src = "png/pin.png"
-                      }else if(i==4){
-                        document.getElementById("pgrs3").children[2].children[1].src = "png/freeze.png"
-                        document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
-                      }else if(i==5){
-                        document.getElementById("pgrs3").children[2].children[1].src = "png/pin.png"
-                        document.getElementById("pgrs3").children[4].children[1].src = "png/freeze.png"
-                      }
+                      // if(i==1){
+                      //   document.getElementById("pgrs3").children[2].children[1].src = "png/pung.png"
+                      //   document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
+                      // }else if(i==2){
+                      //   document.getElementById("pgrs3").children[2].children[1].src = "png/pin.png"
+                      //   document.getElementById("pgrs3").children[4].children[1].src = "png/freeze.png"
+                      // }else if(i==3){
+                      //   document.getElementById("pgrs3").children[2].children[1].src = "png/staple.png"
+                      //   document.getElementById("pgrs3").children[4].children[1].src = "png/pin.png"
+                      // }else if(i==4){
+                      //   document.getElementById("pgrs3").children[2].children[1].src = "png/freeze.png"
+                      //   document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
+                      // }else if(i==5){
+                      //   document.getElementById("pgrs3").children[2].children[1].src = "png/pin.png"
+                      //   document.getElementById("pgrs3").children[4].children[1].src = "png/freeze.png"
+                      // }
+                      document.getElementById("pgrs3").children[2].children[1].src = "png/staple.png"
+                      document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
+
                       document.getElementById('pgrs1').style.width=String(parseInt(100*((2000)/(2000))))+"%";
                       if(i>=1){
                         setTimeout(function() {
@@ -26239,22 +26358,24 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                           document.querySelector("#pgrs3").children[j].style.backgroundColor="black"
                         }
 
-                        if(i==1){
-                          document.getElementById("pgrs3").children[2].children[1].src = "png/pung.png"
-                          document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
-                        }else if(i==2){
-                          document.getElementById("pgrs3").children[2].children[1].src = "png/pin.png"
-                          document.getElementById("pgrs3").children[4].children[1].src = "png/freeze.png"
-                        }else if(i==3){
+                        // if(i==1){
+                        //   document.getElementById("pgrs3").children[2].children[1].src = "png/pung.png"
+                        //   document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
+                        // }else if(i==2){
+                        //   document.getElementById("pgrs3").children[2].children[1].src = "png/pin.png"
+                        //   document.getElementById("pgrs3").children[4].children[1].src = "png/freeze.png"
+                        // }else if(i==3){
+                        //   document.getElementById("pgrs3").children[2].children[1].src = "png/staple.png"
+                        //   document.getElementById("pgrs3").children[4].children[1].src = "png/pin.png"
+                        // }else if(i==4){
+                        //   document.getElementById("pgrs3").children[2].children[1].src = "png/freeze.png"
+                        //   document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
+                        // }else if(i==5){
+                        //   document.getElementById("pgrs3").children[2].children[1].src = "png/pin.png"
+                        //   document.getElementById("pgrs3").children[4].children[1].src = "png/freeze.png"
+                        // }
                           document.getElementById("pgrs3").children[2].children[1].src = "png/staple.png"
-                          document.getElementById("pgrs3").children[4].children[1].src = "png/pin.png"
-                        }else if(i==4){
-                          document.getElementById("pgrs3").children[2].children[1].src = "png/freeze.png"
                           document.getElementById("pgrs3").children[4].children[1].src = "png/staple.png"
-                        }else if(i==5){
-                          document.getElementById("pgrs3").children[2].children[1].src = "png/pin.png"
-                          document.getElementById("pgrs3").children[4].children[1].src = "png/freeze.png"
-                        }
 
                         document.getElementById('pgrs1').style.width=String(parseInt(100*((점수-2000*i)/(2000))))+"%";
                         console.log(String(i)+"얍얍얍얍얍"+String(1000+2000*(i-1))+"얍얍얍얍얍얍"+String(점수-2000*i))
@@ -26865,7 +26986,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                               var tnum=parseInt(Math.log2(num))-2;
 
 
-                              var forceset2=[650+200, 900+200, 1200+200, 1600+200, 2100+200, 2700+200, 3300+200, 3500+200 ,4000+200];
+                              var forceset2=[650+200, 900+200, 1200+200, 1700+200, 2300+200, 2700+200, 3300+200, 3500+200 ,4000+200];
 
                               // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                               switch (item.direction) {
@@ -29624,7 +29745,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         }
 
       }else if(skinset[skinnum]=="classic"){//클
-        console.log("23123")
+        // console.log("23123")
         cubes.forEach((item, i) => {
               if(gamemod!=2){
                 item.mesh.scale.set(클크기,gap,클크기)
@@ -29819,16 +29940,16 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               if(!m2flag){//카메라
                 // console.log("a2")
                 if(startflag){
-                  console.log("a1")
+                  // console.log("a1")
                   camera.position.y=배율[4]+2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))
                 }else{
-                  console.log("a2")
+                  // console.log("a2")
                   camera.position.y=배율[4]+2*(bh * ((cubes.length-clength)*0.5+9+스킬[2]))+(-isoAngle - camera.rotation.x)*30
                 }
 
               }
             }else{
-              console.log("a3")
+              // console.log("a3")
               camera.position.y=배율[4]+(4+스킬[2])*(bh * (5 + 3))+(-isoAngle - camera.rotation.x)*30
             }
 
@@ -29841,7 +29962,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
                   if(gameoverflag){
                     if(skinset[skinnum]=="classic"){//클
-                        console.log("a5")
+                        // console.log("a5")
                         if(rotationflag){
                           camera.position.y=배율[4]+2*(bh * ((-20)*0.5+9+스킬[2]))
 
@@ -29851,7 +29972,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
                       // camera.position.y=10
                     }else{
-                        console.log("a6")
+                        // console.log("a6")
                         if(rotationflag){
                           camera.position.y=배율[4]+2*(bh * ((-20)*0.5+9+스킬[2]))
 
@@ -29861,9 +29982,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       // camera.position.y=2*(bh * ((cubes.length)*0.5+9+스킬[2]))
                     }
                   }else{
-                    console.log("a7")
+                    // console.log("a7")
                     if(rotationflag){
-                      console.log("a77")
+                      // console.log("a77")
                       camera.position.y=배율[4]+2*(bh * ((-20)*0.5+9+스킬[2]))
                       console.log(camera.position.y)
                     }else{
@@ -29889,6 +30010,20 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               if(퇴장){
                 camera.position.y=배율[4]+2*(bh * ((-2)*0.5+9+스킬[2]))
               }
+
+              // for (var i = 4; i < cubes.length-1; i++) {
+              //   world.contacts.forEach(contact => {
+              //       var { bi, bj } = contact;  // 두 충돌하는 body
+              //       if (bi === cubes[i].body && bj === cubes[i+1].body || bi === cubes[i+1].body && bj === cubes[i].body) {
+              //           var relativeVelocity = bi.velocity.vsub(bj.velocity);  // 상대 속도 계산
+              //           var normalForce = contact.getImpactVelocityAlongNormal();  // 충돌 방향 속도
+              //           var friction = normalForce * bi.material.friction;  // 마찰력 추정
+              //           console.log("Estimated friction force:", friction);
+              //       }
+              //   });
+              // }
+
+
               renderer.setViewport(0, window.innerHeight - window.innerWidth * 2.5, window.innerWidth * 2.5, window.innerWidth * 2.5);
               renderer.setScissor(0, 0, window.innerWidth, window.innerHeight);
               renderer.setScissorTest(true);
@@ -31413,7 +31548,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
   function getitem(n=0){
     if(n==0){
       n=1+parseInt(Math.random()*10)
-      var bag=[1,1,1,1,1,4,4,4,4,4,7,8,8,9,9]
+      var bag=[1,1,1,1,1,4,4,4,4,4,7,8,8]
       bag.sort(() => Math.random() - 0.5);
       n=bag[0];
     }
