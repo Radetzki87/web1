@@ -7674,6 +7674,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let mergetime=0;
 
   var 보드=[];
+  var 보강=0;
   var 눌=false
   let themelst = ["wooden", "lofi", "retro","808", "hiphop"];
   var themelang=["BRICK", "LO-FI", "RETRO","BEAT", "HIPHOP"]
@@ -8550,6 +8551,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   document.getElementById("intro").children[2].style.color=hexToHtmlColor(colorlst[colornum][3]);
 
   let unitmotion = {};
+  var stiles = [];
+
   var ftiles = [];
   var fontjson = {
     "glyphs": {
@@ -8889,6 +8892,34 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   };
   var floader = new FontLoader();
   var font0 = floader.parse(fontjson);
+
+  class stile {
+      constructor(right, majorx, majory, majorz, upper, lower, wpos1, wpos2, body, time) {
+          this.right = right;
+          this.majorx = majorx;
+          this.majory = majory;
+          this.majorz = majorz;
+          this.upper = upper;
+          this.lower = lower;
+          this.wpos1 = wpos1;
+          this.wpos2 = wpos2;
+          this.body = body;
+          this.enter=false
+          this.start = time;
+
+          // console.log(this)
+
+          if (right) {
+              this.target=majorx
+              this.position=[majorx, majory, majorz]
+          } else {
+              this.target=majorz
+              this.position=[majorx, majory, majorz]
+          }
+
+
+      }
+  }
 
   class ftile {
       constructor(a, b, c, d, index, direction, flag, me, me2, me3, flag2) {
@@ -10794,6 +10825,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               // activeFloor=cubes.length;
 
                 if(superflag){
+                  cubes[itemidx].mesh.userData.constraint.forEach((item) => {
+                    world.removeConstraint(item);
+
+                  });
                   사용횟수++;
                   superflag=false;
 
@@ -10918,6 +10953,16 @@ function createPath( char, scale, offsetX, offsetY, data ) {
               cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
               if(superflag){
                 cubes[아래].body.applyForce(rotatedVec, cubes[아래].body.position);
+
+                cubes[itemidx].mesh.userData.constraint.forEach((item) => {
+                  world.removeConstraint(item);
+
+                });
+
+                cubes[아래].mesh.userData.constraint.forEach((item) => {
+                  world.removeConstraint(item);
+
+                });
               }
               soundic[sdic[cubes.length-1]["32"]].play();
 
@@ -11257,11 +11302,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   if(upperx>lowerx){
                     majorx=upperx
                     majory=0.5*(wpos1.y+wpos2.y)
-                    majorz=wpos1.z
+                    majorz=0.5*(wpos1.z+wpos2.z)
                   }else{
                     majorx=lowerx
                     majory=0.5*(wpos1.y+wpos2.y)
-                    majorz=wpos2.z
+                    majorz=0.5*(wpos1.z+wpos2.z)
                   }
                   console.log(Math.abs(upperx-lowerx))
                   if(취소||Math.abs(upperx-lowerx)>3||Math.abs(wpos1.z-wpos2.z)>0.5*bw*cubes[itemidx].mesh.scale.z*아래층.mesh.scale.z){
@@ -11430,6 +11475,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   world.addBody(compoundBody);
                   legs[legs.length-1].userData.body=compoundBody;
                   legs[legs.length-1].userData.right=true;
+                  legs[legs.length-1].userData.mode=0;
                   console.log(legs)
                   var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
                   world.addConstraint(constraint1);
@@ -11480,11 +11526,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   if(upperz>lowerz){
                     majorz=upperz
                     majory=0.5*(wpos1.y+wpos2.y)
-                    majorx=wpos1.x
+                    majorx=0.5*(wpos1.x+wpos2.x)
                   }else{
                     majorz=lowerz
                     majory=0.5*(wpos1.y+wpos2.y)
-                    majorx=wpos2.x
+                    majorx=0.5*(wpos1.x+wpos2.x)
                   }
 
 
@@ -11652,6 +11698,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   world.addBody(compoundBody);
                   legs[legs.length-1].userData.body=compoundBody;
                   legs[legs.length-1].userData.right=false;
+                  legs[legs.length-1].userData.mode=0;
 
                   console.log(legs)
                   var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
@@ -11691,31 +11738,6 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 }
 
               }
-
-
-
-
-
-              //
-              // if(itemr){
-              //   force2.set(-2500,0,0)
-              //   이펙트2(itemidx, 128, "left");
-              //
-              // }else if(iteml){
-              //   force2.set(0,0,-2500)
-              //   이펙트2(itemidx, 128, "up");
-              // }
-              // setTimeout(function() {
-              //     if(다리<=0) document.getElementById('bridge').style.left="-29vmin"
-              // }, 400);
-              // let quaternion = new CANNON.Quaternion();
-              // quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[itemidx].mesh.rotation.y);
-              // let rotatedVec = force2.clone();
-              // // rotatedVec.applyQuaternion(quaternion);
-              // rotatedVec=quaternion.vmult(force2);
-              //
-              // cubes[itemidx].body.applyForce(rotatedVec, cubes[itemidx].body.position);
-              // soundic[sdic[cubes.length-1]["32"]].play();
 
 
             }
@@ -13166,6 +13188,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 world.addBody(compoundBody);
                 legs[legs.length-1].userData.body=compoundBody;
                 legs[legs.length-1].userData.right=true;
+                legs[legs.length-1].userData.mode=0;
                 console.log(legs)
                 var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
                 world.addConstraint(constraint1);
@@ -13388,6 +13411,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 world.addBody(compoundBody);
                 legs[legs.length-1].userData.body=compoundBody;
                 legs[legs.length-1].userData.right=false;
+                legs[legs.length-1].userData.mode=0;
 
                 console.log(legs)
                 var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
@@ -14209,8 +14233,53 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           console.log(String(cmd)+"층: ")
           console.log(cubes[i].body.angularVelocity)
           cmd++
+        }
+
+      }else if (event.code === 'KeyB') {
+        var count=0;
+
+        for (let i=5; i<cubes.length; i++) {
+          var tflag=false;
+          if(cubes[i].mesh.userData.bye){
+            continue;
+          }
+          for (let j = i-1; j >=4 ; j--) {
+              if(!cubes[j].mesh.userData.bye){
+                var seek=avail(i,j)
+                if(seek[0]||seek[1]){
+                  console.log(String(i-3)+"층과,"+String(j-3)+"층 결합 가능")
+                  tflag=true
+                  if(seek[0]&&seek[1]){
+                    avail(i,j, true, 1+count%2)
+                    count++
+                  }else if(seek[0]){
+                    avail(i,j, true, 1)
+                    count=1
+                  }else{
+                    avail(i,j, true, 2)
+                    count=0
+                  }
+
+
+                  break;
+                }else{
+                  console.log(String(i-3)+"층과,"+String(j-3)+"층은 붙어 있지만 결합 불가")
+                  tflag=true
+
+                  break;
+                }
+              }
+          }
+          if(tflag){
+            continue;
+          }else{
+            console.log(String(i-3)+"층은 매칭이 안됨")
+          }
+
 
         }
+
+
 
       }else if (event.code === 'KeyZ') {
         // camera.position.y= bh * (cubes.length+0.5)
@@ -14404,11 +14473,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
             clone.mesh.position.set((cubes[i].mesh.position.x)*스케일,(cubes[i].mesh.position.y)*스케일,(cubes[i].mesh.position.z)*스케일)
 
-            clone.mesh.freeze=cubes[i].mesh.userData.freeze;
-            clone.mesh.pin=cubes[i].mesh.userData.pin;
-            clone.mesh.ice=cubes[i].mesh.userData.ice;
-            clone.mesh.bye=cubes[i].mesh.userData.bye;
-            clone.mesh.combo=cubes[i].mesh.userData.combo;
+            clone.mesh.userData.freeze=cubes[i].mesh.userData.freeze;
+            clone.mesh.userData.pin=cubes[i].mesh.userData.pin;
+            clone.mesh.userData.ice=cubes[i].mesh.userData.ice;
+            clone.mesh.userData.bye=cubes[i].mesh.userData.bye;
+            clone.mesh.userData.combo=cubes[i].mesh.userData.combo;
             clone.mesh.constraint=cubes[i].mesh.userData.constraint.length;
             clone.mesh.receiveShadow = true;
             clone.mesh.castShadow = true;
@@ -15424,7 +15493,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
 
-
+      보강=0
 
 
       resetting(stack, function(object) { //재시작
@@ -24621,7 +24690,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
                 var nc = hexToHSL(hexToHtmlColor(colorlst0[parseInt(Math.random()*colorlst0.length)][1]))
-                for (var i = 0; i < 40; i++) {
+                for (var i = 0; i < 50; i++) {
 
                   // var newcolor3 = new THREE.Color('hsl(' + String(nc["h"]+(10*i)) + ', ' + '80%, ' +  '50%)');
                   // console.log(newcolor3)
@@ -26712,6 +26781,123 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       //     })
       // }
 
+      if (stiles.length != 0) {
+
+        var rmvstile = [];
+        stiles.forEach((item, index) => {
+
+
+          if(!item.enter&&item.start<=elapsedTime){
+            console.log("hi")
+            item.enter=true
+
+            // item.body.position.x=item.position.x+bh*3
+            // item.body.position.y=item.
+            // item.body.position.z=item.position.z+bh*3
+            scene.add(item.body);
+            console.log("hi")
+
+          }else{
+            if(elapsedTime-item.start>=0.08){
+
+              // item.body.position.x=item.body.userData.body.position.x
+              // item.body.position.y=item.body.userData.body.position.y
+              // item.body.position.z=item.body.userData.body.position.z
+              item.body.userData.mode=0;
+
+              if(item.right){
+                world.addBody(item.body.userData.body);
+                var constraint1 = new CANNON.LockConstraint(item.body.userData.body, cubes[item.upper].body);
+                world.addConstraint(constraint1);
+                var constraint2 = new CANNON.LockConstraint(item.body.userData.body, cubes[item.lower].body);
+                world.addConstraint(constraint2);
+                cubes[item.lower].mesh.userData.constraint.push(constraint1)
+                cubes[item.lower].mesh.userData.constraint.push(constraint2)
+                cubes[item.upper].mesh.userData.constraint.push(constraint1)
+                cubes[item.upper].mesh.userData.constraint.push(constraint2)
+                setTimeout(function() {
+                    if(cubes[item.lower].mesh.userData.ice){
+                      cubes[item.lower].body.sleep()
+                    }
+                }, 400);
+
+
+                var force2 = new CANNON.Vec3();
+                force2.set(-1500,0,0)
+                var quaternion = new CANNON.Quaternion();
+                quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[item.upper].mesh.rotation.y);
+                var rotatedVec = force2.clone();
+                rotatedVec=quaternion.vmult(force2);
+                cubes[item.upper].body.applyForce(rotatedVec, cubes[item.upper].body.position);
+                이펙트2(item.upper, 16, "left");
+                soundic[sdic[cubes.length-1]["16"]].play();
+
+                rmvstile.push(index)
+
+              }else{
+                world.addBody(item.body.userData.body);
+                var constraint1 = new CANNON.LockConstraint(item.body.userData.body, cubes[item.upper].body);
+                world.addConstraint(constraint1);
+                var constraint2 = new CANNON.LockConstraint(item.body.userData.body, cubes[item.lower].body);
+                world.addConstraint(constraint2);
+                cubes[item.lower].mesh.userData.constraint.push(constraint1)
+                cubes[item.lower].mesh.userData.constraint.push(constraint2)
+                cubes[item.upper].mesh.userData.constraint.push(constraint1)
+                cubes[item.upper].mesh.userData.constraint.push(constraint2)
+                setTimeout(function() {
+                    if(cubes[item.lower].mesh.userData.ice){
+                      cubes[item.lower].body.sleep()
+                    }
+                }, 400);
+
+
+
+
+                var force2 = new CANNON.Vec3();
+                force2.set(0,0,-1500)
+                var quaternion = new CANNON.Quaternion();
+                quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[item.upper].mesh.rotation.y);
+                var rotatedVec = force2.clone();
+                // rotatedVec.applyQuaternion(quaternion);
+                rotatedVec=quaternion.vmult(force2);
+
+                cubes[item.upper].body.applyForce(rotatedVec, cubes[item.upper].body.position);
+                이펙트2(item.upper, 16, "up");
+                // cubes[item.lower].body.applyForce(rotatedVec, cubes[item.lower].body.position);
+                soundic[sdic[cubes.length-1]["16"]].play();
+
+                rmvstile.push(index)
+
+              }
+
+            }else{
+
+              if(item.right){
+                item.body.position.x=(item.majorx+bh*2.5)-((item.majorx+bh*2.5)-item.target)*((elapsedTime-item.start)/0.08)
+
+              }else{
+                item.body.position.z=(item.majorz+bh*2.5)-((item.majorz+bh*2.5)-item.target)*((elapsedTime-item.start)/0.08)
+
+              }
+
+
+            }
+
+          }
+
+
+
+
+        })
+
+        rmvstile.sort(function(a, b) {
+            return b - a;
+        });
+        rmvstile.forEach((item) => {
+            stiles.splice(item, 1);
+        })
+      }
+
 
 
       if (ftiles.length != 0) {
@@ -26776,6 +26962,15 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       if(num>maxnum) maxnum=num
                       mergetime=elapsedTime;
                       if(item.org){
+                              if(num==512){
+                                setTimeout(function() {
+                                  if(보강==0){
+                                    reinforce()
+                                    보강++;
+                                  }
+                                }, 500);
+
+                              }
 
                               점수+=num;
                               console.log(점수)
@@ -29727,14 +29922,17 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       if(!restartflag){
           if(legs.length>0){
             legs.forEach((item) => {
-              item.position.copy(item.userData.body.position);
-              if(item.userData.right){
-                item.position.x=item.userData.body.position.x-bw/5
-              }else{
-                item.position.z=item.userData.body.position.z-bw/5
+              if(item.userData.mode==0){
+                item.position.copy(item.userData.body.position);
+                if(item.userData.right){
+                  item.position.x=item.userData.body.position.x-bw/5
+                }else{
+                  item.position.z=item.userData.body.position.z-bw/5
+                }
+
+                item.quaternion.copy(item.userData.body.quaternion);
               }
 
-              item.quaternion.copy(item.userData.body.quaternion);
             });
           }
 
@@ -30991,7 +31189,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     renderer.setScissor(window.innerWidth / 2 - width2 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
-                    console.log("탑4")
+                    // console.log("탑4")
 
 
 
@@ -37455,6 +37653,284 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       scene.add(clone.mesh)
 
     }
+  }
+  function reinforce(){
+    var count=0;
+
+    for (let i=5; i<cubes.length; i++) {
+      var tflag=false;
+      if(cubes[i].mesh.userData.bye){
+        continue;
+      }
+      for (let j = i-1; j >=4 ; j--) {
+          if(!cubes[j].mesh.userData.bye){
+            var seek=avail(i,j)
+            if(seek[0]||seek[1]){
+              console.log(String(i-3)+"층과,"+String(j-3)+"층 결합 가능")
+              tflag=true
+              if(seek[0]&&seek[1]){
+                avail(i,j, true, 1+count%2)
+                count++
+              }else if(seek[0]){
+                avail(i,j, true, 1)
+                count=1
+              }else{
+                avail(i,j, true, 2)
+                count=0
+              }
+
+
+              break;
+            }else{
+              console.log(String(i-3)+"층과,"+String(j-3)+"층은 붙어 있지만 결합 불가")
+              tflag=true
+
+              break;
+            }
+          }
+      }
+      if(tflag){
+        continue;
+      }else{
+        console.log(String(i-3)+"층은 매칭이 안됨")
+      }
+
+
+    }
+  }
+
+  function avail(upper, lower, flag=false, dflag=0){
+    var left= true
+    var right= true
+
+
+
+    if(cubes[upper].mesh.position.y-cubes[lower].mesh.position.y>bh*1.2||cubes[upper].mesh.position.y-cubes[lower].mesh.position.y<bh/3){
+      return [false, false]
+    }
+
+    if(cubes[upper].mesh.userData.ice&&cubes[lower].mesh.userData.ice){
+      return [false, false]
+    }
+
+    let rwpos1=new THREE.Vector3();
+    let rwpos2=new THREE.Vector3();
+
+
+
+    판[upper-1][1].getWorldPosition(rwpos1);
+    판[lower-1][1].getWorldPosition(rwpos2);
+
+    var upperx=rwpos1.x
+    var lowerx=rwpos2.x
+
+    var majorx;
+    var majory;
+    var majorz;
+    if(upperx>lowerx){
+      majorx=upperx
+      majory=0.5*(rwpos1.y+rwpos2.y)
+      majorz=0.5*(rwpos1.z+rwpos2.z)
+    }else{
+      majorx=lowerx
+      majory=0.5*(rwpos1.y+rwpos2.y)
+      majorz=0.5*(rwpos1.z+rwpos2.z)
+    }
+
+    if(Math.abs(upperx-lowerx)>3||Math.abs(rwpos1.z-rwpos2.z)>0.5*bw*cubes[upper].mesh.scale.z*cubes[lower].mesh.scale.z){
+      right= false
+    }
+    if(right&&flag&&dflag==1){
+      legs.push(legmold[0].clone())
+
+      legs[legs.length-1].material=new THREE.MeshLambertMaterial({
+          color: new THREE.Color(0xD7F3F9)
+      });
+
+      legs[legs.length-1].children[0].material=new THREE.MeshLambertMaterial({
+          color: new THREE.Color(0xD7F3F9)
+      });
+      legs[legs.length-1].children[1].material=new THREE.MeshLambertMaterial({
+          color: new THREE.Color(0xD7F3F9)
+      });
+
+
+      var compoundBody = new CANNON.Body({ mass: 0.3,
+        allowSleep: true,
+        sleepSpeedLimit: 1000,
+        sleepTimeLimit: 0
+      });
+
+      var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
+      var boxBody0 = new CANNON.Body({ mass: 0.1,
+        allowSleep: true,
+        sleepSpeedLimit: 1000,
+        sleepTimeLimit: 0
+      });
+      boxBody0.addShape(boxShape0);
+      boxBody0.position.set(0, 0, 0);
+
+      var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+      var boxBody1 = new CANNON.Body({ mass: 0.1,
+        allowSleep: true,
+        sleepSpeedLimit: 1000,
+        sleepTimeLimit: 0
+      });
+      boxBody1.addShape(boxShape1);
+      boxBody1.position.set(0, 0, 0);
+
+      var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+      var boxBody2 = new CANNON.Body({ mass: 0.1,
+        allowSleep: true,
+        sleepSpeedLimit: 1000,
+        sleepTimeLimit: 0
+      });
+      boxBody2.addShape(boxShape2);
+      boxBody2.position.set(0, 0, 0);
+
+      compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+      compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
+      compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
+
+      // if(cubes[upper].mesh.userData.pin){
+      //   legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[upper].mesh.position.y-bh/2, cubes[upper].mesh.position.z-bw/5);
+      // }else{
+      //   legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[upper].mesh.position.y-bh/2, cubes[upper].mesh.position.z-bw/5);
+      //
+      // }
+      legs[legs.length-1].position.set(majorx, majory, majorz);
+
+      legs[legs.length-1].quaternion.copy(cubes[upper].mesh.quaternion)
+      // legs[legs.length-1].rotation.z=-1;
+
+      compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+      compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
+
+      legs[legs.length-1].userData.body=compoundBody;
+      legs[legs.length-1].userData.right=true;
+      legs[legs.length-1].userData.idx=legs.length-1
+      legs[legs.length-1].userData.mode=1
+
+      legs[legs.length-1].position.set(majorx+bh*2.5, majory, majorz);
+
+      stiles.push(new stile(true, majorx, majory, majorz, upper, lower, rwpos1, rwpos2, legs[legs.length-1], elapsedTime+stiles.length*0.11))
+    }
+
+
+
+
+
+    let lwpos1=new THREE.Vector3();
+    let lwpos2=new THREE.Vector3();
+
+
+    판[upper-1][2].getWorldPosition(lwpos1);
+    판[lower-1][2].getWorldPosition(lwpos2);
+
+
+    var upperz=lwpos1.z
+    var lowerz=lwpos2.z
+
+    var majorx;
+    var majory;
+    var majorz;
+    if(upperz>lowerz){
+      majorz=upperz
+      majory=0.5*(lwpos1.y+lwpos2.y)
+      majorx=0.5*(lwpos1.x+lwpos2.x)
+    }else{
+      majorz=lowerz
+      majory=0.5*(lwpos1.y+lwpos2.y)
+      majorx=0.5*(lwpos1.x+lwpos2.x)
+    }
+
+    if(Math.abs(upperz-lowerz)>3||Math.abs(lwpos1.x-lwpos2.x)>0.5*bw*cubes[upper].mesh.scale.x*cubes[lower].mesh.scale.x){
+      left= false
+    }
+
+      if(left&&flag&&(dflag>1)){
+        legs.push(legmold[2].clone())
+
+        legs[legs.length-1].material=new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0xD7F3F9)
+        });
+
+        legs[legs.length-1].children[0].material=new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0xD7F3F9)
+        });
+        legs[legs.length-1].children[1].material=new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0xD7F3F9)
+        });
+
+
+        var compoundBody = new CANNON.Body({ mass: 0.3,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+
+        var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
+        var boxBody0 = new CANNON.Body({ mass: 0.1,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+        boxBody0.addShape(boxShape0);
+        boxBody0.position.set(0, 0, 0);
+
+        var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+        var boxBody1 = new CANNON.Body({ mass: 0.1,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+        boxBody1.addShape(boxShape1);
+        boxBody1.position.set(0, 0, 0);
+
+        var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+        var boxBody2 = new CANNON.Body({ mass: 0.1,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+        boxBody2.addShape(boxShape2);
+        boxBody2.position.set(0, 0, 0);
+
+        compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+        compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
+        compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
+
+        legs[legs.length-1].position.set(cubes[upper].mesh.position.x-bw/5, cubes[upper].mesh.position.y-bh/2, majorz+bw/1.5+0.6*bh);
+
+        // if(cubes[upper].mesh.userData.pin){
+        //   legs[legs.length-1].position.set(majorx+bw/1.5+0.5*bh, cubes[upper].mesh.position.y-bh/2, cubes[upper].mesh.position.z-bw/4);
+        // }else{
+        //   legs[legs.length-1].position.set(majorx+bw/1.5+0.5*bh, cubes[upper].mesh.position.y-bh/2, cubes[upper].mesh.position.z-bw/4);
+        //
+        // }
+        legs[legs.length-1].position.set(majorx, majory, majorz);
+
+        legs[legs.length-1].quaternion.copy(cubes[upper].mesh.quaternion)
+
+        // legs[legs.length-1].rotation.z=-1;
+
+        compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+        compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
+
+        legs[legs.length-1].position.set(majorx, majory, majorz+bh*2.5);
+
+
+        legs[legs.length-1].userData.body=compoundBody;
+        legs[legs.length-1].userData.right=false;
+        legs[legs.length-1].userData.idx=legs.length-1
+
+        legs[legs.length-1].userData.mode=1
+
+        stiles.push(new stile(false, majorx, majory, majorz, upper, lower, lwpos1, lwpos2, legs[legs.length-1], elapsedTime+stiles.length*0.11))
+      }
+
+
+    return [right, left]
   }
 
   function zoom(n, m=0, flag=true){
