@@ -7677,7 +7677,12 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
   var 보드=[];
   var 보강=0;
+  var reinflag=false
+  var reintime=0
+  var reindur;
   var 눌=false
+
+
   let themelst = ["wooden", "lofi", "retro","808", "hiphop"];
   var themelang=["BRICK", "LO-FI", "RETRO","BEAT", "HIPHOP"]
   window.themelst=themelst
@@ -14238,48 +14243,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         }
 
       }else if (event.code === 'KeyB') {
-        var count=0;
-
-        for (let i=5; i<cubes.length; i++) {
-          var tflag=false;
-          if(cubes[i].mesh.userData.bye){
-            continue;
-          }
-          for (let j = i-1; j >=4 ; j--) {
-              if(!cubes[j].mesh.userData.bye){
-                var seek=avail(i,j)
-                if(seek[0]||seek[1]){
-                  console.log(String(i-3)+"층과,"+String(j-3)+"층 결합 가능")
-                  tflag=true
-                  if(seek[0]&&seek[1]){
-                    avail(i,j, true, 1+count%2)
-                    count++
-                  }else if(seek[0]){
-                    avail(i,j, true, 1)
-                    count=1
-                  }else{
-                    avail(i,j, true, 2)
-                    count=0
-                  }
-
-
-                  break;
-                }else{
-                  console.log(String(i-3)+"층과,"+String(j-3)+"층은 붙어 있지만 결합 불가")
-                  tflag=true
-
-                  break;
-                }
-              }
-          }
-          if(tflag){
-            continue;
-          }else{
-            console.log(String(i-3)+"층은 매칭이 안됨")
-          }
-
-
-        }
+        reinforce()
 
 
 
@@ -15496,7 +15460,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
       보강=0
-
+      reintime=0
+      reinflag=false
 
       resetting(stack, function(object) { //재시작
           msetting1(function(object) {
@@ -23022,7 +22987,127 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
       if (startflag&&!gameoverflag) { //스타트
+
+
+
         gameonce=false
+
+        if(보강>0){
+          if(elapsedTime-reintime<reindur){
+            // console.log("보강")
+            reinflag=true
+
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            canvas.width = 도화지;
+            canvas.height = 도화지;
+            var grd = ctx.createLinearGradient(0, 0, 0, 도화지);
+
+
+            var newcl0 = hslToHex(rehsl1["h"] - (rehsl1["h"] - renhsl1["h"]) * (Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI)), rehsl1["s"] - (rehsl1["s"] - renhsl1["s"]) * (Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI)), rehsl1["l"] - (rehsl1["l"] - renhsl1["l"]) * (Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI)))
+            var newcl1 = hslToHex(rehsl2["h"] - (rehsl2["h"] - renhsl2["h"]) * (Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI)), rehsl2["s"] - (rehsl2["s"] - renhsl2["s"]) * (Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI)), rehsl2["l"] - (rehsl2["l"] - renhsl2["l"]) * (Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI)))
+
+            grd.addColorStop(0, "white");
+            grd.addColorStop(0.3, newcl1);
+            grd.addColorStop(0.4, newcl0);
+            grd.addColorStop(1, newcl0);
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, 도화지, 도화지);
+            var img3 = new THREE.CanvasTexture(canvas);
+            gradback[0].material.map=img3
+            // gradback[0].material.opacity=Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI)
+            // gradback[0].material = new THREE.MeshBasicMaterial({
+            //     map: img3,
+            //     transparent: true,
+            //     opacity:1,
+            //     alphaTest: 1
+            // });
+            // gradback[0].material.depthWrite=true;
+
+            보드.forEach((item, i) => {
+              if(i>cubes.length-1){
+                item.material.visible=false;
+
+
+              }else{
+                item.material.visible=true;
+                if(cubes.length>10){
+                  item.material.opacity=(0.12+0.08*(cubes.length-11)+(1)*0.08)-(Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI))*(0.12+0.08*(cubes.length-11)+(1)*0.08)
+                }else{
+                  item.material.opacity=(0.02*(cubes.length-5)+(1)*0.02)-(Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI))*(0.02*(cubes.length-5)+(1)*0.02)
+                }
+
+                item.material.alphaTest=item.material.opacity
+                item.material.depthWrite=false;
+
+
+              }
+
+
+
+                item.children.forEach((child) => {
+                  child.material.visible=true;
+                  child.material.transparent=true;
+                  if(cubes.length>10){
+                    child.material.opacity=(0.12+0.08*(cubes.length-11)+(1)*0.08)-(Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI))*(0.12+0.08*(cubes.length-11)+(1)*0.08)
+                  }else{
+                    child.material.opacity=(0.02*(cubes.length-5)+(1)*0.02)-(Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI))*(0.02*(cubes.length-5)+(1)*0.02)
+                  }
+
+                  child.material.alphaTest=item.material.opacity
+                  child.material.depthWrite=true;
+                });
+
+
+
+            });
+
+          }else{
+            reinflag=false
+
+            보드.forEach((item, i) => {
+              if(i>cubes.length-1){
+                item.material.visible=false;
+
+
+              }else{
+                item.material.visible=true;
+                if(cubes.length>10){
+                  item.material.opacity=0.12+0.08*(cubes.length-11)+(1)*0.08
+                }else{
+                  item.material.opacity=0.02*(cubes.length-5)+(1)*0.02
+                }
+
+                item.material.alphaTest=item.material.opacity
+                item.material.depthWrite=false;
+
+
+              }
+
+
+
+                item.children.forEach((child) => {
+                  child.material.visible=true;
+                  child.material.transparent=true;
+                  if(cubes.length>10){
+                    child.material.opacity=0.12+0.08*(cubes.length-11)+(1)*0.08
+                  }else{
+                    child.material.opacity=0.02*(cubes.length-5)+(1)*0.02
+                  }
+
+                  child.material.alphaTest=item.material.opacity
+                  child.material.depthWrite=true;
+                });
+
+
+
+            });
+            // gradback[0].material.depthWrite=false;
+
+          }
+        }
+
+
           if(elapsedTime-screentime<0.4){
             if(screenon){
               // screen[0].material.opacity=screenopa*((elapsedTime-screentime)/0.4)
@@ -27036,7 +27121,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                                 setTimeout(function() {
                                   if(보강==0){
                                     reinforce()
-                                    보강++;
+
                                   }
                                 }, 500);
 
@@ -34849,6 +34934,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       do{
         ncolornum0 = parseInt(Math.random() * colorlst0.length);
       }while(색보정0.indexOf(ncolornum0)!=-1)
+
+
       rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
       rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
       renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
@@ -37725,6 +37812,20 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     }
   }
   function reinforce(){
+    보강++;
+
+    do{
+      ncolornum = parseInt(Math.random() * colorlst.length);
+    }while(색보정.indexOf(ncolornum)!=-1)
+
+
+
+    rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+    rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+    renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+    renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+    reintime=elapsedTime;
     var count=0;
 
     for (let i=5; i<cubes.length; i++) {
@@ -37767,6 +37868,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
     }
+    reindur=stiles.length*0.11+0.08
+    console.log(reindur)
   }
 
   function avail(upper, lower, flag=false, dflag=0){
