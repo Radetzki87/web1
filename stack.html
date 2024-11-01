@@ -7677,6 +7677,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
   var 보드=[];
   var 보강=0;
+
+  var reinloc=[]
+
   var reinflag=false
   var reintime=0
   var reindur;
@@ -8242,6 +8245,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let 퇴장=false;
   let 보드반경=9
   let screen=[]
+
+  let lastdir;
 
 
 
@@ -9549,6 +9554,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       }
 
       moveBoard(direction) {
+
         if(!aniflag0) return;
         if(m2flag&&elapsedTime - stacktime < 0.3) return;
         var tempbd = [];
@@ -9715,7 +9721,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
           }else{
             if(오토) tcheck[3]=0
+            lastdir=direction
           }
+
 
           temp2.forEach((item) => {
               this.move(item[0], item[1], item[2], item[3], item[4]);
@@ -14234,13 +14242,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           // }else if(lookright){
           // }
       }else if (event.code === 'KeyV') {
-        var cmd=1
-        for (var i = 4; i < cubes.length; i++) {
-          if(cubes[i].mesh.userData["bye"]) continue;
-          console.log(String(cmd)+"층: ")
-          console.log(cubes[i].body.angularVelocity)
-          cmd++
-        }
+        cubes[cubes.length-1].mesh.userData.game2048.spawnTile("up",Math.pow(2, 8));
+        cubes[cubes.length-1].mesh.userData.game2048.spawnTile("up",Math.pow(2, 8));
 
       }else if (event.code === 'KeyB') {
         reinforce()
@@ -15476,6 +15479,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       item.mesh.userData.game2048.spawnTile("up",Math.pow(2, 3+parseInt(Math.random()*4)));
                       item.mesh.userData.game2048.spawnTile("down",Math.pow(2, 2+parseInt(Math.random()*4)));
                     }else{
+
+
 
 
                       item.mesh.userData.game2048.spawnTile();
@@ -26955,12 +26960,54 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           }else{
             if(elapsedTime-item.start>=0.08){
 
+
+
               // item.body.position.x=item.body.userData.body.position.x
               // item.body.position.y=item.body.userData.body.position.y
               // item.body.position.z=item.body.userData.body.position.z
               item.body.userData.mode=0;
-
+              var ans=avail(item.upper, item.lower)
               if(item.right){
+                if(!ans[0]){
+
+                  rmvstile.push(index)
+                  world.addBody(item.body.userData.body);
+                  return;
+                }
+
+
+
+                if(item.upper==cubes.length-1){
+
+                  let rwpos1=new THREE.Vector3();
+                  let rwpos2=new THREE.Vector3();
+
+
+
+                  판[item.upper-1][1].getWorldPosition(rwpos1);
+                  판[item.lower-1][1].getWorldPosition(rwpos2);
+
+                  var upperx=rwpos1.x
+                  var lowerx=rwpos2.x
+
+                  if(upperx>lowerx){
+                    item.body.position.x=upperx
+                    item.body.userData.body.position.x=upperx
+
+                  }else{
+                    item.body.position.x=lowerx
+                    item.body.userData.body.position.x=lowerx
+
+                  }
+
+                  item.body.position.y=0.5*(rwpos1.y+rwpos2.y)
+                  item.body.userData.body.position.y=0.5*(rwpos1.y+rwpos2.y)
+
+                  item.body.position.z=0.5*(rwpos1.z+rwpos2.z)
+                  item.body.userData.body.position.z=0.5*(rwpos1.z+rwpos2.z)
+
+                }
+
                 world.addBody(item.body.userData.body);
                 var constraint1 = new CANNON.LockConstraint(item.body.userData.body, cubes[item.upper].body);
                 world.addConstraint(constraint1);
@@ -26985,11 +27032,52 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 rotatedVec=quaternion.vmult(force2);
                 cubes[item.upper].body.applyForce(rotatedVec, cubes[item.upper].body.position);
                 이펙트2(item.upper, 16, "left");
-                soundic[sdic[cubes.length-1]["16"]].play();
+                soundic[sdic[4]["16"]].play();
 
                 rmvstile.push(index)
 
               }else{
+                if(!ans[1]){
+
+                  rmvstile.push(index)
+                  world.addBody(item.body.userData.body);
+                  return;
+                }
+
+                if(item.upper==cubes.length-1){
+
+                  let rwpos1=new THREE.Vector3();
+                  let rwpos2=new THREE.Vector3();
+
+
+
+                  판[item.upper-1][2].getWorldPosition(rwpos1);
+                  판[item.lower-1][2].getWorldPosition(rwpos2);
+
+                  var upperz=rwpos1.z
+                  var lowerz=rwpos2.z
+
+
+                  majorx=0.5*(rwpos1.x+rwpos2.x)
+
+                  if(upperz>lowerz){
+                    item.body.position.z=upperz
+                    item.body.userData.body.position.z=upperz
+
+                  }else{
+                    item.body.position.z=lowerz
+                    item.body.userData.body.position.z=lowerz
+                  }
+
+                  item.body.position.y=0.5*(rwpos1.y+rwpos2.y)
+                  item.body.userData.body.position.y=0.5*(rwpos1.y+rwpos2.y)
+
+                  item.body.position.x=0.5*(rwpos1.x+rwpos2.x)
+                  item.body.userData.body.position.x=0.5*(rwpos1.x+rwpos2.x)
+
+
+                }
+
                 world.addBody(item.body.userData.body);
                 var constraint1 = new CANNON.LockConstraint(item.body.userData.body, cubes[item.upper].body);
                 world.addConstraint(constraint1);
@@ -27019,7 +27107,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 cubes[item.upper].body.applyForce(rotatedVec, cubes[item.upper].body.position);
                 이펙트2(item.upper, 16, "up");
                 // cubes[item.lower].body.applyForce(rotatedVec, cubes[item.lower].body.position);
-                soundic[sdic[cubes.length-1]["16"]].play();
+                soundic[sdic[4]["16"]].play();
 
                 rmvstile.push(index)
 
@@ -27118,12 +27206,15 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       mergetime=elapsedTime;
                       if(item.org){
                               if(num==512){
-                                setTimeout(function() {
-                                  if(보강==0){
-                                    reinforce()
+                                if(num!=stacknum[activeFloor]){
+                                  reinforce()
+                                }
 
-                                  }
-                                }, 500);
+                                if(보강==0){
+
+
+                                }
+
 
                               }
 
@@ -27358,6 +27449,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
                                 activeFloor=cubes.length-1;
+                                if(num==512){
+                                  reinforce()
+                                }
+
 
 
                                 if(skinnum==skinset.indexOf("classic")){
@@ -27458,13 +27553,13 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                               // dl2.position.y=50+((cubes.length-3) * bh)
                               // dl2.shadow.camera.position.y= bh * (cubes.length)
 
-                            }else if(item.org){
+                            }else if(item.org){//힘조
                               // forceAmount=1000;
                               var force = new CANNON.Vec3();
                               var tnum=parseInt(Math.log2(num))-2;
 
 
-                              var forceset2=[650+200, 900+200, 1200+200, 1700+200, 2300+200, 2700+200, 3300+200, 3500+200 ,4000+200];
+                              var forceset2=[650+200, 900+200, 1200+200, 1700+200, 2300+200, 2700+200, 3300+200, 4500+200 ,4000+200];
 
                               // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                               switch (item.direction) {
@@ -30503,6 +30598,18 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 }
               }
 
+              if(reinflag){
+
+
+
+                camera.left=reinloc[1]-(20+reinloc[5]*1.8)*(Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI))/4
+                camera.top=reinloc[3]+(20+reinloc[5]*1.8)*(Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI))/4
+                camera.right=reinloc[2]+(20+reinloc[5]*1.8)*(Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI))
+                camera.bottom=reinloc[4]-(20+reinloc[5]*1.8)*(Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI))
+                // camera.position.y=reinloc[0].y-(10)*(Math.sin((1/reindur)*(elapsedTime-reintime)*Math.PI))
+                camera.updateProjectionMatrix();
+              }
+
 
               // for (var i = 4; i < cubes.length-1; i++) {
               //   world.contacts.forEach(contact => {
@@ -31935,6 +32042,12 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
         activeFloor=cubes.length-1;
 
+        if(cubes.length>8){
+          reinforce()
+        }
+
+
+
 
         if(skinnum==skinset.indexOf("classic")){
           // console.log(cubes[cubes.length-1].mesh)
@@ -32023,6 +32136,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
+
       })
 
     }
@@ -37811,12 +37925,20 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
     }
   }
-  function reinforce(){
+  function reinforce(n=0){
     보강++;
 
     do{
       ncolornum = parseInt(Math.random() * colorlst.length);
     }while(색보정.indexOf(ncolornum)!=-1)
+
+    var clength=0
+    for (var i =4 ; i < cubes.length; i++) {
+      if(!cubes[i].mesh.userData["bye"]) clength++
+    }
+
+
+    reinloc=[camera.position, camera.left, camera.right, camera.top, camera.bottom, clength]
 
 
 
@@ -37853,10 +37975,25 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
               break;
             }else{
-              console.log(String(i-3)+"층과,"+String(j-3)+"층은 붙어 있지만 결합 불가")
-              tflag=true
+              if(i==cubes.length-1){
+                if (lastdir === "up") {
+                  avail(i,j, true, 2, true)
+                } else if (lastdir === "down") {
+                  avail(i,j, true, 2, true)
+                } else if (lastdir === "left") {
+                  avail(i,j, true, 1, true)
+                } else if (lastdir === "right") {
+                  avail(i,j, true, 1, true)
+                }
+              }else{
+                console.log(String(i-3)+"층과,"+String(j-3)+"층은 붙어 있지만 결합 불가")
+                tflag=true
 
-              break;
+                break;
+              }
+
+
+
             }
           }
       }
@@ -37872,14 +38009,17 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     console.log(reindur)
   }
 
-  function avail(upper, lower, flag=false, dflag=0){
+  function avail(upper, lower, flag=false, dflag=0, lflag=false){
     var left= true
     var right= true
 
 
 
     if(cubes[upper].mesh.position.y-cubes[lower].mesh.position.y>bh*1.2||cubes[upper].mesh.position.y-cubes[lower].mesh.position.y<bh/3){
-      return [false, false]
+      if(upper!=cubes.length-1){
+        return [false, false]
+      }
+
     }
 
     if(cubes[upper].mesh.userData.ice&&cubes[lower].mesh.userData.ice){
@@ -37911,7 +38051,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     }
 
     if(Math.abs(upperx-lowerx)>3||Math.abs(rwpos1.z-rwpos2.z)>0.5*bw*cubes[upper].mesh.scale.z*cubes[lower].mesh.scale.z){
+
       right= false
+      if(lflag&&dflag==1){
+        right=true;
+      }
     }
     if(right&&flag&&dflag==1){
       legs.push(legmold[0].clone())
@@ -38019,6 +38163,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
     if(Math.abs(upperz-lowerz)>3||Math.abs(lwpos1.x-lwpos2.x)>0.5*bw*cubes[upper].mesh.scale.x*cubes[lower].mesh.scale.x){
       left= false
+      if(lflag&&dflag==2){
+        left=true;
+      }
     }
 
       if(left&&flag&&(dflag>1)){
