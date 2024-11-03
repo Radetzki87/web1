@@ -7933,7 +7933,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var version;
   var upversion=0;
 
-  var 마찰=[0.2,0.3,0.19,0.2,0.3]
+  var 마찰=[0.2,0.3,0.18,0.2,0.3]
   var 탄성=[0.4,0.4,0.2,0.7,0.4]
   var 중력=[-7,-11,-17,-7,-7]
 
@@ -9465,14 +9465,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   }
 
                   if(오토) tcheck[2]=elapsedTime;
-                  if(gamemod==0){
-                    cubes[this.index].body.material.friction = 0.16
-                    world.solver.iterations=4-fullc;
-                    if(world.solver.iterations<=1){
-                      world.solver.iterations=1;
-                      gap=0.979;
-                    }
-                  }
+
 
 
 
@@ -13777,7 +13770,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
   // groundBody.position.y=boxh/2
   world.gravity.set(0, 0, 0);
   world.broadphase = new CANNON.NaiveBroadphase();
-  world.solver.iterations = 30;
+  world.solver.iterations = 25;
 
   document.addEventListener('keydown', (event) => {
       // if(inflag) return;
@@ -14903,7 +14896,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         forceAmount = 10*bw * bw * bh / 10;
         groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
         world.gravity.set(0, 0, 0);
-        world.solver.iterations =30;
+        world.solver.iterations =25;
         // world.solver.tolerance = 8
 
         gap=0.981;
