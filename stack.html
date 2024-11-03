@@ -7933,7 +7933,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var version;
   var upversion=0;
 
-  var 마찰=[0.2,0.3,0.2,0.2,0.3]
+  var 마찰=[0.2,0.3,0.19,0.2,0.3]
   var 탄성=[0.4,0.4,0.2,0.7,0.4]
   var 중력=[-7,-11,-17,-7,-7]
 
@@ -13777,7 +13777,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
   // groundBody.position.y=boxh/2
   world.gravity.set(0, 0, 0);
   world.broadphase = new CANNON.NaiveBroadphase();
-  world.solver.iterations = 20;
+  world.solver.iterations = 30;
 
   document.addEventListener('keydown', (event) => {
       // if(inflag) return;
@@ -14894,31 +14894,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       // dl2.shadow.camera.position.y=bh * (cubes.length + 2);
       groundBody.material.friction=마찰[gamemod];
       groundBody.material.restitution=탄성[gamemod];
-      if (gamemod==0){
-        for (var i = 0; i < cubes.length; i++) {
-          cubes[i].body.material.friction = 마찰[0];
-          cubes[i].body.material.restitution = 탄성[0];
-        }
-        gap=0.981;
-        stack=5;
-        forceAmount = bw * bw * bh / 16.5;
-        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
-        world.gravity.set(0, 0, 0);
-        world.solver.iterations = 20;
-        // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 1), -Math.PI/32)
-      }else if (gamemod==1){
-        for (var i = 0; i < cubes.length; i++) {
-          cubes[i].body.material.friction = 마찰[1];
-          cubes[i].body.material.restitution = 탄성[1];
-        }
-        stack=5;
-        forceAmount = bw * bw * bh / 25;
-        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
-        gap=0.955;
-        world.gravity.set(0, 0, 0);
-        world.solver.iterations = 1;
-
-      }else if (gamemod==2){
+      if (gamemod==2){
         for (var i = 0; i < cubes.length; i++) {
           cubes[i].body.material.friction = 마찰[2];
           cubes[i].body.material.restitution = 탄성[2];
@@ -14927,7 +14903,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         forceAmount = 10*bw * bw * bh / 10;
         groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 0, 0), 0)
         world.gravity.set(0, 0, 0);
-        world.solver.iterations =15;
+        world.solver.iterations =30;
         // world.solver.tolerance = 8
 
         gap=0.981;
@@ -14939,17 +14915,6 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
       world.addBody(groundBody);
 
-      // groundBody1.position.set(0, -3, 0);
-      // world.addBody(groundBody1);
-      //
-      // groundBody2.position.set(0, -5, 0);
-      // world.addBody(groundBody2);
-      //
-      // groundBody3.position.set(0, -7, 0);
-      // world.addBody(groundBody3);
-      //
-      // groundBody4.position.set(0, -9, 0);
-      // world.addBody(groundBody4);
 
       world.broadphase = new CANNON.NaiveBroadphase();
       renderer.clearDepth();
@@ -14982,10 +14947,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       groundmesh.rotation.x=0;
       groundmesh.rotation.z=0;
       groundmesh.material.visible=false;
-      if(gamemod==3){
-        remain=30;
-        tbonus=30
-      }
+
       scene.add(groundmesh);
 
 
@@ -15152,27 +15114,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               }
           }
       }
-      // if (lighton) {
-      //     // let ambientLight= new THREE.AmbientLight(0xffffff,0.4);
-      //     if (true) {
-      //       ambientLight.color=new THREE.Color(0xffffff);
-      //       ambientLight.intensity=0.2
-      //       dl2.color=new THREE.Color(0xffffff);
-      //       dl2.intensity=0.7
-      //       dl2.castShadow = true;
-      //       dl2.shadow.mapSize = new THREE.Vector2(1800, 1800);
-      //       if(gamemod==2){
-      //         dl2.intensity=0.7
-      //
-      //
-      //         // dl2.position.set(40, 200, 160);
-      //       }
-      //
-      //     }
-      //     scene.add(ambientLight);
-      //
-      //     scene.add(dl2)
-      // }
+
       arrows.forEach((item) => {
           item.children.forEach((thing) => {
               item.remove(thing);
@@ -27559,7 +27501,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                               var tnum=parseInt(Math.log2(num))-2;
 
 
-                              var forceset2=[650+200, 900+200, 1200+200, 1700+200, 2300+200, 2700+200, 3300+200, 4500+200 ,4000+200];
+                              var forceset2=[650+150, 900+150, 1200+150, 1600+150, 2100+150, 2700+150, 3300+150, 4100+150 ,4800+150];
 
                               // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                               switch (item.direction) {
