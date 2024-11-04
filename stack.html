@@ -11287,12 +11287,46 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   let wpos1=new THREE.Vector3();
                   let wpos2=new THREE.Vector3();
 
-                  판[itemidx-1][1].getWorldPosition(wpos1);
-                  판[아래-1][1].getWorldPosition(wpos2);
+                  판[itemidx-1][3].getWorldPosition(wpos1);
+                  판[아래-1][3].getWorldPosition(wpos2);
 
 
                   var upperx=wpos1.x
                   var lowerx=wpos2.x
+
+                  if(skinset[skinnum]=="classic"){
+                    // 기준 포인트와 설정 포인트를 정의합니다.
+                    var origin1 = cubes[itemidx].mesh.position.clone()
+                    var target1 = wpos1
+
+                    var origin2 = cubes[아래].mesh.position.clone()
+                    var target2 = wpos2
+
+
+                    // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
+                    var direct1 = new THREE.Vector3().subVectors(target1, origin1);
+
+                    var direct2 = new THREE.Vector3().subVectors(target2, origin2);
+
+                    // direct 길이를 1.5배로 만듭니다.
+                    direct1.multiplyScalar(1.26);
+                    direct2.multiplyScalar(1.26);
+
+                    // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
+                    var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
+                    var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
+                    console.log(extendedPoint1); // 연장된 지점의 좌표
+                    console.log(extendedPoint2); // 연장된 지점의 좌표
+
+
+                    wpos1=extendedPoint1
+                    wpos2=extendedPoint2
+
+                    upperx=wpos1.x
+                    lowerx=wpos2.x
+
+
+                  }
                   // if(cubes[itemidx].mesh.userData.pin){
                   //   upperx=cubes[itemidx].mesh.position.x+(핀크기*cubes[itemidx].mesh.userData["combo"]-1)*bw/2;
                   // }else{
@@ -11429,11 +11463,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   });
 
 
-                  var compoundBody = new CANNON.Body({ mass: 0.3,
-                    allowSleep: true,
-                    sleepSpeedLimit: 1000,
-                    sleepTimeLimit: 0
-                  });
+                  // var compoundBody = new CANNON.Body({ mass: 0.3,
+                  //   allowSleep: true,
+                  //   sleepSpeedLimit: 1000,
+                  //   sleepTimeLimit: 0
+                  // });
 
                   var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
                   var boxBody0 = new CANNON.Body({ mass: 0.1,
@@ -11444,27 +11478,27 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   boxBody0.addShape(boxShape0);
                   boxBody0.position.set(0, 0, 0);
 
-                  var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
-                  var boxBody1 = new CANNON.Body({ mass: 0.1,
-                    allowSleep: true,
-                    sleepSpeedLimit: 1000,
-                    sleepTimeLimit: 0
-                  });
-                  boxBody1.addShape(boxShape1);
-                  boxBody1.position.set(0, 0, 0);
-
-                  var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
-                  var boxBody2 = new CANNON.Body({ mass: 0.1,
-                    allowSleep: true,
-                    sleepSpeedLimit: 1000,
-                    sleepTimeLimit: 0
-                  });
-                  boxBody2.addShape(boxShape2);
-                  boxBody2.position.set(0, 0, 0);
-
-                  compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
-                  compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
-                  compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
+                  // var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+                  // var boxBody1 = new CANNON.Body({ mass: 0.1,
+                  //   allowSleep: true,
+                  //   sleepSpeedLimit: 1000,
+                  //   sleepTimeLimit: 0
+                  // });
+                  // boxBody1.addShape(boxShape1);
+                  // boxBody1.position.set(0, 0, 0);
+                  //
+                  // var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+                  // var boxBody2 = new CANNON.Body({ mass: 0.1,
+                  //   allowSleep: true,
+                  //   sleepSpeedLimit: 1000,
+                  //   sleepTimeLimit: 0
+                  // });
+                  // boxBody2.addShape(boxShape2);
+                  // boxBody2.position.set(0, 0, 0);
+                  //
+                  // compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+                  // compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
+                  // compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
 
                   // if(cubes[itemidx].mesh.userData.pin){
                   //   legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/5);
@@ -11477,17 +11511,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   legs[legs.length-1].quaternion.copy(cubes[itemidx].mesh.quaternion)
                   // legs[legs.length-1].rotation.z=-1;
 
-                  compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
-                  compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
+                  boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+                  boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
 
-                  world.addBody(compoundBody);
-                  legs[legs.length-1].userData.body=compoundBody;
+                  world.addBody(boxBody0);
+                  legs[legs.length-1].userData.body=boxBody0;
                   legs[legs.length-1].userData.right=true;
                   legs[legs.length-1].userData.mode=0;
                   console.log(legs)
-                  var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
+                  var constraint1 = new CANNON.LockConstraint(boxBody0, cubes[itemidx].body);
                   world.addConstraint(constraint1);
-                  var constraint2 = new CANNON.LockConstraint(compoundBody, 아래층.body);
+                  var constraint2 = new CANNON.LockConstraint(boxBody0, 아래층.body);
                   world.addConstraint(constraint2);
                   아래층.mesh.userData.constraint.push(constraint1)
                   아래층.mesh.userData.constraint.push(constraint2)
@@ -11521,12 +11555,46 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   let wpos1=new THREE.Vector3();
                   let wpos2=new THREE.Vector3();
 
-                  판[itemidx-1][2].getWorldPosition(wpos1);
-                  판[아래-1][2].getWorldPosition(wpos2);
+                  판[itemidx-1][4].getWorldPosition(wpos1);
+                  판[아래-1][4].getWorldPosition(wpos2);
 
 
                   var upperz=wpos1.z
                   var lowerz=wpos2.z
+
+                  if(skinset[skinnum]=="classic"){
+                    // 기준 포인트와 설정 포인트를 정의합니다.
+                    var origin1 = cubes[itemidx].mesh.position.clone()
+                    var target1 = wpos1
+
+                    var origin2 = cubes[아래].mesh.position.clone()
+                    var target2 = wpos2
+
+
+                    // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
+                    var direct1 = new THREE.Vector3().subVectors(target1, origin1);
+
+                    var direct2 = new THREE.Vector3().subVectors(target2, origin2);
+
+                    // direct 길이를 1.5배로 만듭니다.
+                    direct1.multiplyScalar(1.114);
+                    direct2.multiplyScalar(1.114);
+
+                    // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
+                    var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
+                    var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
+                    console.log(extendedPoint1); // 연장된 지점의 좌표
+                    console.log(extendedPoint2); // 연장된 지점의 좌표
+
+
+                    wpos1=extendedPoint1
+                    wpos2=extendedPoint2
+
+                    upperz=wpos1.z
+                    lowerz=wpos2.z
+
+
+                  }
 
                   var majorx;
                   var majory;
@@ -11649,11 +11717,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   });
 
 
-                  var compoundBody = new CANNON.Body({ mass: 0.3,
-                    allowSleep: true,
-                    sleepSpeedLimit: 1000,
-                    sleepTimeLimit: 0
-                  });
+                  // var compoundBody = new CANNON.Body({ mass: 0.3,
+                  //   allowSleep: true,
+                  //   sleepSpeedLimit: 1000,
+                  //   sleepTimeLimit: 0
+                  // });
 
                   var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
                   var boxBody0 = new CANNON.Body({ mass: 0.1,
@@ -11664,29 +11732,29 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   boxBody0.addShape(boxShape0);
                   boxBody0.position.set(0, 0, 0);
 
-                  var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
-                  var boxBody1 = new CANNON.Body({ mass: 0.1,
-                    allowSleep: true,
-                    sleepSpeedLimit: 1000,
-                    sleepTimeLimit: 0
-                  });
-                  boxBody1.addShape(boxShape1);
-                  boxBody1.position.set(0, 0, 0);
+                  // var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+                  // var boxBody1 = new CANNON.Body({ mass: 0.1,
+                  //   allowSleep: true,
+                  //   sleepSpeedLimit: 1000,
+                  //   sleepTimeLimit: 0
+                  // });
+                  // boxBody1.addShape(boxShape1);
+                  // boxBody1.position.set(0, 0, 0);
+                  //
+                  // var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+                  // var boxBody2 = new CANNON.Body({ mass: 0.1,
+                  //   allowSleep: true,
+                  //   sleepSpeedLimit: 1000,
+                  //   sleepTimeLimit: 0
+                  // });
+                  // boxBody2.addShape(boxShape2);
+                  // boxBody2.position.set(0, 0, 0);
+                  //
+                  // compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+                  // compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
+                  // compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
 
-                  var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
-                  var boxBody2 = new CANNON.Body({ mass: 0.1,
-                    allowSleep: true,
-                    sleepSpeedLimit: 1000,
-                    sleepTimeLimit: 0
-                  });
-                  boxBody2.addShape(boxShape2);
-                  boxBody2.position.set(0, 0, 0);
-
-                  compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
-                  compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
-                  compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
-
-                  legs[legs.length-1].position.set(cubes[itemidx].mesh.position.x-bw/5, cubes[itemidx].mesh.position.y-bh/2, majorz+bw/1.5+0.6*bh);
+                  // legs[legs.length-1].position.set(cubes[itemidx].mesh.position.x-bw/5, cubes[itemidx].mesh.position.y-bh/2, majorz+bw/1.5+0.6*bh);
 
                   // if(cubes[itemidx].mesh.userData.pin){
                   //   legs[legs.length-1].position.set(majorx+bw/1.5+0.5*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/4);
@@ -11700,18 +11768,18 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                   // legs[legs.length-1].rotation.z=-1;
 
-                  compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
-                  compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
+                  boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+                  boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
 
-                  world.addBody(compoundBody);
-                  legs[legs.length-1].userData.body=compoundBody;
+                  world.addBody(boxBody0);
+                  legs[legs.length-1].userData.body=boxBody0;
                   legs[legs.length-1].userData.right=false;
                   legs[legs.length-1].userData.mode=0;
 
                   console.log(legs)
-                  var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
+                  var constraint1 = new CANNON.LockConstraint(boxBody0, cubes[itemidx].body);
                   world.addConstraint(constraint1);
-                  var constraint2 = new CANNON.LockConstraint(compoundBody, 아래층.body);
+                  var constraint2 = new CANNON.LockConstraint(boxBody0, 아래층.body);
                   world.addConstraint(constraint2);
                   아래층.mesh.userData.constraint.push(constraint1)
                   아래층.mesh.userData.constraint.push(constraint2)
@@ -13142,11 +13210,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 });
 
 
-                var compoundBody = new CANNON.Body({ mass: 0.3,
-                  allowSleep: true,
-                  sleepSpeedLimit: 1000,
-                  sleepTimeLimit: 0
-                });
+                // var compoundBody = new CANNON.Body({ mass: 0.3,
+                //   allowSleep: true,
+                //   sleepSpeedLimit: 1000,
+                //   sleepTimeLimit: 0
+                // });
 
                 var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
                 var boxBody0 = new CANNON.Body({ mass: 0.1,
@@ -13156,28 +13224,28 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 });
                 boxBody0.addShape(boxShape0);
                 boxBody0.position.set(0, 0, 0);
-
-                var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
-                var boxBody1 = new CANNON.Body({ mass: 0.1,
-                  allowSleep: true,
-                  sleepSpeedLimit: 1000,
-                  sleepTimeLimit: 0
-                });
-                boxBody1.addShape(boxShape1);
-                boxBody1.position.set(0, 0, 0);
-
-                var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
-                var boxBody2 = new CANNON.Body({ mass: 0.1,
-                  allowSleep: true,
-                  sleepSpeedLimit: 1000,
-                  sleepTimeLimit: 0
-                });
-                boxBody2.addShape(boxShape2);
-                boxBody2.position.set(0, 0, 0);
-
-                compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
-                compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
-                compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
+                //
+                // var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+                // var boxBody1 = new CANNON.Body({ mass: 0.1,
+                //   allowSleep: true,
+                //   sleepSpeedLimit: 1000,
+                //   sleepTimeLimit: 0
+                // });
+                // boxBody1.addShape(boxShape1);
+                // boxBody1.position.set(0, 0, 0);
+                //
+                // var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+                // var boxBody2 = new CANNON.Body({ mass: 0.1,
+                //   allowSleep: true,
+                //   sleepSpeedLimit: 1000,
+                //   sleepTimeLimit: 0
+                // });
+                // boxBody2.addShape(boxShape2);
+                // boxBody2.position.set(0, 0, 0);
+                //
+                // compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+                // compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
+                // compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
 
                 // if(cubes[itemidx].mesh.userData.pin){
                 //   legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/5);
@@ -13190,17 +13258,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 legs[legs.length-1].quaternion.copy(cubes[itemidx].mesh.quaternion)
                 // legs[legs.length-1].rotation.z=-1;
 
-                compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
-                compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
+                boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+                boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
 
-                world.addBody(compoundBody);
-                legs[legs.length-1].userData.body=compoundBody;
+                world.addBody(boxBody0);
+                legs[legs.length-1].userData.body=boxBody0;
                 legs[legs.length-1].userData.right=true;
                 legs[legs.length-1].userData.mode=0;
                 console.log(legs)
-                var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
+                var constraint1 = new CANNON.LockConstraint(boxBody0, cubes[itemidx].body);
                 world.addConstraint(constraint1);
-                var constraint2 = new CANNON.LockConstraint(compoundBody, 아래층.body);
+                var constraint2 = new CANNON.LockConstraint(boxBody0, 아래층.body);
                 world.addConstraint(constraint2);
                 아래층.mesh.userData.constraint.push(constraint1)
                 아래층.mesh.userData.constraint.push(constraint2)
@@ -13362,11 +13430,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 });
 
 
-                var compoundBody = new CANNON.Body({ mass: 0.3,
-                  allowSleep: true,
-                  sleepSpeedLimit: 1000,
-                  sleepTimeLimit: 0
-                });
+                // var compoundBody = new CANNON.Body({ mass: 0.3,
+                //   allowSleep: true,
+                //   sleepSpeedLimit: 1000,
+                //   sleepTimeLimit: 0
+                // });
 
                 var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
                 var boxBody0 = new CANNON.Body({ mass: 0.1,
@@ -13377,27 +13445,27 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 boxBody0.addShape(boxShape0);
                 boxBody0.position.set(0, 0, 0);
 
-                var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
-                var boxBody1 = new CANNON.Body({ mass: 0.1,
-                  allowSleep: true,
-                  sleepSpeedLimit: 1000,
-                  sleepTimeLimit: 0
-                });
-                boxBody1.addShape(boxShape1);
-                boxBody1.position.set(0, 0, 0);
-
-                var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
-                var boxBody2 = new CANNON.Body({ mass: 0.1,
-                  allowSleep: true,
-                  sleepSpeedLimit: 1000,
-                  sleepTimeLimit: 0
-                });
-                boxBody2.addShape(boxShape2);
-                boxBody2.position.set(0, 0, 0);
-
-                compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
-                compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
-                compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
+                // var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+                // var boxBody1 = new CANNON.Body({ mass: 0.1,
+                //   allowSleep: true,
+                //   sleepSpeedLimit: 1000,
+                //   sleepTimeLimit: 0
+                // });
+                // boxBody1.addShape(boxShape1);
+                // boxBody1.position.set(0, 0, 0);
+                //
+                // var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+                // var boxBody2 = new CANNON.Body({ mass: 0.1,
+                //   allowSleep: true,
+                //   sleepSpeedLimit: 1000,
+                //   sleepTimeLimit: 0
+                // });
+                // boxBody2.addShape(boxShape2);
+                // boxBody2.position.set(0, 0, 0);
+                //
+                // compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+                // compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
+                // compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
 
                 legs[legs.length-1].position.set(cubes[itemidx].mesh.position.x-bw/5, cubes[itemidx].mesh.position.y-bh/2, majorz+bw/1.5+0.6*bh);
 
@@ -13413,18 +13481,18 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                 // legs[legs.length-1].rotation.z=-1;
 
-                compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
-                compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
+                boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+                boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
 
-                world.addBody(compoundBody);
-                legs[legs.length-1].userData.body=compoundBody;
+                world.addBody(boxBody0);
+                legs[legs.length-1].userData.body=boxBody0;
                 legs[legs.length-1].userData.right=false;
                 legs[legs.length-1].userData.mode=0;
 
                 console.log(legs)
-                var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
+                var constraint1 = new CANNON.LockConstraint(boxBody0, cubes[itemidx].body);
                 world.addConstraint(constraint1);
-                var constraint2 = new CANNON.LockConstraint(compoundBody, 아래층.body);
+                var constraint2 = new CANNON.LockConstraint(boxBody0, 아래층.body);
                 world.addConstraint(constraint2);
                 아래층.mesh.userData.constraint.push(constraint1)
                 아래층.mesh.userData.constraint.push(constraint2)
@@ -14240,6 +14308,58 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
       }else if (event.code === 'KeyB') {
         reinforce()
+
+
+
+      }else if (event.code === 'KeyN') {
+        var clone=legmold[0].clone()
+
+        clone.material=new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0xD7F3F9)
+        });
+
+        clone.children[0].material=new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0xD7F3F9)
+        });
+        clone.children[1].material=new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0xD7F3F9)
+        });
+
+
+        var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
+        var boxBody0 = new CANNON.Body({ mass: 0.1,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+        boxBody0.addShape(boxShape0);
+        boxBody0.position.set(0, 0, 0);
+
+        // compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
+        // compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
+
+        // if(cubes[upper].mesh.userData.pin){
+        //   legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[upper].mesh.position.y-bh/2, cubes[upper].mesh.position.z-bw/5);
+        // }else{
+        //   legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[upper].mesh.position.y-bh/2, cubes[upper].mesh.position.z-bw/5);
+        //
+        // }
+        clone.position.set(0, cubes[cubes.length-1].mesh.position.y+bh, 0);
+        clone.quaternion.copy(cubes[cubes.length-1].mesh.quaternion)
+        // legs[legs.length-1].rotation.z=-1;
+
+        boxBody0.position.set(clone.position.x, clone.position.y, clone.position.z);
+        boxBody0.quaternion.copy(clone.quaternion);
+
+        clone.userData.body=boxBody0;
+        clone.userData.right=true;
+        clone.userData.idx=legs.length-1
+        clone.userData.mode=0
+
+        legs.push(clone)
+        scene.add(clone)
+        world.addBody(boxBody0);
+
 
 
 
@@ -15199,7 +15319,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       }
 
       // skinnum=skinset.indexOf("cabin")
-      skinnum=skinset.indexOf("classic")
+      // skinnum=skinset.indexOf("classic")
 
       review1= false;
       review2= false;
@@ -26919,11 +27039,45 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
 
-                  판[item.upper-1][1].getWorldPosition(rwpos1);
-                  판[item.lower-1][1].getWorldPosition(rwpos2);
+                  판[item.upper-1][3].getWorldPosition(rwpos1);
+                  판[item.lower-1][3].getWorldPosition(rwpos2);
 
                   var upperx=rwpos1.x
                   var lowerx=rwpos2.x
+
+                  if(skinset[skinnum]=="classic"){
+                    // 기준 포인트와 설정 포인트를 정의합니다.
+                    var origin1 = cubes[item.upper].mesh.position.clone()
+                    var target1 = rwpos1
+
+                    var origin2 = cubes[item.lower].mesh.position.clone()
+                    var target2 = rwpos2
+
+
+                    // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
+                    var direct1 = new THREE.Vector3().subVectors(target1, origin1);
+
+                    var direct2 = new THREE.Vector3().subVectors(target2, origin2);
+
+                    // direct 길이를 1.5배로 만듭니다.
+                    direct1.multiplyScalar(1.26);
+                    direct2.multiplyScalar(1.26);
+
+                    // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
+                    var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
+                    var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
+                    console.log(extendedPoint1); // 연장된 지점의 좌표
+                    console.log(extendedPoint2); // 연장된 지점의 좌표
+
+
+                    rwpos1=extendedPoint1
+                    rwpos2=extendedPoint2
+
+                    upperx=rwpos1.x
+                    lowerx=rwpos2.x
+
+
+                  }
 
                   if(upperx>lowerx){
                     item.body.position.x=upperx
@@ -26986,11 +27140,45 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
 
-                  판[item.upper-1][2].getWorldPosition(rwpos1);
-                  판[item.lower-1][2].getWorldPosition(rwpos2);
+                  판[item.upper-1][4].getWorldPosition(rwpos1);
+                  판[item.lower-1][4].getWorldPosition(rwpos2);
 
                   var upperz=rwpos1.z
                   var lowerz=rwpos2.z
+
+                  if(skinset[skinnum]=="classic"){
+                    // 기준 포인트와 설정 포인트를 정의합니다.
+                    var origin1 = cubes[item.upper].mesh.position.clone()
+                    var target1 = rwpos1
+
+                    var origin2 = cubes[item.lower].mesh.position.clone()
+                    var target2 = rwpos2
+
+
+                    // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
+                    var direct1 = new THREE.Vector3().subVectors(target1, origin1);
+
+                    var direct2 = new THREE.Vector3().subVectors(target2, origin2);
+
+                    // direct 길이를 1.5배로 만듭니다.
+                    direct1.multiplyScalar(1.114);
+                    direct2.multiplyScalar(1.114);
+
+                    // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
+                    var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
+                    var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
+                    console.log(extendedPoint1); // 연장된 지점의 좌표
+                    console.log(extendedPoint2); // 연장된 지점의 좌표
+
+
+                    rwpos1=extendedPoint1
+                    rwpos2=extendedPoint2
+
+                    upperz=rwpos1.z
+                    lowerz=rwpos2.z
+
+
+                  }
 
 
                   majorx=0.5*(rwpos1.x+rwpos2.x)
@@ -30110,9 +30298,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
               if(item.userData.mode==0){
                 item.position.copy(item.userData.body.position);
                 if(item.userData.right){
-                  item.position.x=item.userData.body.position.x-bw/5
+                  // item.position.x=item.userData.body.position.x-bw/5
                 }else{
-                  item.position.z=item.userData.body.position.z-bw/5
+                  // item.position.z=item.userData.body.position.z-bw/5
                 }
 
                 item.quaternion.copy(item.userData.body.quaternion);
@@ -31978,7 +32166,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         activeFloor=cubes.length-1;
 
         if(cubes.length>8){
-          reinforce()
+          // reinforce()
         }
 
 
@@ -33732,12 +33920,36 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     bmesh4.position.set(0, 0, 1.8*width/2)
     bmesh4.rotation.y = 0
     bmesh4.userData["skin"] = "bb";
-
-
     mesh.add(bmesh4)
 
 
-    판.push([idx,bmesh2,bmesh4])
+    let bmesh5 = new THREE.Mesh(new THREE.PlaneGeometry(width/10, height/10), new THREE.MeshBasicMaterial({
+        color: 0xaaaaaa,
+        opacity: 0.3,
+        transparent: true,
+        visible:false
+    }), );
+    bmesh5.position.set(1.15*depth/2, 0 , 0)
+    bmesh5.rotation.y = Math.PI / 2
+    bmesh5.userData["skin"] = "bb";
+
+    mesh.add(bmesh5)
+
+    let bmesh6 = new THREE.Mesh(new THREE.PlaneGeometry(width/10, height/10), new THREE.MeshBasicMaterial({
+        color: 0xaaaaaa,
+        opacity: 0.3,
+        transparent: true,
+        visible:false
+    }), );
+    bmesh6.position.set(0, 0, 1.15*width/2)
+    bmesh6.rotation.y = 0
+    bmesh6.userData["skin"] = "bb";
+
+
+    mesh.add(bmesh6)
+
+
+    판.push([idx,bmesh2,bmesh4,bmesh5,bmesh6])
 
     mesh.position.set(x, y, z);
     mesh.material.visible = true;
@@ -37966,11 +38178,45 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
 
-    판[upper-1][1].getWorldPosition(rwpos1);
-    판[lower-1][1].getWorldPosition(rwpos2);
+    판[upper-1][3].getWorldPosition(rwpos1);
+    판[lower-1][3].getWorldPosition(rwpos2);
 
     var upperx=rwpos1.x
     var lowerx=rwpos2.x
+
+    if(skinset[skinnum]=="classic"){
+      // 기준 포인트와 설정 포인트를 정의합니다.
+      var origin1 = cubes[upper].mesh.position.clone()
+      var target1 = rwpos1
+
+      var origin2 = cubes[lower].mesh.position.clone()
+      var target2 = rwpos2
+
+
+      // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
+      var direct1 = new THREE.Vector3().subVectors(target1, origin1);
+
+      var direct2 = new THREE.Vector3().subVectors(target2, origin2);
+
+      // direct 길이를 1.5배로 만듭니다.
+      direct1.multiplyScalar(1.26);
+      direct2.multiplyScalar(1.26);
+
+      // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
+      var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
+      var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
+      console.log(extendedPoint1); // 연장된 지점의 좌표
+      console.log(extendedPoint2); // 연장된 지점의 좌표
+
+
+      rwpos1=extendedPoint1
+      rwpos2=extendedPoint2
+
+      upperx=rwpos1.x
+      lowerx=rwpos2.x
+
+
+    }
 
     var majorx;
     var majory;
@@ -38007,11 +38253,6 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       });
 
 
-      var compoundBody = new CANNON.Body({ mass: 0.3,
-        allowSleep: true,
-        sleepSpeedLimit: 1000,
-        sleepTimeLimit: 0
-      });
 
       var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
       var boxBody0 = new CANNON.Body({ mass: 0.1,
@@ -38022,27 +38263,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       boxBody0.addShape(boxShape0);
       boxBody0.position.set(0, 0, 0);
 
-      var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
-      var boxBody1 = new CANNON.Body({ mass: 0.1,
-        allowSleep: true,
-        sleepSpeedLimit: 1000,
-        sleepTimeLimit: 0
-      });
-      boxBody1.addShape(boxShape1);
-      boxBody1.position.set(0, 0, 0);
 
-      var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
-      var boxBody2 = new CANNON.Body({ mass: 0.1,
-        allowSleep: true,
-        sleepSpeedLimit: 1000,
-        sleepTimeLimit: 0
-      });
-      boxBody2.addShape(boxShape2);
-      boxBody2.position.set(0, 0, 0);
 
-      compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
-      compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
-      compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
+
+      // compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
+      // compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
 
       // if(cubes[upper].mesh.userData.pin){
       //   legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[upper].mesh.position.y-bh/2, cubes[upper].mesh.position.z-bw/5);
@@ -38055,10 +38280,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       legs[legs.length-1].quaternion.copy(cubes[upper].mesh.quaternion)
       // legs[legs.length-1].rotation.z=-1;
 
-      compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
-      compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
+      boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+      boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
 
-      legs[legs.length-1].userData.body=compoundBody;
+      legs[legs.length-1].userData.body=boxBody0;
       legs[legs.length-1].userData.right=true;
       legs[legs.length-1].userData.idx=legs.length-1
       legs[legs.length-1].userData.mode=1
@@ -38076,12 +38301,46 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     let lwpos2=new THREE.Vector3();
 
 
-    판[upper-1][2].getWorldPosition(lwpos1);
-    판[lower-1][2].getWorldPosition(lwpos2);
+    판[upper-1][4].getWorldPosition(lwpos1);
+    판[lower-1][4].getWorldPosition(lwpos2);
 
 
     var upperz=lwpos1.z
     var lowerz=lwpos2.z
+
+    if(skinset[skinnum]=="classic"){
+      // 기준 포인트와 설정 포인트를 정의합니다.
+      var origin1 = cubes[upper].mesh.position.clone()
+      var target1 = lwpos1
+
+      var origin2 = cubes[lower].mesh.position.clone()
+      var target2 = lwpos2
+
+
+      // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
+      var direct1 = new THREE.Vector3().subVectors(target1, origin1);
+
+      var direct2 = new THREE.Vector3().subVectors(target2, origin2);
+
+      // direct 길이를 1.5배로 만듭니다.
+      direct1.multiplyScalar(1.114);
+      direct2.multiplyScalar(1.114);
+
+      // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
+      var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
+      var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
+      console.log(extendedPoint1); // 연장된 지점의 좌표
+      console.log(extendedPoint2); // 연장된 지점의 좌표
+
+
+      lwpos1=extendedPoint1
+      lwpos2=extendedPoint2
+
+      upperz=lwpos1.z
+      lowerz=lwpos2.z
+
+
+    }
 
     var majorx;
     var majory;
@@ -38118,11 +38377,6 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         });
 
 
-        var compoundBody = new CANNON.Body({ mass: 0.3,
-          allowSleep: true,
-          sleepSpeedLimit: 1000,
-          sleepTimeLimit: 0
-        });
 
         var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
         var boxBody0 = new CANNON.Body({ mass: 0.1,
@@ -38133,27 +38387,6 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         boxBody0.addShape(boxShape0);
         boxBody0.position.set(0, 0, 0);
 
-        var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
-        var boxBody1 = new CANNON.Body({ mass: 0.1,
-          allowSleep: true,
-          sleepSpeedLimit: 1000,
-          sleepTimeLimit: 0
-        });
-        boxBody1.addShape(boxShape1);
-        boxBody1.position.set(0, 0, 0);
-
-        var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
-        var boxBody2 = new CANNON.Body({ mass: 0.1,
-          allowSleep: true,
-          sleepSpeedLimit: 1000,
-          sleepTimeLimit: 0
-        });
-        boxBody2.addShape(boxShape2);
-        boxBody2.position.set(0, 0, 0);
-
-        compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
-        compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
-        compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
 
         legs[legs.length-1].position.set(cubes[upper].mesh.position.x-bw/5, cubes[upper].mesh.position.y-bh/2, majorz+bw/1.5+0.6*bh);
 
@@ -38169,13 +38402,13 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
         // legs[legs.length-1].rotation.z=-1;
 
-        compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
-        compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
+        boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+        boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
 
         legs[legs.length-1].position.set(majorx, majory, majorz+bh*2.5);
 
 
-        legs[legs.length-1].userData.body=compoundBody;
+        legs[legs.length-1].userData.body=boxBody0;
         legs[legs.length-1].userData.right=false;
         legs[legs.length-1].userData.idx=legs.length-1
 
