@@ -14312,6 +14312,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
       }else if (event.code === 'KeyN') {
+
+        if(parseInt(elapsedTime*10)%2==0){
         var clone=legmold[0].clone()
 
         clone.material=new THREE.MeshLambertMaterial({
@@ -14324,7 +14326,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         clone.children[1].material=new THREE.MeshLambertMaterial({
             color: new THREE.Color(0xD7F3F9)
         });
-
+        var compoundBody = new CANNON.Body({ mass: 0.3,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
 
         var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
         var boxBody0 = new CANNON.Body({ mass: 0.1,
@@ -14334,6 +14340,29 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         });
         boxBody0.addShape(boxShape0);
         boxBody0.position.set(0, 0, 0);
+
+        var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+        var boxBody1 = new CANNON.Body({ mass: 0.1,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+        boxBody1.addShape(boxShape1);
+        boxBody1.position.set(0, 0, 0);
+
+        var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+        var boxBody2 = new CANNON.Body({ mass: 0.1,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+        boxBody2.addShape(boxShape2);
+        boxBody2.position.set(0, 0, 0);
+
+
+        compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+        compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
+        compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
 
         // compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
         // compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
@@ -14348,17 +14377,88 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         clone.quaternion.copy(cubes[cubes.length-1].mesh.quaternion)
         // legs[legs.length-1].rotation.z=-1;
 
-        boxBody0.position.set(clone.position.x, clone.position.y, clone.position.z);
-        boxBody0.quaternion.copy(clone.quaternion);
+        compoundBody.position.set(clone.position.x, clone.position.y, clone.position.z);
+        compoundBody.quaternion.copy(clone.quaternion);
 
-        clone.userData.body=boxBody0;
+        clone.userData.body=compoundBody;
         clone.userData.right=true;
         clone.userData.idx=legs.length-1
         clone.userData.mode=0
 
         legs.push(clone)
         scene.add(clone)
-        world.addBody(boxBody0);
+        world.addBody(compoundBody);
+      }else{
+        var clone=legmold[2].clone()
+
+        clone.material=new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0xD7F3F9)
+        });
+
+        clone.children[0].material=new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0xD7F3F9)
+        });
+        clone.children[1].material=new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0xD7F3F9)
+        });
+
+        var compoundBody = new CANNON.Body({ mass: 0.3,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+
+        var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
+        var boxBody0 = new CANNON.Body({ mass: 0.1,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+        boxBody0.addShape(boxShape0);
+        boxBody0.position.set(0, 0, 0);
+
+        var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+        var boxBody1 = new CANNON.Body({ mass: 0.1,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+        boxBody1.addShape(boxShape1);
+        boxBody1.position.set(0, 0, 0);
+
+        var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+        var boxBody2 = new CANNON.Body({ mass: 0.1,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+        boxBody2.addShape(boxShape2);
+        boxBody2.position.set(0, 0, 0);
+
+        compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+        compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
+        compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
+
+        clone.position.set(3, cubes[cubes.length-1].mesh.position.y+bh, 3);
+        clone.quaternion.copy(cubes[cubes.length-1].mesh.quaternion)
+        // legs[legs.length-1].rotation.z=-1;
+
+        compoundBody.position.set(clone.position.x, clone.position.y, clone.position.z);
+        compoundBody.quaternion.copy(clone.quaternion);
+
+        clone.userData.body=compoundBody;
+        clone.userData.right=true;
+        clone.userData.idx=legs.length-1
+        clone.userData.mode=0
+
+        legs.push(clone)
+        scene.add(clone)
+        world.addBody(compoundBody);
+
+
+      }
+
+
 
 
 
