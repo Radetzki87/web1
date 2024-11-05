@@ -7683,6 +7683,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   var reinflag=false
   var reintime=0
   var reindur;
+
+  var lastrein=0
   var 눌=false
 
 
@@ -8563,6 +8565,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   document.getElementById("intro").children[2].style.color=hexToHtmlColor(colorlst[colornum][3]);
 
   let unitmotion = {};
+
+  let ptiles=[];
   var stiles = [];
 
   var ftiles = [];
@@ -14309,7 +14313,12 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         cubes[cubes.length-1].mesh.userData.game2048.spawnTile("up",Math.pow(2, 8));
 
       }else if (event.code === 'KeyB') {
-        reinforce()
+        if(보강==0){
+          reinforce()
+        }else{
+          reinforce(보강)
+        }
+
 
 
 
@@ -15618,10 +15627,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       }
 
 
-
+      ptiles=[];
       보강=0
       reintime=0
       reinflag=false
+      lastrein=0
 
       resetting(stack, function(object) { //재시작
           msetting1(function(object) {
@@ -27216,7 +27226,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
                 var force2 = new CANNON.Vec3();
-                force2.set(-1500,0,0)
+                force2.set(-500,0,0)
                 var quaternion = new CANNON.Quaternion();
                 quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[item.upper].mesh.rotation.y);
                 var rotatedVec = force2.clone();
@@ -27322,7 +27332,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
                 var force2 = new CANNON.Vec3();
-                force2.set(0,0,-1500)
+                force2.set(0,0,-500)
                 var quaternion = new CANNON.Quaternion();
                 quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[item.upper].mesh.rotation.y);
                 var rotatedVec = force2.clone();
@@ -38176,88 +38186,202 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     }
   }
   function reinforce(n=0){
-    보강++;
+    if(n==0){
+      보강++;
 
-    do{
-      ncolornum = parseInt(Math.random() * colorlst.length);
-    }while(색보정.indexOf(ncolornum)!=-1)
+      do{
+        ncolornum = parseInt(Math.random() * colorlst.length);
+      }while(색보정.indexOf(ncolornum)!=-1)
 
-    var clength=0
-    for (var i =4 ; i < cubes.length; i++) {
-      if(!cubes[i].mesh.userData["bye"]) clength++
-    }
-
-
-    reinloc=[camera.position, camera.left, camera.right, camera.top, camera.bottom, clength]
-
-
-
-    rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
-    rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
-    renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
-    renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
-
-    reintime=elapsedTime;
-    var count=0;
-
-    for (let i=5; i<cubes.length; i++) {
-      var tflag=false;
-      if(cubes[i].mesh.userData.bye){
-        continue;
+      var clength=0
+      for (var i =4 ; i < cubes.length; i++) {
+        if(!cubes[i].mesh.userData["bye"]) clength++
       }
-      for (let j = i-1; j >=4 ; j--) {
-          if(!cubes[j].mesh.userData.bye){
-            var seek=avail(i,j)
-            if(seek[0]||seek[1]){
-              console.log(String(i-3)+"층과,"+String(j-3)+"층 결합 가능")
-              tflag=true
-              if(seek[0]&&seek[1]){
-                avail(i,j, true, 1+count%2)
-                count++
-              }else if(seek[0]){
-                avail(i,j, true, 1)
-                count=1
-              }else{
-                avail(i,j, true, 2)
-                count=0
-              }
 
 
-              break;
-            }else{
-              if(i==cubes.length-1){
-                if (lastdir === "up") {
-                  avail(i,j, true, 2, true)
-                } else if (lastdir === "down") {
-                  avail(i,j, true, 2, true)
-                } else if (lastdir === "left") {
-                  avail(i,j, true, 1, true)
-                } else if (lastdir === "right") {
-                  avail(i,j, true, 1, true)
-                }
-              }else{
-                console.log(String(i-3)+"층과,"+String(j-3)+"층은 붙어 있지만 결합 불가")
+      reinloc=[camera.position, camera.left, camera.right, camera.top, camera.bottom, clength]
+
+
+      rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+      rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+      renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+      renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+      reintime=elapsedTime;
+      var count=0;
+
+      for (let i=5; i<cubes.length; i++) {
+        var tflag=false;
+        if(cubes[i].mesh.userData.bye){
+          continue;
+        }
+        for (let j = i-1; j >=4 ; j--) {
+            if(!cubes[j].mesh.userData.bye){
+              var seek=avail(i,j)
+              if(seek[0]||seek[1]){
+                console.log(String(i-3)+"층과,"+String(j-3)+"층 결합 가능")
                 tflag=true
+                if(seek[0]&&seek[1]){
+                  avail(i,j, true, 1+count%2)
+                  count++
+                }else if(seek[0]){
+                  avail(i,j, true, 1)
+                  count=1
+                }else{
+                  avail(i,j, true, 2)
+                  count=0
+                }
+
 
                 break;
+              }else{
+                if(i==cubes.length-1){
+                  if (lastdir === "up") {
+                    avail(i,j, true, 2, true)
+                  } else if (lastdir === "down") {
+                    avail(i,j, true, 2, true)
+                  } else if (lastdir === "left") {
+                    avail(i,j, true, 1, true)
+                  } else if (lastdir === "right") {
+                    avail(i,j, true, 1, true)
+                  }
+                }else{
+                  console.log(String(i-3)+"층과,"+String(j-3)+"층은 붙어 있지만 결합 불가")
+                  tflag=true
+
+                  break;
+                }
+
+
+
               }
-
-
-
             }
+        }
+        if(tflag){
+          continue;
+        }else{
+          console.log(String(i-3)+"층은 매칭이 안됨")
+        }
+
+
+      }
+      reindur=stiles.length*0.11+0.08
+      console.log(reindur)
+      for (var i = 0; i < stiles.length; i++) {
+        ptiles.push([stiles[i].upper, stiles[i].lower, stiles[i].right, n])
+      }
+      lastrein=stiles[stiles.length-1].upper
+    }else{
+
+      보강++;
+
+      do{
+        ncolornum = parseInt(Math.random() * colorlst.length);
+      }while(색보정.indexOf(ncolornum)!=-1)
+
+      var clength=0
+      for (var i =lastrein ; i < cubes.length; i++) {
+        if(!cubes[i].mesh.userData["bye"]) clength++
+      }
+
+
+      reinloc=[camera.position, camera.left, camera.right, camera.top, camera.bottom, clength]
+
+
+
+      rehsl1 = hexToHSL(hexToHtmlColor(colorlst[colornum][0]))
+      rehsl2 = hexToHSL(hexToHtmlColor(colorlst[colornum][1]))
+      renhsl1 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+      renhsl2 = hexToHSL(hexToHtmlColor(colorlst[ncolornum][1]))
+
+      reintime=elapsedTime;
+
+
+      var count=0;
+
+      for (let k = 0; k < ptiles.length; k++) {
+        if(ptiles[k][3]==n-1){
+          if(ptiles[k][2]){
+            avail(ptiles[k][0],ptiles[k][1], true, 2)
+          }else{
+            avail(ptiles[k][0],ptiles[k][1], true, 1)
           }
-      }
-      if(tflag){
-        continue;
-      }else{
-        console.log(String(i-3)+"층은 매칭이 안됨")
+        }
       }
 
+      for (let i=lastrein+1; i<cubes.length; i++) {
+        var tflag=false;
+        if(cubes[i].mesh.userData.bye){
+          continue;
+        }
+        for (let j = i-1; j >=lastrein ; j--) {
+            if(!cubes[j].mesh.userData.bye){
+              var seek=avail(i,j)
+              if(seek[0]||seek[1]){
+                console.log(String(i-3)+"층과,"+String(j-3)+"층 결합 가능")
+                tflag=true
+                if(seek[0]&&seek[1]){
+                  avail(i,j, true, 1+count%2)
+                  count++
+                }else if(seek[0]){
+                  avail(i,j, true, 1)
+                  count=1
+                }else{
+                  avail(i,j, true, 2)
+                  count=0
+                }
 
+
+                break;
+              }else{
+                if(i==cubes.length-1){
+                  if (lastdir === "up") {
+                    avail(i,j, true, 2, true)
+                  } else if (lastdir === "down") {
+                    avail(i,j, true, 2, true)
+                  } else if (lastdir === "left") {
+                    avail(i,j, true, 1, true)
+                  } else if (lastdir === "right") {
+                    avail(i,j, true, 1, true)
+                  }
+                }else{
+                  console.log(String(i-3)+"층과,"+String(j-3)+"층은 붙어 있지만 결합 불가")
+                  tflag=true
+
+                  break;
+                }
+
+
+
+              }
+            }
+        }
+        if(tflag){
+          continue;
+        }else{
+          console.log(String(i-3)+"층은 매칭이 안됨")
+        }
+
+
+      }
+
+      reindur=stiles.length*0.11+0.08
+      console.log(reindur)
+
+      for (let i = 0; i < stiles.length; i++) {
+        if(stiles[i].upper>lastrein){
+          ptiles.push([stiles[i].upper, stiles[i].lower, stiles[i].right, n])
+        }
+
+
+      }
+      lastrein=stiles[stiles.length-1].upper
     }
-    reindur=stiles.length*0.11+0.08
-    console.log(reindur)
+
   }
+
+
+
 
   function avail(upper, lower, flag=false, dflag=0, lflag=false){
     var left= true
