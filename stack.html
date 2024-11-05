@@ -14309,8 +14309,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
           // }else if(lookright){
           // }
       }else if (event.code === 'KeyV') {
-        cubes[cubes.length-1].mesh.userData.game2048.spawnTile("up",Math.pow(2, 8));
-        cubes[cubes.length-1].mesh.userData.game2048.spawnTile("up",Math.pow(2, 8));
+        cubes[cubes.length-1].mesh.userData.game2048.spawnTile("up",Math.pow(2, 11));
+        cubes[cubes.length-1].mesh.userData.game2048.spawnTile("up",Math.pow(2, 11));
 
       }else if (event.code === 'KeyB') {
         if(보강==0){
@@ -15097,7 +15097,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       // stacknum=[0,0,0,0,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8,4,8]
 
       // stacknum=[0,0,0,0,8,16,32,64,128,256,512,1024,2048,64,8,16,32,64,8,16,32,8,16,32,64,8,16,64,128,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
-      stacknum=[0,0,0,0,64,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,64,128,256,512,1024,128,256,512,1024,2048,8,16,32,8,16,32,128,256,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64,8,16,32,8,16,32,64,8,16,32,64,8,16,32,64]
+
+      stacknum=[0,0,0,0,64,8,16,32,8,16,32,64,16,32,64,128,16,32,64,128,256,32,64,128,256,512,32,64,128,256,512,1024,128,64,128,256,512,1024,2048,8,16,32,64,128,256,512,1024,2048,4096]
 
       frontalViewCamera.left= -bw / 1.05
       frontalViewCamera.right = bw / 1.05
@@ -27440,17 +27441,22 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                       if(num>maxnum) maxnum=num
                       mergetime=elapsedTime;
                       if(item.org){
-                              if(num==512){
+                              if(보강==0&&num==512){
                                 if(num!=stacknum[activeFloor]){
                                   reinforce()
                                 }
+                              }
 
-                                if(보강==0){
-
-
+                              if(보강==1&&num==1024){
+                                if(num!=stacknum[activeFloor]){
+                                  reinforce()
                                 }
+                              }
 
-
+                              if(보강==2&&num==2048){
+                                if(num!=stacknum[activeFloor]){
+                                  reinforce()
+                                }
                               }
 
                               점수+=num;
@@ -27464,7 +27470,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                                   document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
                                   document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
                                   필-=바;
-                                  바+=50;
+                                  바+=100;
                                   레벨++;
 
                                   setTimeout(function() {
@@ -27480,7 +27486,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                                       document.getElementById('pgr1').style.width=String(parseInt(100*(1)))+"%";
                                       document.getElementById('pgr2').innerText=String(바)+"/"+String(바)
                                       필-=바;
-                                      바+=50;
+                                      바+=100;
                                       // 레벨++;
 
                                       setTimeout(function() {
@@ -27684,7 +27690,15 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
                                 activeFloor=cubes.length-1;
-                                if(num==512){
+                                if(보강==0&&num==512){
+                                  reinforce()
+                                }
+
+                                if(보강==1&&num==1024){
+                                  reinforce()
+                                }
+
+                                if(보강==2&&num==2048){
                                   reinforce()
                                 }
 
@@ -27793,8 +27807,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                               var force = new CANNON.Vec3();
                               var tnum=parseInt(Math.log2(num))-2;
 
+                              var jim=200
 
-                              var forceset2=[650+150, 900+150, 1200+150, 1600+150, 2100+150, 2700+150, 3300+150, 4100+150 ,4800+150];
+
+                              var forceset2=[650+jim, 900+jim, 1200+jim, 1600+jim, 2100+jim, 2700+jim, 3300+jim, 4100+jim ,4800+jim, 6000+jim, 8000+jim];
 
                               // var offset = new CANNON.Vec3(-bw/2+(tw/2)+(tw)*(col), 0, -bw/2+(tw/2)+(tw)*(row));
                               switch (item.direction) {
@@ -38469,15 +38485,15 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       legs.push(legmold[0].clone())
 
       legs[legs.length-1].material=new THREE.MeshLambertMaterial({
-          color: colorlst0[colornum0][보강]
+          color: colorlst0[colornum0][보강-1]
       });
 
       legs[legs.length-1].children[0].material=new THREE.MeshLambertMaterial({
-          color: colorlst0[colornum0][보강]
+          color: colorlst0[colornum0][보강-1]
       });
       legs[legs.length-1].children[1].material=new THREE.MeshLambertMaterial({
           // color: new THREE.Color(0xD7F3F9)
-          color: colorlst0[colornum0][보강]
+          color: colorlst0[colornum0][보강-1]
       });
 
 
@@ -38621,14 +38637,14 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
         legs[legs.length-1].material=new THREE.MeshLambertMaterial({
-            color: colorlst0[colornum0][보강]
+            color: colorlst0[colornum0][보강-1]
         });
 
         legs[legs.length-1].children[0].material=new THREE.MeshLambertMaterial({
-            color: colorlst0[colornum0][보강]
+            color: colorlst0[colornum0][보강-1]
         });
         legs[legs.length-1].children[1].material=new THREE.MeshLambertMaterial({
-            color: colorlst0[colornum0][보강]
+            color: colorlst0[colornum0][보강-1]
         });
 
 
