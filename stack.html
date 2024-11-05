@@ -11309,8 +11309,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     var direct2 = new THREE.Vector3().subVectors(target2, origin2);
 
                     // direct 길이를 1.5배로 만듭니다.
-                    direct1.multiplyScalar(1.26);
-                    direct2.multiplyScalar(1.26);
+                    direct1.multiplyScalar(1.35);
+                    direct2.multiplyScalar(1.35);
 
                     // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
                     var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
@@ -11463,11 +11463,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   });
 
 
-                  // var compoundBody = new CANNON.Body({ mass: 0.3,
-                  //   allowSleep: true,
-                  //   sleepSpeedLimit: 1000,
-                  //   sleepTimeLimit: 0
-                  // });
+                  var compoundBody = new CANNON.Body({ mass: 0.3,
+                    allowSleep: true,
+                    sleepSpeedLimit: 1000,
+                    sleepTimeLimit: 0
+                  });
 
                   var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
                   var boxBody0 = new CANNON.Body({ mass: 0.1,
@@ -11478,27 +11478,27 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   boxBody0.addShape(boxShape0);
                   boxBody0.position.set(0, 0, 0);
 
-                  // var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
-                  // var boxBody1 = new CANNON.Body({ mass: 0.1,
-                  //   allowSleep: true,
-                  //   sleepSpeedLimit: 1000,
-                  //   sleepTimeLimit: 0
-                  // });
-                  // boxBody1.addShape(boxShape1);
-                  // boxBody1.position.set(0, 0, 0);
-                  //
-                  // var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
-                  // var boxBody2 = new CANNON.Body({ mass: 0.1,
-                  //   allowSleep: true,
-                  //   sleepSpeedLimit: 1000,
-                  //   sleepTimeLimit: 0
-                  // });
-                  // boxBody2.addShape(boxShape2);
-                  // boxBody2.position.set(0, 0, 0);
-                  //
-                  // compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
-                  // compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
-                  // compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
+                  var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+                  var boxBody1 = new CANNON.Body({ mass: 0.1,
+                    allowSleep: true,
+                    sleepSpeedLimit: 1000,
+                    sleepTimeLimit: 0
+                  });
+                  boxBody1.addShape(boxShape1);
+                  boxBody1.position.set(0, 0, 0);
+
+                  var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+                  var boxBody2 = new CANNON.Body({ mass: 0.1,
+                    allowSleep: true,
+                    sleepSpeedLimit: 1000,
+                    sleepTimeLimit: 0
+                  });
+                  boxBody2.addShape(boxShape2);
+                  boxBody2.position.set(0, 0, 0);
+
+                  compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+                  compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
+                  compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
 
                   // if(cubes[itemidx].mesh.userData.pin){
                   //   legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/5);
@@ -11511,17 +11511,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   legs[legs.length-1].quaternion.copy(cubes[itemidx].mesh.quaternion)
                   // legs[legs.length-1].rotation.z=-1;
 
-                  boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
-                  boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
+                  compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+                  compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
 
-                  world.addBody(boxBody0);
-                  legs[legs.length-1].userData.body=boxBody0;
+                  world.addBody(compoundBody);
+                  legs[legs.length-1].userData.body=compoundBody;
                   legs[legs.length-1].userData.right=true;
                   legs[legs.length-1].userData.mode=0;
                   console.log(legs)
-                  var constraint1 = new CANNON.LockConstraint(boxBody0, cubes[itemidx].body);
+                  var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
                   world.addConstraint(constraint1);
-                  var constraint2 = new CANNON.LockConstraint(boxBody0, 아래층.body);
+                  var constraint2 = new CANNON.LockConstraint(compoundBody, 아래층.body);
                   world.addConstraint(constraint2);
                   아래층.mesh.userData.constraint.push(constraint1)
                   아래층.mesh.userData.constraint.push(constraint2)
@@ -11538,7 +11538,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   scene.add(legs[legs.length-1]);
 
                   var force2 = new CANNON.Vec3();
-                  force2.set(-600,0,0)
+                  force2.set(-0,0,0)
                   var quaternion = new CANNON.Quaternion();
                   quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[itemidx].mesh.rotation.y);
                   var rotatedVec = force2.clone();
@@ -11577,8 +11577,10 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                     var direct2 = new THREE.Vector3().subVectors(target2, origin2);
 
                     // direct 길이를 1.5배로 만듭니다.
-                    direct1.multiplyScalar(1.114);
-                    direct2.multiplyScalar(1.114);
+                    // direct1.multiplyScalar(1.114);
+                    // direct1.multiplyScalar(1.114);
+                    direct1.multiplyScalar(1.2);
+                    direct2.multiplyScalar(1.2);
 
                     // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
                     var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
@@ -11717,11 +11719,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   });
 
 
-                  // var compoundBody = new CANNON.Body({ mass: 0.3,
-                  //   allowSleep: true,
-                  //   sleepSpeedLimit: 1000,
-                  //   sleepTimeLimit: 0
-                  // });
+                  var compoundBody = new CANNON.Body({ mass: 0.3,
+                    allowSleep: true,
+                    sleepSpeedLimit: 1000,
+                    sleepTimeLimit: 0
+                  });
 
                   var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
                   var boxBody0 = new CANNON.Body({ mass: 0.1,
@@ -11732,27 +11734,27 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   boxBody0.addShape(boxShape0);
                   boxBody0.position.set(0, 0, 0);
 
-                  // var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
-                  // var boxBody1 = new CANNON.Body({ mass: 0.1,
-                  //   allowSleep: true,
-                  //   sleepSpeedLimit: 1000,
-                  //   sleepTimeLimit: 0
-                  // });
-                  // boxBody1.addShape(boxShape1);
-                  // boxBody1.position.set(0, 0, 0);
-                  //
-                  // var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
-                  // var boxBody2 = new CANNON.Body({ mass: 0.1,
-                  //   allowSleep: true,
-                  //   sleepSpeedLimit: 1000,
-                  //   sleepTimeLimit: 0
-                  // });
-                  // boxBody2.addShape(boxShape2);
-                  // boxBody2.position.set(0, 0, 0);
-                  //
-                  // compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
-                  // compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
-                  // compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
+                  var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+                  var boxBody1 = new CANNON.Body({ mass: 0.1,
+                    allowSleep: true,
+                    sleepSpeedLimit: 1000,
+                    sleepTimeLimit: 0
+                  });
+                  boxBody1.addShape(boxShape1);
+                  boxBody1.position.set(0, 0, 0);
+
+                  var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+                  var boxBody2 = new CANNON.Body({ mass: 0.1,
+                    allowSleep: true,
+                    sleepSpeedLimit: 1000,
+                    sleepTimeLimit: 0
+                  });
+                  boxBody2.addShape(boxShape2);
+                  boxBody2.position.set(0, 0, 0);
+
+                  compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+                  compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
+                  compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
 
                   // legs[legs.length-1].position.set(cubes[itemidx].mesh.position.x-bw/5, cubes[itemidx].mesh.position.y-bh/2, majorz+bw/1.5+0.6*bh);
 
@@ -11768,18 +11770,18 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                   // legs[legs.length-1].rotation.z=-1;
 
-                  boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
-                  boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
+                  compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+                  compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
 
-                  world.addBody(boxBody0);
-                  legs[legs.length-1].userData.body=boxBody0;
+                  world.addBody(compoundBody);
+                  legs[legs.length-1].userData.body=compoundBody;
                   legs[legs.length-1].userData.right=false;
                   legs[legs.length-1].userData.mode=0;
 
                   console.log(legs)
-                  var constraint1 = new CANNON.LockConstraint(boxBody0, cubes[itemidx].body);
+                  var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
                   world.addConstraint(constraint1);
-                  var constraint2 = new CANNON.LockConstraint(boxBody0, 아래층.body);
+                  var constraint2 = new CANNON.LockConstraint(compoundBody, 아래층.body);
                   world.addConstraint(constraint2);
                   아래층.mesh.userData.constraint.push(constraint1)
                   아래층.mesh.userData.constraint.push(constraint2)
@@ -11796,7 +11798,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   scene.add(legs[legs.length-1]);
 
                   var force2 = new CANNON.Vec3();
-                  force2.set(0,0,-600)
+                  force2.set(0,0,-0)
                   var quaternion = new CANNON.Quaternion();
                   quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), cubes[itemidx].mesh.rotation.y);
                   var rotatedVec = force2.clone();
@@ -13210,11 +13212,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 });
 
 
-                // var compoundBody = new CANNON.Body({ mass: 0.3,
-                //   allowSleep: true,
-                //   sleepSpeedLimit: 1000,
-                //   sleepTimeLimit: 0
-                // });
+                var compoundBody = new CANNON.Body({ mass: 0.3,
+                  allowSleep: true,
+                  sleepSpeedLimit: 1000,
+                  sleepTimeLimit: 0
+                });
 
                 var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
                 var boxBody0 = new CANNON.Body({ mass: 0.1,
@@ -13225,27 +13227,27 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 boxBody0.addShape(boxShape0);
                 boxBody0.position.set(0, 0, 0);
                 //
-                // var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
-                // var boxBody1 = new CANNON.Body({ mass: 0.1,
-                //   allowSleep: true,
-                //   sleepSpeedLimit: 1000,
-                //   sleepTimeLimit: 0
-                // });
-                // boxBody1.addShape(boxShape1);
-                // boxBody1.position.set(0, 0, 0);
-                //
-                // var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
-                // var boxBody2 = new CANNON.Body({ mass: 0.1,
-                //   allowSleep: true,
-                //   sleepSpeedLimit: 1000,
-                //   sleepTimeLimit: 0
-                // });
-                // boxBody2.addShape(boxShape2);
-                // boxBody2.position.set(0, 0, 0);
-                //
-                // compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
-                // compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
-                // compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
+                var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+                var boxBody1 = new CANNON.Body({ mass: 0.1,
+                  allowSleep: true,
+                  sleepSpeedLimit: 1000,
+                  sleepTimeLimit: 0
+                });
+                boxBody1.addShape(boxShape1);
+                boxBody1.position.set(0, 0, 0);
+
+                var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+                var boxBody2 = new CANNON.Body({ mass: 0.1,
+                  allowSleep: true,
+                  sleepSpeedLimit: 1000,
+                  sleepTimeLimit: 0
+                });
+                boxBody2.addShape(boxShape2);
+                boxBody2.position.set(0, 0, 0);
+
+                compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+                compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
+                compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
 
                 // if(cubes[itemidx].mesh.userData.pin){
                 //   legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[itemidx].mesh.position.y-bh/2, cubes[itemidx].mesh.position.z-bw/5);
@@ -13258,17 +13260,17 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 legs[legs.length-1].quaternion.copy(cubes[itemidx].mesh.quaternion)
                 // legs[legs.length-1].rotation.z=-1;
 
-                boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
-                boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
+                compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+                compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
 
-                world.addBody(boxBody0);
-                legs[legs.length-1].userData.body=boxBody0;
+                world.addBody(compoundBody);
+                legs[legs.length-1].userData.body=compoundBody;
                 legs[legs.length-1].userData.right=true;
                 legs[legs.length-1].userData.mode=0;
                 console.log(legs)
-                var constraint1 = new CANNON.LockConstraint(boxBody0, cubes[itemidx].body);
+                var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
                 world.addConstraint(constraint1);
-                var constraint2 = new CANNON.LockConstraint(boxBody0, 아래층.body);
+                var constraint2 = new CANNON.LockConstraint(compoundBody, 아래층.body);
                 world.addConstraint(constraint2);
                 아래층.mesh.userData.constraint.push(constraint1)
                 아래층.mesh.userData.constraint.push(constraint2)
@@ -13430,11 +13432,11 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 });
 
 
-                // var compoundBody = new CANNON.Body({ mass: 0.3,
-                //   allowSleep: true,
-                //   sleepSpeedLimit: 1000,
-                //   sleepTimeLimit: 0
-                // });
+                var compoundBody = new CANNON.Body({ mass: 0.3,
+                  allowSleep: true,
+                  sleepSpeedLimit: 1000,
+                  sleepTimeLimit: 0
+                });
 
                 var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
                 var boxBody0 = new CANNON.Body({ mass: 0.1,
@@ -13445,27 +13447,27 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 boxBody0.addShape(boxShape0);
                 boxBody0.position.set(0, 0, 0);
 
-                // var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
-                // var boxBody1 = new CANNON.Body({ mass: 0.1,
-                //   allowSleep: true,
-                //   sleepSpeedLimit: 1000,
-                //   sleepTimeLimit: 0
-                // });
-                // boxBody1.addShape(boxShape1);
-                // boxBody1.position.set(0, 0, 0);
-                //
-                // var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
-                // var boxBody2 = new CANNON.Body({ mass: 0.1,
-                //   allowSleep: true,
-                //   sleepSpeedLimit: 1000,
-                //   sleepTimeLimit: 0
-                // });
-                // boxBody2.addShape(boxShape2);
-                // boxBody2.position.set(0, 0, 0);
-                //
-                // compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
-                // compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
-                // compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
+                var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+                var boxBody1 = new CANNON.Body({ mass: 0.1,
+                  allowSleep: true,
+                  sleepSpeedLimit: 1000,
+                  sleepTimeLimit: 0
+                });
+                boxBody1.addShape(boxShape1);
+                boxBody1.position.set(0, 0, 0);
+
+                var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+                var boxBody2 = new CANNON.Body({ mass: 0.1,
+                  allowSleep: true,
+                  sleepSpeedLimit: 1000,
+                  sleepTimeLimit: 0
+                });
+                boxBody2.addShape(boxShape2);
+                boxBody2.position.set(0, 0, 0);
+
+                compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+                compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
+                compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
 
                 legs[legs.length-1].position.set(cubes[itemidx].mesh.position.x-bw/5, cubes[itemidx].mesh.position.y-bh/2, majorz+bw/1.5+0.6*bh);
 
@@ -13481,18 +13483,18 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
                 // legs[legs.length-1].rotation.z=-1;
 
-                boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
-                boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
+                compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+                compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
 
-                world.addBody(boxBody0);
-                legs[legs.length-1].userData.body=boxBody0;
+                world.addBody(compoundBody);
+                legs[legs.length-1].userData.body=compoundBody;
                 legs[legs.length-1].userData.right=false;
                 legs[legs.length-1].userData.mode=0;
 
                 console.log(legs)
-                var constraint1 = new CANNON.LockConstraint(boxBody0, cubes[itemidx].body);
+                var constraint1 = new CANNON.LockConstraint(compoundBody, cubes[itemidx].body);
                 world.addConstraint(constraint1);
-                var constraint2 = new CANNON.LockConstraint(boxBody0, 아래층.body);
+                var constraint2 = new CANNON.LockConstraint(compoundBody, 아래층.body);
                 world.addConstraint(constraint2);
                 아래층.mesh.userData.constraint.push(constraint1)
                 아래층.mesh.userData.constraint.push(constraint2)
@@ -27160,8 +27162,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     var direct2 = new THREE.Vector3().subVectors(target2, origin2);
 
                     // direct 길이를 1.5배로 만듭니다.
-                    direct1.multiplyScalar(1.26);
-                    direct2.multiplyScalar(1.26);
+                    direct1.multiplyScalar(1.35);
+                    direct2.multiplyScalar(1.35);
 
                     // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
                     var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
@@ -27261,8 +27263,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     var direct2 = new THREE.Vector3().subVectors(target2, origin2);
 
                     // direct 길이를 1.5배로 만듭니다.
-                    direct1.multiplyScalar(1.114);
-                    direct2.multiplyScalar(1.114);
+                    direct1.multiplyScalar(1.2);
+                    direct2.multiplyScalar(1.2);
 
                     // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
                     var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
@@ -31589,10 +31591,11 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
                 var width1 = window.innerWidth / 1.1;
                 var height1 = window.innerWidth / 1.1;
-                var width2 = window.innerWidth / 1.6+0.2*window.innerWidth*(tt0-1);
-                var height2 = window.innerWidth / 1.6+0.2*window.innerWidth*(tt0-1);
-                var width3 = window.innerWidth / 1.6+0.2*window.innerWidth*(tt0-1);
-                var height3 = window.innerWidth / 1.6+0.2*window.innerWidth*(tt0-1);
+
+                var width2 = window.innerWidth / 1.5+0.1*window.innerWidth*(tt0-1);
+                var height2 = window.innerWidth / 1.5+0.1*window.innerWidth*(tt0-1);
+                var width3 = window.innerWidth / 1.5+0.1*window.innerWidth*(tt0-1);
+                var height3 = window.innerWidth / 1.5+0.1*window.innerWidth*(tt0-1);
 
                 var width4 = window.innerWidth / 2
                 var height4 = window.innerWidth / 2
@@ -31629,7 +31632,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     renderer.setScissor(window.innerWidth / 2 - width3 / 2, -5-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw) - 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
-                    // console.log("탑1")
+                    console.log("탑1")
                   }
 
                 }else{
@@ -31641,7 +31644,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     renderer.setScissor(window.innerWidth / 2 - width3 / 2, -5-3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width3, height3);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
-                    // console.log("탑2")
+                    console.log("탑2")
 
 
 
@@ -31674,7 +31677,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                     renderer.setScissor(window.innerWidth / 2 - width2 / 2, -3000 * Math.abs(-isoAngle - camera.rotation.x)-1150 * Math.abs(tdraw)- 1500 * Math.abs(Math.PI / 4 - camera.rotation.y), width2, height2);
                     renderer.setScissorTest(true);
                     renderer.render(scene, topViewCamera);
-                    // console.log("탑4")
+                    console.log("탑4")
 
 
 
@@ -34029,7 +34032,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         transparent: true,
         visible:false
     }), );
-    bmesh5.position.set(1.15*depth/2, 0 , 0)
+    bmesh5.position.set(1.4*depth/2, 0 , 0)
     bmesh5.rotation.y = Math.PI / 2
     bmesh5.userData["skin"] = "bb";
 
@@ -34041,7 +34044,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         transparent: true,
         visible:false
     }), );
-    bmesh6.position.set(0, 0, 1.15*width/2)
+    bmesh6.position.set(0, 0, 1.4*width/2)
     bmesh6.rotation.y = 0
     bmesh6.userData["skin"] = "bb";
 
@@ -38299,8 +38302,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       var direct2 = new THREE.Vector3().subVectors(target2, origin2);
 
       // direct 길이를 1.5배로 만듭니다.
-      direct1.multiplyScalar(1.26);
-      direct2.multiplyScalar(1.26);
+      direct1.multiplyScalar(1.35);
+      direct2.multiplyScalar(1.35);
 
       // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
       var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
@@ -38354,6 +38357,12 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
 
+      var compoundBody = new CANNON.Body({ mass: 0.3,
+        allowSleep: true,
+        sleepSpeedLimit: 1000,
+        sleepTimeLimit: 0
+      });
+
       var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
       var boxBody0 = new CANNON.Body({ mass: 0.1,
         allowSleep: true,
@@ -38362,12 +38371,31 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       });
       boxBody0.addShape(boxShape0);
       boxBody0.position.set(0, 0, 0);
+      //
+      var boxShape1 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+      var boxBody1 = new CANNON.Body({ mass: 0.1,
+        allowSleep: true,
+        sleepSpeedLimit: 1000,
+        sleepTimeLimit: 0
+      });
+      boxBody1.addShape(boxShape1);
+      boxBody1.position.set(0, 0, 0);
+
+      var boxShape2 = new CANNON.Box(new CANNON.Vec3(1*bh/2, 0.05*bw/2, 0.05*bw/2)); // 가로, 세로, 높이
+      var boxBody2 = new CANNON.Body({ mass: 0.1,
+        allowSleep: true,
+        sleepSpeedLimit: 1000,
+        sleepTimeLimit: 0
+      });
+      boxBody2.addShape(boxShape2);
+      boxBody2.position.set(0, 0, 0);
+
+      compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+      compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
+      compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
 
 
 
-
-      // compoundBody.addShape(boxShape1, new CANNON.Vec3(-0.5*bh/2, -1.13*bh/4, 0));
-      // compoundBody.addShape(boxShape2, new CANNON.Vec3(-0.5*bh/2, 1.13*bh/4, 0));
 
       // if(cubes[upper].mesh.userData.pin){
       //   legs[legs.length-1].position.set(majorx+bw/1.5+0.6*bh, cubes[upper].mesh.position.y-bh/2, cubes[upper].mesh.position.z-bw/5);
@@ -38380,10 +38408,10 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       legs[legs.length-1].quaternion.copy(cubes[upper].mesh.quaternion)
       // legs[legs.length-1].rotation.z=-1;
 
-      boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
-      boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
+      compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+      compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
 
-      legs[legs.length-1].userData.body=boxBody0;
+      legs[legs.length-1].userData.body=compoundBody;
       legs[legs.length-1].userData.right=true;
       legs[legs.length-1].userData.idx=legs.length-1
       legs[legs.length-1].userData.mode=1
@@ -38423,8 +38451,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       var direct2 = new THREE.Vector3().subVectors(target2, origin2);
 
       // direct 길이를 1.5배로 만듭니다.
-      direct1.multiplyScalar(1.114);
-      direct2.multiplyScalar(1.114);
+      direct1.multiplyScalar(1.2);
+      direct2.multiplyScalar(1.2);
 
       // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
       var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
@@ -38465,6 +38493,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       if(left&&flag&&(dflag>1)){
         legs.push(legmold[2].clone())
 
+
+
         legs[legs.length-1].material=new THREE.MeshLambertMaterial({
             color: new THREE.Color(0xD7F3F9)
         });
@@ -38478,6 +38508,12 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
 
 
+        var compoundBody = new CANNON.Body({ mass: 0.3,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+
         var boxShape0 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 1.2*bh/2, 0.05*bw/2)); // 가로, 세로, 높이
         var boxBody0 = new CANNON.Body({ mass: 0.1,
           allowSleep: true,
@@ -38486,6 +38522,28 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
         });
         boxBody0.addShape(boxShape0);
         boxBody0.position.set(0, 0, 0);
+
+        var boxShape1 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+        var boxBody1 = new CANNON.Body({ mass: 0.1,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+        boxBody1.addShape(boxShape1);
+        boxBody1.position.set(0, 0, 0);
+
+        var boxShape2 = new CANNON.Box(new CANNON.Vec3(0.05*bw/2, 0.05*bw/2, 1*bh/2)); // 가로, 세로, 높이
+        var boxBody2 = new CANNON.Body({ mass: 0.1,
+          allowSleep: true,
+          sleepSpeedLimit: 1000,
+          sleepTimeLimit: 0
+        });
+        boxBody2.addShape(boxShape2);
+        boxBody2.position.set(0, 0, 0);
+
+        compoundBody.addShape(boxShape0, new CANNON.Vec3(0, 0, 0));
+        compoundBody.addShape(boxShape1, new CANNON.Vec3(0, -1.13*bh/4, -0.5*bh/2));
+        compoundBody.addShape(boxShape2, new CANNON.Vec3(0, 1.13*bh/4, -0.5*bh/2));
 
 
         legs[legs.length-1].position.set(cubes[upper].mesh.position.x-bw/5, cubes[upper].mesh.position.y-bh/2, majorz+bw/1.5+0.6*bh);
@@ -38502,13 +38560,13 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
         // legs[legs.length-1].rotation.z=-1;
 
-        boxBody0.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
-        boxBody0.quaternion.copy(legs[legs.length-1].quaternion);
+        compoundBody.position.set(legs[legs.length-1].position.x, legs[legs.length-1].position.y, legs[legs.length-1].position.z);
+        compoundBody.quaternion.copy(legs[legs.length-1].quaternion);
 
         legs[legs.length-1].position.set(majorx, majory, majorz+bh*2.5);
 
 
-        legs[legs.length-1].userData.body=boxBody0;
+        legs[legs.length-1].userData.body=compoundBody;
         legs[legs.length-1].userData.right=false;
         legs[legs.length-1].userData.idx=legs.length-1
 
