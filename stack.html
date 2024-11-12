@@ -1546,7 +1546,7 @@
         #tu8{
           font-family: 'mono';
           font-size: 2.5vmin;
-          color:orange;
+          color:yellowgreen;
           position: absolute;
           display: flex;
           flex-direction: column;
@@ -1572,7 +1572,7 @@
           border-bottom-color:rgba(50, 50, 50, 0.6);
           border-top: 0;
           border-left: 0;
-          margin-top: -12.5vmin;
+          margin-top: -13vmin;
           margin-left: -4vmin;
         }
 
@@ -10402,7 +10402,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
       console.log(cat[0])
       if(cat.length>=1){
         if(cat[0].index==cubes.length-1){
-          눌=true;
+          // 눌=true;
         }
 
         tctime=elapsedTime
@@ -28046,7 +28046,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                                 필+=parseInt(num);
 
                                 if(필>=바){
-                                  if(cubes.length>6){
+                                  if(cubes.length>=5){
                                     document.getElementById("tu8").style.display="flex"
                                   }
                                   window.스킬포인트=스킬포인트
@@ -28063,7 +28063,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                                     document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
                                     document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
                                     setTimeout(function() {
-                                      if(cubes.length>6){
+                                      if(cubes.length>=5){
                                         document.getElementById("tu8").style.display="none"
                                       }
                                     }, 1200);
@@ -31779,23 +31779,25 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                 if(cubes.length==5){
                   document.getElementById("tu7").style.display="flex"
                   document.getElementById("tu6").style.display="none"
-                  document.getElementById("tu8").style.display="none"
+
                   setspo(cubes[cubes.length-1].mesh, camera, renderer,document.getElementById("tu7"))
-                      if(점수>140){
+                      if(점수>190){
                         setspo(포인트[0], camera, renderer,document.getElementById("tu1"))
                         document.getElementById("tu1").style.display="flex"
+                        document.getElementById("tu8").style.display="none"
                         document.getElementById("tu7").innerHTML="숫자들을 합쳐서 <b>목표 숫자:\"64\"를 만들어보세요!"
                         document.getElementById("tu7").style.color="orange"
                       }else if(점수>120){
-                        document.getElementById("tu8").style.display="flex"
+
                         setspo(시간[0], camera, renderer,document.getElementById("tu6"))
                         document.getElementById("tu6").style.display="flex"
                         document.getElementById("tu7").innerHTML="합쳐지는 숫자가 클수록<b>움직이는 힘도 커져요!"
                         document.getElementById("tu7").style.color="gold"
-                      }else if(점수>60){
+                      }else if(점수>40){
                         if(점수>80){
                           document.getElementById("tu7").innerHTML="그리고 숫자가 합쳐지는 방향으로<b> 블록이 움직이게 됩니다"
                           document.getElementById("tu8").style.display="flex"
+                          document.getElementById("tu8").style.width=String(25+3*(1-pshift[dur]))+"vmin"
                           setspo(시간[0], camera, renderer,document.getElementById("tu6"))
                           document.getElementById("tu6").style.display="flex"
                         }else if(점수>70){
@@ -31811,7 +31813,7 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                         document.getElementById("tu7").style.color="yellow"
 
                         }else if(점수>=0){
-                          document.getElementById("tu7").innerHTML="상하좌우로 스와이프해서 <b>타일들을 합쳐보세요!"
+                          document.getElementById("tu7").innerHTML="상하좌우로 스와이프해서 <b>같은 숫자 타일들을 합쳐보세요!"
                           document.getElementById("tu7").style.color="white"
                         }
                 }else if(cubes.length==6){
