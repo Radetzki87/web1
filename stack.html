@@ -11638,39 +11638,46 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   var upperx=wpos1.x
                   var lowerx=wpos2.x
 
+                  var origin1 = cubes[itemidx].mesh.position.clone()
+                  var target1 = wpos1
+
+                  var origin2 = cubes[아래].mesh.position.clone()
+                  var target2 = wpos2
+
+
+                  // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
+                  var direct1 = new THREE.Vector3().subVectors(target1, origin1);
+
+                  var direct2 = new THREE.Vector3().subVectors(target2, origin2);
+
                   if(skinset[skinnum]=="classic"){
                     // 기준 포인트와 설정 포인트를 정의합니다.
-                    var origin1 = cubes[itemidx].mesh.position.clone()
-                    var target1 = wpos1
-
-                    var origin2 = cubes[아래].mesh.position.clone()
-                    var target2 = wpos2
-
-
-                    // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
-                    var direct1 = new THREE.Vector3().subVectors(target1, origin1);
-
-                    var direct2 = new THREE.Vector3().subVectors(target2, origin2);
-
                     // direct 길이를 1.5배로 만듭니다.
                     direct1.multiplyScalar(1.35);
                     direct2.multiplyScalar(1.35);
 
-                    // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
-                    var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
-                    var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
-                    console.log(extendedPoint1); // 연장된 지점의 좌표
-                    console.log(extendedPoint2); // 연장된 지점의 좌표
 
-
-                    wpos1=extendedPoint1
-                    wpos2=extendedPoint2
-
-                    upperx=wpos1.x
-                    lowerx=wpos2.x
-
-
+                  }else{
+                    // direct 길이를 1.5배로 만듭니다.
+                    direct1.multiplyScalar(1.1);
+                    direct2.multiplyScalar(1.1);
                   }
+
+
+                  // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
+                  var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
+                  var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
+                  console.log(extendedPoint1); // 연장된 지점의 좌표
+                  console.log(extendedPoint2); // 연장된 지점의 좌표
+
+
+                  wpos1=extendedPoint1
+                  wpos2=extendedPoint2
+
+                  upperx=wpos1.x
+                  lowerx=wpos2.x
+
+
                   // if(cubes[itemidx].mesh.userData.pin){
                   //   upperx=cubes[itemidx].mesh.position.x+(핀크기*cubes[itemidx].mesh.userData["combo"]-1)*bw/2;
                   // }else{
@@ -11906,41 +11913,47 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                   var upperz=wpos1.z
                   var lowerz=wpos2.z
 
+                  // 기준 포인트와 설정 포인트를 정의합니다.
+                  var origin1 = cubes[itemidx].mesh.position.clone()
+                  var target1 = wpos1
+
+                  var origin2 = cubes[아래].mesh.position.clone()
+                  var target2 = wpos2
+
+
+                  // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
+                  var direct1 = new THREE.Vector3().subVectors(target1, origin1);
+
+                  var direct2 = new THREE.Vector3().subVectors(target2, origin2);
+
                   if(skinset[skinnum]=="classic"){
-                    // 기준 포인트와 설정 포인트를 정의합니다.
-                    var origin1 = cubes[itemidx].mesh.position.clone()
-                    var target1 = wpos1
-
-                    var origin2 = cubes[아래].mesh.position.clone()
-                    var target2 = wpos2
-
-
-                    // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
-                    var direct1 = new THREE.Vector3().subVectors(target1, origin1);
-
-                    var direct2 = new THREE.Vector3().subVectors(target2, origin2);
-
-                    // direct 길이를 1.5배로 만듭니다.
-                    // direct1.multiplyScalar(1.114);
-                    // direct1.multiplyScalar(1.114);
                     direct1.multiplyScalar(1.2);
                     direct2.multiplyScalar(1.2);
 
-                    // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
-                    var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
-                    var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
-                    console.log(extendedPoint1); // 연장된 지점의 좌표
-                    console.log(extendedPoint2); // 연장된 지점의 좌표
 
-
-                    wpos1=extendedPoint1
-                    wpos2=extendedPoint2
-
-                    upperz=wpos1.z
-                    lowerz=wpos2.z
-
-
+                  }else{
+                    direct1.multiplyScalar(1.1);
+                    direct2.multiplyScalar(1.1);
                   }
+                  // direct 길이를 1.5배로 만듭니다.
+                  // direct1.multiplyScalar(1.114);
+                  // direct1.multiplyScalar(1.114);
+
+
+                  // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
+                  var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
+                  var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
+                  console.log(extendedPoint1); // 연장된 지점의 좌표
+                  console.log(extendedPoint2); // 연장된 지점의 좌표
+
+
+                  wpos1=extendedPoint1
+                  wpos2=extendedPoint2
+
+                  upperz=wpos1.z
+                  lowerz=wpos2.z
+
+
 
                   var majorx;
                   var majory;
@@ -27781,39 +27794,45 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   var upperx=rwpos1.x
                   var lowerx=rwpos2.x
 
+                  // 기준 포인트와 설정 포인트를 정의합니다.
+                  var origin1 = cubes[item.upper].mesh.position.clone()
+                  var target1 = rwpos1
+
+                  var origin2 = cubes[item.lower].mesh.position.clone()
+                  var target2 = rwpos2
+
+
+                  // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
+                  var direct1 = new THREE.Vector3().subVectors(target1, origin1);
+
+                  var direct2 = new THREE.Vector3().subVectors(target2, origin2);
                   if(skinset[skinnum]=="classic"){
-                    // 기준 포인트와 설정 포인트를 정의합니다.
-                    var origin1 = cubes[item.upper].mesh.position.clone()
-                    var target1 = rwpos1
-
-                    var origin2 = cubes[item.lower].mesh.position.clone()
-                    var target2 = rwpos2
-
-
-                    // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
-                    var direct1 = new THREE.Vector3().subVectors(target1, origin1);
-
-                    var direct2 = new THREE.Vector3().subVectors(target2, origin2);
-
                     // direct 길이를 1.5배로 만듭니다.
                     direct1.multiplyScalar(1.35);
                     direct2.multiplyScalar(1.35);
 
-                    // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
-                    var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
-                    var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
-                    console.log(extendedPoint1); // 연장된 지점의 좌표
-                    console.log(extendedPoint2); // 연장된 지점의 좌표
-
-
-                    rwpos1=extendedPoint1
-                    rwpos2=extendedPoint2
-
-                    upperx=rwpos1.x
-                    lowerx=rwpos2.x
-
-
+                  }else{
+                    // direct 길이를 1.5배로 만듭니다.
+                    direct1.multiplyScalar(1.1);
+                    direct2.multiplyScalar(1.1);
                   }
+
+
+                  // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
+                  var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
+                  var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
+                  console.log(extendedPoint1); // 연장된 지점의 좌표
+                  console.log(extendedPoint2); // 연장된 지점의 좌표
+
+
+                  rwpos1=extendedPoint1
+                  rwpos2=extendedPoint2
+
+                  upperx=rwpos1.x
+                  lowerx=rwpos2.x
+
+
+
 
                   if(upperx>lowerx){
                     item.body.position.x=upperx
@@ -27882,39 +27901,45 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                   var upperz=rwpos1.z
                   var lowerz=rwpos2.z
 
+                  // 기준 포인트와 설정 포인트를 정의합니다.
+                  var origin1 = cubes[item.upper].mesh.position.clone()
+                  var target1 = rwpos1
+
+                  var origin2 = cubes[item.lower].mesh.position.clone()
+                  var target2 = rwpos2
+
+
+                  // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
+                  var direct1 = new THREE.Vector3().subVectors(target1, origin1);
+
+                  var direct2 = new THREE.Vector3().subVectors(target2, origin2);
+
+
                   if(skinset[skinnum]=="classic"){
-                    // 기준 포인트와 설정 포인트를 정의합니다.
-                    var origin1 = cubes[item.upper].mesh.position.clone()
-                    var target1 = rwpos1
-
-                    var origin2 = cubes[item.lower].mesh.position.clone()
-                    var target2 = rwpos2
-
-
-                    // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
-                    var direct1 = new THREE.Vector3().subVectors(target1, origin1);
-
-                    var direct2 = new THREE.Vector3().subVectors(target2, origin2);
-
                     // direct 길이를 1.5배로 만듭니다.
                     direct1.multiplyScalar(1.2);
                     direct2.multiplyScalar(1.2);
-
-                    // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
-                    var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
-                    var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
-                    console.log(extendedPoint1); // 연장된 지점의 좌표
-                    console.log(extendedPoint2); // 연장된 지점의 좌표
-
-
-                    rwpos1=extendedPoint1
-                    rwpos2=extendedPoint2
-
-                    upperz=rwpos1.z
-                    lowerz=rwpos2.z
-
-
+                  }else{
+                    // direct 길이를 1.5배로 만듭니다.
+                    direct1.multiplyScalar(1.1);
+                    direct2.multiplyScalar(1.1);
                   }
+
+
+                  // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
+                  var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
+                  var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
+                  console.log(extendedPoint1); // 연장된 지점의 좌표
+                  console.log(extendedPoint2); // 연장된 지점의 좌표
+
+
+                  rwpos1=extendedPoint1
+                  rwpos2=extendedPoint2
+
+                  upperz=rwpos1.z
+                  lowerz=rwpos2.z
+
+
 
 
                   majorx=0.5*(rwpos1.x+rwpos2.x)
@@ -39486,9 +39511,6 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     }
 
 
-
-
-
     let lwpos1=new THREE.Vector3();
     let lwpos2=new THREE.Vector3();
 
@@ -39515,8 +39537,6 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
       // 기준 포인트와 설정 포인트를 정의합니다.
       direct1.multiplyScalar(1.2);
       direct2.multiplyScalar(1.2);
-
-
     }else{
       direct1.multiplyScalar(1.1);
       direct2.multiplyScalar(1.1);
