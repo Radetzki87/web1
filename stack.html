@@ -39344,43 +39344,49 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     var upperx=rwpos1.x
     var lowerx=rwpos2.x
 
+    var origin1 = cubes[upper].mesh.position.clone()
+    var target1 = rwpos1
+
+    var origin2 = cubes[lower].mesh.position.clone()
+    var target2 = rwpos2
+
+
+    // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
+    var direct1 = new THREE.Vector3().subVectors(target1, origin1);
+
+    var direct2 = new THREE.Vector3().subVectors(target2, origin2);
     if(skinset[skinnum]=="classic"){
       // 기준 포인트와 설정 포인트를 정의합니다.
-      var origin1 = cubes[upper].mesh.position.clone()
-      var target1 = rwpos1
-
-      var origin2 = cubes[lower].mesh.position.clone()
-      var target2 = rwpos2
-
-
-      // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
-      var direct1 = new THREE.Vector3().subVectors(target1, origin1);
-
-      var direct2 = new THREE.Vector3().subVectors(target2, origin2);
-
-      // direct 길이를 1.5배로 만듭니다.
       direct1.multiplyScalar(1.35);
       direct2.multiplyScalar(1.35);
 
-      // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
-      var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
-      var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
-      console.log(extendedPoint1); // 연장된 지점의 좌표
-      console.log(extendedPoint2); // 연장된 지점의 좌표
 
-
-      rwpos1=extendedPoint1
-      rwpos2=extendedPoint2
-
-      upperx=rwpos1.x
-      lowerx=rwpos2.x
-
-
+    }else{
+      direct1.multiplyScalar(1.1);
+      direct2.multiplyScalar(1.1);
     }
+
+    // direct 길이를 1.5배로 만듭니다.
+
+
+    // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
+    var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
+    var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
+    console.log(extendedPoint1); // 연장된 지점의 좌표
+    console.log(extendedPoint2); // 연장된 지점의 좌표
+
+
+    rwpos1=extendedPoint1
+    rwpos2=extendedPoint2
+
+    upperx=rwpos1.x
+    lowerx=rwpos2.x
+
 
     var majorx;
     var majory;
     var majorz;
+
     if(upperx>lowerx){
       majorx=upperx
       majory=0.5*(rwpos1.y+rwpos2.y)
@@ -39494,39 +39500,44 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     var upperz=lwpos1.z
     var lowerz=lwpos2.z
 
+    var origin1 = cubes[upper].mesh.position.clone()
+    var target1 = lwpos1
+
+    var origin2 = cubes[lower].mesh.position.clone()
+    var target2 = lwpos2
+
+
+    // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
+    var direct1 = new THREE.Vector3().subVectors(target1, origin1);
+
+    var direct2 = new THREE.Vector3().subVectors(target2, origin2);
     if(skinset[skinnum]=="classic"){
       // 기준 포인트와 설정 포인트를 정의합니다.
-      var origin1 = cubes[upper].mesh.position.clone()
-      var target1 = lwpos1
-
-      var origin2 = cubes[lower].mesh.position.clone()
-      var target2 = lwpos2
-
-
-      // 기준 포인트에서 설정 포인트로 향하는 벡터를 계산합니다.
-      var direct1 = new THREE.Vector3().subVectors(target1, origin1);
-
-      var direct2 = new THREE.Vector3().subVectors(target2, origin2);
-
-      // direct 길이를 1.5배로 만듭니다.
       direct1.multiplyScalar(1.2);
       direct2.multiplyScalar(1.2);
 
-      // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
-      var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
-      var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
-      console.log(extendedPoint1); // 연장된 지점의 좌표
-      console.log(extendedPoint2); // 연장된 지점의 좌표
 
-
-      lwpos1=extendedPoint1
-      lwpos2=extendedPoint2
-
-      upperz=lwpos1.z
-      lowerz=lwpos2.z
-
-
+    }else{
+      direct1.multiplyScalar(1.1);
+      direct2.multiplyScalar(1.1);
     }
+    // direct 길이를 1.5배로 만듭니다.
+
+
+    // 기준 포인트에서 1.5배 연장된 위치를 계산합니다.
+    var extendedPoint1 = new THREE.Vector3().addVectors(origin1, direct1);
+    var extendedPoint2 = new THREE.Vector3().addVectors(origin2, direct2);
+    console.log(extendedPoint1); // 연장된 지점의 좌표
+    console.log(extendedPoint2); // 연장된 지점의 좌표
+
+
+    lwpos1=extendedPoint1
+    lwpos2=extendedPoint2
+
+    upperz=lwpos1.z
+    lowerz=lwpos2.z
+
+
 
     var majorx;
     var majory;
