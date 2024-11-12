@@ -1546,7 +1546,7 @@
         #tu8{
           font-family: 'mono';
           font-size: 2.5vmin;
-          color:yellowgreen;
+          color:white;
           position: absolute;
           display: flex;
           flex-direction: column;
@@ -8536,6 +8536,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
   let 보드반경=9
   let screen=[]
 
+  let 터치함=false
+  let 터치록=0
+
   let lastdir;
 
   let tut=false
@@ -10740,9 +10743,13 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 // }
 
 
+              }else{
+                // 터치함=false
+                // itemtouch=false;
               }
                 if(cat.length>=1) return;
             }else{
+
               if(item.object.userData["dir"]!=null){
                 // cat2.push(item.object)
                 cat.push([item.object.userData["layer"], item.object.userData["dir"]]);
@@ -10763,6 +10770,8 @@ function createPath( char, scale, offsetX, offsetY, data ) {
                 // }
 
 
+              }else{
+
               }
                 if(cat.length==3) return;
             }
@@ -10771,6 +10780,9 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
           });
+        }else{
+          // 터치함=false
+          itemtouch=false;
         }
 
         console.log(cat)
@@ -10789,25 +10801,55 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 
         if(cat.length>=1&&tempidx<cubes.length){
+          console.log("터치함:"+String(터치함)+" itemtouch:"+String(itemtouch)+" tempidx:"+String(tempidx)+" itemidx:"+String(itemidx)+" itemflag:"+String(itemflag))
+
+          if(false){
+            tempidx=터치록[0] + parseInt((핑거0.y - 터치록[1]) * 20);
+
+            if(Math.abs(터치록[0]-tempidx)>1||tempidx<5){
+              터치함=false
+              itemtouch=false;
+              tempidx=터치록[0]
+              itemidx=tempidx
+            }else{
+              itemidx=tempidx
+            }
+
+            if(tempidx>cubes.length-1){
+              터치함=false
+              itemtouch=false;
+              tempidx=터치록[0]
+              itemidx=터치록[0]
+            }else{
+              itemidx=tempidx
+            }
+
+          }else{
+            tempidx=cat[0][0]
+            if(superflag&&pung&&tempidx==cubes.length-1) return;
+            if(bridge&&tempidx==4) return;
+
+            itemtouch=true;
+            터치함=true;
+            터치록=[tempidx, 핑거0.y]
 
 
-          tempidx=cat[0][0]
-          if(superflag&&pung&&tempidx==cubes.length-1) return;
-          if(bridge&&tempidx==4) return;
 
-          itemtouch=true;
 
-          if(cat[0][1]=="right"){
-            itemr=true;
-            iteml=false;
+            if(cat[0][1]=="right"){
+              itemr=true;
+              iteml=false;
 
-            itemidx=tempidx
-          }else if(cat[0][1]=="left"){
-            itemr=false;
-            iteml=true;
+              itemidx=tempidx
+            }else if(cat[0][1]=="left"){
+              itemr=false;
+              iteml=true;
 
-            itemidx=tempidx
+              itemidx=tempidx
+            }
           }
+
+
           //
           // var toffset0=cubes[tempidx].body.position.x-avx-cubes[tempidx].body.position.z+avz
           // var toffset1;
@@ -11033,6 +11075,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
   function handleTouchEnd(event) {
       눌=false;
+      터치함=false
       tctime=elapsedTime
       if(restartflag) return;
       if (gameoverflag) return;
@@ -28058,7 +28101,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
                                   setTimeout(function() {
                                     getitem();
-                                    showpop("","아이템 획득","",0)
+                                    showpop("아이템 획득","(게이지 FULL)","",0)
+                                    // showpop("","아이템 획득","(게이지)",0)
                                     document.getElementById('center').innerText="LV."+String(레벨)
                                     document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
                                     document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
@@ -28081,7 +28125,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
 
                                       setTimeout(function() {
                                         getitem();
-                                        showpop("","아이템 획득","",0)
+                                        // showpop("","아이템 획득","(게이지)",0)
+                                        showpop("아이템 획득","(게이지 FULL)","",0)
                                         document.getElementById('center').innerText="LV."+String(레벨)
                                         document.getElementById('pgr1').style.width=String(parseInt(100*((필)/(바))))+"%";
                                         document.getElementById('pgr2').innerText=String(필)+"/"+String(바)
@@ -29221,6 +29266,9 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
             if((cubes.length-2)%3==0){
               setTimeout(function() {
                 getitem(0)
+                showpop("아이템 획득","(층 X 3)","",0)
+
+
               }, 50);
             }
             if(soundic[sdic[activeFloor-1][0]].isPlaying) soundic[sdic[activeFloor-1][0]].stop();
@@ -31798,6 +31846,8 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
                           document.getElementById("tu7").innerHTML="그리고 숫자가 합쳐지는 방향으로<b> 블록이 움직이게 됩니다"
                           document.getElementById("tu8").style.display="flex"
                           document.getElementById("tu8").style.width=String(25+3*(1-pshift[dur]))+"vmin"
+                          document.getElementById("tu8").style.top=String(10+3*(1-pshift[dur]))+"vmin"
+
                           setspo(시간[0], camera, renderer,document.getElementById("tu6"))
                           document.getElementById("tu6").style.display="flex"
                         }else if(점수>70){
@@ -34838,16 +34888,27 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     // clmeshlst2[idx].push(mesh1.material)
     mesh.add(mesh1)
 
+    var twid=width
+    var thgt=height*0.99
+    var tdep=depth
 
+    if(skinset[skinnum]=="classic"){
+      twid*=(1/0.79)
+
+    }
     //좌우
-    var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(width, height), new THREE.MeshBasicMaterial({
+    var mesh1 = new THREE.Mesh(new THREE.PlaneGeometry(twid, thgt), new THREE.MeshBasicMaterial({
         color: 0xaaaaaa,
-        opacity: 0.3,
+        opacity: 1,
         transparent: true
     }), );
-    mesh1.position.set(depth/2, 0 , 0)
-    mesh1.rotation.y = Math.PI / 2
+    if(skinset[skinnum]=="classic"){
+      mesh1.position.set(twid/2, 0 , -bh/2)
+    }else{
+      mesh1.position.set(twid/2, 0 , 0)
+    }
 
+    mesh1.rotation.y = Math.PI / 2
     mesh1.userData["dir"] = "right";
     mesh1.userData["layer"] = idx
     mesh1.userData["skin"] = "dir";
@@ -34857,12 +34918,18 @@ window.addEventListener('mouseup', handleMouseUp, { passive: false });
     // clmeshlst2[idx].push(mesh1.material)
     mesh.add(mesh1)
 
-    var mesh3 = new THREE.Mesh(new THREE.PlaneGeometry(width, height), new THREE.MeshBasicMaterial({
+    var mesh3 = new THREE.Mesh(new THREE.PlaneGeometry(twid, thgt), new THREE.MeshBasicMaterial({
         color: 0xaaaaaa,
-        opacity: 0.3,
+        opacity: 1,
         transparent: true
     }), );
-    mesh3.position.set(0, 0 , width/2)
+
+    if(skinset[skinnum]=="classic"){
+      mesh3.position.set(0, 0 , tdep/1.8)
+    }else{
+      mesh3.position.set(0, 0 , tdep/2)
+    }
+
     mesh3.rotation.y = 0
 
     mesh3.userData["dir"] = "left";
